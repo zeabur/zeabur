@@ -2,6 +2,11 @@ export default {
   github: 'https://github.com/zeabur',
   docsRepositoryBase: 'https://github.com/zeabur/docs',
   titleSuffix: ' – Zeabur',
+  i18n: [
+    { locale: 'en-US', text: 'English' },
+    { locale: 'zh-TW', text: '繁體中文' },
+    { locale: 'zh-CN', text: '简体中文' },
+  ],
   logo: (
     <>
       <img src="/logo_b.svg" style={{ height: 20, objectFit: 'contain' }} />
