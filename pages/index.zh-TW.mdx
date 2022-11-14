@@ -5,3 +5,54 @@ title: 基本介紹
 # 基本介紹
 
 **Zeabur** 是一個可以幫助你部署服務的平台，而且只需要透過幾個簡單的按鈕即可完成，無論你使用什麼程式語言或開發框架。
+
+### 目前 Zeabur 已支援的語言、框架及服務
+
+Zeabur 目前還在開發階段，因此只支援少數的語言、框架及服務，但我們會持續增加並且即時更新到本頁下方的文件中。
+
+#### Node.js
+
+所有 Node.js 專案皆可以部署，但您需要在 `package.json` 的 `scripts` 欄位加入 `build` 和 `start` 指令。 目前支援的套件管理工具有：
+
+- [npm](https://www.npmjs.com/)
+- [yarn](https://yarnpkg.com/)
+- [pnpm](https://pnpm.js.org/)
+
+特別地，以下框架可以被 Zeabur 自動識別並進行相關優化：
+
+- [Next.js](https://nextjs.org/)
+- [create-react-app](https://create-react-app.dev/)
+- [Vite](https://vitejs.dev/)
+
+#### Java
+
+- [Spring Boot](https://spring.io/projects/spring-boot)
+
+#### Go
+
+所有基於 [Go Modules](https://blog.golang.org/using-go-modules) 的專案都可以部署。 但您需要在專案根目錄有一個 `main.go` 作為程式編譯入口。
+
+如果您有多個程式編譯入口，您需要將他們放在 `cmd` 目錄下，例如一個 `cmd/server-a/main.go` 和一個 `cmd/server-b/main.go`。
+
+Zeabur 會自動識別並部署 `cmd` 目錄下與 Service 名稱相同的程式編譯入口。
+
+#### 靜態網站
+
+所有靜態網站都可以部署，但您需要在專案根目錄有一個 `index.html` 作為網站入口。
+
+特別地，Zeabur 能夠識別出以下的靜態網站生成框架所生成的靜態網站並進行相關優化：
+
+- [Hugo](https://gohugo.io/)
+- [Hexo](https://hexo.io/)
+
+#### MongoDB
+
+您可以透過 Zeabur 部署一個 MongoDB 服務，並且可以透過 Zeabur 自動注入到同個環境中其他服務的環境變數來讓您的其他服務連接到 MongoDB 資料庫。
+
+前往 [環境變數](/zh-TW/variable) 瞭解更多關於環境變數的資訊。
+
+#### Redis
+
+您可以透過 Zeabur 部署一個 Redis 服務，並且可以透過 Zeabur 自動注入到同個環境中其他服務的環境變數來讓您的其他服務連接到 Redis 資料庫。
+
+前往 [環境變數](/zh-TW/variable) 瞭解更多關於環境變數的資訊。
