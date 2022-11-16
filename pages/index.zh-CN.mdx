@@ -36,6 +36,19 @@ Zeabur 还处于开发阶段，目前只支持部分编程语言、框架及服�
 
 Zeabur 会自动识别并部署 `cmd` 目录下与 Service 名称相同的程序编译入口。
 
+#### Python
+
+如果您的项目根目录有 `main.py` 或 `app.py`，Zeabur 会自动以 Python 项目的方式进行部署。
+
+您需要将项目需要的外部套件写入 `requirements.txt`, `Pipfile` 或 `Pipfile.lock` 文件，让 Zeabur 能够在构建以前自动安装。
+
+特别地，以下框架可以被 Zeabur 自动识别并进行相关优化：
+
+- [Django](https://www.djangoproject.com/)
+- [Flask](https://flask.palletsprojects.com/)
+
+如果您要部署 Django 项目，请确保您的项目根目录有 `manage.py` 且至少一个子目录有 `wsgi.py`。
+
 #### 静态站点
 
 所有静态站点都可以部署，但您需要在项目根目录有一个 `index.html` 作为网站入口。
@@ -49,10 +62,22 @@ Zeabur 会自动识别并部署 `cmd` 目录下与 Service 名称相同的程序
 
 您可以通过 Zeabur 部署一个 MongoDB 服务，并且可以通过 Zeabur 自动注入到同个环境中其他服务的环境变量来让您的其他服务连接到 MongoDB 数据库。
 
-前往 [环境变量](/zh-TW/variable) 了解更多关于环境变量的信息。
+前往 [环境变量](/zh-CN/variable) 了解更多关于环境变量的信息。
 
 #### Redis
 
 您可以通过 Zeabur 部署一个 Redis 服务，并且可以通过 Zeabur 自动注入到同个环境中其他服务的环境变量来让您的其他服务连接到 Redis 数据库。
 
-前往 [环境变量](/zh-TW/variable) 了解更多关于环境变量的信息。
+前往 [环境变量](/zh-CN/variable) 了解更多关于环境变量的信息。
+
+#### MySQL
+
+您可以透过 Zeabur 部署一个 MySQL 服务，并且可以透过 Zeabur 自动注入到同个环境中其他服务的环境变量来让您的其他服务连接到 MySQL 数据库。
+
+前往 [环境变量](/zh-CN/variable) 了解更多关于环境变量的信息。
+
+#### PostgreSQL
+
+您可以透过 Zeabur 部署一个 PostgreSQL 服务，并且可以透过 Zeabur 自动注入到同个环境中其他服务的环境变量来让您的其他服务连接到 PostgreSQL 数据库。
+
+前往 [环境变量](/zh-CN/variable) 了解更多关于环境变量的信息。
