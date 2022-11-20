@@ -37,6 +37,20 @@ If you have multiple program compilation entries, you need to put them in the `c
 
 Zeabur will automatically recognize and deploy the program compilation entry with the same Service name under the `cmd` directory.
 
+#### Python
+
+If your project root directory has `main.py` or `app.py`, Zeabur will automatically deploy it as a Python project.
+
+You need to write the external packages your project needs in the `requirements.txt`, `Pipfile` or `Pipfile.lock` file, so that Zeabur can automatically install them before building.
+
+In particular, the following frameworks can be automatically recognized by Zeabur and optimized accordingly:
+
+- [Django](https://www.djangoproject.com/)
+- [Flask](https://flask.palletsprojects.com/)
+
+If you want to deploy a Django project, please make sure that your project root directory has `manage.py` and at least one subdirectory has `wsgi.py`.
+
+
 #### Static website
 
 All static websites can be deployed, but you need to have an `index.html` in the project root directory as the website entry.
@@ -55,5 +69,17 @@ Go to [Environment variables](/variable) to learn more about environment variabl
 #### Redis
 
 You can deploy a Redis service through Zeabur, and you can automatically inject it into the environment variables of other services in the same environment to let your other services connect to the Redis database.
+
+Go to [Environment variables](/variable) to learn more about environment variables.
+
+#### MySQL
+
+You can deploy a MySQL service through Zeabur, and you can automatically inject it into the environment variables of other services in the same environment to let your other services connect to the MySQL database.
+
+Go to [Environment variables](/variable) to learn more about environment variables.
+
+#### PostgreSQL
+
+You can deploy a PostgreSQL service through Zeabur, and you can automatically inject it into the environment variables of other services in the same environment to let your other services connect to the PostgreSQL database.
 
 Go to [Environment variables](/variable) to learn more about environment variables.
