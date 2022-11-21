@@ -1,4 +1,6 @@
 {
   "index": "Introduction",
-  "get-started": "Get Started"
+  "get-started": "Get Started",
+  "deploy": "Deploy",
+  "environment": "Environment"
 }
