@@ -1,0 +1,43 @@
+---
+title: Umi
+---
+
+# 部署 Umi
+
+在 Zeabur 上部署你的 Umi 应用。
+
+### 第一步: 创建 Umi 应用（可选）
+
+设备要求：
+- 确保 node 版本是 14 或以上
+- umi 团队推荐使用 pnpm
+
+打开终端，输入  
+```bash 
+$ pnpm dlx create-umi@latest
+✔ Install the following package: create-umi? (Y/n) · true
+✔ Pick Npm Client › pnpm
+✔ Pick Npm Registry › taobao
+Write: .gitignore
+Write: .npmrc
+Write: .umirc.ts
+Copy:  layouts/index.tsx
+Write: package.json
+Copy:  pages/index.tsx
+Copy:  pages/users.tsx
+Copy:  pages/users/foo.tsx
+> @ postinstall /private/tmp/sorrycc-vylwuW
+> umi setup
+info  - generate files
+```
+
+创建完毕后，为其初始化一个 Git 仓库并部署到你的 Github 上。
+
+### 第二步：部署 Umi 应用
+
+在你的项目中，点击 **Deploy service** 或者 **Add new service** 按钮，并选择 **Deploy your source code**.
+
+![deploy](/framework/deploy.png)
+
+搜索想要部署的 Umi 应用仓库，并点击导入，你的 Umi 应用就将自动开始部署。
+
