@@ -1,4 +1,5 @@
 {
   "domain-binding": "Domain Binding",
-  "root-directory": "Root Directory"
+  "root-directory": "Root Directory",
+  "watch-paths": "Watch Paths"
 }
