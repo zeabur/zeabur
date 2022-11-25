@@ -2,5 +2,6 @@
   "index": "基本介绍",
   "get-started": "快速开始",
   "deploy": "部署",
-  "environment": "环境"
+  "environment": "环境",
+  "frameworks": "框架"
 }
