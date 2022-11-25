@@ -2,32 +2,30 @@
 title: Next.js
 ---
 
-# Get Started
+# Deploy Next.js
 
-Deploy your service to Zeabur from scratch in just three steps:
+Deploy Next.js App in Zeabur.
 
-### Step 1: Sign Up
+### Step1: Create Next.js App (Optional)
 
-Go to the [login page](https://zeabur.com/login) and sign up or log in with your GitHub account.
+- Node.js v14 or greater version.
 
-![sign in](/sign-in-screenshot.png)
+Open your terminal and run 
+```bash 
+npx create-next-app@latest 
+# or
+yarn create next-app  
+# or
+pnpm create next-app
+```
 
-### Step 2: Create a New Project
+Init a Github repository for it and upload to your Github.
 
-Create a project on the [new project page](https://zeabur.com/projects/new).
+### Step2: Deploy Next.js App
 
-![new project](/create-project-screenshot.png)
+Click on **Deploy service** or **Add new service** button, then choose **Deploy your source code**.
 
-### Step 3: Select a Service to Deploy
+![deploy](/framework/deploy.png)
 
-Click the "Deploy Service" button in the upper right corner and select the service you want to deploy.
+Search for your Next.js App repository, click on import, your Next.js App will start deploying.
 
-![deploy service](/deploy-service-screenshot.png)
-
-On the deploy service page, you can select the left button to automatically build and deploy your source code from GitHub.
-
-Select the right button to choose a service from a list of common services (such as a database or an open source tool). Zeabur will automatically create a service instance for you.
-
-### What's Next
-
-After deployed, you can learn about [domain binding](/en-US/domain) to expose your service with an automatically configured TLS certificate, or learn about [environment variables](/en-US/variables) to understand how Zeabur can automatically inject variables into your program.
