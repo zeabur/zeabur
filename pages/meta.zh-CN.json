@@ -3,5 +3,6 @@
   "get-started": "快速开始",
   "deploy": "部署",
   "environment": "环境",
-  "frameworks": "框架"
+  "frameworks": "框架",
+  "manage": "项目管理"
 }
