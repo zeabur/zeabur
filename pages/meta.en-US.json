@@ -3,5 +3,6 @@
   "get-started": "Get Started",
   "deploy": "Deploy",
   "environment": "Environment",
+  "frameworks": "Frameworks",
   "manage": "Project Manage"
 }

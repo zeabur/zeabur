@@ -2,5 +2,7 @@
   "index": "基本介紹",
   "get-started": "快速開始",
   "deploy": "部署",
-  "environment": "環境"
+  "environment": "環境",
+  "frameworks": "框架",
+  "manage": "專案管理"
 }
