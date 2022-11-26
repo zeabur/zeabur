@@ -2,6 +2,8 @@
 title: Introduction
 ---
 
+import Callout from 'nextra-theme-docs/callout'
+
 # Introduction
 
 **Zeabur** is a platform that help you deploy your service with one click,
@@ -13,11 +15,11 @@ Zeabur is still in development, so it only supports a few languages, frameworks 
 
 #### Node.js
 
-All Node.js projects can be deployed, but you need to add `build` and `start` commands to the `scripts` field in `package.json`. The following package managers are currently supported:
+All Node.js projects can be deployed, but you need to add `build` and `start` commands to the `scripts` field in `package.json`.
 
-- [npm](https://www.npmjs.com/)
-- [yarn](https://yarnpkg.com/)
-- [pnpm](https://pnpm.js.org/)
+<Callout emoji="✅">
+  If your project is initialized with a framework (such as the frameworks listed below), they have already set the `build` and `start` commands for you, so you don't need to set them yourself.
+</Callout>
 
 In particular, the following frameworks can be automatically recognized by Zeabur and optimized accordingly:
 
@@ -26,6 +28,15 @@ In particular, the following frameworks can be automatically recognized by Zeabu
 - [Vite](https://vitejs.dev/)
 - [Remix](https://remix.run/)
 - [Umi.js](https://umijs.org/)
+- [Nuxt.js](https://nuxtjs.org/)
+- [vue-cli](https://cli.vuejs.org/)
+- [Qwik](https://qwik.builder.io/)
+
+The following package managers are currently supported:
+
+- [npm](https://www.npmjs.com/)
+- [yarn](https://yarnpkg.com/)
+- [pnpm](https://pnpm.js.org/)
 
 #### Java
 
