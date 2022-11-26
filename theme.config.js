@@ -9,7 +9,10 @@ export default {
   ],
   logo: (
     <>
-      <img src="/logo_b.svg" style={{ height: 20, objectFit: 'contain' }} />
+      <img src="/favicon.ico" style={{ height: 36, objectFit: 'contain' }} />
+      <span style={{fontWeight:'bolder',fontSize:'large',marginLeft:'10px'}}>
+        Zeabur
+      </span>
     </>
   ),
   head: (
@@ -53,6 +56,7 @@ export default {
     </>
   ),
   search: true,
+  darkMode: true,
   prevLinks: true,
   nextLinks: true,
   footer: true,
