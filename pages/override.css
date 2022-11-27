@@ -1,3 +1,11 @@
 main {
 	padding-top: 64px !important;
 }
+
+html.light .white-logo {
+	display: none !important;
+}
+
+html.dark .black-logo {
+	display: none !important;
+}

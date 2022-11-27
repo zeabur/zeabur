@@ -7,11 +7,20 @@ export default {
     { locale: 'zh-TW', text: '繁體中文' },
     { locale: 'zh-CN', text: '简体中文' },
   ],
-  logo: (
-    <>
-      <img src="/logo_b.svg" style={{ height: 20, objectFit: 'contain' }} />
-    </>
-  ),
+  logo: <>
+    <img
+      src="/logo_b.svg"
+      style={{ height: 20, objectFit: 'contain' }}
+      alt="zeabur"
+      className="black-logo"
+    />
+    <img
+      src="/logo_w.svg"
+      style={{ height: 20, objectFit: 'contain' }}
+      alt="zeabur"
+      className="white-logo"
+    />
+  </>,
   head: (
     <>
       <meta name="msapplication-TileColor" content="#ffffff" />
