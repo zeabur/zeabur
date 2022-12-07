@@ -1,5 +1,8 @@
 export default {
-  github: 'https://github.com/zeabur',
+  project: {
+    link: 'https://github.com/zeabur',
+  },
+  primaryHue: { dark: 278, light: 265 },
   docsRepositoryBase: 'https://github.com/zeabur/docs',
   titleSuffix: ' – Zeabur',
   i18n: [
@@ -61,10 +64,9 @@ export default {
       />
     </>
   ),
-  search: true,
-  prevLinks: true,
-  nextLinks: true,
-  footer: true,
-  footerEditLink: false,
-  footerText: <>{new Date().getFullYear()} © Zeabur.</>,
+  footer: {
+    text: <span>
+      {new Date().getFullYear()} © <a href="https://zeabur.com/home" target="_blank">Zeabur</a>.
+    </span>,
+  }
 }
