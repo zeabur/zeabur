@@ -3,8 +3,12 @@ export default {
     link: 'https://github.com/zeabur',
   },
   primaryHue: { dark: 278, light: 265 },
-  docsRepositoryBase: 'https://github.com/zeabur/docs',
-  titleSuffix: ' – Zeabur',
+  docsRepositoryBase: 'https://github.com/zeabur/docs/tree/main',
+  useNextSeoProps() {
+    return {
+      titleTemplate: '%s – Zeabur'
+    }
+  },
   i18n: [
     { locale: 'en-US', text: 'English' },
     { locale: 'zh-TW', text: '繁體中文' },
