@@ -2,9 +2,16 @@
 title: Watch Paths
 ---
 
+import Head from 'next/head'
+
+<Head>
+  <meta name="zeabur:image:title" content="Watch Paths" />
+  <meta name="zeabur:image:subtitle" content="some code updates do not require a service to be redeployed" />
+</Head>
+
 # Watch Paths
 
-After your service is deployed, you may often update your code, but some code updates do not require a service to be redeployed.
+After your service is deployed, you may often update your code, but ome code updates do not require a service to be redeployed.
 
 For example, in a project where the front-end and back-end code are in the same Git repository, you may have only updated the back-end code, but after committing, you find that the front-end service is redeployed as well.
 
