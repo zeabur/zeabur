@@ -1,3 +1,5 @@
+import Router from 'next/router';
+
 export default {
   project: {
     link: 'https://github.com/zeabur',
@@ -43,6 +45,7 @@ export default {
       <meta name="og:title" content="Zeabur: Deploy your service with one click." />
       <meta name="og:image" content="/default-og.png" />
       <meta name="apple-mobile-web-app-title" content="Zeabur" />
+      <meta name="og:url" content={`https://opengraph-dev.zeabur.app/api/og_image?url=${Router.route}`} />
       <link
         rel="apple-touch-icon"
         sizes="180x180"
