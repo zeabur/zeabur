@@ -41,7 +41,6 @@ export default {
       <meta name="twitter:site:domain" content="docs.zeabur.com" />
       <meta name="twitter:url" content="https://docs.zeabur.com" />
       <meta name="og:title" content="Zeabur: Deploy your service with one click." />
-      <meta name="og:image" content="/default-og.png" />
       <meta name="apple-mobile-web-app-title" content="Zeabur" />
       <link
         rel="apple-touch-icon"
