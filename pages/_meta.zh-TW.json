@@ -4,5 +4,6 @@
   "deploy": "部署",
   "environment": "環境",
   "frameworks": "框架",
+  "databases": "資料庫",
   "manage": "專案管理"
 }

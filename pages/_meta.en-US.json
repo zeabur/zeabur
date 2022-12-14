@@ -4,5 +4,6 @@
   "deploy": "Deploy",
   "environment": "Environment",
   "frameworks": "Frameworks",
+  "databases": "Databases",
   "manage": "Project Manage"
 }
