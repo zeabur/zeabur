@@ -4,5 +4,6 @@
   "deploy": "部署",
   "environment": "环境",
   "frameworks": "框架",
+  "databases": "数据库",
   "manage": "项目管理"
 }
