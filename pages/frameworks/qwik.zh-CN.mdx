@@ -1,0 +1,121 @@
+---
+title: Qwik
+ogImageTitle: 部署 Qwik 项目
+ogImageSubtitle: 如何在 Zeabur 上部署 Qwik 项目
+---
+
+# 部署 Qwik 项目
+
+这篇文档将会教你如何在 Zeabur 上部署你的 [Qwik](https://qwik.builder.io) 项目。
+
+## 初始化项目
+
+首先，你需要在本地开发环境初始化一个 Qwik 项目，我们可以按照 [Qwik 官方文档](https://qwik.builder.io/docs/getting-started/) 的指示来完成这个步骤。
+
+```bash
+npm create qwik@latest
+```
+
+跟着指示完成初始化后，你应该会看到类似下面的结果：
+
+```bash
+💫 Let's create a Qwik app 💫
+
+✔ Project name … qwik-app
+✔ Select a starter › Basic
+
+🦄  Success!  Project created in portfolio directory
+
+🐰 Next steps:
+   cd qwik-app
+   npm install
+   npm start
+
+💬 Integration? Add Netlify, Cloudflare, Tailwind...:
+   npm run qwik add
+
+💬 Questions? Start the conversation at:
+   https://qwik.builder.io/chat
+   https://twitter.com/QwikDev
+
+📺 Presentations, Podcasts and Videos:
+   https://qwik.builder.io/media/
+```
+
+并且你会看到一个 `qwik-app` 的文件夹被建立在你的当前目录下。
+
+## 开发
+
+初始化完成后，你可以先切换到 `qwik-app` 文件夹下，并且执行 `npm start` 来启动开发服务器。
+
+```bash
+cd qwik-app
+npm start
+```
+
+你应该可以看到类似下面的结果：
+
+```bash
+ VITE v3.1.1  ready in 140 ms
+
+  ➜  Local:   http://localhost:5174/
+  ➜  Network: use --host to expose
+```
+
+接下来，你可以开始修改代码来开发你的 Qwik 项目了。
+
+## 安装 Adaptor 包
+
+为了让你的 Qwik 项目可以在 Zeabur 上运行，在部署之前你需要先安装 Qwik 的 Node.js (Express) adaptor 包。
+
+```bash
+npm run qwik add express
+```
+
+安装完成后，你应该可以看到类似下面的结果：
+
+```text
+🦄  Success!  Added express to your app
+
+📚 Relevant docs:
+   https://qwik.builder.io/qwikcity/adaptors/node/
+   https://expressjs.com/
+
+💬 Questions? Start the conversation at:
+   https://qwik.builder.io/chat
+   https://twitter.com/QwikDev
+```
+
+## 在本地测试构建
+
+安装 adaptor 包后，你可以先在本地测试构建，确保你的项目可以正常运行。
+
+```bash
+npm run build
+```
+
+如果你的代码没有任何问题，你应该可以在项目目录下看到新增了 `dist` 和 `server` 两个文件夹。
+
+接下来，试着输入下面的指令来启动本地服务器：
+
+```bash
+node server/entry.express.js
+```
+
+接下来试着在浏览器中输入 `http://localhost:3000`，你应该可以看到网页顺利运行：
+
+![Qwik 預設頁面](/framework/qwik/localhost.png)
+
+## 部署项目
+
+在确认本地测试构建没有问题后，你可以在 GitHub 建立一个代码储存库，然后将现在的代码推送上去。
+
+在最后，回到 Zeabur 的项目页面，你的项目中，点击 **Deploy service** 或者 **Add new service** 按钮，并选择 **Deploy your source code**.
+
+![deploy](/framework/deploy.png)
+
+搜索你刚刚建立的代码储存库，然后点击 `import`，你的 Qwik 应用程式就将自动开始部署。
+
+![building](/framework/qwik/building.png)
+
+部署完成后，你可以参考 [绑定域名](../deploy/domain-binding) 文档了解如何为你的 Qwik 项目绑定一个能够让外部访问的公开域名。
