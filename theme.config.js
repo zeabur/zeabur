@@ -5,6 +5,9 @@ export default {
   project: {
     link: 'https://github.com/zeabur',
   },
+  sidebar: {
+    defaultMenuCollapseLevel: 1,
+  },
   primaryHue: { dark: 278, light: 265 },
   docsRepositoryBase: 'https://github.com/zeabur/docs/tree/main',
   useNextSeoProps() {

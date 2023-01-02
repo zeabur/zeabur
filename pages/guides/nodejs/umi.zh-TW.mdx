@@ -1,0 +1,49 @@
+---
+ogImageTitle: 部署 Umi.js 專案
+ogImageSubtitle: 教你如何在 Zeabur 上部署專案
+---
+
+# 部署 Umi.js 專案
+
+在 Zeabur 上部署你的 Umi.js 專案。
+
+### 第一步: 建立 Umi 專案（可選）
+
+環境要求：
+
+- 確保 node 版本是 14 或以上
+- umi 團隊推薦使用 pnpm
+
+打開終端機，輸入
+
+```bash
+$ pnpm dlx create-umi@latest
+
+✔ Install the following package: create-umi? (Y/n) · true
+✔ Pick Npm Client › pnpm
+✔ Pick Npm Registry › taobao
+
+Write: .gitignore
+Write: .npmrc
+Write: .umirc.ts
+Copy:  layouts/index.tsx
+Write: package.json
+Copy:  pages/index.tsx
+Copy:  pages/users.tsx
+Copy:  pages/users/foo.tsx
+
+> @ postinstall /private/tmp/sorrycc-vylwuW
+> umi setup
+
+info  - generate files
+```
+
+建立完畢後，為其初始化一個 Git 儲存庫並部署到你的 Github 上。
+
+### 第二步：部署 Umi 專案
+
+在你的專案中，點擊 **Deploy service** 或者 **Add new service** 按鈕，並選擇 **Deploy your source code**.
+
+![deploy](/framework/deploy.png)
+
+搜尋想要部署的 Umi 專案儲存庫，並點擊導入，你的 Umi 專案就將自動開始部署。
