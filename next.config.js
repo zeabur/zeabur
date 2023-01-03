@@ -10,15 +10,15 @@ module.exports = withNextra({
     defaultLocale: 'en-US',
     domains: [
       {
-        domain: 'zeabur.com',
+        domain: 'docs.zeabur.com',
         defaultLocale: 'en-US',
       },
       {
-        domain: 'zeabur.tw',
+        domain: 'docs.zeabur.tw',
         defaultLocale: 'zh-TW',
       },
       {
-        domain: 'zeabur.cn',
+        domain: 'docs.zeabur.cn',
         defaultLocale: 'zh-CN',
       },
     ],
