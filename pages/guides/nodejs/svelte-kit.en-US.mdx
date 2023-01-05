@@ -1,0 +1,94 @@
+---
+ogImageTitle: Deploy Svelte Kit
+ogImageSubtitle: How to deploy Svelte Kit to Zeabur
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+
+# Deploy Svelte Kit
+
+Deploy your Svelte Kit project to Zeabur.
+
+### Step 1: Create a Svelte Kit project (optional)
+
+Open your terminal and run
+
+```bash
+npm create svelte@latest
+```
+
+Next, you need to install the dependencies:
+
+<Tabs items={['pnpm', 'npm', 'yarn']}>
+  <Tab>
+    ```bash
+    pnpm install
+    ```
+  </Tab>
+  <Tab>
+    ```bash
+    npm install
+    ```
+  </Tab>
+  <Tab>
+    ```bash
+    yarn
+    ```
+  </Tab>
+</Tabs>
+
+After that, initialize a Git repository and deploy it to your Github.
+
+### Step 2: Set up `@sveltejs/adapter-node`
+
+Next, you need to install `@sveltejs/adapter-node`:
+
+<Tabs items={['pnpm', 'npm', 'yarn']}>
+  <Tab>
+    ```bash
+    pnpm add -D @sveltejs/adapter-node
+    ```
+  </Tab>
+  <Tab>
+    ```bash
+    npm install -D @sveltejs/adapter-node
+    ```
+  </Tab>
+  <Tab>
+    ```bash
+    yarn add -D @sveltejs/adapter-node
+    ```
+  </Tab>
+</Tabs>
+
+Then, open `svelte.config.js` and change it to:
+
+```js
+import adapter from '@sveltejs/adapter-node'; // <-- Note this line
+
+export default {
+  kit: {
+    adapter: adapter({ out: 'build' })
+  }
+}
+```
+
+### Step 3: Set up `package.json`
+
+Open `package.json` and add a `start` script in `scripts`:
+
+```json
+{
+  "scripts": {
+    "start": "node ./build/index.js"
+  }
+}
+```
+
+### Step 4: Deploy Svelte Kit project
+
+In your project, click **Deploy service** or **Add new service** and select **Deploy your source code**.
+
+![deploy](/framework/deploy.png)
+
+Search for the Svelte Kit code repository you want to deploy, and click import. Your Svelte Kit app will automatically start deploying.
