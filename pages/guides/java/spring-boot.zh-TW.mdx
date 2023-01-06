@@ -5,4 +5,34 @@ ogImageSubtitle: 將你的 Spring Boot 專案部署到 Zeabur
 
 # 部署 Spring Boot 專案
 
-本頁面尚未完成，如果你願意幫助 Zeabur 完善本頁面，讓更多開發者可以快速部署他們的專案，請提交 Pull Request 到 [zeabur/zeabur-docs](https://github.com/zeabur/docs)。
+這篇文章將會教你如何在 Zeabur 上部署你的 [Spring Boot](https://spring.io/projects/spring-boot) 專案。
+
+## 第一步：環境配置
+
+你可以先在本地測試構建，確保你的專案可以正常運行，可使用 JDK 版本為：19、17、8、7。
+
+## 第二步: 建立專案(可選)
+
+首先，你需要在本地開發環境初始化一個 Spring Boot 專案，我們可以按照 [Spring Boot 官方文件](https://spring.io/quickstart) 的指示來完成這個步驟，
+或是依據你喜好的 使用 IDE 編譯器(如: [IntelliJ IDEA](https://www.jetbrains.com/idea/) 或 [Eclipse](https://www.eclipse.org/) 等等) ，初始化 Spring Boot 專案。
+
+若使用 **Gradle 部署工具**，需在 Gradle 專案中打開`build.gradle`檔案需加入以下設定：
+
+```groovy
+jar {
+    enabled = false
+    manifest {
+        attributes 'Main-Class': 'com.example.demo.DemoApplication' // <-- 請注意這裡
+    }
+}
+```
+
+創建完畢後，為其初始化一個 Git 儲存庫並部署到你的 Github 上。
+
+## 第三步：部署 Spring Boot 專案
+
+在你的專案中，點擊 **Deploy service** 或者 **Add new service** 按鈕，並選擇 **Deploy your source code**.
+
+![deploy](/framework/deploy.png)
+
+搜尋想要部署的 Spring Boot 程式碼儲存庫，並點擊導入，你的 Spring Boot 應用就將自動開始部署。
