@@ -5,4 +5,33 @@ ogImageSubtitle: Deploy Spring Boot App in Zeabur
 
 # Deploy Spring Boot
 
-This page is not completed yet. If you are willing to help Zeabur to complete this page, so that more developers can quickly deploy their projects, please submit a Pull Request to  [zeabur/zeabur-docs](https://github.com/zeabur/docs)。
+This article will teach you how to deploy your [Spring Boot](https://spring.io/projects/spring-boot) project on Zeabur.
+
+## Step 1: Environment Configuration
+
+You can test and build locally first to make sure your project can run normally. You can use JDK version: 19, 17, 8, 7.
+
+## Step 2: Create a Project (Optional)
+
+First, you need to initialize a Spring Boot project in your local development environment. We can follow the instructions in the [Spring Boot official document](https://spring.io/quickstart) to complete this step, or initialize a Spring Boot project according to your favorite IDE (such as [IntelliJ IDEA](https://www.jetbrains.com/idea/) or [Eclipse](https://www.eclipse.org/)).
+
+If you use the **Gradle deployment tool**, you need to open the `build.gradle` file in the Gradle project and add the following settings:
+
+```groovy
+jar {
+    enabled = false
+    manifest {
+        attributes 'Main-Class': 'com.example.demo.DemoApplication' // <-- Please replace with your own main class
+    }
+}
+```
+
+After creation, initialize a Git repository for it and deploy it to your Github.
+
+## Step 3: Deploy Spring Boot Project
+
+In your project, click the **Deploy service** or **Add new service** button, and select **Deploy your source code**.
+
+![deploy](/framework/deploy.png)
+
+Search for the Spring Boot code repository you want to deploy, and click Import. Your Spring Boot application will automatically start deploying.

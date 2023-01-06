@@ -15,13 +15,13 @@ ogImageSubtitle: 將你的 Spring Boot 專案部署到 Zeabur
 
 首先，你需要在本地開發環境初始化一個 Spring Boot 專案，我們可以按照 [Spring Boot 官方文件](https://spring.io/quickstart) 的指示來完成這個步驟，或是依據你喜好的 IDE（例如 [IntelliJ IDEA](https://www.jetbrains.com/idea/) 或 [Eclipse](https://www.eclipse.org/) 等等），初始化 Spring Boot 專案。
 
-若使用 **Gradle 部署工具**，需在 Gradle 專案中打開`build.gradle`檔案需加入以下設定：
+若使用 **Gradle 部署工具**，需在 Gradle 專案中打開 `build.gradle` 檔案，加入以下設定：
 
 ```groovy
 jar {
     enabled = false
     manifest {
-        attributes 'Main-Class': 'com.example.demo.DemoApplication' // <-- 請注意這裡
+        attributes 'Main-Class': 'com.example.demo.DemoApplication' // <-- 這裡請填入你的專案啟動 class 名稱
     }
 }
 ```
