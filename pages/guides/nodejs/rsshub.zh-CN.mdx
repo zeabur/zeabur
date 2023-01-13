@@ -6,7 +6,18 @@ ogImageSubtitle: 使用 Zeabur 自建 RSSHub
 
 # 自建 RSSHub
 
-使用 Zeabur 自建 [RSSHub](https://docs.rsshub.app/)。
+## RSSHub 是什么
+
+[RSSHub](https://docs.rsshub.app/) 是一个开源、简单易用、易于扩展的 RSS 生成器，可以给任何内容生成 RSS 订阅源，目前已适配数百家网站的上千项内容。
+
+## 为什么要自建 RSSHub
+
+- 随着使用者增多，许多网站对 RSSHub 加大了反爬限制。  
+- RSSHub 需要科学上网才能访问。
+- 许多第三方源都需要自建才能稳定使用。
+- 部分项目涉及个人信息，需要自定义配置。
+
+## 使用 Zeabur 自建 RSSHub
 
 ### 第一步：Fork RSSHub 仓库
 
@@ -14,14 +25,38 @@ ogImageSubtitle: 使用 Zeabur 自建 RSSHub
 
 点击 Fork 来 Fork 仓库到你的个人账号下。
 
+![fork](/template/rsshub/fork.jpg)
+
 ### 第二步：部署 RSSHub
 
-点击 **Deploy service** 或 **Add new service** 按钮，然后选择 **Deploy your source code**。
+打开 Zeabur 控制台，选择[新建项目](/zh-CN/get-started)或者在已有项目里添加服务。
+
+点击右上角的 **Add new service** 按钮，然后选择 **Deploy your source code**。
+
+![add](/deploy/add-new-service.jpg)
 
 ![deploy](/framework/deploy.png)
 
-找到你的 RSSHub 仓库，点击 import，你的自建 RSSHub 就会开始部署。
+在你的仓库列表中找到上一步 Fork 的 RSSHub 仓库，点击 **import**，你的自建 RSSHub 服务就会开始部署。
 
 ### 第三步：添加域名
 
-部署成功以后，为你的 RSSHub 添加一个域名，具体操作参见 [添加域名](/zh-CN/deploy/domain-binding)。
+要获取自建的 RSSHub 订阅链接，你需要为你的 RSSHub 服务添加一个域名。
+
+你可以使用自己购买的域名，或是选择使用 Zeabur 提供的域名生成服务，具体操作参见[添加域名](/zh-CN/deploy/domain-binding)。
+
+![domain](/template/rsshub/domain.jpg)
+
+
+### 第四步：订阅
+
+打开 RSSHub 官方网站，选取你想要订阅的信息，将链接中的 “rsshub.app” 替换为上一步中所添加的域名。
+
+打开你喜欢的 RSS 阅读器，此处以 [Reeder 5](https://reederapp.com/) 为例，点击新增订阅按钮，随后将订阅链接导入即可。
+
+![import](/template/rsshub/reeder.jpg)
+
+
+
+
+
