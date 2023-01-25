@@ -1,0 +1,34 @@
+---
+ogImageTitle: 部署 Laravel 项目
+ogImageSubtitle: 将你的 Laravel 项目部署到 Zeabur
+---
+
+# 部署 Laravel 项目
+
+这篇文章将会教你如何在 Zeabur 上部署你的 [Laravel](https://laravel.com/) 项目。
+
+## 第一步：环境配置
+
+你可以先在本地测试构建，确保你的项目可以正常运行。
+
+你必须提供所使用的PHP版本给zeabur作为运行环境, 将版本资讯写在composer.json中如以下所示。
+
+```groovy
+"require": {
+        "php": "8.1",
+    }
+```
+
+## 第二步: 建立项目(可选)
+
+首先，你需要在本地开发环境初始化一个 Laravel 项目，我们可以按照 [Laravel 官方文件](https://laravel.com/docs/9.x) 的指示来完成这个步骤，
+
+创建完成后，为其初始化一个 Git 仓库并部署到你的 GitHub 上。
+
+## 第三步：部署 Laravel 项目
+
+在你的项目中，点击 **Deploy service** 或者 **Add new service** 按钮，选择 **Deploy your source code**.
+
+![deploy](/framework/deploy.png)
+
+搜索想要部署的 Laravel 代码仓库，点击导入，你的 Laravel 应用就将自动开始部署。
