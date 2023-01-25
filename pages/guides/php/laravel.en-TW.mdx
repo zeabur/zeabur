@@ -9,20 +9,20 @@ ogImageSubtitle: 將你的 Laravel 專案部署到 Zeabur
 
 ## 第一步：環境配置
 
-你可以先在本地測試構建，確保你的專案可以正常運行
+你可以先在本地測試構建，確保你的專案可以正常運行。
 
-你必須提供所使用的PHP版本給zeabur作為運行環境, 將版本資訊寫在composer.json中如以下所示
+你必須提供所使用的 PHP 版本給 Zeabur 作為運行環境，將版本資訊寫在`composer.json` 中，如以下所示：
 
-```groovy
-"require": {
-        "php": "8.1",
-    }
-```
+```json
+{
+  "require": {
+        "php": "8.1"
+  }
+}
 
 ## 第二步: 建立專案(可選)
 
-首先，你需要在本地開發環境初始化一個 Laravel 專案，我們可以按照 [Laravel 官方文件](https://laravel.com/docs/9.x) 等等），初始化 Laravelt 專案。
-
+首先，你需要在本地開發環境初始化一個 Laravel 專案，我們可以按照 [Laravel 官方文件](https://laravel.com/docs/9.x)，初始化 Laravel 專案。
 
 創建完畢後，為其初始化一個 Git 儲存庫並部署到你的 Github 上。
 
@@ -32,4 +32,21 @@ ogImageSubtitle: 將你的 Laravel 專案部署到 Zeabur
 
 ![deploy](/framework/deploy.png)
 
+
 搜尋想要部署的 Laravel 程式碼儲存庫，並點擊導入，你的 Laravel 應用就將自動開始部署。
+
+## 第四步：為你的Laravel專案添加APP_KEY環境變數
+
+切換到專案環境變數設置頁面，並輸入您的APP_KEY環境變數。
+
+key: **APP_KEY**
+value: **Your_APP_Key**
+
+你可以透過以下指令為你的Laravel產生一個APP_KEY。
+
+```shell
+
+php artisan key:generate
+
+```
+![APP_KEY](/framework/laravel/app-key-setting.jpg)

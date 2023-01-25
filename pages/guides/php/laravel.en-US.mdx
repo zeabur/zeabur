@@ -28,4 +28,22 @@ In your project, click the **Deploy service** or **Add new service** button, and
 
 ![deploy](/framework/deploy.png)
 
-Search for the Laravel Boot code repository you want to deploy, and click Import. Your Laravel Boot application will automatically start deploying.
+
+Search for the Laravel Boot code repository you want to deploy, and click Import. 
+Your Laravel Boot application will automatically start deploying.
+
+## Step 4: Add an APP_KEY for you Laravel project
+
+
+Switch to project variable setting page and enter your environment parameter.
+
+key: **APP_KEY**
+value: **Your_APP_Key**
+
+You can generate a APP_KEY by enter command under your laravel project 
+```shell
+
+php artisan key:generate
+
+```
+![APP_KEY](/framework/laravel/app-key-setting.jpg)

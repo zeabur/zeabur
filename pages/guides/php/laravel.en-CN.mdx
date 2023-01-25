@@ -13,7 +13,7 @@ ogImageSubtitle: 将你的 Laravel 项目部署到 Zeabur
 
 你必须提供所使用的PHP版本给zeabur作为运行环境, 将版本资讯写在composer.json中如以下所示。
 
-```groovy
+```json
 "require": {
         "php": "8.1",
     }
@@ -32,3 +32,19 @@ ogImageSubtitle: 将你的 Laravel 项目部署到 Zeabur
 ![deploy](/framework/deploy.png)
 
 搜索想要部署的 Laravel 代码仓库，点击导入，你的 Laravel 应用就将自动开始部署。
+
+
+## 第四步：为你的Laravel专案添加APP_KEY环境变量
+
+切换到专案环境变数设置页面，并输入您的APP_KEY环境变量。
+
+key: **APP_KEY**
+value: **Your_APP_Key**
+
+你可以透过以下指令为你的Laravel产生一个APP_KEY。
+```shell
+
+php artisan key:generate
+
+```
+![APP_KEY](/framework/laravel/app-key-setting.jpg)
