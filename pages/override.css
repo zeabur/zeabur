@@ -9,3 +9,14 @@ html.light .white-logo {
 html.dark .black-logo {
 	display: none !important;
 }
+
+main span:has(> img) {
+	border-radius: 12px;
+	box-shadow: 2px 2px 12px 2px rgba(0,0,0,0.3);
+	transition: all 0.2s ease-in-out;
+}
+
+main span:has(> img):hover {
+	box-shadow: 2px 2px 12px 2px rgba(0,0,0,0.5);
+	transform: scale(1.01);
+}
