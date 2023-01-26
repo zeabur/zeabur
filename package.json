@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next",
     "start": "next start",
-    "build": "next build"
+    "build": "next build",
+    "prebuild": "node sitemap.js"
   },
   "author": "Shu Ding",
   "license": "MIT",
