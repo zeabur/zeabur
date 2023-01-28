@@ -6,33 +6,33 @@ ogImageSubtitle: 教你如何在 Zeabur 上部署 NestJS 应用
 
 import { Tab, Tabs, Callout } from 'nextra-theme-docs'
 
-# 部署 NestJS 专案
+# 部署 NestJS 项目
 
-在 Zeabur 上部署你的 NestJS 专案。
+在 Zeabur 上部署你的 NestJS 项目。
 
-### 第一步: 建立 NestJS 应用（可选）
+### 第一步: 建立 NestJS 项目（可选）
 
-你可以藉由 Nest CLI 来建立 NestJS 应用，所以你可以先安装它。
+你可以通过 Nest CLI 来建立 NestJS 项目，所以你可以先安装它。
 
-打开终端机，输入
+打开终端，输入
 
 ```bash
 npm install -g @nestjs/cli
 ```
 
-接着，你可以藉由以下指令来建立一个新的 NestJS 应用。
+接着，你可以藉由以下指令来建立一个新的 NestJS 项目。
 
 ```bash
 nest new <your project name>
 ```
 
-你也可以藉由 git clone 来下载一个已经建立好的 NestJS 应用。
+你也可以藉由 git clone 来下载一个已经建立好的 NestJS 项目。
 
 ```bash
 git clone https://github.com/zeabur/nestjs-template.git <your project name>
 ```
 
-接下来，你需要安装套件：
+接下来，你需要安装组件：
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
   <Tab>
@@ -52,13 +52,13 @@ git clone https://github.com/zeabur/nestjs-template.git <your project name>
   </Tab>
 </Tabs>
 
-### 第二步: 设定环境变数
+### 第二步: 设定环境变量
 
 <Callout type="info" emoji="ℹ️">
   如果你已经安装过 `@nestjs/config` 或利用 git clone 下载 Zeabur 的 template，你可以跳过这一步
 </Callout>
 
-在 NodeJS 中，我们常用 `.env` 来设定环境变数，而 NestJS 也有提供一个套件来读取 `.env` 档案，所以你可以先安装它。
+在 NodeJS 中，我们常用 `.env` 来设定环境变量，而 NestJS 也有提供一个组件来读取 `.env` 档案，所以你可以先安装它。
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
   <Tab>
