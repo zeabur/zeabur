@@ -1,7 +1,7 @@
 ---
 title: NestJS
-ogImageTitle: 部署 NestJS 专案
-ogImageSubtitle: 教你如何在 Zeabur 上部署 NestJS 专案
+ogImageTitle: 部署 NestJS 应用
+ogImageSubtitle: 教你如何在 Zeabur 上部署 NestJS 应用
 ---
 
 import { Tab, Tabs, Callout } from 'nextra-theme-docs'
@@ -10,9 +10,9 @@ import { Tab, Tabs, Callout } from 'nextra-theme-docs'
 
 在 Zeabur 上部署你的 NestJS 专案。
 
-### 第一步: 建立 NestJS 专案（可选）
+### 第一步: 建立 NestJS 应用（可选）
 
-你可以藉由 Nest CLI 来建立 NestJS 专案，所以你可以先安装它。
+你可以藉由 Nest CLI 来建立 NestJS 应用，所以你可以先安装它。
 
 打开终端机，输入
 
@@ -20,13 +20,13 @@ import { Tab, Tabs, Callout } from 'nextra-theme-docs'
 npm install -g @nestjs/cli
 ```
 
-接着，你可以藉由以下指令来建立一个新的 NestJS 专案。
+接着，你可以藉由以下指令来建立一个新的 NestJS 应用。
 
 ```bash
 nest new <your project name>
 ```
 
-你也可以藉由 git clone 来下载一个已经建立好的 NestJS 专案。
+你也可以藉由 git clone 来下载一个已经建立好的 NestJS 应用。
 
 ```bash
 git clone https://github.com/zeabur/nestjs-template.git <your project name>
@@ -90,7 +90,7 @@ import { ConfigModule } from '@nestjs/config'
 export class AppModule {}
 ```
 
-最后你可以在 `src/main.ts` 中指定该专案的 port。
+最后你可以在 `src/main.ts` 中指定该应用的 port。
 
 ```typescript
 import { NestFactory } from '@nestjs/core';
@@ -105,10 +105,10 @@ bootstrap().then(() =>
 );
 ```
 
-### 第三步: 部署 NestJS 专案
+### 第三步: 部署 NestJS 应用
 
-在你的专案中，点击 **Deploy service** 或者 **Add new service** 按钮，并选择 **Deploy your source code**.
+在你的项目中，点击 **Deploy service** 或者 **Add new service** 按钮，并选择 **Deploy your source code**.
 
 ![deploy](/framework/deploy.png)
 
-搜寻想要部署的 NestJS 程式码储存库，并点击导入，你的 NestJS 应用就将自动开始部署。
+搜索想要部署的 NestJS 应用仓库，并点击导入，你的 NestJS 应用就将自动开始部署。
