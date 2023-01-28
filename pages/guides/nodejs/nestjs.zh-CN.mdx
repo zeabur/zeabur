@@ -1,0 +1,114 @@
+---
+title: NestJS
+ogImageTitle: 部署 NestJS 应用
+ogImageSubtitle: 教你如何在 Zeabur 上部署 NestJS 应用
+---
+
+import { Tab, Tabs, Callout } from 'nextra-theme-docs'
+
+# 部署 NestJS 项目
+
+在 Zeabur 上部署你的 NestJS 项目。
+
+### 第一步: 建立 NestJS 项目（可选）
+
+你可以通过 Nest CLI 来建立 NestJS 项目，所以你可以先安装它。
+
+打开终端，输入
+
+```bash
+npm install -g @nestjs/cli
+```
+
+接着，你可以通过以下指令来建立一个新的 NestJS 项目。
+
+```bash
+nest new <your project name>
+```
+
+你也可以通过 git clone 来下载一个已经建立好的 NestJS 项目。
+
+```bash
+git clone https://github.com/zeabur/nestjs-template.git <your project name>
+```
+
+接下来，你需要安装组件：
+
+<Tabs items={['pnpm', 'npm', 'yarn']}>
+  <Tab>
+    ```bash
+    pnpm install
+    ```
+  </Tab>
+  <Tab>
+    ```bash
+    npm install
+    ```
+  </Tab>
+  <Tab>
+    ```bash
+    yarn
+    ```
+  </Tab>
+</Tabs>
+
+### 第二步: 设定环境变量
+
+<Callout type="info" emoji="ℹ️">
+  如果你已经安装过 `@nestjs/config` 或利用 git clone 下载 Zeabur 的 template，你可以跳过这一步
+</Callout>
+
+在 NodeJS 中，我们常用 `.env` 来设定环境变量，而 NestJS 也有提供一个依赖来读取 `.env` 档案，所以你可以先安装它。
+
+<Tabs items={['pnpm', 'npm', 'yarn']}>
+  <Tab>
+    ```bash
+    pnpm add @nestjs/config
+    ```
+  </Tab>
+  <Tab>
+    ```bash
+    npm install @nestjs/config
+    ```
+  </Tab>
+  <Tab>
+    ```bash
+    yarn add @nestjs/config
+    ```
+  </Tab>
+</Tabs>
+
+接着，你需要在 `src/app.module.ts` 中引入 `ConfigModule`，并在 `imports` 中加入 `ConfigModule.forRoot()`。
+
+```typescript
+import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
+
+@Module({
+  imports: [ConfigModule.forRoot()],
+})
+export class AppModule {}
+```
+
+最后你可以在 `src/main.ts` 中指定该应用的 port。
+
+```typescript
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  await app.listen(process.env.PORT || 3000);
+}
+bootstrap().then(() =>
+  console.log(`Application is running on: ${process.env.PORT || 3000}`),
+);
+```
+
+### 第三步: 部署 NestJS 应用
+
+在你的项目中，点击 **Deploy service** 或者 **Add new service** 按钮，并选择 **Deploy your source code**.
+
+![deploy](/framework/deploy.png)
+
+搜索想要部署的 NestJS 应用仓库，并点击导入，你的 NestJS 应用就将自动开始部署。
