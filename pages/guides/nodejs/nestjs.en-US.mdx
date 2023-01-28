@@ -1,38 +1,38 @@
 ---
 title: NestJS
-ogImageTitle: 部署 NestJS 專案
-ogImageSubtitle: 教你如何在 Zeabur 上部署 NestJS 專案
+ogImageTitle: Deploy NestJS App
+ogImageSubtitle: Deploy NestJS App in Zeabur
 ---
 
 import { Tab, Tabs, Callout } from 'nextra-theme-docs'
 
-# 部署 NestJS 專案
+# Deploy NestJS App
 
-在 Zeabur 上部署你的 NestJS 專案。
+Deploy your NestJS app in Zeabur.
 
-### 第一步: 建立 NestJS 專案（可選）
+### Step 1: Create NestJS new app (optional)
 
-你可以藉由 Nest CLI 來建立 NestJS 專案，所以你可以先安裝它。
+You can use NestJS CLI to create a new app.
 
-打開終端機，輸入
+Open your terminal and run the following command:
 
 ```bash
 npm install -g @nestjs/cli
 ```
 
-接著，你可以藉由以下指令來建立一個新的 NestJS 專案。
+Then, create a new app:
 
 ```bash
 nest new <your project name>
 ```
 
-你也可以藉由 git clone 來下載一個已經建立好的 NestJS 專案。
+You can also clone a starter project from our GitHub repository.
 
 ```bash
 git clone https://github.com/zeabur/nestjs-template.git <your project name>
 ```
 
-接下來，你需要安裝套件：
+Then, install the dependencies:
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
   <Tab>
@@ -52,13 +52,15 @@ git clone https://github.com/zeabur/nestjs-template.git <your project name>
   </Tab>
 </Tabs>
 
-### 第二步: 設定環境變數
+### Step 2: Setup environment variables
 
 <Callout type="info" emoji="ℹ️">
-如果你已經安裝過 `@nestjs/config` 或利用 git clone 下載 Zeabur 的 template，你可以跳過這一步
+  You can skip this step if you are using the starter project from our GitHub repository.
 </Callout>
 
-在 NodeJS 中，我們常用 `.env` 來設定環境變數，而 NestJS 也有提供一個套件來讀取 `.env` 檔案，所以你可以先安裝它。
+In Node.js applications, it's common to use `.env` files, holding key-value pairs where each key represents a particular value, to represent each environment.
+
+NestJS provides a package called `@nestjs/config` to help you manage your environment variables.
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
   <Tab>
@@ -78,7 +80,7 @@ git clone https://github.com/zeabur/nestjs-template.git <your project name>
   </Tab>
 </Tabs>
 
-接著，你需要在 `src/app.module.ts` 中引入 `ConfigModule`，並在 `imports` 中加入 `ConfigModule.forRoot()`。
+Once the installation process is complete, You can import the `ConfigModule` into `src/app.module.ts` and control its behavior using the `.forRoot()` static method.
 
 ```typescript
 import { Module } from '@nestjs/common'
@@ -90,7 +92,7 @@ import { ConfigModule } from '@nestjs/config'
 export class AppModule {}
 ```
 
-最後你可以在 `src/main.ts` 中指定該專案的 port。
+Now, you can set up your port in `src/main.ts`
 
 ```typescript
 import { NestFactory } from '@nestjs/core';
@@ -105,10 +107,10 @@ bootstrap().then(() =>
 );
 ```
 
-### 第三步: 部署 NestJS 專案
+### Step 3: Deploy
 
-在你的專案中，點擊 **Deploy service** 或者 **Add new service** 按鈕，並選擇 **Deploy your source code**.
+Click on **Add new service** button, then choose **Deploy your source code**.
 
 ![deploy](/framework/deploy.png)
 
-搜尋想要部署的 NestJS 程式碼儲存庫，並點擊導入，你的 NestJS 應用就將自動開始部署。
+Search for your NestJS App repository, click on import, your NestJS App will start deploying.

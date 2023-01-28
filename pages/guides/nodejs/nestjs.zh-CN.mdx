@@ -1,38 +1,38 @@
 ---
 title: NestJS
-ogImageTitle: 部署 NestJS 專案
-ogImageSubtitle: 教你如何在 Zeabur 上部署 NestJS 專案
+ogImageTitle: 部署 NestJS 专案
+ogImageSubtitle: 教你如何在 Zeabur 上部署 NestJS 专案
 ---
 
 import { Tab, Tabs, Callout } from 'nextra-theme-docs'
 
-# 部署 NestJS 專案
+# 部署 NestJS 专案
 
-在 Zeabur 上部署你的 NestJS 專案。
+在 Zeabur 上部署你的 NestJS 专案。
 
-### 第一步: 建立 NestJS 專案（可選）
+### 第一步: 建立 NestJS 专案（可选）
 
-你可以藉由 Nest CLI 來建立 NestJS 專案，所以你可以先安裝它。
+你可以藉由 Nest CLI 来建立 NestJS 专案，所以你可以先安装它。
 
-打開終端機，輸入
+打开终端机，输入
 
 ```bash
 npm install -g @nestjs/cli
 ```
 
-接著，你可以藉由以下指令來建立一個新的 NestJS 專案。
+接着，你可以藉由以下指令来建立一个新的 NestJS 专案。
 
 ```bash
 nest new <your project name>
 ```
 
-你也可以藉由 git clone 來下載一個已經建立好的 NestJS 專案。
+你也可以藉由 git clone 来下载一个已经建立好的 NestJS 专案。
 
 ```bash
 git clone https://github.com/zeabur/nestjs-template.git <your project name>
 ```
 
-接下來，你需要安裝套件：
+接下来，你需要安装套件：
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
   <Tab>
@@ -52,13 +52,13 @@ git clone https://github.com/zeabur/nestjs-template.git <your project name>
   </Tab>
 </Tabs>
 
-### 第二步: 設定環境變數
+### 第二步: 设定环境变数
 
 <Callout type="info" emoji="ℹ️">
-如果你已經安裝過 `@nestjs/config` 或利用 git clone 下載 Zeabur 的 template，你可以跳過這一步
+  如果你已经安装过 `@nestjs/config` 或利用 git clone 下载 Zeabur 的 template，你可以跳过这一步
 </Callout>
 
-在 NodeJS 中，我們常用 `.env` 來設定環境變數，而 NestJS 也有提供一個套件來讀取 `.env` 檔案，所以你可以先安裝它。
+在 NodeJS 中，我们常用 `.env` 来设定环境变数，而 NestJS 也有提供一个套件来读取 `.env` 档案，所以你可以先安装它。
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
   <Tab>
@@ -78,7 +78,7 @@ git clone https://github.com/zeabur/nestjs-template.git <your project name>
   </Tab>
 </Tabs>
 
-接著，你需要在 `src/app.module.ts` 中引入 `ConfigModule`，並在 `imports` 中加入 `ConfigModule.forRoot()`。
+接着，你需要在 `src/app.module.ts` 中引入 `ConfigModule`，并在 `imports` 中加入 `ConfigModule.forRoot()`。
 
 ```typescript
 import { Module } from '@nestjs/common'
@@ -90,7 +90,7 @@ import { ConfigModule } from '@nestjs/config'
 export class AppModule {}
 ```
 
-最後你可以在 `src/main.ts` 中指定該專案的 port。
+最后你可以在 `src/main.ts` 中指定该专案的 port。
 
 ```typescript
 import { NestFactory } from '@nestjs/core';
@@ -105,10 +105,10 @@ bootstrap().then(() =>
 );
 ```
 
-### 第三步: 部署 NestJS 專案
+### 第三步: 部署 NestJS 专案
 
-在你的專案中，點擊 **Deploy service** 或者 **Add new service** 按鈕，並選擇 **Deploy your source code**.
+在你的专案中，点击 **Deploy service** 或者 **Add new service** 按钮，并选择 **Deploy your source code**.
 
 ![deploy](/framework/deploy.png)
 
-搜尋想要部署的 NestJS 程式碼儲存庫，並點擊導入，你的 NestJS 應用就將自動開始部署。
+搜寻想要部署的 NestJS 程式码储存库，并点击导入，你的 NestJS 应用就将自动开始部署。
