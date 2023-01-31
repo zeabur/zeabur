@@ -6,10 +6,34 @@ ogImageSubtitle: 在 Zeabur 一鍵部署 PostgreSQL 服務
 
 import { Callout } from 'nextra-theme-docs'
 
-# 部署 PostgreSQL 服務
+# PostgreSQL 服務
 
-<Callout>
-  這個文章還沒完成，如果你有任何問題，請在 [討論區](https://github.com/orgs/zeabur/discussions) 發問，我們會竭盡全力幫助你。
+Zeabur 提供了一鍵部署 PostgreSQL 服務的功能，讓你可以快速的在 Zeabur 上部署 PostgreSQL 服務。
 
-  如果你想要幫助我們完善文件，請在我們的 [GitHub Repository](https://github.com/zeabur/docs) 上發起 Pull Request。
+<Callout type="info" emoji="ℹ️">
+  目前 Zeabur 提供的 PostgreSQL 服務支援最新版本。
+  未來將支援更多版本的 PostgreSQL 服務，敬請期待。
 </Callout>
+
+## 部署 PostgreSQL 服務
+
+在你的專案中，點擊 **部署新服務** ，並選擇 **部署其他服務** 中的 **部署 POSTGRESQL 服務**。
+
+![deploy](/framework/deploy.zh-TW.png)
+
+![deploy-postgresql](/databases/deploy-postgresql.zh-TW.png)
+
+點擊部署後，Zeabur 會自動幫你部署 PostgreSQL 服務。
+
+## 環境變數
+
+當你部署 PostgreSQL 服務後，Zeabur 會自動幫你注入相關環境變數到其他的服務中。
+
+ - `POSTGRESQL_HOST`
+ - `POSTGRESQL_PORT`
+ - `POSTGRESQL_USERNAME`
+ - `POSTGRESQL_PASSWORD`
+
+## 新增資料庫
+
+你可以透過 [PgAdmin](https://www.pgadmin.org/download/) 或 [PostgreSQL CLI](https://www.postgresql.org/download/) 來新增資料庫。
