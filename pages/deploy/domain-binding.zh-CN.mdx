@@ -28,22 +28,6 @@ Zeabur 提供了简易的生成域名的服务，生成的带有 zeabur.app 后�
 
 若想拥有更高的独特性和灵活性，你也可以选择绑定自己拥有的域名，若你还没有域名，则可以从一些域名服务提供商，如 [GoDaddy](https://www.godaddy.com) ，[Cloudflare](https://www.cloudflare.com) 购买。
 
-### Apex 域名
-
-Apex 域名，也叫主域或裸域名、根域名，因为它是整个域名的基础，是域名层次结构的根。例如，example.com 就是一个 Apex 域名。
-
-如果你的域名为 Apex 域名，你将需要使用 **A** 记录来进行配置。
-
-![apex-domain](/deploy/domain/apex-domain.zh-CN.jpg)
-
-### 子域名
-
-子域是你的主域名的一个附加部分。创建子域是为了组织和导航到你网站的不同部分。你可以在你的主域上创建多个子域或子域名。例如，docs.example.com 就是一个子域名。
-
-如果你的域名为子域名，你将需要使用 **CNAME** 记录来进行配置。
-
-![sub-domain](/deploy/domain/sub-domain.zh-CN.jpg)
-
 ### 配置 DNS 记录
 
 在你为服务添加了你的专属域名后，为了能够正常访问你的服务，你需要去你的域名注册商处，手动为你的域名**配置 DNS 记录**。
@@ -58,13 +42,9 @@ Apex 域名，也叫主域或裸域名、根域名，因为它是整个域名的
 
 填入对应的名称和目标内容。此处，Name 对应的是名称一栏，Value 则对应目标一栏。
 
-对于 Apex 域名，此处的类型应选择 A 类型。
+此处的类型一栏选择 CNAME 。
 
-![apex-domain-dns](/deploy/domain/apex-domain-dns.zh-CN.jpg)
-
-对于子域名，此处的类型应选择 CNAME 类型。
-
-![sub-domain-dns](/deploy/domain/sub-domain-dns.zh-CN.jpg)
+![domain-dns](/deploy/domain/domain-dns.zh-CN.jpg)
 
 点击保存，等待配置完成即可。
 
