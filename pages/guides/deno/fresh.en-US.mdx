@@ -22,7 +22,7 @@ Use the command to initialize a Deno project with Fresh framework.
 deno run -A -r https://fresh.deno.dev my-project
 ```
 
-In `main.ts`, add `port: Deno.env.get("PORT")` to the start function.
+In `main.ts`, add `port: Deno.env.get("PORT")` to the start function in order to make sure the application can listen correctly on the environment variable `PORT` given by Zeabur.
 
 ```typescript
 // in main.ts

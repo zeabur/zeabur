@@ -1,18 +1,18 @@
 ---
 title: TypeScript
-ogImageTitle: 部署 TypeScript 專案
-ogImageSubtitle: 在 Zeabur 部署您的 TypeScript 專案
+ogImageTitle: 部署 Deno 專案
+ogImageSubtitle: 在 Zeabur 部署你的 Deno 專案
 ---
 
-# 部署 TypeScript 專案
+# 部署 Deno 專案
 
-本文將會教您如何在 Zeabur 上部署您的 [Deno](https://deno.land/) 專案。
+本文將會教你如何在 Zeabur 上部署你的 [Deno](https://deno.land/) 專案。
 
 ## 利用 TypeScript 建立 Deno 應用程式 (可選)
 
-- 請先在您的電腦上安裝 Deno。
+- 請先在你的電腦上安裝 Deno。
 
-- 您可以在 [Deno 官方文件](https://deno.land/manual/getting_started/installation) 中找到更詳細的說明。
+- 你可以在 [Deno 官方文件](https://deno.land/manual/getting_started/installation) 中找到更詳細的說明。
 
 建立一個新檔案 `main.ts`。
 
@@ -20,9 +20,9 @@ ogImageSubtitle: 在 Zeabur 部署您的 TypeScript 專案
 touch main.ts
 ```
 
-將以下內容加入您的 `main.ts`。
+將以下內容加入你的 `main.ts`。
 
-記得在 `serve` 函數中將連接埠參數 `port` 的值修改為 `Deno.env.get("PORT")`。
+記得在 `serve` 函數中將連接埠參數 `port` 的值修改為 `Deno.env.get("PORT")`，使應用程式能夠正確監聽在 Zeabur 給定的環境變數 `PORT` 上。
 
 ```typescript
 // in main.ts
@@ -55,9 +55,9 @@ touch deno.json
 deno task start
 ```
 
-接下來，您就可以開始修改程式碼來開發你的 Typescript 專案了。
+接下來，你就可以開始修改程式碼來開發你的 Typescript 專案了。
 
-當您完成時，為其初始化一個 GitHub 儲存庫，並上傳到您的 GitHub。
+當你完成時，為其初始化一個 GitHub 儲存庫，並上傳到你的 GitHub。
 
 ## 部署專案
 
