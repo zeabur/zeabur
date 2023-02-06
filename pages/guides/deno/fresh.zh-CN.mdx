@@ -1,0 +1,53 @@
+---
+title: Fresh
+ogImageTitle: 部署 Fresh 应用
+ogImageSubtitle: 在 Zeabur 部署您的 Fresh 应用
+---
+
+# 部署 Fresh 应用
+
+[Fresh](https://fresh.deno.dev/) 是一个现代全端网页框架，适用于 JavaScript 和 TypeScript。
+
+本文将教你如何在 Zeabur 一键部署 Fresh 应用程序。
+
+## 创建 Fresh 应用程序 (可选)
+
+- 请先在您的电脑上安装 Deno。
+
+- 您可以在 [Deno 官方文件](https://deno.land/manual/getting_started/installation) 中找到更详细的说明。
+
+利用此指令初始化一个 Deno 项目并使用 Fresh 框架。
+
+```bash
+deno run -A -r https://fresh.deno.dev my-project
+```
+
+在 `main.ts` 中，将 `port: Deno.env.get("PORT")` 添加到 `start` 函数中。
+
+```typescript
+// in main.ts
+await start(manifest, { plugins: [twindPlugin(twindConfig)], port: Deno.env.get("PORT")}, );
+```
+
+## 开发应用
+
+执行 `deno task start` 以开始开发服务器。
+
+```bash
+deno task start
+```
+
+接下来，您就可以开始修改程序代码来开发你的 Fresh 项目了。
+
+当您完成时，为其初始化一个 GitHub 存储库，并上传到您的 GitHub。
+
+
+## 部署应用
+
+在你的项目中，点击 **部署新服务** 按钮，并选择 **部署你的源代码**。
+
+![deploy](/framework/deploy.zh-CN.png)
+
+搜索想要部署的 Fresh 程序代码存储库，并点击导入，你的 Fresh 应用就将自动开始部署。
+
+部署完成后，你可以参考 [綁定域名](../../deploy/domain-binding) 文件了解如何为您的 Fresh 项目绑定一个能够让外部访问的公开域名。
