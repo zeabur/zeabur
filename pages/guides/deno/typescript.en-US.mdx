@@ -1,0 +1,68 @@
+---
+title: TypeScript
+ogImageTitle: Deploy Deno
+ogImageSubtitle: Deploy Deno in Zeabur
+---
+
+# Deploy Deno App in TypeScript
+
+This article will teach you how to deploy your [Deno](https://deno.land/) project on Zeabur.
+
+## Create Deno App in TypeScript (Optional)
+
+- Install Deno on your computer.
+
+- You can see a more detailed instruction in [Deno's official documentation](https://deno.land/manual/getting_started/installation).
+
+Create a new file `main.ts`.
+
+```bash
+touch main.ts
+```
+
+Add the following to your `main.ts`. 
+
+Remember modify the port to  `Deno.env.get("PORT")` in your `serve` function to make sure the application can listen correctly on the environment variable `PORT` given by Zeabur.
+
+```typescript
+// in main.ts
+import { serve } from "https://deno.land/std@0.140.0/http/server.ts";
+
+function handler(_req: Request): Response {
+  return new Response("Hello, this is a Deno (https://deno.land/) web app deployed on Zeabur (https://zeabur.com)");
+}
+
+serve(handler, { port: Deno.env.get("PORT") });
+```
+
+Create a new file `deno.json`, and add the `start` command to the `tasks` field.
+
+```bash
+touch deno.json
+# in deno.json
+{
+  "tasks": {
+    "start": "deno run --allow-net --allow-env --allow-read main.ts"
+  }
+}
+```
+
+## Development
+
+Run `deno task start` to start the development server.
+
+```bash
+deno task start
+```
+
+Then, you can modify the code to develop your TypeScript project.
+
+When you finish, initialize a Github repository for it and upload to your Github.
+
+## Deploy
+
+Click on **Add new service** button, then choose **Deploy your source code**.
+
+![deploy](/framework/deploy.png)
+
+Search for your Deno App repository, click on import, your Deno App will start deploying.

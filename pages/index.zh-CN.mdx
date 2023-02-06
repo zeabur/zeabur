@@ -66,6 +66,16 @@ Zeabur 会自动识别并部署 `cmd` 目录下与 Service 名称相同的程序
 
 如果您要部署 Django 项目，请确保您的项目根目录有 `manage.py` 且至少一个子目录有 `wsgi.py`。
 
+#### Deno
+
+如果您的项目根目录有 `deno.json` 或 `fresh.gen.ts`，Zeabur 会自动以 Deno 项目的方式进行部署。
+
+您需要在 `deno.json` 的 `tasks` 栏位中加入 `start` 命令。
+
+如果你的项目是基于现成的Fresh框架，则他们已经自动设定好了 `start` 指令，你不需要再自己设定。
+
+- [Fresh](https://fresh.deno.dev/)
+
 #### 静态站点
 
 所有静态站点都可以部署，但您需要在项目根目录有一个 `index.html` 作为网站入口。

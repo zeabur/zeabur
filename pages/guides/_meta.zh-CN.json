@@ -3,5 +3,6 @@
   "java": "Java",
   "php": "PHP",
   "python": "Python",
-  "go": "Go"
+  "go": "Go",
+  "deno": "Deno"
 }
