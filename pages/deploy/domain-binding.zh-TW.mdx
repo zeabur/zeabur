@@ -8,26 +8,48 @@ ogImageSubtitle: 為你的服務選擇一個域名
 
 在你的服務成功部署以後，你需要為他們綁定一個域名便於使用服務。
 
-### 第一步：打開服務設定頁面
+## 第一步：打開服務設置頁
 
-點擊你想添加域名的服務，並選擇設定頁面，你將會看到兩個按鈕供你選擇來添加域名。
+點擊你想添加域名的服務，並選擇設置頁，你將會看到兩個按鈕，供你選擇來添加域名。
 
-![buttons](/deploy/domain/buttons.png)
+![buttons](/deploy/domain/buttons.zh-TW.jpg)
 
-### 第二步：創建域名
+## 第二步：創建域名
 
-你可以選擇生成一個域名（後綴是 zeabur.app），也可以選擇完全自定義你的域名
+Zeabur 提供了簡易的生成域名的服務，生成的帶有 zeabur.app 後綴的域名無需其他配置，即可通過此域名來訪問你的服務。
 
-![generate](/deploy/domain/generate.png)
+![generate](/deploy/domain/generate.zh-TW.jpg)
 
-![custom](/deploy/domain/custom.png)
+你也可以選擇完全自定義你的域名，但需要參見第三步為其進行一些配置。
 
-### 第三步：為自定義域名添加 DNS 記錄（可選）
+![custom](/deploy/domain/custom.zh-TW.jpg)
 
-如果你的域名是自定義的（沒有 zeabur.app 後綴），你需要手動為其添加一個 DNS 記錄。
+## 第三步：配置自定義域名（可選）
 
-至於如何添加，你可以參考[這篇文章](https://www.itprotoday.com/compute-engines/how-do-i-add-record-dns)
+若想擁有更高的獨特性和靈活性，你也可以選擇綁定自己擁有的域名，若你還沒有域名，則可以從一些域名服務提供商，如 [GoDaddy](https://www.godaddy.com) ，[Cloudflare](https://www.cloudflare.com) 購買。
 
-### 下一步
+### 配置 DNS 記錄
+
+在你為服務添加了你的專屬域名後，為了能夠正常訪問你的服務，你需要去你的域名註冊商處，手動為你的域名**配置 DNS 記錄**。
+
+![domain](/deploy/domain/domain.zh-CN.jpg)
+
+此處以 Cloudflare 為例為域名添加 DNS 記錄。
+
+打開 Cloudflare 控製臺，選擇想要配置的域名，選擇 DNS 記錄。
+
+![cloudflare](/deploy/domain/cloudflare.zh-CN.jpg)
+
+在該頁面的管理 DNS 一欄，點擊添加記錄按鈕。
+
+填入對應的名稱和目標內容。此處，Name 對應的是名稱一欄，Value 則對應目標一欄。
+
+此處的類型一欄選擇 CNAME 。
+
+![domain-dns](/deploy/domain/domain-dns.zh-CN.jpg)
+
+點擊保存，等待配置完成即可。
+
+## 下一步
 
 域名部署完畢後，你就可以點擊跳轉網頁，或開始使用你的服務。
