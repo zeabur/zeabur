@@ -66,6 +66,15 @@ In particular, the following frameworks can be automatically recognized by Zeabu
 
 If you want to deploy a Django project, please make sure that your project root directory has `manage.py` and at least one subdirectory has `wsgi.py`.
 
+#### Deno
+
+If your project root directory has `deno.json` or `fresh.gen.ts`, Zeabur will automatically deploy it as a Deno project.
+
+You need to add `start` command to the `tasks` field in `deno.json`.
+
+If your project is initialized with Fresh framework, they have already set the `start` command for you, so you don't need to set them yourself.
+
+- [Fresh](https://fresh.deno.dev/)
 
 #### Static website
 
