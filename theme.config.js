@@ -84,7 +84,7 @@ export default {
   },
   footer: {
     text: <span>
-      {new Date().getFullYear()} © <a href="https://zeabur.com/home" target="_blank">Zeabur</a>.
+      {new Date().getFullYear()} © <a href="https://zeabur.com" target="_blank">Zeabur</a>.
     </span>,
   }
 }
