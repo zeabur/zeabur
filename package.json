@@ -1,7 +1,7 @@
 {
-  "name": "nextra",
+  "name": "zeabur-docs",
   "version": "1.0.0",
-  "description": "",
+  "description": "Documentation of Zeabur.",
   "main": "index.js",
   "scripts": {
     "dev": "next",
@@ -9,17 +9,16 @@
     "build": "next build",
     "prebuild": "node sitemap.js"
   },
-  "author": "Shu Ding",
-  "license": "MIT",
+  "author": "Zeabur",
   "dependencies": {
-    "next": "^12.1.0",
-    "nextra": "^2.0.1",
-    "nextra-theme-docs": "^2.0.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "next": "^13.1.6",
+    "nextra": "^2.2.14",
+    "nextra-theme-docs": "^2.2.14",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "prettier": "^2.0.5"
+    "prettier": "^2.8.4"
   },
   "prettier": {
     "semi": false,
