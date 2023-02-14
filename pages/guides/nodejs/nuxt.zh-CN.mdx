@@ -1,0 +1,65 @@
+---
+title: Nuxt
+ogImageTitle: 部署 Nuxt 应用
+ogImageSubtitle: 教你如何在 Zeabur 上部署 Nuxt 应用
+---
+
+import { Tab, Tabs, Callout } from 'nextra-theme-docs'
+
+# 部署 Nuxt 项目
+
+在 Zeabur 上部署你的 Nuxt 项目。
+
+### 第一步: 建立 Nuxt 项目（可选）
+
+打开终端，运行以下命令：
+
+<Tabs items={['pnpm', 'npx']}>
+  <Tab>
+    ```bash copy
+    pnpm dlx nuxi init <project-name>
+    ```
+  </Tab>
+  <Tab>
+    ```bash copy
+    npx nuxi init <project-name>
+    ```
+  </Tab>
+</Tabs>
+
+接下来，你需要安装依赖：
+
+<Tabs items={['pnpm', 'npm', 'yarn']}>
+  <Tab>
+    ```bash copy
+    pnpm install --shamefully-hoist
+    ```
+  </Tab>
+  <Tab>
+    ```bash copy
+    npm install
+    ```
+  </Tab>
+  <Tab>
+    ```bash copy
+    yarn
+    ```
+  </Tab>
+</Tabs>
+
+<Callout type="info" emoji="ℹ️">
+  这里需要注意由于 pnpm 的 `node_modules` 结构与其他依赖管理器不同，因此需要使用 `--shamefully-hoist` 来安装套件。
+  并确保在部属前你有新增 `.npmrc` 文件在项目的根目录，并在文件中中加入 `shamefully-hoist=true`。
+</Callout>
+
+````.npmrc filename=".npmrc" copy
+shamefully-hoist=true
+````
+
+### 第二步: 部署 Nuxt 应用
+
+在你的项目中，点击 **Deploy service** 或者 **Add new service** 按钮，并选择 **Deploy your source code**.
+
+![deploy](/framework/deploy.zh-CN.png)
+
+搜索想要部署的 Nuxt 应用仓库，并点击导入，你的 Nuxt 应用就将自动开始部署。
