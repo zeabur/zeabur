@@ -27,7 +27,7 @@ import { Tab, Tabs, Callout } from 'nextra-theme-docs'
   </Tab>
 </Tabs>
 
-接下来，你需要安装组件：
+接下来，你需要安装依赖：
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
   <Tab>
@@ -48,8 +48,8 @@ import { Tab, Tabs, Callout } from 'nextra-theme-docs'
 </Tabs>
 
 <Callout type="info" emoji="ℹ️">
-  这里需要注意由于 pnpm 的 `node_modules` 结构与其他套件管理器不同，因此需要使用 `--shamefully-hoist` 来安装套件。
-  并确保在部属前你有新增 `.npmrc` 档案在项目的根目录，并在文件中中加入 `shamefully-hoist=true`。
+  这里需要注意由于 pnpm 的 `node_modules` 结构与其他依赖管理器不同，因此需要使用 `--shamefully-hoist` 来安装套件。
+  并确保在部属前你有新增 `.npmrc` 文件在项目的根目录，并在文件中中加入 `shamefully-hoist=true`。
 </Callout>
 
 ````.npmrc filename=".npmrc" copy
