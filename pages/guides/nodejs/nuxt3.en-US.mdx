@@ -1,0 +1,65 @@
+---
+title: Nuxt3
+ogImageTitle: Deploy Nuxt3 App
+ogImageSubtitle: Deploy Nuxt3 App in Zeabur
+---
+
+import { Tab, Tabs, Callout } from 'nextra-theme-docs'
+
+# Deploy Nuxt3 App
+
+Deploy your Nuxt3 app in Zeabur.
+
+### Step 1: Create Nuxt3 app (optional)
+
+Open your terminal and run the following command to create a new Nuxt3 app.
+
+<Tabs items={['pnpm', 'npx']}>
+  <Tab>
+    ```bash copy
+    pnpm dlx nuxi init <project-name>
+    ```
+  </Tab>
+  <Tab>
+    ```bash copy
+    npx nuxi init <project-name>
+    ```
+  </Tab>
+</Tabs>
+
+Then, install the dependencies:
+
+<Tabs items={['pnpm', 'npm', 'yarn']}>
+  <Tab>
+    ```bash copy
+    pnpm install --shamefully-hoist
+    ```
+  </Tab>
+  <Tab>
+    ```bash copy
+    npm install
+    ```
+  </Tab>
+  <Tab>
+    ```bash copy
+    yarn
+    ```
+  </Tab>
+</Tabs>
+
+<Callout type="info" emoji="ℹ️">
+  Because pnpm uses another way to manage dependencies, you need to use `--shamefully-hoist` flag to install dependencies.
+  If using pnpm, make sure to have `.npmrc` with `shamefully-hoist=true` inside it before deploying.
+</Callout>
+
+````.npmrc filename=".npmrc" copy
+shamefully-hoist=true
+````
+
+### Step 2: Deploy
+
+Click on **Add new service** button, then choose **Deploy your source code**.
+
+![deploy](/framework/deploy.png)
+
+Search for your Nuxt3 App repository, click on import, your Nuxt3 App will start deploying.
