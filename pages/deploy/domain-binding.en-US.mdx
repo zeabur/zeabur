@@ -8,26 +8,46 @@ ogImageSubtitle: Choose a domain for your service
 
 After your services are successfully deployed, you may need to get a domain to use this service.
 
-### Step 1: Open Settings Tab
+## Step 1: Open Settings Tab
 
 Click on the service which you want to add a domain for, and choose the settings page, you will see two buttons for you to create a domain for your service.
 
-![buttons](/deploy/domain/buttons.png)
+![buttons](/deploy/domain/buttons.en-US.jpg)
 
-### Step 2: Create a Domain
+## Step 2: Create a Domain
 
-You can choose to generate a domain (with zeabur.app suffix), or you can choose to customize your domain totally.
+Zeabur provides an easy service for generating domain names with the zeabur.app suffix that can be used to access your services without additional configuration.
 
-![generate](/deploy/domain/generate.png)
+![generate](/deploy/domain/generate.en-US.jpg)
 
-![custom](/deploy/domain/custom.png)
+You can also choose to fully customize your domain name, but you will need to see step 3 to do some configuration for it.
 
-### Step 3: Add DNS Record for Your Customized Domain
+![custom](/deploy/domain/custom.en-US.jpg)
 
-If your domain is customized (without zeabur.app suffix), you need to add a DNS record for it.  
+## Step 3: Configure Your Customized Domain
 
-As for how to add this, you can refer to [this article](https://www.itprotoday.com/compute-engines/how-do-i-add-record-dns).
+For more uniqueness and flexibility, you can also choose to bundle your own domain name, or if you don't have one yet, you can buy it from some domain name service providers, such as [GoDaddy](https://www.godaddy.com) or [Cloudflare](https://www.cloudflare.com) Purchase.
 
-### What's Next
+### Configure DNS record
+
+After you have added your dedicated domain name to the service, in order to access your service properly, you need to go to your domain registrar and manually configure DNS records for your domain name.
+
+![domain](/deploy/domain/domain.en-US.jpg)
+
+Here is an example of Cloudflare to add DNS records for the domain name.
+
+Open the Cloudflare console, select the domain name you want to configure, and select DNS records.
+
+![cloudflare](/deploy/domain/cloudflare.en-US.jpg)
+
+On this page, in the Manage DNS section, click the Add Record button.
+
+Fill in the corresponding name and target content. Here, Name corresponds to the Name field and Value corresponds to the Destination field.
+
+And the CNAME type should be selected for the type here.
+
+![domain-dns](/deploy/domain/domain-dns.en-US.png)
+
+## What's Next
 
 After the domain is provisioned, you can click on it to take a visit to it.

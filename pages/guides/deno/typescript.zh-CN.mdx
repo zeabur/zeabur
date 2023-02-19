@@ -1,0 +1,70 @@
+---
+title: TypeScript
+ogImageTitle: 部署 Deno 应用
+ogImageSubtitle: 在 Zeabur 部署你的 Deno 应用
+---
+
+# 部署 Deno 应用
+
+本文将会教你如何在 Zeabur 上部署你的 [Deno](https://deno.land/) 应用。
+
+## 利用 TypeScript 建立 Deno 应用程序（可选）
+
+- 请先在你的电脑上安装 Deno。
+
+- 你可以在 [Deno 官方文件](https://deno.land/manual/getting_started/installation) 中找到更详细的说明。
+
+创建一个新文件 `main.ts`。
+
+```bash
+touch main.ts
+```
+
+将以下内容加入你的 `main.ts`。
+
+记得在 `serve` 函数中将连接端参数 `port` 的值修改为 `Deno.env.get("PORT")`，使应用程序能够正确监听在 Zeabur 给定的环境变量 PORT 上。
+
+```typescript
+// in main.ts
+import { serve } from "https://deno.land/std@0.140.0/http/server.ts";
+
+function handler(_req: Request): Response {
+  return new Response("Hello, this is a Deno (https://deno.land/) web app deployed on Zeabur (https://zeabur.com)");
+}
+
+serve(handler, { port: Deno.env.get("PORT") });
+```
+
+创建一个新文件 `deno.json`，并将以下的 `start` 命令加入 `tasks` 字段。
+
+```bash
+touch deno.json
+# in deno.json
+{
+  "tasks": {
+    "start": "deno run --allow-net --allow-env --allow-read main.ts"
+  }
+}
+```
+
+## 开发应用
+
+执行 `deno task start` 以启动开发服务器。
+
+```bash
+deno task start
+```
+
+接下来，你就可以开始修改代码来开发你的 TypeScript 应用了。
+
+当你完成时，为其初始化一个 GitHub 仓库，并上传到你的 GitHub。
+
+## 部署应用
+
+在你的项目中，点击 `部署新服务` 按钮，并选择 `部署你的源代码`。
+
+![deploy](/framework/deploy.zh-CN.png)
+
+搜索想要部署的 TypeScript 代码仓库，并点击导入，你的 TypeScript 应用将自动开始部署。
+
+部署完成后，你可以参考 绑定域名 文件了解如何为你的 TypeScript 应用绑定一个能外部访问的公开域名。

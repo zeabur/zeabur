@@ -1,0 +1,26 @@
+---
+title: Setting Environment Variables
+ogImageTitle: Setting Environment Variables
+ogImageSubtitle: Setting Environment Variables in Zeabur
+---
+
+# Setting Environment Variables
+
+Environment variables are used to configure your application.
+Zeabur provides a way to set environment variables for your service.
+
+You can set environment variables in the **Variables** tab of your service, and you can **Add Variables** to your service.
+
+![environment variables](/environment/add-variables.en-US.png)
+
+Zeabur will automatically inject these environment variables into your service.
+
+- `<YOUR_SERVICE_NAME>_HOST`：The host of the service.
+
+- `PORT`：The port of the service
+
+- Other variables like database credentials([PostgreSQL](/databases/postgresql)) or [Redis](/databases/redis) connection string and so on.
+
+And you don't need to set the environment variables manually.
+
+![db env](/environment/db-env.en-US.png)
