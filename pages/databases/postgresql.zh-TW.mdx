@@ -8,7 +8,7 @@ import { Callout } from 'nextra-theme-docs'
 
 # PostgreSQL 服務
 
-Zeabur 提供了一鍵部署 PostgreSQL 服務的功能，讓你可以快速的在 Zeabur 上部署 PostgreSQL 服務。
+Zeabur 提供了一鍵部署 PostgreSQL 服務的功能，讓你可以快速的在 Zeabur 上部署 PostgreSQL 資料庫。
 
 <Callout type="info" emoji="ℹ️">
   目前 Zeabur 提供的 PostgreSQL 服務支援最新版本。
@@ -36,4 +36,43 @@ Zeabur 提供了一鍵部署 PostgreSQL 服務的功能，讓你可以快速的�
 
 ## 新增資料庫
 
-你可以透過 [PgAdmin](https://www.pgadmin.org/download/) 或 [PostgreSQL CLI](https://www.postgresql.org/download/) 來新增資料庫。
+Zeabur 預設會建立以下資料庫及使用者：
+
+### 資料庫：
+
+ - `postgres`
+ - `root`
+ - `template0`
+ - `template1`
+
+### 使用者：
+
+ - `root`
+
+Zeabur 也可以讓你自行新增資料庫，你可以透過 [PgAdmin](https://www.pgadmin.org/download/) 或 [PostgreSQL CLI](https://www.postgresql.org/download/) 來新增資料庫。
+
+### PgAdmin
+
+首先你需要先 **Add New Server**，並填入相關資訊。
+
+![pgadmin-add-server](/databases/pgsql/pgadmin-add-server.jpg)
+
+![connect-pgsql](/databases/pgsql/connect-pgsql.png)
+
+接著，你可以在 **Databases** 中，新增資料庫。
+
+![create-db](/databases/pgsql/create-db.png)
+
+### PSQL (sql shell)
+
+```bash copy
+psql -h <POSTGRESQL_HOST> -p <POSTGRESQL_PORT> -U <POSTGRESQL_USERNAME> -W
+```
+
+```sql copy
+CREATE DATABASE <DATABASE_NAME>;
+```
+
+指令輸入要確保在 `postgres=#` 的狀態下，才能正確的執行。
+
+![psql-create-db](/databases/pgsql/psql-create-db.png)
