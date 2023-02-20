@@ -67,6 +67,10 @@ Zeabur 也可以讓你自行新增資料庫，你可以透過 [PgAdmin](https://
 
 ### PSQL (sql shell)
 
+[psql](https://www.postgresql.org/docs/current/app-psql.html) 是一個基於終端的 PostgreSQL 工具。它使你能夠以互動方式輸入查詢，將它們發送到 PostgreSQL，並查看查詢結果。此外，[psql](https://www.postgresql.org/docs/current/app-psql.html) 提供了許多各種類似 shell 的功能，以方便編寫腳本和自動執行各種任務。
+
+你可以使用 [psql](https://www.postgresql.org/docs/current/app-psql.html) 來連線到你部署在 Zeabur 的 PostgreSQL 資料庫，只要輸入以下指令：
+
 ```bash copy
 psql -h <POSTGRESQL_HOST> -p <POSTGRESQL_PORT> -U <POSTGRESQL_USERNAME> -W
 ```
