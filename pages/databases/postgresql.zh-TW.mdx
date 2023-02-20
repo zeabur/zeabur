@@ -34,22 +34,20 @@ Zeabur 提供了一鍵部署 PostgreSQL 服務的功能，讓你可以快速的�
  - `POSTGRESQL_USERNAME`
  - `POSTGRESQL_PASSWORD`
 
+有時候我們可以用自行新增 `DATABASE_URL` 來取代上面的環境變數，例如：
+
+```bash copy
+postgres://<POSTGRESQL_USERNAME>:<POSTGRESQL_PASSWORD>@<POSTGRESQL_HOST>:<POSTGRESQL_PORT>/<DATABASE_NAME>
+```
+
+這裡的 `<DATABASE_NAME>` 是你自行新增的資料庫名稱。
+
 ## 新增資料庫
 
-Zeabur 預設會建立以下資料庫及使用者：
+Zeabur 預設的資料庫跟使用者都為 `root`，這裡我們需要先自行新增第一個資料庫，可以透過以下的方式來新增。
 
-### 資料庫：
-
- - `postgres`
- - `root`
- - `template0`
- - `template1`
-
-### 使用者：
-
- - `root`
-
-Zeabur 也可以讓你自行新增資料庫，你可以透過 [PgAdmin](https://www.pgadmin.org/download/) 或 [PostgreSQL CLI](https://www.postgresql.org/download/) 來新增資料庫。
+ - [PgAdmin](#pgadmin)
+ - [PSQL (sql shell)](#psql-sql-shell)
 
 ### PgAdmin
 
