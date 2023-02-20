@@ -6,10 +6,77 @@ ogImageSubtitle: 在 Zeabur 一鍵部署 PostgreSQL 服務
 
 import { Callout } from 'nextra-theme-docs'
 
-# 部署 PostgreSQL 服務
+# PostgreSQL 服務
 
-<Callout>
-  這個文章還沒完成，如果你有任何問題，請在 [討論區](https://github.com/orgs/zeabur/discussions) 發問，我們會竭盡全力幫助你。
+Zeabur 提供了一鍵部署 PostgreSQL 服務的功能，讓你可以快速的在 Zeabur 上部署 PostgreSQL 資料庫。
 
-  如果你想要幫助我們完善文件，請在我們的 [GitHub Repository](https://github.com/zeabur/docs) 上發起 Pull Request。
+<Callout type="info" emoji="ℹ️">
+  目前 Zeabur 提供的 PostgreSQL 服務支援最新版本。
+  未來將支援更多版本的 PostgreSQL 服務，敬請期待。
 </Callout>
+
+## 部署 PostgreSQL 服務
+
+在你的專案中，點擊 **部署新服務** ，並選擇 **部署其他服務** 中的 **部署 POSTGRESQL 服務**。
+
+![deploy](/framework/deploy.zh-TW.png)
+
+![deploy-postgresql](/databases/deploy-postgresql.zh-TW.png)
+
+點擊部署後，Zeabur 會自動幫你部署 PostgreSQL 服務。
+
+## 環境變數
+
+當你部署 PostgreSQL 服務後，Zeabur 會自動幫你注入相關環境變數到其他的服務中。
+
+ - `POSTGRESQL_HOST`
+ - `POSTGRESQL_PORT`
+ - `POSTGRESQL_USERNAME`
+ - `POSTGRESQL_PASSWORD`
+
+有時候我們可以用自行新增 `DATABASE_URL` 來取代上面的環境變數，例如：
+
+```bash copy
+postgres://<POSTGRESQL_USERNAME>:<POSTGRESQL_PASSWORD>@<POSTGRESQL_HOST>:<POSTGRESQL_PORT>/<DATABASE_NAME>
+```
+
+這裡的 `<DATABASE_NAME>` 是你自行新增的資料庫名稱。
+
+## 新增資料庫
+
+Zeabur 預設的資料庫跟使用者都為 `root`，這裡我們需要先自行新增第一個資料庫，可以透過以下的方式來新增。
+
+ - [PgAdmin](#pgadmin)
+ - [PSQL (sql shell)](#psql-sql-shell)
+
+### PgAdmin
+
+[pgAdmin](https://www.pgadmin.org/) 是 PostgreSQL 最流行、功能最豐富的開源管理和開發平台。 你可以使用 [pgAdmin](https://www.pgadmin.org/) 來連線到你部署在 Zeabur 的 PostgreSQL 資料庫。
+
+首先，你需要先點擊 **Add New Server**，並填入相關資訊：
+
+![pgadmin-add-server](/databases/pgsql/pgadmin-add-server.jpg)
+
+![connect-pgsql](/databases/pgsql/connect-pgsql.png)
+
+接著，你可以在 **Databases** 中，新增資料庫。
+
+![create-db](/databases/pgsql/create-db.png)
+
+### PSQL (sql shell)
+
+[psql](https://www.postgresql.org/docs/current/app-psql.html) 是一個基於終端的 PostgreSQL 工具。它使你能夠以互動方式輸入查詢，將它們發送到 PostgreSQL，並查看查詢結果。此外，[psql](https://www.postgresql.org/docs/current/app-psql.html) 提供了許多各種類似 shell 的功能，以方便編寫腳本和自動執行各種任務。
+
+你可以使用 [psql](https://www.postgresql.org/docs/current/app-psql.html) 來連線到你部署在 Zeabur 的 PostgreSQL 資料庫，只要輸入以下指令：
+
+```bash copy
+psql -h <POSTGRESQL_HOST> -p <POSTGRESQL_PORT> -U <POSTGRESQL_USERNAME> -W
+```
+
+```sql copy
+CREATE DATABASE <DATABASE_NAME>;
+```
+
+指令輸入要確保在 `postgres=#` 的狀態下，才能正確的執行。
+
+![psql-create-db](/databases/pgsql/psql-create-db.png)

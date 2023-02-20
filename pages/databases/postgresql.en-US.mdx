@@ -6,10 +6,77 @@ ogImageSubtitle: How to deploy PostgreSQL on Zeabur
 
 import { Callout } from 'nextra-theme-docs'
 
-# Deploy PostgreSQL
+# PostgreSQL Service
 
-<Callout>
-  This article is not yet complete. If you have any questions, please feel free to ask in the [Discussion](https://github.com/orgs/zeabur/discussions).
+Zeabur provides a one-click deployment feature for PostgreSQL service, allowing you to quickly deploy a PostgreSQL database on Zeabur.
 
-  Also, if you would like to contribute to this article, please feel free to open a Pull Request on [Our GitHub Repository](https://github.com/zeabur/docs).
+<Callout type="info" emoji="ℹ️">
+  At present, Zeabur's PostgreSQL service supports the latest version.
+  More versions of the PostgreSQL service will be supported in the future, so stay tuned.
 </Callout>
+
+## Deploying PostgreSQL Service
+
+In your project, click on **Deploy new service** and select **Deploy PostgreSQL** from the **Deploy Other Services** options.
+
+![deploy](/framework/deploy.png)
+
+![deploy-postgresql](/databases/deploy-postgresql.en-US.png)
+
+After clicking **Deploy**, Zeabur will automatically deploy the PostgreSQL service for you.
+
+## Environment Variables
+
+After you deploy the PostgreSQL service, Zeabur will automatically inject the relevant environment variables into other services.
+
+ - `POSTGRESQL_HOST`
+ - `POSTGRESQL_PORT`
+ - `POSTGRESQL_USERNAME`
+ - `POSTGRESQL_PASSWORD`
+
+Sometimes, we can use the self-added `DATABASE_URL` to replace the above environment variables, for example:
+
+```bash copy
+postgres://<POSTGRESQL_USERNAME>:<POSTGRESQL_PASSWORD>@<POSTGRESQL_HOST>:<POSTGRESQL_PORT>/<DATABASE_NAME>
+```
+
+Here, `<DATABASE_NAME>` is the name of the database that you added yourself.
+
+## Adding a Database
+
+By default, the username and database name in Zeabur's PostgreSQL are both `root`. Here, we need to add the first database ourselves, which can be done in the following ways.
+
+ - [PgAdmin](#pgadmin)
+ - [PSQL (sql shell)](#psql-sql-shell)
+
+### PgAdmin
+
+[pgAdmin](https://www.pgadmin.org/) is the most popular and feature-rich open-source management and development platform for PostgreSQL. You can use [pgAdmin](https://www.pgadmin.org/) to connect to the PostgreSQL database deployed on Zeabur.
+
+First, you need to click **Add New Server** and enter the relevant information:
+
+![pgadmin-add-server](/databases/pgsql/pgadmin-add-server.jpg)
+
+![connect-pgsql](/databases/pgsql/connect-pgsql.png)
+
+Then, you can add a database in the **Databases** section.
+
+![create-db](/databases/pgsql/create-db.png)
+
+### PSQL (sql shell)
+
+[psql](https://www.postgresql.org/docs/current/app-psql.html) is a terminal-based PostgreSQL tool. It allows you to enter queries interactively, send them to PostgreSQL, and view the query results. In addition, [psql](https://www.postgresql.org/docs/current/app-psql.html) provides many shell-like features to facilitate writing scripts and automating various tasks.
+
+You can use [psql](https://www.postgresql.org/docs/current/app-psql.html) to connect to the PostgreSQL database deployed on Zeabur by simply entering the following command:
+
+```bash copy
+psql -h <POSTGRESQL_HOST> -p <POSTGRESQL_PORT> -U <POSTGRESQL_USERNAME> -W
+```
+
+```sql copy
+CREATE DATABASE <DATABASE_NAME>;
+```
+
+Make sure to enter this command in the `postgres=#` state to execute it correctly.
+
+![psql-create-db](/databases/pgsql/psql-create-db.png)
