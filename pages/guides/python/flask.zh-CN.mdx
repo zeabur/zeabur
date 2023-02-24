@@ -25,7 +25,7 @@ if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000), host='0.0.0.0')
 ```
 
-请注意，Zeabur 使用环境变量 `PORT` 来获取需要转发的端口号。因此你需要设置这一环境变量，并在应用中使用 `os.getenv` 或其他方式来设置端口号。默认情况下，Zeabur 将使用 5000 端口。
+请注意，Zeabur 使用环境变量 `PORT` 来获取需要转发的端口号。因此你需要设置这一环境变量，并在应用中使用 `os.getenv` 或其他方式来设置端口号。
 
 Zeabur 使用 `python app.py` 或 `python main.py` 来启动 Flask 应用程序，因此你的项目应包含这两个文件之一并包含运行 Flask 应用所需的命令。
 
