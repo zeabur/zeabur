@@ -5,4 +5,36 @@ ogImageSubtitle: 将你的 Flask 项目部署到 Zeabur
 
 # 部署 Flask 项目
 
-本页面尚未完成，如果你愿意帮助 Zeabur 完善本页面，让更多开发者可以快速部署他们的项目，请提交 Pull Request 到 [zeabur/zeabur-docs](https://github.com/zeabur/docs)。
+本文将教你如何在 Zeabur 一键部署 Flask 应用程序。
+
+## 1. 创建 Flask 项目
+
+你可以在 [flask-template](https://github.com/zeabur/flask-template) 查看 Flask 项目的示例。示例项目非常简单，包含了一个返回字符串的路由。
+
+```python 
+from flask import Flask
+import os
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return "Welcome, this is a Flask app deployed on Zeabur"
+
+if __name__ == '__main__':
+    app.run(debug=True, port=os.getenv("PORT", default=5000), host='0.0.0.0')
+```
+
+请注意，Zeabur 使用环境变量 `PORT` 来获取需要转发的端口号。因此你需要设置这一环境变量，并在应用中使用 `os.getenv` 或其他方式来设置端口号。默认情况下，Zeabur 将使用 5000 端口。
+
+Zeabur 使用 `python app.py` 或 `python main.py` 来启动 Flask 应用程序，因此你的项目应包含这两个文件之一并包含运行 Flask 应用所需的命令。
+
+你需要将项目需要的外部套件写入 requirements.txt, Pipfile 或 Pipfile.lock 文件，让 Zeabur 能够在构建以前自动安装。
+
+## 2. 部署应用
+
+在你的项目中，点击 **Deploy service** 或者 **Add new service** 按钮，并选择 **Deploy your source code**.
+
+![deploy](/framework/deploy.png)
+
+搜索想要部署的 Flask 应用仓库，并点击导入，你的 Flask 应用就将自动开始部署。
