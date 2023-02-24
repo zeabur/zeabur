@@ -5,4 +5,36 @@ ogImageSubtitle: Deploy Flask App in Zeabur
 
 # Deploy Flask
 
-This page is not completed yet. If you are willing to help Zeabur to complete this page, so that more developers can quickly deploy their projects, please submit a Pull Request to  [zeabur/zeabur-docs](https://github.com/zeabur/docs)。
+This article will teach you how to deploy your [Flask](https://flask.palletsprojects.com/) project on Zeabur.
+
+## Step1: Create Flask Project
+
+You can get the example project from [flask-template](https://github.com/zeabur/flask-template). The Flask example is quite simple. It has a single route that returns a string.
+
+```python 
+from flask import Flask
+import os
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return "Welcome, this is a Flask app deployed on Zeabur"
+
+if __name__ == '__main__':
+    app.run(debug=True, port=os.getenv("PORT", default=5000), host='0.0.0.0')
+```
+
+Please note that Zeabur uses environment variable `PORT` to determine which port to forward. You will therefore need to set this environment variable and use `os.getenv` or other ways to configure the port number in your application. 
+
+Zeabur uses `python app.py` or `python main.py` to run Python App. So Your project should contain one of these files and include the commands needed to run the Flask application.
+
+Zeabur determines which ports to open based on the environment variable `PORT`. 
+
+## Step2: Deploy
+
+Click on **Add new service** button, then choose **Deploy your source code**.
+
+![deploy](/framework/deploy.png)
+
+Search for your Flask App repository, click on import, your Flask App will start deploying.
