@@ -8,8 +8,76 @@ import { Callout } from 'nextra-theme-docs'
 
 # Dockerfile 部署
 
-<Callout>
-  這個文章還沒完成，如果你有任何問題，請在 [討論區](https://github.com/orgs/zeabur/discussions) 發問，我們會竭盡全力幫助你。
+Zeabur 目前已針對各種主流框架提供了快速部署的方式，但如果你的專案不是使用這些框架，或是你想要自行定義部署的方式，你可以使用 `Dockerfile` 來部署。
 
-  如果你想要幫助我們完善文件，請在我們的 [GitHub Repository](https://github.com/zeabur/docs) 上發起 Pull Request。
+<Callout type="warning">
+  Zeabur 目前僅支援 Dockerfile 的部署方式，目前不提供 Docker Compose 的方式。
 </Callout>
+
+## 建立 Dockerfile
+
+在你的專案根目錄建立一個名為 `Dockerfile` 或 `dockerfile` 的檔案，並且在裡面撰寫你的部署方式，最後須確保你有暴露對應的 `PORT`。
+
+Zeabur 會自動偵測你的專案是否有 `Dockerfile`，如果有的話會以 docker 的方式來部署你的專案。
+
+<Callout type="info">
+  開始部署後即可在上方看到 docker 的圖示，代表你的專案已經以 docker 的方式來部署。
+</Callout>
+
+![docker-deploy](/deploy/dockerfile/docker-deploy.png)
+
+## 環境變數
+
+如果你的 `Dockerfile` 需要使用到環境變數，你可以在該服務的頁面點選 **環境變數** 來新增，更多的設定方式請參考 [環境變數](/zh-TW/environment/variables)。
+
+![環境變數設置](/environment/add-variables.zh-TW.png)
+
+如果你的 Dockerfile 撰寫方式為一個映像檔，或是你的環境變數只需在最後一個映像檔中使用，很好的你無需手動寫 `ENV`，Zeabur 會自動幫你加上。
+
+### ARG
+
+但如果你的 Dockerfile 撰寫方式為多個映像檔，並且需要在建制前就設置環境變數，你可以使用 `ARG` 來設置。
+
+以下以 [Vite](https://vitejs.dev/) SPA 的架構為例，我們需要在建制前就設置 `VITE_ENV_EXAMPLE` 環境變數。
+
+```docker {16-17} copy
+FROM node:18-alpine AS deps
+
+WORKDIR /app
+COPY package.json pnpm-lock.yaml ./
+
+RUN yarn global add pnpm && \
+    pnpm i
+
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+## 這裡的環境變數會在建制前就設置
+ARG VITE_ENV_EXAMPLE
+ENV VITE_ENV_EXAMPLE=${VITE_ENV_EXAMPLE}
+
+RUN yarn build
+
+FROM nginx:alpine
+
+COPY /docker/nginx.conf /etc/nginx/conf.d/configfile.template
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+## 這裡的環境變數為 runtime 時設置
+ARG RUNTIME_ENV_EXAMPLE
+ENV RUNTIME_ENV_EXAMPLE=${RUNTIME_ENV_EXAMPLE} \
+    NODE_ENV=production \
+    PORT=8080 \
+    HOST=0.0.0.0
+
+EXPOSE 8080
+
+CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+```
+
+## Docker Compose
+
+Zeabur 目前僅支援 Dockerfile 的部署方式，目前不提供 Docker Compose 的方式。
