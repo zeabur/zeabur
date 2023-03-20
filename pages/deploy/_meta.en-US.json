@@ -1,6 +1,6 @@
 {
+  "dockerfile": "Deploy with Dockerfile",
   "domain-binding": "Domain Binding",
   "root-directory": "Root Directory",
-  "watch-paths": "Watch Paths",
-  "dockerfile": "Deploy with Dockerfile"
+  "watch-paths": "Watch Paths"
 }

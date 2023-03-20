@@ -1,6 +1,6 @@
 {
+  "dockerfile": "Dockerfile 部署",
   "domain-binding": "域名绑定",
   "root-directory": "根目录",
-  "watch-paths": "监控路径",
-  "dockerfile": "Dockerfile 部署"
+  "watch-paths": "监控路径"
 }
