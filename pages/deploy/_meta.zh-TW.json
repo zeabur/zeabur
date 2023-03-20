@@ -1,6 +1,6 @@
 {
-  "dockerfile": "Dockerfile 部署",
   "domain-binding": "域名綁定",
   "root-directory": "自訂根目錄",
-  "watch-paths": "觸發路徑"
+  "watch-paths": "觸發路徑",
+  "dockerfile": "Dockerfile 部署"
 }
