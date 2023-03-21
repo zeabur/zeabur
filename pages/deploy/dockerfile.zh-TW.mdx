@@ -32,15 +32,15 @@ Zeabur 會自動偵測你的專案是否有 `Dockerfile`，如果有的話會以
 
 ![環境變數設置](/environment/add-variables.zh-TW.png)
 
-如果你的 Dockerfile 撰寫方式為一個映像檔，或是你的環境變數只需在最後一個映像檔中使用，很好的你無需手動寫 `ENV`，Zeabur 會自動幫你加上。
+如果你的 Dockerfile 撰寫方式為一個階層，或是你的環境變數只需在最後一個階層中使用，很好的你無需手動寫 `ENV`，Zeabur 會自動幫你加上。
 
 ### ARG
 
-但如果你的 Dockerfile 撰寫方式為多個映像檔，並且需要在建制前就設置環境變數，你可以使用 `ARG` 來設置。
+但如果你的 Dockerfile 撰寫方式為多個階層，並且需要在建置前就設置環境變數，你可以使用 `ARG` 來設置。
 
 以下以 [Vite](https://vitejs.dev/) SPA 的架構為例，我們需要在建制前就設置 `VITE_ENV_EXAMPLE` 環境變數。
 
-```docker {16-17} copy
+```dockerfile {16-17} copy
 FROM node:18-alpine AS deps
 
 WORKDIR /app
