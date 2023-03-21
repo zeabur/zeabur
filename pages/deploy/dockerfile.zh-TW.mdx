@@ -11,7 +11,7 @@ import { Callout } from 'nextra-theme-docs'
 Zeabur 目前已針對各種主流框架提供了快速部署的方式，但如果你的專案不是使用這些框架，或是你想要自行定義部署的方式，你可以使用 `Dockerfile` 來部署。
 
 <Callout type="warning">
-  Zeabur 目前僅支援 Dockerfile 的部署方式，目前不提供 Docker Compose 的方式。
+  Zeabur 目前僅支援 `Dockerfile` 的部署方式，目前不提供 Docker Compose 的方式。
 </Callout>
 
 ## 建立 Dockerfile
@@ -36,40 +36,29 @@ Zeabur 會自動偵測你的專案是否有 `Dockerfile`，如果有的話會以
 
 ### ARG
 
-但如果你的 Dockerfile 撰寫方式為多個階層 (multi-stage)，並且需要在建置前就設置環境變數，你可以使用 `ARG` 來設置。
+但如果你的 `Dockerfile` 撰寫方式為多個階層 (multi-stage)，並且需要在建置前就設置環境變數，你可以使用 `ARG` 來設置。
 
-以下以 [Vite](https://vitejs.dev/) SPA 的架構為例，我們需要在建制前就設置 `VITE_ENV_EXAMPLE` 環境變數。
+以下我們以 nodejs 及 nginx 為例，撰寫一個 `Dockerfile` 來部署。
 
-```dockerfile {16-17} copy
-FROM node:18-alpine AS deps
-
-WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
-
-RUN yarn global add pnpm && \
-    pnpm i
-
+```docker {7-8} copy
 FROM node:18-alpine AS builder
 
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
+COPY package.json ./
 
-## 這裡的環境變數會在建制前就設置
-ARG VITE_ENV_EXAMPLE
-ENV VITE_ENV_EXAMPLE=${VITE_ENV_EXAMPLE}
+## 這裡的 `BUILDTIME_ENV_EXAMPLE` 會自動在建置前被設置
+ARG BUILDTIME_ENV_EXAMPLE
+ENV BUILDTIME_ENV_EXAMPLE=${BUILDTIME_ENV_EXAMPLE}
 
-RUN yarn build
+RUN npm install && \
+    npm run build
 
 FROM nginx:alpine
 
-COPY /docker/nginx.conf /etc/nginx/conf.d/configfile.template
+COPY nginx.conf /etc/nginx/conf.d/configfile.template
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-## 這裡的環境變數為 runtime 時設置
-ARG RUNTIME_ENV_EXAMPLE
-ENV RUNTIME_ENV_EXAMPLE=${RUNTIME_ENV_EXAMPLE} \
-    NODE_ENV=production \
+ENV \
     PORT=8080 \
     HOST=0.0.0.0
 
