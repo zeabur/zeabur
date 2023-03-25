@@ -1,15 +1,72 @@
 ---
-title: Dockerfile 部署
-ogImageTitle: Dockerfile 部署
-ogImageSubtitle: 藉由 Dockerfile 部署到 Zeabur 上
+title: Deploying with Dockerfile
+ogImageTitle: Deploying with Dockerfile
+ogImageSubtitle: Deploy your project to Zeabur using Dockerfile
 ---
 
 import { Callout } from 'nextra-theme-docs'
 
 # Dockerfile 部署
 
-<Callout>
-  這個文章還沒完成，如果你有任何問題，請在 [討論區](https://github.com/orgs/zeabur/discussions) 發問，我們會竭盡全力幫助你。
+Normally, you don't need to write a `Dockerfile` by yourself. Zeabur currently provides fast deployment methods for various popular frameworks, but if your project is not using these frameworks or you want to define your own deployment method, you can use a `Dockerfile` to deploy it.
 
-  如果你想要幫助我們完善文件，請在我們的 [GitHub Repository](https://github.com/zeabur/docs) 上發起 Pull Request。
+<Callout type="warning">
+  Zeabur currently only supports Dockerfile deployment and does not provide Docker Compose deployment.
 </Callout>
+
+## Creating a Dockerfile
+
+Create a file named `Dockerfile` or `dockerfile` in the root directory of your project and write your deployment method in it. Finally, make sure you have exposed the corresponding `PORT`.
+
+Zeabur will automatically detect if your project has a `Dockerfile`. If so, it will deploy your project using Docker.
+
+<Callout type="info">
+  After the deployment starts, you can see the Docker icon above, which means your project has been deployed using Docker.
+</Callout>
+
+![docker-deploy](/deploy/dockerfile/docker-deploy.png)
+
+## Environment Variables
+
+If your `Dockerfile` needs to use environment variables, you can click **Environment Variables** on the service page to add them. For more settings, please refer to [Environment Variables](/en-US/environment/variables).
+
+![Environment Variables](/environment/add-variables.png)
+
+If your `Dockerfile` is written in one stage, or if your environment variables only need to be used in the final stage, you don't need to manually write `ENV`. Zeabur will automatically add it for you.
+
+### ARG
+
+However, if your `Dockerfile` is written in multiple stages ([multi-stage](https://docs.docker.com/build/building/multi-stage/)), and you need to set environment variables before building, you can use `ARG` to set them.
+
+Here, we take nodejs and nginx as an example to write a `Dockerfile` for deployment.
+
+```docker {7-8} copy
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+COPY package.json ./
+
+## The `BUILDTIME_ENV_EXAMPLE` here will be set before building automatically
+ARG BUILDTIME_ENV_EXAMPLE
+ENV BUILDTIME_ENV_EXAMPLE=${BUILDTIME_ENV_EXAMPLE}
+
+RUN npm install && \
+    npm run build
+
+FROM nginx:alpine
+
+COPY nginx.conf /etc/nginx/conf.d/configfile.template
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+ENV \
+    PORT=8080 \
+    HOST=0.0.0.0
+
+EXPOSE 8080
+
+CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+```
+
+## Docker Compose
+
+Zeabur currently only supports `Dockerfile` deployment and does not provide Docker Compose deployment.

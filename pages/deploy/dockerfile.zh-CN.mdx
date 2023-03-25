@@ -46,7 +46,7 @@ FROM node:18-alpine AS builder
 WORKDIR /app
 COPY package.json ./
 
-## 這裡的 `BUILDTIME_ENV_EXAMPLE` 會自動在建置前被設置
+## 这里的 BUILDTIME_ENV_EXAMPLE 会自动在建置前被设置
 ARG BUILDTIME_ENV_EXAMPLE
 ENV BUILDTIME_ENV_EXAMPLE=${BUILDTIME_ENV_EXAMPLE}
 
