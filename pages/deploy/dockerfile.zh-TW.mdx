@@ -32,11 +32,11 @@ Zeabur 會自動偵測你的專案是否有 `Dockerfile`，如果有的話會以
 
 ![環境變數設置](/environment/add-variables.zh-TW.png)
 
-如果你的 Dockerfile 撰寫方式為一個階層 (stage)，或是你的環境變數只需在最後一個階層中使用，很好的你無需手動寫 `ENV`，Zeabur 會自動幫你加上。
+如果你的 Dockerfile 撰寫方式為一個階段 (stage)，或是你的環境變數只需在最後一個階段中使用，很好的你無需手動寫 `ENV`，Zeabur 會自動幫你加上。
 
 ### ARG
 
-但如果你的 `Dockerfile` 撰寫方式為多個階層 ([multi-stage](https://docs.docker.com/build/building/multi-stage/))，並且需要在建置前就設置環境變數，你可以使用 `ARG` 來設置。
+但如果你的 `Dockerfile` 撰寫方式為多個階段 ([multi-stage](https://docs.docker.com/build/building/multi-stage/))，並且需要在建置前就設置環境變數，你可以使用 `ARG` 來設置。
 
 以下我們以 nodejs 及 nginx 為例，撰寫一個 `Dockerfile` 來部署。
 
