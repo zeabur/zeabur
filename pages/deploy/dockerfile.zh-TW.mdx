@@ -32,7 +32,7 @@ Zeabur 會自動偵測你的專案是否有 `Dockerfile`，如果有的話會以
 
 ![環境變數設置](/environment/add-variables.png)
 
-如果你的 Dockerfile 撰寫方式為一個階段 (stage)，或是你的環境變數只需在最後一個階段中使用，很好的你無需手動寫 `ENV`，Zeabur 會自動幫你加上。
+如果你的 `Dockerfile` 撰寫方式為一個階段 (stage)，或是你的環境變數只需在最後一個階段中使用，很好的你無需手動寫 `ENV`，Zeabur 會自動幫你加上。
 
 ### ARG
 
@@ -69,4 +69,4 @@ CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/ngin
 
 ## Docker Compose
 
-Zeabur 目前僅支援 Dockerfile 的部署方式，目前不提供 Docker Compose 的方式。
+Zeabur 目前僅支援 `Dockerfile` 的部署方式，目前不提供 Docker Compose 的方式。
