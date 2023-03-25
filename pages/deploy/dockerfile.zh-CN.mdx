@@ -1,0 +1,72 @@
+---
+title: Dockerfile 部署
+ogImageTitle: Dockerfile 部署
+ogImageSubtitle: 通过 Dockerfile 部署到 Zeabur 上
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Dockerfile 部署
+
+正常情况下你无需自行撰写 `Dockerfile`，Zeabur 目前已针对各种主流框架提供了快速部署的方式，但如果你的项目不是使用这些框架，或是你想要自行定义部署的方式，你可以使用 `Dockerfile` 来部署。
+
+<Callout type="warning">
+  Zeabur 目前仅支持 `Dockerfile` 的部署方式，目前不提供 Docker Compose 的方式。
+</Callout>
+
+## 建立 Dockerfile
+
+在你的项目根目录建立一个名为 `Dockerfile` 或 `dockerfile` 的文件，并且在里面撰写你的部署方式，最后须确保你有暴露对应的 `PORT`。
+
+Zeabur 会自动检测你的项目是否有 `Dockerfile`，如果有的话会以 docker 的方式来部署你的项目。
+
+<Callout type="info">
+  开始部署后即可在上方看到 docker 的图标，代表你的项目已经以 docker 的方式来部署。
+</Callout>
+
+![docker-deploy](/deploy/dockerfile/docker-deploy.png)
+
+## 环境变量
+
+如果你的 `Dockerfile` 需要使用到环境变量，你可以在该服务的页面点选 **环境变量** 来新增，更多的设定方式请参考 [环境变量](/zh-CN/environment/variables)。
+
+![环境变量设置](/environment/add-variables.png)
+
+如果你的 `Dockerfile` 撰写方式为一个阶段 (stage)，或是你的环境变量只需在最后一个阶段中使用，那么你就你无需手动写 `ENV`，Zeabur 会自动帮你加上。
+
+### ARG
+
+但如果你的 `Dockerfile` 撰写方式为多个阶段 ([multi-stage](https://docs.docker.com/build/building/multi-stage/))，并且需要在建置前就设置环境变量，你可以使用 `ARG` 来设置。
+
+以下我们以 nodejs 及 nginx 为例，撰写一个 `Dockerfile` 来部署。
+
+```docker {7-8} copy
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+COPY . .
+
+## 这里的 BUILDTIME_ENV_EXAMPLE 会自动在建置前被设置
+ARG BUILDTIME_ENV_EXAMPLE
+ENV BUILDTIME_ENV_EXAMPLE=${BUILDTIME_ENV_EXAMPLE}
+
+RUN npm install && \
+    npm run build
+
+FROM nginx:alpine
+
+COPY nginx.conf /etc/nginx/conf.d/configfile.template
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+ENV \
+    PORT=8080 \
+    HOST=0.0.0.0
+
+EXPOSE 8080
+
+CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+```
+
+## Docker Compose
+
+Zeabur 目前仅支持 `Dockerfile` 的部署方式，目前不提供 Docker Compose 的方式。
