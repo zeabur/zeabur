@@ -44,7 +44,7 @@ Here, we take nodejs and nginx as an example to write a `Dockerfile` for deploym
 FROM node:18-alpine AS builder
 
 WORKDIR /app
-COPY package.json ./
+COPY . .
 
 ## The `BUILDTIME_ENV_EXAMPLE` here will be set before building automatically
 ARG BUILDTIME_ENV_EXAMPLE

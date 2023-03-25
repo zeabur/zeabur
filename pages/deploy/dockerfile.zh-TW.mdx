@@ -44,7 +44,7 @@ Zeabur 會自動偵測你的專案是否有 `Dockerfile`，如果有的話會以
 FROM node:18-alpine AS builder
 
 WORKDIR /app
-COPY package.json ./
+COPY . .
 
 ## 這裡的 `BUILDTIME_ENV_EXAMPLE` 會自動在建置前被設置
 ARG BUILDTIME_ENV_EXAMPLE
