@@ -1,0 +1,13 @@
+---
+title: Go
+ogImageTitle: 部署 Go 專案
+ogImageSubtitle: 在 Zeabur 部署 Go 專案
+---
+
+# 部署 Go 專案
+
+所有基於 [Go Modules](https://blog.golang.org/using-go-modules) 的專案都可以部署。 但您需要在專案根目錄有一個 `main.go` 作為程式編譯入口。
+
+如果您有多個程式編譯入口，您需要將他們放在 `cmd` 目錄下，例如一個 `cmd/server-a/main.go` 和一個 `cmd/server-b/main.go`。
+
+Zeabur 會自動識別並部署 `cmd` 目錄下與 Service 名稱相同的程式編譯入口。
