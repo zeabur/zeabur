@@ -1,6 +1,31 @@
-# Zeabur Docs
+<p align="center">
+  <a href="https://zeabur.com">
+    <img src="https://i.imgur.com/ndbYjLt.png" height="96">
+    <h3 align="center">Zeabur</h3>
+  </a>
+</p>
 
-Documentation of [Zeabur](https://zeabur.com/).
+<p align="center">
+  Deploy your services with one click.
+</p>
+
+<p align="center">
+  <a href="https://zeabur.com"><strong>Home</strong></a>
+  <a href="https://docs.zeabur.com"><strong>Documentation</strong></a>
+  <a href="https://discord.gg/DrdGCvXEyY"><strong>Discord</strong></a>
+  <a href="https://github.com/orgs/zeabur/discussions"><strong>Discussion</strong></a>
+</p>
+<br/>
+
+## Zeabur
+
+Zeabur is a platform that help developers deploy their services with one click. 
+
+No matter what programming language or framework is used.
+
+## Documentation
+
+For details on how to use Zeabur, check out our [documentation](https://docs.zeabur.com).
 
 ## Countributing
 
