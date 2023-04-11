@@ -4,6 +4,8 @@ ogImageTitle: 域名绑定
 ogImageSubtitle: 为你的服务选择一个域名
 ---
 
+import { Callout } from 'nextra-theme-docs'
+
 # 域名绑定
 
 在你的服务成功部署以后，你需要为他们绑定一个域名便于使用服务。
@@ -45,6 +47,10 @@ Zeabur 提供了简易的生成域名的服务，生成的带有 `.zeabur.app` �
 填入对应的名称和目标内容。此处，`Name` 对应的是名称一栏，`Value` 则对应目标一栏。
 
 此处的类型一栏选择 `CNAME` 。
+
+<Callout>
+  请勿将 Cloudflare 的代理打开。如果你的代理状态是已代理，请点击橘色的云朵将它关闭。
+</Callout>
 
 ![domain-dns](/deploy/domain/domain-dns.zh-CN.png)
 

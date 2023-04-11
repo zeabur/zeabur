@@ -4,6 +4,8 @@ ogImageTitle: Domain Binding
 ogImageSubtitle: Choose a domain for your service
 ---
 
+import { Callout } from 'nextra-theme-docs'
+
 # Domain Binding
 
 After your services are successfully deployed, you may need to get a domain to use this service.
@@ -45,6 +47,10 @@ On this page, in the Manage DNS section, click the Add Record button.
 Fill in the corresponding name and target content. Here, Name corresponds to the Name field and Value corresponds to the Destination field.
 
 And the CNAME type should be selected for the type here.
+
+<Callout>
+  Do NOT enable Cloudflare's Proxy. If your Proxy Status is Proxied, click the orange cloud icon to turn it off.
+</Callout>
 
 ![domain-dns](/deploy/domain/domain-dns.en-US.png)
 
