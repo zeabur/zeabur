@@ -7,3 +7,4 @@ examples
 packages
 DS_Store
 .idea
+.npmrc
