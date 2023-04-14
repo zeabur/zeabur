@@ -9,7 +9,31 @@ ogImageSubtitle: 将你的 Spring Boot 项目部署到 Zeabur
 
 ## 第一步：环境配置
 
-你可以先在本地测试构建，确保你的项目可以正常运行，可使用 JDK 版本为：19、17、8、7。
+你可以在本地测试构建，确保你的项目可以正常运行，可使用 JDK 版本为：
+
+- 19
+- 17（默认)
+- 11
+- 8
+- 7
+
+### 指定 JDK 版本
+
+你可以在 `pom.xml` 或 `build.gradle` 中指定 JDK 版本。
+
+例如，如果你使用 Maven，请在 `pom.xml` 加入以下设置：
+
+```xml
+<properties>
+    <java.version>11</java.version>
+</properties>
+```
+
+如果你使用 Gradle，请在 `build.gradle` 加入以下设置：
+
+```groovy
+sourceCompatibility = 11
+```
 
 ## 第二步: 建立项目(可选)
 
