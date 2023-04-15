@@ -9,7 +9,33 @@ This article will teach you how to deploy your [Spring Boot](https://spring.io/p
 
 ## Step 1: Environment Configuration
 
-You can test and build locally first to make sure your project can run normally. You can use JDK version: 19, 17, 8, 7.
+You can test and build locally first to make sure your project can run normally.
+
+The JDK version available on Zeabur is as follows:
+
+- 19
+- 17 (default)
+- 11
+- 8
+- 7
+
+### Specify JDK Version
+
+You can specify the JDK version in `pom.xml` or `build.gradle`.
+
+For example, if you use Maven, add the following settings in `pom.xml`:
+
+```xml
+<properties>
+    <java.version>11</java.version>
+</properties>
+```
+
+If you use Gradle, add the following settings in `build.gradle`:
+
+```groovy
+sourceCompatibility = 11
+```
 
 ## Step 2: Create a Project (Optional)
 
