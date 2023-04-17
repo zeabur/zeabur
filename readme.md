@@ -1,12 +1,7 @@
 <p align="center">
   <a href="https://zeabur.com">
-    <img src="https://i.imgur.com/ndbYjLt.png" height="96">
-    <h3 align="center">Zeabur</h3>
+    <img src="https://i.imgur.com/JSl9xHx.png" width="100%">
   </a>
-</p>
-
-<p align="center">
-  Deploy your services with one click.
 </p>
 
 <p align="center">
