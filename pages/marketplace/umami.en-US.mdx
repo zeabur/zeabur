@@ -1,0 +1,75 @@
+---
+title: Deploy Umami
+ogImageTitle: Deploy Umami
+ogImageSubtitle: Deploy Umami on Zeabur
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Deploy Umami
+
+[Umami](https://umami.is/) is a simple, fast, website analytics tool for those who care about privacy. It's the open-source alternative to Google Analytics.
+
+This article will show you how to deploy Umami on Zeabur with a custom domain.
+
+## Step 1: Create a project
+
+First, we need to create a project. Go to the [Projects](https://dash.zeabur.com/projects) page, and you will see a list of your projects. Click the "Create Project" button at the end of the list.
+
+## Step 2: Deploy PostgreSQL
+
+Umami supports both MySQL and PostgreSQL. You can choose either one to store your data.
+
+In this article, we will use PostgreSQL as an example. Click the "Create Service" button and select "Marketplace". You will find PostgreSQL in the list.
+
+![Domain block of Umami service](/marketplace/umami/deploy-postgresql.png)
+
+After selecting PostgreSQL, you can give the service a custom name and click "Deploy".
+
+## Step 3: Create a database
+
+To run Umami, we need to create a database named `umami` in PostgreSQL.
+
+Please connect to your PostgreSQL service with any PostgreSQL client. In this article, we will use [psql](https://www.postgresql.org/docs/9.1/app-psql.html) to connect.
+
+![PostgreSQL connection information block](/marketplace/umami/postgre-connect.png)
+
+You can find the psql connection command or other connection information in the "Connection" block of the PostgreSQL service in the Zeabur console.
+
+```bash
+psql postgresql://root:password@infra.zeabur.com:12345
+```
+
+Then, please enter the following command in psql to create the `umami` database:
+
+```sql
+CREATE DATABASE umami;
+```
+
+## Step 4: Deploy Umami
+
+In the Zeabur console, click the "Create Service" button and select "Marketplace". You will find Umami in the list.
+
+![Domain block of Umami service](/marketplace/umami/deploy-umami.png)
+
+After selecting Umami, you can give the service a custom name and click "Deploy".
+
+<Callout>
+  If you deploy Umami before deploying PostgreSQL, you need to restart Umami after deploying PostgreSQL to make Umami use the correct database connection information.
+</Callout>
+
+## Step 5: Bind a domain
+
+In the "Domain" block of the Umami service in the Zeabur console, you can bind a domain to it. This domain can be your own domain or a free domain provided by Zeabur.
+
+![Domain block of Umami service](/marketplace/umami/umami-domain.png)
+
+For more information about how to bind a domain to your service, please refer to [Bind a domain](../deploy/domain-binding).
+
+## Step 6: Log in and configure Umami
+
+After binding the domain, you can click the domain to enter the Umami login page, and use the default account `admin` and password `umami` to log in.
+
+![Umami login page](/marketplace/umami/umami-screenshot.png)
+
+For more information about Umami, please refer to the [Umami official documentation](https://umami.is/docs).
