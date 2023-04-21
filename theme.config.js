@@ -43,7 +43,7 @@ export default {
   head: () => {
     const { asPath } = useRouter();
     const { frontMatter } = useConfig();
-    const ogEndpoint = 'https://opengraph.zeabur.app/api/og'
+    const ogEndpoint = 'https://og.zeabur.com/api/og'
     const ogQueryString = `title=${frontMatter.ogImageTitle}&desc=${frontMatter.ogImageSubtitle}`
     const encoded = base64Encode(ogQueryString)
     const ogUrl = `${ogEndpoint}/${encodeURIComponent(encoded)}.png`
