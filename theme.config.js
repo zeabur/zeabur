@@ -1,6 +1,12 @@
 import { useConfig } from 'nextra-theme-docs'
 import { useRouter } from 'next/router'
 
+// base64 encoding that supports unicode strings
+function base64Encode(str) {
+  const buffer = Buffer.from(str, 'utf-8')
+  return buffer.toString('base64')
+}
+
 export default {
   project: {
     link: 'https://github.com/zeabur',
@@ -12,7 +18,7 @@ export default {
   docsRepositoryBase: 'https://github.com/zeabur/docs/tree/main',
   useNextSeoProps() {
     return {
-      titleTemplate: '%s – Zeabur'
+      titleTemplate: '%s – Zeabur',
     }
   },
   i18n: [
@@ -20,26 +26,33 @@ export default {
     { locale: 'zh-TW', text: '繁體中文' },
     { locale: 'zh-CN', text: '简体中文' },
   ],
-  logo: <>
-    <img
-      src="/logo_b.svg"
-      style={{ height: 20, objectFit: 'contain' }}
-      alt="zeabur"
-      className="black-logo"
-    />
-    <img
-      src="/logo_w.svg"
-      style={{ height: 20, objectFit: 'contain' }}
-      alt="zeabur"
-      className="white-logo"
-    />
-  </>,
-  head:()=> {
-    const { asPath } = useRouter();
-    const { frontMatter } = useConfig();
-    const ogEndpoint = 'https://opengraph-dev.zeabur.app/api/og';
-    const ogUrl = `${ogEndpoint}?title=${frontMatter.ogImageTitle}&desc=${frontMatter.ogImageSubtitle}`
-    return <>
+  logo: (
+    <>
+      <img
+        src="/logo_b.svg"
+        style={{ height: 20, objectFit: 'contain' }}
+        alt="zeabur"
+        className="black-logo"
+      />
+      <img
+        src="/logo_w.svg"
+        style={{ height: 20, objectFit: 'contain' }}
+        alt="zeabur"
+        className="white-logo"
+      />
+    </>
+  ),
+  head: () => {
+    const { asPath } = useRouter()
+    const { frontMatter } = useConfig()
+    const ogEndpoint = 'https://opengraph.zeabur.app/api/og'
+    const ogQueryString = `title=${frontMatter.ogImageTitle}&desc=${frontMatter.ogImageSubtitle}`
+
+    const encoded = base64Encode(ogQueryString)
+    const ogUrl = `${ogEndpoint}/${encodeURIComponent(encoded)}.png`
+
+    return (
+      <>
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="theme-color" content="#ffffff" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -51,8 +64,14 @@ export default {
         <meta name="twitter:url" content={`https://docs.zeabur.com${asPath}`} />
         <meta name="twitter:image" content={ogUrl} />
 
-        <meta name="og:title" content="Zeabur: Deploy your service with one click." />
-        <meta name="og:description" content="Zeabur: Deploy your service with one click." />
+        <meta
+          name="og:title"
+          content="Zeabur: Deploy your service with one click."
+        />
+        <meta
+          name="og:description"
+          content="Zeabur: Deploy your service with one click."
+        />
         <meta name="og:url" content={`https://docs.zeabur.com${asPath}`} />
         <meta name="og:image" content={ogUrl} />
 
@@ -80,11 +99,18 @@ export default {
           sizes="16x16"
           href="/favicon-16x16.png"
         />
-      </>;
+      </>
+    )
   },
   footer: {
-    text: <span>
-      {new Date().getFullYear()} © <a href="https://zeabur.com" target="_blank">Zeabur</a>.
-    </span>,
-  }
+    text: (
+      <span>
+        {new Date().getFullYear()} ©{' '}
+        <a href="https://zeabur.com" target="_blank">
+          Zeabur
+        </a>
+        .
+      </span>
+    ),
+  },
 }
