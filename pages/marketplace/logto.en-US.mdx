@@ -1,0 +1,81 @@
+---
+title: Deploy Logto
+ogImageTitle: Deploy Logto
+ogImageSubtitle: Deploy Logto on Zeabur
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Deploy Logto Service
+
+[Logto](https://logto.io/) is an open source identity verification service that helps you quickly implement identity verification in your applications, and is also the most famous open source alternative to [Auth0](https://auth0.com/).
+
+This article will teach you how to deploy your own Logto service on Zeabur through the service market, and bind your own domain name so that your other websites can use your deployed Logto service to verify identity.
+
+## Step 1: Create a Project
+
+First, we need to create a project on Zeabur. Go to the [Projects](https://dash.zeabur.com/projects) page, you will see all your projects, and the "Create Project" button is at the end of all projects.
+
+## Step 2: Deploy PostgreSQL Service
+
+Logto will store user identity data in a PostgreSQL database. Click "Create Service" and select "Service Market", you will find PostgreSQL in the list.
+
+![部署 PostgreSQL 資料庫](/marketplace/umami/deploy-postgresql.png)
+
+After selecting PostgreSQL, you can enter a custom name for the service and click Deploy.
+
+## Step 3: Create a Database
+
+In order for the Logto service to run properly, we need to create a database named `logto` in the PostgreSQL database first.
+
+Please connect to your PostgreSQL service with any PostgreSQL client first. In this article, we use [psql](https://www.postgresql.org/docs/9.1/app-psql.html) to connect.
+
+![PostgreSQL 連線資訊區塊](/marketplace/umami/postgre-connect.png)
+
+You can find the corresponding psql connection command or other connection information in the "Connection" block of the PostgreSQL service in the Zeabur console.
+
+```bash
+psql postgresql://root:password@infra.zeabur.com:12345
+```
+
+Next, please enter the following command in psql to create the `logto` database:
+
+```sql
+CREATE DATABASE logto;
+```
+
+## Step 4: Deploy Logto Service
+
+In the Zeabur console, click "Create Service" and select "Service Market", you will find Logto in the list.
+
+![Logto 服務的域名區塊](/marketplace/logto/deploy-logto.png)
+
+After selecting Logto, you can enter a custom name for the service and click Deploy.
+
+<Callout>
+  If you deploy Logto first without deploying PostgreSQL, then you need to restart the Logto service after deploying the PostgreSQL service to let Logto get the correct database connection information.
+</Callout>
+
+## Step 5: Bind Domain Name
+
+In the Zeabur console, in the "Domain" block of the Logto service, you can bind a domain name to it. This domain name can be your own domain name or a free domain name provided by Zeabur.
+
+![Umami 服務的域名區塊](/marketplace/logto/logto-domain.png)
+
+For more information on how to bind a domain name to your service, please refer to [Bind Domain Name](../deploy/domain-binding).
+
+After binding the domain name, we need to let the Logto service know about the domain name we bound. Please add an environment variable named `ENDPOINT` in the "Environment Variables" block of the Logto service in the Zeabur console, and set its value to the domain name you bound, for example `https://logto-test.zeabur.app`.
+
+![Logto 服務的環境變數區塊](/marketplace/logto/envvar.png)
+
+After adding the variable, the service will automatically restart. Please wait for the service to restart.
+
+## Step 6: Log in and Configure Logto
+
+In the Zeabur console, in the "Connection" block of the Logto service, there is a button that can open the Logto admin interface. Please click the button.
+
+![Logto 服務的連線區塊](/marketplace/logto/logto-admin-button.png)
+
+After opening, you will enter the initialization page of the Logto service. Please follow the guide to complete the initialization process of the service, set the administrator account and password.
+
+![Logto 服務的初始化頁面](/marketplace/logto/logto-admin.png)
