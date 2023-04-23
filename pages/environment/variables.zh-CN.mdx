@@ -8,6 +8,8 @@ ogImageSubtitle: 在 Zeabur 中添加变量
 
 Zeabur 中可以添加变量，并自动注入到该服务中。
 
+## 添加，编辑，修改
+
 点选该服务并到 **变量** 页面，里面的 **添加变量** 即可新增变量。
 
 ![添加变量](/environment/add-variables.zh-CN.png)
@@ -35,3 +37,26 @@ Zeabur 预设会自动注入以下变量：
 点击编辑 icon, 可以编辑变量的值。
 
 ![编辑变量](/environment/var-edit.png)
+
+## 批量编辑
+
+如果你想要一次性添加多个变量，可以使用批量编辑的功能。
+
+点击上方的 **编辑原始环境变量** 按钮，即可进入批量编辑模式，将以编辑 `.env` 文件的方式来批量设置服务的环境变量。
+
+![批量编辑](/environment/var-raw-edit.png)
+
+## 变量引用
+
+在 Zeabur 中，可以通过变量引用的方式来引用其他变量。
+
+你只需要在变量设置的时候，用模板语法的方式来引用：
+
+```bash
+# 例如，你可以这样设置变量
+AUTH_INFOR=${USERNAME}:${PASSWORD}
+```
+
+![变量引用](/environment/var-reference.png)
+
+这样，`USERNAME` 与 `PASSWORD` 的值就会自动组合注入到 `AUTH_INFOR` 中。

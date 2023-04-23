@@ -9,6 +9,8 @@ ogImageSubtitle: Setting Environment Variables in Zeabur
 Environment variables are used to configure your application.
 Zeabur provides a way to set environment variables for your service.
 
+## Add, Edit, Delete
+
 You can set environment variables in the **Variables** tab of your service, and you can **Add Variables** to your service.
 
 ![environment variables](/environment/add-variables.en-US.png)
@@ -36,3 +38,26 @@ Click the checkbox in the upper right corner to toggle the list view.
 Click the edit icon to edit the value of the variable.
 
 ![edit variable](/environment/var-edit.png)
+
+## Edit as Raw
+
+If you want to add multiple variables at once, you can use the batch editing function.
+
+Click the **Edit as Raw** button to enter the batch editing mode, which will set the service environment variables in `.env` file.
+
+![edit-raw](/environment/var-raw-edit.png)
+
+## Variable Reference
+
+You can reference other variables in Zeabur.
+
+All you need to do is to reference other variables in the template syntax when setting the variable:
+
+```bash
+# For example, you can set the variable like this:
+AUTH_INFOR=${USERNAME}:${PASSWORD}
+```
+
+![reference](/environment/var-reference.png)
+
+By doing this, the value of `USERNAME` and `PASSWORD` will be automatically combined and injected into `AUTH_INFOR`.
