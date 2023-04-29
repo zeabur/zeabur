@@ -1,0 +1,65 @@
+---
+title: Rust
+ogImageTitle: 部署 Rust 應用程式
+ogImageSubtitle: 在 Zeabur 部署 Rust 應用程式
+---
+
+# 部署 Rust 應用程式
+
+Zeabur 原則上支援所有類型的 Rust 應用程式——預設情況會自動尋找執行檔；假如專案有多個執行檔，亦可在「Service 名稱」一欄自行指定要執行的檔案名稱。
+
+倘若您手邊沒有專案，可以 fork [zeabur/axum-template](https://github.com/zeabur/axum-template) 儲存庫到您的 GitHub 帳號，然後在 Zeabur 上試著部署。
+
+## 支援的專案類型
+
+- 單執行檔專案：即執行檔只有 `src/main.rs` 一個入口的 Rust 專案。Zeabur 會自動尋找編譯產物 (`target/release`) 中的唯一一個可執行檔。您也可以在「Service 名稱」一欄填寫「你想執行的最終產物的名稱，」保證執行的檔案符合您的預期。
+- 多執行檔專案：假如除了 `src/main.rs`，專案在 `src/bin` 也有其他執行檔，請在「Service 名稱」一欄填寫「你想執行的最終產物的名稱。」
+- Cargo Workspace monorepo：假如你的專案是由多個 crate 組成，請在「Service 名稱」一欄填寫「你想執行的最終產物的名稱。」
+
+若你填寫的執行檔不存在，則會改用自動尋找的形式。「自動尋找」會尋找 `target/release` 的所有檔案，並執行找到的第一個檔案。因為這種模式在多專案情況下很容易猜錯，因此在複雜的專案場景下（如第二和第三點提到的多執行檔專案），建議您根據〈尋找最終產物名稱〉的方式填寫正確的「Service 名稱」。
+
+## 尋找最終產物名稱
+
+最終產物可以在您專案的 `target/release` 中找到。具體尋找的方式：
+
+1. 您需要 Rust toolchain 才能編譯專案，參見 <https://www.rust-lang.org> 下載。
+2. clone 您要部署的專案，並且進到專案目錄。
+3. 執行 `cargo build --release` 編譯專案。
+
+    ```bash
+    $ cargo run --release
+    Compiling zeabur v0.1.0 (/project)
+      Finished release [optimized] target(s) in 0.65s
+      Running `target/release/zeabur`
+    ```
+
+4. 找到 Running `target/release/zeabur` 那一行，我們擷取最後的執行檔名稱 (zeabur) 即可
+5. 在 Service 名稱填入 `zeabur`。
+
+## 拷貝其他檔案
+
+假如你除了執行檔之外，還依賴程式碼庫的其他檔案。舉例來說：
+
+```plain
+*
+|`-- public  <-- 你的程式依賴這個資料夾
+|`-- src
+|  `-- main.rs
+|`-- Cargo.toml
+|`-- Cargo.lock
+`--- config.toml   <-- 你的程式依賴這個檔案
+```
+
+您可以在程式碼庫填寫 `.zeabur-preserve` 檔案。裡面填入你想保留的資料夾或檔案，資料夾可以選擇用 `/` 結尾。範例如下：
+
+```plain
+public/
+config.toml
+```
+
+## 技術細節與注意事項
+
+- 預設採用 Multi-stage build，runtime 使用 `docker.io/library/debian:bookworm-slim` 作為 base image。某些動態鏈結的函式庫，可能在遷移到本 image 時，因為缺少依賴而無法正常運作。如有遇到此類情況，請回報給我們以便增加這個函式庫的支援。
+  - 目前會特別安裝的函式庫有 `openssl`。
+- 執行階段不提供 Root 權限，若有相關需要請自行撰寫 Dockerfile。
+- 為了加快編譯速度，我們使用 `lld` 進行編譯。若您的專案不支援 `lld`，建議您自己在專案中指定 `config.toml` 呼叫標準的 `ld`；若您想使用如 `mold` 等不內建的 linker，則需要自行撰寫 Dockerfile。
