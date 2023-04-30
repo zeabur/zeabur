@@ -9,4 +9,18 @@ module.exports = withNextra({
     locales: ['en-US', 'zh-TW', 'zh-CN'],
     defaultLocale: 'en-US'
   },
+  async redirects() {
+    return [
+      {
+        source: '/guides/go/go',
+        destination: '/guides/go',
+        permanent: true,
+      },
+      {
+        source: '/guides/rust/rust',
+        destination: '/guides/rust',
+        permanent: true,
+      },
+    ]
+  },
 })
