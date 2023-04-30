@@ -4,5 +4,6 @@
   "php": "PHP",
   "python": "Python",
   "go": "Go",
-  "deno": "Deno"
+  "deno": "Deno",
+  "rust": "Rust"
 }
