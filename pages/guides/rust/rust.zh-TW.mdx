@@ -63,3 +63,4 @@ config.toml
   - 目前會特別安裝的相依套件有 `openssl`。
 - 執行階段不提供 Root 權限，若有相關需要請自行撰寫 Dockerfile。
 - 為了加快編譯速度，我們使用 `lld` 進行編譯。若你的專案不支援 `lld`，建議你自己在專案中指定 `config.toml` 呼叫標準的 `ld`；若你想使用如 `mold` 等不內建的 linker，則需要自行撰寫 Dockerfile。
+- 我們使用 `cargo-chef` 以使快取的 build layer 最大化。如果有遇到不相容的問題，可以回報給 Zeabur 或上游 [`LukeMathWalker/cargo-chef`](https://github.com/LukeMathWalker/cargo-chef)。
