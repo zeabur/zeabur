@@ -2,7 +2,7 @@
   "code": "memos",
   "name": "Memos",
   "description": "An open-source, self-hosted memo hub with knowledge management and social networking.",
-  "icon": "https://usememos.com/logo.png",
+  "icon": "https://avatars.githubusercontent.com/u/95764151",
   "image": "neosmemo/memos:latest",
   "command": null,
   "args": null,
