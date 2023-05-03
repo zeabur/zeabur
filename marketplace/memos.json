@@ -1,0 +1,13 @@
+{
+  "code": "memos",
+  "name": "Memos",
+  "description": "An open-source, self-hosted memo hub with knowledge management and social networking.",
+  "icon": "https://usememos.com/logo.png",
+  "image": "neosmemo/memos:latest",
+  "command": null,
+  "args": null,
+  "port": 5230,
+  "dataPath": "/var/opt/memos",
+  "variables": [],
+  "network": "HTTP"
+}

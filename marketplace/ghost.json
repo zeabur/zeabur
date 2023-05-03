@@ -1,0 +1,41 @@
+{
+  "code": "ghost",
+  "name": "ghost",
+  "description": "Ghost is a powerful app for new-media creators to publish, share, and grow a business around their content.",
+  "icon": "https://cdn.zeabur.com/marketplace/ghost.png",
+  "image": "ghost:4-alpine",
+  "command": null,
+  "args": null,
+  "port": 2368,
+  "network": "HTTP",
+  "variables": [
+    {
+      "name": "database__client",
+      "value": "mysql"
+    },
+    {
+      "name": "database__connection__host",
+      "value": "${MYSQL_HOST}"
+    },
+    {
+      "name": "database__connection__port",
+      "value": "${MYSQL_PORT}"
+    },
+    {
+      "name": "database__connection__user",
+      "value": "${MYSQL_USERNAME}"
+    },
+    {
+      "name": "database__connection__password",
+      "value": "${MYSQL_PASSWORD}"
+    },
+    {
+      "name": "database__connection__database",
+      "value": "ghost"
+    },
+    {
+      "name": "url",
+      "value": "https://ghost.zeabur.app"
+    }
+  ]
+}

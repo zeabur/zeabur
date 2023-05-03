@@ -1,0 +1,13 @@
+{
+  "code": "uptime-kuma",
+  "name": "Uptime Kuma",
+  "description": "A fancy self-hosted monitoring tool.",
+  "icon": "https://github.com/louislam/uptime-kuma/raw/master/public/icon.svg",
+  "image": "louislam/uptime-kuma:1",
+  "command": null,
+  "args": null,
+  "port": 3001,
+  "dataPath": "/app/data",
+  "variables": [],
+  "network": "HTTP"
+}
