@@ -17,16 +17,16 @@ ogImageSubtitle: 將你的 Django 專案部署到 Zeabur
 python --version
 ```
 
-打開終端並運行以下命令以安裝 。
+打開終端並執行以下指令以安裝 。
 
 ```bash
 pip install django
 ```
 
-## 2. 創建 Django 專案
+## 2. 建立 Django 專案
 
-使用 `django-admin` 命令創建一個新的 Django 項目，將 `project_name` 替換為你的專案名稱。
-也可使用 [Django-template](https://github.com/zeabur/django-template) 使用 Django 示例後，可跳過第二步驟。
+使用 `django-admin` 指令建立一個新的 Django 專案，將 `project_name` 取代為你的專案名稱。
+也可使用 [Django-template](https://github.com/zeabur/django-template) 使用 Django 範例後，可跳過第二步驟。
 
 ```bash
 django-admin startproject project_name
@@ -34,7 +34,7 @@ django-admin startproject project_name
 
 ## 3. 啟動 Django 專案
 
-進入 Django 專案並運行啟動，查看本地啟動是否成功。
+進入 Django 專案並執行啟動，查看本機啟動是否成功。
 
 ```bash
 cd project_name
@@ -43,7 +43,7 @@ python manage.py runserver
 
 ## 4. 部署 Django 專案
 
-為其初始化一個 Git 儲存庫並部署到你的 Github 上，在你的專案中，點擊 **Deploy service** 或者 **Add new service** 按鈕，並選擇 **Deploy your source code**。
+為其初始化一個 Git 儲存庫並部署到你的 Github 上，在你的專案中，點選 **Deploy service** 或者 **Add new service** 按鈕，並選擇 **Deploy your source code**。
 
 ![deploy](/framework/deploy.png)
 
@@ -53,11 +53,13 @@ python manage.py runserver
 
 請注意若發生錯誤時請確認專案內是否有配置：
 
-- 檢查是否有`requirements.txt`，此檔案的主要用途是列出項目所需的所有 Python 套件及其版本，
-  它用於確保項目在不同開發環境和生產環境中具有相同的依賴項和版本，若未配置請至專案內使用以下命令，並重新推送到 Github 上。
+- 檢查是否有`requirements.txt`，此檔案的主要用途是列出專案所需的所有 Python 套件及其版本，
+  它用於確保專案在不同開發環境和生產環境中具有相同的依賴項和版本，若未配置請至專案內使用以下指令，並重新推送到 Github 上。
 
 ```bash
 pip freeze > requirements.txt
 ```
 
-- 檢查 `settings.py` 裡的 `ALLOWED_HOSTS` 是否有設定 ，此屬性是一個 Python List，其中包含可以訪問到 Django 應用程式的域名 ，可使用 `ALLOWED_HOSTS = ['*']`，代表允許所有域名進行訪問，以便於測試。
+- 檢查 `settings.py` 裡的 `ALLOWED_HOSTS` 是否有設定 ，此屬性是一個 Python List，其中包含可以造訪到 Django 應用程式的網域 ，可使用 `ALLOWED_HOSTS = ['*']`，代表允許所有網域進行造訪，以便於測試。
+
+{/* converted with zhconvert.org | revision dict-a1f426e3-r1031 */}

@@ -10,7 +10,7 @@ import { Callout } from 'nextra-theme-docs'
 
 [Umami](https://umami.is/) 是一個簡單的分析工具，可以幫助你了解你的網站訪客，同時也是最著名的 [Google Analytics](https://analytics.google.com/) 開源替代品。
 
-這篇文章將教你如何在 Zeabur 上透過服務市集輕鬆部署一個自己的 Umami 服務，並且綁定自己的域名，讓你的其他網站能夠用自己部署的 Umami 服務來分析訪客流量。
+這篇文章將教你如何在 Zeabur 上透過服務市集輕鬆部署一個自己的 Umami 服務，並且綁定自己的網域，讓你的其他網站能夠用自己部署的 Umami 服務來分析訪客流量。
 
 ## 步驟一：建立專案
 
@@ -18,19 +18,19 @@ import { Callout } from 'nextra-theme-docs'
 
 ## 步驟二：部署 PostgreSQL 服務
 
-Umami 服務支援 MySQL 和 PostgreSQL 兩種資料庫，你可以自由選擇喜歡的資料庫來儲存你的數據。
+Umami 服務支援 MySQL 和 PostgreSQL 兩種資料庫，你可以自由選擇喜歡的資料庫來儲存你的資料。
 
-在本文中，我們使用 PostgreSQL 為例來示範，請點擊「建立服務」並選擇「服務市集」，你將在列表中找到 PostgreSQL。
+在本文中，我們使用 PostgreSQL 為例來示範，請點選「建立服務」並選擇「服務市集」，你將在列表中找到 PostgreSQL。
 
-![Umami 服務的域名區塊](/marketplace/umami/deploy-postgresql.png)
+![Umami 服務的網域區塊](/marketplace/umami/deploy-postgresql.png)
 
-選擇 PostgreSQL 後，你可以幫該服務輸入一個自訂的名稱，然後點擊部署。
+選擇 PostgreSQL 後，你可以幫該服務輸入一個自訂的名稱，然後點選部署。
 
 ## 步驟三：建立資料庫
 
-為了讓 Umami 服務能夠正常運行，我們需要先在 PostgreSQL 資料庫中建立一個名為 `umami` 的資料庫。
+為了讓 Umami 服務能夠正常運作，我們需要先在 PostgreSQL 資料庫中建立一個名為 `umami` 的資料庫。
 
-請先使用任意 PostgreSQL 客戶端連線進入你的 PostgreSQL 服務。 在本文，我們使用 [psql](https://www.postgresql.org/docs/9.1/app-psql.html) 來連線。
+請先使用任意 PostgreSQL 用戶端連線進入你的 PostgreSQL 服務。在本文，我們使用 [psql](https://www.postgresql.org/docs/9.1/app-psql.html) 來連線。
 
 ![PostgreSQL 連線資訊區塊](/marketplace/umami/postgre-connect.png)
 
@@ -48,28 +48,30 @@ CREATE DATABASE umami;
 
 ## 步驟四：部署 Umami 服務
 
-在 Zeabur 控制台中，請點擊「建立服務」並選擇「服務市集」，你將在列表中找到 Umami。
+在 Zeabur 控制台中，請點選「建立服務」並選擇「服務市集」，你將在列表中找到 Umami。
 
-![Umami 服務的域名區塊](/marketplace/umami/deploy-umami.png)
+![Umami 服務的網域區塊](/marketplace/umami/deploy-umami.png)
 
-選擇 Umami 後，你可以幫該服務輸入一個自訂的名稱，然後點擊部署。
+選擇 Umami 後，你可以幫該服務輸入一個自訂的名稱，然後點選部署。
 
 <Callout>
   如果你先部署了 Umami 而還沒有部署 PostgreSQL，那麼你需要在部署 PostgreSQL 服務後重新啟動 Umami 服務，才能讓 Umami 取得正確的資料庫連線資訊。
 </Callout>
 
-## 步驟五：綁定域名
+## 步驟五：綁定網域
 
-在 Zeabur 控制台中，Umami 服務的「域名」區塊中，你可以為其綁定一個域名，這個域名可以是你自己的域名，也可以是 Zeabur 提供的免費域名。
+在 Zeabur 控制台中，Umami 服務的「網域」區塊中，你可以為其綁定一個網域，這個網域可以是你自己的網域，也可以是 Zeabur 提供的免費網域。
 
-![Umami 服務的域名區塊](/marketplace/umami/umami-domain.png)
+![Umami 服務的網域區塊](/marketplace/umami/umami-domain.png)
 
-關於如何為你的服務綁定域名，請參閱 [綁定域名](../deploy/domain-binding)。
+關於如何為你的服務綁定網域，請參閱 [綁定網域](../deploy/domain-binding)。
 
 ## 步驟六：登入並設定 Umami
 
-完成綁定後，你可以點擊域名進入 Umami 的登入頁面，並使用預設的帳號 `admin` 及密碼 `umami` 來登入。
+完成綁定後，你可以點選網域進入 Umami 的登入頁面，並使用預設的帳號 `admin` 及密碼 `umami` 來登入。
 
 ![Umami 登入頁面](/marketplace/umami/umami-screenshot.png)
 
 關於其他 Umami 的設定，請參閱 [Umami 官方文件](https://umami.is/docs)。
+
+{/* converted with zhconvert.org | revision dict-a1f426e3-r1031 */}

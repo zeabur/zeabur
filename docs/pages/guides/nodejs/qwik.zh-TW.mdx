@@ -9,7 +9,7 @@ ogImageSubtitle: 如何在 Zeabur 上部署 Qwik 專案
 
 ## 初始化專案
 
-首先，你需要在本地開發環境初始化一個 Qwik 專案，我們可以按照 [Qwik 官方文件](https://qwik.builder.io/docs/getting-started/) 的指示來完成這個步驟。
+首先，你需要在本機開發環境初始化一個 Qwik 專案，我們可以按照 [Qwik 官方文件](https://qwik.builder.io/docs/getting-started/) 的指示來完成這個步驟。
 
 ```bash
 npm create qwik@latest
@@ -41,7 +41,7 @@ npm create qwik@latest
    https://qwik.builder.io/media/
 ```
 
-並且你會看到一個 `qwik-app` 的資料夾被建立在你的當前目錄下。
+並且你會看到一個 `qwik-app` 的資料夾被建立在你的目前目錄下。
 
 ## 開發專案
 
@@ -65,7 +65,7 @@ npm start
 
 ## 安裝 Adaptor 套件
 
-為了讓你的 Qwik 專案可以在 Zeabur 上運行，在部署之前你需要先安裝 Qwik 的 Node.js (Express) adaptor 套件。
+為了讓你的 Qwik 專案可以在 Zeabur 上運作，在部署之前你需要先安裝 Qwik 的 Node.js (Express) adaptor 套件。
 
 ```bash
 npm run qwik add express
@@ -85,9 +85,9 @@ npm run qwik add express
    https://twitter.com/QwikDev
 ```
 
-## 在本地測試構建
+## 在本機測試建置
 
-安裝 adaptor 套件後，你可以先在本地測試構建，確保你的專案可以正常運行。
+安裝 adaptor 套件後，你可以先在本機測試建置，確保你的專案可以正常運作。
 
 ```bash
 npm run build
@@ -95,27 +95,29 @@ npm run build
 
 如果你的程式碼沒有任何問題，你應該可以在專案目錄下看到新增了 `dist` 和 `server` 兩個資料夾。
 
-接下來，試著輸入下面的指令來啟動本地伺服器：
+接下來，試著輸入下面的指令來啟動本機伺服器：
 
 ```bash
 node server/entry.express.js
 ```
 
-接下來試著在瀏覽器中輸入 `http://localhost:3000`，你應該可以看到網頁順利運行：
+接下來試著在瀏覽器中輸入 `http://localhost:3000`，你應該可以看到網頁順利運作：
 
 ![Qwik 預設頁面](/framework/qwik/localhost.png)
 
 
 ## 部署專案
 
-在確認本地測試構建沒有問題後，你可以在 GitHub 建立一個程式碼儲存庫，然後將現在的程式碼推送上去。
+在確認本機測試建置沒有問題後，你可以在 GitHub 建立一個程式碼儲存庫，然後將現在的程式碼推送上去。
 
-在最後，回到 Zeabur 的專案頁面，你的專案中，點擊 **Deploy service** 或者 **Add new service** 按鈕，並選擇 **Deploy your source code**.
+在最後，回到 Zeabur 的專案頁面，你的專案中，點選 **Deploy service** 或者 **Add new service** 按鈕，並選擇 **Deploy your source code**.
 
 ![deploy](/framework/deploy.png)
 
-搜尋你剛剛建立的程式碼儲存庫，然後點擊 `import`，你的 Qwik 應用程式就將自動開始部署。
+搜尋你剛剛建立的程式碼儲存庫，然後點選 `import`，你的 Qwik 應用程式就將自動開始部署。
 
 ![building](/framework/qwik/building.png)
 
-部署完成後，你可以參考 [綁定域名](../../deploy/domain-binding) 文件瞭解如何為你的 Qwik 專案綁定一個能夠讓外部訪問的公開域名。
+部署完成後，你可以參考 [綁定網域](../../deploy/domain-binding) 文件瞭解如何為你的 Qwik 專案綁定一個能夠讓外部造訪的公開網域。
+
+{/* converted with zhconvert.org | revision dict-a1f426e3-r1031 */}

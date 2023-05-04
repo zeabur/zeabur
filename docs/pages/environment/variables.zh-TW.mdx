@@ -1,28 +1,28 @@
 ---
-title: 環境變數設置
-ogImageTitle: 環境變數設置
+title: 環境變數設定
+ogImageTitle: 環境變數設定
 ogImageSubtitle: 在 Zeabur 中設定環境變數
 ---
 
-# 環境變數設置
+# 環境變數設定
 
-Zeabur 中可以設定環境變數，並自動注入到該應用中。
+Zeabur 中可以設定環境變數，並自動注入到該應用程式中。
 
-點選該應用並到 **環境變數** 頁面，裡面的 **新增環境變數** 即可新增環境變數。
+點選該應用程式並到 **環境變數** 頁面，裡面的 **新增環境變數** 即可新增環境變數。
 
-## 添加，編輯，修改
+## 加入，編輯，修改
 
-![環境變數設置](/environment/add-variables.zh-TW.png)
+![環境變數設定](/environment/add-variables.zh-TW.png)
 
 Zeabur 預設會自動注入以下環境變數：
 
-- `<YOUR_SERVICE_NAME>_HOST`：該應用對內溝通的 host 名稱
+- `<YOUR_SERVICE_NAME>_HOST`：該應用程式對內溝通的 host 名稱
 
-- `PORT`：該應用對外的 port
+- `PORT`：該應用程式對外的 port
 
 - 其他相關服務，例如資料庫([PostgreSQL](/databases/postgresql))、[Redis](/databases/redis) 等，也會自動注入相關環境變數。
 
-這時我們就不需要再手動設置環境變數到自己的應用中。
+這時我們就不需要再手動設定環境變數到自己的應用程式中。
 
 ![資料庫環境變數](/environment/db-env.zh-TW.png)
 
@@ -30,33 +30,35 @@ Zeabur 預設會自動注入以下環境變數：
 
 ![懸停](/environment/var-hover.png)
 
-點擊右上角的 checkbox，會切換列表視圖。
+點選右上角的 checkbox，會切換列表檢視。
 
-![列表視圖](/environment/var-list-view.png)
+![列表檢視](/environment/var-list-view.png)
 
-點擊編輯 icon，可以編輯變數的值。
+點選編輯 icon，可以編輯變數的值。
 
 ![編輯](/environment/var-edit.png)
 
-## 批量編輯
+## 大量編輯
 
-如果你想要一次性添加多個變量，可以使用批量編輯的功能。
+如果你想要一次性加入多個變數，可以使用大量編輯的功能。
 
-點擊上方的 **編輯原始環境變量** 按鈕，即可進入批量編輯模式，將以編輯 `.env` 文件的方式來批量設置服務的環境變量。
+點選上方的 **編輯原始環境變數** 按鈕，即可進入大量編輯模式，將以編輯 `.env` 文件的方式來大量設定服務的環境變數。
 
-![批量編輯](/environment/var-raw-edit.png)
+![大量編輯](/environment/var-raw-edit.png)
 
-## 變量引用
+## 變數引用
 
-在 Zeabur 中，可以通過變量引用的方式來引用其他變量。
+在 Zeabur 中，可以透過變數引用的方式來引用其他變數。
 
-你隻需要在變量設置的時候，用模闆語法的方式來引用：
+你只需要在設定變數的時候，用模板語法的方式來引用：
 
 ```bash
-# 例如，你可以這樣設置變量
+# 例如，你可以這樣設定變數
 AUTH_INFOR=${USERNAME}:${PASSWORD}
 ```
 
-![變量引用](/environment/var-reference.png)
+![變數引用](/environment/var-reference.png)
 
 這樣，`USERNAME` 與 `PASSWORD` 的值就會自動組合注入到 `AUTH_INFOR` 中。
+
+{/* converted with zhconvert.org | revision dict-a1f426e3-r1031 */}
