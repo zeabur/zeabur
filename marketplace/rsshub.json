@@ -7,7 +7,6 @@
   "command": null,
   "args": null,
   "port": 1200,
-  "dataPath": "/data",
   "network": "HTTP",
   "variables": []
 }
