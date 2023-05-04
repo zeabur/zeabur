@@ -1,0 +1,13 @@
+{
+    "code": "gitea",
+    "name": "Gitea",
+    "description": "Git with a cup of tea! Painless self-hosted all-in-one software development service, includes Git hosting, code review, team collaboration, package registry and CI/CD",
+    "icon": "https://raw.githubusercontent.com/go-gitea/gitea/main/public/img/gitea.svg",
+    "image": "gitea/gitea:latest",
+    "command": null,
+    "args": null,
+    "port": 3000,
+    "dataPath": "/data",
+    "variables": [],
+    "network": "HTTP"
+}
