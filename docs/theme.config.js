@@ -15,7 +15,7 @@ export default {
     defaultMenuCollapseLevel: 1,
   },
   primaryHue: { dark: 278, light: 265 },
-  docsRepositoryBase: 'https://github.com/zeabur/docs/tree/main',
+  docsRepositoryBase: 'https://github.com/zeabur/zeabur/tree/main/docs',
   useNextSeoProps() {
     return {
       titleTemplate: '%s – Zeabur',
