@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema.json",
   "code": "surrealdb",
   "name": "SurrealDB",
   "description": "SurrealDB is an end-to-end cloud native database for web, mobile, serverless, Jamstack, backend, and traditional applications.",

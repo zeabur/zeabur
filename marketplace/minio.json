@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema.json",
   "code": "minio",
   "name": "MinIO",
   "description": "MinIO is a high performance object storage server, designed for large-scale private cloud infrastructure.",

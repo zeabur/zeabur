@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema.json",
   "code": "mysql",
   "name": "MySQL",
   "description": "MySQL is a relational database management system based on SQL.",

@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema.json",
   "code": "affine",
   "name": "AFFiNE",
   "description": "A next-gen knowledge base that brings planning, sorting and creating all together.",

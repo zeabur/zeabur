@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema.json",
   "code": "uptime-kuma",
   "name": "Uptime Kuma",
   "description": "A fancy self-hosted monitoring tool.",
