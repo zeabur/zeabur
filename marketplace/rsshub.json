@@ -1,0 +1,13 @@
+{
+  "code": "rsshub",
+  "name": "RSSHub",
+  "description": "RSSHub is an open source, easy to use, and extensible RSS feed aggregator, it's capable of generating RSS feeds from pretty much everything.",
+  "icon": "https://docs.rsshub.app/logo.png",
+  "image": "diygod/rsshub",
+  "command": null,
+  "args": null,
+  "port": 1200,
+  "dataPath": "/data",
+  "network": "HTTP",
+  "variables": []
+}
