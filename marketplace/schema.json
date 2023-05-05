@@ -48,7 +48,7 @@
           "description": "",
           "items": {
             "type": "string",
-            "default": ""
+            "default": null
           }
         },
         "args": {
@@ -56,7 +56,7 @@
           "description": "",
           "items": {
             "type": "string",
-            "default": ""
+            "default": null
           }
         },
         "port": {
