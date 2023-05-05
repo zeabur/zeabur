@@ -6,7 +6,7 @@
   "image": "bytebase/bytebase:latest",
   "command": null,
   "args": null,
-  "port": 5678,
+  "port": 80,
   "dataPath": "/var/opt/bytebase",
   "network": "HTTP",
   "variables": []
