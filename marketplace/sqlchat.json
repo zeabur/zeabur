@@ -1,0 +1,21 @@
+{
+  "code": "sqlchat",
+  "name": "SQL Chat",
+  "description": "Chat-based SQL Client and Editor for the next decade.",
+  "icon": "https://avatars.githubusercontent.com/u/128299021",
+  "image": "sqlchat/sqlchat:latest",
+  "command": null,
+  "args": null,
+  "port": 3000,
+  "variables": [
+    {
+      "name": "OPENAI_API_KEY",
+      "value": ""
+    },
+    {
+      "name": "OPENAI_API_ENDPOINT",
+      "value": ""
+    }
+  ],
+  "network": "HTTP"
+}
