@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema.json",
   "code": "redis",
   "name": "Redis",
   "description": "Redis Stack is a collection of services that can be used to build a Redis cluster.",

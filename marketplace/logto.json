@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema.json",
   "code": "logto",
   "name": "Logto",
   "description": "The open-source alternative to Auth0, shaping the future of identity development for individuals and businesses of all sizes and project scopes.",

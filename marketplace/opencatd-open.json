@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema.json",
   "code": "opencatd-open",
   "name": "opencatd-open",
   "description": "opencatd-open is an open-source, team-shared service for ChatGPT API that can be safely shared with others for API usage.",

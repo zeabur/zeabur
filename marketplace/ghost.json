@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema.json",
   "code": "ghost",
   "name": "ghost",
   "description": "Ghost is a powerful app for new-media creators to publish, share, and grow a business around their content.",

@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$ref": "#/definitions/Schema",
+  "definitions": {
+    "Schema": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/RootSchema"
+        }
+      ]
+    },
+    "RootSchema": {
+      "type": "object",
+      "properties": {
+        "$schema": {
+          "type": "string",
+          "default": "./schema.json"
+        },
+        "code": {
+          "type": "string",
+          "description": "",
+          "default": ""
+        },
+        "name": {
+          "type": "string",
+          "description": "",
+          "default": ""
+        },
+        "description": {
+          "type": "string",
+          "description": "",
+          "default": ""
+        },
+        "icon": {
+          "type": "string",
+          "description": "",
+          "default": "https://avatars.githubusercontent.com/u/107748533?s=200&v=4",
+          "pattern": "^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=%]*)$"
+        },
+        "image": {
+          "type": "string",
+          "description": "",
+          "default": "",
+          "pattern": "^(?:(?=[^:\\/]{1,253})(?!-)[a-zA-Z0-9-]{1,63}(?<!-)(?:\\.(?!-)[a-zA-Z0-9-]{1,63}(?<!-))*(?::[0-9]{1,5})?/)?((?![._-])(?:[a-z0-9._-]*)(?<![._-])(?:/(?![._-])[a-z0-9._-]*(?<![._-]))*)(?::(?![.-])[a-zA-Z0-9_.-]{1,128})?$"
+        },
+        "command": {
+          "type": ["array", "null"],
+          "description": "",
+          "items": {
+            "type": "string",
+            "default": null
+          }
+        },
+        "args": {
+          "type": ["array", "null"],
+          "description": "",
+          "items": {
+            "type": "string",
+            "default": null
+          }
+        },
+        "port": {
+          "type": "integer",
+          "description": "",
+          "default": 80
+        },
+        "consolePort": {
+          "type": "integer",
+          "description": "",
+          "default": 443
+        },
+        "dataPath": {
+          "type": "string",
+          "description": "",
+          "pattern": "^\\/.*$",
+          "default": ""
+        },
+        "network": {
+          "type": "string",
+          "enum": ["HTTP", "TCP"],
+          "description": "",
+          "default": ""
+        },
+        "variables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "",
+                "default": ""
+              },
+              "value": {
+                "type": "string",
+                "description": "",
+                "default": ""
+              },
+              "default": {
+                "type": "string",
+                "description": "",
+                "default": ""
+              }
+            }
+          },
+          "description": "",
+          "default": []
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "name",
+        "description",
+        "icon",
+        "image",
+        "port",
+        "network"
+      ]
+    }
+  }
+}

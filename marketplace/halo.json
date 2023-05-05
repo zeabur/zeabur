@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema.json",
   "code": "halo",
   "name": "Halo",
   "description": "Halo is a powerful and easy-to-use open source website building tool.",
