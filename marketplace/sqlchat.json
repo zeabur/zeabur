@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema.json",
   "code": "sqlchat",
   "name": "SQL Chat",
   "description": "Chat-based SQL Client and Editor for the next decade.",

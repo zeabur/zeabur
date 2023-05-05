@@ -1,4 +1,5 @@
 {
+  "$schema": "./schema.json",
   "code": "bytebase",
   "name": "Bytebase",
   "description": "Bytebase is Database CI/CD for DevOps teams.",
