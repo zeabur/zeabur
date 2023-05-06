@@ -36,7 +36,7 @@ Zeabur 原則上支援所有類型的 Rust 應用程式——預設情況會自�
 4. 找到 Running `target/release/zeabur` 那一行，我們擷取最後的執行檔名稱 (zeabur) 即可
 5. 在 Service 名稱填入 `zeabur`。
 
-## 拷貝其他檔案
+## 複製其他檔案
 
 假如你除了執行檔之外，還依賴程式碼庫的其他檔案。舉例來說：
 
@@ -59,8 +59,10 @@ config.toml
 
 ## 技術細節與注意事項
 
-- 預設採用 Multi-stage build，runtime 使用 `docker.io/library/debian:bookworm-slim` 作為 base image。某些動態鏈結的函式庫，可能在遷移到本 image 時，因為缺少某些套件而無法正常運作。如有遇到此類情況，請回報給我們以便增加這個套件的支援。
+- 預設採用 Multi-stage build，runtime 使用 `docker.io/library/debian:bookworm-slim` 作為 base image。某些動態連結的函式庫，可能在遷移到本 image 時，因為缺少某些套件而無法正常運作。如有遇到此類情況，請回報給我們以便增加這個套件的支援。
   - 目前會特別安裝的相依套件有 `openssl`。
 - 執行階段不提供 Root 權限，若有相關需要請自行撰寫 Dockerfile。
 - 為了加快編譯速度，我們使用 `lld` 進行編譯。若你的專案不支援 `lld`，建議你自己在專案中指定 `config.toml` 呼叫標準的 `ld`；若你想使用如 `mold` 等不內建的 linker，則需要自行撰寫 Dockerfile。
 - 我們使用 `cargo-chef` 以使快取的 build layer 最大化。如果有遇到不相容的問題，可以回報給 Zeabur 或上游 [`LukeMathWalker/cargo-chef`](https://github.com/LukeMathWalker/cargo-chef)。
+
+{/* converted with zhconvert.org | revision dict-a1f426e3-r1031 */}

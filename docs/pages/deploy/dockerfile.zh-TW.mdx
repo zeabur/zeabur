@@ -30,13 +30,13 @@ Zeabur 會自動偵測你的專案是否有 `Dockerfile`，如果有的話會以
 
 如果你的 `Dockerfile` 需要使用到環境變數，你可以在該服務的頁面點選 **環境變數** 來新增，更多的設定方式請參考 [環境變數](/zh-TW/environment/variables)。
 
-![環境變數設置](/environment/add-variables.png)
+![環境變數設定](/environment/add-variables.png)
 
 如果你的 `Dockerfile` 撰寫方式為一個階段 (stage)，或是你的環境變數只需在最後一個階段中使用，很好的你無需手動寫 `ENV`，Zeabur 會自動幫你加上。
 
 ### ARG
 
-但如果你的 `Dockerfile` 撰寫方式為多個階段 ([multi-stage](https://docs.docker.com/build/building/multi-stage/))，並且需要在建置前就設置環境變數，你可以使用 `ARG` 來設置。
+但如果你的 `Dockerfile` 撰寫方式為多個階段 ([multi-stage](https://docs.docker.com/build/building/multi-stage/))，並且需要在建置前就設定環境變數，你可以使用 `ARG` 來設定。
 
 以下我們以 nodejs 及 nginx 為例，撰寫一個 `Dockerfile` 來部署。
 
@@ -46,7 +46,7 @@ FROM node:18-alpine AS builder
 WORKDIR /app
 COPY . .
 
-## 這裡的 `BUILDTIME_ENV_EXAMPLE` 會自動在建置前被設置
+## 這裡的 `BUILDTIME_ENV_EXAMPLE` 會自動在建置前被設定
 ARG BUILDTIME_ENV_EXAMPLE
 ENV BUILDTIME_ENV_EXAMPLE=${BUILDTIME_ENV_EXAMPLE}
 
@@ -70,3 +70,5 @@ CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/ngin
 ## Docker Compose
 
 Zeabur 目前僅支援 `Dockerfile` 的部署方式，目前不提供 Docker Compose 的方式。
+
+{/* converted with zhconvert.org | revision dict-a1f426e3-r1031 */}

@@ -1,61 +1,63 @@
 ---
-title: 域名綁定
-ogImageTitle: 域名綁定
-ogImageSubtitle: 為你的服務選擇一個域名
+title: 網域綁定
+ogImageTitle: 網域綁定
+ogImageSubtitle: 為你的服務選擇一個網域
 ---
 
 import { Callout } from 'nextra-theme-docs'
 
-# 域名綁定
+# 網域綁定
 
-在你的服務成功部署以後，你需要為他們綁定一個域名便於使用服務。
+在你的服務成功部署以後，你需要為他們綁定一個網域便於使用服務。
 
 ## 第一步：打開服務設定頁面
 
-點擊你想新增域名的服務，並選擇設定頁面，你將會看到兩個按鈕供你選擇來新增域名。
+點選你想新增網域的服務，並選擇設定頁面，你將會看到兩個按鈕供你選擇來新增網域。
 
 ![buttons](/deploy/domain/buttons.zh-TW.jpg)
 
-## 第二步：創建域名
+## 第二步：建立網域
 
-Zeabur 提供了簡易的生成域名服務，生成帶有 `.zeabur.app` 後綴的域名。無需其他額外設定，即可通過此域名來訪問你的服務。
+Zeabur 提供了簡易的生成網域服務，生成帶有 `.zeabur.app` 後綴的網域。無需其他額外設定，即可透過此網域來造訪你的服務。
 
 ![generate](/deploy/domain/generate.zh-TW.jpg)
 
-你也可以選擇完全自定義你的域名，但需要參見第三步為其進行一些設定。
+你也可以選擇完全自訂你的網域，但需要參見第三步為其進行一些設定。
 
 ![custom](/deploy/domain/custom.zh-TW.jpg)
 
-## 第三步：設定自定義域名（可選）
+## 第三步：設定自訂網域（可選）
 
-若想擁有更高的獨特性和靈活性，你也可以選擇綁定自己擁有的域名，若你還沒有域名，則可以從一些域名服務提供商，如 [GoDaddy](https://www.godaddy.com) ，[Cloudflare](https://www.cloudflare.com) 購買。
+若想擁有更高的獨特性和靈活性，你也可以選擇綁定自己擁有的網域，若你還沒有網域，則可以從一些網域服務提供商，如 [GoDaddy](https://www.godaddy.com)，[Cloudflare](https://www.cloudflare.com) 購買。
 
 ### 設定 DNS 記錄
 
-在你為服務添加了你的專屬域名後，為了能夠正常訪問你的服務，你需要去你的域名註冊商處，手動為你的域名**設定 DNS 記錄**。
+在你為服務加入了你的專屬網域後，為了能夠正常造訪你的服務，你需要去你的網域註冊商處，手動為你的網域**設定 DNS 記錄**。
 
 ![domain](/deploy/domain/domain.zh-CN.jpg)
 
-此處以 CloudFlare 為例為域名添加 DNS 記錄。
+此處以 CloudFlare 為例為網域加入 DNS 記錄。
 
-打開 CloudFlare 控制台，選擇想要設定的域名，選擇 DNS 記錄。
+打開 CloudFlare 控制台，選擇想要設定的網域，選擇 DNS 記錄。
 
 ![cloudflare](/deploy/domain/cloudflare.zh-TW.png)
 
-在該頁面的管理 DNS 一欄，點擊新增記錄按鈕。
+在該頁面的管理 DNS 一欄，點選新增記錄按鈕。
 
-填入對應的名稱和目標內容。此處， `Name` 對應的是名稱一欄，`Value` 則對應目標一欄。
+填入對應的名稱和目標內容。此處，`Name` 對應的是名稱一欄，`Value` 則對應目標一欄。
 
-此處的類型一欄選擇 `CNAME` 。
+此處的類型一欄選擇 `CNAME`。
 
 <Callout>
-  請勿將 Cloudflare 的代理打開。如果你的代理狀態是已代理，請點擊橘色的雲朵將它關閉。
+  請勿將 Cloudflare 的代理打開。如果你的代理狀態是已代理，請點選橘色的雲朵將它關閉。
 </Callout>
 
 ![domain-dns](/deploy/domain/domain-dns.zh-TW.png)
 
-點擊儲存，等待幾分鐘讓 DNS 設定完成生效即可。
+點選儲存，等待幾分鐘讓 DNS 設定完成生效即可。
 
 ## 下一步
 
-域名部署完畢後，你就可以點擊跳轉網頁，開始使用你的服務。
+網域部署完畢後，你就可以點選跳轉網頁，開始使用你的服務。
+
+{/* converted with zhconvert.org | revision dict-a1f426e3-r1031 */}

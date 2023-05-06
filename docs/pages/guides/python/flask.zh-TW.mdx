@@ -7,11 +7,11 @@ ogImageSubtitle: 將你的 Flask 專案部署到 Zeabur
 
 這篇文章將會教你如何在 Zeabur 一鍵部署 Flask 應用程式。
 
-## 1. 創建 Flask 專案
+## 1. 建立 Flask 專案
 
-你可以在 [flask-template](https://github.com/zeabur/flask-template) 查看 Flask 的示例。示例專案非常簡單，包含了一個返回字符串的路由。
+你可以在 [flask-template](https://github.com/zeabur/flask-template) 查看 Flask 的範例。範例專案非常簡單，包含了一個回傳字串的路由。
 
-```python 
+```python
 from flask import Flask
 import os
 
@@ -25,16 +25,18 @@ if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000), host='0.0.0.0')
 ```
 
-請註意，Zeabur 使用環境變量 `PORT` 來獲取需要轉發的端口號。因此你需要設置這一環境變量，並在應用中使用 `os.getenv` 或其他方式來設置端口號。
+請注意，Zeabur 使用環境變數 `PORT` 來獲取需要轉送的埠號。因此你需要設定這一環境變數，並在應用程式中使用 `os.getenv` 或其他方式來設定埠號。
 
-Zeabur 使用 `python app.py` 或 `python main.py` 來啟動 Flask 應用程式，因此你的專案應包含這兩個文件之一並包含運行 Flask 應用所需的命令。
+Zeabur 使用 `python app.py` 或 `python main.py` 來啟動 Flask 應用程式，因此你的專案應包含這兩個文件之一並包含運作 Flask 應用程式所需的指令。
 
-你需要將專案需要的外部套件寫入 requirements.txt, Pipfile 或 Pipfile.lock 文件，讓 Zeabur 能夠在構建以前自動安裝。
+你需要將專案需要的外部套件寫入 requirements.txt, Pipfile 或 Pipfile.lock 文件，讓 Zeabur 能夠在建置以前自動安裝。
 
 ## 2. 部署 Flask 專案
 
-在你的專案中，點擊 **Deploy service** 或者 **Add new service** 按鈕，並選擇 **Deploy your source code**.
+在你的專案中，點選 **Deploy service** 或者 **Add new service** 按鈕，並選擇 **Deploy your source code**.
 
 ![deploy](/framework/deploy.png)
 
-搜尋想要部署的 Flask 專案程式碼儲存庫，並點擊 `import` ，你的 Flask 專案就將自動開始部署。
+搜尋想要部署的 Flask 專案程式碼儲存庫，並點選 `import`，你的 Flask 專案就將自動開始部署。
+
+{/* converted with zhconvert.org | revision dict-a1f426e3-r1031 */}

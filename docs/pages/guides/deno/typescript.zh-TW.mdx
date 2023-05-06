@@ -35,7 +35,7 @@ function handler(_req: Request): Response {
 serve(handler, { port: Deno.env.get("PORT") });
 ```
 
-建立一個新檔案 `deno.json`，並將以下的 `start` 命令加入 `tasks` 欄位。
+建立一個新檔案 `deno.json`，並將以下的 `start` 指令加入 `tasks` 欄位。
 
 ```bash
 touch deno.json
@@ -61,10 +61,12 @@ deno task start
 
 ## 部署專案
 
-在你的專案中，點擊 **部署新服務**  按鈕，並選擇 **部署你的程式碼**。
+在你的專案中，點選 **部署新服務**  按鈕，並選擇 **部署你的程式碼**。
 
 ![deploy](/framework/deploy.zh-TW.png)
 
-搜尋想要部署的 TypeScript 程式碼儲存庫，並點擊導入，你的 TypeScript 應用就將自動開始部署。
+搜尋想要部署的 TypeScript 程式碼儲存庫，並點選匯入，你的 TypeScript 應用程式就將自動開始部署。
 
-部署完成後，你可以參考 [綁定域名](../../deploy/domain-binding) 文件瞭解如何為你的 TypeScript 專案綁定一個能夠讓外部訪問的公開域名。
+部署完成後，你可以參考 [綁定網域](../../deploy/domain-binding) 文件瞭解如何為你的 TypeScript 專案綁定一個能夠讓外部造訪的公開網域。
+
+{/* converted with zhconvert.org | revision dict-a1f426e3-r1031 */}

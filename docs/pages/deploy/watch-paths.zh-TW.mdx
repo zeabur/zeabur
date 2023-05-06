@@ -14,7 +14,7 @@ ogImageSubtitle: 自訂服務觸發路徑
 
 ### 第一步：打開服務設定頁面
 
-點擊想修改配置的服務，展開設定頁面，向下劃動，找到 **監控路徑** 項，供您修改服務的監控路徑。
+點選想修改配置的服務，展開設定頁面，向下滑動，找到 **監控路徑** 項，供您修改服務的監控路徑。
 
 ![setting](/deploy/watch-path/setting.zh-TW.png)
 
@@ -24,15 +24,16 @@ ogImageSubtitle: 自訂服務觸發路徑
 
 您可以按照 `.gitignore` 檔案的格式一樣，修改自己的觸發路徑。
 
-唯一不同的是， `.gitignore` 代表的是忽略，而此處代表的是觸發。
+唯一不同的是，`.gitignore` 代表的是忽略，而此處代表的是觸發。
 
-例如，您部署了一個前後端一體應用，程式碼格式如下：
+例如，您部署了一個前後端一體應用程式，程式碼格式如下：
 
 ![repo](/deploy/watch-path/repo.png)
 
 而您為這個儲存庫部署了兩個服務，一個服務的根目錄設定為了 `client` 一個為 `server`，但這樣只是為其指明了建置的路徑，要想做進一步的隔離，您就需要去設定 **Watch paths**。
 
-例如，將客戶端的服務的 **Watch paths** 設定為 `/client` 之後，您在 `server` 資料夾中做的任何更新都不會自動觸發客戶端服務的重新部署了。
+例如，將用戶端的服務的 **Watch paths** 設定為 `/client` 之後，您在 `server` 資料夾中做的任何更新都不會自動觸發用戶端服務的重新部署了。
 
 ![repo](/deploy/watch-path/save.zh-TW.png)
 
+{/* converted with zhconvert.org | revision dict-a1f426e3-r1031 */}

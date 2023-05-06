@@ -8,9 +8,9 @@ import { Callout } from 'nextra-theme-docs'
 
 # 部署 Halo 服務
 
-[Halo](https://halo.run/) 是一個強大易用的開源建站工具，配合上豐富的模板與插件，幫助你構建你心中的理想站點。
+[Halo](https://halo.run/) 是一個強大易用的開源建站工具，配合上豐富的模板與外掛程式，幫助你建置你心中的理想站點。
 
-這篇文章將教你如何在 Zeabur 上通過服務市場輕鬆部署一個自己的 Halo 服務，並且綁定自己的域名。
+這篇文章將教你如何在 Zeabur 上透過服務市場輕鬆部署一個自己的 Halo 服務，並且綁定自己的網域。
 
 ## 步驟一：建立專案
 
@@ -18,19 +18,19 @@ import { Callout } from 'nextra-theme-docs'
 
 ## 步驟二：部署 PostgreSQL 服務
 
-Halo 服務目前在 Zeabur 中僅支持 PostgreSQL 資料庫，在創建 Halo 服務之前，需要先部署一個 PostgreSQL 服務並創建一個資料庫。
+Halo 服務目前在 Zeabur 中僅支援 PostgreSQL 資料庫，在建立 Halo 服務之前，需要先部署一個 PostgreSQL 服務並建立一個資料庫。
 
-請點擊「建立服務」並選擇「服務市場」，你將在列表中找到 PostgreSQL。
+請點選「建立服務」並選擇「服務市場」，你將在列表中找到 PostgreSQL。
 
 ![部署 PostgreSQL](/marketplace/halo/deploy-postgresql.zh-TW.png)
 
-選擇 PostgreSQL 後，你可以給該服務輸入一個自定義的名字，然後點擊部署。
+選擇 PostgreSQL 後，你可以給該服務輸入一個自訂的名字，然後點選部署。
 
 ## 步驟三：建立資料庫
 
-為了讓 Halo 服務能夠正常運行，我們需要先在 PostgreSQL 資料庫中建立一個名為 `halo` 的資料庫。
+為了讓 Halo 服務能夠正常運作，我們需要先在 PostgreSQL 資料庫中建立一個名為 `halo` 的資料庫。
 
-請先使用任意 PostgreSQL 客戶端連接你的 PostgreSQL 服務，在本文，我們使用 [psql](https://www.postgresql.org/docs/9.1/app-psql.html) 來連接。
+請先使用任意 PostgreSQL 用戶端連接你的 PostgreSQL 服務，在本文，我們使用 [psql](https://www.postgresql.org/docs/9.1/app-psql.html) 來連接。
 
 ![PostgreSQL 連接資訊區塊](/marketplace/halo/postgre-connect.zh-TW.png)
 
@@ -50,11 +50,11 @@ CREATE DATABASE halo;
 
 ## 步驟四：部署 Halo 服務
 
-在 Zeabur 控制台中，請點擊「建立服務」並選擇「服務市場」，你將在列表中找到 Halo。
+在 Zeabur 控制台中，請點選「建立服務」並選擇「服務市場」，你將在列表中找到 Halo。
 
 ![部署 Halo 服務](/marketplace/halo/deploy-halo.zh-TW.png)
 
-選擇 Halo 後，你可以給該服務輸入一個自定義的名字，然後點擊部署。
+選擇 Halo 後，你可以給該服務輸入一個自訂的名字，然後點選部署。
 
 <Callout>
 需要注意的是，因為我們在部署 Halo 前已經部署了 PostgreSQL 服務，Zeabur
@@ -63,20 +63,19 @@ CREATE DATABASE halo;
 
 如果你先部署了 Halo 而還沒有部署 PostgreSQL，那麼你需要在部署 PostgreSQL
 服務後重新啟動 Halo 服務，才能讓 Halo 取得正確的資料庫連接資訊。
-
 </Callout>
 
-## 步驟五：綁定域名
+## 步驟五：綁定網域
 
-在 Zeabur 控制台中，Halo 服務的「域名」區塊中，你可以為其綁定一個域名，這個域名可以是你自己的域名，也可以是 Zeabur 提供的免費域名。
+在 Zeabur 控制台中，Halo 服務的「網域」區塊中，你可以為其綁定一個網域，這個網域可以是你自己的網域，也可以是 Zeabur 提供的免費網域。
 
-![Halo 服務的域名區塊](/marketplace/halo/halo-domain.zh-TW.png)
+![Halo 服務的網域區塊](/marketplace/halo/halo-domain.zh-TW.png)
 
-關於如何為你的服務綁定域名，請參閱 [綁定域名](../deploy/domain-binding)。
+關於如何為你的服務綁定網域，請參閱 [綁定網域](../deploy/domain-binding)。
 
-## 步驟六：登入並設置 Halo
+## 步驟六：登入並設定 Halo
 
-完成綁定後，你可以點擊域名進入 Halo 的登入頁面，用戶名為預設的 `admin`，密碼可以在 Zeabur 控制台中的「環境變數」區塊中找到，環境變數名為 `PASSWORD`，點擊眼睛按鈕即可查看明文。
+完成綁定後，你可以點選網域進入 Halo 的登入頁面，使用者名稱為預設的 `admin`，密碼可以在 Zeabur 控制台中的「環境變數」區塊中找到，環境變數名為 `PASSWORD`，點選眼睛按鈕即可查看明文。
 
 ![獲取 Halo 的登入密碼](/marketplace/halo/halo-password.zh-TW.png)
 

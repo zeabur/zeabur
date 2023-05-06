@@ -10,32 +10,32 @@ import { Callout } from 'nextra-theme-docs'
 
 **Zeabur** 是一個可以幫助你部署服務的平台，而且只需要透過幾個簡單的按鈕即可完成，無論你使用什麼程式語言或開發框架。
 
-你也可以加入我們的 [Discord 服務器](https://discord.gg/DrdGCvXEyY) 以了解更多以及獲得優先支持！
+你也可以加入我們的 [Discord 伺服器](https://discord.gg/DrdGCvXEyY) 以了解更多以及獲得優先支援！
 
 ### Zeabur 的優勢
 
 #### 方便快捷
 
-對比傳統的部署方式，Zeabur 可以讓你在幾分鐘內完成部署，而不需要花費大量的時間去學習部署的相關知識，把時間精力專註於產品的開發。
+對比傳統的部署方式，Zeabur 可以讓你在幾分鐘內完成部署，而不需要花費大量的時間去學習部署的相關知識，把時間精力專注於產品的開發。
 
-- 開箱即用的 CI/CD 
-- 自動識別項目類型
-- 快速生成域名
+- 開箱即用的 CI/CD
+- 自動識別專案類型
+- 快速生成網域
 - 多環境隔離
 
 #### 按量計費
 
-Zeabur 采用按量計費的方式，你只需要為你的服務實際用到的資源付費，而不需要為整個服務器付費。
+Zeabur 採用按量計費的方式，你只需要為你的服務實際用到的資源付費，而不需要為整個伺服器付費。
 
-你可以到[定價文檔](/zh-TW/billing/pricing)中了解更詳細的內容。
+你可以到[定價文件](/zh-TW/billing/pricing)中了解更詳細的內容。
 
 #### 一站式整合
 
 Zeabur 提供了強大的一站式整合功能。
 
-你可以在一個項目中同時部署前端、後端、數據庫、消息隊列、對象存儲等各種服務，而不需要分別部署到不同的平臺。
+你可以在一個專案中同時部署前端、後端、資料庫、消息佇列、物件儲存等各種服務，而不需要分別部署到不同的平台。
 
-### 支持的框架和語言
+### 支援的框架和語言
 
 #### Node.js
 
@@ -45,7 +45,7 @@ Zeabur 提供了強大的一站式整合功能。
   如果你的專案是基於現成的框架（例如下方列出的各種框架），則他們已經自動設定好了 `build` 和 `start` 指令，你不需要再自己設定。
 </Callout>
 
-特別地，以下框架可以被 Zeabur 自動識別並進行相關優化：
+特別地，以下框架可以被 Zeabur 自動識別並進行相關最佳化：
 
 - [Next.js](https://nextjs.org/)
 - [create-react-app](https://create-react-app.dev/)
@@ -69,7 +69,7 @@ Zeabur 提供了強大的一站式整合功能。
 
 #### Go
 
-所有基於 [Go Modules](https://blog.golang.org/using-go-modules) 的專案都可以部署。 但您需要在專案根目錄有一個 `main.go` 作為程式編譯入口。
+所有基於 [Go Modules](https://blog.golang.org/using-go-modules) 的專案都可以部署。但您需要在專案根目錄有一個 `main.go` 作為程式編譯入口。
 
 如果您有多個程式編譯入口，您需要將他們放在 `cmd` 目錄下，例如一個 `cmd/server-a/main.go` 和一個 `cmd/server-b/main.go`。
 
@@ -79,9 +79,9 @@ Zeabur 會自動識別並部署 `cmd` 目錄下與 Service 名稱相同的程式
 
 如果您的專案根目錄有 `main.py` 或 `app.py`，Zeabur 會自動以 Python 專案的方式進行部署。
 
-您需要將專案需要的外部套件寫入 `requirements.txt`, `Pipfile` 或 `Pipfile.lock` 檔案，讓 Zeabur 能夠在構建以前自動安裝。
+您需要將專案需要的外部套件寫入 `requirements.txt`, `Pipfile` 或 `Pipfile.lock` 檔案，讓 Zeabur 能夠在建置以前自動安裝。
 
-特別地，以下框架可以被 Zeabur 自動識別並進行相關優化：
+特別地，以下框架可以被 Zeabur 自動識別並進行相關最佳化：
 
 - [Django](https://www.djangoproject.com/)
 - [Flask](https://flask.palletsprojects.com/)
@@ -90,7 +90,7 @@ Zeabur 會自動識別並部署 `cmd` 目錄下與 Service 名稱相同的程式
 
 #### Deno
 
-如果您的專案根目錄有 `deno.json` 或 `fresh.gen.ts` ，Zeabur 會自動以 Deno 專案的方式進行部署。
+如果您的專案根目錄有 `deno.json` 或 `fresh.gen.ts`，Zeabur 會自動以 Deno 專案的方式進行部署。
 
 您需要在 `deno.json` 的 `tasks` 欄位加入 `start` 指令。
 
@@ -102,7 +102,7 @@ Zeabur 會自動識別並部署 `cmd` 目錄下與 Service 名稱相同的程式
 
 所有靜態網站都可以部署，但您需要在專案根目錄有一個 `index.html` 作為網站入口。
 
-特別地，Zeabur 能夠識別出以下的靜態網站生成框架所生成的靜態網站並進行相關優化：
+特別地，Zeabur 能夠識別出以下的靜態網站生成框架所生成的靜態網站並進行相關最佳化：
 
 - [Hugo](https://gohugo.io/)
 - [Hexo](https://hexo.io/)
@@ -130,3 +130,5 @@ Zeabur 會自動識別並部署 `cmd` 目錄下與 Service 名稱相同的程式
 您可以透過 Zeabur 部署一個 PostgreSQL 服務，並且可以透過 Zeabur 自動注入到同個環境中其他服務的環境變數來讓您的其他服務連接到 PostgreSQL 資料庫。
 
 前往 [環境變數](/zh-TW/environment/variables) 瞭解更多關於環境變數的資訊。
+
+{/* converted with zhconvert.org | revision dict-a1f426e3-r1031 */}
