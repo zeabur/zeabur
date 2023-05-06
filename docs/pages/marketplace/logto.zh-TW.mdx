@@ -28,7 +28,7 @@ Logto 將使用者身分的資料儲存在 PostgreSQL 資料庫中，請點選�
 
 為了讓 Logto 服務能夠正常運作，我們需要先在 PostgreSQL 資料庫中建立一個名為 `logto` 的資料庫。
 
-請先使用任意 PostgreSQL 用戶端連線進入你的 PostgreSQL 服務。 在本文，我們使用 [psql](https://www.postgresql.org/docs/9.1/app-psql.html) 來連線。
+請先使用任意 PostgreSQL 用戶端連線進入你的 PostgreSQL 服務。在本文，我們使用 [psql](https://www.postgresql.org/docs/9.1/app-psql.html) 來連線。
 
 ![PostgreSQL 連線資訊區塊](/marketplace/umami/postgre-connect.png)
 
@@ -58,13 +58,13 @@ CREATE DATABASE logto;
 
 ## 步驟五：綁定網域
 
-在 Zeabur 控制台中， Logto 服務的「網域」區塊中，你可以為其綁定一個網域，這個網域可以是你自己的網域，也可以是 Zeabur 提供的免費網域。
+在 Zeabur 控制台中，Logto 服務的「網域」區塊中，你可以為其綁定一個網域，這個網域可以是你自己的網域，也可以是 Zeabur 提供的免費網域。
 
 ![Umami 服務的網域區塊](/marketplace/logto/logto-domain.png)
 
 關於如何為你的服務綁定網域，請參閱 [綁定網域](../deploy/domain-binding)。
 
-綁定完網域後，我們需要讓 Logto 服務知道我們綁定的網域，請在 Zeabur 控制台中， Logto 服務的「環境變數」區塊中，新增一個名為 `ENDPOINT` 的環境變數，並將其值設定為你綁定的網域，例如 `https://logto-test.zeabur.app`。
+綁定完網域後，我們需要讓 Logto 服務知道我們綁定的網域，請在 Zeabur 控制台中，Logto 服務的「環境變數」區塊中，新增一個名為 `ENDPOINT` 的環境變數，並將其值設定為你綁定的網域，例如 `https://logto-test.zeabur.app`。
 
 ![Logto 服務的環境變數區塊](/marketplace/logto/envvar.png)
 
@@ -72,7 +72,7 @@ CREATE DATABASE logto;
 
 ## 步驟六：登入並設定 Logto
 
-在 Zeabur 控制台中， Logto 服務的「連線」區塊中，有一個按鈕可以開啟 Logto 的管理介面，請點選該按鈕。
+在 Zeabur 控制台中，Logto 服務的「連線」區塊中，有一個按鈕可以開啟 Logto 的管理介面，請點選該按鈕。
 
 ![Logto 服務的連線區塊](/marketplace/logto/logto-admin-button.png)
 
