@@ -1,0 +1,13 @@
+{
+  "$schema": "./schema.json",
+  "code": "slidev",
+  "name": "Slidev",
+  "description": "Presentation Slides for Developers",
+  "icon": "https://sli.dev/logo-title.png",
+  "image": "tangramor/slidev",
+  "command": null,
+  "args": null,
+  "port": 3030,
+  "network": "HTTP",
+  "variables": []
+}
