@@ -1,0 +1,15 @@
+{
+    "$schema": "./schema.json",
+    "code": "vaultwarden",
+    "name": "vaultwarden",
+    "description": "A Bitwarden compatible server written in Rust.",
+    "icon": "https://github.com/dani-garcia/vaultwarden/raw/main/resources/vaultwarden-icon.svg",
+    "image": "vaultwarden/server:latest",
+    "command": null,
+    "args": null,
+    "port": 80,
+    "dataPath": "/data/",
+    "variables": [],
+    "network": "HTTP"
+  }
+  
