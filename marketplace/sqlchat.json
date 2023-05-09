@@ -16,6 +16,10 @@
     {
       "name": "OPENAI_API_ENDPOINT",
       "value": ""
+    },
+    {
+      "name": "DATABASE_URL",
+      "value": "postgresql://postgres:YOUR_PASSWORD@localhost:5432/sqlchat?schema=sqlchat"
     }
   ],
   "network": "HTTP"
