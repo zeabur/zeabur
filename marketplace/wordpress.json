@@ -1,0 +1,35 @@
+{
+  "$schema": "./schema.json",
+  "code": "wordpress",
+  "name": "WordPress",
+  "description": "Create a place for your business, your interests, or anything else—with the open source platform that powers the web.",
+  "icon": "https://cdn.zeabur.com/marketplace/wordpress.png",
+  "image": "wordpress:6-php8.2",
+  "command": null,
+  "args": null,
+  "port": 80,
+  "network": "HTTP",
+  "dataPath": "/var/www/html",
+  "variables": [
+    {
+      "name": "WORDPRESS_DB_USER",
+      "value": "${MYSQL_USERNAME}"
+    },
+    {
+      "name": "WORDPRESS_DB_PASSWORD",
+      "value": "${MYSQL_PASSWORD}"
+    },
+    {
+      "name": "WORDPRESS_DB_NAME",
+      "value": "wordpress"
+    },
+    {
+      "name": "WORDPRESS_DEBUG",
+      "value": "0"
+    },
+    {
+      "name": "WORDPRESS_DB_HOST",
+      "value": "${MYSQL_HOST}:${MYSQL_PORT}"
+    }
+  ]
+}
