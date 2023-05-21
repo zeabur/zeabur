@@ -4,7 +4,7 @@
   "name": "ghost",
   "description": "Ghost is a powerful app for new-media creators to publish, share, and grow a business around their content.",
   "icon": "https://cdn.zeabur.com/marketplace/ghost.png",
-  "image": "ghost:4-alpine",
+  "image": "ghost:5-alpine",
   "command": null,
   "args": null,
   "port": 2368,
