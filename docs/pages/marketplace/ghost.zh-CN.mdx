@@ -1,0 +1,70 @@
+---
+title: 部署 Ghost 服务
+ogImageTitle: 部署 Ghost 服务
+ogImageSubtitle: 在 Zeabur 一键部署 Ghost 服务
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# 部署 Ghost 服务
+
+[Ghost](https://ghost.org/) 是一款强大的应用程序，适合新媒体创作者发布、分享并发展其内容业务。
+
+这篇文章将教你如何在 Zeabur 上通过服务市场轻松部署一个自己的 Ghost 服务，并且绑定自己的域名。
+
+## 步骤一：创建项目
+
+首先，我们需要先在 Zeabur 上创建一个项目，请前往 [项目列表](https://dash.zeabur.com/projects) 页面，你会看到你的许多项目，而“创建项目”按钮就在所有项目的最后面。
+
+## 步骤二：部署 MySQL 服务
+
+目前在 Zeabur 中，Ghost 服务只支持 MySQL 数据库。在创建 Ghost 服务之前，需要先部署一个 MySQL 服务（数据库会由 Ghost 服务自动创建）。
+
+请点击“创建服务”并选择“服务市场”，你将在列表中找到 MySQL。
+
+![部署 MySQL](/marketplace/ghost/deploy-mysql.png)
+
+点击该项目即可部署完成。
+
+## 步骤三：部署 Ghost 服务
+
+在 Zeabur 控制台中，请点击“创建服务”并选择“服务市场”，你将在列表中找到 Ghost。
+
+![部署 Ghost 服务](/marketplace/ghost/deploy-ghost.png)
+
+点击该项目即可部署完成。
+
+<Callout>
+需要注意的是，因为我们在部署 Ghost 前已经部署了 MySQL 服务，Zeabur
+会自动帮你注入 MySQL 的相关环境变量到 Ghost
+的服务中，所以无需再手工配置数据库信息。
+
+如果你先部署了 Ghost 而还没有部署 MySQL，那么你需要在部署 MySQL
+服务后重新启动 Ghost 服务，才能让 Ghost 取得正确的数据库连接信息。
+</Callout>
+
+部署完成后，立刻点击暂停按钮暂停 Ghost 服务，接着我们开始设置域名。
+
+![暂停 Ghost 服务](/marketplace/ghost/ghost-suspend.gif)
+
+## 步骤四：绑定域名
+
+在 Zeabur 控制台中，Ghost 服务的“域名”区块中，你可以为其绑定一个域名，这个域名可以是你自己的域名，也可以是 Zeabur 提供的免费域名。
+
+![Ghost 服务的域名区块](/marketplace/ghost/ghost-domain.png)
+
+关于如何为你的服务绑定域名，请参阅 [绑定域名](../deploy/domain-binding)。
+
+域名新增完成之后，打开“环境变量”并将 `url` 修改成您刚绑定完成的域名。修改完成后 Ghost 会自动重新启动。
+
+![Ghost 服务的环境变量区块](/marketplace/ghost/ghost-env.png)
+
+## 步骤五：登录并设置 Ghost
+
+完成绑定后，你可以点击域名进入 Ghost 的首页，在域名后方加上 `/ghost` 即可进入 Ghost 的管理员设置界面。
+
+![Ghost 服务的管理员设置界面](/marketplace/ghost/ghost-admin-config.png)
+
+完成设置之后，即可开始你的写手之旅。
+
+![Ghost 管理界面](/marketplace/ghost/ghost-admin-dashboard.png)
