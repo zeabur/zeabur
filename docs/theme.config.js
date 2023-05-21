@@ -60,10 +60,10 @@ export default {
       <meta property="twitter:url" content={`https://docs.zeabur.com${asPath}`} />
       <meta property="twitter:image" content={ogUrl} />
 
-      <meta name="og:title" content="Zeabur: Deploy your service with one click." />
-      <meta name="og:description" content="Zeabur: Deploy your service with one click." />
-      <meta name="og:url" content={`https://docs.zeabur.com${asPath}`} />
-      <meta name="og:image" content={ogUrl} />
+      <meta property="og:title" content="Zeabur: Deploy your service with one click." />
+      <meta property="og:description" content="Zeabur: Deploy your service with one click." />
+      <meta property="og:url" content={`https://docs.zeabur.com${asPath}`} />
+      <meta property="og:image" content={ogUrl} />
 
       <meta name="apple-mobile-web-app-title" content="Zeabur" />
       <link
