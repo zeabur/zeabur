@@ -7,7 +7,7 @@
   "image": "ghcr.io/tlaanemaa/langflow-docker:latest",
   "command": null,
   "args": null,
-  "port": 5003,
+  "port": 7860,
   "dataPath": "/app",
   "network": "HTTP",
   "variables": []
