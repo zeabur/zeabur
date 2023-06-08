@@ -1,0 +1,14 @@
+{
+  "$schema": "./schema.json",
+  "code": "langflow",
+  "name": "Langflow",
+  "description": "A User Interface For LangChain",
+  "icon": "https://em-content.zobj.net/thumbs/240/apple/354/chains_26d3-fe0f.png",
+  "image": "ghcr.io/tlaanemaa/langflow-docker:latest",
+  "command": null,
+  "args": null,
+  "port": 5003,
+  "dataPath": "/app",
+  "network": "HTTP",
+  "variables": []
+}
