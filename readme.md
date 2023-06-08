@@ -1,8 +1,8 @@
-<p align="center">
+<!-- <p align="center">
   <a href="https://zeabur.com">
     <img src="https://i.imgur.com/JSl9xHx.png" width="100%">
   </a>
-</p>
+</p> -->
 
 <p align="center">
   <a href="https://zeabur.com"><strong>Home</strong></a>
