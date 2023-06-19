@@ -1,0 +1,99 @@
+---
+title: 部署 WordPress 服务
+ogImageTitle: 部署 WordPress 服务
+ogImageSubtitle: 在 Zeabur 一键部署 WordPress 服务
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# 部署 WordPress 服务
+
+[WordPress](https://wordpress.org/) 是一个可以让任何人轻松建置美观网站、博客或 App 的开放源代码软件。
+
+这篇文章将指引你如何在 Zeabur 上透过服务市场轻松部署一个自己的 WordPress 服务，并且绑定自己的域名。
+
+## 步骤一：创建项目
+
+首先，我们需要先在 Zeabur 上创建一个项目，请前往 [项目列表](https://dash.zeabur.com/projects) 页面，你会看到你的许多项目，而“创建项目”按钮就在所有项目的最后面。
+
+## 步骤二：部署 MySQL 服务
+
+在创建 WordPress 服务之前，需要先部署一个 MySQL 服务。
+
+请点选“创建服务”并选择“服务市场”，你将在列表中找到 MySQL。
+
+![部署 MySQL](/marketplace/wordpress/deploy-mysql.png)
+
+点选这个项目即可部署完成。
+
+## 步骤三：创建数据库
+
+为了让 WordPress 服务能够正常运作，我们需要先在 MySQL 数据库中创建一个名为 `wordpress` 的数据库。
+
+请先使用任意 MySQL 用户端连接你的 MySQL 服务，在本文，我们使用 [mysqlsh](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysqlsh.html) 来连接。
+
+![MySQL 连接信息区块](/marketplace/wordpress/mysql-connect.png)
+
+你可以在 Zeabur 控制台中，MySQL 服务的“连接”区块中找到对应的 mysql 连接命令或其他连接信息。
+
+例如：
+
+```bash
+mysqlsh --host=infra.zeabur.com --port=11451 --user=root --password=wordpress-demo
+```
+
+在输入到终端机之前，请在 `mysqlsh` 后面加上 ` --sql`：
+
+```bash
+mysqlsh --sql --host=infra.zeabur.com --port=11451 --user=root --password=wordpress-demo
+```
+
+接着，请在 mysqlsh 中输入以下命令来创建 `wordpress` 数据库：
+
+```sql
+CREATE DATABASE wordpress;
+```
+
+看到形如 `Query OK, 1 row affected (0.0573 sec)` 的字样就代表完成，
+可以敲 <kbd>Ctrl</kbd> (<kbd>Control</kbd>) + <kbd>D</kbd> 离开。
+
+![MySQL 操作](/marketplace/wordpress/mysql-operation.png)
+
+## 步骤三：部署 WordPress 服务
+
+在 Zeabur 控制台中，请点选“创建服务”并选择“服务市场”，你将在列表中找到 WordPress。
+
+![部署 WordPress 服务](/marketplace/wordpress/deploy-wordpress.png)
+
+点选这个项目即可部署完成。
+
+<Callout>
+需要注意的是，因为我们在部署 WordPress 前已经部署了 MySQL 服务，Zeabur
+会自动帮你注入 MySQL 的相关环境变数到 WordPress
+的服务中，所以无需再手工配置数据库信息。
+
+如果你先部署了 WordPress 而还没有部署 MySQL，那么你需要在部署 MySQL
+服务后重新启动 WordPress 服务，才能让 WordPress 取得正确的数据库连接信息。
+</Callout>
+
+## 步骤四：绑定域名
+
+在 Zeabur 控制台中，WordPress 服务的“域名”区块中，你可以为其绑定一个域名，这个域名可以是你自己的域名，也可以是 Zeabur 提供的免费域名。
+
+![WordPress 服务的域名区块](/marketplace/wordpress/wordpress-domain.png)
+
+关于如何为你的服务绑定域名，请参阅 [绑定域名](../deploy/domain-binding)。
+
+## 步骤五：登入并设置 WordPress
+
+完成绑定后，你可以点选域名进入 WordPress 的安装界面。首先，在这里选择您想要的语言后按下对应语言的 “Continue”：
+
+![WordPress 安装，选择语言步骤](/marketplace/wordpress/wordpress-inst-step1.png)
+
+接着照着步骤安装：
+
+![WordPress 安装，设置密码和站台信息](/marketplace/wordpress/wordpress-inst-step2.png)
+
+看到这个界面就是安装完成。
+
+![WordPress 安装，完成安装](/marketplace/wordpress/wordpress-inst-step3.png)
