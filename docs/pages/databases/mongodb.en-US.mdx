@@ -4,6 +4,84 @@ ogImageTitle: Deploy MongoDB
 ogImageSubtitle: How to deploy MongoDB on Zeabur
 ---
 
-# Deploy MongoDB
+import { Callout } from 'nextra-theme-docs'
 
-<WorkingInProgress />
+# Deploying MongoDB
+
+Zeabur provides a one-click deployment feature of MongoDB service, allowing you to quickly deploy a MongoDB database on Zeabur.
+
+## Deploying MongoDB Service
+
+In your project, click **Deploy New Service** and select **Deploy Other Service** and then **Deploy MongoDB Service**.
+
+![Select "Marketplace"](/framework/deploy.png)
+
+![Select "MongoDB"](/databases/deploy-mongodb.png)
+
+Once you click "Deploy", Zeabur will automatically deploy the MongoDB service for you.
+
+## Environment Variables
+
+After the MongoDB service is successfully deployed, Zeabur will automatically inject environment variables into the service. Currently, the following variables are available:
+
+- `MONGO_INITDB_ROOT_PASSWORD`
+- `MONGO_INITDB_ROOT_USERNAME`
+- `PASSWORD`
+
+## Connecting to the Database
+
+<Callout type="info" emoji="ℹ️">
+The default database user is `mongo`. The password can be retrieve from the `PASSWORD` environment variable.
+</Callout>
+
+- [MongoDB Compass](https://www.mongodb.com/products/compass)
+- [mongosh](https://www.mongodb.com/docs/mongodb-shell/)
+
+### MongoDB Compass
+
+[MongoDB Compass](https://www.mongodb.com/products/compass) is an interactive tool “for querying, optimizing, and analyzing your MongoDB data, and allow getting key insights, dragging and droping to build pipelines, and more”.
+
+Once you have downloaded and installed it according to the official documentation, go back to your Zeabur dashboard. Click on the Connections tab in the MongoDB service, and click the eye icon to copy the connection string.
+
+![connect-path](/databases/mongodb/connect-path.png)
+
+Paste the copied content into the URI input box:
+
+![input-to-URI](/databases/mongodb/input-to-URI.png)
+
+Choose `Save & Connect` or `Connect` according to your needs:
+
+![mongodb-compass-connect-success](/databases/mongodb/mongodb-compass-connect-success.png)
+
+Now you can start to operate MongoDB.
+
+### mongosh
+
+[mongosh](https://www.mongodb.com/docs/mongodb-shell/) is a fully-featured JavaScript and Node.js REPL environment for interacting with MongoDB databases.
+
+Once you have downloaded and installed it according to the documentation, go back to your Zeabur dashboard. Click on the Connections tab in the MongoDB service, and click the eye icon to copy the connection string.
+
+![connect-path](/databases/mongodb/connect-path.png)
+
+```bash
+mongosh mongodb://<YOUR_CONNECT_PATH>
+```
+
+Replace `<YOUR_CONNECT_PATH>` with the connection string you just copied, and we can use the following command to test if the connection is successful:
+
+```bash
+use mongodb_test
+db.mongodb_test.insertOne({content: "Hello World"})
+show dbs
+```
+
+If successful, it should return:
+
+![mongosh-connect-success](/databases/mongodb/mongosh-connect-success.png)
+
+Then we can `drop` the test database.
+
+```bash
+use mongodb_test
+db.drop()
+```

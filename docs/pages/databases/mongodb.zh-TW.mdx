@@ -6,4 +6,82 @@ ogImageSubtitle: 在 Zeabur 一鍵部署 MongoDB 服務
 
 # 部署 MongoDB 服務
 
-<WorkingInProgress />
+Zeabur 提供了一鍵部署 MongoDB 服務的功能，讓你可以快速的在 Zeabur 上部署 MongoDB 資料庫。
+
+## 部署 MongoDB 服務
+
+在你的項目中，點選 **部署新服務**，並選擇 **部署其他服務** 中的 **部署 MongoDB 服務**。
+
+![Select "Marketplace"](/framework/deploy.zh-CN.png)
+
+![Select "MongoDB"](/databases/deploy-mongodb.zh-CN.png)
+
+點選部署後，Zeabur 會自動幫你部署 MongoDB 服務。
+
+## 環境變數
+
+成功部署 MongoDB 服務後，Zeabur 會自動注入環境變數到服務中。目前有以下變數：
+
+- `MONGO_INITDB_ROOT_PASSWORD`
+- `MONGO_INITDB_ROOT_USERNAME`
+- `PASSWORD`
+
+## 連結資料庫
+
+<Callout type="info" emoji="ℹ️">
+Zeabur 預設資料庫使用者為 `mongo`，密碼需自行查看 `PASSWORD` 變數。
+</Callout>
+
+- [MongoDB Compass](https://www.mongodb.com/products/compass)
+- [mongosh](https://www.mongodb.com/docs/mongodb-shell/)
+
+### MongoDB Compass
+
+[MongoDB Compass](https://www.mongodb.com/products/compass) 是一款用於查詢、最佳化和分析 MongoDB 資料的互動式工具。可供獲取關鍵洞察，拖曳建構管道等。
+
+根據官方文件下載且安裝完畢後，回到 Zeabur 中。點選 MongoDB 服務中連結頁籤，點選 `MongoDB connection string` 的小眼睛來複製連結地址。
+
+![connect-path](/databases/mongodb/connect-path.png)
+
+將複製內容貼到 URI 輸入框：
+
+![input-to-URI](/databases/mongodb/input-to-URI.png)
+
+根據自身需要選擇 `Save & Connect` 或 `Connect`：
+
+![mongodb-compass-connect-success](/databases/mongodb/mongodb-compass-connect-success.png)
+
+此時，即可開始操作 MongoDB。
+
+### mongosh
+
+[mongosh](https://www.mongodb.com/docs/mongodb-shell/) 是一個功能齊全的 JavaScript 和 Node.js REPL 環境，用於與 MongoDB 資料庫進行互動。
+
+根據文件下載且安裝完畢後，回到 Zeabur 中。點選 MongoDB 服務中連結頁籤，點選 `MongoDB connection string` 的小眼睛來複製連結地址。
+
+![connect-path](/databases/mongodb/connect-path.png)
+
+```bash
+mongosh mongodb://<YOUR_CONNECT_PATH>
+```
+
+將 `<YOUR_CONNECT_PATH>` 取代為剛剛複製的連結地址，我們可以使用如下命令來測試連結是否成功：
+
+```bash
+use mongodb_test
+db.mongodb_test.insertOne({content: "Hello World"})
+show dbs
+```
+
+若成功則應當回傳：
+
+![mongosh-connect-success](/databases/mongodb/mongosh-connect-success.png)
+
+之後我們可以 `drop` 掉測試用資料庫。
+
+```bash
+use mongodb_test
+db.drop()
+```
+
+{/* localized with zhconvert, dict-c63c8c8d-r1033, +manual */}
