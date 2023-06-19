@@ -1,5 +1,6 @@
 import { useConfig } from 'nextra-theme-docs'
 import { useRouter } from 'next/router'
+import WorkingInProgress from './components/WorkingInProgress'
 
 // base64 encoding that supports unicode strings
 function base64Encode(str) {
@@ -16,6 +17,9 @@ export default {
   },
   primaryHue: { dark: 278, light: 265 },
   docsRepositoryBase: 'https://github.com/zeabur/zeabur/tree/main/docs',
+  components: {
+    WorkingInProgress: WorkingInProgress,
+  },
   useNextSeoProps() {
     return {
       titleTemplate: '%s – Zeabur',
