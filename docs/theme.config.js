@@ -62,14 +62,16 @@ export default {
       <meta name="description" content="Zeabur Docs" />
 
       <meta property="twitter:card" content="summary_large_image" />
-      <meta property="twitter:site:domain" content="docs.zeabur.com" />
-      <meta property="twitter:url" content={`https://docs.zeabur.com${asPath}`} />
+      <meta property="twitter:site:domain" content="zeabur.com" />
+      <meta property="twitter:url" content={`https://zeabur.com/docs${asPath}`} />
       <meta property="twitter:image" content={ogUrl} />
 
       <meta property="og:title" content="Zeabur: Deploy your service with one click." />
       <meta property="og:description" content="Zeabur: Deploy your service with one click." />
-      <meta property="og:url" content={`https://docs.zeabur.com${asPath}`} />
+      <meta property="og:url" content={`https://zeabur.com/docs${asPath}`} />
       <meta property="og:image" content={ogUrl} />
+
+      <meta property="conaonical" content={`https://zeabur.com/docs${asPath}`} />
 
       <meta name="apple-mobile-web-app-title" content="Zeabur" />
       <link

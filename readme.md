@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://zeabur.com"><strong>Home</strong></a>
-  <a href="https://docs.zeabur.com"><strong>Documentation</strong></a>
+  <a href="https://zeabur.com/docs"><strong>Documentation</strong></a>
   <a href="https://discord.gg/DrdGCvXEyY"><strong>Discord</strong></a>
   <a href="https://github.com/orgs/zeabur/discussions"><strong>Discussion</strong></a>
 </p>
@@ -55,4 +55,4 @@ After deployment, you can easily manage your services through the dashboard.
 
 ## Documentation
 
-For details on how to use Zeabur, check out our [documentation](https://docs.zeabur.com).
+For details on how to use Zeabur, check out our [documentation](https://zeabur.com/docs).
