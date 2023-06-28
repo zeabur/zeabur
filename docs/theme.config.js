@@ -1,6 +1,8 @@
 import { useConfig } from 'nextra-theme-docs'
 import { useRouter } from 'next/router'
 import WorkingInProgress from './components/WorkingInProgress'
+import LogoBlack from './public/logo_b.svg'
+import LogoWhite from './public/logo_w.svg'
 
 // base64 encoding that supports unicode strings
 function base64Encode(str) {
@@ -32,13 +34,13 @@ export default {
   ],
   logo: <>
     <img
-      src="/logo_b.svg"
+      src={LogoBlack.src}
       style={{ height: 20, objectFit: 'contain' }}
       alt="zeabur"
       className="black-logo"
     />
     <img
-      src="/logo_w.svg"
+      src={LogoWhite.src}
       style={{ height: 20, objectFit: 'contain' }}
       alt="zeabur"
       className="white-logo"

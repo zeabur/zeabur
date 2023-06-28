@@ -9,6 +9,7 @@ module.exports = withNextra({
     locales: ['en-US', 'zh-TW', 'zh-CN'],
     defaultLocale: 'en-US'
   },
+  basePath: '/docs',
   async redirects() {
     return [
       {
