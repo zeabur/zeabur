@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const baseUrl = "https://docs.zeabur.com";
+const baseUrl = "https://zeabur.com/docs";
 const pagesDir = "./pages";
 const publicDir = "./public";
 

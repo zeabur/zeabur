@@ -1,6 +1,8 @@
 import { useConfig } from 'nextra-theme-docs'
 import { useRouter } from 'next/router'
 import WorkingInProgress from './components/WorkingInProgress'
+import LogoBlack from './public/logo_b.svg'
+import LogoWhite from './public/logo_w.svg'
 
 // base64 encoding that supports unicode strings
 function base64Encode(str) {
@@ -32,13 +34,13 @@ export default {
   ],
   logo: <>
     <img
-      src="/logo_b.svg"
+      src={LogoBlack.src}
       style={{ height: 20, objectFit: 'contain' }}
       alt="zeabur"
       className="black-logo"
     />
     <img
-      src="/logo_w.svg"
+      src={LogoWhite.src}
       style={{ height: 20, objectFit: 'contain' }}
       alt="zeabur"
       className="white-logo"
@@ -60,14 +62,16 @@ export default {
       <meta name="description" content="Zeabur Docs" />
 
       <meta property="twitter:card" content="summary_large_image" />
-      <meta property="twitter:site:domain" content="docs.zeabur.com" />
-      <meta property="twitter:url" content={`https://docs.zeabur.com${asPath}`} />
+      <meta property="twitter:site:domain" content="zeabur.com" />
+      <meta property="twitter:url" content={`https://zeabur.com/docs${asPath}`} />
       <meta property="twitter:image" content={ogUrl} />
 
       <meta property="og:title" content="Zeabur: Deploy your service with one click." />
       <meta property="og:description" content="Zeabur: Deploy your service with one click." />
-      <meta property="og:url" content={`https://docs.zeabur.com${asPath}`} />
+      <meta property="og:url" content={`https://zeabur.com/docs${asPath}`} />
       <meta property="og:image" content={ogUrl} />
+
+      <meta property="conaonical" content={`https://zeabur.com/docs${asPath}`} />
 
       <meta name="apple-mobile-web-app-title" content="Zeabur" />
       <link
