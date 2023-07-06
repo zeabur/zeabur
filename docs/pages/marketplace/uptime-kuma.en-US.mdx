@@ -1,0 +1,59 @@
+---
+title: Deploy Uptime Kuma
+ogImageTitle: Deploy Uptime Kuma
+ogImageSubtitle: Deploy Uptime Kuma on Zeabur
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Deploy Uptime Kuma
+
+[Uptime Kuma](https://github.com/louislam/uptime-kuma) is an easy-to-use self-hosted monitoring tool.
+
+This article will show you how to deploy Uptime Kuma on Zeabur in a minute.
+
+## Step 1: Create a project
+
+First, we need to create a project. Go to the [Projects page](https://dash.zeabur.com/projects), and you will see a list of your projects. Click the "Create Project" button at the end of the list.
+
+## Step 2: Deploy from marketplace
+
+After creating a project, you will be redirected to the project page.
+
+Click the "Add Service" button and then select "Marketplace". You will find Uptime Kuma in the list.
+
+![Deploy Uptime Kuma](/marketplace/uptime-kuma/deploy.png)
+
+Click on it or just press Enter, your Uptime Kuma service will start to deploy.
+
+## Step 3: Bind a domain
+
+While you are waiting for this service to get running, you can bind a domain to it. This domain can be your own domain or a free domain provided by Zeabur.
+
+Open the "Domain" tab in the service page and click on "Generate Domain" or "Custom Domain".
+
+For more information about how to bind a domain to your service, please refer to [Bind a domain](../deploy/domain-binding).
+
+![Domain Biding](/marketplace/uptime-kuma/domain.png)
+
+## Step 4: Configure your Uptime Kuma
+
+After binding the domain, you can click the domain to enter the Uptime Kuma login page, and fill in the form to create your admin information.
+
+![Configure Uptime Kuma](/marketplace/uptime-kuma/configure.png)
+
+Click "Create" button, you will get into the Uptime Kuma dashboard.
+
+![Uptime Kuma Dashboard](/marketplace/uptime-kuma/dashboard.png)
+
+## Step 5: Start monitoring
+
+In the dashboard, you can add your first monitor by clicking the "Add New Monitor" button, and then you can set up your first monitoring!
+
+![Monitoring Setup](/marketplace/uptime-kuma/monitoring-setup.png)
+
+Click save, and you will see your monitor in the dashboard.
+
+![Monitoring](/marketplace/uptime-kuma/monitoring.png)
+
+For more settings, you can refer to the [Uptime Kuma documentation](https://github.com/louislam/uptime-kuma/wiki).
