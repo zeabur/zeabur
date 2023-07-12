@@ -49,7 +49,7 @@ export default {
     const encoded = base64Encode(ogQueryString)
     const ogUrl = `${ogEndpoint}/${encodeURIComponent(encoded)}.png`
 
-    const title = frontMatter?.title ? (frontMatter.title + " - Zeabur") : "Zeabur Docs"
+    const title = frontMatter?.ogImageTitle + " - Zeabur"
     const description = frontMatter?.description || frontMatter.ogImageSubtitle || "Zeabur: Deploy your service with one click."
 
     return <>
