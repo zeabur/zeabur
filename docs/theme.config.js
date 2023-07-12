@@ -41,6 +41,11 @@ export default {
       className="white-logo"
     />
   </>,
+  useNextSeoProps() {
+    return {
+      titleTemplate: '%s – Zeabur',
+    }
+  },
   head: () => {
     const { asPath } = useRouter();
     const { frontMatter } = useConfig();
