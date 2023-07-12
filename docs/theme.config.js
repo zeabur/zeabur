@@ -22,11 +22,6 @@ export default {
   components: {
     WorkingInProgress: WorkingInProgress,
   },
-  useNextSeoProps() {
-    return {
-      titleTemplate: '%s – Zeabur',
-    }
-  },
   i18n: [
     { locale: 'en-US', text: 'English' },
     { locale: 'zh-TW', text: '繁體中文' },
@@ -54,20 +49,26 @@ export default {
     const encoded = base64Encode(ogQueryString)
     const ogUrl = `${ogEndpoint}/${encodeURIComponent(encoded)}.png`
 
+    const title = frontMatter?.title ? (frontMatter.title + " - Zeabur") : "Zeabur Docs"
+    const description = frontMatter?.description || frontMatter.ogImageSubtitle || "Zeabur: Deploy your service with one click."
+
     return <>
       <meta name="msapplication-TileColor" content="#ffffff" />
       <meta name="theme-color" content="#ffffff" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta httpEquiv="Content-Language" content="en" />
-      <meta name="description" content="Zeabur Docs" />
+
+      <title>{title}</title>
+      <meta property="og:title" content={title} />
+
+      <meta name="description" content={description} />
+      <meta property="og:description" content={description} />
 
       <meta property="twitter:card" content="summary_large_image" />
       <meta property="twitter:site:domain" content="zeabur.com" />
       <meta property="twitter:url" content={`https://zeabur.com/docs${asPath}`} />
       <meta property="twitter:image" content={ogUrl} />
 
-      <meta property="og:title" content="Zeabur: Deploy your service with one click." />
-      <meta property="og:description" content="Zeabur: Deploy your service with one click." />
       <meta property="og:url" content={`https://zeabur.com/docs${asPath}`} />
       <meta property="og:image" content={ogUrl} />
 
