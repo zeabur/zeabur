@@ -5,4 +5,59 @@ ogImageSubtitle: Deploy Django App in Zeabur
 
 # Deploy Django
 
-This page is not completed yet. If you are willing to help Zeabur to complete this page, so that more developers can quickly deploy their projects, please submit a Pull Request to  [zeabur/zeabur-docs](https://github.com/zeabur/docs)。
+This article will teach you how to deploy your Django project on Zeabur.
+
+## Step1: Install Django
+
+Before starting, please make sure you have installed Python on your computer, if not, please install [Python environment](https://www.python.org/downloads/).
+
+Confirm whether there is a Python environment.
+
+```bash
+python --version
+```
+
+Open a terminal and execute the following command to install.
+
+```bash
+pip install django
+```
+
+## Step2: Create Django Project
+
+Create a new Django project using the `django-admin` command, replacing `project_name` with your project name.
+You can also use [Django-template](https://github.com/zeabur/django-template) After using the Django example, you can skip the second step.
+
+```bash
+django-admin startproject project_name
+```
+
+## Step3: Run Django Project
+
+Open the Django project and execute the startup to check whether the local startup is successful.
+
+```bash
+cd project_name
+python manage.py runserver
+```
+
+## Step4: Deploy Django Project
+
+To initialize a Git repository for it and deploy it to your GitHub, in your project, click the **Deploy service** or **Add new service** button and select **Deploy your source code**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Launch the website success screen after the deployment is successful.
+
+![django-web](/framework/django/django.png)
+
+Please note that if an error occurs, please confirm whether there is configuration in the project:
+
+- Check for `requirements.txt`, the main purpose of this file is to list all the Python packages and their versions required by the project,
+  It is used to ensure that the project has the same dependencies and versions in different development environments and production environments. If it is not configured, please use the following instructions in the project and push it to GitHub again.
+
+```bash
+pip freeze > requirements.txt
+```
+
+- Check whether `ALLOWED_HOSTS` in `settings.py` is set, this property is a Python List, which contains the domains that can access the Django application, you can use `ALLOWED_HOSTS = ['*']`, which means that all networks are allowed domain for testing purposes.
