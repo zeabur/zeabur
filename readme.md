@@ -1,15 +1,10 @@
-<!-- <p align="center">
-  <a href="https://zeabur.com">
-    <img src="https://i.imgur.com/JSl9xHx.png" width="100%">
-  </a>
-</p> -->
-
 <p align="center">
   <a href="https://zeabur.com"><strong>Home</strong></a>
   <a href="https://zeabur.com/docs"><strong>Documentation</strong></a>
   <a href="https://discord.gg/DrdGCvXEyY"><strong>Discord</strong></a>
   <a href="https://github.com/orgs/zeabur/discussions"><strong>Discussion</strong></a>
 </p>
+
 <br/>
 
 ## Intro
@@ -17,6 +12,8 @@
 Zeabur is a platform that help developers deploy their services with one click. 
 
 No matter what programming language or framework is used.
+
+<a href="https://www.producthunt.com/posts/zeabur?utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-zeabur" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=404816&theme=light&period=daily" alt="Zeabur - Deploy&#0032;painlessly&#0032;and&#0032;scale&#0032;infinitely&#0032;with&#0032;just&#0032;one&#0032;click | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 
 ## Features
 
