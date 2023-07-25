@@ -4,7 +4,7 @@
   "name": "n8n",
   "description": "Build complex automations 10x faster, without fighting APIs",
   "icon": "https://raw.githubusercontent.com/n8n-io/n8n/master/assets/n8n-logo.png",
-  "image": "n8nio/n8n:1.0.3",
+  "image": "n8nio/n8n",
   "command": null,
   "args": null,
   "port": 5678,
