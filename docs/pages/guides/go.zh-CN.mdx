@@ -6,8 +6,8 @@ ogImageSubtitle: 在 Zeabur 部署 Go 项目
 
 # 部署 Go 项目
 
-所有基于 [Go Modules](https://blog.golang.org/using-go-modules) 的项目都可以部署。但您需要在项目根目录有一个 `main.go` 作为程序编译入口。
+所有基于 [Go Modules](https://blog.golang.org/using-go-modules) 的项目都可以部署。但你需要在项目根目录有一个 `main.go` 作为程序编译入口。
 
-如果您有多个程序编译入口，则需要将他们放在 `cmd` 目录下，例如一个 `cmd/server-a/main.go` 和一个 `cmd/server-b/main.go`。
+如果你有多个程序编译入口，则需要将他们放在 `cmd` 目录下，例如一个 `cmd/server-a/main.go` 和一个 `cmd/server-b/main.go`。
 
 Zeabur 会自动识别并部署 `cmd` 目录下与 Service 名称相同的程序编译入口。

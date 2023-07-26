@@ -16,27 +16,27 @@ import { Callout } from 'nextra-theme-docs'
 
 ## 建立 Dockerfile
 
-在你的项目根目录建立一个名为 `Dockerfile` 或 `dockerfile` 的文件，并且在里面撰写你的部署方式，最后须确保你有暴露对应的 `PORT`。
+在你的项目根目录建立一个名为 `Dockerfile` 或 `dockerfile` 的文件，并编辑，最后须确保你有暴露对应的 `PORT`。
 
-Zeabur 会自动检测你的项目是否有 `Dockerfile`，如果有的话会以 docker 的方式来部署你的项目。
+Zeabur 会自动检测你的项目是否有 `Dockerfile`，如果有的话会以 Docker 的方式来部署你的项目。
 
 <Callout type="info">
-  开始部署后即可在上方看到 docker 的图标，代表你的项目已经以 docker 的方式来部署。
+  开始部署后即可在上方看到 Docker 的图标，代表你的项目已经以 Docker 的方式来部署。
 </Callout>
 
 ![docker-deploy](/deploy/dockerfile/docker-deploy.png)
 
 ## 环境变量
 
-如果你的 `Dockerfile` 需要使用到环境变量，你可以在该服务的页面点选 **环境变量** 来新增，更多的设定方式请参考 [环境变量](/zh-CN/environment/variables)。
+如果你的 `Dockerfile` 需要使用到环境变量，你可以在该服务的页面点选 **环境变量** 来新增，更多的设置方式请参考 [环境变量](/zh-CN/environment/variables)。
 
 ![环境变量设置](/environment/add-variables.png)
 
-如果你的 `Dockerfile` 撰写方式为一个阶段 (stage)，或是你的环境变量只需在最后一个阶段中使用，那么你就你无需手动写 `ENV`，Zeabur 会自动帮你加上。
+如果你的 `Dockerfile` 只是单阶段 (stage)，或是你的环境变量只需在最后一个阶段中使用，那么你就你无需手动写 `ENV`，Zeabur 会自动帮你加上。
 
 ### ARG
 
-但如果你的 `Dockerfile` 撰写方式为多个阶段 ([multi-stage](https://docs.docker.com/build/building/multi-stage/))，并且需要在建置前就设置环境变量，你可以使用 `ARG` 来设置。
+但如果你的 `Dockerfile` 使用了多阶段 ([multi-stage](https://docs.docker.com/build/building/multi-stage/)) 特性，并且需要在建置前就设置环境变量，你可以使用 `ARG` 来设置。
 
 以下我们以 nodejs 及 nginx 为例，撰写一个 `Dockerfile` 来部署。
 
