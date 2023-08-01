@@ -4,10 +4,10 @@
   "name": "RSStT",
   "description": "A Telegram RSS bot that cares about your reading experience.",
   "icon": "https://github.com/Rongronggg9/RSS-to-Telegram-Bot/raw/dev/docs/resources/RSStT_icon.svg",
-  "image": "rongronggg9/rss-to-telegram",
+  "image": "rongronggg9/rss-to-telegram:dev",
   "command": null,
   "args": null,
-  "port": 80,
+  "port": 8080,
   "dataPath": "/app/config",
   "variables": [
     {
@@ -23,12 +23,8 @@
       "value": "1a23b456c78de90f1a23b456c78de90f1a23b456c78de90f1a23b456c78d"
     },
     {
-      "name": "MULTIUSER",
-      "value": "0"
-    },
-    {
-      "name": "PORT",
-      "value": "80"
+      "name": "DATABASE_URL",
+      "value": "postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/root"
     }
   ],
   "network": "HTTP"
