@@ -1,0 +1,69 @@
+---
+title: 部署 Tiny Tiny RSS
+ogImageTitle: 部署 Tiny Tiny RSS
+ogImageSubtitle: 在 Zeabur 部署 Tiny Tiny RSS
+---
+
+# Deploy Tiny Tiny RSS Service
+
+[Tiny Tiny RSS](https://tt-rss.org/) is a free and open source web-based news feed (RSS/Atom) reader and aggregator
+
+This article will teach you how to deploy your own Tiny Tiny RSS service on Zeabur through the Marketplace and bind your own domain name.
+
+## Step 1: Create a project
+
+First, we need to create a project. Go to the [Projects](https://dash.zeabur.com/projects) page, and you will see a list of your projects.
+
+Click the "Create Project" button at the end of the list.
+
+![Create Project](/deploy/common/create-project.en-US.png)
+
+## Step 2: Deploy PostgreSQL Service
+
+Although Tiny Tiny RSS is compatible with MySQL, it is highly recommended to use PostgreSQL as the database.
+
+You can deploy PostgreSQL in marketplace with one click.
+
+Click on the "Add Service" button or press "cmd + k" in project page, and select "Marketplace".
+
+![Select Marketplace](/deploy/common/select-service.en-US.png)
+
+Click PostgreSQL
+
+![Deploy PostgreSQL](/marketplace/postgresql/deploy.png)
+
+## Step 3: Deploy Tiny Tiny RSS Service
+
+You can deploy Tiny Tiny RSS service in marketplace with one click.
+
+Click on the "Add Service" button or press "cmd + k" in project page, and select "Marketplace".
+
+![Select Marketplace](/deploy/common/select-service.en-US.png)
+
+Find Tiny Tiny RSS in the list and click on it to start deploying.
+
+## Step 3: Bind a domain
+
+In the "Domain" block of the Tiny Tiny RSS service in the Zeabur dashboard, you can bind a domain to it.
+
+This domain can be your own domain or a free domain provided by Zeabur.
+
+For more information about how to bind a domain to your service, please refer to [Bind a domain](../deploy/domain-binding).
+
+## Step 4: Deploy Mercury Parser API Service(Optional)
+
+If you want to use the Mercury plugin, you need to additionally deploy a Mercury Parser API service.
+
+First fork a [Mercury Parser API](https://github.com/HenryQW/mercury-parser-api) repository from Github
+
+Then create a new service and choose to build from Git
+
+![Deploy](/deploy/common/select-service.en-US.png)
+
+In the "Domain Name" block of the Mercury Parser API service in the Zeabur console, you need to bind a domain name to obtain a certificate to generate a free domain name provided by Zeabur.
+
+Finally enable the Mercury plugin in Tiny Tiny RSS and enter your domain
+
+## Step 5: Enjoy it
+
+After the deployment is complete, you can access your Tiny Tiny RSS service through the domain name you bound.

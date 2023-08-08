@@ -1,0 +1,69 @@
+---
+title: 部署 Tiny Tiny RSS
+ogImageTitle: 部署 Tiny Tiny RSS
+ogImageSubtitle: 在 Zeabur 部署 Tiny Tiny RSS
+---
+
+# Deploy Tiny Tiny RSS Service
+
+[Tiny Tiny RSS](https://tt-rss.org/) 是一个免费、开源的基于网络的新闻提要 (RSS/Atom) 阅读器和聚合器
+
+这篇文章将教你如何通过服务市场在 Zeabur 上部署自己的 Tiny Tiny RSS 服务，并绑定自己的域名。
+
+## 步骤一：建立项目
+
+第一步，我们需要建立一个项目。进入 [项目](https://dash.zeabur.com/projects) 页面，你会看到一个项目列表。
+
+点击列表末尾的 "创建项目" 按钮以创建一个新项目。
+
+![Create Project](/deploy/common/create-project.en-US.png)
+
+## 步骤二：部署 PostgreSQL 服务
+
+虽然 Tiny Tiny RSS 兼容 MySQL，但是强烈推荐使用 PostgreSQL 作为数据库。
+
+首先在服务市场中一键部署 PostgreSQL 服务。
+
+按下 "cmd + k" 或者点击 "添加服务" 按钮，然后选择 "服务市场"。
+
+![Select Marketplace](/deploy/common/select-service.en-US.png)
+
+选择 PostgreSQL
+
+![Deploy PostgreSQL](/marketplace/postgresql/deploy.png)
+
+## 步骤三：部署 Tiny Tiny RSS 服务
+
+你可以在服务市场中一键部署 Tiny Tiny RSS 服务。
+
+按下 "cmd + k" 或者点击 "添加服务" 按钮，然后选择 "服务市场"。
+
+![Select Marketplace](/deploy/common/select-service.en-US.png)
+
+在列表中找到 Tiny Tiny RSS 并点击它以开始部署。
+
+## 步骤四：绑定域名
+
+在 Zeabur 控制台中 Tiny Tiny RSS 服务的 "域名" 块中，你可以绑定一个域名。
+
+这个域名可以是你自己的域名，也可以是 Zeabur 提供的免费域名。
+
+关于如何为你的服务绑定域名，请参阅 [绑定域名](../deploy/domain-binding)。
+
+## 步骤四：部署 Mercury Parser API 服务（可选）
+
+如果你想要使用 Mercury 插件，你需要额外部署一个 Mercury Parser API 服务。
+
+首先从 Github Fork 一份 [Mercury Parser API](https://github.com/HenryQW/mercury-parser-api) 仓库
+
+然后新建一个服务，选择从 Git 构建
+
+![Deploy](/deploy/common/select-service.en-US.png)
+
+还需要在 Zeabur 控制台中 Mercury Parser API 服务的 "域名" 块中，你需要绑定一个域名获证生成一个 Zeabur 提供的免费域名。
+
+最后在 Tiny Tiny RSS 中启用 Mercury 插件，并输入你的域名
+
+## 步骤五：开始使用
+
+当部署完成后，你可以通过绑定的域名访问你的 Tiny Tiny RSS 服务。
