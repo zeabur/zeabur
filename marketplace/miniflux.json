@@ -7,16 +7,12 @@
     "image": "miniflux/miniflux:latest",
     "command": null,
     "args": null,
-    "port": 80,
+    "port": 8080,
     "network": "HTTP",
     "variables": [
       {
         "name": "DATABASE_URL",
         "value": ""
-      },
-      {
-        "name": "PROXY_IMAGES",
-        "value": "all"
       },
       {
         "name": "RUN_MIGRATIONS",
