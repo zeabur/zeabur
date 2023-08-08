@@ -1,42 +1,38 @@
 {
-    "$schema": "./schema.json",
-    "code": "miniflux",
-    "name": "Miniflux",
-    "description": "Miniflux is a minimalist and opinionated feed reader.",
-    "icon": "https://miniflux.app/favicon.ico",
-    "image": "miniflux/miniflux:latest",
-    "command": null,
-    "args": null,
-    "port": 80,
-    "network": "HTTP",
-    "variables": [
-      {
-        "name": "DATABASE_URL",
-        "value": ""
-      },
-      {
-        "name": "PROXY_IMAGES",
-        "value": "all"
-      },
-      {
-        "name": "RUN_MIGRATIONS",
-        "value": "1"
-      },
-      {
-        "name": "BASE_URL",
-        "value": "https://your-domain.tld"
-      },
-      {
-        "name": "ADMIN_PASSWORD",
-        "value": ""
-      },
-      {
-        "name": "ADMIN_USERNAME",
-        "value": ""
-      },
-      {
-        "name": "CREATE_ADMIN",
-        "value": "1"
-      }
-    ]
-  }
+  "$schema": "./schema.json",
+  "code": "miniflux",
+  "name": "Miniflux",
+  "description": "Miniflux is a minimalist and opinionated feed reader.",
+  "icon": "https://miniflux.app/favicon.ico",
+  "image": "miniflux/miniflux:latest",
+  "command": null,
+  "args": null,
+  "port": 8080,
+  "network": "HTTP",
+  "variables": [
+    {
+      "name": "DATABASE_URL",
+      "value": "postgres://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/miniflux?sslmode=disable"
+    },
+    {
+      "name": "RUN_MIGRATIONS",
+      "value": "1"
+    },
+    {
+      "name": "BASE_URL",
+      "value": "https://your-domain.tld"
+    },
+    {
+      "name": "ADMIN_PASSWORD",
+      "value": ""
+    },
+    {
+      "name": "ADMIN_USERNAME",
+      "value": ""
+    },
+    {
+      "name": "CREATE_ADMIN",
+      "value": "1"
+    }
+  ]
+}
