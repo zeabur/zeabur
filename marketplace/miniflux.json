@@ -15,10 +15,6 @@
       "value": "postgres://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/miniflux?sslmode=disable"
     },
     {
-      "name": "PROXY_IMAGES",
-      "value": "all"
-    },
-    {
       "name": "RUN_MIGRATIONS",
       "value": "1"
     },
