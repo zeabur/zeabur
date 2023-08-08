@@ -12,7 +12,7 @@
     "variables": [
       {
         "name": "DATABASE_URL",
-        "value": "${POSTGRES_HOST}"
+        "value": ""
       },
       {
         "name": "PROXY_IMAGES",
