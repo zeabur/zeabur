@@ -8,30 +8,31 @@ import { Callout } from 'nextra-theme-docs'
 
 # 部署 PostgreSQL 服务
 
+PostgreSQL 是一个功能强大的开源对象关系型数据库系统，拥有超过 35 年的历史，因其可靠性、功能健全性和性能而享有很高的声誉。
+
 Zeabur 提供了一键部署 PostgreSQL 服务的功能，让你可以快速地在 Zeabur 上部署 PostgreSQL 数据库。
 
 <Callout type="info" emoji="ℹ️">
-  目前 Zeabur 提供的 PostgreSQL 服务支持最新版本。未来将支持更多版本的 PostgreSQL 服务，敬请期待。
+  目前 Zeabur 提供的 PostgreSQL 服务支持最新版本。未来将支持更多版本的
+  PostgreSQL 服务，敬请期待。
 </Callout>
 
 ## 部署 PostgreSQL 服务
 
-在你的项目中，点击 **部署新服务**，并选择 **部署其他服务** 中的 **部署 PostgreSQL 服务**。
+在你的项目中，点击 **新建服务**，并选择 **服务市场**，在列表中找到 **PostgreSQL** 服务。
 
-![deploy](/deploy/common/select-service.en-US.png)
+![Deploy PostgreSQL](/marketplace/postgresql/deploy.png)
 
-![deploy-postgresql](/databases/deploy-postgresql.zh-CN.png)
-
-点击部署后，Zeabur 会自动帮你部署 PostgreSQL 服务。
+选中 **PostgreSQL** 服务后，Zeabur 将自动开始为你部署 PostgreSQL 服务。
 
 ## 环境变量
 
 当你部署 PostgreSQL 服务后，Zeabur 会自动帮你注入相关环境变量到其他的服务中。
 
- - `POSTGRESQL_HOST`
- - `POSTGRESQL_PORT`
- - `POSTGRESQL_USERNAME`
- - `POSTGRESQL_PASSWORD`
+- `POSTGRESQL_HOST`
+- `POSTGRESQL_PORT`
+- `POSTGRESQL_USERNAME`
+- `POSTGRESQL_PASSWORD`
 
 有时候我们可以用自行新增 `DATABASE_URL` 来取代上面的环境变量，例如：
 
@@ -43,18 +44,26 @@ postgres://<POSTGRESQL_USERNAME>:<POSTGRESQL_PASSWORD>@<POSTGRESQL_HOST>:<POSTGR
 
 ## 新增数据库
 
-Zeabur 默认的数据库和用户都为 `root`，这里我们需要先自行新增第一个数据库，可以通过以下的方式来新增。
+Zeabur 默认的数据库和用户都为 `root`。
 
- - [PgAdmin](#pgadmin)
- - [PSQL (sql shell)](#psql-sql-shell)
+有些时候你可能需要新增数据库，例如你的项目需要使用多个数据库，或者你需要为不同的环境使用不同的数据库，你可以通过以下两种方式来新增数据库：
+
+- [PgAdmin](#pgadmin)
+- [PSQL (sql shell)](#psql-sql-shell)
 
 ### PgAdmin
 
 [pgAdmin](https://www.pgadmin.org/) 是 PostgreSQL 最流行、功能最丰富的开源管理和开发平台。你可以使用 [pgAdmin](https://www.pgadmin.org/) 来连接到你部署在 Zeabur 的 PostgreSQL 数据库。
 
-首先，你需要先点击 **Add New Server**，并填入相关信息：
+#### 安装 PgAdmin
 
-![pgadmin-add-server](/databases/pgsql/pgadmin-add-server.jpg)
+你需要先安装 pgAdmin 客户端。前往 pgAdmin 的[官方网站](https://www.pgadmin.org/download/)下载并按照说明进行安装。
+
+![pgadmin](/databases/pgsql/pgadmin.jpg)
+
+#### 新增数据库
+
+首先，你需要点击 **Add New Server** 并填入相关信息：
 
 ![connect-pgsql](/databases/pgsql/connect-pgsql.png)
 
@@ -65,6 +74,18 @@ Zeabur 默认的数据库和用户都为 `root`，这里我们需要先自行新
 ### PSQL (sql shell)
 
 [psql](https://www.postgresql.org/docs/current/app-psql.html) 是一个基于终端的 PostgreSQL 工具。它使你能够以交互方式输入查询，将它们发送到 PostgreSQL，并查看查询结果。此外，[psql](https://www.postgresql.org/docs/current/app-psql.html) 提供了许多各种类似 shell 的功能，以方便编写脚本和自动执行各种任务。
+
+#### 安装 PSQL
+
+为了使用 PSQL ，你需要先安装 PostgreSQL 客户端。前往 PostgreSQL 的[官方网站](https://www.postgresql.org/download/)下载并按照说明进行安装。
+
+在安装完成后，你可能需要重启你的电脑。你可以通过输入以下指令来检查安装是否成功：
+
+```bash copy
+psql --version
+```
+
+#### 新增数据库
 
 你可以使用 [psql](https://www.postgresql.org/docs/current/app-psql.html) 来连接到你部署在 Zeabur 的 PostgreSQL 数据库，只要输入以下指令：
 
