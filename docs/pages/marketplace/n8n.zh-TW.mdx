@@ -1,9 +1,82 @@
 ---
 title: 部署 n8n
 ogImageTitle: 部署 n8n
-ogImageSubtitle: 在 Zeabur 一鍵部署 n8n
+ogImageSubtitle: 在 Zeabur 上部署 n8n
 ---
+
+import { Callout } from 'nextra-theme-docs'
 
 # 部署 n8n
 
-<WorkingInProgress />
+[n8n](https://github.com/n8n-io/n8n) 是一款可擴展的工作流自動化工具。採用公平程式碼散佈模型，n8n 始終具有可見的原始碼，可用於自主寄管，並允許您加入自己的自訂函數、邏輯和應用程式。n8n 的基於節點的方法使其高度靈活，使您能夠將任何東西連接到任何東西。
+
+本文將向你展示如何在 Zeabur 上使用 PostgreSQL 部署 n8n。
+
+## 步驟一：建立項目
+
+首先，我們需要在 Zeabur 上建立一個項目。轉到 [項目](https://dash.zeabur.com/projects) 頁面，你將看到你的所有項目，"建立項目" 按鈕位於所有項目的末尾。
+
+點選**建立項目**按鈕，並輸入項目名稱，你將得到一個新項目。
+
+## 步驟二：部署 PostgreSQL 服務
+
+n8n 將在 PostgreSQL 資料庫中儲存使用者身份資料。單擊 "建立服務"，然後選擇 "服務市場"，你將在列表中找到 PostgreSQL。
+
+![Deploy PostgreSQL](/marketplace/postgresql/deploy.png)
+
+選中 **PostgreSQL** 服務後，Zeabur 將自動開始為你部署該服務。
+
+## 步驟三：建立資料庫
+
+為了使 n8n 服務正常運作，我們需要在 PostgreSQL 資料庫中先建立一個名為 `n8n` 的資料庫。
+
+請先使用任何 PostgreSQL 用戶端連接到你的 PostgreSQL 服務。在本文中，我們使用 [psql](https://www.postgresql.org/docs/9.1/app-psql.html) 進行連接。
+
+![Connect PostgreSQL](/marketplace/postgresql/connect.png)
+
+你可以在 Zeabur 控制台中 PostgreSQL 服務的 "連接" 塊中找到相應的 psql 連接指令或其他連接資訊。
+
+```bash
+psql postgresql://root:password@infra.zeabur.com:12345
+```
+
+接下來，請在 psql 中輸入以下指令以建立 `n8n` 資料庫：
+
+```sql
+CREATE DATABASE n8n;
+```
+
+你可以在 [PostgreSQL 文件](../databases/postgresql) 中查看有關建立資料庫的更詳細文件。
+
+## 步驟四: 部署 n8n 服務
+
+In the Zeabur console, click "Create Service" and select "Service Marketplace", you will find n8n in the list.
+
+回到剛建立了 **PostgreSQL** 服務的項目頁面，點選**建立服務**，然後選擇**服務市場**，你將在列表中找到 n8n。
+
+![Deploy n8n](/marketplace/n8n/deploy.png)
+
+選中 **n8n** 服務後，Zeabur 將自動開始為你部署該服務。
+
+<Callout>
+  如果你在部署 PostgreSQL 之前先部署了 n8n，那麼你需要在部署 PostgreSQL
+  服務後重啟 n8n 服務，以便 n8n 獲取正確的資料庫連接資訊。
+</Callout>
+
+## 步驟五：綁定網域
+
+在 Zeabur 控制台中 n8n 服務的 "網域" 塊中，你可以綁定一個網域。
+
+這個網域可以是你自己的網域，也可以是 Zeabur 提供的免費網域。
+
+關於如何為你的服務綁定網域，請參閱 [綁定網域](../deploy/domain-binding)。
+
+## 步驟六：設定帳戶
+
+部署完成後，你可以透過你綁定的網域造訪你的 n8n 服務。你將會看到如下頁面：
+
+![n8n Setup](/marketplace/n8n/setup.png)
+
+跟隨頁面上的說明設定你的 n8n 帳戶。設定完成後，你就可以正常使用 n8n 了。
+
+![finish](/marketplace/n8n/finish.png)

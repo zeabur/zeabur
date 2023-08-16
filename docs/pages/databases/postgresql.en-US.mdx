@@ -8,31 +8,32 @@ import { Callout } from 'nextra-theme-docs'
 
 # PostgreSQL Service
 
-Zeabur provides a one-click deployment feature for PostgreSQL service, allowing you to quickly deploy a PostgreSQL database on Zeabur.
+PostgreSQL is a powerful, open source object-relational database system with over 35 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance.
+
+Zeabur provides a one-click deployment feature for PostgreSQL service, allowing you to deploy a PostgreSQL database on Zeabur in seconds.
 
 <Callout type="info" emoji="ℹ️">
-  At present, Zeabur's PostgreSQL service supports the latest version.
-  More versions of the PostgreSQL service will be supported in the future, so stay tuned.
+  At present, Zeabur's PostgreSQL service supports the latest version. More
+  versions of the PostgreSQL service will be supported in the future, so stay
+  tuned.
 </Callout>
 
-## Deploying PostgreSQL Service
+## Deploy PostgreSQL Service
 
-In your project, click on **Deploy new service** and select **Deploy PostgreSQL** from the **Deploy Other Services** options.
+In your project page, click on **Add service** button and select **Marketplace** and then find PostgreSQL in the list.
 
-![deploy](/deploy/common/select-service.en-US.png)
+![Deploy PostgreSQL](/marketplace/postgresql/deploy.png)
 
-![deploy-postgresql](/databases/deploy-postgresql.en-US.png)
-
-After clicking **Deploy**, Zeabur will automatically deploy the PostgreSQL service for you.
+After selecting PostgreSQL, Zeabur will automatically start deploying your PostgreSQL service.
 
 ## Environment Variables
 
 After you deploy the PostgreSQL service, Zeabur will automatically inject the relevant environment variables into other services.
 
- - `POSTGRESQL_HOST`
- - `POSTGRESQL_PORT`
- - `POSTGRESQL_USERNAME`
- - `POSTGRESQL_PASSWORD`
+- `POSTGRESQL_HOST`
+- `POSTGRESQL_PORT`
+- `POSTGRESQL_USERNAME`
+- `POSTGRESQL_PASSWORD`
 
 Sometimes, we can use the self-added `DATABASE_URL` to replace the above environment variables, for example:
 
@@ -44,18 +45,26 @@ Here, `<DATABASE_NAME>` is the name of the database that you added yourself.
 
 ## Adding a Database
 
-By default, the username and database name in Zeabur's PostgreSQL are both `root`. Here, we need to add the first database ourselves, which can be done in the following ways.
+By default, the username and database name in Zeabur's PostgreSQL are both `root`.
 
- - [PgAdmin](#pgadmin)
- - [PSQL (sql shell)](#psql-sql-shell)
+Sometimes you may need to add a `databse` to the PostgreSQL service, you can use the following methods to add a database.
+
+- [PgAdmin](#pgadmin)
+- [PSQL (sql shell)](#psql-sql-shell)
 
 ### PgAdmin
 
 [pgAdmin](https://www.pgadmin.org/) is the most popular and feature-rich open-source management and development platform for PostgreSQL. You can use [pgAdmin](https://www.pgadmin.org/) to connect to the PostgreSQL database deployed on Zeabur.
 
-First, you need to click **Add New Server** and enter the relevant information:
+#### Install PgAdmin
 
-![pgadmin-add-server](/databases/pgsql/pgadmin-add-server.jpg)
+You need to install the pgAdmin client first. Go to pgAdmin's [official website](https://www.pgadmin.org/download/) to download and follow the instructions to install.
+
+![pgadmin](/databases/pgsql/pgadmin.jpg)
+
+#### Add a Database
+
+First, you need to click **Add New Server** and enter the relevant information:
 
 ![connect-pgsql](/databases/pgsql/connect-pgsql.png)
 
@@ -66,6 +75,18 @@ Then, you can add a database in the **Databases** section.
 ### PSQL (sql shell)
 
 [psql](https://www.postgresql.org/docs/current/app-psql.html) is a terminal-based PostgreSQL tool. It allows you to enter queries interactively, send them to PostgreSQL, and view the query results. In addition, [psql](https://www.postgresql.org/docs/current/app-psql.html) provides many shell-like features to facilitate writing scripts and automating various tasks.
+
+#### Install PSQL
+
+To use PSQL, you need to install the PostgreSQL client first. Go to PostgreSQL's [official website](https://www.postgresql.org/download/) to download and follow the instructions to install.
+
+After the installation, you may need to restart your computer. You can check if the installation is successful by entering the following command:
+
+```bash copy
+psql --version
+```
+
+#### Add a Database
 
 You can use [psql](https://www.postgresql.org/docs/current/app-psql.html) to connect to the PostgreSQL database deployed on Zeabur by simply entering the following command:
 

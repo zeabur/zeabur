@@ -1,9 +1,82 @@
 ---
 title: 部署 n8n
 ogImageTitle: 部署 n8n
-ogImageSubtitle: 在 Zeabur 一键部署 n8n
+ogImageSubtitle: 在 Zeabur 上部署 n8n
 ---
 
-# 部署 n8n 服务
+import { Callout } from 'nextra-theme-docs'
 
-<WorkingInProgress />
+# 部署 n8n
+
+[n8n](https://github.com/n8n-io/n8n) 是一款可扩展的工作流自动化工具。采用公平代码分发模型，n8n 始终具有可见的源代码，可用于自主托管，并允许您添加自己的自定义函数、逻辑和应用程序。n8n 的基于节点的方法使其高度灵活，使您能够将任何东西连接到任何东西。
+
+本文将向你展示如何在 Zeabur 上使用 PostgreSQL 部署 n8n。
+
+## 步骤一：创建项目
+
+首先，我们需要在 Zeabur 上创建一个项目。转到 [项目](https://dash.zeabur.com/projects) 页面，你将看到你的所有项目，"创建项目" 按钮位于所有项目的末尾。
+
+点击**创建项目**按钮，并输入项目名称，你将得到一个新项目。
+
+## 步骤二：部署 PostgreSQL 服务
+
+n8n 将在 PostgreSQL 数据库中存储用户身份数据。单击 "创建服务"，然后选择 "服务市场"，你将在列表中找到 PostgreSQL。
+
+![Deploy PostgreSQL](/marketplace/postgresql/deploy.png)
+
+选中 **PostgreSQL** 服务后，Zeabur 将自动开始为你部署该服务。
+
+## 步骤三：创建数据库
+
+为了使 n8n 服务正常运行，我们需要在 PostgreSQL 数据库中先创建一个名为 `n8n` 的数据库。
+
+请先使用任何 PostgreSQL 客户端连接到你的 PostgreSQL 服务。在本文中，我们使用 [psql](https://www.postgresql.org/docs/9.1/app-psql.html) 进行连接。
+
+![Connect PostgreSQL](/marketplace/postgresql/connect.png)
+
+你可以在 Zeabur 控制台中 PostgreSQL 服务的 "连接" 块中找到相应的 psql 连接命令或其他连接信息。
+
+```bash
+psql postgresql://root:password@infra.zeabur.com:12345
+```
+
+接下来，请在 psql 中输入以下命令以创建 `n8n` 数据库：
+
+```sql
+CREATE DATABASE n8n;
+```
+
+你可以在 [PostgreSQL 文档](../databases/postgresql) 中查看有关创建数据库的更详细文档。
+
+## 步骤四: 部署 n8n 服务
+
+In the Zeabur console, click "Create Service" and select "Service Marketplace", you will find n8n in the list.
+
+回到刚创建了 **PostgreSQL** 服务的项目页面，点击**创建服务**，然后选择**服务市场**，你将在列表中找到 n8n。
+
+![Deploy n8n](/marketplace/n8n/deploy.png)
+
+选中 **n8n** 服务后，Zeabur 将自动开始为你部署该服务。
+
+<Callout>
+  如果你在部署 PostgreSQL 之前先部署了 n8n， 那么你需要在部署 PostgreSQL
+  服务后重启 n8n 服务， 以便 n8n 获取正确的数据库连接信息。
+</Callout>
+
+## 步骤五：绑定域名
+
+在 Zeabur 控制台中 n8n 服务的 "域名" 块中，你可以绑定一个域名。
+
+这个域名可以是你自己的域名，也可以是 Zeabur 提供的免费域名。
+
+关于如何为你的服务绑定域名，请参阅 [绑定域名](../deploy/domain-binding)。
+
+## 步骤六：设置账户
+
+部署完成后，你可以通过你绑定的域名访问你的 n8n 服务。你将会看到如下页面：
+
+![n8n Setup](/marketplace/n8n/setup.png)
+
+跟随页面上的说明设置你的 n8n 账户。设置完成后，你就可以正常使用 n8n 了。
+
+![finish](/marketplace/n8n/finish.png)
