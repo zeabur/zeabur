@@ -1,0 +1,31 @@
+{
+  "$schema": "./schema.json",
+  "code": "botway-ce",
+  "name": "Botway CE",
+  "description": "VS Code in the browser, with full packages. Created For Botway Users",
+  "icon": "https://cdn-botway.deno.dev/icons/bwce.svg",
+  "image": "botwayorg/ce:latest",
+  "command": ["/usr/bin/entrypoint"],
+  "args": null,
+  "port": 8080,
+  "dataPath": "/root",
+  "network": "HTTP",
+  "variables": [
+    {
+      "name": "PASSWORD",
+      "value": ""
+    },
+    {
+      "name": "GIT_REPO",
+      "value": ""
+    },
+    {
+      "name": "GITHUB_TOKEN",
+      "value": ""
+    },
+    {
+      "name": "PKGS",
+      "value": ""
+    }
+  ]
+}
