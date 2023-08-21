@@ -1,0 +1,12 @@
+{
+    "$schema": "./schema.json",
+    "code": "grafana",
+    "name": "Grafana",
+    "description": "The open and composable observability and data visualization platform. Visualize metrics, logs, and traces from multiple sources like Prometheus, Loki, Elasticsearch, InfluxDB, Postgres and many more.",
+    "icon": "https://avatars.githubusercontent.com/u/7195757?s=48&v=4",
+    "image": "grafana/grafana:latest",
+    "command": null,
+    "args": null,
+    "port": 3000,
+    "network": "HTTP"
+}
