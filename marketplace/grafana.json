@@ -8,5 +8,6 @@
     "command": null,
     "args": null,
     "port": 3000,
+    "dataPath": "/var/lib/grafana",
     "network": "HTTP"
 }
