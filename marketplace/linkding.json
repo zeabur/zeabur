@@ -1,0 +1,23 @@
+{
+    "$schema": "./schema.json",
+    "code": "linkding",
+    "name": "Linkding",
+    "description": "Linkding is a Self-hosted bookmark manager that is designed be to be minimal, fast, and easy to set up using Docker. ",
+    "icon": "https://jsd.cdn.zzko.cn/gh/sissbruecker/linkding@latest/docs/header.svg",
+    "image": "sissbruecker/linkding:latest",
+    "command": null,
+    "args": null,
+    "port": 9090,
+    "dataPath": "/etc/linkding/data",
+    "network": "HTTP",
+    "variables": [
+      {
+        "name": "LD_SUPERUSER_NAME",
+        "value": ""
+      },
+      {
+        "name": "LD_SUPERUSER_PASSWORD",
+        "value": ""
+      }
+    ]
+  }
