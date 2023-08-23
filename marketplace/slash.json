@@ -1,0 +1,23 @@
+{
+    "$schema": "./schema.json",
+    "code": "slash",
+    "name": "Slash",
+    "description": "Slash is an open source, self-hosted bookmarks and link sharing platform. Save and share your links very easily.  ",
+    "icon": "https://jsd.cdn.zzko.cn/gh/boojack/slash@latest/resources/logo.png",
+    "image": "yourselfhosted/slash:latest",
+    "command": null,
+    "args": null,
+    "port": 5231,
+    "dataPath": "/var/opt/slash",
+    "network": "HTTP",
+    "variables": [
+      {
+        "name": "SLASH_MODE",
+        "value": "prod"
+      },
+      {
+        "name": "SLASH_PORT",
+        "value": "5231"
+      }
+    ]
+  }
