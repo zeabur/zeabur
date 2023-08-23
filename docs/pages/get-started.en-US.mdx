@@ -4,32 +4,56 @@ ogImageTitle: Get Started
 ogImageSubtitle: Deploy your service to zeabur from scratch
 ---
 
+import { Callout } from 'nextra-theme-docs'
+
 # Get Started
 
-Deploy your service to Zeabur from scratch in just three steps:
+## Step 1: Sign Up
 
-### Step 1: Sign Up
+To get started, you need to **create an account** in Zeabur.
+You will need a **GitHub account** to sign up. If you don't have one, you can create one [here](https://github.com/join).
 
-Go to the [login page](https://dash.zeabur.com/login) and sign up or log in with your GitHub account.
+Go to the [login page](https://dash.zeabur.com/login), you will see a button to sign up with GitHub.
+Click on the button, and you will be redirect to the GitHub authorization page. Click on the "Authorize" button to authorize Zeabur to access your GitHub account.
 
-![sign in](/sign-in-screenshot.png)
+![sign in](/start/sign-in.png)
 
-### Step 2: Create a New Project
+## Step 2: Create a New Project
 
-Click on the Create Project button to create a new project.
+A project is presented as a group of services. You can deploy multiple services in a project so that they can communicate with each other easily.
 
-![new project](/create-project-screenshot.png)
+After the authorization, you will be redirect to the Zeabur dashboard automatically.
+Click on the **Create Project** button to create a new project. You can also type `CMD + k` to open a quick actions menu, where you can find `Create Project` to proceed.
 
-### Step 3: Select a Service to Deploy
+You will see a modal below to select your project region. Zeabur now supports 2 regions, including GCP servers in `asia-east` and AWS servers in `us-west`.
+Choose the region you want to deploy your service to, and we will create a project for you with a random name, which you can modify it later in the project settings.
 
-Click on the project you created, and click on the "Add Service" button and select the service you want to deploy.
+![new project](/start/create-project.png)
 
-![deploy service](/deploy-service-screenshot.png)
+<Callout>
+  If it is your first time to create a project in Zeabur, you may need to follow
+  the instructions to read and agree our terms of service to proceed.
+</Callout>
 
-On the deploy service page, you can select the left button to automatically build and deploy your source code from GitHub.
+## Step 3: Deploy Services
 
-Select the right button to choose a service from a marketplace of common services (such as a database or an open source tool). Zeabur will automatically create a service instance for you.
+Click on the project you just created, Zeabur will open a project page for you.
 
-### What's Next
+![project](/start/project.png)
+
+To deploy a service, just cilick on the **Add Service** button. And you will see a modal allows you to select the service type.
+
+![select service type](/start/select-service-type.png)
+
+Zeabur supports 2 types of services, including **Git Services** and **Marketplace Services**.
+
+- **Git Services** allows you to deploy your source code from GitHub. Zeabur will automatically build and deploy your source code for you.
+  You need to configure your GitHub access for the first time so that Zeabur can access your repositories.
+
+- **Marketplace Services** allows you to deploy a service from a marketplace of common services (such as a database or an open source tool), you can see the open source marketplace [here](https://github.com/zeabur/zeabur/tree/main/marketplace).
+
+Just choose the service type you want, and you can search for the service you want to deploy.
+
+## What's Next
 
 After deployed, you can learn about [domain binding](/en-US/deploy/domain-binding) to expose your service with an automatically configured TLS certificate, or learn about [environment variables](/en-US/environment/variables) to understand how Zeabur can automatically inject variables into your program.

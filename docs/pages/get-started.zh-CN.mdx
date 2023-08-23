@@ -4,35 +4,55 @@ ogImageTitle: 快速开始
 ogImageSubtitle: 从零开始将你的服务部署到 Zeabur 上
 ---
 
+import { Callout } from 'nextra-theme-docs'
+
 # 快速开始
 
-从零开始将你的服务部署到 Zeabur 上，只需要以下三个步骤：
+## 步骤一：创建账户
 
-### 第一步：注册账号
+你需要先创建一个账户来开始在 Zeabur 部署你的服务。
+Zeabur 目前仅支持通过 GitHub 登陆，如果你还没有 GitHub 账号，可以在[这里](https://github.com/join)创建一个。
 
-前往 [登录页面](https://dash.zeabur.com/login) 并且使用 GitHub 帐号进行注册或登录。
+前往 Zeabur 的[登录页面](https://dash.zeabur.com/login)，你会看到一个通过 GitHub 登录的按钮。
+点击按钮，你会被重定向到 GitHub 的授权页面。点击 "Authorize" 按钮授权 Zeabur 访问你的 GitHub 账户。
 
-![sign in](/sign-in-screenshot.png)
+![sign in](/start/sign-in.png)
 
-### 第二步：创建新项目
+## 步骤二：创建项目
 
-点击创建项目按钮以创建一个新项目。
+在 Zeabur 中，一个项目代表的是一个你实际的工程项目。你可以在一个项目中部署多个不同类型的服务以满足实际的需求。
 
-![new project](/create-project-screenshot.png)
+授权成功后，你会被自动重定向到 Zeabur 的控制台页面。
+点击 **创建项目** 按钮创建一个新的项目。你也可以使用快捷键 `CMD + k` 打开快速操作菜单，然后选择 `创建项目`。
 
-### 第三步：选择要部署的服务
+你会看到一个弹窗来供你选择你的项目所在的区域。Zeabur 目前支持两个区域，包括 GCP 位于 `asia-east` 和 AWS 位于 `us-west` 的集群。
+选择你想要部署你的服务的区域，我们会以一个随机的名称为你创建项目，稍后可以在项目设置中修改它。
 
-点击刚刚创建好的项目，然后再点击「Add Service」按钮，选择你想要部署的服务。
+![new project](/start/create-project.png)
 
-![deploy service-1](/deploy-service-screenshot-1.png)
+<Callout>
+  如果这是你第一次创建项目，你可能需要先遵循指引，阅读并同意我们的服务条款以继续
+</Callout>
 
-Zeabur 目前支持以下两种类型服务：
+## 步骤三：部署服务
 
-* Git：从 GitHub 直接将你的源代码自动构建并部署上线，并在你的代码发生变更时自动重新构建并部署
-* Marketplace：部署市场中的服务（例如数据库或开源的工具），Zeabur 会自动为你创建一个服务实例。
+点击你刚刚创建的项目，Zeabur 会为你打开该项目的详情页面。
 
-![deploy service-2](/deploy-service-screenshot-2.png)
+![project](/start/project.png)
 
-### 下一步
+想要部署一个服务，只需要点击 **添加服务** 按钮。你会看到一个弹窗来供你选择服务类型。
 
-完成部署以后，你可以了解 [域名绑定](/zh-CN/deploy/domain-binding) 来使用自动带有 TLS 证书的域名对外暴露你的服务，或是了解 [环境变量](/zh-CN/environment/variables) 来了解如何让 Zeabur 自动注入你的程序运行所需要的变量。
+![select service type](/start/select-service-type.png)
+
+Zeabur 支持两种类型的服务，包括 **Git Service** 和 **Marketplace Service**。
+
+- **Git Service** 允许你部署你的源代码。Zeabur 会自动为你构建和部署你的源代码。
+  如果是初次使用，你需要为 Zeabur 配置 GitHub 访问权限，这样 Zeabur 才能访问你的仓库。
+
+- **Marketplace Services** 允许你从一个常用服务的市场中部署一个服务（例如数据库或开源工具），你可以在[这里](https://github.com/zeabur/zeabur/tree/main/marketplace)看到我们的开源的服务市场列表。
+
+选择你想要部署的服务的类型，然后你就可以自由探索你想要部署的服务。
+
+## 下一步
+
+部署成功以后，你可以学习[域名绑定](/deploy/domain-binding)来为你的服务绑定一个域名并自动配置 TLS 证书，或者学习[环境变量](/environment/variables)来了解 Zeabur 如何自动注入变量到你的程序中。
