@@ -8,6 +8,7 @@
     "command": null,
     "args": null,
     "port": 9090,
+    "dataPath": "/etc/linkding/data",
     "network": "HTTP",
     "variables": [
       {
