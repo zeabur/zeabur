@@ -8,6 +8,12 @@ export default function Document() {
         <link rel="icon" href="/icon?<generated>" />
         <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/favicon.svg" />
+        <meta name="og:title" content="Zeabur" />
+        <meta name="og:image" content="/default-og.png" />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="/default-og.png" />
+        <meta property="twitter:site:domain" content="zeabur.com" />
+        <meta property="twitter:url" content="https://zeabur.com" />
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-F0FE9EJZ4E"
