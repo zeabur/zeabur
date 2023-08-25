@@ -2,7 +2,7 @@
     "$schema": "./schema.json",
     "code": "maloja",
     "name": "Maloja",
-    "description": "Maloja is a Self-hosted music scrobble database to create personal listening statistics and charts . ",
+    "description": "Maloja is a Self-hosted music scrobble database to create personal listening statistics and charts.",
     "icon": "https://maloja.krateng.ch/favicon.ico",
     "image": "krateng/maloja:latest",
     "command": null,
