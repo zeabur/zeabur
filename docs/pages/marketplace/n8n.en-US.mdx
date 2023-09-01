@@ -28,26 +28,20 @@ After selecting PostgreSQL, Zeabur will automatically start deploying your Postg
 
 In order for the n8n service to run properly, we need to create a database named `n8n` in the PostgreSQL database first.
 
-Please connect to your PostgreSQL service with any PostgreSQL client first. In this article, we use [psql](https://www.postgresql.org/docs/9.1/app-psql.html) to connect.
+Usaully, you need a PostgreSQL client to connect to the PostgreSQL service and create a database. But Zeabur provides a convenient way to create a database.
 
-![Connect PostgreSQL](/marketplace/postgresql/connect.png)
+In your PostgreSQL service, you can find a tab named **Database**, where you can manage your databases with one click.
 
-You can find the corresponding psql connection command or other connection information in the "Connection" block of the PostgreSQL service in the Zeabur console.
+![Database Tab](/marketplace/n8n/database-tab.png)
 
-```bash
-psql postgresql://root:password@infra.zeabur.com:12345
-```
+**n8n** requires a database named `n8n`, so we need to create a database named `n8n`.
+Type `n8n` in the input box and click the **Create** button, then Zeabur will create a database named `n8n` for you.
 
-Next, please enter the following command in psql to create the `n8n` database:
-
-```sql
-CREATE DATABASE n8n;
-```
-
-You can see a more detailed documentation for creating a database in the [PostgreSQL documentation](../databases/postgresql).
+![Database Tab](/marketplace/n8n/database-n8n.png)
 
 ## Step 4: Deploy n8n Service
 
+Once you have successfully create a PostgreSQL service and setup the database, you can start deploying n8n now.
 In the Zeabur console, click "Create Service" and select "Service Marketplace", you will find n8n in the list.
 
 ![Deploy n8n](/marketplace/n8n/deploy.png)
