@@ -29,15 +29,15 @@ Zeabur 提供了一鍵部署 PostgreSQL 服務的功能，讓你可以快速地�
 
 當你部署 PostgreSQL 服務後，Zeabur 會自動幫你注入相關環境變數到其他的服務中。
 
-- `POSTGRESQL_HOST`
-- `POSTGRESQL_PORT`
-- `POSTGRESQL_USERNAME`
-- `POSTGRESQL_PASSWORD`
+- `POSTGRES_HOST`
+- `POSTGRES_PORT`
+- `POSTGRES_USERNAME`
+- `POSTGRES_PASSWORD`
 
 有時候我們可以用自行新增 `DATABASE_URL` 來取代上面的環境變數，例如：
 
 ```bash copy
-postgres://<POSTGRESQL_USERNAME>:<POSTGRESQL_PASSWORD>@<POSTGRESQL_HOST>:<POSTGRESQL_PORT>/<DATABASE_NAME>
+postgres://<POSTGRES_USERNAME>:<POSTGRES_PASSWORD>@<POSTGRES_HOST>:<POSTGRES_PORT>/<DATABASE_NAME>
 ```
 
 這裡的 `<DATABASE_NAME>` 是你自行新增的資料庫名稱。
@@ -90,7 +90,7 @@ psql --version
 你可以使用 [psql](https://www.postgresql.org/docs/current/app-psql.html) 來連接到你部署在 Zeabur 的 PostgreSQL 資料庫，只要輸入以下指令：
 
 ```bash copy
-psql -h <POSTGRESQL_HOST> -p <POSTGRESQL_PORT> -U <POSTGRESQL_USERNAME> -W
+psql -h <POSTGRES_HOST> -p <POSTGRES_PORT> -U <POSTGRES_USERNAME> -W
 ```
 
 ```sql copy
