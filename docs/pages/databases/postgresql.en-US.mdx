@@ -30,15 +30,15 @@ After selecting PostgreSQL, Zeabur will automatically start deploying your Postg
 
 After you deploy the PostgreSQL service, Zeabur will automatically inject the relevant environment variables into other services.
 
-- `POSTGRESQL_HOST`
-- `POSTGRESQL_PORT`
-- `POSTGRESQL_USERNAME`
-- `POSTGRESQL_PASSWORD`
+- `POSTGRES_HOST`
+- `POSTGRES_PORT`
+- `POSTGRES_USERNAME`
+- `POSTGRES_PASSWORD`
 
 Sometimes, we can use the self-added `DATABASE_URL` to replace the above environment variables, for example:
 
 ```bash copy
-postgres://<POSTGRESQL_USERNAME>:<POSTGRESQL_PASSWORD>@<POSTGRESQL_HOST>:<POSTGRESQL_PORT>/<DATABASE_NAME>
+postgres://<POSTGRES_USERNAME>:<POSTGRES_PASSWORD>@<POSTGRES_HOST>:<POSTGRES_PORT>/<DATABASE_NAME>
 ```
 
 Here, `<DATABASE_NAME>` is the name of the database that you added yourself.
@@ -91,7 +91,7 @@ psql --version
 You can use [psql](https://www.postgresql.org/docs/current/app-psql.html) to connect to the PostgreSQL database deployed on Zeabur by simply entering the following command:
 
 ```bash copy
-psql -h <POSTGRESQL_HOST> -p <POSTGRESQL_PORT> -U <POSTGRESQL_USERNAME> -W
+psql -h <POSTGRES_HOST> -p <POSTGRES_PORT> -U <POSTGRES_USERNAME> -W
 ```
 
 ```sql copy
