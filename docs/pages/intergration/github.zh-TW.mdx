@@ -1,0 +1,66 @@
+---
+title: 和 Github 集成
+ogImageTitle: 和 Github 集成
+ogImageSubtitle: 連接 Github 倉庫
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+## 部署 Github 個人倉庫
+### 步驟一：新建服務
+選擇想要部署的服務，點擊 `新建服務` ，你會看到兩個選項：`Git` 和 `Marketplace`，在這種情況下，我們選擇 `Git`。
+
+![新建服務](/deploy/intergration/add-service.png)
+
+![選擇服務](/deploy/intergration/select-service.png)
+
+### 步驟二：綁定個人倉庫
+此時我們會看到一個搜索框和 `Configure Github` 按鈕，點擊按鈕，根據跳轉的頁面提示，完成對個人倉庫的授權。
+
+![綁定 Github](/deploy/intergration/configure-github.png)
+
+### 步驟三：選擇倉庫
+完成授權後，你會看到一個搜索框，輸入你想要部署的倉庫名稱或者關鍵詞，點擊搜索按鈕，選擇你想要部署的倉庫
+
+![選擇倉庫](/deploy/intergration/select-repo.png)
+
+## 部署 Github 組織倉庫
+### 步驟一：新建服務
+和上文 [步驟一：新建服務](/docs/zh-TW/intergration/github#步驟一：新建服務) 一致
+
+### 步驟二：綁定組織倉庫
+此時我們會看到一個搜索框和 `Configure Github` 按鈕，點擊按鈕，根據跳轉的頁面提示，完成對組織倉庫的授權，在安裝過程中，可以根據需求授權所有/部分倉庫。
+
+![綁定 Github 組織](/deploy/intergration/configure-org.png)
+
+### 步驟三：選擇倉庫
+<Callout>
+1. 如果你是當前組織的 `Member`，而非 `Owner` ，你可能沒有足夠的權限綁定該組織，但是你仍然可以讀取所有你有權限的倉庫，並且在 `Github` 授權頁面顯示您已經配置過該倉庫
+2. 如果你是當前組織其中任一倉庫的 `Outside Collaborator`，而非 `Owner` 或者 `Member` ，你可能沒有足夠的權限綁定該組織，但是你仍然可以讀取你擁有權限的倉庫，並且在 `Github` 授权頁面顯示您已經配置過該倉庫
+</Callout>
+
+完成授權後，你會看到一個搜索框，輸入你想要部署的倉庫名稱或者關鍵詞，點擊搜索按鈕，選擇你想要部署的倉庫
+
+![選擇組織倉庫](/deploy/intergration/select-org-repo.png)
+
+## 更新
+### 倉庫變更
+對於個人/組織倉庫的變更，我們會隨著您的操作自動刷新代碼庫
+
+### 組織人員變化
+對於組織人員的變化，我們會實時監聽 `GitHub Webhook` 事件，保證您的倉庫訪問權限和 `GitHub` 保持一致
+
+## 卸載
+### 個人倉庫
+#### 完全卸載
+如果需要完全卸載 `Zeabur` ，您可以在 `Github` 的 `Settings` -> `Intergrations` -> `Applications` -> `Installed Gtihub Apps` 中找到 `Zeabur` ，點擊 `Configure`，在彈出的頁面中 `Danger zone` 點擊 `Uninstall "Zeabur"` 即可
+
+![完全卸載](/deploy/intergration/uninstall-zeabur.png)
+
+#### 撤銷權限
+如果需要撤銷權限以後續重新授權 `Zeabur` ，您可以在 `Github` 的 `Settings` -> `Intergrations` -> `Applications` -> `Authorized Gtihub Apps` 中找到 `Zeabur` ，點擊 `Revoke`，在彈出的頁面中確認風險並點擊同意即可
+
+![撤銷權限](/deploy/intergration/revoke-zeabur.png)
+
+### 組織倉庫
+和上文 [個人倉庫](/docs/zh-TW/intergration/github#個人倉庫)流程一致，需要額外在 `Github` 的 `Settings` -> `Switch to another account` 中選擇您想要操作的組織
