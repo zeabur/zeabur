@@ -1,0 +1,80 @@
+---
+title: Integrating with GitHub
+ogImageTitle: Integrating with GitHub
+ogImageSubtitle: Connect to GitHub Repository
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+## Deploying GitHub Personal Repositories
+
+Choose the service you want to deploy, click on `Create Service`, and you will see two options: `Git` and `Marketplace`. In this case, we choose `Git`.
+
+![Create Service](/deploy/intergration/add-service.png)
+
+![Select Service](/deploy/intergration/select-service.png)
+
+### Step 2: Bind the Personal Repository
+
+At this point, we will see a search box and a `Configure GitHub` button. Click the button, and follow the prompts on the resulting page to authorize access to your Personal Repository.
+
+![Bind GitHub](/deploy/intergration/configure-GitHub.png)
+
+### Step 3: Select the Repository
+
+After authorization, you will see a search box. Enter the name or keyword of the repository you want to deploy, click the search button, and select the repository.
+
+![Select Repository](/deploy/intergration/select-repo.png)
+
+## Deploying GitHub Organization Repositories
+
+### Step 1: Create a service
+
+Same as [Step 1: Create a service](/docs/en-US/intergration/GitHub#step-1-create-a-service) in the previous section.
+
+### Step 2: Bind the Organization Repository
+
+At this point, we will see a search box and a `Configure GitHub` button. Click the button, and follow the prompts on the resulting page to authorize access to your Organization Repository. During the installation process, you can authorize all/part of the repositories according to your needs.
+
+![Bind GitHub Organization](/deploy/intergration/configure-org.png)
+
+### Step 3: Select the Repository
+
+<Callout>
+1. If you are a `Member` of the organization rather than an `Owner`, you may not have enough permissions to bind the organization, but you can still read all repositories to which you have permission and be shown that you have already configured the repository in the `GitHub` authorization page.
+2. If you are an `Outside Collaborator` of any of the organization's repositories, rather than an `Owner` or `Member`, you may not have enough permissions to bind the organization, but you can still read the repositories to which you have permission and be shown that you have already configured the repository in the `GitHub` authorization page.
+</Callout>
+
+After authorization, you will see a search box. Enter the name or keyword of the repository you want to deploy, click the search button, and select the repository.
+
+![Select Organization Repository](/deploy/intergration/select-org-repo.png)
+
+## Update
+
+### Repository changes
+
+For personal/organization repository changes, we will automatically refresh your code repository as you operate.
+
+### Organization member changes
+
+For changes in organization members, we will listen to the `GitHub Webhook` event in real-time to ensure that your repository access permissions are consistent with `GitHub`.
+
+## Uninstall
+
+### Personal Repository
+
+#### Full Uninstall
+
+If you need to completely uninstall `Zeabur`, you can find `Zeabur` in `GitHub`'s `Intergrations` - `Applications` - `Installed Gtihub Apps`, click on `Configure`, click on `Uninstall "Zeabur"` in the `Danger zone` page that pops up.
+
+![Full Uninstall](/deploy/intergration/uninstall-zeabur.png)
+
+#### Revoke Authorization
+
+If you need to revoke authorization to reauthorize `Zeabur` later, you can find `Zeabur` in `GitHub`'s `Intergrations` - `Applications` - `Authorized Gtihub Apps`, click on `Revoke`, and agree to the risk in the pop-up page.
+
+![Revoke Authorization](/deploy/intergration/revoke-zeabur.png)
+
+### Organization Repository
+
+Same as [Personal Repository](/docs/en-US/intergration/GitHub#personal-repositories), additionally, you need to select the organization you want to operate on in `GitH`'s `Settings` - `Switch to another account`.
