@@ -1,0 +1,96 @@
+---
+title: Bun
+ogImageTitle: 部署 Bun 專案
+ogImageSubtitle: 在 Zeabur 部署 Bun 專案
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Bun
+
+Bun 是一個全能的 JavaScript 執行環境和工具包，旨在實現速度，包括打包工具，測試運行器和與 Node.js 兼容的套件管理器。
+
+您可以輕鬆地在 Zeabur 上部署您的 Bun 應用。
+
+## 快速開始
+
+### 創建 Bun 應用
+
+您可以使用以下命令初始化一個 Bun 應用：
+
+```bash
+mkdir bun-app
+
+cd bun-app
+
+bun init
+```
+
+### 創建 HTTP 伺服器
+
+打開 `index.ts` 並貼上以下程式碼片段，該片段使用 `Bun.serve` 實現簡單的 HTTP 伺服器。
+
+請確保在 `serve` 函數中將 `port` 修改為 `Bun.env.PORT` ，以確保應用程序能夠正確監聽 Zeabur 提供的環境變數 `PORT`。
+
+```typescript filename="index.ts" {2}
+const server = Bun.serve({
+  port: Bun.env.PORT ?? 3000, // 修改端口為 Bun.env.PORT
+  fetch() {
+    return new Response("Bun on Zeabur!");
+  },
+});
+
+console.log(`Listening on http://localhost:${server.port} ...`);
+```
+
+此外，請確保在 `package.json` 文件中指定一個入口點。
+
+<Callout type="info">
+目前 Zeabur 支持以下文件擴展名作為入口點: `.js`, `.ts`, `.tsx`, `.jsx`, `.mjs`, `.mts`, `.cjs`, 或 `.cts`。
+ </Callout>
+
+```json filename="package.json" {3}
+{
+  "name": "bun-app",
+  "module": "index.ts", // let zeabur know where to start
+  "type": "module",
+  // ...
+}
+```
+
+## 辨識應用
+
+Zeabur 會自動辨識您的應用程序為一個 Bun 應用。請確保您的專案根目錄下有一個 `bun.lockb` 文件。
+
+```plainc {2}
+root
+├── bun.lockb
+├── index.ts
+└── package.json
+```
+
+如果您不希望將 `bun.lockb` 文件提交到版本庫，您可以將 `bun-types` 安裝到您的專案中。
+
+```json filename="package.json" {3}
+{
+  "devDependencies": {
+    "bun-types": "latest"
+  }
+}
+```
+
+## 部署
+
+點擊 **Git** 按鈕。
+
+搜索您的 **Bun app** 倉庫，點擊導入，您的 **Bun app** 將開始部署。
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+## 生態系統
+
+Bun 擁有強大的生態系統，您可以使用各種框架（如 Astro、Nuxt、SvelteKit、ElysiaJS 等）來構建應用程序。
+
+您可以部署這些應用程序並使用 Bun 作為執行環境或套件管理器。
+
+了解更多關於 [Bun - 生態系統](https://bun.sh/guides/ecosystem) 的信息。
