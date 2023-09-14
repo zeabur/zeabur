@@ -1,0 +1,28 @@
+{
+    "$schema": "./schema.json",
+    "code": "seq",
+    "name": "Seq",
+    "description": "The self-hosted search, analysis, and alerting server built for structured log data.",
+    "icon": "https://datalust.co/favicon.png",
+    "image": "datalust/seq:latest",
+    "command": null,
+    "args": null,
+    "port": 80,
+    "dataPath": "/data",
+    "network": "HTTP",
+    "variables": [
+        {
+            "name": "ACCEPT_EULA",
+            "value": "Y"
+        },
+        {
+            "name": "SEQ_API_CANONICALURI",
+            "value": "https://seq.example.com"
+        },
+        {
+            "name": "SEQ_FIRSTRUN_ADMINPASSWORDHASH",
+            "value": "${PH}"
+        }
+    ]
+  }
+  
