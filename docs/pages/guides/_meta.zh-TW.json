@@ -1,5 +1,6 @@
 {
   "nodejs": "Node.js",
+  "bun": "Bun",
   "java": "Java",
   "php": "PHP",
   "python": "Python",
