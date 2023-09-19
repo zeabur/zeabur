@@ -4,4 +4,65 @@ ogImageTitle: 部署 ElysiaJS 專案
 ogImageSubtitle: 在 Zeabur 部署 ElysiaJS 專案
 ---
 
-<WorkingInProgress />
+# 部署 ElysiaJS 專案
+
+[ElysiaJS](https://elysiajs.com) 是一個快速、友好的 Bun Web 框架。
+
+本文件將指導你如何在 Zeabur 上部署 ElysiaJS 專案。
+
+## 步驟一：建立 ElysiaJS 專案
+
+### 方法一：使用 Bun 建立
+
+#### 安裝 Bun
+
+Elysia 基於 [Bun](https://bun.sh/)，所以你需要先安裝 Bun。
+
+```bash
+curl https://bun.sh/install | bash
+```
+
+#### 初始化 ElysiaJS 專案
+
+```bash
+bun create elysia app-name
+```
+
+等待初始化完成後，你將在 `app-name` 目錄下得到一個 ElysiaJS 專案。
+
+```bash
+cd app-name
+bun run dev
+```
+
+現在，你可以造訪 http://localhost:8080 來查看結果。
+
+#### 上傳到 GitHub
+
+如果你想在 Zeabur 上部署你的 ElysiaJS 專案，你需要先將程式碼上傳到 GitHub。
+
+只需要在 GitHub 上建立一個新的儲存庫，然後將程式碼推送到儲存庫中即可，更詳細的說明請參考 [GitHub 文件](https://docs.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line)。
+
+### 方法二：使用 Zeabur 模板
+
+我們為 ElysiaJS App 準備了一個 [模板](https://github.com/zeabur/elysia-template)，你可以點選 **Use this template** 按鈕使用該模板。
+
+![Use this template](/guides/bun/elysia/template.png)
+
+## 步驟二：部署 ElysiaJS 專案
+
+點選 **Deploy service**，然後選擇 **Deploy your source code**。
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+搜尋你的 ElysiaJS App 儲存庫，點選匯入，你的 ElysiaJS App 將自動開始部署。
+
+## 下一步
+
+當部署完成後，你可能需要為你的 ElysiaJS App 配置網域。
+
+打開服務頁面的 "Domain" 分頁，然後點選 "Generate Domain" 或 "Custom Domain"。
+
+關於如何為你的服務綁定網域的更多資訊，請參考 [綁定網域](../deploy/domain-binding)。
+
+![Domain Binding](/guides/bun/elysia/domain.png)
