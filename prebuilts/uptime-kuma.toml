@@ -1,0 +1,18 @@
+#:schema ./schema.json
+
+id = "uptime-kuma"
+name = "Uptime Kuma"
+description = "A fancy self-hosted monitoring tool."
+icon = "https://github.com/louislam/uptime-kuma/raw/master/public/icon.svg"
+
+[source]
+image = "louislam/uptime-kuma:1"
+
+[[ports]]
+id = "web"
+port = 3001
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/app/data"

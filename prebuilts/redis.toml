@@ -1,0 +1,78 @@
+#:schema ./schema.json
+
+id = "redis"
+name = "Redis"
+icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/redis.svg"
+description = "Redis Stack is a collection of services that can be used to build a Redis cluster."
+
+[source]
+image = "redis/redis-stack-server:latest"
+
+[[ports]]
+id = "database"
+port = 6379
+type = "TCP"
+
+[[volumes]]
+id = "data"
+dir = "/data"
+
+[env]
+REDIS_PASSWORD = { default = "${PASSWORD}", expose = true, readonly = true }
+REDIS_ARGS = { default = "--requirepass ${REDIS_PASSWORD}" }
+
+REDIS_HOST = { default = "${CONTAINER_HOSTNAME}", expose = true, readonly = true }
+REDIS_PORT = { default = "${DATABASE_PORT}", expose = true, readonly = true }
+
+REDIS_CONNECTION_STRING = { default = "redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}", expose = true, readonly = true }
+REDIS_CONNECTION_STRING_PORTFORWARDED = { default = "redis://:${REDIS_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}", readonly = true }
+
+REDIS_URI = { default = "${REDIS_CONNECTION_STRING}", expose = true, readonly = true }
+
+[[instructions]]
+type = "TEXT"
+title = "Command to connect to your Redis"
+content = "redis-cli -h ${REDIS_HOST} -p ${REDIS_PORT} -a ${REDIS_PASSWORD}"
+showWhen = "PORT_FORWARDING"
+
+[[instructions]]
+type = "PASSWORD"
+title = "Redis Connection String (in project)"
+content = "${REDIS_CONNECTION_STRING}"
+
+[[instructions]]
+type = "PASSWORD"
+title = "Redis Connection String (port forwarded)"
+content = "${REDIS_CONNECTION_STRING_PORTFORWARDED}"
+showWhen = "PORT_FORWARDING"
+
+[[instructions]]
+type = "TEXT"
+title = "Redis username"
+content = "Leave empty!"
+
+[[instructions]]
+type = "PASSWORD"
+title = "Redis password"
+content = "${REDIS_PASSWORD}"
+
+[[instructions]]
+type = "TEXT"
+title = "Redis host (in project)"
+content = "${REDIS_HOST}"
+
+[[instructions]]
+type = "TEXT"
+title = "Redis host (port forwarded)"
+content = "${PORT_FORWARDED_HOSTNAME}"
+showWhen = "PORT_FORWARDING"
+
+[[instructions]]
+type = "TEXT"
+title = "Redis port (in project)"
+content = "${REDIS_PORT}"
+
+[[instructions]]
+type = "TEXT"
+title = "Redis port (port forwarded)"
+content = "${DATABASE_PORT_FORWARDED_PORT}"

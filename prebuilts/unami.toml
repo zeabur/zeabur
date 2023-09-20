@@ -1,0 +1,19 @@
+#:schema ./schema.json
+
+id = "unami"
+name = "Umami"
+description = "Umami is a simple, fast, privacy-focused alternative to Google Analytics."
+icon = "https://svgur.com/i/sCX.svg"
+
+[source]
+image = "ghcr.io/umami-software/umami:postgresql-latest"
+
+[[ports]]
+id = "web"
+port = 3000
+type = "HTTP"
+
+[env]
+DATABASE_URL = { default = "postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/umami" }
+DATABASE_TYPE = { default = "postgresql" }
+HASH_SALT = { default = "${PASSWORD}" }

@@ -1,0 +1,63 @@
+#:schema ./schema.json
+
+id = "mysql"
+name = "MySQL"
+icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/mysql.svg"
+description = "MySQL is a relational database management system based on SQL."
+
+[source]
+image = "mysql:8.0.33"
+
+[[ports]]
+id = "database"
+port = 3306
+type = "TCP"
+
+[[volumes]]
+id = "data"
+dir = "/var/lib/mysql"
+
+[env]
+MYSQL_ROOT_PASSWORD = { default = "${PASSWORD}" }
+
+MYSQL_HOST = { default = "${CONTAINER_HOSTNAME}", expose = true, readonly = true }
+MYSQL_PORT = { default = "${DATABASE_PORT}", expose = true, readonly = true }
+MYSQL_USERNAME = { default = "root", expose = true, readonly = true }
+MYSQL_PASSWORD = { default = "${MYSQL_ROOT_PASSWORD}", expose = true, readonly = true }
+
+[[instructions]]
+type = "TEXT"
+title = "Command to connect to your MySQL"
+content = "mysqlsh --sql --host=${PORT_FORWARDED_HOSTNAME} --port=${DATABASE_PORT_FORWARDED_PORT} --user=${MYSQL_USERNAME} --password=${MYSQL_PASSWORD}"
+showWhen = "PORT_FORWARDING"
+
+[[instructions]]
+type = "TEXT"
+title = "MySQL username"
+content = "${MYSQL_USERNAME}"
+
+[[instructions]]
+type = "PASSWORD"
+title = "MySQL password"
+content = "${MYSQL_PASSWORD}"
+
+[[instructions]]
+type = "TEXT"
+title = "MySQL host (in project)"
+content = "${MYSQL_HOST}"
+
+[[instructions]]
+type = "TEXT"
+title = "MySQL host (port forwarded)"
+content = "${PORT_FORWARDED_HOSTNAME}"
+showWhen = "PORT_FORWARDING"
+
+[[instructions]]
+type = "TEXT"
+title = "MySQL port (in project)"
+content = "${MYSQL_PORT}"
+
+[[instructions]]
+type = "TEXT"
+title = "MySQL port (port forwarded)"
+content = "${DATABASE_PORT_FORWARDED_PORT}"

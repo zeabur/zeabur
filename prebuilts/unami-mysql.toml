@@ -1,0 +1,19 @@
+#:schema ./schema.json
+
+id = "unami-mysql"
+name = "Umami (MySQL)"
+description = "Umami is a simple, fast, privacy-focused alternative to Google Analytics."
+icon = "https://svgur.com/i/sCX.svg"
+
+[source]
+image = "ghcr.io/umami-software/umami:mysql-latest"
+
+[[ports]]
+id = "web"
+port = 3000
+type = "HTTP"
+
+[env]
+DATABASE_URL = { default = "mysql://${MYSQL_USERNAME}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/umami" }
+DATABASE_TYPE = { default = "mysql" }
+HASH_SALT = { default = "${PASSWORD}" }

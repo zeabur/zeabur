@@ -1,0 +1,18 @@
+#:schema ./schema.json
+
+id = "vaultwarden"
+name = "vaultwarden"
+icon = "https://github.com/dani-garcia/vaultwarden/raw/main/resources/vaultwarden-icon.svg"
+description = "A Bitwarden compatible server written in Rust."
+
+[source]
+image = "vaultwarden/server:latest"
+
+[[ports]]
+id = "web"
+port = 80
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/data"

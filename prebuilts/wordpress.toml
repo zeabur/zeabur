@@ -1,0 +1,32 @@
+#:schema ./schema.json
+
+id = "wordpress"
+name = "WordPress"
+icon = "https://cdn.zeabur.com/marketplace/wordpress.png"
+description = "Create a place for your business, your interests, or anything else—with the open source platform that powers the web."
+
+[source]
+image = "wordpress:6-php8.2"
+
+# memory limit 10M
+command = [ "/bin/bash" ]
+args = [
+  "-c",
+  "echo -ne 'file_uploads = On\nmemory_limit = 10M\nupload_max_filesize = 10M\npost_max_size = 10M\nmax_execution_time = 120' > /usr/local/etc/php/conf.d/upload.ini && docker-entrypoint.sh apache2-foreground"
+]
+
+[[ports]]
+id = "web"
+port = 80
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/var/www/html"
+
+[env]
+WORDPRESS_DB_USER = { default = "${MYSQL_USERNAME}" }
+WORDPRESS_DB_PASSWORD = { default = "${MYSQL_PASSWORD}" }
+WORDPRESS_DB_NAME = { default = "wordpress" }
+WORDPRESS_DEBUG = { default = "0" }
+WORDPRESS_DB_HOST = { default = "${MYSQL_HOST}:${MYSQL_PORT}" }
