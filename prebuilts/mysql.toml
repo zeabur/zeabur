@@ -35,29 +35,35 @@ showWhen = "PORT_FORWARDING"
 type = "TEXT"
 title = "MySQL username"
 content = "${MYSQL_USERNAME}"
+category = "Credentials"
 
 [[instructions]]
 type = "PASSWORD"
 title = "MySQL password"
 content = "${MYSQL_PASSWORD}"
+category = "Credentials"
 
 [[instructions]]
 type = "TEXT"
 title = "MySQL host (in project)"
 content = "${MYSQL_HOST}"
+category = "Hostname & Port"
 
 [[instructions]]
 type = "TEXT"
 title = "MySQL host (port forwarded)"
 content = "${PORT_FORWARDED_HOSTNAME}"
 showWhen = "PORT_FORWARDING"
+category = "Hostname & Port"
 
 [[instructions]]
 type = "TEXT"
 title = "MySQL port (in project)"
 content = "${MYSQL_PORT}"
+category = "Hostname & Port"
 
 [[instructions]]
 type = "TEXT"
 title = "MySQL port (port forwarded)"
 content = "${DATABASE_PORT_FORWARDED_PORT}"
+category = "Hostname & Port"

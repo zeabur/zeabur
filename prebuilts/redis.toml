@@ -39,40 +39,48 @@ showWhen = "PORT_FORWARDING"
 type = "PASSWORD"
 title = "Redis Connection String (in project)"
 content = "${REDIS_CONNECTION_STRING}"
+category = "Connection Strings"
 
 [[instructions]]
 type = "PASSWORD"
 title = "Redis Connection String (port forwarded)"
 content = "${REDIS_CONNECTION_STRING_PORTFORWARDED}"
 showWhen = "PORT_FORWARDING"
+category = "Connection Strings"
 
 [[instructions]]
 type = "TEXT"
 title = "Redis username"
 content = "Leave empty!"
+category = "Credentials"
 
 [[instructions]]
 type = "PASSWORD"
 title = "Redis password"
 content = "${REDIS_PASSWORD}"
+category = "Credentials"
 
 [[instructions]]
 type = "TEXT"
 title = "Redis host (in project)"
 content = "${REDIS_HOST}"
+category = "Hostname & Port"
 
 [[instructions]]
 type = "TEXT"
 title = "Redis host (port forwarded)"
 content = "${PORT_FORWARDED_HOSTNAME}"
 showWhen = "PORT_FORWARDING"
+category = "Hostname & Port"
 
 [[instructions]]
 type = "TEXT"
 title = "Redis port (in project)"
 content = "${REDIS_PORT}"
+category = "Hostname & Port"
 
 [[instructions]]
 type = "TEXT"
 title = "Redis port (port forwarded)"
 content = "${DATABASE_PORT_FORWARDED_PORT}"
+category = "Hostname & Port"
