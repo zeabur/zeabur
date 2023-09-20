@@ -1,0 +1,66 @@
+---
+title: Nue
+ogImageTitle: 部署 Nue 專案
+ogImageSubtitle: 在 Zeabur 部署 Nue 專案
+---
+
+# 部署 Nue 專案
+
+[Nue](https://nuejs.org/) 是一個強大的 React、Vue、Next.js、Vite 和 Astro 的替代品。
+
+本文件將指導你如何在 Zeabur 上部署 Nue 專案。
+
+## 步驟一：建立 Nue 專案
+
+### 方法一：使用 `create-nue` 建立
+
+### Method 1: Bootstrap with `create-nue`
+
+`create-nue` 儲存庫是開始使用 Nue JS 的最佳方式。
+
+```bash
+# clone the repository
+git clone https://github.com/nuejs/create-nue.git
+
+# cd to your newly created app
+cd create-nue
+
+# install dependencies
+npm install
+
+# Build demo site and start a HTTP server
+npm run start
+
+# Open the demo on the browser
+open "http://localhost:8080"
+```
+
+#### 上傳到 GitHub
+
+如果你想在 Zeabur 上部署你的 Nue 專案，你需要先將程式碼上傳到 GitHub。
+
+只需要在 GitHub 上建立一個新的儲存庫，然後將程式碼推送到儲存庫中即可，更詳細的說明請參考 [GitHub 文件](https://docs.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line)。
+
+### 方法二：使用 Zeabur 模板
+
+我們為 Nue App 準備了一個 [模板](https://github.com/zeabur/nuejs-template)，你可以點選 **Use this template** 按鈕使用該模板。
+
+![Use this template](/guides/nodejs/nue/template.png)
+
+## 步驟二：部署 Nue 專案
+
+點選 **Deploy service**，然後選擇 **Deploy your source code**。
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+搜尋你的 Nue App 儲存庫，點選匯入，你的 Nue App 將自動開始部署。
+
+## 下一步
+
+當部署完成後，你可能需要為你的 Nue App 配置網域。
+
+打開服務頁面的 "Domain" 分頁，然後點選 "Generate Domain" 或 "Custom Domain"。
+
+關於如何為你的服務綁定網域的更多資訊，請參考 [綁定網域](../deploy/domain-binding)。
+
+![Domain Binding](/guides/nodejs/nue/domain.png)
