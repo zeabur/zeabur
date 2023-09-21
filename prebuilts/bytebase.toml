@@ -1,0 +1,18 @@
+#:schema ./schema.json
+
+id = "bytebase"
+name = "Bytebase"
+icon = "https://avatars.githubusercontent.com/u/74386897"
+description = "Bytebase is Database CI/CD for DevOps teams."
+
+[source]
+image = "bytebase/bytebase:2.7.0"
+
+[[ports]]
+id = "web"
+port = 80
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/var/opt/bytebase"

@@ -1,0 +1,18 @@
+#:schema ./schema.json
+
+id = "opencatd-open"
+name = "opencatd-open"
+description = "opencatd-open is an open-source, team-shared service for ChatGPT API that can be safely shared with others for API usage."
+icon = "https://github.com/mirrors2/opencatd-open/raw/main/assets/logo.svg"
+
+[source]
+image = "mirrors2/opencatd-open"
+
+[[ports]]
+id = "web"
+port = 80
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/app/db"

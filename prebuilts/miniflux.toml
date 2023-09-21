@@ -1,0 +1,22 @@
+#:schema ./schema.json
+
+id = "miniflux"
+name = "Miniflux"
+icon = "https://miniflux.app/favicon.ico"
+description = "Miniflux is a minimalist and opinionated feed reader."
+
+[source]
+image = "miniflux/miniflux:latest"
+
+[[ports]]
+id = "web"
+port = 8080
+type = "HTTP"
+
+[env]
+DATABASE_URL = { default = "postgres://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/miniflux?sslmode=disable" }
+RUN_MIGRATIONS = { default = "1" }
+BASE_URL = { default = "${PUBLIC_URL}" }
+ADMIN_PASSWORD = { default = "${PASSWORD}" }
+ADMIN_USERNAME = { required = true }
+CREATE_ADMIN = { default = "1" }

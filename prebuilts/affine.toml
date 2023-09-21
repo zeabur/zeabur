@@ -1,0 +1,18 @@
+#:schema ./schema.json
+
+id = "affine"
+name = "AFFiNE"
+icon = "https://d2y5h3osumboay.cloudfront.net/y8vkq20ojwow88m0jl0az2h64psh"
+description = "A next-gen knowledge base that brings planning, sorting and creating all together."
+
+[source]
+image = "ghcr.io/toeverything/affine-self-hosted:latest"
+
+[[ports]]
+id = "web"
+port = 3000
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/app/data"

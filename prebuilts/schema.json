@@ -1,0 +1,391 @@
+{
+	"$id": "https://github.com/zeabur/zeabur/prebuilts/schema.json",
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"title": "Service Specification (ServiceSpec)",
+	"description": "Version 3.1.0",
+	"type": "object",
+	"properties": {
+		"id": {
+			"title": "Service ID",
+			"description": "When ID is not specified, we generate a ID from name.",
+			"$ref": "#/definitions/ID"
+		},
+		"name": {
+			"title": "Service name",
+			"type": "string"
+		},
+		"description": {
+			"title": "Service description",
+			"type": "string"
+		},
+		"icon": {
+			"title": "Service Icon",
+			"type": "string",
+			"pattern": "^https?://"
+		},
+		"docs": {
+			"title": "The documentation URL of this Service",
+			"type": "string"
+		},
+		"source": {
+			"title": "The source of this Service",
+			"$ref": "#/definitions/Source"
+		},
+		"ports": {
+			"title": "The ports of this Service",
+			"$ref": "#/definitions/Ports"
+		},
+		"volumes": {
+			"title": "The stateful volumes of this service",
+			"$ref": "#/definitions/Volumes"
+		},
+		"instructions": {
+			"title": "The connection information and instructions",
+			"$ref": "#/definitions/ConnectionInstructions"
+		},
+		"env": {
+			"title": "The preset environment variables of this Service",
+			"$ref": "#/definitions/Envs"
+		},
+		"init": {
+			"title": "Initialize this container when the condition met.",
+			"$ref": "#/definitions/InitRules"
+		}
+	},
+	"required": [
+		"name",
+		"source"
+	],
+	"additionalProperties": false,
+	"definitions": {
+		"Envs": {
+			"type": "object",
+			"propertyNames": {
+				"type": "string",
+				"pattern": "^[a-zA-Z0-9_]+$"
+			},
+			"additionalProperties": {
+				"$ref": "#/definitions/Env"
+			}
+		},
+		"Env": {
+			"type": "object",
+			"properties": {
+				"required": {
+					"title": "Is this environment variable required to fill?",
+					"type": "boolean",
+					"default": false
+				},
+				"default": {
+					"title": "The default value of this environment variable",
+					"description": "If not set, it will be null.",
+					"type": "string"
+				},
+				"expose": {
+					"title": "Should this environment variable be exposed to the whole project?",
+					"type": "boolean",
+					"default": false
+				},
+				"readonly": {
+					"title": "Is this environment variable not modifiable?",
+					"description": "If true, the value will not be able to set.",
+					"type": "boolean",
+					"default": false
+				}
+			},
+			"additionalProperties": false
+		},
+		"Source": {
+			"type": "object",
+			"oneOf": [
+				{ "$ref": "#/definitions/Prebuilt" },
+				{ "$ref": "#/definitions/Git" }
+			]
+		},
+		"Prebuilt": {
+			"description": "Use the prebuilt images from Docker Registry.",
+			"type": "object",
+			"properties": {
+				"image": {
+					"title": "The image tag (namespace/image@1.2.3) available in Docker Hub.",
+					"type": "string"
+				},
+				"command": {
+					"title": "The customized start command overidding the default one.",
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": []
+				},
+				"args": {
+					"title": "The arguments of customized start command.",
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": []
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"image"
+			]
+		},
+		"Git": {
+			"description": "Build from source like Git",
+			"type": "object",
+			"properties": {
+				"source": {
+					"title": "The repository source",
+					"description": "For example, `GITHUB` or `GIT`",
+					"type": "string",
+					"enum": [
+						"GITHUB",
+						"GIT"
+					]
+				},
+				"repo": {
+					"title": "The repository URI",
+					"description": "For `github`, you can specify `user/repo`. For `git`, you can specify `git://somewhere/hi.git`.",
+					"type": "string",
+					"minLength": 1
+				},
+				"branch": {
+					"title": "The branch of the repository",
+					"type": "string"
+				},
+				"rootDirectory": {
+					"title": "The root directory path where the service is located.",
+					"type": "string"
+				},
+				"watchPaths": {
+					"title": "Control which file changes in the paths will trigger redeployment.",
+					"description": "The notation refers to the format of the Gitignore file. For example, * represents that all changes will trigger deployment, /frontEnd represents that all changes within the frontEnd folder will trigger deployment.",
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"buildCommand": {
+					"$comment": "We should migrate it to string[] in the future.",
+					"title": "The build command that will be used instead of the default one.",
+					"type": "string"
+				},
+				"startCommand": {
+					"$comment": "We should migrate it to string[] in the future.",
+					"title": "The start command that will be used instead of the default one.",
+					"type": "string"
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"source",
+				"repo"
+			]
+		},
+		"Ports": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/Port"
+			}
+		},
+		"Port": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"title": "The ID of this port",
+					"ref": "#/definitions/ID"
+				},
+				"port": {
+					"title": "The port number",
+					"$ref": "#/definitions/PortNumber"
+				},
+				"type": {
+					"title": "The type of this port",
+					"type": "string",
+					"enum": [
+						"HTTP",
+						"TCP",
+						"UDP"
+					]
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"id",
+				"port",
+				"type"
+			]
+		},
+		"PortNumber": {
+			"title": "A valid port",
+			"description": "The port is a unsigned number between 0 and 65535.",
+			"type": "number",
+			"minimum": 0,
+			"maximum": 65535
+		},
+		"ID": {
+			"title": "A valid ID representation",
+			"description": "The ID is a string that can only contain lowercased letters, numbers and hyphens.",
+			"type": "string",
+			"pattern": "^[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$"
+		},
+		"ConnectionInstructions": {
+			"title": "Instructions arrays indicating the connection information",
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/ConnectionInstruction"
+			}
+		},
+		"ConnectionInstruction": {
+			"title": "Instruction of connection",
+			"type": "object",
+			"properties": {
+				"type": {
+					"title": "The instruction type",
+					"type": "string",
+					"enum": [
+						"TEXT",
+						"URL",
+						"PASSWORD"
+					]
+				},
+				"title": {
+					"title": "The instruction title",
+					"examples": [
+						"MongoDB connection string"
+					],
+					"type": "string"
+				},
+				"content": {
+					"title": "The instruction content.",
+					"type": "string"
+				},
+				"showWhen": {
+					"title": "Show this connection instruction when the specified condition matches.",
+					"description": "'PORT_FORWARDING' = When the port forwarding is enabled.",
+					"type": "string",
+					"enum": [
+						"ALWAYS",
+						"NEVER",
+						"PORT_FORWARDING"
+					],
+					"default": "ALWAYS"
+				},
+				"category": {
+					"title": "The category of this instruction",
+					"type": "string",
+					"examples": [
+						"In project",
+						"Port forwarding"
+					]
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"type",
+				"title",
+				"content"
+			]
+		},
+		"Volumes": {
+			"title": "The volumes of this service",
+			"description": "Specifying this value will create a StatefulSet! Don't use it unless you need.",
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/VolumeEntry"
+			}
+		},
+		"VolumeEntry": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"title": "The ID of this volume",
+					"$ref": "#/definitions/ID"
+				},
+				"dir": {
+					"title": "The absolute mount directory of this volume",
+					"type": "string",
+					"pattern": "^/."
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"id",
+				"dir"
+			]
+		},
+		"InitRules": {
+			"title": "The initializations rules.",
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/InitRule"
+			}
+		},
+		"InitRule": {
+			"title": "The initialization rule.",
+			"type": "object",
+			"properties": {
+				"id": {
+					"title": "The ID of this init container rule",
+					"$ref": "#/definitions/ID"
+				},
+				"image": {
+					"title": "The image of this init container",
+					"description": "If not specified, the same image of the base service will be used.",
+					"type": "string"
+				},
+				"command": {
+					"title": "The command of this init container",
+					"description": "The environment (${VAR}) will be injected into the command.",
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"volumes": {
+					"title": "The volumes to mount at this init container",
+					"$ref": "#/definitions/InitVolumeMounts"
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"id",
+				"command"
+			]
+		},
+		"InitVolumeMounts": {
+			"title": "The volume mount of init container",
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/InitVolumeMount"
+			}
+		},
+		"InitVolumeMount": {
+			"title": "The volume mount of init container",
+			"type": "object",
+			"properties": {
+				"id": {
+					"title": "The ID of this volume mount",
+					"description": "This must match the Name of a Volume.",
+					"$ref": "#/definitions/ID"
+				},
+				"mountPath": {
+					"title": "Path within the container at which the volume should be mounted.",
+					"type": "string",
+					"pattern": "^[^:]+$"
+				},
+				"subPath": {
+					"title": "Path within the volume from which the container's volume should be mounted.",
+					"type": "string",
+					"default": ""
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"mountPath"
+			]
+		}
+	}
+}

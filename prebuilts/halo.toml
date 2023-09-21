@@ -1,0 +1,27 @@
+#:schema ./schema.json
+
+id = "halo"
+name = "Halo"
+icon = "https://avatars.githubusercontent.com/u/48195280?s=200&v=4"
+description = "Halo is a powerful and easy-to-use open source website building tool."
+
+[source]
+image = "halohub/halo:2.9"
+
+[[ports]]
+id = "web"
+port = 8090
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/root/.halo2"
+
+[env]
+SPRING_R2DBC_URL = { default = "r2dbc:pool:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/halo" }
+SPRING_R2DBC_USERNAME = { default = "${POSTGRES_USERNAME}" }
+SPRING_R2DBC_PASSWORD = { default = "${POSTGRES_PASSWORD}" }
+SPRING_SQL_INIT_PLATFORM = { default = "postgresql" }
+HALO_EXTERNAL_URL = { default = "${PUBLIC_URL}" }
+HALO_SECURITY_INITIALIZER_SUPERADMINUSERNAME = { default = "admin" }
+HALO_SECURITY_INITIALIZER_SUPERADMINPASSWORD = { default = "${PASSWORD}" }
