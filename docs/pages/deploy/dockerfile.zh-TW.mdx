@@ -67,6 +67,22 @@ EXPOSE 8080
 CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
 ```
 
+## 多 Dockerfile 支援
+
+如果你的 Monorepo 裡有不同專案想要分開部署，你可以建立 `Dockerfile.[服務名稱]` 並透過服務名稱部署指定的 Dockerfile。
+
+以這個 case 來說，假如你想部署三個微服務，但都使用同一個 Git Repository，你可以這樣命名自己的 Dockerfile：
+
+- `Dockerfile.storage`: 部署 Node.js 的 `storage` 微服務
+- `Dockerfile.discord`: 部署 Node.js 的 `discord` 微服務
+- `Dockerfile.frontend`: 部署 Next.js 的 `frontend` 前端
+
+接著在 Zeabur 部署你的專案，並到「設定」→「服務名稱」中改成你想部署的服務名稱，比如 `storage`、`discord` 或 `frontend`：
+
+![specify-service-name](/deploy/dockerfile/specify-service-name.png)
+
+接著點選「Redeploy」重新部署專案，即可部署你想要的服務。你也可以與 [觸發路徑](./watch-paths) 搭配使用，只在修改相應檔案時才觸發部署。
+
 ## Docker Compose
 
 Zeabur 目前僅支援 `Dockerfile` 的部署方式，目前不提供 Docker Compose 的方式。
