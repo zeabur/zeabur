@@ -69,7 +69,7 @@ CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/ngin
 
 ## Dockerfile in Monorepo
 
-If you have multiple Dockerfiles for different projects, you can create `Dockerfile.[service-name]` and deploy the specified Dockerfile using the service name.
+If you want to deploy different projects in a monorepo, you can create `Dockerfile.[service-name]` and deploy the specified Dockerfile using the service name.
 
 For example, if you want to deploy three microservices that use the same Git Repository, you can name your Dockerfiles as follows:
 

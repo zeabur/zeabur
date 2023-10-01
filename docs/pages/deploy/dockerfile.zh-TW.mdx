@@ -69,7 +69,7 @@ CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/ngin
 
 ## 多 Dockerfile 支援
 
-假如你有很多個 Dockerfile，對應到不同的專案，你可以建立 `Dockerfile.[服務名稱]` 並透過服務名稱部署指定的 Dockerfile。
+如果你的 Monorepo 裡有不同專案想要分開部署，你可以建立 `Dockerfile.[服務名稱]` 並透過服務名稱部署指定的 Dockerfile。
 
 以這個 case 來說，假如你想部署三個微服務，但都使用同一個 Git Repository，你可以這樣命名自己的 Dockerfile：
 
