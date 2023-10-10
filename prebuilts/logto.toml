@@ -6,7 +6,7 @@ icon = "https://dev-to-uploads.s3.amazonaws.com/uploads/organization/profile_ima
 description = "The open-source alternative to Auth0, shaping the future of identity development for individuals and businesses of all sizes and project scopes."
 
 [source]
-image = "svhd/logto:latest"
+image = "svhd/logto:1.10"
 command = ["sh"]
 args = ["-c", "npm run cli db seed -- --swe && npm start"]
 

@@ -6,7 +6,7 @@ icon = "https://raw.githubusercontent.com/surrealdb/surrealdb/main/img/whatissur
 description = "SurrealDB is an end-to-end cloud native database for web, mobile, serverless, Jamstack, backend, and traditional applications."
 
 [source]
-image = "surrealdb/surrealdb:latest"
+image = "surrealdb/surrealdb:1.0.0"
 args = ["start", "file://data/srdb.db"]
 
 [[ports]]
