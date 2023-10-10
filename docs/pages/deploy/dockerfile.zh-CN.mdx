@@ -69,13 +69,13 @@ CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/ngin
 
 ## 用 Dockerfile 部署特定项目
 
-如果你的 Monorepo 里面有不同项目想分开部署，你可以创建 `Dockerfile.[服务名称]` 并通过服务名称部署指定的 Dockerfile。
+如果你的 Monorepo 里面有不同项目想分开部署，你可以创建 `Dockerfile.[服务名称]`（或 `[服务名称].Dockerfile`) 并通过服务名称部署指定的 Dockerfile。
 
 以这个案例来说，如果你想部署三个微服务，但都使用同一个 Git Repository，你可以这样命名自己的 Dockerfile：
 
-- `Dockerfile.storage`: 部署 Node.js 的 `storage` 微服务
-- `Dockerfile.discord`: 部署 Node.js 的 `discord` 微服务
-- `Dockerfile.frontend`: 部署 Next.js 的 `frontend` 前端
+- `Dockerfile.storage`（或 `storage.Dockerfile`）: 部署 Node.js 的 `storage` 微服务
+- `Dockerfile.discord`（或 `discord.Dockerfile`）: 部署 Node.js 的 `discord` 微服务
+- `Dockerfile.frontend`（或 `frontend.Dockerfile`）: 部署 Next.js 的 `frontend` 前端
 
 然后在 Zeabur 部署你的项目，并到「设置」→「服务名称」中改成你想部署的服务名称，比如 `storage`、`discord` 或 `frontend`：
 

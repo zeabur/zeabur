@@ -69,13 +69,13 @@ CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/ngin
 
 ## Dockerfile in Monorepo
 
-If you want to deploy different projects in a monorepo, you can create `Dockerfile.[service-name]` and deploy the specified Dockerfile using the service name.
+If you want to deploy different projects in a monorepo, you can create `Dockerfile.[service-name]` (or `[service-name].Dockerfile`) and deploy the specified Dockerfile using the service name.
 
 For example, if you want to deploy three microservices that use the same Git Repository, you can name your Dockerfiles as follows:
 
--  `Dockerfile.storage`: deploys the Node.js `storage` microservice
--  `Dockerfile.discord`: deploys the Node.js `discord` microservice
--  `Dockerfile.frontend`: deploys the Next.js `frontend` frontend
+-  `Dockerfile.storage` (or `storage.Dockerfile`): deploys the Node.js `storage` microservice
+-  `Dockerfile.discord` (or `discord.Dockerfile`): deploys the Node.js `discord` microservice
+-  `Dockerfile.frontend` (or `frontend.Dockerfile`): deploys the Next.js `frontend` frontend
 
 After deploying your project on Zeabur, navigate to "Settings" → "Service Name" and change the value to the desired service name (e.g., `storage`, `discord`, or `frontend`) as shown in the above example.
 
