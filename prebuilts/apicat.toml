@@ -6,7 +6,7 @@ icon = "https://apicat.zeabur.app/assets/logo-square-015c35cd.svg"
 description = "ApiCat is an API development tool based on AI technology, which aims to help developers develop APIs more quickly and efficiently through automation and intelligence."
 
 [source]
-image = "natuo/apicat:latest"
+image = "natuo/apicat:v2.9.0"
 
 [[ports]]
 id = "web"

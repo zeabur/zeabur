@@ -6,7 +6,7 @@ icon = "https://d2y5h3osumboay.cloudfront.net/y8vkq20ojwow88m0jl0az2h64psh"
 description = "A next-gen knowledge base that brings planning, sorting and creating all together."
 
 [source]
-image = "ghcr.io/toeverything/affine-self-hosted:latest"
+image = "ghcr.io/toeverything/affine-self-hosted:alpha-abbey-wood"
 
 [[ports]]
 id = "web"

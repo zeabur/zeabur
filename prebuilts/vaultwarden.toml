@@ -6,7 +6,7 @@ icon = "https://github.com/dani-garcia/vaultwarden/raw/main/resources/vaultwarde
 description = "A Bitwarden compatible server written in Rust."
 
 [source]
-image = "vaultwarden/server:latest"
+image = "vaultwarden/server:1.29.2"
 
 [[ports]]
 id = "web"

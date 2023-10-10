@@ -6,7 +6,7 @@ description = "PocketBase is an open source backend consisting of embedded datab
 icon = "https://pocketbase.io/images/logo.svg"
 
 [source]
-image = "ghcr.io/muchobien/pocketbase:latest"
+image = "ghcr.io/muchobien/pocketbase:0.18"
 
 [[ports]]
 id = "web"
