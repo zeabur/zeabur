@@ -6,7 +6,7 @@ icon = "https://avatars.githubusercontent.com/u/48195280?s=200&v=4"
 description = "Halo is a powerful and easy-to-use open source website building tool."
 
 [source]
-image = "halohub/halo:2.9"
+image = "halohub/halo:2.10"
 
 [[ports]]
 id = "web"
