@@ -4,13 +4,13 @@
   "name": "MongoDB",
   "description": "MongoDB is a general purpose, document-based, distributed database built for modern application developers and for the cloud era.",
   "icon": "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/mongodb.svg",
-  "image": "mongo:latest",
+  "image": "mongo:7.0",
   "command": [
     "sh"
   ],
   "args": [
     "-c",
-    "chown -R root:root /data/db && docker-entrypoint.sh"
+    "sed -i '10,23d' /usr/local/bin/docker-entrypoint.sh && exec docker-entrypoint.sh mongod"
   ],
   "port": 27017,
   "dataPath": "/data/db",
