@@ -10,7 +10,7 @@
   ],
   "args": [
     "-c",
-    "chown -R root:root /data/db && exec mongod"
+    "chown -R root:root /data/db && exec mongod --bind_ip_all"
   ],
   "port": 27017,
   "dataPath": "/data/db",
