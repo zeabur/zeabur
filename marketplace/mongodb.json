@@ -5,8 +5,13 @@
   "description": "MongoDB is a general purpose, document-based, distributed database built for modern application developers and for the cloud era.",
   "icon": "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/mongodb.svg",
   "image": "mongo:latest",
-  "command": null,
-  "args": null,
+  "command": [
+    "sh"
+  ],
+  "args": [
+    "-c",
+    "chown -R root:root /data/db && exec mongod"
+  ],
   "port": 27017,
   "dataPath": "/data/db",
   "network": "TCP",
