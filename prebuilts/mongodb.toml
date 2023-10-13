@@ -32,7 +32,7 @@ MONGO_CONNECTION_STRING_PORTFORWARDED = { default = "mongodb://${MONGO_USERNAME}
 [[instructions]]
 type = "TEXT"
 title = "Command to connect to your MongoDB"
-content = "mongo \"${MONGO_CONNECTION_STRING_PORTFORWARDED}\""
+content = "mongosh \"${MONGO_CONNECTION_STRING_PORTFORWARDED}\""
 showWhen = "PORT_FORWARDING"
 
 [[instructions]]
