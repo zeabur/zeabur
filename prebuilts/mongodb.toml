@@ -6,7 +6,13 @@ icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/
 description = "MongoDB is a general purpose, document-based, distributed database built for modern application developers and for the cloud era."
 
 [source]
-image = "mongo:latest"
+image = "mongo:7.0"
+command = ["sh"]
+
+# The docker-entrypoint.sh script in official MongoDB images will
+# execute `chown -R mongodb:mongodb /data/db` which will cause permission issues.
+# This is a workaround to remove the chown command from the script.
+args = ["-c", "sed -i '10,23d' /usr/local/bin/docker-entrypoint.sh && exec docker-entrypoint.sh mongod"]
 
 [[ports]]
 id = "database"
