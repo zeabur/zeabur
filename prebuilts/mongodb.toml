@@ -42,19 +42,6 @@ content = "mongosh \"${MONGO_CONNECTION_STRING_PORTFORWARDED}\""
 showWhen = "PORT_FORWARDING"
 
 [[instructions]]
-type = "PASSWORD"
-title = "MongoDB Connection String (in project)"
-content = "${MONGO_CONNECTION_STRING}"
-category = "Connection String"
-
-[[instructions]]
-type = "PASSWORD"
-title = "MongoDB Connection String (port forwarded)"
-content = "${MONGO_CONNECTION_STRING_PORTFORWARDED}"
-showWhen = "PORT_FORWARDING"
-category = "Connection Strings"
-
-[[instructions]]
 type = "TEXT"
 title = "MongoDB username"
 content = "${MONGO_USERNAME}"
@@ -68,25 +55,13 @@ category = "Credentials"
 
 [[instructions]]
 type = "TEXT"
-title = "MongoDB host (in project)"
-content = "${MONGO_HOST}"
-category = "Hostname & Port"
-
-[[instructions]]
-type = "TEXT"
-title = "MongoDB host (port forwarded)"
+title = "MongoDB host"
 content = "${PORT_FORWARDED_HOSTNAME}"
 showWhen = "PORT_FORWARDING"
 category = "Hostname & Port"
 
 [[instructions]]
 type = "TEXT"
-title = "MongoDB port (in project)"
-content = "${MONGO_PORT}"
-category = "Hostname & Port"
-
-[[instructions]]
-type = "TEXT"
-title = "MongoDB port (port forwarded)"
+title = "MongoDB port"
 content = "${DATABASE_PORT_FORWARDED_PORT}"
 category = "Hostname & Port"
