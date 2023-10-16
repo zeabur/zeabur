@@ -37,19 +37,6 @@ content = "psql ${POSTGRES_CONNECTION_STRING_PORTFORWARDED}"
 showWhen = "PORT_FORWARDING"
 
 [[instructions]]
-type = "PASSWORD"
-title = "PostgreSQL Connection String (in project)"
-content = "${POSTGRES_CONNECTION_STRING}"
-category = "Connection Strings"
-
-[[instructions]]
-type = "PASSWORD"
-title = "PostgreSQL Connection String (port forwarded)"
-content = "${POSTGRES_CONNECTION_STRING_PORTFORWARDED}"
-showWhen = "PORT_FORWARDING"
-category = "Connection Strings"
-
-[[instructions]]
 type = "TEXT"
 title = "PostgreSQL username"
 content = "${POSTGRES_USERNAME}"
@@ -63,25 +50,13 @@ category = "Credentials"
 
 [[instructions]]
 type = "TEXT"
-title = "PostgreSQL host (in project)"
-content = "${POSTGRES_HOST}"
-category = "Hostname & Port"
-
-[[instructions]]
-type = "TEXT"
-title = "PostgreSQL host (port forwarded)"
+title = "PostgreSQL host"
 content = "${PORT_FORWARDED_HOSTNAME}"
 showWhen = "PORT_FORWARDING"
 category = "Hostname & Port"
 
 [[instructions]]
 type = "TEXT"
-title = "PostgreSQL port (in project)"
-content = "${POSTGRES_PORT}"
-category = "Hostname & Port"
-
-[[instructions]]
-type = "TEXT"
-title = "PostgreSQL port (port forwarded)"
+title = "PostgreSQL port"
 content = "${DATABASE_PORT_FORWARDED_PORT}"
 category = "Hostname & Port"
