@@ -36,12 +36,6 @@ content = "redis-cli -h ${REDIS_HOST} -p ${REDIS_PORT} -a ${REDIS_PASSWORD}"
 showWhen = "PORT_FORWARDING"
 
 [[instructions]]
-type = "TEXT"
-title = "Redis username"
-content = ""
-category = "Credentials"
-
-[[instructions]]
 type = "PASSWORD"
 title = "Redis password"
 content = "${REDIS_PASSWORD}"
