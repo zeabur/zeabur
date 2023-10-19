@@ -2,7 +2,7 @@
 
 id = "ghost"
 name = "Ghost"
-icon = "https://cdn.zeabur.com/marketplace/ghost.png"
+icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/ghost.svg"
 description = "Ghost is a powerful app for new-media creators to publish, share, and grow a business around their content."
 
 [source]
