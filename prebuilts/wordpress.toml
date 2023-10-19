@@ -30,3 +30,4 @@ WORDPRESS_DB_PASSWORD = { default = "${MYSQL_PASSWORD}" }
 WORDPRESS_DB_NAME = { default = "wordpress" }
 WORDPRESS_DEBUG = { default = "0" }
 WORDPRESS_DB_HOST = { default = "${MYSQL_HOST}:${MYSQL_PORT}" }
+WORDPRESS_CONFIG_EXTRA = { default = "define('FS_METHOD', 'direct');" }
