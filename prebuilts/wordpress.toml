@@ -2,7 +2,7 @@
 
 id = "wordpress"
 name = "WordPress"
-icon = "https://cdn.zeabur.com/marketplace/wordpress.png"
+icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/WordPress.svg"
 description = "Create a place for your business, your interests, or anything else—with the open source platform that powers the web."
 
 [source]
