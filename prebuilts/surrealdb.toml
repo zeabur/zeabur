@@ -1,0 +1,42 @@
+#:schema ./schema.json
+
+id = "surrealdb"
+name = "SurrealDB"
+icon = "https://raw.githubusercontent.com/surrealdb/surrealdb/main/img/whatissurreal.svg"
+description = "SurrealDB is an end-to-end cloud native database for web, mobile, serverless, Jamstack, backend, and traditional applications."
+
+[source]
+image = "surrealdb/surrealdb:1.0.0"
+args = ["start", "file://data/srdb.db"]
+
+[[ports]]
+id = "web"
+port = 8000
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/data"
+
+[env]
+SURREAL_USER = { default = "root" }
+SURREAL_PASS = { default = "${PASSWORD}" }
+
+# alias
+SURREAL_USERNAME = { default = "${SURREAL_USER}", expose = true, readonly = true }
+SURREAL_PASSWORD = { default = "${SURREAL_PASS}", expose = true, readonly = true }
+
+[[instructions]]
+type = "URL"
+title = "Go to SurrealDB"
+content = "${PUBLIC_URL}"
+
+[[instructions]]
+type = "TEXT"
+title = "Username"
+content = "${SURREAL_USERNAME}"
+
+[[instructions]]
+type = "PASSWORD"
+title = "Password"
+content = "${SURREAL_PASSWORD}"

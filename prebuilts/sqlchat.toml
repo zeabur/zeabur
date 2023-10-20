@@ -1,0 +1,19 @@
+#:schema ./schema.json
+
+id = "sqlchat"
+name = "SQL Chat"
+icon = "https://avatars.githubusercontent.com/u/128299021"
+description = "Chat-based SQL Client and Editor for the next decade."
+
+[source]
+image = "sqlchat/sqlchat:latest"
+
+[[ports]]
+id = "web"
+port = 3000
+type = "HTTP"
+
+[env]
+OPENAI_API_KEY = { required = true }
+OPENAI_API_ENDPOINT = { required = true }
+DATABASE_URL = { default = "postgresql://postgres:YOUR_PASSWORD@localhost:5432/sqlchat?schema=sqlchat" }

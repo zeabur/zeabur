@@ -1,61 +1,80 @@
 ---
 title: 域名绑定
 ogImageTitle: 域名绑定
-ogImageSubtitle: 为你的服务选择一个域名
+ogImageSubtitle: 为你的服务绑定一个域名
 ---
 
 import { Callout } from 'nextra-theme-docs'
 
 # 域名绑定
 
-在你的服务成功部署以后，你需要为他们绑定一个域名便于使用服务。
+**域名**是你的服务的唯一标识符，它可以用来从互联网上访问你的服务。例如，这个网站的域名是 `zeabur.com`。
 
-## 第一步：打开服务设置页
+在你的服务成功部署到 Zeabur 之后，你可能需要绑定一个域名来将这个服务暴露到互联网上。
 
-点击你想添加域名的服务，并选择设置页，你将会看到两个按钮，供你选择来添加域名。
+## 步骤一：打开域名设置
 
-![buttons](/deploy/domain/buttons.zh-CN.jpg)
+选择你想要为其添加域名的服务，展开 **域名** 选项卡，你会看到两个按钮，用于为你的服务创建域名。
 
-## 第二步：创建域名
+![buttons](/deploy/domain/buttons.png)
 
-Zeabur 提供了简易的生成域名的服务，生成的带有 `.zeabur.app` 后缀的域名无需其他配置，即可通过此域名来访问你的服务。
+## 步骤二：创建域名
 
-![generate](/deploy/domain/generate.zh-CN.jpg)
+Zeabur 提供了一个简单的服务，用于生成带有 `zeabur.app` 后缀的域名，这些域名可以用于访问你的服务，无需额外的配置。
 
-你也可以选择完全自定义你的域名，但需要参见第三步为其进行一些配置。
+你只需要点击 **生成域名** 按钮，然后输入你想要使用的域名，如果这个域名可用且没有被其他人使用，你就可以点击 **保存** 按钮来使用它来访问你的服务。
 
-![custom](/deploy/domain/custom.zh-CN.jpg)
+![generate](/deploy/domain/generate.png)
 
-## 第三步：配置自定义域名（可选）
+你也可以选择完全自定义你的域名。但是，为了使用你自己的域名访问你的服务，你需要按照 **步骤三** 中的说明对其进行一些配置。
 
-若想拥有更高的独特性和灵活性，你也可以选择绑定自己拥有的域名，若你还没有域名，则可以从一些域名服务提供商，如 [GoDaddy](https://www.godaddy.com)，[Cloudflare](https://www.cloudflare.com) 购买。
+![custom](/deploy/domain/custom.png)
+
+## 步骤三：设定自定义域名
+
+为了更好的标识性和灵活性，你可能想要选择绑定你自己的域名。
+
+如果你还没有自己的域名，你可以从一些域名服务提供商那里购买，例如 [GoDaddy](https://www.godaddy.com) 或者 [Cloudflare](https://www.cloudflare.com)。
+
+点击 **自定义域名** 按钮，输入你的域名，然后点击 **保存** 按钮。
+
+当你将你的域名添加到服务中后，你会发现它处于 `Invalid DNS` 状态。为了正确访问你的服务，你需要去你的域名注册商那里手动为你的域名配置 DNS 记录。
+
+![domain](/deploy/domain/invalid.png)
 
 ### 配置 DNS 记录
 
-在你为服务添加了你的专属域名后，为了能够正常访问你的服务，你需要去你的域名注册商处，手动为你的域名**配置 DNS 记录**。
+我们提供了一个使用 Cloudflare 为域名添加 DNS 记录的例子。
 
-![domain](/deploy/domain/domain.zh-CN.jpg)
+打开 Cloudflare 控制台，选择你想要配置的域名，然后选择 DNS 记录。
 
-此处以 CloudFlare 为例为域名添加 DNS 记录。
+![cloudflare](/deploy/domain/cloudflare.png)
 
-打开 CloudFlare 控制台，选择想要配置的域名，选择 DNS 记录。
+在这一页中，在 **管理 DNS** 的部分，点击 **添加记录** 按钮。
 
-![cloudflare](/deploy/domain/cloudflare.zh-CN.jpg)
+填写相应的名称和目标内容。这里，名称对应于 `Name` 栏位，目标对应于 `Target` 栏位。
 
-在该页面的管理 DNS 一栏，点击添加记录按钮。
+#### 设定子域名 DNS 记录
 
-填入对应的名称和目标内容。此处，`Name` 对应的是名称一栏，`Value` 则对应目标一栏。
+如果你想绑定的域名是一个子域名，例如你购买了 `example.com` 这个域名，但想把服务绑定在 `blog.example.com` 这个子域名：
 
-此处的类型一栏选择 `CNAME`。
+1. 在 `Type` 的位置选择 `CNAME` 记录
+2. 在 `Name` 的位置输入你的子域名，例如 `blog`
+3. 在 `Target` 的位置输入 `cname.zeabur-dns.com.`
+
+![domain-dns](/deploy/domain/dns-cname-record.png)
+
+#### 设定根域名 DNS 记录
+
+如果你想绑定的是一个根域名（APEX Domain），例如你购买了 `example.com` 这个域名，并想把服务绑定在 `example.com` 这个根域名：
+
+1. 在 `Type` 的位置选择 `A` 记录
+2. 在 `Name` 的位置输入 `@`
+3. 在 `Target` 的位置输入 `35.71.144.225` 或者 `52.223.32.133`。
+4. 你也可以新增两个 `A` 记录，分别对应这两个 IP。
 
 <Callout>
-  请勿将 Cloudflare 的代理打开。如果你的代理状态是已代理，请点击橘色的云朵将它关闭。
+    上方提到的两个 IP 是 Zeabur 的 Anycast IP，当你在 DNS 加入这两个 IP 的 A 记录以后，使用者访问你的网站时会被解析到离他最近的节点，确保你的网站的访客可以用最快的速度开启你的页面。
 </Callout>
 
-![domain-dns](/deploy/domain/domain-dns.zh-CN.png)
-
-点击保存，等待配置完成即可。
-
-## 下一步
-
-域名部署完毕后，你就可以点击跳转网页，或开始使用你的服务。
+![domain-dns](/deploy/domain/dns-a-record.png)

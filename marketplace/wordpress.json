@@ -3,7 +3,7 @@
   "code": "wordpress",
   "name": "WordPress",
   "description": "Create a place for your business, your interests, or anything else—with the open source platform that powers the web.",
-  "icon": "https://cdn.zeabur.com/marketplace/wordpress.png",
+  "icon": "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/WordPress.svg",
   "image": "wordpress:6-php8.2",
   "command": null,
   "args": null,

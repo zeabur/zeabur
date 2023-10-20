@@ -1,0 +1,23 @@
+#:schema ./schema.json
+
+id = "ttrss"
+name = "Tiny Tiny RSS"
+description = "Tiny Tiny RSS is a free and open source web-based news feed (RSS/Atom) reader and aggregator"
+icon = "https://tt-rss.org/favicon.ico"
+
+[source]
+image = "wangqiru/ttrss"
+
+[[ports]]
+id = "web"
+port = 80
+type = "HTTP"
+
+[env]
+DB_HOST = { default = "${POSTGRES_HOST}" }
+DB_PORT = { default = "${POSTGRES_PORT}" }
+DB_NAME = { default = "ttrss" }
+DB_USER = { default = "${POSTGRES_USERNAME}" }
+DB_PASS = { default = "${POSTGRES_PASSWORD}" }
+PORT = { default = "80" }
+SELF_URL_PATH = { default = "${PUBLIC_URL}" }

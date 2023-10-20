@@ -8,52 +8,73 @@ import { Callout } from 'nextra-theme-docs'
 
 # Domain Binding
 
-After your services are successfully deployed, you may need to get a domain to use this service.
+**Domain** is a unique identifier for your service, which can be used to access your service from the Internet. For example, the domain name of this website is `zeabur.com`.
 
-## Step 1: Open Settings Tab
+After your service is successfully deployed on Zeabur, you may need to bind a domain to expose this service to the Internet.
 
-Click on the service which you want to add a domain for, and choose the settings page, you will see two buttons for you to create a domain for your service.
+## Step 1: Open Domains Tab
 
-![buttons](/deploy/domain/buttons.en-US.jpg)
+Select the service which you want to add a domain for, and expand the **Domains** tab, you will see two buttons for you to create a domain for your service.
+
+![buttons](/deploy/domain/buttons.png)
 
 ## Step 2: Create a Domain
 
-Zeabur provides an easy service for generating domain names with the zeabur.app suffix that can be used to access your services without additional configuration.
+Zeabur provides an easy service for generating domain names with the `zeabur.app` suffix that can be used to access your services without additional configuration.
 
-![generate](/deploy/domain/generate.en-US.jpg)
+Just click on the **Generate Domain** button, and type in the name you want to use, if the domain name is available and haven't been used by others, you can click on the **Save** button to use it to access your service.
 
-You can also choose to fully customize your domain name, but you will need to see step 3 to do some configuration for it.
+![generate](/deploy/domain/generate.png)
 
-![custom](/deploy/domain/custom.en-US.jpg)
+You can also choose to fully customize your domain name. But to access your service with your own domain name, you will need to follow instructions in **Step 3** to do some configurations for it.
+
+![custom](/deploy/domain/custom.png)
 
 ## Step 3: Configure Your Customized Domain
 
-For more uniqueness and flexibility, you can also choose to bundle your own domain name, or if you don't have one yet, you can buy it from some domain name service providers, such as [GoDaddy](https://www.godaddy.com) or [Cloudflare](https://www.cloudflare.com) Purchase.
+For more uniqueness and flexibility, you may like to choose to bundle your own domain name.
+
+If you don't own any domain yet, you can buy it from some domain name service providers, such as [GoDaddy](https://www.godaddy.com) or [Cloudflare](https://www.cloudflare.com).
+
+Click on the **Custom Domain** button, and type in your domain name, then click on the **Save** button.
+
+After you have added your dedicated domain name to the service, you will find it is in the `Invalid DNS` status. In order to access your service properly, you need to go to your domain registrar and manually configure DNS records for your domain name.
+
+![domain](/deploy/domain/invalid.png)
 
 ### Configure DNS record
 
-After you have added your dedicated domain name to the service, in order to access your service properly, you need to go to your domain registrar and manually configure DNS records for your domain name.
-
-![domain](/deploy/domain/domain.en-US.jpg)
-
-Here is an example of Cloudflare to add DNS records for the domain name.
+Here is an example of using Cloudflare to add DNS records for the domain name.
 
 Open the Cloudflare console, select the domain name you want to configure, and select DNS records.
 
-![cloudflare](/deploy/domain/cloudflare.en-US.jpg)
+![cloudflare](/deploy/domain/cloudflare.png)
 
 On this page, in the Manage DNS section, click the Add Record button.
 
-Fill in the corresponding name and target content. Here, Name corresponds to the Name field and Value corresponds to the Destination field.
+Fill in the corresponding name and target content. Here, the name corresponds to the `Name` field, and the target corresponds to the `Target` field.
 
-And the CNAME type should be selected for the type here.
+#### Configure subdomain DNS record
+
+If you want to bind a domain name to a subdomain, for example, you purchased the domain name `example.com`, but you want to bind the service to the subdomain `blog.example.com`:
+
+1. Select `CNAME` record in the `Type` field
+2. Enter your subdomain name in the `Name` field, for example `blog`
+3. Enter `cname.zeabur-dns.com.` in the `Target` field
+
+![domain-dns](/deploy/domain/dns-cname-record.png)
+
+#### Configure root domain DNS record
+
+If you want to bind a domain name to a root domain (APEX Domain), for example, you purchased the domain name `example.com`, and you want to bind the service to the root domain `example.com`:
+
+1. Select `A` record in the `Type` field
+2. Enter `@` in the `Name` field
+3. Enter `35.71.144.225` or `52.223.32.133`。
+4. You can also add two `A` records, each corresponding to one of these two IP addresses.
 
 <Callout>
-  Do NOT enable Cloudflare's Proxy. If your Proxy Status is Proxied, click the orange cloud icon to turn it off.
+    The two IP addresses mentioned above are Zeabur's Anycast IP. When you add the `A` record of these two IP addresses to DNS, users who visit your website will be resolved to the nearest node to them, ensuring that visitors to your website can open your page at the fastest speed.
 </Callout>
 
-![domain-dns](/deploy/domain/domain-dns.en-US.png)
-
-## What's Next
-
-After the domain is provisioned, you can click on it to take a visit to it.
+![domain-dns](/deploy/domain/dns-a-record.png)
