@@ -1,14 +1,14 @@
 {
     "$schema": "./schema.json",
     "code": "prometheus",
-    "name": "Prometheus",
+    "name": "prometheus",
     "description": "Power your metrics and alerting with the leading open-source monitoring solution.",
     "icon": "https://avatars.githubusercontent.com/u/3380462?s=48&v=4",
     "image": "prom/prometheus:latest",
     "command": null,
     "args": null,
     "port": 9090,
-    "dataPath": "/etc/prometheus/prometheus.yml",
+    "dataPath": "/etc/prometheus",
     "network": "HTTP",
     "variables": []
 }
