@@ -22,6 +22,6 @@ SPRING_R2DBC_URL = { default = "r2dbc:pool:postgresql://${POSTGRES_HOST}:${POSTG
 SPRING_R2DBC_USERNAME = { default = "${POSTGRES_USERNAME}" }
 SPRING_R2DBC_PASSWORD = { default = "${POSTGRES_PASSWORD}" }
 SPRING_SQL_INIT_PLATFORM = { default = "postgresql" }
-HALO_EXTERNAL_URL = { default = "${PUBLIC_URL}" }
+HALO_EXTERNAL_URL = { default = "https://${PUBLIC_URL}" }
 HALO_SECURITY_INITIALIZER_SUPERADMINUSERNAME = { default = "admin" }
 HALO_SECURITY_INITIALIZER_SUPERADMINPASSWORD = { default = "${PASSWORD}" }
