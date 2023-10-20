@@ -1,7 +1,7 @@
 #:schema ./schema.json
 
-id = "mysql57"
-name = "MySQL 5.7"
+id = "mysql5"
+name = "MySQL 5"
 icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/mysql.svg"
 description = "MySQL is a relational database management system based on SQL."
 
