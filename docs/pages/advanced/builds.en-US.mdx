@@ -1,0 +1,175 @@
+---
+title: Builds
+ogImageTitle: Builds
+ogImageSubtitle: How Zeabur builds your source code into service?
+---
+
+# Builds
+
+Zeabur uses [zbpack]() as the internal tool to build user services, so that users can deploy services based on any language and framework with one click without understanding the complex details.
+
+For now, [zbpack]() has supported all mainstream programming languages for web development, and has further identified and optimized for each popular development framework. At the same time, it is also constantly updating for new programming languages and frameworks:
+
+- Node.js
+- Python
+- PHP
+- Ruby
+- Go
+- Java
+- .NET
+- Rust
+- Elixir
+
+If the language or framework used by your service is not in the above list, or if you find that zbpack has a problem during the build process, please contribute a Pull Request to [GitHub]() to help us improve the functionality of zbpack.
+
+When you use zbpack to build a service in a project, it will automatically identify the language and framework used by the service based on the code, configuration files and other information in the project, and according to this information, choose the appropriate way to build the service.
+
+## Generate Build Plan
+
+For example, suppose you have developed a web application based on [Next.js]():
+
+```bash
+git clone https://github.com/zeabur/nextjs-template
+cd nextjs-template
+```
+
+When you run the `zbpack` command in the folder of this project, you can see the customized build plan for this:
+
+```bash
+zbpack .
+
+╔══════════════════════════════ Build Plan ═════════════════════════════╗
+║ provider         │ nodejs                                             ║
+║───────────────────────────────────────────────────────────────────────║
+║ nodeVersion      │ 18                                                 ║
+║───────────────────────────────────────────────────────────────────────║
+║ installCmd       │ pnpm install                                       ║
+║───────────────────────────────────────────────────────────────────────║
+║ buildCmd         │ pnpm run build                                     ║
+║───────────────────────────────────────────────────────────────────────║
+║ startCmd         │ pnpm start                                         ║
+║───────────────────────────────────────────────────────────────────────║
+║ packageManager   │ pnpm                                               ║
+║───────────────────────────────────────────────────────────────────────║
+║ framework        │ next.js                                            ║
+╚═══════════════════════════════════════════════════════════════════════╝
+```
+
+From the figure, we can see that `zbpack` chooses to use the `nodejs` Provider as the solution provider for the build, which means that it will do the following in the further plan:
+
+1. Find out which version of Node.js the service uses
+2. Find out which package manager the service uses, is it `npm`, `yarn` or `pnpm`
+3. Find out which command the service uses to install dependencies
+4. Find out which command the service uses to build
+5. Find out which command the service uses to start
+6. Find out which Node.js framework the service uses
+
+## Build Service
+
+Next, zbpack will generate a Dockerfile based on this build plan, and then automatically use this Dockerfile to build the service:
+
+```bash
+[+] Building 41.3s (12/12) FINISHED                                                                     docker:orbstack
+ => [internal] load build definition from Dockerfile                                                               0.0s
+ => => transferring dockerfile: 252B                                                                               0.0s
+ => [internal] load .dockerignore                                                                                  0.0s
+ => => transferring context: 2B                                                                                    0.0s
+ => [internal] load metadata for docker.io/library/node:18                                                         5.8s
+ => [auth] library/node:pull token for registry-1.docker.io                                                        0.0s
+ => [1/6] FROM docker.io/library/node:18@sha256:a6385a6bb2fdcb7c48fc871e35e32af8daaa82c518900be49b76d10c005864c2   6.9s
+ => => resolve docker.io/library/node:18@sha256:a6385a6bb2fdcb7c48fc871e35e32af8daaa82c518900be49b76d10c005864c2   0.0s
+ => => sha256:abbec5595b9537799df6eea6f93a1552661377f75687094e8d13ce9b179b497d 2.00kB / 2.00kB                     0.0s
+ => => sha256:51ee0b4fe8ca047eee5dc463d2afd1fcf9483b64fb061b6ef57e0fbb57f8d47d 2.21MB / 2.21MB                     0.9s
+ => => sha256:6624995c9b1fad1812193314b121f2972746999eaf1892d5c3924e26c09b9180 452B / 452B                         0.7s
+ => => sha256:a6385a6bb2fdcb7c48fc871e35e32af8daaa82c518900be49b76d10c005864c2 1.21kB / 1.21kB                     0.0s
+ => => sha256:5a1e5ca67f6be51d2a1eb5a0b7a03516b1435508ced93c081b17580ba61cdc5a 45.96MB / 45.96MB                   3.0s
+ => => sha256:c2f4195685ceb2cbafde4d0021de1de57bc969df15a0025ed371100f1cccf364 7.54kB / 7.54kB                     0.0s
+ => => extracting sha256:5a1e5ca67f6be51d2a1eb5a0b7a03516b1435508ced93c081b17580ba61cdc5a                          3.7s
+ => => extracting sha256:51ee0b4fe8ca047eee5dc463d2afd1fcf9483b64fb061b6ef57e0fbb57f8d47d                          0.0s
+ => => extracting sha256:6624995c9b1fad1812193314b121f2972746999eaf1892d5c3924e26c09b9180                          0.0s
+ => [internal] load build context                                                                                  5.0s
+ => => transferring context: 171.44MB                                                                              5.0s
+ => [2/6] WORKDIR /src                                                                                             0.8s
+ => [3/6] RUN corepack enable && corepack prepare --all                                                            7.5s
+ => [4/6] COPY . .                                                                                                 2.4s
+ => [5/6] RUN pnpm install                                                                                         7.0s
+ => [6/6] RUN pnpm run build                                                                                       8.6s
+ => exporting to image                                                                                             2.3s
+ => => exporting layers                                                                                            2.3s
+ => => writing image sha256:d95f934faaefd82b38167ff158e8a31973edcd6a9ba7cc361999080345e80e38                       0.0s
+ => => naming to docker.io/library/nextjs-template                                                                 0.0s
+
+Build successful
+
+To run the image, use the following command:
+docker run -p 8080:8080 -it nextjs-template
+```
+
+Then, we can use `docker run -p 8080:8080 -it nextjs-template` to start the service, and then open `http://localhost:8080` in the browser to access the service.
+
+## Output Format
+
+It is worth noting that [zbpack](https://github.com/zeabur/zbpack) has a key difference from [buildpacks](https://buildpacks.io/) or [nixpacks](https://nixpacks.com/): zbpack is not only used to build Docker Image.
+
+In modern application deployment methods, Docker-based containerized deployment is a very popular choice because of its high versatility, but it is not suitable for some types of services: for example, static websites composed of static resources, or stateless services based on cloud functions.
+
+In the design of zbpack, Docker Image is the most basic output format, which ensures that we can always build a service that can run. But in addition to this, zbpack also supports the output formats of static resources and cloud functions. For example, when we use [Vite]() to develop a static website:
+
+```bash
+git clone git@github.com:zeabur/astro-static-template.git
+```
+
+We can see that zbpack will generate a build plan for this:
+
+```bash
+zbpack .
+
+╔══════════════════════════════ Build Plan ═════════════════════════════╗
+║ provider         │ nodejs                                             ║
+║───────────────────────────────────────────────────────────────────────║
+║ installCmd       │ yarn install                                       ║
+║───────────────────────────────────────────────────────────────────────║
+║ buildCmd         │ yarn build                                         ║
+║───────────────────────────────────────────────────────────────────────║
+║ outputDir        │ dist                                               ║
+║───────────────────────────────────────────────────────────────────────║
+║ packageManager   │ unknown                                            ║
+║───────────────────────────────────────────────────────────────────────║
+║ framework        │ astro-static                                       ║
+║───────────────────────────────────────────────────────────────────────║
+║ nodeVersion      │ 18                                                 ║
+╚═══════════════════════════════════════════════════════════════════════╝
+```
+
+At this time, since `outputDir` is found in the plan, zbpack will automatically output the build result to the `.zeabur/output/static` folder:
+
+```bash
+[+] Building 51.1s (11/11) FINISHED                                                                     docker:orbstack
+ => [internal] load build definition from Dockerfile                                                               0.0s
+ => => transferring dockerfile: 238B                                                                               0.0s
+ => [internal] load .dockerignore                                                                                  0.0s
+ => => transferring context: 2B                                                                                    0.0s
+ => [internal] load metadata for docker.io/library/node:18                                                         1.6s
+ => [1/6] FROM docker.io/library/node:18@sha256:a6385a6bb2fdcb7c48fc871e35e32af8daaa82c518900be49b76d10c005864c2   0.0s
+ => [internal] load build context                                                                                  0.0s
+ => => transferring context: 2.42kB                                                                                0.0s
+ => CACHED [2/6] WORKDIR /src                                                                                      0.0s
+ => CACHED [3/6] RUN corepack enable && corepack prepare --all                                                     0.0s
+ => [4/6] COPY . .                                                                                                 0.0s
+ => [5/6] RUN yarn install                                                                                        45.0s
+ => [6/6] RUN yarn build                                                                                           1.8s
+ => exporting to image                                                                                             2.7s
+ => => exporting layers                                                                                            2.7s
+ => => writing image sha256:b11843309ebd651d6d9e67d892b5da79103f43247625bf0f64ee3c4192d4e32e                       0.0s
+ => => naming to docker.io/library/astro-static-template                                                           0.0s
+Transforming build output to serverless format ...
+
+Build successful
+
+To run the image, use the following command:
+npx serve .zeabur/output/static
+```
+
+Therefore, the command to start this service has changed from the original `docker run -p 8080:8080 -it nextjs-template` to `npx serve .zeabur/output/static`. Similarly, we can put these static resources into any static web server such as [Nginx](), [Apache](), [Caddy]() and so on.
+
+For more details about the `.zeabur/output` folder of zbpack, please refer to the [Serverless Output Format](./serverless-output-format) section.

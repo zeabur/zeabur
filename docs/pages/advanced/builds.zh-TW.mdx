@@ -1,0 +1,175 @@
+---
+title: 構建原理
+ogImageTitle: 構建原理
+ogImageSubtitle: Zeabur 內部構建使用者部署服務的方式
+---
+
+# 構建原理
+
+Zeabur 使用 [zbpack](https://github.com/zeabur/zbpack) 作為內部構建使用者服務的工具，讓使用者可以在不需要理解複雜細節的情況下，一鍵部署基於任何語言和框架的服務。
+
+目前，[zbpack](https://github.com/zeabur/zbpack) 已經支援所有網頁開發主流的程式語言，並對各個較熱門的開發框架實現了進一步的識別及優化，同時也在不斷為新出現的程式語言和框架推出更新：
+
+- Node.js
+- Python
+- PHP
+- Ruby
+- Go
+- Java
+- .NET
+- Rust
+- Elixir
+
+若你的服務使用的語言或框架不在上述列表中，或是你發現 zbpack 在構建服務的過程中發生了問題，歡迎到 [GitHub](https://github.com/zeabur/zbpack/pulls) 貢獻 Pull Request，幫助我們完善 zbpack 的功能。
+
+當你在某個專案中使用 zbpack 構建服務時，它會根據專案中的程式碼、設定檔等資訊，自動識別出服務使用的語言和框架，並根據這些資訊，選擇適合的構建方式來構建服務。
+
+## 產生構建計畫
+
+舉例來說，假設你開發了一個基於 [Next.js](https://nextjs.org/) 的網頁應用程式：
+
+```bash
+git clone https://github.com/zeabur/nextjs-template
+cd nextjs-template
+```
+
+當你在這個專案的資料夾中執行 `zbpack` 指令，可以看到他為此訂製的構建計畫：
+
+```bash
+zbpack .
+
+╔══════════════════════════════ Build Plan ═════════════════════════════╗
+║ provider         │ nodejs                                             ║
+║───────────────────────────────────────────────────────────────────────║
+║ nodeVersion      │ 18                                                 ║
+║───────────────────────────────────────────────────────────────────────║
+║ installCmd       │ pnpm install                                       ║
+║───────────────────────────────────────────────────────────────────────║
+║ buildCmd         │ pnpm run build                                     ║
+║───────────────────────────────────────────────────────────────────────║
+║ startCmd         │ pnpm start                                         ║
+║───────────────────────────────────────────────────────────────────────║
+║ packageManager   │ pnpm                                               ║
+║───────────────────────────────────────────────────────────────────────║
+║ framework        │ next.js                                            ║
+╚═══════════════════════════════════════════════════════════════════════╝
+```
+
+從圖中可以看到， `zbpack` 選擇使用 `nodejs` Provider 作為構建的方案提供者，這意味著他在進一步的計畫中會做以下事情：
+
+1. 確定服務使用哪個 Node.js 版本
+2. 確定服務使用哪個 package manager，是 `npm`、`yarn` 還是 `pnpm`
+3. 確定服務使用哪個指令來安裝依賴
+4. 確定服務使用哪個指令來構建
+5. 確定服務使用哪個指令來啟動
+6. 確定服務使用哪個 Node.js 框架
+
+## 構建服務
+
+接下來，zbpack 會根據這個構建計畫，產生一個 Dockerfile，然後自動使用這個 Dockerfile 來構建服務：
+
+```bash
+[+] Building 41.3s (12/12) FINISHED                                                                     docker:orbstack
+ => [internal] load build definition from Dockerfile                                                               0.0s
+ => => transferring dockerfile: 252B                                                                               0.0s
+ => [internal] load .dockerignore                                                                                  0.0s
+ => => transferring context: 2B                                                                                    0.0s
+ => [internal] load metadata for docker.io/library/node:18                                                         5.8s
+ => [auth] library/node:pull token for registry-1.docker.io                                                        0.0s
+ => [1/6] FROM docker.io/library/node:18@sha256:a6385a6bb2fdcb7c48fc871e35e32af8daaa82c518900be49b76d10c005864c2   6.9s
+ => => resolve docker.io/library/node:18@sha256:a6385a6bb2fdcb7c48fc871e35e32af8daaa82c518900be49b76d10c005864c2   0.0s
+ => => sha256:abbec5595b9537799df6eea6f93a1552661377f75687094e8d13ce9b179b497d 2.00kB / 2.00kB                     0.0s
+ => => sha256:51ee0b4fe8ca047eee5dc463d2afd1fcf9483b64fb061b6ef57e0fbb57f8d47d 2.21MB / 2.21MB                     0.9s
+ => => sha256:6624995c9b1fad1812193314b121f2972746999eaf1892d5c3924e26c09b9180 452B / 452B                         0.7s
+ => => sha256:a6385a6bb2fdcb7c48fc871e35e32af8daaa82c518900be49b76d10c005864c2 1.21kB / 1.21kB                     0.0s
+ => => sha256:5a1e5ca67f6be51d2a1eb5a0b7a03516b1435508ced93c081b17580ba61cdc5a 45.96MB / 45.96MB                   3.0s
+ => => sha256:c2f4195685ceb2cbafde4d0021de1de57bc969df15a0025ed371100f1cccf364 7.54kB / 7.54kB                     0.0s
+ => => extracting sha256:5a1e5ca67f6be51d2a1eb5a0b7a03516b1435508ced93c081b17580ba61cdc5a                          3.7s
+ => => extracting sha256:51ee0b4fe8ca047eee5dc463d2afd1fcf9483b64fb061b6ef57e0fbb57f8d47d                          0.0s
+ => => extracting sha256:6624995c9b1fad1812193314b121f2972746999eaf1892d5c3924e26c09b9180                          0.0s
+ => [internal] load build context                                                                                  5.0s
+ => => transferring context: 171.44MB                                                                              5.0s
+ => [2/6] WORKDIR /src                                                                                             0.8s
+ => [3/6] RUN corepack enable && corepack prepare --all                                                            7.5s
+ => [4/6] COPY . .                                                                                                 2.4s
+ => [5/6] RUN pnpm install                                                                                         7.0s
+ => [6/6] RUN pnpm run build                                                                                       8.6s
+ => exporting to image                                                                                             2.3s
+ => => exporting layers                                                                                            2.3s
+ => => writing image sha256:d95f934faaefd82b38167ff158e8a31973edcd6a9ba7cc361999080345e80e38                       0.0s
+ => => naming to docker.io/library/nextjs-template                                                                 0.0s
+
+Build successful
+
+To run the image, use the following command:
+docker run -p 8080:8080 -it nextjs-template
+```
+
+如此一來，我們就可以直接使用 `docker run -p 8080:8080 -it nextjs-template` 來啟動服務，然後在瀏覽器中打開 `http://localhost:8080` 來訪問服務。
+
+## 輸出格式
+
+值得注意的是， [zbpack](https://github.com/zeabur/zbpack) 和 [buildpacks](https://buildpacks.io/) 或 [nixpacks](https://nixpacks.com/) 有一個關鍵的不同之處： zbpack 並不是只用來構建 Docker Image 的。
+
+在現代的應用部署方式中，基於 Docker 的容器化部署是一個非常熱門的選擇，因為它有非常高的通用性，但並不適合一些類型的服務：例如基於靜態資源組合而成的靜態網站，或是基於雲函數的無狀態服務。
+
+在 zbpack 的設計中，Docker Image 是最基本的輸出格式，確保我們可以總是構建出一個能夠運行的服務。但除此之外，zbpack 還支援靜態資源和雲函數的輸出格式，例如當我們用 [Vite](https://vitejs.dev/) 開發了一個靜態網站：
+
+```bash
+git clone git@github.com:zeabur/astro-static-template.git
+```
+
+我們可以看到 zbpack 會為此生成的構建計畫：
+
+```bash
+zbpack .
+
+╔══════════════════════════════ Build Plan ═════════════════════════════╗
+║ provider         │ nodejs                                             ║
+║───────────────────────────────────────────────────────────────────────║
+║ installCmd       │ yarn install                                       ║
+║───────────────────────────────────────────────────────────────────────║
+║ buildCmd         │ yarn build                                         ║
+║───────────────────────────────────────────────────────────────────────║
+║ outputDir        │ dist                                               ║
+║───────────────────────────────────────────────────────────────────────║
+║ packageManager   │ unknown                                            ║
+║───────────────────────────────────────────────────────────────────────║
+║ framework        │ astro-static                                       ║
+║───────────────────────────────────────────────────────────────────────║
+║ nodeVersion      │ 18                                                 ║
+╚═══════════════════════════════════════════════════════════════════════╝
+```
+
+這個時候，由於計畫中找到了 `outputDir`，zbpack 會自動將構建結果輸出到 `.zeabur/output/static` 資料夾中：
+
+```bash
+[+] Building 51.1s (11/11) FINISHED                                                                     docker:orbstack
+ => [internal] load build definition from Dockerfile                                                               0.0s
+ => => transferring dockerfile: 238B                                                                               0.0s
+ => [internal] load .dockerignore                                                                                  0.0s
+ => => transferring context: 2B                                                                                    0.0s
+ => [internal] load metadata for docker.io/library/node:18                                                         1.6s
+ => [1/6] FROM docker.io/library/node:18@sha256:a6385a6bb2fdcb7c48fc871e35e32af8daaa82c518900be49b76d10c005864c2   0.0s
+ => [internal] load build context                                                                                  0.0s
+ => => transferring context: 2.42kB                                                                                0.0s
+ => CACHED [2/6] WORKDIR /src                                                                                      0.0s
+ => CACHED [3/6] RUN corepack enable && corepack prepare --all                                                     0.0s
+ => [4/6] COPY . .                                                                                                 0.0s
+ => [5/6] RUN yarn install                                                                                        45.0s
+ => [6/6] RUN yarn build                                                                                           1.8s
+ => exporting to image                                                                                             2.7s
+ => => exporting layers                                                                                            2.7s
+ => => writing image sha256:b11843309ebd651d6d9e67d892b5da79103f43247625bf0f64ee3c4192d4e32e                       0.0s
+ => => naming to docker.io/library/astro-static-template                                                           0.0s
+Transforming build output to serverless format ...
+
+Build successful
+
+To run the image, use the following command:
+npx serve .zeabur/output/static
+```
+
+因此，啟動這個服務的指令從原本的 `docker run -p 8080:8080 -it nextjs-template` 變成了 `npx serve .zeabur/output/static`。 同理，我們可以將這些靜態資源放到任何例如 [Nginx](https://www.nginx.com/)、[Apache](https://httpd.apache.org/)、[Caddy](https://caddyserver.com/) 等等的靜態網頁伺服器中。
+
+關於 zbpack 的 `.zeabur/output` 資料夾的更多細節，請參考 [Serverless 輸出格式](./serverless-output-format) 章節。
