@@ -20,4 +20,4 @@ DB_NAME = { default = "ttrss" }
 DB_USER = { default = "${POSTGRES_USERNAME}" }
 DB_PASS = { default = "${POSTGRES_PASSWORD}" }
 PORT = { default = "80" }
-SELF_URL_PATH = { default = "${PUBLIC_URL}" }
+SELF_URL_PATH = { default = "${ZEABUR_WEB_URL}" }

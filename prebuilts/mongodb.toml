@@ -33,12 +33,12 @@ MONGO_USERNAME = { default = "${MONGO_INITDB_ROOT_USERNAME}", expose = true, rea
 MONGO_PASSWORD = { default = "${MONGO_INITDB_ROOT_PASSWORD}", expose = true, readonly = true }
 
 MONGO_CONNECTION_STRING = { default = "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}", expose = true, readonly = true }
-MONGO_CONNECTION_STRING_PORTFORWARDED = { default = "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}", readonly = true }
+MONGO_URI = { default = "${MONGO_CONNECTION_STRING}", expose = true, readonly = true }
 
 [[instructions]]
 type = "TEXT"
 title = "Command to connect to your MongoDB"
-content = "mongosh \"${MONGO_CONNECTION_STRING_PORTFORWARDED}\""
+content = "mongosh \"mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}\""
 showWhen = "PORT_FORWARDING"
 
 [[instructions]]
