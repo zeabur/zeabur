@@ -20,4 +20,4 @@ database__connection__port = { default = "${MYSQL_PORT}" }
 database__connection__user = { default = "${MYSQL_USERNAME}" }
 database__connection__password = { default = "${MYSQL_PASSWORD}" }
 database__connection__database = { default = "ghost" }
-url = { default = "${PUBLIC_URL}" }
+url = { default = "${ZEABUR_WEB_URL}" }
