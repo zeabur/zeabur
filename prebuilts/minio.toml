@@ -28,7 +28,7 @@ dir = "/data"
 MINIO_ROOT_USER = { default = "minio" }
 MINIO_ROOT_PASSWORD = { default = "${PASSWORD}" }
 
-MINIO_CONSOLE_URL = { default = "${PUBLIC_CONSOLE_URL}", expose = true, readonly = true }
+MINIO_CONSOLE_URL = { default = "${ZEABUR_PUBLIC_CONSOLE_URL}", expose = true, readonly = true }
 MINIO_USERNAME = { default = "${MINIO_ROOT_USER}", expose = true, readonly = true }
 MINIO_PASSWORD = { default = "${MINIO_ROOT_PASSWORD}", expose = true, readonly = true }
 

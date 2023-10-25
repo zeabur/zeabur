@@ -29,7 +29,7 @@ SURREAL_PASSWORD = { default = "${SURREAL_PASS}", expose = true, readonly = true
 [[instructions]]
 type = "URL"
 title = "Go to SurrealDB"
-content = "${PUBLIC_URL}"
+content = "${ZEABUR_PUBLIC_URL}"
 
 [[instructions]]
 type = "TEXT"
