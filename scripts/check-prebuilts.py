@@ -4,7 +4,7 @@ import tomllib
 
 from jsonschema import validate
 
-with open('./schema.json') as f:
+with open("./schema.json") as f:
     schema = json.load(f)
 
 ret = 0
