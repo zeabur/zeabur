@@ -16,6 +16,7 @@ def get_variables_of_item(base: set[str], marketplace_item: dict[str, Any]) -> s
         vset.add(f"{id}_PORT_FORWARDED_PORT")
         vset.add(f"{id}_PORT")
         vset.add(f"ZEABUR_{id}_URL")
+        vset.add(f"ZEABUR_{id}_DOMAIN")
 
     return vset
 
