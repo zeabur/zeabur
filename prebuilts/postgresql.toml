@@ -24,7 +24,7 @@ PGDATA = { default = "/var/lib/postgresql/data/pgdata" }
 
 POSTGRES_HOST = { default = "${CONTAINER_HOSTNAME}", expose = true, readonly = true }
 POSTGRES_PORT = { default = "${DATABASE_PORT}", expose = true, readonly = true }
-POSTGRES_DB = { default = "zeabur", expose = true, readonly = true }
+POSTGRES_DB = { default = "zeabur", expose = true }
 
 POSTGRES_USERNAME = { default = "${POSTGRES_USER}", expose = true, readonly = true }
 
