@@ -27,13 +27,13 @@ POSTGRES_PORT = { default = "${DATABASE_PORT}", expose = true, readonly = true }
 
 POSTGRES_USERNAME = { default = "${POSTGRES_USER}", expose = true, readonly = true }
 
-POSTGRES_CONNECTION_STRING = { default = "postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/db", expose = true, readonly = true }
+POSTGRES_CONNECTION_STRING = { default = "postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}?sslmode=disable", expose = true, readonly = true }
 POSTGRES_URI = { default = "${POSTGRES_CONNECTION_STRING}", expose = true, readonly = true }
 
 [[instructions]]
 type = "TEXT"
 title = "Command to connect to your PostgreSQL"
-content = "psql \"postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}/db\""
+content = "psql \"postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}\""
 showWhen = "PORT_FORWARDING"
 
 [[instructions]]
