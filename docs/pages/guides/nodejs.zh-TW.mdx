@@ -1,0 +1,91 @@
+---
+title: Node.js
+ogImageTitle: 部署 Node.js 專案
+ogImageSubtitle: 在 Zeabur 部署 Node.js 專案
+---
+
+# 部署 Node.js 專案
+
+Zeabur 支援眾多類型的 Node.js 專案：
+
+- 原生專案 (支援 NPM/Yarn/PNPM/Bun 等套件管理器)
+- 使用 [Vite](./nodejs/vite) 打包的專案
+- [Qwik](./nodejs/qwik)
+- [Next.js](./nodejs/nextjs)
+- [Remix](./nodejs/remix)
+- [Nuxt.js](./nodejs/nuxtjs)
+- [Umi](./nodejs/umi)
+- [Svelte (Kit)](./nodejs/svelte-kit)
+- [Nest.js](./nodejs/nestjs)
+- [Nue.js](./nodejs/nuejs)
+- [Express](./nodejs/express)
+- Create React App
+- vue-cli
+- Hexo
+- Vitepress
+- Astro (Static, SSR)
+- Slidev
+- Docusaurus
+- Solid Start (Node, Static)
+
+## 停用快取功能
+
+預設 Zeabur 會調換安裝流程，透過儲存（快取）安裝依賴的步驟，加速你往後 CI/CD 的速度。
+一般的 Node.js 專案應該不受影響，但假如你的專案是以 pnpm-workspace 等利用工具管理的
+monorepo，並且預設的設定會導致專案編譯失敗，你可能得停用快取功能才能正常使用。
+
+在專案的根目錄新增 `zbpack.json` 檔案，並加入以下內容，即可停用這個功能。
+
+```json
+{
+    "cache_dependencies": false
+}
+```
+
+## 更改編譯和啟動命令
+
+假如你的專案類型較為特殊（如使用工具達到的 Monorepo），你可能會需要指定服務的編譯 (build)
+和啟動 (start) 命令，比如將 `frontend` 服務的啟動命令改成 `pnpm run start:frontend`；把
+`api` 服務的編譯命令改成 `pnpm run start:api`。
+
+這裡介紹兩個更改這個命令的方式。
+
+### 在網頁端修改
+
+部署專案到 Zeabur 服務後展開 “Settings”，即可修改「自訂編譯命令」和「自訂啟動命令」。
+修改完成後點選 “Redeploy” 重新部署即可。
+
+![Node.js: Custom Command](/guides/nodejs/custom-command.png)
+
+### 使用檔案修改
+
+在 `zbpack.json` 加入以下兩個設定項目：
+
+```json
+{
+    "build_command": "<自訂編譯命令>",
+    "start_command": "<自訂啟動命令>"
+}
+```
+
+預設 `zbpack.json` 的設定會套用到所有部署的服務。如果你想限定
+「服務名稱為 `api` 的使用某個命令；服務名稱為 `frontend` 的使用另一個命令」，
+則需要建立 `zbpack.[服務名稱].json` 的檔案：
+
+```json
+// zbpack.api.json
+{
+    "build_command": "pnpm run build:api",
+    "start_command": "pnpm run start:api"
+}
+```
+
+```json
+// zbpack.frontend.json
+{
+    "build_command": "pnpm run build:frontend",
+    "start_command": "pnpm run start:frontend"
+}
+```
+
+`zbpack.json` 的套用優先級是 `zbpack.[服務名稱].json` > `zbpack.json`。

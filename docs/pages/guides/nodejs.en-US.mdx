@@ -1,0 +1,85 @@
+---
+title: Node.js
+ogImageTitle: Deploying Node.js App
+ogImageSubtitle: Deploying Node.js App in Zeabur
+---
+
+# Deploying Node.js App
+
+Zeabur supports various types of Node.js projects:
+
+- Native projects (supporting NPM/Yarn/PNPM/Bun and other package managers)
+- Projects bundled with [Vite](./nodejs/vite)
+- [Qwik](./nodejs/qwik)
+- [Next.js](./nodejs/nextjs)
+- [Remix](./nodejs/remix)
+- [Nuxt.js](./nodejs/nuxtjs)
+- [Umi](./nodejs/umi)
+- [Svelte (Kit)](./nodejs/svelte-kit)
+- [Nest.js](./nodejs/nestjs)
+- [Nue.js](./nodejs/nuejs)
+- [Express](./nodejs/express)
+- Create React App
+- vue-cli
+- Hexo
+- Vitepress
+- Astro (static, SSR)
+- Slidev
+- Docusaurus
+- Solid Start (Node, static)
+
+## Disabling Cache Functionality
+
+By default, Zeabur adjusts the installation process by caching the steps to install dependencies, speeding up subsequent CI/CD processes.
+Most Node.js projects should not be affected, but if your project uses tools like pnpm-workspace to manage a monorepo and the default settings cause compilation failures, you may need to disable the cache functionality to use it properly.
+
+To disable this feature, create a `zbpack.json` file in the root directory of your project and add the following content:
+
+```json
+{
+    "cache_dependencies": false
+}
+```
+
+## Modifying Build and Start Commands
+
+If your project has a special type (such as a Monorepo implemented with tools), you may need to specify the build and start commands for your services. For example, you may want to change the start command for the `frontend` service to `pnpm run start:frontend`, or change the build command for the `api` service to `pnpm run start:api`.
+
+Here are two ways to modify these commands.
+
+### Modifying in the Web Interface
+
+After deploying your project to the Zeabur service, expand the "Settings" section to modify the "Custom Build Command" and "Custom Start Command". After making the changes, click "Redeploy" to deploy the project again.
+
+![Node.js: Custom Command](/guides/nodejs/custom-command.png)
+
+### Modifying via Files
+
+Add the following two settings to `zbpack.json`:
+
+```json
+{
+    "build_command": "<custom build command>",
+    "start_command": "<custom start command>"
+}
+```
+
+The default settings in `zbpack.json` will be applied to all deployed services. If you want to specify different commands for different services (e.g., use a specific command for a service named `api` and another command for a service named `frontend`), you need to create a file named `zbpack.[service name].json`:
+
+```json
+// zbpack.api.json
+{
+    "build_command": "pnpm run build:api",
+    "start_command": "pnpm run start:api"
+}
+```
+
+```json
+// zbpack.frontend.json
+{
+    "build_command": "pnpm run build:frontend",
+    "start_command": "pnpm run start:frontend"
+}
+```
+
+The priority of applying the settings is `zbpack.[service name].json` > `zbpack.json`.
