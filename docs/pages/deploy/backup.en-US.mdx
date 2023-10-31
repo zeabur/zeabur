@@ -1,0 +1,41 @@
+---
+title: Backup Service
+ogImageTitle: Backup Service
+ogImageSubtitle: Back Up Your Services
+---
+import { Callout } from 'nextra-theme-docs'
+
+# Backup Service
+In both production environments and during the development process, you may find the need to create backups for your services. This has a positive impact on the robustness and reliability of your applications.
+We provide a straightforward method for creating and recovering backups for all Prebuilt Services deployed on Zeabur.
+
+<Callout>
+    The previously mentioned [Prebuilt Service](/prebuilt/intro), which belongs to the service category, is a subcategory of services. [Prebuilt Service](/prebuilt/intro) is a stateful service, unlike `Git Service`, which is stateless. Therefore, `Git Service` does not support backup functionality.
+</Callout>
+## Step 1: Suspend Your Service
+Before creating a backup, please suspend your service to prevent data loss during the backup process. If your service is running, the system will prompt you to suspend it.
+
+![backup-not-suspend](/deploy/backup/backup-not-suspend.png)
+
+At this point, you can open the Settings tab, find the Danger Zone section, and click the Suspend Service button to suspend your service.
+
+![suspend](/deploy/backup/backup-suspend-service.png)
+
+## Step 2: Access Backup Settings
+Select the service you wish to back up, expand the Backup tab, and you will see a button to create a backup for your service.
+
+![button](/deploy/backup/backup-not-suspend.png)
+
+## Step 3: Create a Backup
+Click the Backup button, and the system will create a backup for your service. This process may take some time.
+
+![created](/deploy/backup/backup-created.png)
+
+## Step 4: Download the Backup
+After waiting for a while, you will see that the backup has been successfully created. The Backup tab will display SUCCESS. Click here to download the backup file.
+
+![success](/deploy/backup/backup-success.png)
+
+Once you have the downloaded file, you can unzip it and view its contents.
+
+![files](/deploy/backup/backup-files.png)
