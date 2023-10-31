@@ -89,3 +89,153 @@ monorepo，並且預設的設定會導致專案編譯失敗，你可能得停用
 ```
 
 `zbpack.json` 的套用優先級是 `zbpack.[服務名稱].json` > `zbpack.json`。
+
+## 以 Serverless 方式部署
+
+如果你的 Node.js 符合以下條件，那麼你可以在 Zeabur 使用 Serverless 方式部署：
+
+1. 專案本身使用了如 [Next.js](https://nextjs.org/)、[Nuxt.js](https://nuxtjs.org/)、[Remix](https://remix.run/) 等專為 Serverless 部署所設計的框架。
+2. 專案本身不使用上述框架，但服務本身符合 Serverless 的理念：每個請求的狀態彼此獨立，且可以在沒有請求的情況下自動休眠。
+
+### 把專案構建成 Serverless 格式
+
+如果你的專案使用了 Next.js、Nuxt.js、Remix 等框架，那麼你可以直接跳過這個步驟，因為 [zbpack](https://github.com/zeabur/zbpack) 會自動將他轉換成 Serverless 產物格式。
+
+如果你的專案不使用上述框架，那麼你需要自行把專案構建成 [Serverless 格式](../advanced/serverless-output-format)，這裡以一個最基本的 Express.js 應用程式為例：
+
+```js
+// app.js
+
+const express = require('express')
+const app = express()
+
+app.get('/', (req, res) => {
+    res.send('Hello World!')
+})
+
+module.exports = app
+```
+
+從上述示範中，可以看到 `app.js` 這個模組已經輸出了 `app` 這個物件，這是一個符合 Zeabur 的 Serverless 處理函數格式的物件，因此我們唯一要做的就是將他在構建階段輸出到 `.zeabur/output/functions` 中的 `index.func` 目錄下。
+
+為了實現這件事，我們可以在程式碼中加入以下腳本：
+
+```js
+// scripts/build.js
+
+const esbuild = require('esbuild');
+const fs = require('fs');
+
+// dynamic-required files
+const dynamicRequiredDirs = ['views']
+
+// static files
+const staticFileDirs = ['public']
+
+// Remove old output
+if (fs.existsSync('.zeabur/output')) {
+    console.info('Removing old .zeabur/output')
+    fs.rmSync('.zeabur/output', {recursive: true})
+}
+
+function getModuleEntries() {
+    function getModuleEntriesRecursive(dir) {
+        let entries = []
+        fs.readdirSync(dir).forEach(file => {
+            const path = `${dir}/${file}`
+            if (fs.statSync(path).isDirectory()) {
+                if(file === 'node_modules') return
+                entries = entries.concat(getModuleEntriesRecursive(path))
+            } else if (file.endsWith('.js')) {
+                entries.push(path)
+            }
+        })
+        return entries
+    }
+    return getModuleEntriesRecursive('.')
+}
+
+// build with esbuild
+try {
+    esbuild.build({
+        entryPoints: getModuleEntries(),
+        bundle: false,
+        minify: false,
+        outdir: '.zeabur/output/functions/index.func',
+        platform: 'node',
+        target: 'node20',
+        plugins: [{
+            name: 'make-all-packages-external',
+            setup(build) {
+                let filter = /^[^.\/]|^\.[^.\/]|^\.\.[^\/]/ // Must not start with "/" or "./" or "../"
+                build.onResolve({filter}, args => ({path: args.path, external: true}))
+            },
+        }],
+    }).then(res => {
+        if (res.errors.length > 0) {
+            console.error(res.errors)
+            process.exit(1)
+        }
+        console.info('Successfully built app.js into .zeabur/output/functions/index.func')
+        fs.copyFileSync('.zeabur/output/functions/index.func/app.js', '.zeabur/output/functions/index.func/index.js')
+        fs.rmSync('.zeabur/output/functions/index.func/app.js')
+    })
+} catch (error) {
+    console.error(error)
+}
+
+// copy node_modules into function output directory
+console.info('Copying node_modules into .zeabur/output/functions/index.func/node_modules')
+fs.cpSync('node_modules', '.zeabur/output/functions/index.func/node_modules', {recursive: true, verbatimSymlinks: true})
+
+// copy package.json into function output directory
+console.info('Copying package.json into .zeabur/output/functions/index.func')
+fs.cpSync('package.json', '.zeabur/output/functions/index.func/package.json')
+
+// copy dynamic-required files into function output directory, so they can be required during runtime
+dynamicRequiredDirs.forEach(dir => {
+    copyIfDirExists(dir, `.zeabur/output/functions/index.func/${dir}`)
+})
+
+// copy static files into function output directory, so they can be served by the web server directly
+staticFileDirs.forEach(dir => {
+    copyIfDirExists(dir, `.zeabur/output/static`)
+})
+
+function copyIfDirExists(src, dest) {
+    if (fs.statSync(src).isDirectory()) {
+        console.info(`Copying ${src} to ${dest}`)
+        fs.cp(src, dest, {recursive: true}, (err) => {
+            if (err) throw err;
+        });
+        return
+    }
+    console.warn(`${src} is not a directory`)
+}
+```
+
+這個腳本做的事情非常單純，他會使用 [esbuild](https://esbuild.github.io/) 構建你的專案，然後把所有 `.js` 檔案按照原有的相對路徑放入 `.zeabur/output/functions/index.func` 目錄下，並且把 `node_modules` 和 `package.json` 複製到 `.zeabur/output/functions/index.func` 目錄下，這樣就完成了專案的構建。
+
+特別注意到，我們在這個腳本中保留了兩個特殊的可設定欄位：
+
+```js
+// dynamic-required files
+const dynamicRequiredDirs = ['views']
+
+// static files
+const staticFileDirs = ['public']
+```
+
+這兩個欄位讓我們把除了 `.js` 以外的東西也一起放入產物內，其中 `dynamicRequiredDirs` 是一些在執行時期才會被 `require` 的檔案，比如 `views` 目錄下的模板檔案；`staticFileDirs` 則是一些靜態檔案，比如 `public` 目錄下的靜態資源，這些資源被放入 `.zeabur/output/static` 目錄下，讓他們可以直接被 Zeabur Edge Network 用更快的速度分發給全世界的使用者。
+
+加入這個腳本以後別忘了在專案中安裝 `esbuild`，然後在 `package.json` 的 `scripts` 中加入 `build` 指令：
+
+```json
+{
+    "scripts": {
+        "build": "node scripts/build.js"
+    }
+}
+```
+
+你可以在 [zeabur/expressjs-template](https://github.com/zeabur/expressjs-template) 找到完整的範例程式碼。也可以根據自己的需求修改 `scripts/build.js` 腳本。
