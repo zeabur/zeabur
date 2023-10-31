@@ -3,5 +3,6 @@
   "root-directory": "根目录",
   "watch-paths": "监控路径",
   "dockerfile": "Dockerfile 部署",
-  "deploy-button": "一键部署按钮"
+  "deploy-button": "一键部署按钮",
+  "backup": "备份服务"
 }
