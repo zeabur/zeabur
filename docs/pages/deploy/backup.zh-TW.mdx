@@ -8,38 +8,38 @@ import { Callout } from 'nextra-theme-docs'
 
 # 備份服務
 
-在生產環境和開發過程中，您可能需要為您的  創建備份。這會對應用的健壯性和可靠性產生積極的影響。
-我們為所有部署在 Zeabur 上的 [Prebuilt Service](/prebuilt/intro) 提供了一個簡單的方法來創建和恢復備份。
+在生產環境和開發過程中，您可能需要為您的服務建立備份，增強應用的健壯性和可靠性。
+我們為所有部署在 Zeabur 上的 [Prebuilt Service](/prebuilt/intro) 提供了一個簡單的方法來建立和復原備份。
 
 <Callout>
-    上方提到的 [Prebuilt Service](/prebuilt/intro) , 是屬於服務下的一個子分類，[Prebuilt Service](/prebuilt/intro) 是有狀態服務，不同於 `Git Service` 是無狀態的， 所以 `Git Service` 不支持備份功能
+    上方提到的 [Prebuilt Service](/prebuilt/intro) , 是屬於服務下的一個子分類，[Prebuilt Service](/prebuilt/intro) 是有狀態服務，不同於 `Git Service` 是無狀態的， 所以 `Git Service` 不支援備份功能
 </Callout>
 
-## 步驟一：掛起你的服務
+## 步驟一：暫停你的服務
 
-在備份之前請先掛起你的服務，以免在備份過程丟失數據，如果你的服務是運行狀態，系統會提示你掛起服務。
+在備份之前請先暫停你的服務，以免在備份過程遺失資料，如果你的服務是執行狀態，系統會提示你暫停服務。
 
 ![backup-not-suspend](/deploy/backup/backup-not-suspend.png)
 
-此時你可以打開 **Settings** 選項卡，找到 `Danger Zone` 區域， 點擊 `Suspend Service` 按鈕掛起你的服務。
+此時你可以打開 **Settings** 頁籤，找到 `Danger Zone` 區域， 點擊 `Suspend Service` 按鈕暫停你的服務。
 
 ![suspend](/deploy/backup/backup-suspend-service.png)
 
-## 步驟二：打開備份設置
+## 步驟二：打開備份設定
 
-選擇你想要進行備份的服務，展開 **Backup** 選項卡，你會看到一個按鈕，用於為你的服務創建備份。
+選擇你想要進行備份的服務，展開 **Backup** 頁籤，你會看到一個按鈕，用於為你的服務建立備份。
 
 ![button](/deploy/backup/backup-not-suspend.png)
 
-## 步驟三：創建備份
+## 步驟三：建立備份
 
-點擊 **Backup** 按鈕，系統會為你的服務創建一個備份，這個過程可能需要一些時間。
+點擊 **Backup** 按鈕，系統會為你的服務建立一個備份，這個過程可能需要一些時間。
 
 ![created](/deploy/backup/backup-created.png)
 
 ## 步驟四：下載備份
 
-等待一段時間後，你可以看到備份已經創建完成，**Backup** 選項卡上會顯示 `SUCCESS` ，點擊此處即可下載備份文件。
+等待一段時間後，你可以看到備份已經建立完成，**Backup** 頁籤上會顯示 `SUCCESS` ，點擊此處即可下載備份文件。
 
 ![success](/deploy/backup/backup-success.png)
 
