@@ -3,5 +3,6 @@
   "root-directory": "自訂根目錄",
   "watch-paths": "觸發路徑",
   "dockerfile": "Dockerfile 部署",
-  "deploy-button": "一鍵部署按鈕"
+  "deploy-button": "一鍵部署按鈕",
+  "backup": "備份服務"
 }
