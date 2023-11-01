@@ -1,0 +1,71 @@
+#:schema ./schema.json
+# 待审查
+
+id = "rabbitmq"
+name = "RabbitMQ"
+
+# TODO Download svg icon from https://www.svgrepo.com/svg/303576/rabbitmq-logo
+icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/rabbitmq.svg"
+
+description = "RabbitMQ is a widely used open-source message broker that implements the Advanced Message Queuing Protocol (AMQP)"
+
+[source]
+image = "rabbitmq:3-management"
+
+[[ports]]
+id = "database"
+port = 5672
+type = "TCP"
+
+[[volumes]]
+id = "data"
+# mountPath = "/var/lib/rabbitmq"
+dir = "/data/rabbitmq" # TODO
+
+
+
+[env]
+RABBITMQ_DEFAULT_USER = { default = "admin" } # or guest?
+RABBITMQ_DEFAULT_PASS = { default = "${PASSWORD}" }
+
+RABBITMQ_DEFAULT_VHOST = { default = "/" }
+
+RABBITMQ_HOST = { default = "${CONTAINER_HOSTNAME}", expose = true, readonly = true }
+RABBITMQ_PORT = { default = "${DATABASE_PORT}", expose = true, readonly = true }
+
+
+RABBITMQ_CONNECTION_STRING = { default = "amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@${RABBITMQ_HOST}:${RABBITMQ_PORT}", expose = true, readonly = true }
+RABBITMQ_URI = { default = "${RABBITMQ_CONNECTION_STRING}", expose = true, readonly = true }
+
+[[instructions]]
+type = "TEXT"
+title = "Command to connect to your RabbitMQ"
+# TODO RabbitMQ cli is not wide used,check https://serverfault.com/a/961291 https://stackoverflow.com/a/56140362
+content = "rabbitmqadmin --host ${PORT_FORWARDED_HOSTNAME} --port ${DATABASE_PORT_FORWARDED_PORT} --username ${RABBITMQ_DEFAULT_USER} --password ${RABBITMQ_DEFAULT_PASS} --vhost ${RABBITMQ_DEFAULT_VHOST} list queues"
+showWhen = "PORT_FORWARDING"
+
+[[instructions]]
+type = "TEXT"
+title = "RabbitMQ username"
+content = "${RABBITMQ_DEFAULT_USER}"
+category = "Credentials"
+
+
+[[instructions]]
+type = "PASSWORD"
+title = "RabbitMQ password"
+content = "${RABBITMQ_DEFAULT_PASS}"
+category = "Credentials"
+
+[[instructions]]
+type = "TEXT"
+title = "RabbitMQ host"
+content = "${PORT_FORWARDED_HOSTNAME}"
+showWhen = "PORT_FORWARDING"
+category = "Hostname & Port"
+
+[[instructions]]
+type = "TEXT"
+title = "RabbitMQ port"
+content = "${DATABASE_PORT_FORWARDED_PORT}"
+category = "Hostname & Port"
