@@ -23,4 +23,3 @@ type = "HTTP"
 [env]
 TRUST_PROXY_HEADER = { default = "true" }
 DB_URL = { default = "postgres://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/logto" }
-ADMIN_ENDPOINT = { default = "https://console-${ZEABUR_SERVICE_ID}-${ZEABUR_ENVIRONMENT_ID}.zeabur.app/" }
