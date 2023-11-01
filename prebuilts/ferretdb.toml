@@ -1,0 +1,64 @@
+#:schema ./schema.json
+
+id = "ferretdb"
+name = "FerretDB"
+icon = "https://avatars.githubusercontent.com/u/95204649?s=48&v=4"
+description = "A truly Open Source MongoDB alternative, built on Postgres."
+
+[source]
+image = "ghcr.io/ferretdb/all-in-one:1.13.0"
+
+[[ports]]
+id = "web"
+port = 27017
+type = "TCP"
+
+[[volumes]]
+id = "data"
+dir = "/volume/lib/postgresql/data"
+
+[env]
+POSTGRES_USER = { default = "root" }
+POSTGRES_PASSWORD = { default = "${PASSWORD}" }
+POSTGRES_DB = { default = "ferretdb" }
+FERRETDB_POSTGRES_URL = { default = "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@127.0.0.1:5432/${POSTGRES_DB}" }
+
+FERRET_HOST = { default = "${CONTAINER_HOSTNAME}", expose = true, readonly = true }
+FERRET_PORT = { default = "${DATABASE_PORT}", expose = true, readonly = true }
+
+FERRET_USERNAME = { default = "${POSTGRES_USER}", expose = true, readonly = true }
+FERRET_PASSWORD = { default = "${POSTGRES_PASSWORD}", expose = true, readonly = true }
+
+FERRET_CONNECTION_STRING = { default = "postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${FERRET_HOST}:${FERRET_PORT}?sslmode=disable", expose = true, readonly = true }
+FERRET_URI = { default = "${FERRET_CONNECTION_STRING}", expose = true, readonly = true }
+
+[[instructions]]
+type = "TEXT"
+title = "Command to connect to your FerretDB"
+content = "psql \"postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}\""
+showWhen = "PORT_FORWARDING"
+
+[[instructions]]
+type = "TEXT"
+title = "Ferret username"
+content = "${FERRET_USERNAME}"
+category = "Credentials"
+
+[[instructions]]
+type = "PASSWORD"
+title = "Ferrect password"
+content = "${FERRET_PASSWORD}"
+category = "Credentials"
+
+[[instructions]]
+type = "TEXT"
+title = "Ferret host"
+content = "${PORT_FORWARDED_HOSTNAME}"
+showWhen = "PORT_FORWARDING"
+category = "Hostname & Port"
+
+[[instructions]]
+type = "TEXT"
+title = "Ferret port"
+content = "${DATABASE_PORT_FORWARDED_PORT}"
+category = "Hostname & Port"
