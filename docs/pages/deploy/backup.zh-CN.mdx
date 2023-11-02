@@ -1,0 +1,49 @@
+---
+title: 备份服务
+ogImageTitle: 备份服务
+ogImageSubtitle: 备份你的服务
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# 备份服务
+
+在生产环境和开发过程中，您可能需要为您的服务创建备份，增强应用的健壮性和可靠性。
+我们为所有部署在 Zeabur 上的 [Prebuilt Service](/prebuilt/intro) 提供了一个简单的方法来创建和恢复备份。
+
+<Callout>
+    上方提到的 [Prebuilt Service](/prebuilt/intro) , 是属于服务下的一个子分类，[Prebuilt Service](/prebuilt/intro) 是有状态服务，不同于 `Git Service` 是无状态的， 所以 `Git Service` 不支持备份功能。
+</Callout>
+
+## 步骤一：暂停你的服务
+
+在备份之前请先暂停你的服务，以免在备份过程丢失数据，如果你的服务是运行状态，系统会提示你暂停服务。
+
+![backup-not-suspend](/deploy/backup/backup-not-suspend.png)
+
+此时你可以打开 **Settings** 选项卡，找到 `Danger Zone` 区域， 点击 `Suspend Service` 按钮暂停你的服务。
+
+![suspend](/deploy/backup/backup-suspend-service.png)
+
+## 步骤二：打开备份设置
+
+选择你想要进行备份的服务，展开 **Backup** 选项卡，你会看到一个按钮，用于为你的服务创建备份。
+
+![button](/deploy/backup/backup-not-suspend.png)
+
+## 步骤三：创建备份
+
+点击 **Backup** 按钮，系统会为你的服务创建一个备份，这个过程可能需要一些时间。
+
+![created](/deploy/backup/backup-created.png)
+
+## 步骤四：下载备份
+
+等待一段时间后，你可以看到备份已经创建完成，**Backup** 选项卡上会显示 `SUCCESS` ，点击此处即可下载备份文件。
+
+![success](/deploy/backup/backup-success.png)
+
+得到下载的文件后，你可以将其解压缩并查看其中的内容。
+
+![files](/deploy/backup/backup-files.png)
+
