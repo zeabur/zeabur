@@ -4,11 +4,12 @@ ogImageTitle: 部署 RabbitMQ 服務
 ogImageSubtitle: 在 Zeabur 一鍵部署 RabbitMQ 服務
 ---
 
+
 import {Callout} from 'nextra-theme-docs'
 
 # 部署 RabbitMQ 服務
 
-Zeabur 提供了 RabbitMQ 服務，讓你可以在 Zeabur 上一鍵部署 RabbitMQ 訊息佇列。
+Zeabur 提供了 RabbitMQ 服務，讓你可以在 Zeabur 上一鍵部署 RabbitMQ 消息隊列。
 
 <Callout type="info" emoji="ℹ️">
     目前 RabbitMQ 服務版本為 `3-management`。
@@ -16,36 +17,35 @@ Zeabur 提供了 RabbitMQ 服務，讓你可以在 Zeabur 上一鍵部署 Rabbit
 
 ## 部署 RabbitMQ 服務
 
-在你的專案中，點擊 **新建服務**，點擊 **預構建** ，在彈出列表搜索欄中搜索 `Rabbitmq`。
+在你的項目中，點擊 **新建服務**，點擊 **預構建** ，在彈出列表搜索欄中搜索 `Rabbitmq`。
 
 ![deploy](/deploy/common/select-service.en-US.png)
-
 
 點擊部署後，Zeabur 會自動幫你部署 Rabbitmq 服務。
 
 ## 環境變數
 
-當你部署 Rabbitmq 服務後，Zeabur 會自動為其他服務注入相關環境變數。
+當你部署 Rabbitmq 服務後，Zeabur 會自動幫你注入相關環境變數到其他的服務中。
 
  - `RABBITMQ_HOST`
  - `RABBITMQ_PORT`
  - `RABBITMQ_DEFAULT_USER`
  - `RABBITMQ_DEFAULT_PASS`
 
-有時候我們也可以用自行新增的 DATABASE_URL 來取代上面的環境變數，例如：
+有時候我們可以用自行新增 DATABASE_URL 來取代上面的環境變數，例如：
 
-```bash copy
-DATABASE_URL=amqp://<RABBITMQ_DEFAULT_USER>:<RABBITMQ_DEFAULT_PASS>@<RABBITMQ_HOST>:<RABBITMQ_PORT>/<DATABASE_NAME>
+```bash
+amqp://<RABBITMQ_DEFAULT_USER>:<RABBITMQ_DEFAULT_PASS>@<RABBITMQ_HOST>:<RABBITMQ_PORT>/<DATABASE_NAME>
 ```
-這裡的 `<DATABASE_NAME>` 是你自行新增的 Vhost 名稱。
 
-## 線上管理介面
+這裡的 <DATABASE_NAME> 是你自行新增的 Vhost 名稱。
 
-Rabbitmq 服務提供了一個線上管理介面，讓你可以在瀏覽器中管理 Rabbitmq 服務。
+## 在線管理界面
 
-你可以透過訪問 `http://<RABBITMQ_HOST>:15672` 來使用 Rabbitmq 服務的線上管理介面。
+Rabbitmq 服務提供了一個在線管理界面，讓你可以在瀏覽器中管理 Rabbitmq 服務。
+
+你通過訪問 `http://<RABBITMQ_HOST>:15672` 來訪問 Rabbitmq 服務的在線管理界面。
 
 ## DSN 設定
 
-你可以透過变量 ${RABBITMQ_URI} 來使用 Rabbitmq 服務的 DSN（也就是 Rabbitmq 服務的連線字串）。
-
+你可以透過變數 ${RABBITMQ_URI} 來使用 Rabbitmq 服務的 DSN（也就是 Rabbitmq 服務的網路地址）。
