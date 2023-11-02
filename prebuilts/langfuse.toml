@@ -6,7 +6,7 @@ icon = "https://avatars.githubusercontent.com/u/134601687?s=48&v=4"
 description = "Open Source Observability & Analytics for LLM Apps."
 
 [source]
-image = "ghcr.io/langfuse/langfuse:latest"
+image = "ghcr.io/langfuse/langfuse:sha-f292af4"
 
 [[ports]]
 id = "web"
