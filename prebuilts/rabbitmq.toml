@@ -20,6 +20,7 @@ id = "web"
 port = 15672
 type = "HTTP"
 
+
 [[volumes]]
 id = "data"
 dir = "/var/lib/rabbitmq" # default data directories.
