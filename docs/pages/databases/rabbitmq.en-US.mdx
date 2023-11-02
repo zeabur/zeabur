@@ -16,15 +16,15 @@ Zeabur provides RabbitMQ service, allowing you to deploy RabbitMQ message queue 
 
 ## Deploy RabbitMQ Service
 
-In your project, click on **New Service**, then click on **Prebuilt** button. In the pop-up search bar, search for `Rabbitmq`.
+In your project, click on **New Service**, then click on **Prebuilt** button. In the pop-up search bar, search for `RabbitMQ`.
 
 ![deploy](/deploy/common/select-service.en-US.png)
 
-After clicking on deploy, Zeabur will automatically deploy the Rabbitmq service for you.
+After clicking on deploy, Zeabur will automatically deploy the RabbitMQ service for you.
 
 ## Environment Variables
 
-After deploying the Rabbitmq service, Zeabur will automatically inject the relevant environment variables into other services.
+After deploying the RabbitMQ service, Zeabur will automatically inject the relevant environment variables into other services.
 
 - `RABBITMQ_HOST`
 - `RABBITMQ_PORT`
@@ -41,10 +41,10 @@ Here, `<DATABASE_NAME>` is the name of the Vhost that you have added.
 
 ## Online Management Interface
 
-The Rabbitmq service provides an online management interface, allowing you to manage the Rabbitmq service in the browser.
+The RabbitMQ service provides an online management interface, allowing you to manage the RabbitMQ service in the browser.
 
-You can access the Rabbitmq service's online management interface by visiting `http://<RABBITMQ_HOST>:15672`.
+You can access the RabbitMQ service's online management interface by visiting `http://<RABBITMQ_HOST>:15672`.
 
 ## DSN settings
 
-You can use the DSN of the Rabbitmq service (that is, the connection string of the Rabbitmq service) through the variable `${RABBITMQ_URI}`.
+You can use the DSN of the RabbitMQ service (that is, the connection string of the RabbitMQ service) through the variable `${RABBITMQ_URI}`.
