@@ -1,0 +1,56 @@
+---
+title: 部署 RabbitMq 服务
+ogImageTitle: 部署 RabbitMq 服务
+ogImageSubtitle: 在 Zeabur 一键部署 RabbitMq 服务
+---
+
+
+
+import {Callout} from 'nextra-theme-docs'
+
+# Deploy RabbitMq 服务
+
+Zeabur 提供了 RabbitMq 服务，让你可以在 Zeabur 上一键部署 RabbitMq 消息队列。
+
+<Callout type="info" emoji="ℹ️">
+    目前 RabbitMq 服务版本为 3-management。
+</Callout>
+
+## 部署 RabbitMQ 服务
+
+在你的项目中，点击 **新建服务**，点击 **预构建** ，在弹出列表搜索栏中搜索 `Rabbitmq`。
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+
+点击部署后，Zeabur 会自动帮你部署 Rabbitmq 服务。
+
+## 环境变量
+
+
+当你部署 Rabbitmq 服务后，Zeabur 会自动帮你注入相关环境变量到其他的服务中。
+
+ - `RABBITMQ_HOST`
+ - `RABBITMQ_PORT`
+ - `RABBITMQ_DEFAULT_USER`
+ - `RABBITMQ_DEFAULT_PASS`
+
+有时候我们可以用自行新增 `DATABASE_URL` 来取代上面的环境变量，例如：
+
+```bash copy
+amqp://<RABBITMQ_DEFAULT_USER>:<RABBITMQ_DEFAULT_PASS>@<RABBITMQ_HOST>:<RABBITMQ_PORT>/<DATABASE_NAME>
+```
+
+这里的 `<DATABASE_NAME>` 是你自行新增的 Vhost 名称。
+
+## 在线管理界面
+
+Rabbitmq 服务提供了一个在线管理界面，让你可以在浏览器中管理 Rabbitmq 服务。
+
+你通过访问 `http://<RABBITMQ_HOST>:15672` 来访问 Rabbitmq 服务的在线管理界面。
+
+## DSN 设定
+
+你可以透过变量 `${RABBITMQ_URI}` 来使用 Rabbitmq 服务的 DSN（也就是 Rabbitmq 服务的网络地址）。
+
+

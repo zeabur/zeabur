@@ -1,0 +1,50 @@
+---
+title: Deploy RabbitMq Service
+ogImageTitle: Deploy RabbitMq Service
+ogImageSubtitle: Deploy RabbitMq Service with Zeabur
+---
+
+import {Callout} from 'nextra-theme-docs'
+
+# Deploy RabbitMq Service
+
+Zeabur provides RabbitMq service, allowing you to deploy RabbitMq message queue on Zeabur with just one click.
+
+<Callout type="info" emoji="ℹ️">
+    Currently, the version of RabbitMq service is 3-management.
+</Callout>
+
+## Deploy RabbitMQ Service
+
+In your project, click on **New Service**, then click on **Prebuilt** button. In the pop-up search bar, search for `Rabbitmq`.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+After clicking on deploy, Zeabur will automatically deploy the Rabbitmq service for you.
+
+## Environment Variables
+
+After deploying the Rabbitmq service, Zeabur will automatically inject the relevant environment variables into other services.
+
+- `RABBITMQ_HOST`
+- `RABBITMQ_PORT`
+- `RABBITMQ_DEFAULT_USER`
+- `RABBITMQ_DEFAULT_PASS`
+
+Sometimes, instead of using the above environment variables, you can use the self-added DATABASE_URL to replace them. For example:
+
+```bash copy
+amqp://<RABBITMQ_DEFAULT_USER>:<RABBITMQ_DEFAULT_PASS>@<RABBITMQ_HOST>:<RABBITMQ_PORT>/<DATABASE_NAME>
+```
+
+Here, `<DATABASE_NAME>` is the name of the Vhost that you have added.
+
+## Online Management Interface
+
+The Rabbitmq service provides an online management interface, allowing you to manage the Rabbitmq service in the browser.
+
+You can access the Rabbitmq service's online management interface by visiting `http://<RABBITMQ_HOST>:15672`.
+
+## DSN settings
+
+You can use the DSN of the Rabbitmq service (that is, the connection string of the Rabbitmq service) through the variable `${RABBITMQ_URI}`.
