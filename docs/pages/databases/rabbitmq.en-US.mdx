@@ -31,7 +31,7 @@ After deploying the Rabbitmq service, Zeabur will automatically inject the relev
 - `RABBITMQ_DEFAULT_USER`
 - `RABBITMQ_DEFAULT_PASS`
 
-Sometimes, instead of using the above environment variables, you can use the self-added DATABASE_URL to replace them. For example:
+Sometimes, instead of using the above environment variables, you can add your own DATABASE_URL variable to simplify the URI declaration. For example:
 
 ```bash copy
 amqp://<RABBITMQ_DEFAULT_USER>:<RABBITMQ_DEFAULT_PASS>@<RABBITMQ_HOST>:<RABBITMQ_PORT>/<DATABASE_NAME>
