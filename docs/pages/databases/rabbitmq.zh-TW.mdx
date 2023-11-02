@@ -4,24 +4,23 @@ ogImageTitle: 部署 RabbitMQ 服務
 ogImageSubtitle: 在 Zeabur 一鍵部署 RabbitMQ 服務
 ---
 
-
 import {Callout} from 'nextra-theme-docs'
 
 # 部署 RabbitMQ 服務
 
-Zeabur 提供了 RabbitMQ 服務，讓你可以在 Zeabur 上一鍵部署 RabbitMQ 消息隊列。
+Zeabur 提供了 RabbitMQ 服務，讓你可以在 Zeabur 上一鍵部署 RabbitMQ 消息佇列。
 
 <Callout type="info" emoji="ℹ️">
-    目前 RabbitMQ 服務版本為 `3-management`。
+    目前 RabbitMQ 服務版本為 3-management。
 </Callout>
 
 ## 部署 RabbitMQ 服務
 
-在你的項目中，點擊 **新建服務**，點擊 **預構建** ，在彈出列表搜索欄中搜索 `RabbitMQ`。
+在你的專案中，點選 **建立服務** → **Prebuilt** ，在彈出列表搜尋列中搜尋 `RabbitMQ`。
 
 ![deploy](/deploy/common/select-service.en-US.png)
 
-點擊部署後，Zeabur 會自動幫你部署 RabbitMQ 服務。
+點選部署後，Zeabur 會自動幫你部署 RabbitMQ 服務。
 
 ## 環境變數
 
@@ -40,11 +39,11 @@ amqp://<RABBITMQ_DEFAULT_USER>:<RABBITMQ_DEFAULT_PASS>@<RABBITMQ_HOST>:<RABBITMQ
 
 這裡的 <DATABASE_NAME> 是你自行新增的 Vhost 名稱。
 
-## 在線管理界面
+## 線上管理介面
 
-RabbitMQ 服務提供了一個在線管理界面，讓你可以在瀏覽器中管理 RabbitMQ 服務。
+RabbitMQ 服務提供了一個線上管理介面，讓你可以在瀏覽器中管理 RabbitMQ 服務。
 
-你通過訪問 `http://<RABBITMQ_HOST>:15672` 來訪問 RabbitMQ 服務的在線管理界面。
+可以進入 `http://<RABBITMQ_HOST>:15672` 來使用 RabbitMQ 服務的線上管理介面
 
 ## DSN 設定
 
