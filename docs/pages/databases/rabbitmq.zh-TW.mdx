@@ -31,13 +31,10 @@ Zeabur 提供了 RabbitMQ 服務，讓你可以在 Zeabur 上一鍵部署 Rabbit
  - `RABBITMQ_DEFAULT_USER`
  - `RABBITMQ_DEFAULT_PASS`
 
-有時候我們可以用自行新增 DATABASE_URL 來取代上面的環境變數，例如：
+有時候我們可以用自行新增的 `DATABASE_URL` 來取代上面的環境變數，例如：
 
 ```bash
 amqp://<RABBITMQ_DEFAULT_USER>:<RABBITMQ_DEFAULT_PASS>@<RABBITMQ_HOST>:<RABBITMQ_PORT>/<DATABASE_NAME>
-```
-
-這裡的 <DATABASE_NAME> 是你自行新增的 Vhost 名稱。
 
 ## 線上管理介面
 
