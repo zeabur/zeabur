@@ -12,7 +12,7 @@ export default function Document() {
         <meta name="og:image" content="/default-og.png" />
 
         {/* Twitter Card */}
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content="https://zeabur.com" />
         <meta name="twitter:site" content="@zeaburapp" />
         <meta
