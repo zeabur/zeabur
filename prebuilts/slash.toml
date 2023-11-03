@@ -1,0 +1,22 @@
+#:schema ./schema.json
+
+id = "slash"
+name = "Slash"
+icon = "https://jsd.cdn.zzko.cn/gh/boojack/slash@latest/resources/logo.png"
+description = "Slash is an open source, self-hosted bookmarks and link sharing platform. Save and share your links very easily."
+
+[source]
+image = "yourselfhosted/slash:latest"
+
+[[ports]]
+id = "web"
+port = 5231
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/var/opt/slash"
+
+[env]
+SLASH_MODE = { default = "prod" }
+SLASH_PORT = { default = "5231", readonly = true }

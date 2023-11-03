@@ -4,7 +4,7 @@
   "name": "Halo",
   "description": "Halo is a powerful and easy-to-use open source website building tool.",
   "icon": "https://avatars.githubusercontent.com/u/48195280?s=200&v=4",
-  "image": "halohub/halo:2.6",
+  "image": "halohub/halo:2.10",
   "command": null,
   "args": null,
   "port": 8090,
@@ -30,14 +30,6 @@
     {
       "name": "HALO_EXTERNAL_URL",
       "value": "https://${ZEABUR_SERVICE_ID}-${ZEABUR_ENVIRONMENT_ID}.zeabur.app"
-    },
-    {
-      "name": "HALO_SECURITY_INITIALIZER_SUPERADMINUSERNAME",
-      "value": "admin"
-    },
-    {
-      "name": "HALO_SECURITY_INITIALIZER_SUPERADMINPASSWORD",
-      "value": "${PASSWORD}"
     }
   ]
 }

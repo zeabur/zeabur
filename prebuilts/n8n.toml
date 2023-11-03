@@ -1,0 +1,35 @@
+#:schema ./schema.json
+
+id = "n8n"
+name = "n8n"
+description = "Build complex automations 10x faster, without fighting APIs"
+icon = "https://raw.githubusercontent.com/n8n-io/n8n/master/assets/n8n-logo.png"
+
+[source]
+image = "n8nio/n8n"
+
+[[ports]]
+id = "web"
+port = 5678
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/home/node/.n8n"
+
+[env]
+DB_TYPE = { default = "postgresdb" }
+DB_POSTGRESDB_USER = { default = "${POSTGRES_USERNAME}" }
+DB_POSTGRESDB_PASSWORD = { default = "${POSTGRES_PASSWORD}" }
+DB_POSTGRESDB_HOST = { default = "${POSTGRES_HOST}" }
+DB_POSTGRESDB_PORT = { default = "${POSTGRES_PORT}" }
+DB_POSTGRESDB_DATABASE = { default = "n8n" }
+
+[[init]]
+id = "init-chown-data"
+command = ["chown", "-R", "1000:1000", "/home/node/.n8n"]
+image = "busybox"
+
+[[init.volumes]]
+id = "data"
+mountPath = "/home/node/.n8n"

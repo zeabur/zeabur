@@ -30,28 +30,20 @@ n8n 將在 PostgreSQL 資料庫中儲存使用者身份資料。單擊 "建立�
 
 為了使 n8n 服務正常運作，我們需要在 PostgreSQL 資料庫中先建立一個名為 `n8n` 的資料庫。
 
-請先使用任何 PostgreSQL 用戶端連接到你的 PostgreSQL 服務。在本文中，我們使用 [psql](https://www.postgresql.org/docs/9.1/app-psql.html) 進行連接。
+通常情況下，你需要一個 PostgreSQL 用戶端來連接 PostgreSQL 服務並建立資料庫。但是 Zeabur 提供了一個方便的方法來建立資料庫。
 
-![Connect PostgreSQL](/marketplace/postgresql/connect.png)
+在你的 PostgreSQL 服務中，你可以找到一個名為 **Database（資料庫）** 的頁籤，你可以在這裡一鍵管理你的資料庫。
 
-你可以在 Zeabur 控制台中 PostgreSQL 服務的 "連接" 塊中找到相應的 psql 連接指令或其他連接資訊。
+![Database Tab](/marketplace/n8n/database-tab.png)
 
-```bash
-psql postgresql://root:password@infra.zeabur.com:12345
-```
+**n8n** 需要一個名為 `n8n` 的資料庫，所以我們需要建立一個名為 `n8n` 的資料庫。
+在輸入框中輸入 `n8n`，然後點選 **建立** 按鈕，Zeabur 將為你建立一個名為 `n8n` 的資料庫。
 
-接下來，請在 psql 中輸入以下指令以建立 `n8n` 資料庫：
-
-```sql
-CREATE DATABASE n8n;
-```
-
-你可以在 [PostgreSQL 文件](../databases/postgresql) 中查看有關建立資料庫的更詳細文件。
+![Database Tab](/marketplace/n8n/database-n8n.png)
 
 ## 步驟四: 部署 n8n 服務
 
-In the Zeabur console, click "Create Service" and select "Service Marketplace", you will find n8n in the list.
-
+在成功建立了 PostgreSQL 服務並設定好資料庫後，你現在可以開始部署 n8n 了。
 回到剛建立了 **PostgreSQL** 服務的項目頁面，點選**建立服務**，然後選擇**服務市場**，你將在列表中找到 n8n。
 
 ![Deploy n8n](/marketplace/n8n/deploy.png)

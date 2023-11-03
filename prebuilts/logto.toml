@@ -1,0 +1,25 @@
+#:schema ./schema.json
+
+id = "logto"
+name = "Logto"
+icon = "https://dev-to-uploads.s3.amazonaws.com/uploads/organization/profile_image/6720/caee4597-8613-4fdc-902a-955dea9855b4.png"
+description = "The open-source alternative to Auth0, shaping the future of identity development for individuals and businesses of all sizes and project scopes."
+
+[source]
+image = "svhd/logto:1.10"
+command = ["sh"]
+args = ["-c", "npm run cli db seed -- --swe && npm start"]
+
+[[ports]]
+id = "web"
+port = 3001
+type = "HTTP"
+
+[[ports]]
+id = "console"
+port = 3002
+type = "HTTP"
+
+[env]
+TRUST_PROXY_HEADER = { default = "true" }
+DB_URL = { default = "postgres://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/logto" }

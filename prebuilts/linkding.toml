@@ -1,0 +1,22 @@
+#:schema ./schema.json
+
+id = "linkding"
+name = "Linkding"
+icon = "https://jsd.cdn.zzko.cn/gh/sissbruecker/linkding@latest/docs/header.svg"
+description = "Linkding is a Self-hosted bookmark manager that is designed be to be minimal, fast, and easy to set up using Docker."
+
+[source]
+image = "sissbruecker/linkding:1.22.1"
+
+[[ports]]
+id = "web"
+port = 9090
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/etc/linkding/data"
+
+[env]
+LD_SUPERUSER_NAME = { required = true }
+LD_SUPERUSER_PASSWORD = { default = "${PASSWORD}" }

@@ -1,0 +1,67 @@
+#:schema ./schema.json
+
+id = "mongodb"
+name = "MongoDB"
+icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/mongodb.svg"
+description = "MongoDB is a general purpose, document-based, distributed database built for modern application developers and for the cloud era."
+
+[source]
+image = "mongo:7.0"
+command = ["sh"]
+
+# The docker-entrypoint.sh script in official MongoDB images will
+# execute `chown -R mongodb:mongodb /data/db` which will cause permission issues.
+# This is a workaround to remove the chown command from the script.
+args = ["-c", "sed -i '10,23d' /usr/local/bin/docker-entrypoint.sh && exec docker-entrypoint.sh mongod"]
+
+[[ports]]
+id = "database"
+port = 27017
+type = "TCP"
+
+[[volumes]]
+id = "data"
+dir = "/data/db"
+
+[env]
+MONGO_INITDB_ROOT_USERNAME = { default = "mongo" }
+MONGO_INITDB_ROOT_PASSWORD = { default = "${PASSWORD}" }
+
+MONGO_HOST = { default = "${CONTAINER_HOSTNAME}", expose = true, readonly = true }
+MONGO_PORT = { default = "${DATABASE_PORT}", expose = true, readonly = true }
+MONGO_USERNAME = { default = "${MONGO_INITDB_ROOT_USERNAME}", expose = true, readonly = true }
+MONGO_PASSWORD = { default = "${MONGO_INITDB_ROOT_PASSWORD}", expose = true, readonly = true }
+
+MONGO_CONNECTION_STRING = { default = "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}", expose = true, readonly = true }
+MONGO_URI = { default = "${MONGO_CONNECTION_STRING}", expose = true, readonly = true }
+
+[[instructions]]
+type = "TEXT"
+title = "Command to connect to your MongoDB"
+content = "mongosh \"mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}\""
+showWhen = "PORT_FORWARDING"
+
+[[instructions]]
+type = "TEXT"
+title = "MongoDB username"
+content = "${MONGO_USERNAME}"
+category = "Credentials"
+
+[[instructions]]
+type = "PASSWORD"
+title = "MongoDB password"
+content = "${MONGO_PASSWORD}"
+category = "Credentials"
+
+[[instructions]]
+type = "TEXT"
+title = "MongoDB host"
+content = "${PORT_FORWARDED_HOSTNAME}"
+showWhen = "PORT_FORWARDING"
+category = "Hostname & Port"
+
+[[instructions]]
+type = "TEXT"
+title = "MongoDB port"
+content = "${DATABASE_PORT_FORWARDED_PORT}"
+category = "Hostname & Port"

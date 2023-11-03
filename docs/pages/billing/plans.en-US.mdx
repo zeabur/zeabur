@@ -4,23 +4,31 @@ ogImageTitle: Plans
 ogImageSubtitle: Different plans on Zeabur
 ---
 
+import { Callout } from 'nextra-theme-docs'
+
 # Plans
 
 Zeabur offers different subscription plans for different needs.
 
 Features and pricing can be found on [Zeabur's "Pricing" page](https://zeabur.com/en-US/pricing). This document mainly explains the target audience of each plan and supported payment methods.
 
-## Free Plan
+## Serverless Plan
 
-The Free Plan helps you evaluate Zeabur or launch small hobby or course projects. You will have a US$5 usage quota each month, which you can use to try out any services and features offered by Zeabur within the quota.
+By default, all Zeabur accounts are Serverless Plan.
+You can deploy your services as serverless functions without number limits.
 
-After the free quota for the month is used up, your service deployment will be temporarily suspended and you will have to manually restart the service next month.
+<Callout>
+    You can deploy containerized services with this plan too, but those services maybe deleted at any time unless you've upgrade your plan.
+
+    It's only suitable for testing and evaluation.
+
+</Callout>
 
 ## Developer Plan
 
 The Developer Plan is suitable for all kinds of developers and small teams. In addition to generous resource quotas, higher support priority, and exclusive "Dev Plan" badge on the Discord server, you can also "pay as you go" and create various interesting applications with Zeabur without worrying about restrictions.
 
-Supports credit card and Alipay payments.
+You can deploy both serverless functions and containerized services on the Developer Plan.
 
 The Developer Plan has a US$5 free quota each month:
 
@@ -30,6 +38,8 @@ The Developer Plan has a US$5 free quota each month:
 ## Team Plan
 
 The Team Plan is suitable for medium and large-scale, or projects with large resource requirements. In addition to providing more resource quotas, you can also directly connect with the Zeabur team to discuss various possibilities.
+
+You can deploy both serverless functions and containerized services on the Team Plan.
 
 Supports credit card and Alipay payments. When you need other payment methods, you can communicate with us.
 

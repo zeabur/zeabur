@@ -1,0 +1,18 @@
+#:schema ./schema.json
+
+id = "memos"
+name = "Memos"
+icon = "https://avatars.githubusercontent.com/u/95764151"
+description = "An open-source, self-hosted memo hub with knowledge management and social networking."
+
+[source]
+image = "neosmemo/memos:0.16"
+
+[[ports]]
+id = "web"
+port = 5230
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/var/opt/memos"

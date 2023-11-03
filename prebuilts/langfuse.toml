@@ -1,0 +1,24 @@
+#:schema ./schema.json
+
+id = "langfuse"
+name = "Langfuse"
+icon = "https://avatars.githubusercontent.com/u/134601687?s=48&v=4"
+description = "Open Source Observability & Analytics for LLM Apps."
+
+[source]
+image = "ghcr.io/langfuse/langfuse:sha-f292af4"
+
+[[ports]]
+id = "web"
+port = 3000
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/app"
+
+[env]
+DATABASE_URL = { default = "postgres://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/langfuse" }
+NEXTAUTH_URL = { default = "myauthurl" }
+NEXTAUTH_SECRET = { default = "mysecret" }
+SALT = { default = "mysalt" }

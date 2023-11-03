@@ -4,7 +4,7 @@
   "name": "Bytebase",
   "description": "Bytebase is Database CI/CD for DevOps teams.",
   "icon": "https://avatars.githubusercontent.com/u/74386897",
-  "image": "bytebase/bytebase:release-ci",
+  "image": "bytebase/bytebase:2.7.0",
   "command": null,
   "args": null,
   "port": 80,
