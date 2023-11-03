@@ -10,10 +10,24 @@ export default function Document() {
         <link rel="apple-touch-icon" href="/favicon.svg" />
         <meta name="og:title" content="Zeabur" />
         <meta name="og:image" content="/default-og.png" />
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="/default-og.png" />
-        <meta property="twitter:site:domain" content="zeabur.com" />
-        <meta property="twitter:url" content="https://zeabur.com" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:url" content="https://zeabur.com" />
+        <meta name="twitter:site" content="@zeaburapp" />
+        <meta
+          name="twitter:title"
+          content="Zeabur - Deploy Painlessly, Scale Infinitely"
+        />
+        <meta
+          name="twitter:description"
+          content="Zeabur is a platform helping deploy services painlessly and scale infinitely."
+        />
+        <meta
+          name="twitter:image"
+          content="https://zeabur.com/default-og.png"
+        />
+
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-F0FE9EJZ4E"
