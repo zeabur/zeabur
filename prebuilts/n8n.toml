@@ -3,7 +3,7 @@
 id = "n8n"
 name = "n8n"
 description = "Build complex automations 10x faster, without fighting APIs"
-icon = "https://raw.githubusercontent.com/n8n-io/n8n/master/assets/n8n-logo.png"
+icon = "https://i.imgur.com/AaKxvK2.png"
 
 [source]
 image = "n8nio/n8n"
