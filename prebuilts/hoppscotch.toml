@@ -1,0 +1,42 @@
+#:schema ./schema.json
+
+id = "hoppscotch"
+name = "Hoppscotch"
+icon = "https://i.imgur.com/FFoOzQm.png"
+description = "Hoppscotch is a lightweight, web-based API development suite."
+
+[source]
+image = "hoppscotch/hoppscotch"
+
+[[ports]]
+id = "frontend"
+port = 3000
+type = "HTTP"
+
+[[ports]]
+id = "backend"
+port = 3170
+type = "HTTP"
+
+[[ports]]
+id = "admin"
+port = 3100
+type = "HTTP"
+
+[env]
+DATABASE_URL = { default = "postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/hoppscotch" }
+JWT_SECRET = { default = "secretcode123" }
+TOKEN_SALT_COMPLEXITY = { default = "10" }
+MAGIC_LINK_TOKEN_VALIDITY = { default = "3" }
+REFRESH_TOKEN_VALIDITY = { default = "604800000" }
+ACCESS_TOKEN_VALIDITY = { default = "86400000" }
+SESSION_SECRET = { default = "anothersecretcode123" }
+REDIRECT_URL = { default = "https://${ZEABUR_FRONTEND_DOMAIN}" }
+WHITELISTED_ORIGINS = { default = "https://${ZEABUR_FRONTEND_DOMAIN},https://${ZEABUR_BACKEND_DOMAIN},https://${ZEABUR_ADMIN_DOMAIN}" }
+VITE_ALLOWED_AUTH_PROVIDERS = { default = "GOOGLE,GITHUB,MICROSOFT,EMAIL" }
+VITE_BASE_URL = { default = "https://${ZEABUR_FRONTEND_DOMAIN}" }
+VITE_SHORTCODE_BASE_URL = { default = "https://${ZEABUR_FRONTEND_DOMAIN}" }
+VITE_ADMIN_URL = { default = "https://${ZEABUR_ADMIN_DOMAIN}" }
+VITE_BACKEND_GQL_URL = { default = "https://${ZEABUR_BACKEND_DOMAIN}/graphql" }
+VITE_BACKEND_WS_URL = { default = "wss://${ZEABUR_BACKEND_DOMAIN}/graphql" }
+VITE_BACKEND_API_URL = { default = "https://${ZEABUR_BACKEND_DOMAIN}/v1" }
