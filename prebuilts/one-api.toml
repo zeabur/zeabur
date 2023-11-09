@@ -1,0 +1,17 @@
+#:schema ./schema.json
+
+id = "one-api"
+name = "One API"
+icon = "https://i.imgur.com/3pRJ59s.png"
+description = "Access all LLMs through the standard OpenAI API format, out of the box"
+
+[source]
+image = "justsong/one-api"
+
+[[ports]]
+id = "web"
+port = 3000
+type = "HTTP"
+
+[env]
+SQL_DSN = { default = "${MYSQL_USERNAME}:${MYSQL_PASSWORD}@tcp(${MYSQL_HOST}:${MYSQL_PORT})/oneapi" }
