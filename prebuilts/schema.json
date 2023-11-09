@@ -261,7 +261,7 @@
 				"content": {
 					"title": "The instruction content.",
 					"type": "string",
-      "minLength": 1
+					"minLength": 1
 				},
 				"showWhen": {
 					"title": "Show this connection instruction when the specified condition matches.",
