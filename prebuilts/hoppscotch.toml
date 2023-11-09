@@ -33,10 +33,12 @@ ACCESS_TOKEN_VALIDITY = { default = "86400000" }
 SESSION_SECRET = { default = "anothersecretcode123" }
 REDIRECT_URL = { default = "https://${ZEABUR_FRONTEND_DOMAIN}" }
 WHITELISTED_ORIGINS = { default = "https://${ZEABUR_FRONTEND_DOMAIN},https://${ZEABUR_BACKEND_DOMAIN},https://${ZEABUR_ADMIN_DOMAIN}" }
-VITE_ALLOWED_AUTH_PROVIDERS = { default = "GOOGLE,GITHUB,MICROSOFT,EMAIL" }
+VITE_ALLOWED_AUTH_PROVIDERS = { default = "EMAIL" }
 VITE_BASE_URL = { default = "https://${ZEABUR_FRONTEND_DOMAIN}" }
 VITE_SHORTCODE_BASE_URL = { default = "https://${ZEABUR_FRONTEND_DOMAIN}" }
 VITE_ADMIN_URL = { default = "https://${ZEABUR_ADMIN_DOMAIN}" }
 VITE_BACKEND_GQL_URL = { default = "https://${ZEABUR_BACKEND_DOMAIN}/graphql" }
 VITE_BACKEND_WS_URL = { default = "wss://${ZEABUR_BACKEND_DOMAIN}/graphql" }
 VITE_BACKEND_API_URL = { default = "https://${ZEABUR_BACKEND_DOMAIN}/v1" }
+MAILER_SMTP_URL = { default = "smtps://user@domain.com:pass@smtp.domain.com" }
+MAILER_ADDRESS_FROM = { default = "" }
