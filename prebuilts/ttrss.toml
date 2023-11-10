@@ -16,7 +16,7 @@ type = "HTTP"
 [env]
 DB_HOST = { default = "${POSTGRES_HOST}" }
 DB_PORT = { default = "${POSTGRES_PORT}" }
-DB_NAME = { default = "ttrss" }
+DB_NAME = { default = "${POSTGRES_DATABASE}" }
 DB_USER = { default = "${POSTGRES_USERNAME}" }
 DB_PASS = { default = "${POSTGRES_PASSWORD}" }
 PORT = { default = "80" }

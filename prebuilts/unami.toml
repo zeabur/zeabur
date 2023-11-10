@@ -14,6 +14,6 @@ port = 3000
 type = "HTTP"
 
 [env]
-DATABASE_URL = { default = "postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/umami" }
+DATABASE_URL = { default = "${POSTGRES_CONNECTION_STRING}" }
 DATABASE_TYPE = { default = "postgresql" }
 HASH_SALT = { default = "${PASSWORD}" }
