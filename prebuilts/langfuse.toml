@@ -19,6 +19,6 @@ dir = "/app"
 
 [env]
 DATABASE_URL = { default = "postgres://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/langfuse" }
-NEXTAUTH_URL = { default = "myauthurl" }
-NEXTAUTH_SECRET = { default = "mysecret" }
-SALT = { default = "mysalt" }
+NEXTAUTH_URL = { required = true }
+NEXTAUTH_SECRET = { required = true }
+SALT = { default = "${PASSWORD}" }
