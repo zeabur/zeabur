@@ -7,12 +7,12 @@ description = "etcd is a distributed key-value store designed to securely store 
 image = "bitnami/etcd:3.5.10"
 
 [[ports]]
-id = "client_requests"
+id = "client-requests"
 port = 2379
 type = "TCP"
 
 [[ports]]
-id = "peer_communication"
+id = "peer-communication"
 port = 2380
 type = "TCP"
 
