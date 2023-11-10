@@ -23,7 +23,7 @@ DB_POSTGRESDB_USER = { default = "${POSTGRES_USERNAME}" }
 DB_POSTGRESDB_PASSWORD = { default = "${POSTGRES_PASSWORD}" }
 DB_POSTGRESDB_HOST = { default = "${POSTGRES_HOST}" }
 DB_POSTGRESDB_PORT = { default = "${POSTGRES_PORT}" }
-DB_POSTGRESDB_DATABASE = { default = "n8n" }
+DB_POSTGRESDB_DATABASE = { default = "${POSTGRES_DATABASE}" }
 WEBHOOK_URL = { default = "${ZEABUR_WEB_URL}" }
 
 [[init]]

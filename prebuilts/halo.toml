@@ -18,7 +18,7 @@ id = "data"
 dir = "/root/.halo2"
 
 [env]
-SPRING_R2DBC_URL = { default = "r2dbc:pool:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/halo" }
+SPRING_R2DBC_URL = { default = "r2dbc:pool:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}" }
 SPRING_R2DBC_USERNAME = { default = "${POSTGRES_USERNAME}" }
 SPRING_R2DBC_PASSWORD = { default = "${POSTGRES_PASSWORD}" }
 SPRING_SQL_INIT_PLATFORM = { default = "postgresql" }

@@ -21,4 +21,4 @@ dir = "/app/config"
 TOKEN = { required = true }
 MANAGER = { required = true }
 TELEGRAPH_TOKEN = { required = true }
-DATABASE_URL = { default = "postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/rsstt" }
+DATABASE_URL = { default = "${POSTGRES_CONNECTION_STRING}" }
