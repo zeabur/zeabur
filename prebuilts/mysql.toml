@@ -7,6 +7,8 @@ description = "MySQL is a relational database management system based on SQL."
 
 [source]
 image = "mysql:8.0.33"
+command = ["/bin/sh"]
+args = ["-c", "echo \"CREATE DATABASE IF NOT EXISTS $ZEABUR_INIT_DB_NAME;\" > /docker-entrypoint-initdb.d/init.sql && docker-entrypoint.sh mysqld"]
 
 [[ports]]
 id = "database"
@@ -18,6 +20,7 @@ id = "data"
 dir = "/var/lib/mysql"
 
 [env]
+ZEABUR_INIT_DB_NAME = { default = "zeabur" }
 MYSQL_ROOT_PASSWORD = { default = "${PASSWORD}" }
 
 MYSQL_HOST = { default = "${CONTAINER_HOSTNAME}", expose = true, readonly = true }
