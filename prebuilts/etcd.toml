@@ -16,13 +16,14 @@ id = "peer_communication"
 port = 2380
 type = "TCP"
 
-# [[volumes]]
-# id = "data1"
-# dir = "/var/lib/etcd"
-
 [[volumes]]
-id = "data2"
-dir = "/var/etcd"
+id = "data"
+dir = "/var/lib/etcd"
+
+# removed this volume
+# [[volumes]]
+# id = "data2"
+# dir = "/var/etcd"
 
 [env]
 ALLOW_NONE_AUTHENTICATION = { default = "yes" }
