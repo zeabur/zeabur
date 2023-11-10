@@ -25,10 +25,12 @@ MYSQL_PORT = { default = "${DATABASE_PORT}", expose = true, readonly = true }
 MYSQL_USERNAME = { default = "root", expose = true, readonly = true }
 MYSQL_PASSWORD = { default = "${MYSQL_ROOT_PASSWORD}", expose = true, readonly = true }
 
+MYSQL_DATABASE = { default = "zeabur", expose = true }
+
 [[instructions]]
 type = "TEXT"
 title = "Command to connect to your MySQL"
-content = "mysqlsh --sql --host=${PORT_FORWARDED_HOSTNAME} --port=${DATABASE_PORT_FORWARDED_PORT} --user=${MYSQL_USERNAME} --password=${MYSQL_PASSWORD}"
+content = "mysqlsh --sql --host=${PORT_FORWARDED_HOSTNAME} --port=${DATABASE_PORT_FORWARDED_PORT} --user=${MYSQL_USERNAME} --password=${MYSQL_PASSWORD} --schema=${MYSQL_DATABASE}"
 showWhen = "PORT_FORWARDING"
 
 [[instructions]]
@@ -41,6 +43,12 @@ category = "Credentials"
 type = "PASSWORD"
 title = "MySQL password"
 content = "${MYSQL_PASSWORD}"
+category = "Credentials"
+
+[[instructions]]
+type = "TEXT"
+title = "MySQL database"
+content = "${MYSQL_DATABASE}"
 category = "Credentials"
 
 [[instructions]]
