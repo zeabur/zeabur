@@ -16,9 +16,9 @@ id = "peer_communication"
 port = 2380
 type = "TCP"
 
-[[volumes]]
-id = "data1"
-dir = "/var/lib/etcd"
+# [[volumes]]
+# id = "data1"
+# dir = "/var/lib/etcd"
 
 [[volumes]]
 id = "data2"
