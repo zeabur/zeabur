@@ -47,13 +47,13 @@ category = "Credentials"
 
 [[instructions]]
 type = "PASSWORD"
-title = "Ferrect password"
+title = "Ferret password"
 content = "${FERRET_PASSWORD}"
 category = "Credentials"
 
 [[instructions]]
 type = "TEXT"
-title = "Ferrect database"
+title = "Ferret database"
 content = "${FERRET_DATABASE}"
 category = "Credentials"
 
