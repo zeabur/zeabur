@@ -1,0 +1,30 @@
+id = "etcd"
+name = "ETCD"
+icon = "https://avatars.githubusercontent.com/u/41972792?s=200&v=4"
+description = "etcd is a distributed key-value store designed to securely store data across a cluster."
+
+[source]
+image = "bitnami/etcd:3.5.10"
+
+[[ports]]
+id = "client_requests"
+port = 2379
+type = "TCP"
+
+[[ports]]
+id = "peer_communication"
+port = 2380
+type = "TCP"
+
+[[volumes]]
+id = "data"
+dir = "/var/lib/etcd"
+
+# removed this volume
+# [[volumes]]
+# id = "data2"
+# dir = "/var/etcd"
+
+[env]
+ALLOW_NONE_AUTHENTICATION = { default = "yes" }
+ETCD_ADVERTISE_CLIENT_URLS = { default = "127.0.0.1:2379" }
