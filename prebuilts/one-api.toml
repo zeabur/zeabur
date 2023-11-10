@@ -14,4 +14,4 @@ port = 3000
 type = "HTTP"
 
 [env]
-SQL_DSN = { default = "${MYSQL_USERNAME}:${MYSQL_PASSWORD}@tcp(${MYSQL_HOST}:${MYSQL_PORT})/oneapi" }
+SQL_DSN = { default = "${MYSQL_USERNAME}:${MYSQL_PASSWORD}@tcp(${MYSQL_HOST}:${MYSQL_PORT})/${MYSQL_DATABASE}" }
