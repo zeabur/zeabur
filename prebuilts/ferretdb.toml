@@ -20,7 +20,7 @@ dir = "/volume/lib/postgresql/data"
 [env]
 POSTGRES_USER = { default = "root" }
 POSTGRES_PASSWORD = { default = "${PASSWORD}" }
-POSTGRES_DB = { default = "ferretdb" }
+POSTGRES_DB = { default = "zeabur" }
 FERRETDB_POSTGRES_URL = { default = "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@127.0.0.1:5432/${POSTGRES_DB}" }
 
 FERRET_HOST = { default = "${CONTAINER_HOSTNAME}", expose = true, readonly = true }
@@ -28,14 +28,15 @@ FERRET_PORT = { default = "${DATABASE_PORT}", expose = true, readonly = true }
 
 FERRET_USERNAME = { default = "${POSTGRES_USER}", expose = true, readonly = true }
 FERRET_PASSWORD = { default = "${POSTGRES_PASSWORD}", expose = true, readonly = true }
+FERRET_DATABASE = { default = "${POSTGRES_DB}", expose = true, readonly = true }
 
-FERRET_CONNECTION_STRING = { default = "postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${FERRET_HOST}:${FERRET_PORT}?sslmode=disable", expose = true, readonly = true }
+FERRET_CONNECTION_STRING = { default = "postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${FERRET_HOST}:${FERRET_PORT}/${FERRET_DATABASE}?sslmode=disable", expose = true, readonly = true }
 FERRET_URI = { default = "${FERRET_CONNECTION_STRING}", expose = true, readonly = true }
 
 [[instructions]]
 type = "TEXT"
 title = "Command to connect to your FerretDB"
-content = "psql \"postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}\""
+content = "psql \"postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}/${FERRET_DATABASE}\""
 showWhen = "PORT_FORWARDING"
 
 [[instructions]]
@@ -48,6 +49,12 @@ category = "Credentials"
 type = "PASSWORD"
 title = "Ferrect password"
 content = "${FERRET_PASSWORD}"
+category = "Credentials"
+
+[[instructions]]
+type = "TEXT"
+title = "Ferrect database"
+content = "${FERRET_DATABASE}"
 category = "Credentials"
 
 [[instructions]]

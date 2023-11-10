@@ -14,6 +14,6 @@ port = 3000
 type = "HTTP"
 
 [env]
-DATABASE_URL = { default = "mysql://${MYSQL_USERNAME}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/umami" }
+DATABASE_URL = { default = "mysql://${MYSQL_USERNAME}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}" }
 DATABASE_TYPE = { default = "mysql" }
 HASH_SALT = { default = "${PASSWORD}" }

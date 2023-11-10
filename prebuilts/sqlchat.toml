@@ -16,4 +16,4 @@ type = "HTTP"
 [env]
 OPENAI_API_KEY = { required = true }
 OPENAI_API_ENDPOINT = { required = true }
-DATABASE_URL = { default = "postgresql://postgres:YOUR_PASSWORD@localhost:5432/sqlchat?schema=sqlchat" }
+DATABASE_URL = { default = "${POSTGRES_CONNECTION_STRING}" }

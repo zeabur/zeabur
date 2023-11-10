@@ -27,7 +27,7 @@ dir = "/var/www/html"
 [env]
 WORDPRESS_DB_USER = { default = "${MYSQL_USERNAME}" }
 WORDPRESS_DB_PASSWORD = { default = "${MYSQL_PASSWORD}" }
-WORDPRESS_DB_NAME = { default = "wordpress" }
+WORDPRESS_DB_NAME = { default = "${MYSQL_DATABASE}" }
 WORDPRESS_DEBUG = { default = "0" }
 WORDPRESS_DB_HOST = { default = "${MYSQL_HOST}:${MYSQL_PORT}" }
 WORDPRESS_CONFIG_EXTRA = { default = "define('FS_METHOD', 'direct');" }
