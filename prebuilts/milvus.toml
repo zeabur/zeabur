@@ -27,3 +27,24 @@ MINIO_ADDRESS =  { default = "minio:9000", expose = true }
 MILVUS_HOST = { default = "${CONTAINER_HOSTNAME}", expose = true, readonly = true }
 MILVUS_USERNAME = { default = "root", expose = true, readonly = true }
 MILVUS_PASSWORD = { default = "Milvus", expose = true, readonly = true }
+
+
+[[instructions]]
+type = "TEXT"
+title = "Milvus username"
+content = "${MILVUS_USERNAME}"
+category = "Credentials"
+
+[[instructions]]
+type = "PASSWORD"
+title = "Milvus password"
+content = "${MILVUS_PASSWORD}"
+category = "Credentials"
+
+
+[[instructions]]
+type = "TEXT"
+title = "Milvus host"
+content = "${PORT_FORWARDED_HOSTNAME}"
+showWhen = "PORT_FORWARDING"
+category = "Hostname & Port"
