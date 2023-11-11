@@ -21,8 +21,8 @@ id = "data"
 dir = "/var/lib/milvus"
 
 [env]
-ETCD_ENDPOINTS =  { default = "", expose = true }
-MINIO_ADDRESS =  { default = "", expose = true }
+ETCD_ENDPOINTS =  { default = "etcd:2379", expose = true }
+MINIO_ADDRESS =  { default = "minio:9000", expose = true }
 
 MILVUS_HOST = { default = "${CONTAINER_HOSTNAME}", expose = true, readonly = true }
 MILVUS_USERNAME = { default = "root", expose = true, readonly = true }
