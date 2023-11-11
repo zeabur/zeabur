@@ -195,7 +195,7 @@
 			"properties": {
 				"id": {
 					"title": "The ID of this port",
-					"ref": "#/definitions/ID"
+					"$ref": "#/definitions/ID"
 				},
 				"port": {
 					"title": "The port number",
