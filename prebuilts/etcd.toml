@@ -22,4 +22,3 @@ dir = "/var/lib/etcd"
 
 [env]
 ALLOW_NONE_AUTHENTICATION = { default = "yes" }
-ETCD_ADVERTISE_CLIENT_URLS = { default = "127.0.0.1:2379" }
