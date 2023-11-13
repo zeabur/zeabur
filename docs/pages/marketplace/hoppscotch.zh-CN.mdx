@@ -1,0 +1,105 @@
+---
+title: 部署 Hoppscotch
+ogImageTitle: 部署 Hoppscotch
+ogImageSubtitle: 在 Zeabur 部署 Hoppscotch
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# 部署 Hoppscotch
+
+[Hoppscotch](https://hoppscotch.com/) 是一个开源的 API 开发生态系统，它可以帮助你创建和测试 API 请求，节省开发时间。
+
+这篇文档将会介绍如何在 Zeabur 上部署 Hoppscotch 服务。
+
+## 方法一: 从模板部署
+
+### 步骤一: 部署模板
+
+点击下面的按钮将模板部署到 Zeabur。
+
+[![Deploy on Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/HIB6B9)
+
+### 步骤二: 创建数据库
+
+部署模板后，Zeabur 会为你创建一个项目，其中包含 PostgreSQL 和 Hoppscotch 服务。
+
+为了让 Hoppscotch 服务正常运行，我们需要在 PostgreSQL 数据库中创建一个名为 `hoppscotch` 的数据库。
+
+在你的 PostgreSQL 服务中，你可以找到一个名为 **Database** 的标签页，你可以在这里一键管理你的数据库。
+
+![Database Tab](/marketplace/postgresql/create-database.png)
+
+### 步骤三: 重启 Hoppscotch 服务
+
+你需要重启 Hoppscotch 服务来让它获取正确的数据库连接信息。
+
+## 方法二: 创建服务以部署
+
+### 步骤一: 创建项目
+
+首先，我们需要在 Zeabur 上创建一个项目。在 [项目](https://dash.zeabur.com/projects) 页面，你可以看到所有的项目，"创建项目" 按钮在所有项目的最后。
+
+### 步骤二: 部署 PostgreSQL 服务
+
+Hoppscotch 需要一个 PostgreSQL 数据库来存储数据，所以你需要先创建一个 PostgreSQL 数据库，这样 Hoppscotch 服务才能正常启动。
+点击 "创建服务" 并选择 "Prebuilt Services"，你可以在列表中找到 PostgreSQL。
+
+![Deploy PostgreSQL](/marketplace/postgresql/deploy.png)
+
+选择 PostgreSQL 后，Zeabur 会自动开始部署 PostgreSQL 服务。
+
+### 步骤三：创建数据库
+
+为了让 Hoppscotch 服务正常运行，我们需要在 PostgreSQL 数据库中创建一个名为 `hoppscotch` 的数据库。
+
+通常情况下，你需要一个 PostgreSQL 客户端来连接 PostgreSQL 服务并创建数据库。但是 Zeabur 提供了一个方便的方法来创建数据库。
+
+在你的 PostgreSQL 服务中，你可以找到一个名为 **Database** 的标签页，你可以在这里一键管理你的数据库。
+
+![Database Tab](/marketplace/postgresql/create-database.png)
+
+**Hoppscotch** 需要一个名为 `hoppscotch` 的数据库，所以我们需要创建一个名为 `hoppscotch` 的数据库。
+在输入框中输入 `hoppscotch` 并点击 **Create** 按钮，Zeabur 将会为你创建数据库。
+
+### 步骤四：部署 Hoppscotch 服务
+
+在你成功创建 PostgreSQL 服务并创建数据库后，你可以开始部署 `Hoppscotch` 服务了。
+在 Zeabur 控制台中，点击 "创建服务" 并选择 "Prebuilt"，你可以在列表中找到 Hoppscotch。
+
+![Deploy Hoppscotch](/marketplace/hoppscotch/deploy.png)
+
+        <Callout>
+          如果你在部署 PostgreSQL 之前先部署了 Hoppscotch， 那么你需要在部署 PostgreSQL
+  服务后重启 Hoppscotch 服务， 以便 Hoppscotch 获取正确的数据库连接信息。
+          </Callout>
+
+## 配置 Hoppscotch
+
+### 为每个端口绑定域名
+
+在 Zeabur 控制台中，你可以为 Hoppscotch 服务的每个端口绑定域名。
+这个域名可以是你自己的域名，也可以是 Zeabur 提供的免费域名。
+
+正如你所看到的，Hoppscotch 服务暴露了三个端口。
+
+![Deploy Hoppscotch](/marketplace/hoppscotch/domain-ports.png)
+
+- Frontend 端口：Hoppscotch 前端端口，用于访问 Hoppscotch 网页。
+
+- Backend 端口：Hoppscotch 后端端口，用于访问 Hoppscotch API。
+
+- Admin 端口：用于访问 Hoppscotch 管理面板。
+
+你可以在下拉列表中选择每个端口绑定域名。
+
+![Deploy Hoppscotch](/marketplace/hoppscotch/bind-domain.png)
+
+关于如何绑定域名到你的服务的更多信息，请参考 [绑定域名](../deploy/domain-binding)。
+
+### 开始使用 Hoppscotch
+
+部署完成后，你可以通过绑定的域名来访问 Hoppscotch 服务。
+
+![Deploy Hoppscotch](/marketplace/hoppscotch/frontend.png)
+

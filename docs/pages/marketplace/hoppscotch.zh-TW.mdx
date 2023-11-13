@@ -1,0 +1,105 @@
+---
+title: 部署 Hoppscotch
+ogImageTitle: 部署 Hoppscotch
+ogImageSubtitle: 在 Zeabur 部署 Hoppscotch
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# 部署 Hoppscotch
+
+[Hoppscotch](https://hoppscotch.com/) 是一個開源的 API 開發生態系統，它可以幫助你建立和測試 API 請求，節省開發時間。
+
+這篇文件將會介紹如何在 Zeabur 上部署 Hoppscotch 服務。
+
+## 方法一: 從模板部署
+
+### 步驟一: 部署模板
+
+點選下面的按鈕將模板部署到 Zeabur。
+
+[![Deploy on Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/HIB6B9)
+
+### 步驟二: 建立資料庫
+
+部署模板後，Zeabur 會為你建立一個項目，其中包含 PostgreSQL 和 Hoppscotch 服務。
+
+為了讓 Hoppscotch 服務正常運作，我們需要在 PostgreSQL 資料庫中建立一個名為 `hoppscotch` 的資料庫。
+
+在你的 PostgreSQL 服務中，你可以找到一個名為 **Database** 的分頁，你可以在這裡一鍵管理你的資料庫。
+
+![Database Tab](/marketplace/postgresql/create-database.png)
+
+### 步驟三: 重啟 Hoppscotch 服務
+
+你需要重啟 Hoppscotch 服務來讓它獲取正確的資料庫連接資訊。
+
+## 方法二: 建立服務以部署
+
+### 步驟一: 建立項目
+
+首先，我們需要在 Zeabur 上建立一個項目。在 [項目](https://dash.zeabur.com/projects) 頁面，你可以看到所有的項目，"建立項目" 按鈕在所有項目的最後。
+
+### 步驟二: 部署 PostgreSQL 服務
+
+Hoppscotch 需要一個 PostgreSQL 資料庫來儲存資料，所以你需要先建立一個 PostgreSQL 資料庫，這樣 Hoppscotch 服務才能正常啟動。
+點選 "建立服務" 並選擇 "Prebuilt Services"，你可以在列表中找到 PostgreSQL。
+
+![Deploy PostgreSQL](/marketplace/postgresql/deploy.png)
+
+選擇 PostgreSQL 後，Zeabur 會自動開始部署 PostgreSQL 服務。
+
+### 步驟三：建立資料庫
+
+為了讓 Hoppscotch 服務正常運作，我們需要在 PostgreSQL 資料庫中建立一個名為 `hoppscotch` 的資料庫。
+
+通常情況下，你需要一個 PostgreSQL 用戶端來連接 PostgreSQL 服務並建立資料庫。但是 Zeabur 提供了一個方便的方法來建立資料庫。
+
+在你的 PostgreSQL 服務中，你可以找到一個名為 **Database** 的分頁，你可以在這裡一鍵管理你的資料庫。
+
+![Database Tab](/marketplace/postgresql/create-database.png)
+
+**Hoppscotch** 需要一個名為 `hoppscotch` 的資料庫，所以我們需要建立一個名為 `hoppscotch` 的資料庫。
+在輸入框中輸入 `hoppscotch` 並點選 **Create** 按鈕，Zeabur 將會為你建立資料庫。
+
+### 步驟四：部署 Hoppscotch 服務
+
+在你成功建立 PostgreSQL 服務並建立資料庫後，你可以開始部署 `Hoppscotch` 服務了。
+在 Zeabur 控制台中，點選 "建立服務" 並選擇 "Prebuilt"，你可以在列表中找到 Hoppscotch。
+
+![Deploy Hoppscotch](/marketplace/hoppscotch/deploy.png)
+
+        <Callout>
+                  如果你在部署 PostgreSQL 之前先部署了 Hoppscotch，那麼你需要在部署 PostgreSQL
+  服務後重啟 Hoppscotch 服務，以便 Hoppscotch 獲取正確的資料庫連接資訊。
+          </Callout>
+
+## 配置 Hoppscotch
+
+### 為每個埠綁定網域
+
+在 Zeabur 控制台中，你可以為 Hoppscotch 服務的每個埠綁定網域。
+這個網域可以是你自己的網域，也可以是 Zeabur 提供的免費網域。
+
+正如你所看到的，Hoppscotch 服務暴露了三個埠。
+
+![Deploy Hoppscotch](/marketplace/hoppscotch/domain-ports.png)
+
+- Frontend 埠：Hoppscotch 前端埠，用於造訪 Hoppscotch 網頁。
+
+- Backend 埠：Hoppscotch 後端埠，用於造訪 Hoppscotch API。
+
+- Admin 埠：用於造訪 Hoppscotch 管理面板。
+
+你可以在下拉選單中選擇每個埠綁定網域。
+
+![Deploy Hoppscotch](/marketplace/hoppscotch/bind-domain.png)
+
+關於如何綁定網域到你的服務的更多資訊，請參考 [綁定網域](../deploy/domain-binding)。
+
+### 開始使用 Hoppscotch
+
+部署完成後，你可以透過綁定的網域來造訪 Hoppscotch 服務。
+
+![Deploy Hoppscotch](/marketplace/hoppscotch/frontend.png)
+

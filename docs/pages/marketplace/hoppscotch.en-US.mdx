@@ -1,0 +1,106 @@
+---
+title: Deploy Hoppscotch
+ogImageTitle: Deploy Hoppscotch
+ogImageSubtitle: Deploy Hoppscotch on Zeabur
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Deploy Hoppscotch
+
+[Hoppscotch](https://hoppscotch.com/) is an open-source API development ecosystem that helps you create and test your API requests saving precious time in development.
+
+This article will show you how to deploy Hoppscotch with PostgreSQL on Zeabur.
+
+## Method 1: Deploy from Template
+
+### Step 1: Deploy the Template
+
+Click the button below to deploy the template to Zeabur.
+
+[![Deploy on Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/HIB6B9)
+
+### Step 2: Create a Database
+
+After you've deployed the template, Zeabur will create a project with PostgreSQL and Hoppscotch services for you.
+
+In order for the Hoppscotch service to run properly, you need to create a database named `hoppscotch` in the PostgreSQL database first.
+
+In your PostgreSQL service, you can find a tab named **Database**, where you can manage your databases with one click.
+
+![Database Tab](/marketplace/postgresql/create-database.png)
+
+### Step 3: Restart Hoppscotch Service
+
+You need to restart the Hoppscotch service to let it get the correct database connection information.
+
+## Method 2: Deploy from Scratch
+
+### Step 1: Create a Project
+
+First, we need to create a project on Zeabur. Go to the [Projects](https://dash.zeabur.com/projects) page, you will see all your projects, and the "Create Project" button is at the end of all projects.
+
+### Step 2: Deploy PostgreSQL Service
+
+Hoppscotch will store your data in a PostgreSQL database, so you need to create a PostgreSQL database first so that Hopscotch service can be started.
+Click "Create Service" and select "Service Marketplace", you will find PostgreSQL in the list.
+
+![Deploy PostgreSQL](/marketplace/postgresql/deploy.png)
+
+After selecting PostgreSQL, Zeabur will automatically start deploying your PostgreSQL service.
+
+### Step 3: Create a Database
+
+In order for the Hoppscotch service to run properly, we need to create a database named `hoppscotch` in the PostgreSQL database first.
+
+Usaully, you need a PostgreSQL client to connect to the PostgreSQL service and create a database. But Zeabur provides a convenient way to create a database.
+
+In your PostgreSQL service, you can find a tab named **Database**, where you can manage your databases with one click.
+
+![Database Tab](/marketplace/postgresql/create-database.png)
+
+**Hoppscotch** requires a database named `hoppscotch`, so we need to create a database named `hoppscotch`.
+Type `hoppscotch` in the input box and click the **Create** button, then Zeabur will create the database for you.
+
+### Step 4: Deploy Hoppscotch Service
+
+Once you have successfully create a PostgreSQL service and setup the database, you can start deploying `Hoppscotch` now.
+In the Zeabur console, click "Create Service" and select "Service Marketplace", you will find Hoppscotch in the list.
+
+![Deploy Hoppscotch](/marketplace/hoppscotch/deploy.png)
+
+        <Callout>
+          If you deploy Hoppscotch first without deploying PostgreSQL, then you need to restart
+  the Hoppscotch service after deploying the PostgreSQL service to let it get the
+  correct database connection information.
+          </Callout>
+
+## Setup Hoppscotch 
+
+### Bind a domain for each port
+
+In the "Domain" block of the Hoppscotch service in the Zeabur dashboard, you can bind domains for each port of the service.
+This domain can be your own domain or a free domain provided by Zeabur.
+
+As you can see, there are three ports exposed by the Hoppscotch service.
+
+![Deploy Hoppscotch](/marketplace/hoppscotch/domain-ports.png)
+
+- Frontend Port: The port for the Hoppscotch frontend, which is used to access the Hoppscotch web page.
+
+- Backend Port: The port for the Hoppscotch backend, which is used to access the Hoppscotch API.
+
+- Admin Port: The port for the Hoppscotch admin panel, which is used to access the Hoppscotch admin panel.
+
+You can bind a domain for each port by selecting in the dropdown list.
+
+![Deploy Hoppscotch](/marketplace/hoppscotch/bind-domain.png)
+
+For more information about how to bind a domain to your service, please refer to [Bind a domain](../deploy/domain-binding).
+
+### Start using Hoppscotch
+
+After the deployment is complete and domains created, you can access your Hoppscotch service.
+
+![Deploy Hoppscotch](/marketplace/hoppscotch/frontend.png)
+
