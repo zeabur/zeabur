@@ -239,3 +239,25 @@ const staticFileDirs = ['public']
 ```
 
 你可以在 [zeabur/expressjs-template](https://github.com/zeabur/expressjs-template) 找到完整的範例程式碼。也可以根據自己的需求修改 `scripts/build.js` 腳本。
+
+## 額外注意事項
+1. 監聽的 port 使用 `process.env.PORT`
+
+    例如 
+    ```js
+    const port = process.env.PORT || 3000
+    // 而非 const port = 3000
+    ```
+
+2. 避免使用 nodemon 作為 runtime，開發完後，換成一般的 node 指令
+
+    例如 package.json 內
+    ```json
+    {
+    "scripts": {
+        "start": "node server.js"
+        // 而非 "start": "nodemon server.js"
+    },
+    }
+        
+    ```
