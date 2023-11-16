@@ -4,12 +4,10 @@
   "deploy": "Deploy",
   "environment": "Environment",
   "guides": "Guides",
-  "databases": "Databases",
   "manage": "Project Manage",
   "marketplace": "Service Marketplace",
   "legal": "Legal and Policies",
   "billing": "Payments and Billing",
   "community": "Community",
-  "integration": "Integration",
   "advanced": "Advanced"
 }
