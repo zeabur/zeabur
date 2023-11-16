@@ -1,0 +1,63 @@
+---
+title: Create Template
+ogImageTitle: Create Template on Zeabur
+ogImageSubtitle: Create a template with your services and configs on Zeabur.
+---
+
+## What's Template?
+
+Template is a collection of services and configs as a project on Zeabur, you can create a template with your services and configs and share it with others.
+
+![Templates](/deploy/template/templates.png)
+
+## Create a Template
+
+After you've deployed your project successfully on Zeabur, you may like to create a template for your project to share with other developers.
+You can also get referral awards by sharing your template.
+
+### Fill in the Basic Information
+
+First, you need to go to the [create template page](https://dash.zeabur.com/create-template), you can see a form like this:
+
+![Create Template Form](/deploy/template/create-form.png)
+
+- Name: The name of your template, it will be shown on the template list.
+- Introduction: A brief introduction of your template, user can see it on the template detailed page.
+- Icon URL: The icon of your template, it will be shown on the template card.
+- Preview URL: Users can access your template preview page from the template card to see how your template works.
+
+### Template Variables
+
+The variables of your template, users can fill in the variables when they deploy your template and the these variables can be refered in other services in this template.
+
+For example, one of your service needs a variable named `OPENAI_API_KEY`, you can set a variable in your template named `API_KEY`.
+When user try to deploy your template, they will need to fill there `API_KEY` in the form, and the value will be passed to the service as `OPENAI_API_KEY`.
+
+![Template Variables](/deploy/template/variables.png)
+
+To let your service refer the variable, you can use the syntax `${variable_name}` in your service config.
+
+For this example, you need to create an environment variable in your service like the following picture:
+
+![Service Environment Variable](/deploy/template/service-variable.png)
+
+After you've connected your template variable and service variable like this, users can fill in the `API_KEY` before deploying this template so that this can be an out-of-box template without any modification after deployment.
+
+### Template Services
+
+Your template is consist of one or more services, you can add services to your template by clicking the `Add Service` button.
+
+![Add Service](/deploy/template/add-service.png)
+
+After selecting a service, you can add more configs like `root directory`, `environment variables`, `domainKey` and so on.
+
+{/* ## Example for Creating a Template
+
+There is a more detailed tutorial about creating a template with an example with 3 services, including frontend, backend and a database service.
+
+You can check [the blog](https://zeabur.com/blogs/) here. */}
+
+## Share a Template
+
+After you create a template, you can share it with others with a **Zeabur button**.
+You can see a [detailed guide](./deploy-button) here.
