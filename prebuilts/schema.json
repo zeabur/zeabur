@@ -2,53 +2,63 @@
 	"$id": "https://github.com/zeabur/zeabur/prebuilts/schema.json",
 	"$schema": "http://json-schema.org/draft-07/schema",
 	"title": "Service Specification (ServiceSpec)",
-	"description": "Version 3.1.0",
+	"description": "Service Specification descibes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.0-20231117.",
 	"type": "object",
 	"properties": {
 		"id": {
 			"title": "Service ID",
-			"description": "When ID is not specified, we generate a ID from name.",
+			"description": "Useful for referencing this service in variables like `${SERVICE_HOST}`. When ID is not specified, we generate a ID from name.",
 			"$ref": "#/definitions/ID"
 		},
 		"name": {
 			"title": "Service name",
+			"description": "The name of this service.",
 			"type": "string"
 		},
 		"description": {
 			"title": "Service description",
+			"description": "A short description of this service for the service user.",
 			"type": "string"
 		},
 		"icon": {
 			"title": "Service Icon",
+			"description": "The icon of this service for users to identify. It shows at sidebar.",
 			"type": "string",
 			"pattern": "^https?://"
 		},
 		"docs": {
-			"title": "The documentation URL of this Service",
+			"title": "Documentation URL",
+			"description": "The documentation that thoroughly describes how to use this service.",
 			"type": "string"
 		},
 		"source": {
-			"title": "The source of this Service",
+			"title": "Source",
+			"description": "The base image or source to make this service. Currently, it supports only from Docker image.",
 			"$ref": "#/definitions/Source"
 		},
 		"ports": {
-			"title": "The ports of this Service",
+			"title": "Declared ports",
+			"description": "Describe which ports should be exposed to the other services in a project or even the outside world.",
 			"$ref": "#/definitions/Ports"
 		},
 		"volumes": {
-			"title": "The stateful volumes of this service",
+			"title": "Persistent volumes",
+			"description": "Describe the paths that should be reserved/persistent across the restarts.",
 			"$ref": "#/definitions/Volumes"
 		},
 		"instructions": {
-			"title": "The connection information and instructions",
+			"title": "Connection information and instruction",
+			"description": "Represent “variables” in a user-friendly text that allows users knowing to connect to this service from their services or local machines.",
 			"$ref": "#/definitions/ConnectionInstructions"
 		},
 		"env": {
-			"title": "The preset environment variables of this Service",
+			"title": "Declared environment variables",
+			"description": "Declare the environment variables that are the required variables of a service (“readonly”), need users to fill in (“required”, “default”), or declare the variables that allow other services to pick value (“expose”).",
 			"$ref": "#/definitions/Envs"
 		},
 		"init": {
-			"title": "Initialize this container when the condition met.",
+			"title": "Initialization containers",
+			"description": "Declare the container that should be run before starting this service. For example, hacking the Docker Hub image for fulfilling Zeabur. It is usually not useful for most cases.",
 			"$ref": "#/definitions/InitRules"
 		}
 	},
@@ -59,6 +69,8 @@
 	"additionalProperties": false,
 	"definitions": {
 		"Envs": {
+			"title": "Environment variables map",
+			"description": "The key is the variable name, while the value is the variable specification.",
 			"type": "object",
 			"propertyNames": {
 				"type": "string",
@@ -69,26 +81,30 @@
 			}
 		},
 		"Env": {
+			"title": "Environment variable",
+			"description": "Declare the default value and flags of a service.",
 			"type": "object",
 			"properties": {
 				"required": {
-					"title": "Is this environment variable required to fill?",
+					"title": "Required",
+					"description": "If true, we ask users to fill the values.",
 					"type": "boolean",
 					"default": false
 				},
 				"default": {
-					"title": "The default value of this environment variable",
-					"description": "If not set, it will be null.",
+					"title": "Default value",
+					"description": "The default value of this environment variable. If not set, it leaves empty.",
 					"type": "string"
 				},
 				"expose": {
-					"title": "Should this environment variable be exposed to the whole project?",
+					"title": "Expose to the whole project",
+					"description": "If true, the value will be exposed to the whole project and other projects can reference it with `${VARIABLE_NAME}`.",
 					"type": "boolean",
 					"default": false
 				},
 				"readonly": {
-					"title": "Is this environment variable not modifiable?",
-					"description": "If true, the value will not be able to set.",
+					"title": "Modifiable",
+					"description": "If true, we will not allow users to modify the value once this service is created. Useful for computed values such as hostname.",
 					"type": "boolean",
 					"default": false
 				}
@@ -96,22 +112,33 @@
 			"additionalProperties": false
 		},
 		"Source": {
+			"title": "Service source",
+			"description": "The source of this service. Currently, it supports only from Docker image.",
 			"type": "object",
 			"oneOf": [
-				{ "$ref": "#/definitions/Prebuilt" },
-				{ "$ref": "#/definitions/Git" }
+				{
+					"description": "Use the prebuilt images from Docker Registry",
+					"$ref": "#/definitions/Prebuilt"
+				},
+				{
+					"description": "Build images from the given Git repository. Unsupported in Zeabur at this moment.",
+					"$ref": "#/definitions/Git"
+				}
 			]
 		},
 		"Prebuilt": {
-			"description": "Use the prebuilt images from Docker Registry.",
+			"title": "Prebuilt source",
+			"description": "Use the images from Docker Registry as the base of this service.",
 			"type": "object",
 			"properties": {
 				"image": {
-					"title": "The image tag (namespace/image@1.2.3) available in Docker Hub.",
+					"title": "Image tag",
+					"description": "The image reference (`namespace/image:latest`) available by `docker pull`.",
 					"type": "string"
 				},
 				"command": {
-					"title": "The customized start command overidding the default one.",
+					"title": "Overridden command",
+					"description": "The command to spawn this container that will be used instead of the default one.",
 					"type": "array",
 					"items": {
 						"type": "string"
@@ -119,7 +146,8 @@
 					"default": []
 				},
 				"args": {
-					"title": "The arguments of customized start command.",
+					"title": "Overridden arguments",
+					"description": "The arguments to Command to spawn this container that will be used instead of the default one.",
 					"type": "array",
 					"items": {
 						"type": "string"
@@ -133,12 +161,13 @@
 			]
 		},
 		"Git": {
-			"description": "Build from source like Git",
+			"title": "Git source",
+			"description": "Build image from Git or GitHub.",
 			"type": "object",
 			"properties": {
 				"source": {
-					"title": "The repository source",
-					"description": "For example, `GITHUB` or `GIT`",
+					"title": "Repository URI type",
+					"description": "- `GITHUB`: `user`/`repo`.\n- `GIT`: `git://somewhere/hi.git`.",
 					"type": "string",
 					"enum": [
 						"GITHUB",
@@ -146,36 +175,28 @@
 					]
 				},
 				"repo": {
-					"title": "The repository URI",
-					"description": "For `github`, you can specify `user/repo`. For `git`, you can specify `git://somewhere/hi.git`.",
+					"title": "Repository URI",
+					"description": "Check `source` for the format to reference your codebase.",
 					"type": "string",
 					"minLength": 1
 				},
 				"branch": {
-					"title": "The branch of the repository",
+					"title": "Repository branch",
+					"description": "The branch of the repository to build from. If not specified, the default branch will be used.",
 					"type": "string"
 				},
-				"rootDirectory": {
-					"title": "The root directory path where the service is located.",
+				"submoduleName": {
+					"title": "Submodule name",
+					"description": "Which submodule of this repository should be used as the source of this service. Check zbpack's documentation for more information. If not specified, the root directory will be used.",
 					"type": "string"
 				},
 				"watchPaths": {
-					"title": "Control which file changes in the paths will trigger redeployment.",
-					"description": "The notation refers to the format of the Gitignore file. For example, * represents that all changes will trigger deployment, /frontEnd represents that all changes within the frontEnd folder will trigger deployment.",
+					"title": "Watch paths",
+					"description": "Control which file changes in the paths will trigger redeployment. The notation refers to the format of the Gitignore file. For example, * represents that all changes will trigger deployment, /frontEnd represents that all changes within the frontEnd folder will trigger deployment.",
 					"type": "array",
 					"items": {
 						"type": "string"
 					}
-				},
-				"buildCommand": {
-					"$comment": "We should migrate it to string[] in the future.",
-					"title": "The build command that will be used instead of the default one.",
-					"type": "string"
-				},
-				"startCommand": {
-					"$comment": "We should migrate it to string[] in the future.",
-					"title": "The start command that will be used instead of the default one.",
-					"type": "string"
 				}
 			},
 			"additionalProperties": false,
@@ -185,24 +206,31 @@
 			]
 		},
 		"Ports": {
+			"title": "Declared ports list",
 			"type": "array",
 			"items": {
 				"$ref": "#/definitions/Port"
 			}
 		},
 		"Port": {
+			"title": "Declared port",
 			"type": "object",
 			"properties": {
 				"id": {
-					"title": "The ID of this port",
+					"title": "Port ID",
+					"description": "The port name that follows the ID naming enforcement. It will be the name of some special variables, such as `${[SERVICE_NAME]_PORT}`.",
 					"$ref": "#/definitions/ID"
 				},
 				"port": {
-					"title": "The port number",
-					"$ref": "#/definitions/PortNumber"
+					"title": "Port number",
+					"description": "The number of this port, for example, we can declare the port ID `db` exposes `3306`.",
+					"type": "number",
+					"minimum": 0,
+					"maximum": 65535
 				},
 				"type": {
-					"title": "The type of this port",
+					"title": "Port type",
+					"description": "The type of this port. Ports with `HTTP` type will be load balanced, while others are not.",
 					"type": "string",
 					"enum": [
 						"HTTP",
@@ -218,32 +246,27 @@
 				"type"
 			]
 		},
-		"PortNumber": {
-			"title": "A valid port",
-			"description": "The port is a unsigned number between 0 and 65535.",
-			"type": "number",
-			"minimum": 0,
-			"maximum": 65535
-		},
 		"ID": {
-			"title": "A valid ID representation",
+			"title": "Valid ID representation",
 			"description": "The ID is a string that can only contain lowercased letters, numbers and hyphens.",
 			"type": "string",
 			"pattern": "^[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$"
 		},
 		"ConnectionInstructions": {
-			"title": "Instructions arrays indicating the connection information",
+			"title": "Connection instructions list",
 			"type": "array",
 			"items": {
 				"$ref": "#/definitions/ConnectionInstruction"
 			}
 		},
 		"ConnectionInstruction": {
-			"title": "Instruction of connection",
+			"title": "Connection instruction",
+			"description": "The connection instruction is a user-friendly line of text that allows users knowing to connect to this service from their services or local machines.",
 			"type": "object",
 			"properties": {
 				"type": {
-					"title": "The instruction type",
+					"title": "Instruction type",
+					"description": "Is this instruction line a text, URL or password?",
 					"type": "string",
 					"enum": [
 						"TEXT",
@@ -252,34 +275,25 @@
 					]
 				},
 				"title": {
-					"title": "The instruction title",
+					"title": "Instruction title",
+					"description": "The title of this instruction. It will be shown as the title of the instruction line.",
 					"examples": [
 						"MongoDB connection string"
 					],
 					"type": "string"
 				},
 				"content": {
-					"title": "The instruction content.",
+					"title": "Instruction content",
+					"description": "The content of this instruction. You can reference variables in this text with `${VARIABLE_NAME}`.",
 					"type": "string",
 					"minLength": 1
 				},
-				"showWhen": {
-					"title": "Show this connection instruction when the specified condition matches.",
-					"description": "'PORT_FORWARDING' = When the port forwarding is enabled.",
-					"type": "string",
-					"enum": [
-						"ALWAYS",
-						"NEVER",
-						"PORT_FORWARDING"
-					],
-					"default": "ALWAYS"
-				},
 				"category": {
-					"title": "The category of this instruction",
+					"title": "Instruction category",
+					"description": "The category of this instruction. Useful for filtering and grouping in Instruction tab.",
 					"type": "string",
 					"examples": [
-						"In project",
-						"Port forwarding"
+						"Credentials"
 					]
 				}
 			},
@@ -291,22 +305,25 @@
 			]
 		},
 		"Volumes": {
-			"title": "The volumes of this service",
-			"description": "Specifying this value will create a StatefulSet! Don't use it unless you need.",
+			"title": "Volumes list",
+			"description": "Declare the paths (“volumes”) for storing data persistently. Since there are costs to persist data, don't use it unless you need.",
 			"type": "array",
 			"items": {
 				"$ref": "#/definitions/VolumeEntry"
 			}
 		},
 		"VolumeEntry": {
+			"title": "Volume entry",
 			"type": "object",
 			"properties": {
 				"id": {
-					"title": "The ID of this volume",
+					"title": "Volume ID",
+					"description": "For internal identification this volume. It must be unique in a service.",
 					"$ref": "#/definitions/ID"
 				},
 				"dir": {
-					"title": "The absolute mount directory of this volume",
+					"title": "Mount directory",
+					"description": "The directory where this persistent volumes to be mount. It should be started with `/` (absolute).",
 					"type": "string",
 					"pattern": "^/."
 				}
@@ -318,35 +335,38 @@
 			]
 		},
 		"InitRules": {
-			"title": "The initializations rules.",
+			"title": "List of initializations rules",
 			"type": "array",
 			"items": {
 				"$ref": "#/definitions/InitRule"
 			}
 		},
 		"InitRule": {
-			"title": "The initialization rule.",
+			"title": "Initialization rule",
+			"description": "It is basically the container that runs before the serivce that can mutate the volumes and images.",
 			"type": "object",
 			"properties": {
 				"id": {
-					"title": "The ID of this init container rule",
+					"title": "Rule ID",
+					"description": "For internal identification this rule. It must be unique in a service.",
 					"$ref": "#/definitions/ID"
 				},
 				"image": {
-					"title": "The image of this init container",
-					"description": "If not specified, the same image of the base service will be used.",
+					"title": "Container image",
+					"description": "The image of this init container for running commands. If not specified, the same image of the base service will be used.",
 					"type": "string"
 				},
 				"command": {
-					"title": "The command of this init container",
-					"description": "The environment (${VAR}) will be injected into the command.",
+					"title": "Container commands",
+					"description": "The commands to be executed in this container. The variables (${VAR}) will be injected into this command.",
 					"type": "array",
 					"items": {
 						"type": "string"
 					}
 				},
 				"volumes": {
-					"title": "The volumes to mount at this init container",
+					"title": "Mounted volumes",
+					"description": "The volumes to mount at this init container for mutating, etc.",
 					"$ref": "#/definitions/InitVolumeMounts"
 				}
 			},
@@ -357,28 +377,30 @@
 			]
 		},
 		"InitVolumeMounts": {
-			"title": "The volume mount of init container",
+			"title": "List of volumes to mount",
 			"type": "array",
 			"items": {
 				"$ref": "#/definitions/InitVolumeMount"
 			}
 		},
 		"InitVolumeMount": {
-			"title": "The volume mount of init container",
+			"title": "Volume to mount at init container",
 			"type": "object",
 			"properties": {
 				"id": {
-					"title": "The ID of this volume mount",
-					"description": "This must match the Name of a Volume.",
+					"title": "Volume ID",
+					"description": "The volume ID declared in this service to mount at this init container.",
 					"$ref": "#/definitions/ID"
 				},
 				"mountPath": {
-					"title": "Path within the container at which the volume should be mounted.",
+					"title": "Mount path",
+					"description": "Path within the container at which the volume should be mounted",
 					"type": "string",
 					"pattern": "^[^:]+$"
 				},
 				"subPath": {
-					"title": "Path within the volume from which the container's volume should be mounted.",
+					"title": "Subpath",
+					"description": "Path within the volume from which the container's volume should be mounted. It is the Kubernetes concept, see https://stackoverflow.com/a/65399827 for details.",
 					"type": "string",
 					"default": ""
 				}
