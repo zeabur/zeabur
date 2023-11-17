@@ -1,0 +1,84 @@
+---
+title: 自定义 Prebuilt
+ogImageTitle: 自定义 Prebuilt
+ogImageSubtitle: 在 Zeabur 上部署自己的 Docker 镜像
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# 自定义 Prebuilt
+
+虽然 Zeabur 已经包含许多社区提供的 Prebuilt 模板（Prebuilt Marketplace），
+您可能需要部署自己的 Docker 镜像、配置 Stateful 服务（存储空间），或者是
+使用更高级的环境变量功能（如曝露 expose 某个变量给其他服务）。
+
+针对这个需求，Zeabur 提供了 Prebuilt 的自定义功能。
+
+## 打开自定义页面
+
+<Callout>
+    你需要升级到开发者方案以上，才能使用自定义功能。
+</Callout>
+
+这里将指导您创建一个简单的 Prebuilt 服务，并部署到 Zeabur 上。
+
+创建项目后，点击 "创建服务" → "Prebuilt" → "自定义"：
+
+![打开 Prebuilt 自定义页面](/deploy/customize-prebuilt/open-customize.png)
+
+即可看到 Prebuilt 的自定义页面。
+
+![Prebuilt 自定义页面](/deploy/customize-prebuilt/prebuilt-config-page.png)
+
+## 示例：部署 MariaDB
+
+接下来的示例将介绍如何使用 Prebuilt 自定义功能部署 MariaDB。
+
+![MariaDB 配置示例](/deploy/customize-prebuilt/mariadb-config-example.png)
+
+首先，在 **Service Name** 中输入 "MariaDB"，在 **Service Icon** 中粘贴 MariaDB
+在 Docker Hub 的图片链接。实际上这些名称和图标是可以随意定义的，但
+良好的命名和图标有助于让您了解服务的用途。**Image** 则是 Docker 镜像的引用
+(reference)，即 `docker pull mariadb:11` 的 `mariadb:11`。
+
+**Data Path** 则是 "重新启动服务也不会消失的路径"。以 MariaDB 为例，
+它的数据库文件是存在 `/var/lib/mysql` 里面，您肯定不希望 MariaDB
+服务的数据库文件在重启后就消失不见，所以就得在 Data Path 设置
+`/var/lib/mysql`。Data Path 在 Docker 的概念又称为 "Volume"、
+"Persistent Volume (PV)"。
+
+**Port** 则填写 MariaDB 的 Port，让其他服务（或者是您自己）可以连接到 MariaDB。
+根据 MariaDB 的文件，预设 MariaDB 和 MySQL 一样都监听在 `3306`，所以填写 3306
+就好。另外 MariaDB 是使用 TCP 连线的，所以将右边的连接端口类型从 HTTP 改成 TCP。
+左边的名称则可以自定义，但因为这个名称等等会在 Environment Variable 使用，所以
+不要有空白或非必要的符号，尽量保持简单。此例使用 `database`。
+
+最后，就是 **Environment Variables**。栏位中诸如 `${CONTAINER_HOSTNAME}`
+的变量，可以引入自己服务其他变量、项目其他 Exposed 的变量，以及特殊变量的数值。
+以上面的图片举例：
+
+- `${MARIADB_ROOT_PASSWORD}`: 引入这个服务的 `MARIADB_ROOT_PASSWORD` 的变量，
+  以这个例子来说，就是 `${PASSWORD}`。
+- `${PASSWORD}`：引入 Zeabur 给这个服务生成的唯一随机密码。
+
+而您可以在其他服务使用在这里勾选 `Exposed` 的变量，包含 `${MARIADB_USERNAME}`、
+`${MARIADB_PASSWORD}`。至于 `Readonly` 打勾之后就可以限制，防止其他人在 "变量"
+区块误编辑这个变量的数值。
+
+在检查所有栏位无误之后，点击 "创建" 即可建立 MariaDB。
+
+## 各栏位介绍
+
+- **Service Name**：这个 Prebuilt 服务的名字。
+- **Service Icon**：这个 Prebuilt 服务的图标。
+- **Data Path**：Prebuilt 要持续留存数据的路径。
+  留空就不会开这个空间，减少留存数据的性能损耗。
+- **Image**：Prebuilt 服务的 Docker 镜像引用，如 `mariadb:11`。
+- **Ports**：要向公网或其他服务对外曝露的连接口。
+    - Port Name 是用来标示这个连接口的名字。只能使用英文、数字和连接号 (hyphen)。
+    - Port Type 是连接口的类型，目前支持 TCP、UDP 和 HTTP。
+        - 只有 HTTP 才能绑定到域名上。
+- **Environment Variables**：环境变量
+    - 可以选择曝露给其他服务 (Expose) 或不可修改 (Readonly)
+    - 环境变量的名称只能使用英文、数字和底线 (underscore)。
+    - 可使用 `${VARIABLE}` 语法引用其他曝露的环境变量或 [特殊变量 (special variable)](./special-variables)。
