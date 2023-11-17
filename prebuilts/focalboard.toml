@@ -6,9 +6,13 @@ icon = "https://avatars.githubusercontent.com/u/9828093?s=48&v=4"
 description = "Focalboard is an open source, multilingual, self-hosted project management tool that's an alternative to Trello, Notion, and Asana."
 
 [source]
-image = "mattermost/focalboard:latest"
+image = "mattermost/focalboard"
 
 [[ports]]
 id = "web"
 port = 8000
 type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/opt/focalboard/data"
