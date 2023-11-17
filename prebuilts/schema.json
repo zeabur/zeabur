@@ -32,33 +32,21 @@
 			"type": "string"
 		},
 		"source": {
-			"title": "Source",
-			"description": "The base image or source to make this service. Currently, it supports only from Docker image.",
 			"$ref": "#/definitions/Source"
 		},
 		"ports": {
-			"title": "Declared ports",
-			"description": "Describe which ports should be exposed to the other services in a project or even the outside world.",
 			"$ref": "#/definitions/Ports"
 		},
 		"volumes": {
-			"title": "Persistent volumes",
-			"description": "Describe the paths that should be reserved/persistent across the restarts.",
 			"$ref": "#/definitions/Volumes"
 		},
 		"instructions": {
-			"title": "Connection information and instruction",
-			"description": "Represent “variables” in a user-friendly text that allows users knowing to connect to this service from their services or local machines.",
 			"$ref": "#/definitions/ConnectionInstructions"
 		},
 		"env": {
-			"title": "Declared environment variables",
-			"description": "Declare the environment variables that are the required variables of a service (“readonly”), need users to fill in (“required”, “default”), or declare the variables that allow other services to pick value (“expose”).",
 			"$ref": "#/definitions/Envs"
 		},
 		"init": {
-			"title": "Initialization containers",
-			"description": "Declare the container that should be run before starting this service. For example, hacking the Docker Hub image for fulfilling Zeabur. It is usually not useful for most cases.",
 			"$ref": "#/definitions/InitRules"
 		}
 	},
@@ -69,8 +57,8 @@
 	"additionalProperties": false,
 	"definitions": {
 		"Envs": {
-			"title": "Environment variables map",
-			"description": "The key is the variable name, while the value is the variable specification.",
+			"title": "Map of Environment Variables",
+			"description": "Declare the environment variables that are the required variables of a service (“readonly”), need users to fill in (“required”, “default”), or declare the variables that allow other services to pick value (“expose”). The key is the variable name, while the value is the variable specification.",
 			"type": "object",
 			"propertyNames": {
 				"type": "string",
@@ -112,8 +100,8 @@
 			"additionalProperties": false
 		},
 		"Source": {
-			"title": "Service source",
-			"description": "The source of this service. Currently, it supports only from Docker image.",
+			"title": "Source",
+			"description": "The base image or source to start this service. Currently, it supports only from Docker image.",
 			"type": "object",
 			"oneOf": [
 				{
@@ -206,7 +194,8 @@
 			]
 		},
 		"Ports": {
-			"title": "Declared ports list",
+			"title": "List of Declared ports",
+			"description": "Describe which ports should be exposed to the other services in a project or even the outside world.",
 			"type": "array",
 			"items": {
 				"$ref": "#/definitions/Port"
@@ -253,14 +242,15 @@
 			"pattern": "^[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$"
 		},
 		"ConnectionInstructions": {
-			"title": "Connection instructions list",
+			"title": "List of connection information and instruction",
+			"description": "Represent “variables” in a user-friendly text that allows users knowing to connect to this service from their services or local machines.",
 			"type": "array",
 			"items": {
 				"$ref": "#/definitions/ConnectionInstruction"
 			}
 		},
 		"ConnectionInstruction": {
-			"title": "Connection instruction",
+			"title": "Connection information and instruction",
 			"description": "The connection instruction is a user-friendly line of text that allows users knowing to connect to this service from their services or local machines.",
 			"type": "object",
 			"properties": {
@@ -305,8 +295,8 @@
 			]
 		},
 		"Volumes": {
-			"title": "Volumes list",
-			"description": "Declare the paths (“volumes”) for storing data persistently. Since there are costs to persist data, don't use it unless you need.",
+			"title": "List of Persistent volumes",
+			"description": "Describe the paths (“volumes”) that should be reserved/persistent across the restarts.  Since there are costs to persist data, don't use it unless you need.",
 			"type": "array",
 			"items": {
 				"$ref": "#/definitions/VolumeEntry"
@@ -335,7 +325,8 @@
 			]
 		},
 		"InitRules": {
-			"title": "List of initializations rules",
+			"title": "List of Initialization rules",
+			"description": "Declare the container that should be run before starting this service. For example, hacking the Docker Hub image for fulfilling Zeabur. It is usually not useful for most cases.",
 			"type": "array",
 			"items": {
 				"$ref": "#/definitions/InitRule"
