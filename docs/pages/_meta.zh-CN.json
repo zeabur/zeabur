@@ -4,12 +4,10 @@
   "deploy": "部署",
   "environment": "环境",
   "guides": "教程",
-  "databases": "数据库",
   "manage": "项目管理",
   "marketplace": "服务市场",
   "legal": "法律及政策",
   "billing": "付款与账单",
   "community": "社区",
-  "integration": "集成",
   "advanced": "高级"
 }
