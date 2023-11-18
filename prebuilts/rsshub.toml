@@ -4,6 +4,7 @@ id = "rsshub"
 name = "RSSHub"
 icon = "https://docs.rsshub.app/logo.png"
 description = "RSSHub is an open source, easy to use, and extensible RSS feed aggregator, it's capable of generating RSS feeds from pretty much everything."
+docs = "https://zeabur.com/docs/marketplace/rsshub"
 
 [source]
 image = "diygod/rsshub"
