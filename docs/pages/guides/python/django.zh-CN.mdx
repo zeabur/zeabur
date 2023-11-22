@@ -5,4 +5,59 @@ ogImageSubtitle: 将你的 Django 项目部署到 Zeabur
 
 # 部署 Django 项目
 
-<WorkingInProgress />
+本文将教你如何在 Zeabur 上部署你的 Django 项目。
+
+## 第一步：安装 Django
+
+开始前，请确保你的电脑已安装 Python，如果没有，请安装 [Python 环境](https://www.python.org/downloads/)。
+
+确认是否存在 Python 环境。
+
+```bash
+python --version
+```
+
+打开终端并执行以下命令以安装。
+
+```bash
+pip install django
+```
+
+## 第二步：创建 Django 项目
+
+使用 `django-admin` 命令创建一个新的 Django 项目，将 `project_name` 替换为你的项目名称。
+你也可以使用 [Django-template](https://github.com/zeabur/django-template)。使用 Django 示例后，你可以跳过第二步。
+
+```bash
+django-admin startproject project_name
+```
+
+## 第三步：运行 Django 项目
+
+打开 Django 项目并执行启动，以检查本地启动是否成功。
+
+```bash
+cd project_name
+python manage.py runserver
+```
+
+## 第四步：部署 Django 项目
+
+为它初始化一个 Git 仓库并将其部署到你的 GitHub，在你的项目中，点击 **部署服务** 或 **添加新服务** 按钮，并选择 **部署你的源代码**。
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+部署成功后显示网站成功启动的屏幕。
+
+![django-web](/framework/django/django.png)
+
+请注意，如果发生错误，请确认项目中是否有配置：
+
+- 检查是否有 `requirements.txt`，该文件的主要目的是列出项目所需的所有 Python 包及其版本，
+  它用于确保项目在不同的开发环境和生产环境中具有相同的依赖项和版本。如果没有配置，请在项目中使用以下指令并再次推送到 GitHub。
+
+```bash
+pip freeze > requirements.txt
+```
+
+- 检查 `settings.py` 中的 `ALLOWED_HOSTS` 是否设置，这个属性是一个 Python 列表，包含可以访问 Django 应用的域名，你可以使用 `ALLOWED_HOSTS = ['*']`，这意味着所有网络都允许用于测试目的的域名。
