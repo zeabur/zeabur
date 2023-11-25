@@ -6,7 +6,7 @@ description = "PostgreSQL is a powerful, open source object-relational database 
 icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/postgresql.svg"
 
 [source]
-image = "postgres:12.2"
+image = "postgres:16"
 
 [[ports]]
 id = "database"
