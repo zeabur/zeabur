@@ -47,7 +47,8 @@ export default {
     }
   },
   head: () => {
-    const { asPath } = useRouter();
+    const r = useRouter();
+    const p = r.basePath + (r.locale === 'en-US' ? '' : '/' + r.locale) + r.asPath.replace('.'+r.locale, '')
     const { frontMatter } = useConfig();
     const ogEndpoint = 'https://og.zeabur.com/api/og'
     const ogQueryString = `title=${frontMatter.ogImageTitle}&desc=${frontMatter.ogImageSubtitle}`
@@ -71,13 +72,13 @@ export default {
 
       <meta property="twitter:card" content="summary_large_image" />
       <meta property="twitter:site:domain" content="zeabur.com" />
-      <meta property="twitter:url" content={`https://zeabur.com/docs${asPath}`} />
+      <meta property="twitter:url" content={`https://zeabur.com${p}`} />
       <meta property="twitter:image" content={ogUrl} />
 
-      <meta property="og:url" content={`https://zeabur.com/docs${asPath}`} />
+      <meta property="og:url" content={`https://zeabur.com${p}`} />
       <meta property="og:image" content={ogUrl} />
 
-      <meta property="conaonical" content={`https://zeabur.com/docs${asPath}`} />
+      <meta property="conaonical" content={`https://zeabur.com${p}`} />
 
       <meta name="apple-mobile-web-app-title" content="Zeabur" />
       <link
