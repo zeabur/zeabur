@@ -1,6 +1,6 @@
 {
     "index": "イントロダクション",
-    "get-started": "はじめに",
+    "get-started": "スタート",
     "deploy": "デプロイ",
     "environment": "環境",
     "guides": "ガイド",
@@ -9,5 +9,5 @@
     "legal": "法律とポリシー",
     "billing": "支払いと請求",
     "community": "コミュニティ",
-    "advanced": "高度な"
+    "advanced": "高度な内容"
 }
