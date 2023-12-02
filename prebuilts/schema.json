@@ -70,7 +70,7 @@
 		},
 		"Env": {
 			"title": "Environment variable",
-			"description": "Declare the default value and flags of a service.",
+			"description": "Declare the default value and flags of a variable.",
 			"type": "object",
 			"properties": {
 				"required": {
@@ -237,7 +237,7 @@
 		},
 		"ID": {
 			"title": "Valid ID representation",
-			"description": "The ID is a string that can only contain lowercased letters, numbers and hyphens.",
+			"description": "ID is a string that can only contain lowercase letters, numbers and hyphens, and the length of ID is at most 63 characters.",
 			"type": "string",
 			"pattern": "^[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$"
 		},
@@ -334,7 +334,7 @@
 		},
 		"InitRule": {
 			"title": "Initialization rule",
-			"description": "It is basically the container that runs before the serivce that can mutate the volumes and images.",
+			"description": "It is basically the container that runs before the service that can mutate the volumes and images.",
 			"type": "object",
 			"properties": {
 				"id": {
@@ -348,8 +348,8 @@
 					"type": "string"
 				},
 				"command": {
-					"title": "Container commands",
-					"description": "The commands to be executed in this container. The variables (${VAR}) will be injected into this command.",
+					"title": "Container command",
+					"description": "The command to be executed in this container. The variables (${VAR}) will be injected into this command.",
 					"type": "array",
 					"items": {
 						"type": "string"
