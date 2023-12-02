@@ -2,7 +2,7 @@
 	"$id": "https://github.com/zeabur/zeabur/prebuilts/schema.json",
 	"$schema": "http://json-schema.org/draft-07/schema",
 	"title": "Service Specification (ServiceSpec)",
-	"description": "Service Specification descibes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.0-20231117.",
+	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.1-20231202.",
 	"type": "object",
 	"properties": {
 		"id": {
@@ -48,6 +48,9 @@
 		},
 		"init": {
 			"$ref": "#/definitions/InitRules"
+		},
+		"configs": {
+			"$ref": "#/definitions/Configs"
 		}
 	},
 	"required": [
@@ -399,6 +402,37 @@
 			"additionalProperties": false,
 			"required": [
 				"mountPath"
+			]
+		},
+		"Configs": {
+			"title": "List of Config",
+			"description": "Declare the configurable file for a service. Useful when you want to change the configuration of a service without rebuilding the image.",
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/ConfigItem"
+			}
+		},
+		"ConfigItem": {
+			"title": "Config item",
+			"description": "Declare the file that allows user to customize in UI without rebuilding the image.",
+			"type": "object",
+			"properties": {
+				"path": {
+					"title": "File path",
+					"description": "The path of this file. It should be started with `/` (absolute).",
+					"type": "string",
+					"pattern": "^/."
+				},
+				"template": {
+					"title": "Content template",
+					"description": "The content template (default content) of this file.",
+					"type": "string"
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"path",
+				"template"
 			]
 		}
 	}
