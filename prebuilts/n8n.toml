@@ -4,6 +4,7 @@ id = "n8n"
 name = "n8n"
 description = "Build complex automations 10x faster, without fighting APIs"
 icon = "https://i.imgur.com/AaKxvK2.png"
+docs = "https://zeabur.com/docs/marketplace/n8n"
 
 [source]
 image = "n8nio/n8n"

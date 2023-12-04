@@ -2,10 +2,9 @@
 
 id = "rabbitmq"
 name = "RabbitMQ"
-
 icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/rabbitmq.svg"
-
 description = "RabbitMQ is a widely used open-source message broker that implements the Advanced Message Queuing Protocol (AMQP)"
+docs = "https://zeabur.com/docs/marketplace/rabbitmq"
 
 [source]
 image = "rabbitmq:3-management"
@@ -24,8 +23,6 @@ type = "HTTP"
 id = "data"
 dir = "/var/lib/rabbitmq" # default data directories.
 
-
-
 [env]
 RABBITMQ_DEFAULT_USER = { default = "admin" } # or guest?
 RABBITMQ_DEFAULT_PASS = { default = "${PASSWORD}" }
@@ -37,13 +34,11 @@ RABBITMQ_PORT = { default = "${DATABASE_PORT}", expose = true, readonly = true }
 RABBITMQ_CONNECTION_STRING = { default = "amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@${RABBITMQ_HOST}:${RABBITMQ_PORT}", expose = true, readonly = true }
 RABBITMQ_URI = { default = "${RABBITMQ_CONNECTION_STRING}", expose = true, readonly = true }
 
-
 [[instructions]]
 type = "TEXT"
 title = "RabbitMQ username"
 content = "${RABBITMQ_DEFAULT_USER}"
 category = "Credentials"
-
 
 [[instructions]]
 type = "PASSWORD"
@@ -55,7 +50,6 @@ category = "Credentials"
 type = "TEXT"
 title = "RabbitMQ host"
 content = "${PORT_FORWARDED_HOSTNAME}"
-showWhen = "PORT_FORWARDING"
 category = "Hostname & Port"
 
 [[instructions]]

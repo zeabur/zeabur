@@ -31,7 +31,6 @@ REDIS_URI = { default = "${REDIS_CONNECTION_STRING}", expose = true, readonly = 
 type = "TEXT"
 title = "Command to connect to your Redis"
 content = "redis-cli -h ${PORT_FORWARDED_HOSTNAME} -p ${DATABASE_PORT_FORWARDED_PORT} -a ${REDIS_PASSWORD}"
-showWhen = "PORT_FORWARDING"
 
 [[instructions]]
 type = "PASSWORD"
@@ -43,7 +42,6 @@ category = "Credentials"
 type = "TEXT"
 title = "Redis host"
 content = "${PORT_FORWARDED_HOSTNAME}"
-showWhen = "PORT_FORWARDING"
 category = "Hostname & Port"
 
 [[instructions]]

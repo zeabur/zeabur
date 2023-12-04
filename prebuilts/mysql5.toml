@@ -4,6 +4,7 @@ id = "mysql5"
 name = "MySQL 5"
 icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/mysql.svg"
 description = "MySQL is a relational database management system based on SQL."
+docs = "https://zeabur.com/docs/marketplace/mysql"
 
 [source]
 image = "mysql:5.7.43"
@@ -31,7 +32,6 @@ MYSQL_DATABASE = { default = "zeabur", expose = true }
 type = "TEXT"
 title = "Command to connect to your MySQL"
 content = "mysqlsh --sql --host=${PORT_FORWARDED_HOSTNAME} --port=${DATABASE_PORT_FORWARDED_PORT} --user=${MYSQL_USERNAME} --password=${MYSQL_PASSWORD} --schema=${MYSQL_DATABASE}"
-showWhen = "PORT_FORWARDING"
 
 [[instructions]]
 type = "TEXT"
@@ -55,7 +55,6 @@ category = "Credentials"
 type = "TEXT"
 title = "MySQL host"
 content = "${PORT_FORWARDED_HOSTNAME}"
-showWhen = "PORT_FORWARDING"
 category = "Hostname & Port"
 
 [[instructions]]
