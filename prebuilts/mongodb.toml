@@ -4,6 +4,7 @@ id = "mongodb"
 name = "MongoDB"
 icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/mongodb.svg"
 description = "MongoDB is a general purpose, document-based, distributed database built for modern application developers and for the cloud era."
+docs = "https://zeabur.com/docs/marketplace/mongodb"
 
 [source]
 image = "mongo:7.0"
@@ -39,7 +40,6 @@ MONGO_URI = { default = "${MONGO_CONNECTION_STRING}", expose = true, readonly = 
 type = "TEXT"
 title = "Command to connect to your MongoDB"
 content = "mongosh \"mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}\""
-showWhen = "PORT_FORWARDING"
 
 [[instructions]]
 type = "TEXT"
@@ -57,7 +57,6 @@ category = "Credentials"
 type = "TEXT"
 title = "MongoDB host"
 content = "${PORT_FORWARDED_HOSTNAME}"
-showWhen = "PORT_FORWARDING"
 category = "Hostname & Port"
 
 [[instructions]]

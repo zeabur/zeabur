@@ -4,6 +4,7 @@ id = "postgresql"
 name = "PostgreSQL"
 description = "PostgreSQL is a powerful, open source object-relational database system."
 icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/postgresql.svg"
+docs = "https://zeabur.com/docs/marketplace/postgresql"
 
 [source]
 image = "postgres:16"
@@ -36,13 +37,11 @@ POSTGRES_URI = { default = "${POSTGRES_CONNECTION_STRING}", expose = true, reado
 type = "TEXT"
 title = "Connection String"
 content = "postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}/${POSTGRES_DATABASE}"
-showWhen = "PORT_FORWARDING"
 
 [[instructions]]
 type = "TEXT"
-title = "Psql Connect Command"
+title = "PostgreSQL Connect Command"
 content = "psql \"postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}/${POSTGRES_DATABASE}\""
-showWhen = "PORT_FORWARDING"
 
 [[instructions]]
 type = "TEXT"
@@ -66,7 +65,6 @@ category = "Credentials"
 type = "TEXT"
 title = "PostgreSQL host"
 content = "${PORT_FORWARDED_HOSTNAME}"
-showWhen = "PORT_FORWARDING"
 category = "Hostname & Port"
 
 [[instructions]]

@@ -37,7 +37,6 @@ FERRET_URI = { default = "${FERRET_CONNECTION_STRING}", expose = true, readonly 
 type = "TEXT"
 title = "Command to connect to your FerretDB"
 content = "psql \"postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}/${FERRET_DATABASE}\""
-showWhen = "PORT_FORWARDING"
 
 [[instructions]]
 type = "TEXT"
@@ -61,7 +60,6 @@ category = "Credentials"
 type = "TEXT"
 title = "Ferret host"
 content = "${PORT_FORWARDED_HOSTNAME}"
-showWhen = "PORT_FORWARDING"
 category = "Hostname & Port"
 
 [[instructions]]
