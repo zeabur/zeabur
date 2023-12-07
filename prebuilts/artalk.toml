@@ -15,4 +15,4 @@ type = "HTTP"
 
 [[volumes]]
 id = "data"
-dir = "/app/data"
+dir = "/data"
