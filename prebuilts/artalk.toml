@@ -1,0 +1,18 @@
+#:schema ./schema.json
+
+id = "artalk"
+name = "Artalk"
+icon = "https://d2y5h3osumboay.cloudfront.net/y8vkq20ojwow88m0jl0az2h64psh"
+description = "A Self-hosted comment system."
+
+[source]
+image = "artalk/artalk-go:2.6"
+
+[[ports]]
+id = "web"
+port = 23366
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/app/data"
