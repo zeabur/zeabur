@@ -4,14 +4,19 @@ id = "likit"
 name = "Likit"
 icon = "https://raw.githubusercontent.com/CorrectRoadH/Likit/main/dashboard/src/assets/logo.svg"
 description = "Likit is a Backend as a Service for like(vote, unlike, count)."
-docs = "https://zeabur.com/docs/marketplace/mysql"
+docs = "https://zeabur.com/docs/marketplace/likit"
 
 [source]
 image = "correctroad/likit:latest"
 
 [[ports]]
-id = "likit"
+id = "web"
 port = 7789
+type = "HTTP"
+
+[[ports]]
+id = "grpc"
+port = 4778
 type = "TCP"
 
 [env]
@@ -32,6 +37,6 @@ category = "Credentials"
 
 [[instructions]]
 type = "TEXT"
-title = "Likit host"
-content = "${PORT_FORWARDED_HOSTNAME}"
-category = "Hostname & Port"
+title = "GRPC Connect URL"
+content = "${PORT_FORWARDED_HOSTNAME}:443"
+category = "Hostname"
