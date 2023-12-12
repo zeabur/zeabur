@@ -1,0 +1,26 @@
+---
+title: 服务内网
+ogImageTitle: 服务内网
+ogImageSubtitle: 服务间可以互相连接的网络
+---
+
+# 服务内网
+
+服务内网 (Private Networking) 可以让服务使用固定的主机名称，连接到同属一个项目的网络。
+
+## 查看主机名称
+
+打开服务的“Networking”区块，即可在“Private”一处看到主机名称。
+
+![find hostname](/deploy/private-networking/find-hostname.png)
+
+## 连接服务
+
+其他服务若要连接到这个服务（就此例来说是 PostgreSQL），则使用主机名称连接。另外 [根据 PostgreSQL 的文件](/marketplace/postgresql)，它的 Port 会注入到 `POSTGRES_PORT` 环境变量，所以你的连接信息可以这样填写：
+
+- Hostname：你在上一步骤看到的主机名称，此例是 `postgresql.zeabur.internal`。
+- Port：从 `POSTGRES_PORT` 环境变量取值，[默认是 5432](https://github.com/zeabur/zeabur/blob/bd565389cf1868a917333d0f74003b4aad6ef0ce/prebuilts/postgresql.toml#L14)。
+
+## 注意事项
+
+- 修改服务名称 **不会跟着修改主机名称**。

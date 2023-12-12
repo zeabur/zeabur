@@ -1,0 +1,26 @@
+---
+title: 服務內網
+ogImageTitle: 服務內網
+ogImageSubtitle: 服務間可以互相連線的網路
+---
+
+# 服務內網
+
+服務內網 (Private Networking) 可以讓服務使用固定的主機名稱，連線到同屬一個專案的網路。
+
+## 查看主機名稱
+
+打開服務的「Networking」區塊，即可在「Private」一處看到主機名稱。
+
+![find hostname](/deploy/private-networking/find-hostname.png)
+
+## 連線服務
+
+其他服務若要連線到這個服務（就此例來說是 PostgreSQL），則使用主機名稱連線。另外 [根據 PostgreSQL 的文件](/marketplace/postgresql)，它的 Port 會注入到 `POSTGRES_PORT` 環境變數，所以你的連線資訊可以這樣填寫：
+
+- Hostname：你在上一步驟看到的主機名稱，此例是 `postgresql.zeabur.internal`。
+- Port：從 `POSTGRES_PORT` 環境變數取值，[預設是 5432](https://github.com/zeabur/zeabur/blob/bd565389cf1868a917333d0f74003b4aad6ef0ce/prebuilts/postgresql.toml#L14)。
+
+## 注意事項
+
+- 修改服務名稱 **不會跟著修改主機名稱**。
