@@ -1,0 +1,42 @@
+#:schema ./schema.json
+
+id = "likit"
+name = "Likit"
+icon = "https://raw.githubusercontent.com/CorrectRoadH/Likit/main/dashboard/src/assets/logo.svg"
+description = "Likit is a Backend as a Service for like(vote, unlike, count)."
+docs = "https://zeabur.com/docs/marketplace/likit"
+
+[source]
+image = "correctroad/likit:latest"
+
+[[ports]]
+id = "web"
+port = 7789
+type = "HTTP"
+
+[[ports]]
+id = "grpc"
+port = 4778
+type = "TCP"
+
+[env]
+LIKIT_USERNAME = { default = "admin" }
+LIKIT_PASSWORD = { default = "${PASSWORD}" }
+
+[[instructions]]
+type = "TEXT"
+title = "Likit username"
+content = "${LIKIT_USERNAME}"
+category = "Credentials"
+
+[[instructions]]
+type = "PASSWORD"
+title = "Likit password"
+content = "${LIKIT_PASSWORD}"
+category = "Credentials"
+
+[[instructions]]
+type = "TEXT"
+title = "GRPC Connect URL"
+content = "${PORT_FORWARDED_HOSTNAME}:443"
+category = "Hostname"
