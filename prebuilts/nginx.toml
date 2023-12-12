@@ -1,0 +1,51 @@
+#:schema ./schema.json
+
+id = "nginx"
+name = "NGINX"
+description = "nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server, and a generic TCP/UDP proxy server, originally written by Igor Sysoev."
+icon = "https://d1q6f0aelx0por.cloudfront.net/product-logos/library-nginx-logo.png"
+
+[source]
+image = "nginx:1.25"
+
+[[ports]]
+id = "web"
+port = 80
+type = "HTTP"
+
+# modified from https://www.nginx.com/resources/wiki/start/topics/examples/full/
+# and debian's default config
+[[configs]]
+path = "/etc/nginx/nginx.conf"
+template = """\
+worker_processes  5;
+error_log  stderr;
+worker_rlimit_nofile 8192;
+
+events {}
+
+http {
+  default_type application/octet-stream;
+  log_format   main '$remote_addr - $remote_user [$time_local]  $status '
+    '"$request" $body_bytes_sent "$http_referer" '
+    '"$http_user_agent" "$http_x_forwarded_for"';
+  access_log   /dev/stdout  main;
+  sendfile     on;
+  tcp_nopush   on;
+  server_names_hash_bucket_size 128; # this seems to be required for some vhosts
+
+  server {
+    listen 80 default_server;
+    server_name _;
+
+    location / {
+      add_header Content-Type text/plain;
+      return 200 'Hello from Zeabur!';
+    }
+
+    # location / {
+    #   proxy_pass http://your-service:8080;
+    # }
+  }
+}
+"""
