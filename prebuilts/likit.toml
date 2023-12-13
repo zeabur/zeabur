@@ -38,5 +38,5 @@ category = "Credentials"
 [[instructions]]
 type = "TEXT"
 title = "GRPC Connect URL"
-content = "${PORT_FORWARDED_HOSTNAME}:443"
+content = "${ZEABUR_GRPC_DOMAIN}:443"
 category = "Hostname"
