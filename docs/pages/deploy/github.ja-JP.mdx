@@ -1,0 +1,77 @@
+---
+title: GitHubとの統合
+ogImageTitle: GitHubとの統合
+ogImageSubtitle: GitHubリポジトリに接続
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+## GitHubの個人リポジトリの展開
+
+### ステップ1: サービスの作成
+
+展開したいサービスを選択し、「サービスを作成」をクリックすると、`Git`と`マーケットプレイス`の2つのオプションが表示されます。 この場合は、`Git`を選択します。
+
+![Create Service](/deploy/intergration/add-service.png)
+
+![Select Service](/deploy/intergration/select-service.png)
+
+### ステップ2: 個人リポジトリのバインド
+
+この時点で、検索ボックスと`GitHubの設定`ボタンが表示されます。 ボタンをクリックし、表示されるページでプロンプトに従って、個人リポジトリへのアクセスを承認してください。
+
+![Bind GitHub](/deploy/intergration/configure-github.png)
+
+### ステップ3: リポジトリの選択
+
+認可後、検索ボックスが表示されます。 展開したいリポジトリの名前またはキーワードを入力し、検索ボタンをクリックし、リポジトリを選択します。
+
+![Select Repository](/deploy/intergration/select-repo.png)
+
+## GitHub組織リポジトリの展開
+
+### ステップ1: サービスの作成
+
+前のセクションの[ステップ1: サービスの作成](./github#step-1-create-a-service)と同じです。
+
+### ステップ2: 組織リポジトリのバインド
+
+この時点で、検索ボックスと`GitHubの設定`ボタンが表示されます。 ボタンをクリックし、表示されるページでプロンプトに従って、組織リポジトリへのアクセスを承認してください。 インストールプロセス中、必要に応じてすべてまたは一部のリポジトリにアクセスを承認できます。
+
+![Bind GitHub Organization](/deploy/intergration/configure-org.png)
+
+### ステップ3: リポジトリの選択
+
+認可後、検索ボックスが表示されます。 展開したいリポジトリの名前またはキーワードを入力し、検索ボタンをクリックし、リポジトリを選択します。
+
+![Select Organization Repository](/deploy/intergration/select-org-repo.png)
+
+## 更新
+
+### リポジトリの変更
+
+個人/組織リポジトリの変更については、操作に応じて自動的にコードリポジトリを更新します。
+
+### 組織メンバーの変更
+
+組織メンバーの変更については、`GitHub Webhook`イベントをリアルタイムでリッスンし、リポジトリのアクセス権限が`GitHub`と一貫していることを確認します。
+
+## アンインストール
+
+### 個人リポジトリ
+
+#### 完全なアンインストール
+
+`Zeabur`を完全にアンインストールする必要がある場合は、「GitHub」の「統合」-「アプリケーション」-「インストールされたGitHubアプリ」で`Zeabur`を見つけ、「設定」をクリックし、「危険なゾーン」ページに表示される「Zeaburのアンインストール」をクリックします。
+
+![Full Uninstall](/deploy/intergration/uninstall-zeabur.png)
+
+#### 認可の取り消し
+
+後で`Zeabur`を再認証するために認可を取り消す必要がある場合は、「GitHub」の「統合」-「アプリケーション」-「認可されたGitHubアプリ」で`Zeabur`を見つけ、`Revoke`をクリックし、ポップアップページでリスクに同意してください。
+
+![Revoke Authorization](/deploy/intergration/revoke-zeabur.png)
+
+### 組織リポジトリ
+
+[個人リポジトリ](./github#personal-repository)と同様ですが、また`GitH`の`設定`-`別のアカウントに切り替える`で操作する組織を選択する必要があります。

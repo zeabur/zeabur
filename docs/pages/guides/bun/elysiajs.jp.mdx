@@ -1,0 +1,68 @@
+---
+title: ElysiaJS
+ogImageTitle: ElysiaJSアプリのデプロイ
+ogImageSubtitle: ZeaburでElysiaJSアプリをデプロイ
+---
+
+# ElysiaJSアプリのデプロイ
+
+[ElysiaJS](https://elysiajs.com)は高速かつ使いやすいBunウェブフレームワークです。
+
+このドキュメントでは、ZeaburでElysiaJSアプリを1分以内にデプロイする方法を示します。
+
+## ステップ1：ElysiaJSアプリの作成
+
+### 方法1：Bunでブートストラップ
+
+#### Bunのインストール
+
+Elysiaは[Bun](https://bun.sh/)に基づいているため、まずBunをインストールする必要があります。
+
+```bash
+curl https://bun.sh/install | bash
+```
+
+#### ElysiaJSアプリのブートストラップ
+
+```bash
+bun create elysia app-name
+```
+
+その後、`app-name`ディレクトリにElysiaJSアプリが作成されます。
+
+```bash
+cd app-name
+bun run dev
+```
+
+これで、http://localhost:8080 にアクセスして結果を確認できます。
+
+#### GitHubにアップロード
+
+ElysiaJSアプリをZeaburにデプロイする場合は、まずコードをGitHubにアップロードする必要があります。
+
+GitHubで新しいリポジトリを作成し、コードをプッシュするだけです。詳細な手順は[こちら](https://docs.github.com/ja/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line)を参照してください。
+
+### 方法2：Zeaburテンプレートの使用
+
+[ElysiaJSアプリのためのテンプレート](https://github.com/zeabur/elysia-template)を準備しており、**このテンプレートを使用**ボタンをクリックしてテンプレートを使用できます。
+
+![このテンプレートを使用](/guides/bun/elysia/template.png)
+
+## ステップ2：ElysiaJSアプリのデプロイ
+
+**サービスをデプロイ**または**新しいサービスを追加**ボタンをクリックし、**ソースコードをデプロイ**を選択してください。
+
+![デプロイ](/deploy/common/select-service.en-US.png)
+
+ElysiaJSアプリのリポジトリを検索し、インポートをクリックすると、ElysiaJSアプリが自動的にデプロイされます。
+
+## 次の手順
+
+デプロイが完了すると、ElysiaJSアプリのドメイン名を構成する必要があります。
+
+サービスページの「Domain」タブを開いて、「ドメインを生成」または「カスタムドメイン」をクリックしてください。
+
+サービスにドメインをバインドする方法の詳細については、[ドメインのバインド](../deploy/domain-binding)を参照してください。
+
+![ドメインバインディング](/guides/bun/elysia/domain.png)

@@ -1,0 +1,13 @@
+---
+title: Go
+ogImageTitle: Goアプリをデプロイ
+ogImageSubtitle: ZeaburでGoアプリをデプロイ
+---
+
+# Goアプリをデプロイ
+
+[Go Modules](https://blog.golang.org/using-go-modules)に基づくすべてのプロジェクトをデプロイできます。ただし、プロジェクトのルートディレクトリに`main.go`が必要です。それがプログラムのコンパイルエントリとなります。
+
+複数のプログラムのコンパイルエントリがある場合、それらを`cmd`ディレクトリに配置する必要があります。例として、`cmd/server-a/main.go`と`cmd/server-b/main.go`があります。
+
+Zeaburは`cmd`ディレクトリの下にある同じサービス名を持つプログラムのコンパイルエントリを自動的に認識し、そしてデプロイします。

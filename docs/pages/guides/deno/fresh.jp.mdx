@@ -1,0 +1,48 @@
+---
+title: フレッシュ
+ogImageTitle: フレッシュアプリをデプロイ
+ogImageSubtitle: ゼアバーでフレッシュアプリをデプロイ
+---
+
+# フレッシュアプリをデプロイする
+
+[Fresh](https://fresh.deno.dev/)はJavaScriptとTypeScript向けのフルスタックモダンWebフレームワークです。
+
+この記事では、フレッシュアプリをゼアバーにワンクリックでデプロイする方法を説明します。
+
+## フレッシュアプリを作成する（オプション）
+
+- コンピューターにDenoをインストールします。
+
+- [Denoの公式ドキュメント](https://deno.land/manual/getting_started/installation)で詳しい手順を確認できます。
+
+次のコマンドを使用して、Freshフレームワークを使用してDenoプロジェクトを初期化します。
+
+```bash
+deno run -A -r https://fresh.deno.dev my-project
+```
+
+`main.ts`に、Zeaburが提供する環境変数`PORT`を正しくアプリケーションがリッスンできるようにするための`port: Deno.env.get("PORT")`をstart関数に追加します。
+
+```typescript
+// in main.ts
+await start(manifest, { plugins: [twindPlugin(twindConfig)], port: Deno.env.get("PORT")}, );
+```
+
+## 開発
+
+`deno task start`を実行して開発サーバーを起動します。
+
+```bash
+deno task start
+```
+
+GitHubリポジトリを初期化し、GitHubにアップロードします。
+
+## デプロイ
+
+**新しいサービスを追加**ボタンをクリックし、**ソースコードをデプロイ**を選択します。
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+フレッシュアプリのリポジトリを検索し、インポートをクリックすると、フレッシュアプリがデプロイされます。

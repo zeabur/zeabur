@@ -1,0 +1,43 @@
+---
+title: Umi
+ogImageTitle: Umiをデプロイする
+ogImageSubtitle: ZeaburでUmiアプリをデプロイ
+---
+
+# Umiをデプロイする
+
+ZeaburでUmiアプリをデプロイします。
+
+### Step1: Umiアプリの作成（オプション）
+
+- Node.js v14またはそれ以上のバージョン
+- 推奨：pnpm
+
+ターミナルを開いて次のコマンドを実行します
+```bash
+$ pnpm dlx create-umi@latest
+✔ 次のパッケージをインストールしますか: create-umi? (Y/n) · true
+✔ Npmクライアントを選択 › pnpm
+✔ Npmレジストリを選択 › taobao
+書き込まれました: .gitignore
+書き込まれました: .npmrc
+書き込まれました: .umirc.ts
+コピーされました:  layouts/index.tsx
+書き込まれました: package.json
+コピーされました:  pages/index.tsx
+コピーされました:  pages/users.tsx
+コピーされました:  pages/users/foo.tsx
+> @ postinstall /private/tmp/sorrycc-vylwuW
+> umi setup
+info  - ファイルが生成されました
+```
+
+GitHubリポジトリを初期化してアップロードします。
+
+### Step2: Umiアプリをデプロイする
+
+**デプロイサービスを選択**または**新しいサービスを追加**ボタンをクリックし、**ソースコードをデプロイ**を選択します。
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Umiアプリのリポジトリを検索し、インポートをクリックして、Umiアプリをデプロイ開始します。

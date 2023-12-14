@@ -1,0 +1,114 @@
+---
+title: Logtoのデプロイ
+ogImageTitle: ログトのデプロイ
+ogImageSubtitle: ZeaburでLogtoをデプロイ
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Logtoサービスのデプロイ
+
+[Logto](https://logto.io/) は、アプリケーションでの簡単な本人確認の実装を支援するオープンソースの本人確認サービスであり、また[Auth0](https://auth0.com/)の最も有名なオープンソースの代替品でもあります。
+
+この記事では、サービスマーケットを介してZeaburにLogtoサービスをデプロイし、自分のドメイン名をバインドして、他のウェブサイトがデプロイされたLogtoサービスを使用して本人確認を行う方法を説明します。
+
+## ステップ1：プロジェクトの作成
+
+まず、Zeabur上でプロジェクトを作成する必要があります。 [Projects](https://dash.zeabur.com/projects) ページに移動すると、すべてのプロジェクトが表示され、"Create Project" ボタンがすべてのプロジェクトの最後にあります。
+
+## ステップ2：PostgreSQLサービスのデプロイ
+
+Logtoはユーザーの本人確認データをPostgreSQLデータベースに保存します。 "Create Service" をクリックして "Service Market" を選択すると、リストにPostgreSQLが表示されます。
+
+![PostgreSQLのデプロイ](/marketplace/postgresql/deploy.png)
+
+PostgreSQLを選択すると、PostgreSQLサービスが自動的にデプロイされます。
+
+## ステップ3：データベースの作成
+
+Logtoサービスが正常に実行されるためには、まずPostgreSQLデータベースに `logto` という名前のデータベースを作成する必要があります。
+
+### 方法1：ダッシュボードで作成
+
+通常、PostgreSQLクライアントが必要ですが、Zeaburではデータベースの作成を簡単な方法で提供しています。
+
+PostgreSQLサービス内には、**Database** というタブがあり、1クリックでデータベースを管理できます。
+
+![Databaseタブ](/marketplace/postgresql/create-database.png)
+
+**Logtoサービス** では `logto` という名前のデータベースが必要なので、 `logto` と入力して **Create** ボタンをクリックすると、Zeaburがデータベースを作成します。
+
+
+### 方法2：PostgreSQLクライアントの使用
+
+PostgreSQLクライアントを使用してデータベースを作成することもできます。この記事では、[psql](https://www.postgresql.org/docs/9.1/app-psql.html) を使用します。
+
+![PostgreSQLの接続手順](/marketplace/postgresql/connect.png)
+
+ZeaburコンソールのPostgreSQLサービスの**Instruction** タブに、対応するpsql接続コマンドやその他の接続情報が表示されます。
+
+```bash
+psql postgresql://root:password@infra.zeabur.com:12345
+```
+
+次に、次のコマンドをpsqlに入力して、 `logto` データベースを作成します。
+
+```sql
+CREATE DATABASE logto;
+```
+
+## ステップ4：Logtoサービスのデプロイ
+
+Zeaburコンソールで "Create Service" をクリックし、"Prebuilt" を選択すると、リストにLogtoが表示されます。
+
+![Logtoのデプロイ](/marketplace/logto/prebuilt.png)
+
+Logtoを選択すると、Logtoサービスが自動的にデプロイされます。
+
+<Callout>
+  最初にLogtoをデプロイして、PostgreSQLをデプロイする必要がある場合は、PostgreSQLサービスをデプロイした後、Logtoに正しいデータベース接続情報を取得させるために、Logtoサービスを再起動する必要があります。
+</Callout>
+
+## ステップ5：各ポートにドメイン名をバインド
+
+ZeaburコンソールのLogtoサービスの **Domain** タブで、それにドメイン名をバインドできます。このドメイン名は、自分のドメイン名またはZeaburが提供する無料のドメイン名であることができます。
+
+Logtoには2つのポートがあります。1つはウェブインタフェース用で、もう1つは管理コンソールインタフェース用です。ダッシュボードで各ポートにドメイン名をバインドできます。
+
+**Generate Domain** または **Custom Domain** をクリックすると、ドメイン名の入力ボックスとポートの選択子が表示されるので、ここで各ポートにドメインをバインドできます。
+
+![LogtoのWeb用のドメイン](/marketplace/logto/web-domain.png)
+
+![Logtoのコンソール用のドメイン](/marketplace/logto/console-domain.png)
+
+サービスにドメイン名をバインドする方法についての詳細は、[ドメイン名のバインド](../deploy/domain-binding) を参照してください。
+
+## ステップ6：環境変数の設定
+
+ドメイン名をバインドした後、Logtoサービスがバインドしたドメイン名を認識できるようにする必要があります。
+
+Logtoサービスには2つの環境変数が必要です:
+
+- `ENDPOINT`: ウェブインタフェース用にバインドしたドメイン名、例：`https://logto-web.zeabur.app`。
+
+- `ADMIN_ENDPOINT`: 管理コンソールインタフェース用にバインドしたドメイン名、例：`https://logto-console.zeabur.app`。
+
+
+サービスページの**Variables** タブを開き、**Edit Raw Variables** ボタンをクリックすると、以下の変数を入力ボックスに入力できます。
+
+```json
+{
+  "ENDPOINT": "https://logto-web.zeabur.app", // ウェブインタフェース用のドメイン名
+  "ADMIN_ENDPOINT": "https://logto-console.zeabur.app" // 管理コンソールインタフェース用のドメイン名
+}
+```
+
+変数を追加したら、**Restart** ボタンを押して約1分待機し、サービスが再起動して有効になります。
+
+## ステップ7：ログインしてLogtoを構成
+
+これでLogtoサービスの準備が整いました。設定を行いたい場合は、バインドした管理コンソールインタフェースのドメイン名（例：`https://logto-console.zeabur.app`）を開くことができ、Logtoサービスのログインページが表示されます。
+
+![Logto管理コンソール](/marketplace/logto/admin.png)
+
+そして、Logtoサービスから提供される指示に従い、アカウントを作成してLogtoサービスを開始できます。

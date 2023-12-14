@@ -1,0 +1,85 @@
+---
+title: MongoDBのデプロイ
+ogImageTitle: MongoDBのデプロイ
+ogImageSubtitle: ZeaburでMongoDBをデプロイする方法
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# MongoDBのデプロイ
+
+Zeaburは、MongoDBサービスのワンクリックデプロイ機能を提供し、Zeabur上で素早くMongoDBデータベースをデプロイすることができます。
+
+## MongoDBサービスのデプロイ
+
+プロジェクトで、**サービスの追加**をクリックし、**マーケットプレイス**を選択し、次に`MongoDB`を検索します：
+
+![MongoDBのデプロイ](/databases/mongodb/deploy-mongodb.gif)
+
+"MondoDB"をクリックすると、Zeaburが自動的にMongoDBサービスをデプロイします。
+
+## 環境変数
+
+MongoDBサービスが正常にデプロイされると、Zeaburは自動的に環境変数をサービスに注入します。現在、以下の変数が利用可能です:
+
+- `MONGO_INITDB_ROOT_PASSWORD`
+- `MONGO_INITDB_ROOT_USERNAME`
+- `PASSWORD`
+
+## データベースへの接続
+
+<Callout type="info" emoji="ℹ️">
+デフォルトのデータベースユーザーは `mongo` です。パスワードは `PASSWORD` 環境変数から取得できます。
+</Callout>
+
+- [MongoDB Compass](https://www.mongodb.com/products/compass)
+- [mongosh](https://www.mongodb.com/docs/mongodb-shell/)
+
+### MongoDB Compass
+
+[MongoDB Compass](https://www.mongodb.com/products/compass) は、MongoDBデータをクエリしたり、最適化したり、分析したりするためのインタラクティブツールであり、キーインサイトを取得したり、パイプラインを構築するためにドラッグアンドドロップできるなどの機能があります。
+
+公式のドキュメントに従ってダウンロードしてインストールしたら、Zeaburのダッシュボードに戻ります。MongoDBサービスのConnectionsタブをクリックし、コネクション文字列をコピーするためのアイコンをクリックします。
+
+![接続パス](/databases/mongodb/connect-path.png)
+
+コピーした内容をURI入力ボックスに貼り付けます：
+
+![input-to-URI](/databases/mongodb/input-to-URI.png)
+
+必要に応じて `保存して接続` または `接続` を選択します：
+
+![mongodb-compass-connect-success](/databases/mongodb/mongodb-compass-connect-success.png)
+
+これでMongoDBの操作を開始できます。
+
+### mongosh
+
+[mongosh](https://www.mongodb.com/docs/mongodb-shell/) は、MongoDBデータベースとの対話のための完全なJavaScriptおよびNode.js REPL環境です。
+
+公式のドキュメントに従ってダウンロードしてインストールしたら、Zeaburのダッシュボードに戻ります。MongoDBサービスのConnectionsタブをクリックし、コネクション文字列をコピーするためのアイコンをクリックします。
+
+![接続パス](/databases/mongodb/connect-path.png)
+
+```bash
+mongosh mongodb://<YOUR_CONNECT_PATH>
+```
+
+`<YOUR_CONNECT_PATH>` をコピーしたコネクション文字列で置き換え、次のコマンドを使用して接続が成功したかどうかをテストできます：
+
+```bash
+use mongodb_test
+db.mongodb_test.insertOne({content: "Hello World"})
+show dbs
+```
+
+成功した場合、次のように表示されます：
+
+![mongosh-connect-success](/databases/mongodb/mongosh-connect-success.png)
+
+その後、テストデータベースを`削除`できます。
+
+```bash
+use mongodb_test
+db.drop()
+```

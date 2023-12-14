@@ -1,0 +1,73 @@
+---
+title: Qwikプロジェクトのデプロイ
+ogImageTitle: Qwikのデプロイ
+ogImageSubtitle: Zeabur上でQwikをデプロイする方法
+---
+
+# Qwikプロジェクトのデプロイ
+
+この記事では、[Qwik](https://qwik.builder.io)プロジェクトをZeaburにデプロイする方法を説明します。
+
+## プロジェクトの初期化
+
+まず、ローカル開発環境でQwikプロジェクトを初期化する必要があります。この手順を完了するために、[Qwik公式ドキュメント](https://qwik.builder.io/docs/getting-started/)の指示に従うことができます。
+
+```bash
+npm create qwik@latest
+```
+
+初期化を完了するための指示に従った後、次のようなものが表示されるはずです：
+
+```bash
+💫 Let's create a Qwik app 💫
+
+✔ プロジェクト名 … qwik-app
+✔ スターターを選択 › 基本
+
+🦄  成功！ プロジェクトがポートフォリオディレクトリに作成されました
+
+🐰 次のステップ:
+   cd qwik-app
+   npm install
+   npm start
+
+💬 統合？ Netlify、Cloudflare、Tailwindを追加…：
+   npm run qwik add
+
+💬 質問？ 会話を始める：
+   https://qwik.builder.io/chat
+   https://twitter.com/QwikDev
+
+📺 プレゼンテーション、ポッドキャスト、ビデオ:
+   https://qwik.builder.io/media/
+```
+
+そして、カレントディレクトリに`qwik-app`フォルダが作成されているはずです。
+
+## 開発
+
+初期化後、`qwik-app`フォルダに移動し、`npm start`を実行して開発サーバーを起動できます。
+
+```bash
+cd qwik-app
+npm start
+```
+
+次のようなものが表示されるはずです：
+
+```bash
+ VITE v3.1.1  ready in 140 ms
+
+  ➜  ローカル:   http://localhost:5174/
+  ➜  ネットワーク: --hostを使用して公開
+```
+
+次に、コードを変更してQwikプロジェクトを開発できます。
+
+## アダプターパッケージのインストール
+
+ZeaburでQwikプロジェクトを実行するために、デプロイ前にQwik Node.js（Express）アダプターパッケージをインストールする必要があります。
+
+```bash
+npm run qwik add express
+```

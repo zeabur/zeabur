@@ -1,0 +1,96 @@
+---
+title: Bun
+ogImageTitle: バンアプリの展開
+ogImageSubtitle: Zeaburでバンアプリを展開する
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# バン
+
+バンは高速を意識したオールインワンのJavaScriptランタイム＆ツールキットで、バンドラー、テストランナー、およびNode.js互換のパッケージマネージャーが完備されています。
+
+Zeaburで簡単にバンアプリを展開できます。
+
+## クイックスタート
+
+### バンアプリの作成
+
+次のコマンドを使用してバンアプリを初期化できます：
+
+```bash
+mkdir bun-app
+
+cd bun-app
+
+bun init
+```
+
+### HTTPサーバーの作成
+
+次のコードスニペットを`index.ts`に貼り付けて、`Bun.serve`を使用したシンプルなHTTPサーバーを実装します。
+
+`serve`関数内でポートを`Bun.env.PORT`に修正して、Zeaburが提供する環境変数`PORT`でアプリケーションが正しくリッスンできるようにしてください。
+
+```typescript filename="index.ts" {2}
+const server = Bun.serve({
+  port: Bun.env.PORT ?? 3000, //ポートをBun.env.PORTに修正
+  fetch() {
+    return new Response("ZeaburでのBun展開！");
+  },
+});
+
+console.log(`http://localhost:${server.port} でリッスン中 ...`);
+```
+
+また、`package.json`ファイルでエントリーポイントを指定する必要があります。
+
+<Callout type="info">
+ Zeaburは現在、次のファイル拡張子をエントリーポイントとしてサポートしています：`.js`、`.ts`、`.tsx`、`.jsx`、`.mjs`、`.mts`、`.cjs`、または`.cts`。
+ </Callout>
+
+```json filename="package.json" {3}
+{
+  "name": "bun-app",
+  "module": "index.ts", // zeaburにどこから始めるか教える
+  "type": "module",
+  // ...
+}
+```
+
+## 検出
+
+Zeaburは自動的にあなたのアプリケーションをバンアプリとして認識します。プロジェクトのルートディレクトリに`bun.lockb`ファイルがあることを確認してください。
+
+```plainc {2}
+root
+├── bun.lockb
+├── index.ts
+└── package.json
+```
+
+リポジトリに`bun.lockb`ファイルをコミットしたくない場合は、`bun.lockb`ファイルをプロジェクトにインストールすることができます。
+
+```json filename="package.json" {3}
+{
+  "devDependencies": {
+    "bun-types": "latest"
+  }
+}
+```
+
+## 展開
+
+**Git**ボタンをクリックします。
+
+**バンアプリ**リポジトリを検索し、インポートをクリックすると、**バンアプリ**が展開されます。
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+## エコシステム
+
+バンにはAstro、Nuxt、SvelteKit、ElysiaJSなどのさまざまなフレームワークを使用してアプリケーションを構築できる強力なエコシステムがあります。
+
+これらのアプリケーションを展開し、ランタイムまたはパッケージマネージャーとしてバンを使用できます。
+
+[Bun - エコシステム](https://bun.sh/guides/ecosystem)の詳細については、こちらをご覧ください。
