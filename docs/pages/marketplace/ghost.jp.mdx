@@ -1,0 +1,64 @@
+---
+title: Ghostサービスのデプロイ
+ogImageTitle: Ghostサービスのデプロイ
+ogImageSubtitle: ZeaburでのGhostサービスのワンクリックデプロイ
+
+import { Callout } from 'nextra-theme-docs'
+
+# Ghostサービスのデプロイ
+
+[Ghost](https://ghost.org/)は、新しいメディアクリエイターがコンテンツビジネスを公開、共有、および開発するための強力なアプリケーションです。
+
+この記事では、Zeaburのサービスマーケットを利用して、ご自身のGhostサービスをデプロイし、独自のドメイン名をバインドする方法について説明します。
+
+## ステップ1: プロジェクトの作成
+
+まず、プロジェクトを作成する必要があります。[プロジェクト](https://dash.zeabur.com/projects)ページに移動し、プロジェクトの一覧が表示されます。一覧の末尾にある「プロジェクトの作成」ボタンをクリックします。
+
+## ステップ2: MySQLサービスのデプロイ
+
+Zeaburでは、現在GhostサービスはMySQLデータベースのみをサポートしています。Ghostサービスを作成する前に、MySQLサービスをデプロイする必要があります（データベースはGhostサービスによって自動的に作成されます）。
+
+「サービスの作成」ボタンをクリックし、「マーケットプレイス」を選択します。一覧にMySQLが表示されます。
+
+![MySQLのデプロイ](/marketplace/ghost/deploy-mysql.png)
+
+それを選択して、MySQLサービスをデプロイします。
+
+## ステップ3: Ghostサービスのデプロイ
+
+Zeaburコンソールで、「サービスの作成」ボタンをクリックし、「マーケットプレイス」を選択します。一覧にGhostが表示されます。
+
+![Ghostサービスのデプロイ](/marketplace/ghost/deploy-ghost.png)
+
+それを選択して、Ghostサービスをデプロイします。
+
+<Callout>
+MySQLサービスをデプロイする前にGhostをデプロイした場合、ZeaburはGhostサービスにMySQL関連の環境変数を自動的に注入してくれるため、手動でデータベース情報を構成する必要はありません。
+
+MySQLをデプロイした後でGhostを再起動して、正しいデータベース接続情報をGhostが使用するようにするために、MySQLをデプロイする前にGhostをデプロイする必要があります。
+</Callout>
+
+デプロイ後、「一時停止」ボタンをクリックしてGhostサービスを一時停止し、ドメインの準備を開始します。
+
+![Ghostサービスの一時停止](/marketplace/ghost/ghost-suspend.gif)
+
+## ステップ4: ドメインのバインド
+
+ZeaburコンソールのGhostサービスの「ドメイン」ブロックで、それにドメインをバインドできます。このドメインは、独自のドメインまたはZeaburが提供する無料のドメインを使用できます。
+
+Ghostサービスにドメインをバインドする方法の詳細については、[ドメインのバインド](../deploy/domain-binding)を参照してください。
+
+ドメインを追加した後、[環境変数]セクションを開き、`url`をバインドしたばかりのドメインに変更します。変更後、Ghostは自動的に再起動します。
+
+![Ghostサービスの環境変数](/marketplace/ghost/ghost-env.png)
+
+## ステップ5: ログインしてGhostを構成する
+
+ドメインをバインドした後、ドメインの末尾に`/ghost`を追加して、お使いのGhostサービスを開始できます。
+
+![Ghost管理者構成インタフェース](/marketplace/ghost/ghost-admin-config.png)
+
+構成後、Ghostを使用してコンテンツクリエイターとしての旅を開始できます。
+
+![Ghost管理者ダッシュボード](/marketplace/ghost/ghost-admin-dashboard.png)

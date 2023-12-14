@@ -1,0 +1,79 @@
+---
+title: Haloのデプロイ
+ogImageTitle: Haloのデプロイ
+ogImageSubtitle: Zeabur上でHaloのデプロイ
+
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Haloサービスのデプロイ
+
+[Halo](https://halo.run/) はパワフルで使いやすいオープンソースのウェブサイト構築ツールで、豊富なテーマやプラグインを備えており、理想のサイトを構築するのに役立ちます。
+
+この記事では、Zeabur上で自分自身のHaloサービスをデプロイし、独自のドメイン名をバインドする方法をご紹介します。
+
+## ステップ1: プロジェクトの作成
+
+まず、プロジェクトを作成する必要があります。[Projects](https://dash.zeabur.com/projects) ページに移動し、プロジェクトの一覧が表示されます。一覧の最後にある「プロジェクトを作成」ボタンをクリックします。
+
+## ステップ2: PostgreSQLサービスのデプロイ
+
+Haloサービスは現在、ZeaburではPostgreSQLデータベースのみをサポートしています。Haloサービスを作成する前に、PostgreSQLサービスをデプロイし、データベースを作成する必要があります。
+
+「サービスを作成」ボタンをクリックし、"Marketplace" を選択します。リストの中にPostgreSQLがあります。
+
+![PostgreSQLサービスのデプロイ](/marketplace/halo/deploy-postgresql.ja-JP.png)
+
+PostgreSQLを選択した後、サービスにカスタム名を付けて「デプロイ」をクリックします。
+
+## ステップ3: データベースの作成
+
+Haloを実行するために、PostgreSQLに `halo` という名前のデータベースを作成する必要があります。
+
+任意のPostgreSQLクライアントでPostgreSQLサービスに接続してください。この記事では、[psql](https://www.postgresql.org/docs/9.1/app-psql.html) を使用します。
+
+![PostgreSQL接続情報ブロック](/marketplace/halo/postgre-connect.ja-JP.png)
+
+ZeaburコンソールのPostgreSQLサービスの「Connection」ブロックに、psql接続コマンドや他の接続情報を見つけることができます。
+
+例：
+
+```bash
+psql postgresql://root:password@infra.zeabur.com:12345
+```
+
+その後、次のコマンドをpsqlで入力し、 `halo` データベースを作成してください：
+
+```sql
+CREATE DATABASE halo;
+```
+
+## ステップ4: Haloサービスのデプロイ
+
+Zeaburコンソールで「サービスを作成」ボタンをクリックし、「Marketplace」を選択します。リストの中にHaloがあります。
+
+![Haloサービスのデプロイ](/marketplace/halo/deploy-halo.ja-JP.png)
+
+Haloを選択した後、サービスにカスタム名を付けて「デプロイ」をクリックします。
+
+<Callout>
+PostgreSQLサービスをHaloをデプロイする前にデプロイしたため、Zeaburは自動的にHaloのサービスに関連する環境変数をPostgreSQLに注入してくれますので、データベース情報を手動で設定する必要はありません。
+
+PostgreSQLをデプロイする前にHaloをデプロイした場合は、PostgreSQLをデプロイした後にHaloを再起動して、Haloが正しいデータベース接続情報を使用するようにする必要があります。
+
+</Callout>
+
+## ステップ5: ドメインのバインド
+
+ZeaburコンソールのHaloサービスの「Domain」ブロックで、ドメインをバインドすることができます。このドメインは、独自のドメインまたはZeaburが提供する無料のドメインであることができます。
+
+![Haloサービスのドメインブロック](/marketplace/halo/halo-domain.ja-JP.png)
+
+サービスにドメインをバインドする方法の詳細については、[ドメインのバインド](../deploy/domain-binding) を参照してください。
+
+## ステップ6: ログインしてHaloを設定する
+
+ドメインをバインドした後、ドメイン名をクリックしてHaloのセットアップページに入り、その指示に従ってセットアップを完了し、Haloサービスを使用してください。
+
+![Haloのコンソール](/marketplace/halo/halo-console.ja-JP.png)

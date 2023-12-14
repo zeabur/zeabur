@@ -1,0 +1,62 @@
+---
+title: Likitのデプロイ
+ogImageTitle: Likitのデプロイ
+ogImageSubtitle: ZeaburでLikitをデプロイする方法
+
+
+import { Callout } from 'nextra-theme-docs'
+
+# Likitのデプロイ
+
+[Likit](https://github.com/CorrectRoadH/Likit)は、いいね（投票、いいねの解除、カウント）機能のためのBackend as a Serviceです。
+
+本記事では、1分でZeabur上にLikitをデプロイする方法を紹介します。
+
+## 方法1: テンプレートからデプロイ（推奨）
+
+Likit用のテンプレートを用意しました。下のボタンを1回クリックするだけで実行中のLikitサービスを手に入れることができます。
+
+[![Zeaburでデプロイ](https://zeabur.com/button.svg)](https://zeabur.com/templates/KZOLHA?referralCode=CorrectRoadH)
+
+## 方法2: マーケットプレイスからデプロイ
+
+### ステップ1: プロジェクトの作成
+
+まず最初にプロジェクトを作成する必要があります。[プロジェクトページ](https://dash.zeabur.com/projects)に移動し、プロジェクトの一覧が表示されます。一覧の最後にある「プロジェクトの作成」ボタンをクリックします。
+
+### ステップ2: Postgresのデプロイ
+
+Likitサービスを作成する前に、Postgresサービスをデプロイする必要があります。
+
+「サービスの追加」をクリックし、「マーケットプレイス」を選択します。一覧からPostgreSQLを見つけます。
+
+![Postgresのデプロイ](/marketplace/likit/likit-postgres.png)
+
+### ステップ3: Redisのデプロイ
+
+Likitサービスを作成する前に、Redisサービスもデプロイする必要があります。
+
+「サービスの追加」をクリックし、「マーケットプレイス」を選択します。一覧からRedisを見つけます。
+
+![Redisのデプロイ](/marketplace/likit/likit-redis.png)
+
+### ステップ4: 事前に構築されたマーケットプレイスからデプロイ
+
+PostgresとRedisをデプロイした後、Likitをデプロイできます。
+
+マーケットプレイスの「事前に構築済み」セクションに移動します。一覧からLikitを見つけます。
+
+### ステップ5: ドメインのバインド
+
+サービスの起動と稼働を待っている間に、そのサービスにドメインをバインドできます。
+このドメインは、お客様独自のものであっても、Zeaburが提供する無料のドメインでも構いません。
+
+サービスページの「ドメイン」タブを開き、[ドメインの生成]または[カスタムドメイン]をクリックします。
+
+サービスにドメインをバインドする方法の詳細については、[ドメインのバインド](/deploy/domain-binding)を参照してください。
+
+### ステップ6: Likitの使用を開始
+
+ドメインをバインドした後、ドメインをクリックしてLikitダッシュボードにアクセスし、利用を開始できます。
+
+![Likitのプレビュー](/marketplace/likit/likit.png)

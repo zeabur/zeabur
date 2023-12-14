@@ -1,0 +1,103 @@
+---
+title: PostgreSQLのデプロイ
+ogImageTitle: PostgreSQLのデプロイ
+ogImageSubtitle: ZeaburでのPostgreSQLのデプロイ方法
+
+
+import { Callout } from 'nextra-theme-docs'
+
+# PostgreSQLサービス
+
+PostgreSQLは35年以上の活発な開発を経て、信頼性や機能の堅牢さ、パフォーマンスを備えた強力なオープンソースのオブジェクト関係データベースシステムです。
+
+Zeaburでは、PostgreSQLサービスのワンクリックデプロイ機能を提供し、数秒でZeabur上にPostgreSQLデータベースをデプロイできます。
+
+<Callout type="info" emoji="ℹ️">
+  現在、ZeaburのPostgreSQLサービスは最新バージョンをサポートしています。将来的にはより多くのバージョンがサポートされる予定ですのでお楽しみに。
+</Callout>
+
+## PostgreSQLサービスをデプロイする
+
+プロジェクトページで、**サービスの追加**ボタンをクリックし、**マーケットプレイス**を選択し、その後リストからPostgreSQLを見つけて選択します。
+
+![PostgreSQLのデプロイ](/marketplace/postgresql/deploy.png)
+
+PostgreSQLを選択した後、Zeaburは自動的にPostgreSQLサービスのデプロイを開始します。
+
+## 環境変数
+
+PostgreSQLサービスをデプロイした後、Zeaburは関連する環境変数を他のサービスに自動的に注入します。
+
+- `POSTGRES_HOST`
+
+- `POSTGRES_PORT`
+- `POSTGRES_USERNAME`
+- `POSTGRES_PASSWORD`
+
+
+時々、上記の環境変数を置き換えるために、自分で追加した`DATABASE_URL`を使用することができます。例えば:
+
+```bash copy
+postgres://<POSTGRES_USERNAME>:<POSTGRES_PASSWORD>@<POSTGRES_HOST>:<POSTGRES_PORT>/<DATABASE_NAME>
+```
+
+ここで、`<DATABASE_NAME>` は自分で追加したデータベースの名前です。
+
+## データベースの追加
+
+ZeaburのPostgreSQLでは、デフォルトでユーザー名とデータベース名が両方とも `root` です。
+
+時々、PostgreSQLサービスに`データベース`を追加する必要があるかもしれません。その場合は、以下の方法を使用してデータベースを追加できます。
+
+- [PgAdmin](#pgadmin)
+- [PSQL (sql shell)](#psql-sql-shell)
+
+### PgAdmin
+
+[pgAdmin](https://www.pgadmin.org/) は、PostgreSQL用の最も人気で機能豊富なオープンソースの管理および開発プラットフォームです。 [pgAdmin](https://www.pgadmin.org/) を使用して、ZeaburにデプロイされたPostgreSQLデータベースに接続できます。
+
+#### PgAdminのインストール
+
+まず、pgAdminクライアントをインストールする必要があります。pgAdminの[公式ウェブサイト](https://www.pgadmin.org/download/)にアクセスしてダウンロードし、インストール手順に従ってください。
+
+![pgadmin](/databases/pgsql/pgadmin.jpg)
+
+#### データベースの追加
+
+まず、**新しいサーバーの追加** をクリックし、関連する情報を入力します:
+
+![connect-pgsql](/databases/pgsql/connect-pgsql.png)
+
+その後、**データベース**セクションにデータベースを追加できます。
+
+![create-db](/databases/pgsql/create-db.png)
+
+### PSQL (sql shell)
+
+[psql](https://www.postgresql.org/docs/current/app-psql.html) は、端末ベースのPostgreSQLツールです。これにより、対話的にクエリを入力し、それらをPostgreSQLに送信し、クエリ結果を表示することができます。また、[psql](https://www.postgresql.org/docs/current/app-psql.html)は、スクリプトの記述とさまざまなタスクの自動化を容易にするための多くのシェルのような機能を提供します。
+
+#### PSQLのインストール
+
+PSQLを使用するには、まずPostgreSQLクライアントをインストールする必要があります。PostgreSQLの[公式ウェブサイト](https://www.postgresql.org/download/)にアクセスしてダウンロードし、インストール手順に従ってください。
+
+インストール後、コンピューターを再起動する必要がある場合があります。次のコマンドを入力して、インストールが成功したかどうかを確認できます:
+
+```bash copy
+psql --version
+```
+
+#### データベースの追加
+
+単純に以下のコマンドを入力することで、ZeaburにデプロイされたPostgreSQLデータベースに[psql](https://www.postgresql.org/docs/current/app-psql.html)を使用して接続できます:
+
+```bash copy
+psql -h <POSTGRES_HOST> -p <POSTGRES_PORT> -U <POSTGRES_USERNAME> -W
+```
+
+```sql copy
+CREATE DATABASE <DATABASE_NAME>;
+```
+
+このコマンドを`postgres=#` ステートに入力して実行することを忘れないでください。
+
+![psql-create-db](/databases/pgsql/psql-create-db.png)

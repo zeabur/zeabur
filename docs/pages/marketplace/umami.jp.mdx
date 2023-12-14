@@ -1,0 +1,64 @@
+---
+title: Umamiのデプロイ
+ogImageTitle: Umamiのデプロイ
+ogImageSubtitle: ZeaburでUmamiをデプロイする
+
+import { Callout } from 'nextra-theme-docs'
+
+# Umamiのデプロイ
+
+[Umami](https://umami.is/)は、プライバシーを重視する人々のためのシンプルで高速なウェブサイト分析ツールです。これは、Google Analyticsのオープンソースの代替です。
+
+この記事では、カスタムドメインを使用してZeaburにUmamiをデプロイする方法を紹介します。
+
+## ステップ1：プロジェクトの作成
+
+まず、プロジェクトを作成する必要があります。[プロジェクト](https://dash.zeabur.com/projects)ページに移動すると、プロジェクトのリストが表示されます。リストの最後にある「プロジェクトの作成」ボタンをクリックします。
+
+## ステップ2：PostgreSQLのデプロイ
+
+UmamiはMySQLとPostgreSQLの両方をサポートしています。データを保存するためにどちらかを選択できます。
+
+この記事では、PostgreSQLを例に使用します。[サービスの作成](/marketplace/umami/deploy-postgresql.png)ボタンをクリックし、「マーケットプレイス」を選択します。リストにPostgreSQLが表示されます。
+
+PostgreSQLを選択した後、サービスにカスタム名を付けて、「デプロイ」をクリックします。
+
+## ステップ3：データベースの作成
+
+Umamiを実行するために、PostgreSQLに`umami`という名前のデータベースを作成する必要があります。
+
+任意のPostgreSQLクライアントを使用して、PostgreSQLサービスに接続してください。この記事では、接続に[psql](https://www.postgresql.org/docs/9.1/app-psql.html)を使用します。
+
+[PostgreSQL接続情報ブロック](/marketplace/umami/postgre-connect.png)に、ZeaburコンソールのPostgreSQLサービスの「接続」ブロックに、psql接続コマンドやその他の接続情報が記載されています。
+
+```bash
+psql postgresql://root:password@infra.zeabur.com:12345
+```
+
+その後、psqlで以下のコマンドを入力して`umami`データベースを作成してください。
+
+```sql
+CREATE DATABASE umami;
+```
+
+## ステップ4：Umamiのデプロイ
+
+Zeaburコンソールで、「サービスの作成」ボタンをクリックし、「マーケットプレイス」を選択します。リストにUmamiが表示されます。
+
+Umamiを選択した後、サービスにカスタム名を付けて、「デプロイ」をクリックします。
+
+<Callout>
+  PostgreSQLをデプロイする前にUmamiをデプロイした場合、Umamiが正しいデータベース接続情報を使用するようにするために、PostgreSQLをデプロイした後にUmamiを再起動する必要があります。
+</Callout>
+
+## ステップ5：ドメインのバインド
+
+ZeaburコンソールのUmamiサービスの「ドメイン」ブロックでは、それにドメインをバインドすることができます。このドメインは、自分のドメインまたはZeaburが提供する無料のドメインにすることができます。
+
+詳細については、[ドメインのバインディング](../deploy/domain-binding)を参照してください。
+
+## ステップ6：ログインしてUmamiを設定する
+
+ドメインをバインドした後、Umamiのログインページに入るためにドメインをクリックし、デフォルトのアカウント`admin`とパスワード`umami`を使用してログインできます。
+
+Umamiについての詳細については、[Umami公式ドキュメント](https://umami.is/docs)を参照してください。

@@ -1,0 +1,97 @@
+---
+title: WordPressの展開
+ogImageTitle: WordPressの展開
+ogImageSubtitle: ゼーバーでワンクリックで独自のWordPressサービスを展開
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# WordPressの展開
+
+[WordPress](https://wordpress.org/)は、誰もが簡単に美しいウェブサイト、ブログ、またはアプリを構築できるオープンソースソフトウェアです。
+
+この記事では、ご希望のドメインでゼーバー上に独自のWordPressサービスを展開する方法を紹介します。
+
+## ステップ1：プロジェクトの作成
+
+まず、ゼーバー上でプロジェクトを作成する必要があります。[プロジェクト一覧](https://dash.zeabur.com/projects)ページに移動し、プロジェクトの一覧が表示されるので、すべてのプロジェクトの末尾にある「プロジェクトの作成」ボタンをクリックしてください。
+
+## ステップ2：MySQLの展開
+
+WordPressサービスを作成する前に、MySQLサービスを展開する必要があります。
+
+「サービスの追加」をクリックし、「マーケットプレイス」を選択します。リストからMySQLを見つけることができます。
+
+![MySQLの展開](/marketplace/wordpress/deploy-mysql.png)
+
+これを選択してMySQLを展開します。
+
+## ステップ3：データベースの作成
+
+WordPressサービスを正しく機能させるためには、まずMySQLデータベース内に`wordpress`という名前のデータベースを作成する必要があります。
+
+お好みのクライアントでMySQLサービスに接続できます。 この記事では、[mysqlsh](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell.html)を使用します。
+
+![MySQL接続情報](/marketplace/wordpress/mysql-connect.png)
+
+MySQLサービス内の「接続」セクションでMySQL接続コマンドを見つけることができます。
+
+例：
+
+```bash
+mysqlsh --host=infra.zeabur.com --port=11451 --user=root --password=wordpress-demo
+```
+
+ターミナルに入る前に、`mysqlsh`の後に` --sql`を追加してください：
+
+```bash
+mysqlsh --sql --host=infra.zeabur.com --port=11451 --user=root --password=wordpress-demo
+```
+
+その後、mysqlshで次のSQL命令を入力して`wordpress`データベースを作成してください：
+
+```sql
+CREATE DATABASE wordpress;
+```
+
+`Query OK, 1 row affected (0.0573 sec)`のような表示が出た場合、必要なデータベースが作成されていることを意味し、<kbd>Ctrl</kbd>（<kbd>Control</kbd>） + <kbd>D</kbd>を押して終了できます。
+
+![MySQLの操作](/marketplace/wordpress/mysql-operation.png)
+
+## ステップ4：WordPressサービスの展開
+
+ゼーバーコンソールで、「サービスの作成」をクリックし、「サービスマーケットプレイス」を選択してください。リストからWordPressを見つけることができます。
+
+![WordPressサービスの展開](/marketplace/wordpress/deploy-wordpress.png)
+
+プロジェクトをクリックして展開を完了してください。
+
+<Callout>
+WordPressを展開する前にMySQLサービスを展開しているため、ZeaburはMySQLに関連する環境変数を自動的にWordPressサービスに注入します。そのため、データベース情報を手動で設定する必要はありません。
+
+WordPressを先に展開し、まだMySQLを展開していない場合、MySQLサービスを展開した後にWordPressサービスを再起動する必要があります。これによりWordPressが正しいデータベース接続情報を取得できます。
+
+</Callout>
+
+
+## ステップ5：ドメインのバインド
+
+ゼーバーコンソールのWordPressサービスの「ドメイン」セクションでは、ドメイン名をバインドすることができます。このドメイン名は、ご自身のドメイン名またはゼーバーが提供する無料ドメイン名を使用できます。
+
+![WordPressサービスのドメインブロック](/marketplace/wordpress/wordpress-domain.png)
+
+サービスにドメイン名をバインドする方法についての情報は、[ドメインバインディング](../deploy/domain-binding)を参照してください。
+
+## ステップ6：ログインしてWordPressを設定する
+
+ドメインのバインドを完了した後、ドメイン名をクリックしてWordPressのインストール画面に移動できます。まず、希望する言語を選択して「続行」をクリックしてください：
+
+![WordPressインストール、言語の選択](/marketplace/wordpress/wordpress-inst-step1.png)
+
+その後、インストールの手順に従ってください：
+
+![WordPressインストール、パスワードとサイト情報の設定](/marketplace/wordpress/wordpress-inst-step2.png)
+
+これを見たら、インストールが完了です。
+
+![WordPressインストール、インストールの完了](/marketplace/wordpress/wordpress-inst-step3.png)

@@ -1,0 +1,26 @@
+---
+title: プライベートネットワーキング
+ogImageTitle: プライベートネットワーキング
+ogImageSubtitle: サービス同士が接続できるネットワーク
+---
+
+# プライベートネットワーキング
+
+プライベートネットワーキングを使用すると、サービスは同じプロジェクト内の他のサービスに接続するために固定されたホスト名を使用できます。
+
+## ホスト名の検索
+
+サービスの「Networking」セクションを開き、"Private" の下にホスト名を見つけます。
+
+![ホスト名の検索](/deploy/private-networking/find-hostname.png)
+
+## サービスへの接続
+
+上記のホスト名を使用して、このサービスに接続します（この例では、PostgreSQL を使用しています）。さらに、[PostgreSQL のドキュメント](/marketplace/postgresql)によると、ポートは `POSTGRES_PORT` 環境変数に注入されます。したがって、接続情報は次のように入力できます。
+
+- ホスト名：前の手順で見つけたホスト名。この例では、`postgresql.zeabur.internal` です。
+- ポート：`POSTGRES_PORT` 環境変数から値を取得します。これは[デフォルトで 5432 に設定されています](https://github.com/zeabur/zeabur/blob/bd565389cf1868a917333d0f74003b4aad6ef0ce/prebuilts/postgresql.toml#L14)。
+
+## 重要な注意事項
+
+- サービス名を変更してもホスト名は**変更されません**。
