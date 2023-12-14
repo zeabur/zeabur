@@ -1,0 +1,18 @@
+#:schema ./schema.json
+
+id = "artalk"
+name = "Artalk"
+icon = "https://avatars.githubusercontent.com/u/76841221?s=48&v=4"
+description = "A Self-hosted comment system."
+
+[source]
+image = "artalk/artalk-go:2.6"
+
+[[ports]]
+id = "web"
+port = 23366
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/data"
