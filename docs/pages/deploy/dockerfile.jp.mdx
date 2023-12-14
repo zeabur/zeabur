@@ -11,7 +11,8 @@ import { Callout } from 'nextra-theme-docs'
 通常、自分で `Dockerfile` を書く必要はありません。Zeabur では現在、さまざまな人気のあるフレームワークに対する高速なデプロイ方法を提供していますが、もしあなたのプロジェクトがこれらのフレームワークを利用していない場合や独自のデプロイ方法を定義したい場合は、`Dockerfile` を使用してデプロイすることができます。
 
 <Callout type="warning">
-  Zeabur は現在、Dockerfile によるデプロイをサポートしており、Docker Compose によるデプロイは提供していません。
+  Zeabur は現在、Dockerfile によるデプロイをサポートしており、Docker Compose
+  によるデプロイは提供していません。
 </Callout>
 
 ## Dockerfile の作成
@@ -21,7 +22,9 @@ import { Callout } from 'nextra-theme-docs'
 Zeabur は自動的にあなたのプロジェクトに `Dockerfile` があるかどうかを検出します。もし存在する場合は、Docker を使用してプロジェクトをデプロイします。
 
 <Callout type="info">
-  デプロイが開始されると、上に Docker アイコンが表示されます。これはプロジェクトが Docker を使用してデプロイされたことを意味します。
+  デプロイが開始されると、上に Docker
+  アイコンが表示されます。これはプロジェクトが Docker
+  を使用してデプロイされたことを意味します。
 </Callout>
 
 ![docker-deploy](/deploy/dockerfile/docker-deploy.png)
@@ -32,7 +35,7 @@ Zeabur は自動的にあなたのプロジェクトに `Dockerfile` がある�
 
 ![環境変数](/environment/add-variables.png)
 
-もしあなたの `Dockerfile` が1つの段階で書かれているか、あるいはあなたの環境変数が最終段階でのみ使用される必要がある場合は、手動で `ENV` を書く必要はありません。Zeabur は自動的に追加します。
+もしあなたの `Dockerfile` が 1 つの段階で書かれているか、あるいはあなたの環境変数が最終段階でのみ使用される必要がある場合は、手動で `ENV` を書く必要はありません。Zeabur は自動的に追加します。
 
 ### ARG
 
@@ -71,11 +74,11 @@ CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/ngin
 
 モノレポで異なるプロジェクトをデプロイしたい場合は、`Dockerfile.[service-name]`（または `[service-name].Dockerfile`）を作成し、サービス名を使用して指定した Dockerfile をデプロイすることができます。
 
-例えば、同じ Git リポジトリを使用する3つのマイクロサービスをデプロイしたい場合、次のように Dockerfile を命名することができます：
+例えば、同じ Git リポジトリを使用する 3 つのマイクロサービスをデプロイしたい場合、次のように Dockerfile を命名することができます：
 
--  `Dockerfile.storage`（または `storage.Dockerfile`）：Node.js の `storage` マイクロサービスをデプロイ
--  `Dockerfile.discord`（または `discord.Dockerfile`）：Node.js の `discord` マイクロサービスをデプロイ
--  `Dockerfile.frontend`（または `frontend.Dockerfile`）：Next.js の `frontend` フロントエンドをデプロイ
+- `Dockerfile.storage`（または `storage.Dockerfile`）：Node.js の `storage` マイクロサービスをデプロイ
+- `Dockerfile.discord`（または `discord.Dockerfile`）：Node.js の `discord` マイクロサービスをデプロイ
+- `Dockerfile.frontend`（または `frontend.Dockerfile`）：Next.js の `frontend` フロントエンドをデプロイ
 
 Zeabur でプロジェクトをデプロイした後は、「設定」→「サービス名」に移動し、上記の例に示されているように値を希望のサービス名（例： `storage`、`discord`、`frontend`）に変更します。
 

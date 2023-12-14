@@ -1,0 +1,68 @@
+---
+title: TypeScript
+ogImageTitle: デプロイDeno
+ogImageSubtitle: ZeaburでDenoをデプロイ
+---
+
+# TypeScriptでDenoアプリをデプロイ
+
+この記事では、[Deno](https://deno.land/) プロジェクトをZeaburにデプロイする方法について説明します。
+
+## TypeScriptでDenoアプリを作成する（オプション）
+
+- コンピューターにDenoをインストールします。
+
+- [Denoの公式ドキュメント](https://deno.land/manual/getting_started/installation)でより詳細な手順を確認できます。
+
+新しいファイル `main.ts` を作成します。
+
+```bash
+touch main.ts
+```
+
+次の内容を `main.ts` に追加します。
+
+Zeaburが提供する環境変数 `PORT` に基づいて、`serve` 関数内でポートを `Deno.env.get("PORT")` に修正して、アプリケーションが正しくリッスンできるようにしてください。
+
+```typescript
+// in main.ts
+import { serve } from "https://deno.land/std@0.140.0/http/server.ts";
+
+function handler(_req: Request): Response {
+  return new Response("こんにちは、これはZeabur (https://zeabur.com) でデプロイされたDeno (https://deno.land/) webアプリです");
+}
+
+serve(handler, { port: Deno.env.get("PORT") });
+```
+
+新しいファイル `deno.json` を作成し、`tasks` フィールドに `start` コマンドを追加します。
+
+```bash
+touch deno.json
+# in deno.json
+{
+  "tasks": {
+    "start": "deno run --allow-net --allow-env --allow-read main.ts"
+  }
+}
+```
+
+## 開発
+
+`deno task start` を実行して開発サーバーを起動します。
+
+```bash
+deno task start
+```
+
+その後、コードを変更して TypeScript プロジェクトを開発できます。
+
+完成したら、GitHubリポジトリを初期化し、アップロードします。
+
+## デプロイ
+
+**新しいサービスを追加** ボタンをクリックし、**ソースコードをデプロイ** を選択してください。
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Denoアプリのリポジトリを検索し、インポートしてください。Denoアプリはデプロイが開始されます。

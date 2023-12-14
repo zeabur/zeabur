@@ -1,0 +1,64 @@
+---
+title: Nue
+ogImageTitle: Nue Appの展開
+ogImageSubtitle: ZeaburでNue Appを展開
+---
+
+# Nue Appの展開
+
+[Nue](https://nuejs.org/)は、強力なReact、Vue、Next.js、Vite、Astroの代替手段です。それはあなたがウェブのために開発する方法を変えるかもしれません。
+
+このドキュメントでは、1分以内にZeaburでNue Appを展開する方法を紹介します。
+
+## ステップ1: Nue Appの作成
+
+### 方法1: `create-nue`でブートストラップ
+
+`create-nue`リポジトリは、Nue JSを始める最良の方法です。
+
+```bash
+# リポジトリをクローン
+git clone https://github.com/nuejs/create-nue.git
+
+# 新しく作成したアプリに移動
+cd create-nue
+
+# 依存関係をインストール
+npm install
+
+# デモサイトをビルドし、HTTPサーバーを起動
+npm run start
+
+# ブラウザでデモを開く
+open "http://localhost:8080"
+```
+
+#### GitHubにアップロード
+
+Nue AppをZeaburに展開する場合は、まずコードをGitHubにアップロードする必要があります。
+
+GitHubで新しいリポジトリを作成し、コードをプッシュしてください。詳細な手順は[こちら](https://docs.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line)を参照してください。
+
+### 方法2: Zeaburテンプレートを使用
+
+Nue App用の[テンプレート](https://github.com/zeabur/nuejs-template)を用意しています。**このテンプレートを使用**ボタンをクリックしてテンプレートを使用できます。
+
+![このテンプレートを使用](/guides/nodejs/nue/template.png)
+
+## ステップ2: Nue Appの展開
+
+**サービスを展開**または**新しいサービスを追加**ボタンをクリックし、**ソースコードを展開**を選択します。
+
+![展開](/deploy/common/select-service.en-US.png)
+
+Nue Appリポジトリを検索し、インポートボタンをクリックすると、Nue Appが自動的に展開が開始されます。
+
+## 次は何ですか
+
+展開が完了したら、Nue Appのドメイン名を構成する必要があります。
+
+サービスページの「ドメイン」タブを開き、「ドメインの作成」または「カスタムドメイン」をクリックしてください。
+
+サービスにドメインをバインドする手順の詳細については、[ドメインのバインド](../deploy/domain-binding)を参照してください。
+
+![ドメインのバインド](/guides/nodejs/nue/domain.png)

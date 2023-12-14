@@ -1,0 +1,78 @@
+---
+title: Rust
+ogImageTitle: Rustアプリのデプロイ
+ogImageSubtitle: ZeaburでのRustアプリケーションのデプロイ
+---
+
+# Rustプロジェクトのデプロイ
+
+Zeaburはほとんどの種類のRustアプリケーションをサポートしています。デフォルトでは、実行可能ファイルを自動的に検出して実行しますが、
+"Service Name"フィールドで実行する実行可能ファイルを指定することもできます。
+
+もしRustプロジェクトを持っていない場合は、[zeabur/axum-template](https://github.com/zeabur/axum-template)をGitHubアカウントにフォークして、Zeaburでデプロイしてみてください。
+
+## サポートされているプロジェクトの種類
+
+- シングル実行可能プロジェクト: 単一の `src/main.rs` エントリーポイントを持つRustプロジェクト。
+  Zeaburは`target/release`ディレクトリ内の唯一の実行可能な成果物を見つけます。
+  また、行いたい動作をZeaburに実行させるために、"Service Name"フィールドに成果物のファイル名を記入することもできます。
+- マルチ実行可能プロジェクト: `src/main.rs` および `src/bin` 内の他のファイルを含む、複数のエントリーポイントを持つRustプロジェクト。
+  実行可能ファイルのファイル名を"Service Name"フィールドに記入する必要があります。
+- Cargo Workspace mono-repo: 複数のクレートを持つRustプロジェクト。
+  実行可能ファイルのファイル名を"Service Name"フィールドに記入する必要があります。
+
+記述した実行可能ファイルのファイル名が見つからない場合、Zeaburは実行可能ファイルを自動的に検出しようとします。
+Zeaburは`target/release`内のすべてのファイルをスキャンし、最初に見つかった実行可能ファイルを実行します。
+このパターンは誤って推測されやすいため（マルチ実行可能プロジェクトなどの複雑なシナリオでは）、正しい"Service Name"を記入することをお勧めします。
+詳細は「成果物のファイル名の検索」を参照してください。
+
+## 成果物のファイル名の検索
+
+成果物はプロジェクトの`target/release`ディレクトリにあります。以下の手順で確認できます:
+
+1. プロジェクトをコンパイルするにはRustツールチェーンが必要です。[rust-lang.org](https://www.rust-lang.org) からダウンロードしてください。
+2. デプロイしたいプロジェクトをクローンし、プロジェクトディレクトリに移動します。
+3. `cargo build --release` を実行してプロジェクトをコンパイルします。
+
+    ```bash
+    $ cargo run --release
+    Compiling zeabur v0.1.0 (/project)
+      Finished release [optimized] target(s) in 0.65s
+      Running `target/release/zeabur`
+    ```
+
+4. "Running"で始まる行を見つけ、以下のパス（`target/release/zeabur`）のベース（末尾）名を選択します。
+   この場合、「zeabur」です。
+5. "Service Name"フィールドに`zeabur`を記入します。
+
+## その他のファイルのコピー
+
+アプリケーションが、実行可能なファイルに加えて、ソースコードリポジトリ内の他のファイルやディレクトリに依存する場合があります。例えば:
+
+```plain
+*public
+|`-- public <-- アプリケーションがこのフォルダに依存しています
+|``-- src
+|-- main.rs
+|``-- Cargo.toml
+|``-- Cargo.lock
+`-- config.toml <-- アプリケーションがこのファイルに依存しています
+```
+
+Zeaburでは、`.zeabur-preserve`というファイルを使用してこれらを保持することができます。保存したいファイルやディレクトリをこのファイルに記入します。ディレクトリ名はオプションで`/`で終わることもできます。
+以下は例です:
+
+```plain
+public/
+config.toml
+```
+
+## 技術的な詳細と考慮事項
+
+- RustイメージはMulti-Stage Buildに基づいており、ランタイムには`docker.io/library/debian:bookworm-slim`をベースイメージとして使用しています。
+  特定のパッケージが不足しているため、ランタイムで動的ライブラリが正常に動作しないことがあります。この場合は、このパッケージのサポートの追加に関するチケットを開いてください。
+  - 現在、ランタイム環境には`openssl`がインストールされています。
+- 実行時に`root`はありません。必要な場合は独自のDockerfileを持参してください。
+- コンパイルを高速化するために`lld`を使用しています。プロジェクトが`lld`をサポートしていない場合、標準の`ld`を呼び出すためにプロジェクト内で`config.toml`を指定することをお勧めします。
+  `mold`などの組み込みでないリンカーを使用したい場合は、独自のDockerfileを作成する必要があります。
+- ビルドレイヤーのキャッシュを最大限に活用するために`cargo-chef`を使用しています。互換性の問題が発生した場合は、Zeaburか[`LukeMathWalker/cargo-chef`](https://github.com/LukeMathWalker/cargo-chef)に報告してください。
