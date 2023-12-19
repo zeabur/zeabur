@@ -1,0 +1,18 @@
+#:schema ./schema.json
+
+id = "lobe-chat"
+name = "Lobe Chat"
+icon = "https://i.imgur.com/1N9pEHJ.png"
+description = "An open-source, high-performance chatbot framework that supports speech synthesis, multimodal, and extensible Function Call plugin system."
+
+[source]
+image = "lobehub/lobe-chat"
+
+[[ports]]
+id = "web"
+port = 3210
+type = "HTTP"
+
+[env]
+OPENAI_API_KEY = { default = "sk-xxxx" }
+ACCESS_CODE = { default = "lobe66" }
