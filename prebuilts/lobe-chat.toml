@@ -14,5 +14,5 @@ port = 3210
 type = "HTTP"
 
 [env]
-OPENAI_API_KEY = { default = "sk-xxxx" }
+OPENAI_API_KEY = { default = "sk-xxxx", required = true }
 ACCESS_CODE = { default = "lobe66" }
