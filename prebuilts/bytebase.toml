@@ -6,7 +6,7 @@ icon = "https://avatars.githubusercontent.com/u/74386897"
 description = "Bytebase is Database CI/CD for DevOps teams."
 
 [source]
-image = "bytebase/bytebase:2.9.1"
+image = "bytebase/bytebase:2.12.0"
 
 [[ports]]
 id = "web"
