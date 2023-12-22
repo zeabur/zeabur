@@ -1,0 +1,53 @@
+---
+title: Astro 
+ogImageTitle: Astroサイトのデプロイ 
+ogImageSubtitle: ZeaburでAstroサイトをデプロイする
+---
+
+import { Callout } from 'nextra-theme-docs';
+
+# Astroサイトのデプロイ
+
+[Astro](https://astro.build/) は、現代のウェブのためのウェブサイト構築ツールです - 強力な開発者体験と軽量な出力が一体となっています。
+
+このガイドでは、Zeabur で Astro サイトをデプロイする方法を説明します。
+
+## ステップ1: Astro プロジェクトの作成
+
+### 方法1: Astro CLI でブートストラップ
+
+以下のコマンドを使用してAstroプロジェクトを作成し、指示に従います。
+
+```bash
+npm create astro@latest
+```
+
+### 方法2: 私たちのテンプレートからクローン
+
+Astroを始めるための2つのテンプレートを用意しました。
+
+- [Astro Static Template](https://github.com/zeabur/astro-static-template)
+- [Astro SSR Template](https://github.com/zeabur/astro-ssr-template)
+
+これらのテンプレートは、GitHubページのUse this templateボタンをクリックして使用できます。
+
+## ステップ2: Zeabur へのデプロイ
+移動する [Zeaburのダッシュボード](https://dash.zeabur.com) そして、まだプロジェクトを作成していない場合は、新しいプロジェクトを作成します。
+
+次に、Deploy New Serviceボタンをクリックし、GitHubからデプロイを選択します。
+
+<Callout> 
+Zeaburで初めてGitHubからデプロイする場合、最初にGitHubアプリケーションを設定してインストールする必要があります。 
+より詳細なガイドは[こちら](../../deploy/github)をご覧ください。
+ </Callout>
+
+リポジトリとブランチを選択した後、Zeaburは自動的にサービスのビルドを開始します。
+
+Zeaburは、サービスがAstroによって構築されたことを自動的に検出しますので、余分な設定をする必要はありません。そして、デプロイは数分で完了します。
+
+## 次に何をすべきか
+デプロイが完了したら、Astroサイトのドメイン名を設定する必要があるかもしれません。
+
+サービスページの「ドメイン」タブを開き、"Generate Domain" または "Custom Domain" をクリックします。
+
+サービスにドメインをバインドする方法の詳細については、ドメインのバインドを[参照してください](../../deploy/domain-binding)。
