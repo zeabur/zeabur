@@ -10,7 +10,7 @@ image = "bytebase/bytebase:2.12.0"
 
 [[ports]]
 id = "web"
-port = 80
+port = 8080
 type = "HTTP"
 
 [[volumes]]
