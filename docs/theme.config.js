@@ -1,4 +1,4 @@
-import { useConfig } from 'nextra-theme-docs'
+import {Callout, useConfig} from 'nextra-theme-docs'
 import { useRouter } from 'next/router'
 import WorkingInProgress from './components/WorkingInProgress'
 import LogoBlack from './public/logo_b.svg'
@@ -19,9 +19,7 @@ export default {
   },
   primaryHue: { dark: 278, light: 265 },
   docsRepositoryBase: 'https://github.com/zeabur/zeabur/tree/main/docs',
-  components: {
-    WorkingInProgress: WorkingInProgress,
-  },
+  components: { WorkingInProgress, Callout },
   i18n: [
     { locale: 'en-US', text: 'English' },
     { locale: 'zh-TW', text: '繁體中文' },
