@@ -1,0 +1,55 @@
+---
+title: Astro
+ogImageTitle: Deploy Astro Site
+ogImageSubtitle: Deploy Astro Site in Zeabur
+---
+
+import { Callout } from 'nextra-theme-docs';
+
+# Deploy Astro Site
+
+[Astro](https://astro.build/) is a website build tool for the modern web — powerful developer experience meets lightweight output.
+
+This guide will help you to deploy your Astro site in Zeabur.
+
+## Step1: Create an Astro project
+
+### Method 1: Bootstrap with Astro CLI
+
+You can create an Astro project with the command below and follow the instructions.
+
+```bash
+npm create astro@latest
+```
+
+### Method 2: Clone from our template
+
+We've prepared two templates for you to get started with Astro.
+
+- [Astro Static Template](https://github.com/zeabur/astro-static-template)
+- [Astro SSR Template](https://github.com/zeabur/astro-ssr-template)
+
+You can use these template by clicking on the `Use this template` button on the GitHub page.
+
+## Step2: Deploy to Zeabur
+
+Go to [your dashboard of Zeabur](https://dash.zeabur.com) and create a new project if you haven't done so.
+
+Then, click on the `Deploy New Service` button, select deploy from GitHub.
+
+<Callout>
+    If it's your first time to deploy from GitHub on Zeabur, you need to configure and install the GitHub application first.
+    You can check a more detailed guide [here](/deploy/github).
+</Callout>
+
+After select the repository and branch, Zeabur will automatically start building your service.
+
+Zeabur will automatically detect that your service is built by Astro, so you don't have to do any extra configuration. And your deployment will be finished in a few minutes.
+
+## What's next
+
+After the deployment is complete, you may need to configure the domain name for your Astro site.
+
+Open the "Domain" tab in the service page and click on "Generate Domain" or "Custom Domain".
+
+For more information about how to bind a domain to your service, please refer to [Bind a domain](/deploy/domain-binding).
