@@ -84,6 +84,32 @@ The default settings in `zbpack.json` will be applied to all deployed services. 
 
 The priority of applying the settings is `zbpack.[service name].json` > `zbpack.json`.
 
+## Configure Node.js Version and Package Manager Version
+
+### Node.js Version
+
+By default, Zeabur uses the latest LTS version of Node.js to build your project. 
+
+If you want to use a different version, you can specify it in your `package.json`:
+
+```json
+{
+    "engines": {
+        "node": "18.1.0"
+    }
+}
+```
+
+### Package Manager Version
+
+By default, Zeabur uses yarn to install dependencies for your project. If you want to use a different package manager, you can specify it in your `package.json`:
+
+```json
+{
+    "packageManager": "pnpm@8.0.0"
+}
+```
+
 ## Deploying in Serverless Mode
 
 If your Node.js project meets the following criteria, you can deploy it in Serverless mode on Zeabur:

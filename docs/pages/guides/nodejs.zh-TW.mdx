@@ -90,6 +90,35 @@ monorepo，並且預設的設定會導致專案編譯失敗，你可能得停用
 
 `zbpack.json` 的套用優先級是 `zbpack.[服務名稱].json` > `zbpack.json`。
 
+## 指定 Node.js 和包管理器版本
+
+### Node.js 版本
+
+預設情況下，Zeabur 會使用最新的 LTS Node.js 版本來建置你的項目。
+
+如果你想使用不同的版本，你可以在 `package.json` 中指定：
+
+```json
+{
+    "engines": {
+        "node": "18.1.0"
+    }
+}
+```
+
+### 套件管理器版本
+
+預設情況下，Zeabur 會使用 yarn 來安裝你的專案依賴。
+
+如果你想使用其他的套件管理器以及特定的版本，你可以在 `package.json` 中指定：
+
+
+```json
+{
+    "packageManager": "pnpm@8.0.0"
+}
+```
+
 ## 以 Serverless 方式部署
 
 如果你的 Node.js 符合以下條件，那麼你可以在 Zeabur 使用 Serverless 方式部署：
