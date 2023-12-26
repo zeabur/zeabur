@@ -1,24 +1,18 @@
 ---
-title: 部署 Logto
-ogImageTitle: 部署 Logto
+title: Logto
+ogImageTitle: 在 Zeabur 部署 Logto
 ogImageSubtitle: 在 Zeabur 部署 Logto 服務
 ---
 
-import { Callout } from 'nextra-theme-docs'
-
-# Deploy Logto Service
+# 在 Zeabur 部署 Logto
 
 [Logto](https://logto.io/) 是一個開源的身份驗證服務，可以幫助你在你的應用程式中快速實現身份驗證，同時也是最著名的 [Auth0](https://auth0.com/) 開源替代品。
 
 本文將教你如何在 Zeabur 上輕鬆部署一個 Logto 服務，並且綁定自己的網域，讓你的其他網站能夠用自己部署的 Logto 服務來驗證身份。
 
-## Step 1: Create a Project
-
 ## 步驟一：建立項目
 
 首先，我們需要先在 Zeabur 上建立一個項目，請前往 [項目列表](https://dash.zeabur.com/projects) 頁面，你會看到你的所有項目，而「建立項目」按鈕就在所有項目的最後面。
-
-## Step 2: Deploy PostgreSQL Service
 
 ## 步驟二：部署 PostgreSQL 服務
 
@@ -27,8 +21,6 @@ Logto 會將使用者身份資料儲存在 PostgreSQL 資料庫中，請點選�
 ![Deploy PostgreSQL](/marketplace/postgresql/deploy.png)
 
 選擇了 PostgreSQL 後，你的 PostgreSQL 服務將會自動部署。
-
-## Step 3: Create a Database
 
 ## 步驟三：建立資料庫
 
@@ -109,8 +101,6 @@ Logto 服務需要 2 個環境變數：
 ```
 
 加入好變數後，點選 **Restart** 按鈕並等待大約 1 分鐘，服務將會重啟並生效。
-
-## Step 7: Log in and Configure Logto
 
 ## 步驟七：登入並配置 Logto
 

@@ -6,5 +6,6 @@
   "python": "Python",
   "go": "Go",
   "deno": "Deno",
-  "rust": "Rust"
+  "rust": "Rust",
+  "swift": "Swift"
 }

@@ -1,7 +1,67 @@
 ---
-title: 部署 Uptime Kuma 服務
-ogImageTitle: 部署 Uptime Kuma 服務
-ogImageSubtitle: 在 Zeabur 一鍵部署 Uptime Kuma 服務
+title: Uptime Kuma
+ogImageTitle: 在 Zeabur 上部署 Uptime Kuma
+ogImageSubtitle: 部署 Uptime Kuma 服務
 ---
 
-<WorkingInProgress />
+# 在 Zeabur 上部署 Uptime Kuma
+
+[Uptime Kuma](https://github.com/louislam/uptime-kuma) 是一款簡便易用的自架式監控工具。
+
+本文將向您展示如何在 Zeabur 上於一分鐘內部署 Uptime Kuma。
+
+## 方法 1：從模板部署（推薦）
+
+我們已經為您準備了模板，您唯一需要做的就是點擊下方的按鈕，就可以獲得一個正在運行的 Uptime Kuma 服務。
+
+![從模板部署](/marketplace/uptime-kuma/template.png)
+
+[![在 Zeabur 上部署](https://zeabur.com/button.svg)](https://dash.zeabur.com/templates/Q764RP)
+
+## 方法 2：從服務市集部署
+
+### 步驟 1：建立一個專案
+
+首先，我們需要建立一個專案。轉到 [專案頁面](https://dash.zeabur.com/projects)，您將看到專案列表。點擊列表末尾的「建立專案」按鈕。
+
+### 步驟 2：從 Marketplace 部署
+
+建立專案後，您將被重新導向到專案頁面。
+
+點擊「新增服務」按鈕，然後選擇「Marketplace」。您將在列表中找到 Uptime Kuma。
+
+![部署 Uptime Kuma](/marketplace/uptime-kuma/deploy.png)
+
+點擊它或按 Enter，您的 Uptime Kuma 服務將開始部署。
+
+### 步驟 3：綁定一個網域
+
+當您等待此服務正在運行時，您可以將網域繫結到它。此網域可以是您自己的網域或 Zeabur 提供的免費網域。
+
+開啟服務頁面中的「網域」選項卡，然後點擊「產生網域」或「自訂網域」。
+
+有關如何將網域繫結到服務的更多資訊，請參閱 [繫結網域](../deploy/domain-binding)。
+
+![網域繫結](/marketplace/uptime-kuma/domain.png)
+
+### 步驟 4：配置您的 Uptime Kuma
+
+綁定網域後，您可以點擊該網域輸入 Uptime Kuma 登入頁面，然後填寫表格以建立您的管理員資訊。
+
+![配置 Uptime Kuma](/marketplace/uptime-kuma/configure.png)
+
+點擊「建立」按鈕，您將進入 Uptime Kuma 儀表板。
+
+![Uptime Kuma 儀表板](/marketplace/uptime-kuma/dashboard.png)
+
+### 步驟 5：開始監控
+
+在儀表板中，您可以點擊「新增監控」按鈕新增您的第一個監控，然後您可以設定您的第一個監控！
+
+![監控設定](/marketplace/uptime-kuma/monitoring-setup.png)
+
+點擊儲存，您將在儀表板中看到您的監控。
+
+![監控](/marketplace/uptime-kuma/monitoring.png)
+
+有關更多設定，您可以參閱 [Uptime Kuma 文件](https://github.com/louislam/uptime-kuma/wiki)。

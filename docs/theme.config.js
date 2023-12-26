@@ -120,7 +120,7 @@ export default {
       <span>
         {new Date().getFullYear()} ©{' '}
         <a href="https://zeabur.com" target="_blank">
-          Zeabur
+          Zeabur Pte. Ltd.
         </a>
         .
       </span>
