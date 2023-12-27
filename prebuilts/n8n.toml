@@ -7,7 +7,7 @@ icon = "https://i.imgur.com/AaKxvK2.png"
 docs = "https://zeabur.com/docs/marketplace/n8n"
 
 [source]
-image = "n8nio/n8n"
+image = "n8nio/n8n:1.21.1"
 
 [[ports]]
 id = "web"
