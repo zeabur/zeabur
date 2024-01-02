@@ -62,3 +62,23 @@ type = "TEXT"
 title = "MySQL port"
 content = "${DATABASE_PORT_FORWARDED_PORT}"
 category = "Hostname & Port"
+
+# https://dev.mysql.com/doc/refman/8.0/en/server-configuration-defaults.html
+[[configs]]
+path = "/etc/my.cnf"
+template = """\
+[mysqld]
+default-authentication-plugin=mysql_native_password
+skip-host-cache
+skip-name-resolve
+datadir=/var/lib/mysql
+socket=/var/run/mysqld/mysqld.sock
+secure-file-priv=/var/lib/mysql-files
+user=mysql
+
+pid-file=/var/run/mysqld/mysqld.pid
+[client]
+socket=/var/run/mysqld/mysqld.sock
+
+!includedir /etc/mysql/conf.d/
+"""
