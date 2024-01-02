@@ -4,5 +4,10 @@
   "watch-paths": "Watch Paths",
   "dockerfile": "Deploy with Dockerfile",
   "deploy-button": "Deploy Button",
-  "backup": "Backup Service"
+  "backup": "Backup Service",
+  "custom-prebuilt": "Custom Prebuilt",
+  "integrating-with-github": "Integrating with GitHub",
+  "private-networking": "Private Networking",
+  "special-variables": "Special Variables",
+  "deploy-in-cli": "Deploy in CLI"
 }
