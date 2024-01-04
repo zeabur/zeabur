@@ -6,7 +6,7 @@ icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/database/dra
 description = "Dragonfly is a modern replacement for Redis and Memcached"
 
 [source]
-image = "docker.dragonflydb.io/dragonflydb/dragonfly:latest"
+image = "docker.dragonflydb.io/dragonflydb/dragonfly:v1.13.0"
 
 [[ports]]
 id = "database"
