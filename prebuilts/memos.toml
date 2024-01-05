@@ -6,7 +6,7 @@ icon = "https://avatars.githubusercontent.com/u/95764151"
 description = "An open-source, self-hosted memo hub with knowledge management and social networking."
 
 [source]
-image = "neosmemo/memos:0.16"
+image = "neosmemo/memos:0.18.1"
 
 [[ports]]
 id = "web"
