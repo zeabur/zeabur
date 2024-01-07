@@ -2,12 +2,12 @@
     "domain-binding": "ドメインバインディング",
     "root-directory": "ルートディレクトリ",
     "watch-paths": "監視パス",
-    "dockerfile": "Dockerfileでデプロイ",
+    "dockerfile": "Dockerfile でデプロイ",
     "deploy-button": "デプロイボタン",
     "backup": "バックアップサービス",
     "customize-prebuilt": "カスタムプリビルト",
-    "github": "GitHubとの統合",
+    "github": "GitHub との統合",
     "private-networking": "プライベートネットワーキング",
     "special-variables": "特殊変数",
-    "deploy-in-cli": "CLIでデプロイ"
+    "deploy-in-cli": "CLI でデプロイ"
 }
