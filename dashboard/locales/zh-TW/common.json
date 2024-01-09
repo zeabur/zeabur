@@ -1,0 +1,14 @@
+{
+    "edit-form": {
+        "save": "儲存",
+        "return": "返回",
+        "from": "改動將套用在",
+        "all": "所有環境"
+    },
+    "empty-project": {
+        "desc": "專案還沒有服務",
+        "click": "點選",
+        "add": "部署新服務",
+        "start": "按鈕以開始"
+    }
+}

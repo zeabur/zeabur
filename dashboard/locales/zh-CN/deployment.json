@@ -1,0 +1,46 @@
+{
+    "deployed": "部署于",
+    "ago": "前",
+    "status": {
+        "RUNNING": "运行中",
+        "BUILDING": "构建中",
+        "PENDING": "准备中",
+        "DEPLOYING": "部署中",
+        "REMOVED": "已移除",
+        "CANCELED": "已取消",
+        "CRASHED": "部署崩溃",
+        "FAILED": "部署失败"
+    },
+    "cancel": "取消",
+    "rollback": "回滚",
+    "redeploy": "重新部署",
+    "stop": "停止",
+    "logs": {
+        "deployment-id": "部署 ID:",
+        "build-logs": "构建记录",
+        "runtime-logs": "运行记录",
+        "back": "返回",
+        "commit-message": "日志信息",
+        "branch": "分支",
+        "duration": "持续时间",
+        "status": "状态",
+        "message": "信息",
+        "not-started": "未开始",
+        "close": "关闭",
+        "open": "开启",
+        "export": "导出"
+    },
+    "title": "所有记录",
+    "history": "历史",
+    "deployments": "次部署",
+    "deployment": "部署",
+    "toast": {
+        "cancel-success": "取消部署成功",
+        "cancel-fail": "取消部署失败",
+        "rollback-success": "回滚成功",
+        "rollback-fail": "回滚失败"
+    },
+    "click-to-see-more": "点击查看更多",
+    "no-more": "没有找到更多的部署。",
+    "keep-building": "继续构建你的酷炫项目！"
+}

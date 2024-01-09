@@ -1,0 +1,46 @@
+{
+    "deployed": "Deployed",
+    "ago": "ago",
+    "status": {
+        "RUNNING": "RUNNING",
+        "BUILDING": "BUILDING",
+        "PENDING": "PENDING",
+        "DEPLOYING": "DEPLOYING",
+        "REMOVED": "REMOVED",
+        "CANCELED": "CANCELED",
+        "CRASHED": "CRASHED",
+        "FAILED": "FAILED"
+    },
+    "cancel": "Cancel",
+    "rollback": "Rollback",
+    "redeploy": "Redeploy",
+    "stop": "Stop",
+    "logs": {
+        "deployment-id": "Deployment ID:",
+        "build-logs": "Build logs",
+        "runtime-logs": "Runtime logs",
+        "back": "Back",
+        "commit-message": "Commit message",
+        "branch": "Branch",
+        "duration": "Duration",
+        "status": "Status",
+        "message": "Message",
+        "not-started": "Not started",
+        "close": "Close",
+        "open": "Open",
+        "export": "Export"
+    },
+    "title": "All Records",
+    "history": "History",
+    "deployments": "deployments",
+    "deployment": "Deployments",
+    "toast": {
+        "cancel-success": "Deployment canceled successfully",
+        "cancel-fail": "Failed to cancel deployment",
+        "rollback-success": "Deployment rollback successfully",
+        "rollback-fail": "Failed to rollback deployment"
+    },
+    "click-to-see-more": "Click to see more",
+    "no-more": "No more deployments found.",
+    "keep-building": "Keep building your cool stuff!"
+}

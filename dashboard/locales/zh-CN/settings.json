@@ -1,0 +1,44 @@
+{
+    "title": "设置",
+    "tabs": {
+        "project": "项目",
+        "environment": "环境"
+    },
+    "project": {
+        "title": "项目设置",
+        "name": "项目名称",
+        "wrong": "格式错误",
+        "delete-title": "删除项目",
+        "delete-sub-title": "删除项目及其所有环境。",
+        "delete": "删除项目",
+        "leave-title": "离开项目",
+        "leave-sub-title": "离开该项目",
+        "leave": "离开项目",
+        "modal": {
+            "title": "删除项目",
+            "sub-title": "你确定要删除这个项目吗？"
+        },
+        "toast": {
+            "rename": "重新命名成功",
+            "delete": "删除项目成功",
+            "leave": "离开项目成功"
+        }
+    },
+    "environment": {
+        "name": "环境名称",
+        "return": "取消",
+        "save": "保存",
+        "wrong": "格式错误",
+        "delete-title": "删除环境",
+        "delete-sub-title": "删除项目中的这个环境",
+        "delete": "删除环境",
+        "modal": {
+            "title": "删除环境",
+            "sub-title": "你确定要删除这个环境吗？"
+        },
+        "toast": {
+            "delete": "删除环境成功",
+            "rename": "重新命名环境成功"
+        }
+    }
+}

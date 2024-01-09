@@ -1,0 +1,24 @@
+{
+    "title": "部署 \n 新服务",
+    "create": "部署一个新服务",
+    "desc": "你想要部署什么类型的服务？",
+    "source-code": "部署\n你的源代码",
+    "other-service": "部署\n其他服务",
+    "source": {
+        "back": "返回",
+        "configure": "配置 GitHub APP",
+        "placeholder": "搜索仓库",
+        "import": "导入",
+        "service-name": "服务名称",
+        "branches": "Git 分支",
+        "deploy": "部署",
+        "wrong": "服务名称只能包含数字，小写字母，连字符与下划线，并以字母开头"
+    },
+    "other": {
+        "back": "返回",
+        "deploy": "部署",
+        "service-name": "服务名称",
+        "service": "服务",
+        "wrong": "格式错误"
+    }
+}

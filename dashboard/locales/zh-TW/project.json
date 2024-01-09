@@ -1,0 +1,19 @@
+{
+    "card": {
+        "service": "服務",
+        "create-project": "建立專案"
+    },
+    "modal": {
+        "title": "建立專案",
+        "description": "為您的服務建立一個新專案。",
+        "error": "格式錯誤",
+        "create": "建立",
+        "cancel": "關閉",
+        "placeholder": "請輸入專案名稱"
+    },
+    "members": "成員",
+    "environments": "環境",
+    "services": "服務",
+    "add-env": "建立環境",
+    "add-service": "建立服務"
+}

@@ -1,0 +1,103 @@
+{
+    "sidebar": {
+        "general": "通用设置",
+        "billing": "付款设置",
+        "usage": "用量",
+        "template": "模板",
+        "referrals": "推广",
+        "developer": "开发者"
+    },
+    "general": {
+        "title": "通用设置",
+        "profile": "个人信息",
+        "name": "名称",
+        "language": "语言",
+        "theme": "主题",
+        "appearance": "外观",
+        "wrong-name": "用户名不能超过64个字符",
+        "wrong-url": "URL 不合法",
+        "avatarurl": "头像链接",
+        "email": "邮箱",
+        "save": "保存",
+        "cancel": "取消",
+        "integrations": "账号绑定",
+        "verify": "验证",
+        "verified": "验证成功",
+        "link": "链接 Discord",
+        "discord": "Discord 账户",
+        "email_preferences_toast": "设置已保存",
+        "email_preferences_toast_error": "设置保存失败",
+        "email_preferences_title": "邮件通知",
+        "email_preferences_build": "构建失敗",
+        "email_preferences_build_desc": "当一个构建失败时通知我",
+        "email_preferences_crash": "服务崩溃",
+        "email_preferences_crash_desc": "当一个服务崩溃时通知我"
+    },
+    "billing": {
+      "title": "付款信息",
+      "learn-more": "了解更多"
+    },
+    "usage": {
+        "title": "用量",
+        "balance_history": "余额历史",
+        "balance_desc": "余额指的是你账户中的余额，用于超出免费额度的部分以及订阅的费用。",
+        "credit_history": "免费额度历史",
+        "credit_desc": "你每月将会获得价值 US$ 5 的免费额度。你的服务消耗的用量将优先从免费额度中扣除。",
+        "usage_history": "用量历史",
+        "usage_desc": "在这里可以看到每个项目的用量分布情況",
+        "last_3_days": "最近 3 天",
+        "last_7_days": "最近 7 天",
+        "last_14_days": "最近 14 天",
+        "last_30_days": "最近 30 天",
+        "category": "计费类型",
+        "total_usage": "用量总计",
+        "time": "时间",
+        "balance": "余额",
+        "credit": "免费额度",
+        "reason": "原因",
+        "more": "更多",
+        "showing": "显示",
+        "to": "到",
+        "of": "共",
+        "entries": "条记录",
+        "previous": "上一页",
+        "next": "下一页",
+        "copied": "复制成功"
+    },
+    "invoice": {
+        "title": "下一次扣费",
+        "invoice_title": "即将到来的账单",
+        "invoice_desc_1": "下一次扣费将会在",
+        "invoice_desc_2": "。如果订阅更新，它可能会改变。",
+        "description": "描述",
+        "quantity": "数量",
+        "unit_price": "单价",
+        "amount": "金额",
+        "view_usage": "查看用量",
+        "subtotal": "小计",
+        "total": "总计"
+    },
+    "template": {
+        "title": "你的模板",
+        "create": "创建新模板",
+        "browse": "浏览模板"
+    },
+    "referrals": {
+      "title": "推广",
+      "sub-title": "分享你的链接来赚取积分",
+      "description-1": "通过分享你的链接，你将有机会赚取在 Zeabur 上抵用的积分。",
+      "description-2": "对每一个接受你邀请的朋友，当他们升级到了某个付费方案，你将会得到五美金（或三十五人民币）的现金抵扣。",
+      "status": {
+        "title": "推广状态",
+        "pending": {
+          "title": "进行中",
+          "no-pending": "没有进行中的推广。\n推荐给你的朋友来赚取积分吧！"
+        },
+        "credited": {
+          "title": "已完成",
+          "no-credited": "没有已完成的推广。"
+        }
+      },
+      "share": "你的推广链接"
+    }
+}

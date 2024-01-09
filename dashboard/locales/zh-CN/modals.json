@@ -1,0 +1,59 @@
+{
+    "create-project": {
+        "title": "创建新项目",
+        "wrong": "格式错误"
+    },
+    "create-environment": {
+        "title": "创建新环境",
+        "desc": "为您的项目创建一个新环境。",
+        "placeholder": "请输入环境名称",
+        "wrong": "格式错误",
+        "create": "创建",
+        "cancel": "取消"
+    },
+    "create-service": {
+        "title": "创建服务",
+        "git-desc": "从您的源码部署",
+        "market-place": "从服务市场部署",
+        "step1": "步骤1：您需要哪个服务？",
+        "step2": "步骤2：从 GitHub 导入您的源代码",
+        "step2-1": "步骤2：从市场部署",
+        "service-name": "服务名称",
+        "git-branch": "Git分支",
+        "deploy": "部署",
+        "repo-list": "仓库列表",
+        "config-github": "配置 GitHub APP"
+    },
+    "ok-button": {
+        "create": "创建"
+    },
+    "cancel": "取消",
+    "confirm": "确认",
+    "delete-confirm": {
+        "type": "请输入",
+        "confirm": "以确认。",
+        "delete": "删除"
+    },
+    "expire": {
+      "title": "你的免费试用已到期",
+      "title1": "你的免费试用将于 ",
+      "title2": " 天后到期",
+      "description": "但不要紧张！我们有个好消息：你有两个方法可以继续免费使用 Zeabur 来部署你的服务：",
+      "option1": {
+        "title": "绑定一个付款方式",
+        "sub-title": "方法一",
+        "description1": "在你为你的 Zeabur 帐号绑定一个有效的付款方式以后，你就能继续免费使用 Zeabur 的所有服务。",
+        "description2": "放心，你仍然不会被收取任何费用，除非你超过了免费额度。",
+        "button": "绑定付款方式",
+        "recommend": "推荐"
+      },
+      "option2": {
+        "title": "手动延长试用期限七天",
+        "sub-title": "方法二",
+        "description1": "没有可用的付款方式吗？没问题！你只需要手动点击右侧的按钮，就可以免费延长你的试用期限七天。",
+        "description2": "只要在七天内进来重新点击按钮，你的服务就不会被自动关闭。",
+        "button": "延长试用期限",
+        "success": "成功延长试用期限！"
+      }
+    }
+}

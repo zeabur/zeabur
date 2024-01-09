@@ -1,0 +1,143 @@
+{
+    "node": {
+        "ago": "前",
+        "deployed": "部署于",
+        "failed-msg": "部署失败，打开以查看详细日志",
+        "deploying": "部署中...",
+        "building": "构建中..."
+    },
+    "tabs": {
+        "deployments": "部署",
+        "variables": "变量",
+        "metrics": "用量",
+        "settings": "设置",
+        "connect": "连接",
+        "empty_1": "该项目还没有创建任何服务。",
+        "empty_2": "你可以按 command+k 或 ctrl+k 创建一个新的服务。",
+        "log": "日志"
+    },
+    "deployments": {
+        "redeploy": "重新部署",
+        "restart": "重启当前版本",
+        "building": "构建中",
+        "history": "历史",
+        "logs": "查看日志",
+        "toast": {
+            "redeploy": "开始重新部署"
+        }
+    },
+    "variables": {
+        "title": "环境变量",
+        "add-title": "新增环境变量",
+        "list-title": "环境变量列表",
+        "checkbox-view": "列表视图",
+        "edit-raw": "编辑原始环境变量",
+        "raw-placeholder": "请按以下格式输入：\n例如：\nVAR1=VALUE1\nVAR2=VALUE2\nVAR3=VALUE3",
+        "copy-env": "复制环境变量",
+        "cancel": "取消",
+        "save": "保存",
+        "add": "添加",
+        "return": "返回",
+        "wrong": "变量名不合法",
+        "toast": {
+            "success": "成功更新变量",
+            "copy": "成功复制变量"
+        }
+    },
+    "metrics": {
+        "metrics": "资源用量",
+        "memory-cap": "内存上限:",
+        "cpu-cap": "CPU 上限:",
+        "memory": "内存用量",
+        "cpu": "CPU 用量"
+    },
+    "settings": {
+        "name": "服务名称",
+        "name-toast": {
+            "success": "成功更新服务名称"
+        },
+        "domain": {
+            "title": "域名",
+            "desc": "将服务公开到网络上，向大家展示或提供自己的服务。\n在这里添加的域名所对应的环境是 ",
+            "custom": "自定义",
+            "redirect": "重定向到另一个域名",
+            "generate": "生成域名",
+            "invalid": "无效 DNS",
+            "provisioning": "Provisioning",
+            "provisioned": "Provisioned",
+            "generate-title": "生成 Zeabur 域名",
+            "custom-title": "添加自定义域名",
+            "cancel": "取消",
+            "save": "保存",
+            "available": "可用",
+            "add-dns": "请为你的域名 DNS 添加以下记录",
+            "delete": {
+                "title": "移除域名",
+                "warn-text": "你确定移除该域名吗？"
+            },
+            "toast": {
+                "delete": "成功移除域名",
+                "copy": "成功复制域名",
+                "create": "成功创建域名"
+            },
+            "doc-link": "配置教程"
+        },
+        "root-directory": {
+            "title": "根目录",
+            "desc": "服务所处的根目录路径，Zeabur 将根据该路径来作为根目录部署。",
+            "toast": {
+                "success": "成功更新根目录",
+                "error": "更新根目录失败"
+            }
+        },
+        "custom-build-command": {
+            "title": "自定义构建命令",
+            "desc": "自定义构建命令，Zeabur 将根据该命令来构建你的服务。",
+            "toast": {
+                "success": "成功更新自定义构建命令",
+                "error": "更新自定义构建命令失败"
+            }
+        },
+        "custom-start-command": {
+            "title": "自定义启动命令",
+            "desc": "自定义启动命令，Zeabur 将根据该命令来启动你的服务。",
+            "toast": {
+                "success": "成功更新自定义启动命令",
+                "error": "更新自定义启动命令失败"
+            }
+        },
+        "output-dir": {
+            "title": "自定义输出目录",
+            "desc": "构建后的输出目录。若你指定了一个目录，你的服务将会以静态文件的形式部署。",
+            "toast": {
+                "success": "成功更新输出目录",
+                "error": "更新输出目录失败"
+            }
+        },
+        "watch-path": {
+            "title": "监控路径",
+            "desc": "控制哪些路径的文件改变会触发重新部署，写法参照 Gitignore 文件的格式。例如，* 代表所有的变动均会触发部署，/frontEnd 代表在 frontEnd 文件夹内的所有变动均会触发部署。",
+            "toast": {
+                "success": "成功更新监控路径",
+                "error": "更新监控路径失败"
+            }
+        },
+        "branch": {
+            "title": "当前分支",
+            "desc": "服务已成功绑定下方分支，你也可以选择更换绑定的分支，服务将会根据绑定的分支来自动部署，同时当该分支有新的提交，服务也会同步更新到最新版本。",
+            "toast": {
+                "success": "成功绑定分支",
+                "error": "绑定分支失败"
+            }
+        },
+        "delete": {
+            "title": "删除服务",
+            "desc": "在所有环境中删除该服务",
+            "delete": "删除服务",
+            "modal": {
+                "title": "删除服务",
+                "warn-text": "你确定要删除该服务吗？"
+            }
+        }
+    }
+}

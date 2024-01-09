@@ -1,0 +1,12 @@
+{
+  "toast": {
+    "FailedPrecondition": {
+      "message": "您的账户已欠费，添加支付方式以继续",
+      "action": "添加"
+    },
+    "beyond-limitation": {
+      "message": "You have reached the limit of free plan. Subscribe another plan to continue.",
+      "action": "Upgrade"
+    }
+  }
+}

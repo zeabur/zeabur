@@ -1,0 +1,51 @@
+{
+    "create": {
+        "title": "Create Template",
+        "subtitle": "Create a template for people deploy a project with one click",
+        "name": {
+            "title": "Template Name",
+            "subtitle": "How do you want people remember your amazing work?",
+            "placeholder": "Your Template Name",
+            "error": "Start and end with a letter, and only contain letters, numbers, and hyphens."
+        },
+        "intro": {
+            "title": "Template Introduction",
+            "subtitle": "What does this template do? How can people use it?",
+            "placeholder": "Your Template Introduction"
+        },
+        "variables": {
+            "title": "Template Variables",
+            "subtitle": "Template Variables are the variables that can be used in other services, you can set a service variable through [key: ${TEMPLATE_VARIABLE_KEY}] format."
+        },
+        "services": {
+            "title": "Services",
+            "subtitle": "How many services does your template integrated?",
+            "add": "Add Service"
+        },
+        "tags": {
+            "title": "Tags",
+            "subtitle": "Add tags for your template so that people can easily find it."
+        },
+        "preview": {
+            "title": "Preview URL",
+            "subtitle": "If you have hosted a preview website, you can add it here so that people can see what your template looks like."
+        },
+        "icon": {
+            "title": "Icon",
+            "subtitle": "Upload an icon for your template so that people can easily recognize it.",
+            "placeholder": "Icon URL"
+        },
+        "readme": {
+            "title": "Template README",
+            "subtitle": "Write a README for your template so that people can easily understand it."
+        },
+        "next": "Next Step",
+        "previous": "Previous Step",
+        "create": "Create"
+    },
+    "templates": {
+      "title": "從模板一鍵部署項目",
+      "find": "尋找模板",
+      "create": "創建模板"
+    }
+}
