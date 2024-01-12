@@ -1,28 +1,28 @@
 ---
-title: 使用 API Key 和 Zeabur 集成
+title: 使用 API Key 與 Zeabur 整合
 ogImageTitle: 使用 API Key
-ogImageSubtitle: 使用 API Key 和 Zeabur 集成
+ogImageSubtitle: 使用 API Key 與 Zeabur 整合
 ---
 
 # 介紹
 
-您可以通過任何語言發送 HTTP 請求 與我們的 GraphQL API / REST API 進行交互。在使用之前，您需要在 [Dashboard](https://dash.zeabur.com) 中創建一個 API Key。
+您可以使用任何語言傳送 HTTP 請求，來與我們的 GraphQL API / REST API 進行交互。在使用之前，您需要在 [Dashboard](https://dash.zeabur.com) 中建立一個 API Key。
 
-# 創建 API Key
+# 建立 API Key
 
-在 [Dashboard](https://dash.zeabur.com/) 中，點擊右側下拉菜單的 `Settings`，然後點擊 左側邊欄 `Developer` , 即可看到開發者選項。
+在 [Dashboard](https://dash.zeabur.com/) 中，點選右側下拉選單的 `Settings`，然後點選左側邊欄的 `Developer` , 即可看到開發者選項。
 
 ![Developer Panel](/developer/api-key/developer.en-US.png)
 
-找到 `API Key` 區域，點擊 `Generate New Token` 按鈕即可生成一個 API Key。
+找到 `API Key` 區域，點選 `Generate New Token` 按鈕即可產生一個 API Key。
 
 ![Generate API Key](/developer/api-key/generate-api-key.en-US.png)
 
-點擊 `View` 按鈕即可查看 API Key。
+點選 `View` 按鈕即可檢視 API Key。
 
 ![View API Key](/developer/api-key/view-api-key.en-US.png)
 
-點擊 `Copy` 按鈕即可複製 API Key。
+點選 `Copy` 按鈕即可複製 API Key。
 
 ![Copy API Key](/developer/api-key/copy-api-key.en-US.png)
 
@@ -30,19 +30,19 @@ ogImageSubtitle: 使用 API Key 和 Zeabur 集成
 
 ## 驗證
 
-Zeabur API 可以選擇使用 API Key 進行身份驗證。保證您已經生成了有效的 API Key。
+Zeabur API 可以選擇使用 API Key 進行身分驗證。請先確保您已經產生了有效的 API Key。
 
-所有 API 請求都應在 `Authorization` HTTP 頭部中包含您的 API Key ，如下所示：
+所有 API 請求都應在 `Authorization` HTTP header 中包含您的 API Key ，如下所示：
 
 ```http
 Authorization: Bearer ZEABUR_API_KEY
 ```
 
-# 發出 REST API 請求
+# 送出 REST API 請求
 
-您可以使用任何 HTTP 客戶端庫或者在您的應用中來發出請求。下面是示例：
+您可以使用任何 HTTP 用戶端函式庫或者在您的應用程式中送出請求。下面是範例：
 
-您可以將以下命令黏貼到終端中以運行您的第一個 REST API 請求。確保將 `$ZEABUR_API_KEY` 替換為您的 API Key
+您可以將以下命令貼到終端機中，來執行您的第一個 REST API 請求。確定您已經將 `$ZEABUR_API_KEY` 替換為您的 API Key：
 
 ```bash
 curl https://gateway.zeabur.com/api/v1/users/me \
@@ -50,7 +50,7 @@ curl https://gateway.zeabur.com/api/v1/users/me \
   -H "Content-Type: application/json" \
 ```
 
-此處查詢當前用戶的信息。您應該收到類似於以下內容的響應：
+這將查詢目前使用者的資訊。您應收到如下面內容的回應。
 
 ```json
 {
@@ -75,7 +75,7 @@ curl https://gateway.zeabur.com/api/v1/users/me \
 }
 ```
 
-現在您已經成功地使用 API Key 進行了身份驗證，您可以使用 API Key 來訪問其他 REST API 了。
+現在您已成功使用 API Key 進行了身分驗證，您可以使用 API Key 來存取其他 REST API 了。
 
-GrapQL API 的訪問方式與上述相同，只是請求方式不同。您可以在 [GraphQL Playground](https://gateway.zeabur.com/graphql) 中嘗試 GraphQL API。
+GrapQL API 的存取方式與上述相同，只是請求方式不同。您可以在 [GraphQL Playground](https://gateway.zeabur.com/graphql) 中嘗試 GraphQL API。
 
