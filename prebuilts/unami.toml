@@ -3,7 +3,7 @@
 id = "unami"
 name = "Umami"
 description = "Umami is a simple, fast, privacy-focused alternative to Google Analytics."
-icon = "https://svgur.com/i/sCX.svg"
+icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/umami.svg"
 docs = "https://zeabur.com/docs/marketplace/umami"
 
 [source]
