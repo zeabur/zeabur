@@ -24,7 +24,8 @@
         "history": "歷史紀錄",
         "toast": {
             "redeploy": "開始重新部署"
-        }
+        },
+        "no-domain": "Create a domain for your service"
     },
     "variables": {
         "title": "環境變數",
@@ -62,9 +63,6 @@
             "custom": "自訂",
             "redirect": "重定向到另一個網域",
             "generate": "產生網域",
-            "invalid": "無效的 DNS",
-            "provisioning": "Provisioning",
-            "provisioned": "Provisioned",
             "generate-title": "產生 Zeabur 網域",
             "custom-title": "加入自訂網域",
             "cancel": "取消",
@@ -138,6 +136,7 @@
                 "title": "刪除服務",
                 "warn-text": "你確定要刪除該服務嗎？"
             }
-        }
+        },
+        "wrong": "Wrong format"
     }
 }

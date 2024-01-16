@@ -34,8 +34,8 @@
         "email_preferences_crash_desc": "發生專案部署崩潰時通知我"
     },
     "billing": {
-      "title": "付款信息",
-      "learn-more": "了解更多"
+        "title": "付款信息",
+        "learn-more": "了解更多"
     },
     "usage": {
         "title": "用量",
@@ -83,21 +83,21 @@
         "browse": "瀏覽模板"
     },
     "referrals": {
-      "title": "推廣",
-      "sub-title": "分享你的連結來賺取積分",
-      "description-1": "通過分享你的連結，你將有機會賺取在 Zeabur 上抵用的積分。",
-      "description-2": "對每一個接受你邀請的朋友，當他們升級到了某個付費方案，你將會得到五美金的現金抵用。",
-      "status": {
-        "title": "推廣狀態",
-        "pending": {
-          "title": "進行中",
-          "no-pending": "沒有進行中的推廣。\n推薦給你的朋友來賺取積分吧！"
+        "title": "推廣",
+        "sub-title": "分享你的連結來賺取積分",
+        "description-1": "通過分享你的連結，你將有機會賺取在 Zeabur 上抵用的積分。",
+        "description-2": "對每一個接受你邀請的朋友，當他們升級到了某個付費方案，你將會得到五美金的現金抵用。",
+        "status": {
+            "title": "推廣狀態",
+            "pending": {
+                "title": "進行中",
+                "no-pending": "沒有進行中的推廣。\n推薦給你的朋友來賺取積分吧！"
+            },
+            "credited": {
+                "title": "已完成",
+                "no-credited": "沒有已完成的推廣。"
+            }
         },
-        "credited": {
-          "title": "已完成",
-          "no-credited": "沒有已完成的推廣。"
-        }
-      },
-      "share": "你的推廣連結"
+        "share": "你的推廣連結"
     }
 }

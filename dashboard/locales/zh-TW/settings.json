@@ -21,8 +21,14 @@
         "toast": {
             "rename": "重新命名成功",
             "delete": "刪除專案成功",
-            "leave": "離開專案成功"
-        }
+            "leave": "離開專案成功",
+            "update": "Update project successfully",
+            "update-description": "Update project description successfully",
+            "update-icon": "Update project icon successfully"
+        },
+        "icon": "Project Icon",
+        "name-and-icon": "Project Name & Icon",
+        "description": "Project Description"
     },
     "environment": {
         "name": "環境名稱",

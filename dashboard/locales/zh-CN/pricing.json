@@ -8,9 +8,10 @@
     "unsubscribe": "取消订阅",
     "no-card": "没有信用卡？",
     "coupon": {
-      "title": "使用優惠券",
-      "description": "輸入優惠券代碼以獲得折扣",
-      "placeholder": "優惠券代碼",
-      "confirm": "訂閱"
-    }
+        "title": "使用優惠券",
+        "description": "輸入優惠券代碼以獲得折扣",
+        "placeholder": "優惠券代碼",
+        "confirm": "訂閱"
+    },
+    "current": "You are currently on: "
 }

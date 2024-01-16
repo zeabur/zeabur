@@ -24,7 +24,8 @@
         "logs": "查看日志",
         "toast": {
             "redeploy": "开始重新部署"
-        }
+        },
+        "no-domain": "Create a domain for your service"
     },
     "variables": {
         "title": "环境变量",
@@ -62,9 +63,6 @@
             "custom": "自定义",
             "redirect": "重定向到另一个域名",
             "generate": "生成域名",
-            "invalid": "无效 DNS",
-            "provisioning": "Provisioning",
-            "provisioned": "Provisioned",
             "generate-title": "生成 Zeabur 域名",
             "custom-title": "添加自定义域名",
             "cancel": "取消",
@@ -138,6 +136,7 @@
                 "title": "删除服务",
                 "warn-text": "你确定要删除该服务吗？"
             }
-        }
+        },
+        "wrong": "Wrong format"
     }
 }

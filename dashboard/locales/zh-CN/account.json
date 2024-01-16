@@ -34,8 +34,8 @@
         "email_preferences_crash_desc": "当一个服务崩溃时通知我"
     },
     "billing": {
-      "title": "付款信息",
-      "learn-more": "了解更多"
+        "title": "付款信息",
+        "learn-more": "了解更多"
     },
     "usage": {
         "title": "用量",
@@ -83,21 +83,21 @@
         "browse": "浏览模板"
     },
     "referrals": {
-      "title": "推广",
-      "sub-title": "分享你的链接来赚取积分",
-      "description-1": "通过分享你的链接，你将有机会赚取在 Zeabur 上抵用的积分。",
-      "description-2": "对每一个接受你邀请的朋友，当他们升级到了某个付费方案，你将会得到五美金（或三十五人民币）的现金抵扣。",
-      "status": {
-        "title": "推广状态",
-        "pending": {
-          "title": "进行中",
-          "no-pending": "没有进行中的推广。\n推荐给你的朋友来赚取积分吧！"
+        "title": "推广",
+        "sub-title": "分享你的链接来赚取积分",
+        "description-1": "通过分享你的链接，你将有机会赚取在 Zeabur 上抵用的积分。",
+        "description-2": "对每一个接受你邀请的朋友，当他们升级到了某个付费方案，你将会得到五美金（或三十五人民币）的现金抵扣。",
+        "status": {
+            "title": "推广状态",
+            "pending": {
+                "title": "进行中",
+                "no-pending": "没有进行中的推广。\n推荐给你的朋友来赚取积分吧！"
+            },
+            "credited": {
+                "title": "已完成",
+                "no-credited": "没有已完成的推广。"
+            }
         },
-        "credited": {
-          "title": "已完成",
-          "no-credited": "没有已完成的推广。"
-        }
-      },
-      "share": "你的推广链接"
+        "share": "你的推广链接"
     }
 }

@@ -44,8 +44,8 @@
         "create": "Create"
     },
     "templates": {
-      "title": "從模板一鍵部署項目",
-      "find": "尋找模板",
-      "create": "創建模板"
+        "title": "從模板一鍵部署項目",
+        "find": "尋找模板",
+        "create": "創建模板"
     }
 }

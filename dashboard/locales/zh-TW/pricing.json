@@ -9,9 +9,9 @@
     "discord": "加入我們的 Discord 頻道以了解更多！",
     "no-card": "沒有信用卡？",
     "coupon": {
-      "title": "使用優惠券",
-      "description": "輸入優惠券代碼以獲得折扣",
-      "placeholder": "優惠券代碼",
-      "confirm": "訂閱"
+        "title": "使用優惠券",
+        "description": "輸入優惠券代碼以獲得折扣",
+        "placeholder": "優惠券代碼",
+        "confirm": "訂閱"
     }
 }
