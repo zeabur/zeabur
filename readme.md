@@ -53,3 +53,13 @@ After deployment, you can easily manage your services through the dashboard.
 ## Documentation
 
 For details on how to use Zeabur, check out our [documentation](https://zeabur.com/docs).
+
+## Contributing Dashboard Internationalization
+
+In `dashboard/locales`, there are language files that used in Zeabur's dashboard.
+If you found there is something wrong in the translation, or some translation is missing, you can help us to improve it. 
+
+If you are trying to add missing translation,
+first you need to find out the corresponding translation key in English file. 
+
+You can run `node dashboard/locales/sync.mjs` to sync the translation keys with primary language (English).
