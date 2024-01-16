@@ -1,0 +1,57 @@
+---
+title: 部署 Dragonfly 服务
+ogImageTitle: 部署 Dragonfly 服务
+ogImageSubtitle: 在 Zeabur 部署 Dragonfly 服务
+---
+
+# Deploy Dragon Service
+
+[Dragonfly](https://www.dragonflydb.io/) 是一种简单、高性能、低成本的内存数据存储。Dragonfly 与 Redis API 完全兼容，但没有 Redis 管理的复杂性。
+
+这篇文章将教你如何通过服务市场在 Zeabur 上部署自己的 Dragonfly 服务。
+
+## 步骤一：建立项目
+
+第一步，我们需要建立一个项目。进入 [项目](https://dash.zeabur.com/projects) 页面，你会看到一个项目列表。
+
+点击列表末尾的 "创建项目" 按钮以创建一个新项目。
+
+![Create Project](/deploy/common/create-project.en-US.png)
+
+## 步骤二：部署 Dragonfly 服务
+
+你可以在服务市场中一键部署 Dragonfly 服务。
+
+按下 "cmd + k" 或者点击 "Deploy New Service" 按钮，然后选择 "服务市场"。
+
+![Select Prebuilt](/deploy/common/select-prebuilt-service.en-US.png)
+
+在列表中找到 Dragonfly 并点击它以开始部署。
+
+![Select Dragonfly](/databases/dragonfly/deploy-dragonfly.en-US.png)
+
+## 步骤三：获取连接信息
+
+当你部署 Dragonfly 服务后，Zeabur 会自动帮你注入相关连接使用的环境变量到其他的服务中。
+
+- `DRAGONFLY_HOST`
+- `DRAGONFLY_PORT`
+- `DRAGONFLY_PASSWORD`
+
+有时候我们可以使用`DRAGONFLY_URI` 来取代上面的环境变量，例如：
+
+```bash
+redis://:${DRAGONFLY_PASSWORD}@${DRAGONFLY_HOST}:${DRAGONFLY_PORT}
+```
+
+我们也可以在控制台的 "Instructions" 板块找到连接信息
+
+![Get Connection Info](/databases/dragonfly/connection-dragonfly.en-US.png)
+
+## 步骤四：开始使用
+
+你可以在你的应用或者客户端中使用上面的连接信息来连接 Dragonfly 服务。
+
+因为 Dragonfly 与 Redis API 完全兼容，所以你可以使用任何支持 Redis 的客户端来连接 Dragonfly 服务。
+
+![Connect Dragonfly](/databases/dragonfly/client-dragonfly.en-US.png)

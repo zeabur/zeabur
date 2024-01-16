@@ -1,0 +1,81 @@
+---
+title: 使用 API Key 與 Zeabur 整合
+ogImageTitle: 使用 API Key
+ogImageSubtitle: 使用 API Key 與 Zeabur 整合
+---
+
+# 介紹
+
+您可以使用任何語言傳送 HTTP 請求，來與我們的 GraphQL API / REST API 進行交互。在使用之前，您需要在 [Dashboard](https://dash.zeabur.com) 中建立一個 API Key。
+
+# 建立 API Key
+
+在 [Dashboard](https://dash.zeabur.com/) 中，點選右側下拉選單的 `Settings`，然後點選左側邊欄的 `Developer` , 即可看到開發者選項。
+
+![Developer Panel](/developer/api-key/developer.en-US.png)
+
+找到 `API Key` 區域，點選 `Generate New Token` 按鈕即可產生一個 API Key。
+
+![Generate API Key](/developer/api-key/generate-api-key.en-US.png)
+
+點選 `View` 按鈕即可檢視 API Key。
+
+![View API Key](/developer/api-key/view-api-key.en-US.png)
+
+點選 `Copy` 按鈕即可複製 API Key。
+
+![Copy API Key](/developer/api-key/copy-api-key.en-US.png)
+
+# 使用 API Key
+
+## 驗證
+
+Zeabur API 可以選擇使用 API Key 進行身分驗證。請先確保您已經產生了有效的 API Key。
+
+所有 API 請求都應在 `Authorization` HTTP header 中包含您的 API Key ，如下所示：
+
+```http
+Authorization: Bearer ZEABUR_API_KEY
+```
+
+# 送出 REST API 請求
+
+您可以使用任何 HTTP 用戶端函式庫或者在您的應用程式中送出請求。下面是範例：
+
+您可以將以下命令貼到終端機中，來執行您的第一個 REST API 請求。確定您已經將 `$ZEABUR_API_KEY` 替換為您的 API Key：
+
+```bash
+curl https://gateway.zeabur.com/api/v1/users/me \
+  -H "Authorization: Bearer $ZEABUR_API_KEY" \
+  -H "Content-Type: application/json" \
+```
+
+這將查詢目前使用者的資訊。您應收到如下面內容的回應。
+
+```json
+{
+    "_id": "64ffffffffffffffffff",
+    "name": "Zeabur Zebra",
+    "email": "zebra@zeabur.com",
+    "username": "zeabra",
+    "language": "en-US",
+    "githubID": 5000000,
+    "avatarUrl": "https://avatars.githubusercontent.com/u/5000000?v=4",
+    "createdAt": "2023-08-31T08:14:08.873Z",
+    "bannedAt": null,
+    "bannedReason": null,
+    "emailPreference": {
+        "buildFailed": true,
+        "deploymentCrashed": true
+    },
+    "agreedAt": "2023-08-31T08:14:17.028Z",
+    "referralCode": "zeabra",
+    "discordID": "7000000000000000000",
+    "customerID": "cus_xxxxxxxxxxxxxx"
+}
+```
+
+現在您已成功使用 API Key 進行了身分驗證，您可以使用 API Key 來存取其他 REST API 了。
+
+GrapQL API 的存取方式與上述相同，只是請求方式不同。您可以在 [GraphQL Playground](https://gateway.zeabur.com/graphql) 中嘗試 GraphQL API。
+
