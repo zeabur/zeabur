@@ -1,0 +1,13 @@
+{
+    "dashboard": "控制台",
+    "upgrade": "升级",
+    "docs": "文档",
+    "languages": "语言",
+    "templates": "模板",
+    "menu": {
+        "settings": "设置",
+        "billing": "付款",
+        "logout": "登出"
+    },
+    "days": "天"
+}

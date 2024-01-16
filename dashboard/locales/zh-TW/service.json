@@ -1,0 +1,142 @@
+{
+    "node": {
+        "ago": "前",
+        "deployed": "部署於",
+        "failed-msg": "部署失敗，打開查閱詳細紀錄",
+        "deploying": "部署中……",
+        "building": "建置中……"
+    },
+    "tabs": {
+        "deployments": "部署",
+        "variables": "環境變數",
+        "metrics": "資源用量",
+        "settings": "設定",
+        "connect": "連線",
+        "empty_1": "該專案還沒有任何服務。",
+        "empty_2": "你可以按下 command+k 或 ctrl+k 來新增服務",
+        "log": "日誌"
+    },
+    "deployments": {
+        "redeploy": "重新部署",
+        "restart": "重啟目前版本",
+        "building": "建置中",
+        "logs": "查看日誌",
+        "history": "歷史紀錄",
+        "toast": {
+            "redeploy": "開始重新部署"
+        },
+        "no-domain": "Create a domain for your service"
+    },
+    "variables": {
+        "title": "環境變數",
+        "add-title": "新增環境變數",
+        "list-title": "環境變數列表",
+        "checkbox-view": "列表檢視",
+        "edit-raw": "編輯原始環境變數",
+        "raw-placeholder": "請依照以下格式輸入:\n例如\nVAR1=VALUE1\nVAR2=VALUE2\nVAR3=VALUE3",
+        "copy-env": "複製環境",
+        "cancel": "取消",
+        "save": "儲存",
+        "add": "新增",
+        "return": "返回",
+        "wrong": "格式錯誤",
+        "toast": {
+            "success": "成功新增環境變數",
+            "copy": "成功複製環境變數"
+        }
+    },
+    "metrics": {
+        "metrics": "資源用量",
+        "memory-cap": "記憶體上限:",
+        "cpu-cap": "CPU 上限:",
+        "memory": "記憶體用量",
+        "cpu": "CPU 用量"
+    },
+    "settings": {
+        "name": "服務名稱",
+        "name-toast": {
+            "success": "成功更新服務名稱"
+        },
+        "domain": {
+            "title": "網域",
+            "desc": "將服務公開到網路上，向大家展示或提供自己的服務。\n在這裡新增的網域所對應的環境是 ",
+            "custom": "自訂",
+            "redirect": "重定向到另一個網域",
+            "generate": "產生網域",
+            "generate-title": "產生 Zeabur 網域",
+            "custom-title": "加入自訂網域",
+            "cancel": "取消",
+            "available": "可用",
+            "add-dns": "請為你的網域 DNS 加入以下記錄",
+            "save": "儲存",
+            "delete": {
+                "title": "移除網域",
+                "warn-text": "你確定移除該網域嗎？"
+            },
+            "toast": {
+                "delete": "成功移除網域",
+                "copy": "成功複製網域",
+                "create": "成功新增網域"
+            },
+            "doc-link": "配置教程"
+        },
+        "root-directory": {
+            "title": "根目錄",
+            "desc": "服務所處的根目錄路徑，Zeabur 將根據該路徑來作為根目錄部署。",
+            "toast": {
+                "success": "成功更新根目錄",
+                "error": "更新根目錄失敗"
+            }
+        },
+        "custom-build-command": {
+            "title": "自訂建置指令",
+            "desc": "自訂建置指令，Zeabur 將會根據該指令來建置服務。",
+            "toast": {
+                "success": "成功更新自訂建置指令",
+                "error": "更新自訂建置指令失敗"
+            }
+        },
+        "custom-start-command": {
+            "title": "自訂啟動指令",
+            "desc": "自訂啟動指令，Zeabur 將會根據該指令來啟動服務。",
+            "toast": {
+                "success": "成功更新自訂啟動指令",
+                "error": "更新自訂啟動指令失敗"
+            }
+        },
+        "output-dir": {
+            "title": "建置產物路徑",
+            "desc": "建置後的產物路徑。若你指定了一個路徑，你的服務將會以靜態資源的形式被部署。",
+            "toast": {
+                "success": "成功更新建置產物路徑",
+                "error": "更新建置產物路徑失敗"
+            }
+        },
+        "watch-path": {
+            "title": "監控路徑",
+            "desc": "控制哪些路徑的文件改變會觸發重新部署，寫法參照 Gitignore 文件的格式。例如，* 代表所有的變動均會觸發部署，/frontEnd 代表在 frontEnd 資料夾內的所有變動均會觸發部署。",
+            "toast": {
+                "success": "成功更新監控路徑",
+                "error": "更新監控路徑失敗"
+            }
+        },
+        "branch": {
+            "title": "目前分支",
+            "desc": "服務已成功綁定下方分支，你也可以選擇更換綁定的分支，服務將會根據綁定的分支來自動部署，同時當該分支有新的提交，服務也會同步更新到最新版本。",
+            "toast": {
+                "success": "成功綁定分支",
+                "error": "綁定分支失敗"
+            }
+        },
+        "delete": {
+            "title": "刪除服務",
+            "desc": "在所有環境中刪除該服務",
+            "delete": "刪除服務",
+            "modal": {
+                "title": "刪除服務",
+                "warn-text": "你確定要刪除該服務嗎？"
+            }
+        },
+        "wrong": "Wrong format"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "edit-form": {
+        "save": "Save",
+        "return": "Return",
+        "from": "Edit from",
+        "all": "all environments"
+    },
+    "empty-project": {
+        "desc": "Project is empty",
+        "click": "Click",
+        "add": "Add New Service",
+        "start": "button to get started!"
+    }
+}

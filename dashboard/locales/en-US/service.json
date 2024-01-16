@@ -1,0 +1,142 @@
+{
+    "node": {
+        "ago": "ago",
+        "deployed": "Deployed",
+        "failed-msg": "Last deployment failed, open to see the detail logs.",
+        "deploying": "Deploying...",
+        "building": "Building..."
+    },
+    "tabs": {
+        "deployments": "Deployments",
+        "variables": "Variables",
+        "metrics": "Metrics",
+        "settings": "Settings",
+        "connect": "Connect",
+        "empty_1": "This project has no services now.",
+        "empty_2": "You can press command+k or ctrl+k to create a new service.",
+        "log": "Log"
+    },
+    "deployments": {
+        "redeploy": "Redeploy",
+        "restart": "Restart",
+        "building": "Building",
+        "logs": "Logs",
+        "history": "History",
+        "no-domain": "Create a domain for your service",
+        "toast": {
+            "redeploy": "Redeploying started"
+        }
+    },
+    "variables": {
+        "title": "Variable",
+        "add-title": "Add New Variable",
+        "list-title": "Variable List",
+        "checkbox-view": "List View",
+        "edit-raw": "Edit Raw Variables",
+        "raw-placeholder": "Please type in the following format:\ne.g.\nVAR1=VALUE1\nVAR2=VALUE2\nVAR3=VALUE3",
+        "copy-env": "Copy ENV",
+        "cancel": "Cancel",
+        "save": "Save",
+        "add": "Add",
+        "wrong": "Wrong format",
+        "return": "Return",
+        "toast": {
+            "success": "Variables updated",
+            "copy": "Variable copied to clipboard"
+        }
+    },
+    "metrics": {
+        "metrics": "Metrics",
+        "memory-cap": "Memory Cap:",
+        "cpu-cap": "CPU Cap:",
+        "memory": "Memory Usage",
+        "cpu": "CPU Usage"
+    },
+    "settings": {
+        "name": "Service Name",
+        "name-toast": {
+            "success": "Service name changed"
+        },
+        "wrong": "Wrong format",
+        "domain": {
+            "title": "Domains",
+            "desc": "Expose this service to the public internet from ",
+            "custom": "Custom Domain",
+            "redirect": "Redirect to another domain",
+            "generate": "Generate Domain",
+            "generate-title": "Generate Zeabur Domain",
+            "custom-title": "Add Custom Domain",
+            "available": "Domain Available",
+            "cancel": "Cancel",
+            "save": "Save",
+            "add-dns": "Add DNS Record for your domain",
+            "delete": {
+                "title": "Remove Domain",
+                "warn-text": "Are you sure to remove this domain?"
+            },
+            "toast": {
+                "delete": "Domain removed",
+                "copy": "Domain copied to clipboard",
+                "create": "Domain created"
+            },
+            "doc-link": "Instructions"
+        },
+        "root-directory": {
+            "title": "Root Directory",
+            "desc": "The root directory of your project. This is the directory that will be deployed to Zeabur.",
+            "toast": {
+                "success": "Root directory changed",
+                "error": "Change root directory failed"
+            }
+        },
+        "custom-build-command": {
+            "title": "Custom Build Command",
+            "desc": "Customize the build command for your project.",
+            "toast": {
+                "success": "Custom build command changed",
+                "error": "Change custom build command failed"
+            }
+        },
+        "custom-start-command": {
+            "title": "Custom Start Command",
+            "desc": "Customize the start command for your project.",
+            "toast": {
+                "success": "Custom start command changed",
+                "error": "Change custom start command failed"
+            }
+        },
+        "output-dir": {
+            "title": "Custom Output Directory",
+            "desc": "The directory that contains the build output of your project. If you specify a directory, we will deploy your service as static files with Nginx.",
+            "toast": {
+                "success": "Output directory changed",
+                "error": "Change output directory failed"
+            }
+        },
+        "watch-path": {
+            "title": "Watch Paths",
+            "desc": "Gitignore-style patterns that can be used to trigger new deployments based on what file paths have changed.",
+            "toast": {
+                "success": "Watch paths changed",
+                "error": "Change watch paths failed"
+            }
+        },
+        "branch": {
+            "title": "Switch Branch",
+            "desc": "Binding another branch of your project",
+            "toast": {
+                "success": "Branch switched",
+                "error": "Switch branch failed"
+            }
+        },
+        "delete": {
+            "title": "Delete Service",
+            "desc": "Delete service from all environment",
+            "delete": "Delete Service",
+            "modal": {
+                "title": "Delete Service",
+                "warn-text": "Are you sure to delete this service?"
+            }
+        }
+    }
+}

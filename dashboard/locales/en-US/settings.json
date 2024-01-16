@@ -1,0 +1,50 @@
+{
+    "title": "Settings",
+    "tabs": {
+        "project": "Projects",
+        "environment": "Environment"
+    },
+    "project": {
+        "title": "Project Settings",
+        "name": "Project Name",
+        "icon": "Project Icon",
+        "name-and-icon": "Project Name & Icon",
+        "description": "Project Description",
+        "wrong": "Wrong format",
+        "delete-title": "Delete Project",
+        "delete-sub-title": "Delete project of all environments.",
+        "delete": "Delete Project",
+        "leave-title": "Leave Project",
+        "leave-sub-title": "Leave this project",
+        "leave": "Leave Project",
+        "modal": {
+            "title": "Delete Project",
+            "sub-title": "Are you sure you want to delete this project?"
+        },
+        "toast": {
+            "update": "Update project successfully",
+            "rename": "Rename project successfully",
+            "delete": "Delete project successfully",
+            "leave": "Leave project successfully",
+            "update-description": "Update project description successfully",
+            "update-icon": "Update project icon successfully"
+        }
+    },
+    "environment": {
+        "name": "Environment Name",
+        "return": "Return",
+        "save": "Save",
+        "wrong": "Wrong format",
+        "delete-title": "Delete Environment",
+        "delete-sub-title": "Delete one of the environments for current project.",
+        "delete": "Delete Environment",
+        "modal": {
+            "title": "Delete Environment",
+            "sub-title": "Are you sure you want to delete this environment?"
+        },
+        "toast": {
+            "delete": "Delete environment successfully",
+            "rename": "Rename environment successfully"
+        }
+    }
+}

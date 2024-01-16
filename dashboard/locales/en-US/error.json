@@ -1,0 +1,12 @@
+{
+  "toast": {
+    "FailedPrecondition": {
+      "message": "You are out of credits. Add a payment method to proceed.",
+      "action": "Add"
+    },
+    "beyond-limitation": {
+      "message": "You have reached the limit of free plan. Subscribe another plan to continue.",
+      "action": "Upgrade"
+    }
+  }
+}

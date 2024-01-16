@@ -1,0 +1,16 @@
+{
+    "top-layer": {
+        "build": "构建",
+        "scheduled": "已安排",
+        "started": "已开始",
+        "finished": "已完成",
+        "failed": "失败了",
+        "domain": "为你的服务添加域名"
+    },
+    "projects": {
+        "notice": "你需要一个项目以继续使用 Zeabur 的服务。"
+    },
+    "copy": "已复制到剪贴板",
+    "limit": "你已达到免费方案的使用限制",
+    "upgrade": "升级"
+}

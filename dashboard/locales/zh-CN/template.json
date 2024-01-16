@@ -1,0 +1,51 @@
+{
+    "create": {
+        "title": "创建模板",
+        "subtitle": "创建模板，让其他人一键部署你的项目",
+        "name": {
+            "title": "模板名称",
+            "subtitle": "你想让大家如何记住你的名称？",
+            "placeholder": "你的模板名称",
+            "error": "Start and end with a letter, and only contain letters, numbers, and hyphens."
+        },
+        "intro": {
+            "title": "模板介绍",
+            "subtitle": "这个模板是做什么的？它有什么功能？",
+            "placeholder": "你的模板介绍"
+        },
+        "variables": {
+            "title": "Template Variables",
+            "subtitle": "Template Variables are the variables that can be used in other services, you can set a service variable through [key: ${TEMPLATE_VARIABLE_KEY}] format."
+        },
+        "services": {
+            "title": "Services",
+            "subtitle": "How many services does your template integrated?",
+            "add": "Add Service"
+        },
+        "tags": {
+            "title": "Tags",
+            "subtitle": "Add tags for your template so that people can easily find it."
+        },
+        "preview": {
+            "title": "Preview URL",
+            "subtitle": "If you have hosted a preview website, you can add it here so that people can see what your template looks like."
+        },
+        "icon": {
+            "title": "Icon",
+            "subtitle": "Upload an icon for your template so that people can easily recognize it.",
+            "placeholder": "Icon URL"
+        },
+        "readme": {
+            "title": "Template README",
+            "subtitle": "Write a README for your template so that people can easily understand it."
+        },
+        "next": "Next Step",
+        "previous": "Previous Step",
+        "create": "Create"
+    },
+    "templates": {
+        "title": "从模板一键部署项目",
+        "find": "寻找模板",
+        "create": "创建模板"
+    }
+}
