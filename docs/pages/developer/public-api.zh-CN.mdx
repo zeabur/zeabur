@@ -1,0 +1,66 @@
+---
+title: 开放 API
+ogImageTitle: 开放 API - Zeabur
+ogImageSubtitle: 使用 Zeabur 开放 API
+---
+
+# 开放 API
+
+Zeabur 的开放 API 是使用 GraphQL 构建的。它是驱动我们的 Dashboard 和 CLI 的相同 API。
+
+## 链接端点
+
+你可以通过以下端点访问 Zeabur API：
+
+```http
+https://gateway.zeabur.com/graphql
+```
+
+## 认证
+
+为了开始使用 Zeabur API，你需要创建一个账户并生成一个 API 密钥。你可以通过访问 [Developer Panel](https://dash.zeabur.com/account/developer) 来创建一个。
+
+你也可以查看 [这篇文档](./use-api-key) 来获取更多关于如何生成 API 密钥的信息。
+
+```bash
+curl --request POST \
+  --url https://gateway.zeabur.com/graphql \
+  --header 'Authorization: Bearer {YOUR_API_TOKEN}' \
+  --header 'Content-Type: application/json' \
+  --data '{"query":"query { me { username } }"}'
+```
+
+## 支持
+
+如果你遇到任何问题或者对 API 有任何建议，我们鼓励你加入我们的 Discord 服务器。在那里，你可以直接与正在开发 API 的工程师交流。
+
+在[这里](https://discord.gg/yrnVvTCM7g)加入我们的 Discord 服务器。
+
+## Schema
+
+### 把代码部署到 Zeabur
+
+你可以使用部署 API 在不连接 GitHub 仓库的情况下部署你的代码。你可以使用这个 API 从你的本地机器或者任何其他来源部署你的代码。
+
+为了在 Zeabur 上部署代码，你需要一个项目 ID，服务 ID 和环境 ID。你可以从 Dashboard 或者 CLI 获取这些 ID，或者通过 API 创建一个新的项目和服务。
+
+然后你需要把你的代码压缩成 zip 文件并发送给 API。
+
+```bash
+curl --request POST \ 
+  --url https://gateway.zeabur.com/projects/{PROJECT_ID}/services/{SERVICE_ID}/deploy \
+  --header 'Authorization: Bearer {YOUR_API_TOKEN}' \
+  --data '{"code": {YOUR_CODE_AS_ZIP_FILE}, "environment": {ENVIRONMENT_ID}}'
+```
+
+### 查询项目
+
+```bash
+curl --request POST \
+  --url https://gateway.zeabur.com/graphql \
+  --header 'Authorization: Bearer {YOUR_API_TOKEN}' \
+  --header 'Content-Type: application/json' \
+  --data '{"query":"query { projects { _id name } }"}'
+```
+
+<WorkingInProgress />
