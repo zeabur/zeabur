@@ -7,31 +7,35 @@
         "title": "Update Your Plan"
     },
     "plan": {
-        "current": "当前方案",
-        "upgrade": "升级",
-        "include": "它包括",
-        "free-credit": "五美金的免费额度",
-        "month": "（每月）",
-        "serverless": "你只能在这个方案上部署 serverless functions。"
+      "current": "当前方案",
+      "upgrade": "升级",
+      "include": "它包括",
+      "free-credit": "五美金的免费额度",
+      "month": "（每月）",
+      "serverless": "你只能在这个方案上部署 serverless functions。"
     },
     "payment": {
-        "method": "付款方式",
-        "no-method": "你还没有绑定付款方式。你将需要手动来打卡延长试用期限，以保证服务稳定运行。",
-        "card": "你绑定了一张信用卡，卡号结尾是",
-        "alipay": "你绑定了支付方式为",
-        "manage": "管理",
-        "cny-modal": {
-            "title": "没有信用卡？",
-            "sub-title": "对于中国大陆的用户，我们提供了支付宝作为另一种方案。",
-            "p-1": "将会有一个 3.99 人民币的绑定费用用来激活绑定你的支付宝。",
-            "p-2": "绑定成功以后，你将可以继续使用 Zeabur 而无需手动来延长试用期限。你也将只会收到超出免费额度的收费。",
-            "setup": "绑定"
-        },
-        "manage-section": {
-            "no-card": "没有信用卡？",
-            "add": "添加",
-            "setup-alipay": "绑定支付宝",
-            "have-card": "有信用卡？"
-        }
+      "method": "付款方式",
+      "no-method": "你还没有绑定付款方式。你将需要手动来打卡延长试用期限，以保证服务稳定运行。",
+      "card": "你绑定了一张信用卡，卡号结尾是",
+      "alipay": "你绑定了支付方式为",
+      "manage": "管理",
+      "cny-modal": {
+        "title": "没有信用卡？",
+        "sub-title": "对于中国大陆的用户，我们提供了支付宝作为另一种方案。",
+        "p-1": "将会有一个 3.99 人民币的绑定费用用来激活绑定你的支付宝。",
+        "p-2": "绑定成功以后，你将可以继续使用 Zeabur 而无需手动来延长试用期限。你也将只会收到超出免费额度的收费。",
+        "setup": "绑定"
+      },
+      "manage-section": {
+        "no-card": "没有信用卡？",
+        "add": "添加",
+        "setup-alipay": "绑定支付宝",
+        "have-card": "有信用卡？"
+      }
+    },
+    "credit": {
+      "title": "账户余额",
+      "desc": "我们将会优先使用你的账户余额来支付你的账单。"
     }
 }

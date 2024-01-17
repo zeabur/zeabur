@@ -33,5 +33,9 @@
         "setup-alipay": "Setup Alipay",
         "have-card": "Have credit card?"
       }
+    },
+    "credit": {
+      "title": "Account Credit",
+      "desc": "You will not be charged until the credit is empty."
     }
 }
