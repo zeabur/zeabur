@@ -46,19 +46,3 @@ Zeabur 同時支援容器化（Containerized）和 Serverless 兩種部署方式
 對於部署在 Zeabur 的服務，可以在服務詳情頁面的右上角看到目前是使用 Serverless 方式還是容器化（Containerized）方式進行部署的：
 
 ![服務詳情頁面](/advanced/serverless.png)
-
-## 增量靜態生成（ISR）
-
-為了將 Serverless 部署的優勢最大化，Zeabur 支持「增量靜態生成」（ISR，Incremental Static Regeneration）的功能，這個功能讓一個頁面同時是靜態資源，又是 Serverless 函數。當使用者開啟網站時，他能夠用非常快的速度從靜態資源看到頁面的內容，而這個時候 Zeabur 會在背景中重新請求 Serverless 函數，將結果更新到靜態資源中，以便下一次的訪問。
-
-這樣一來，使用者就能夠在不影響體驗的情況下，享受到 Serverless 的部署方式帶來的優勢，而且對於網站的 SEO 也有很大的幫助。
-
-想要為某個 Serverless 函數啟用 ISR 的功能，只需要在輸出結果的 `.func` 資料夾旁邊新增一個同名的 `.prerender-config.json` 即可：
-
-```json
-{
-  "expiration": "1h"
-}
-```
-
-其中 `expiration` 是一個可選的屬性，用來設定 Zeabur 使用 Serverless 函數來重新渲染頁面的時間間隔。

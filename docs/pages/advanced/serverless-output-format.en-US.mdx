@@ -46,19 +46,3 @@ For frameworks that need to use Serverless, such as [Next.js](https://nextjs.org
 For services deployed on Zeabur, you can see whether they are currently deployed using the serverless method or the containerized method in the upper right corner of the service details page:
 
 ![服務詳情頁面](/advanced/serverless.png)
-
-## Incremental Static Regeneration (ISR)
-
-To maximize the advantages of Serverless deployment, Zeabur supports the "Incremental Static Generation" (ISR) function, which allows a page to be both a static resource and a serverless function. When a user opens the website, he can see the content of the page from the static resource at a very fast speed. At this time, Zeabur will re-request the serverless function in the background and update the result to the static resource for the next visit.
-
-In this way, users can enjoy the advantages of the serverless deployment method without affecting the experience, and it is also very helpful for the SEO of the website.
-
-To enable the ISR function for a serverless function, just add a `.prerender-config.json` with the same name next to the `.func` folder of the output result:
-
-```json
-{
-  "expiration": "1h"
-}
-```
-
-The `expiration` is an optional attribute used to set the time interval for Zeabur to use the serverless function to re-render the page.
