@@ -52,6 +52,9 @@
         "memory": "Memory Usage",
         "cpu": "CPU Usage"
     },
+    "networking": {
+        "title": "Networking"
+    },
     "settings": {
         "name": "Service Name",
         "name-toast": {
@@ -129,13 +132,15 @@
                 "error": "Switch branch failed"
             }
         },
-        "delete": {
-            "title": "Delete Service",
-            "desc": "Delete service from all environment",
-            "delete": "Delete Service",
-            "modal": {
+        "danger-zone": {
+            "title": "Danger Zone",
+            "delete-service": {
                 "title": "Delete Service",
-                "warn-text": "Are you sure to delete this service?"
+                "desc": "Service will be deleted and all persistent data will loss. This action cannot undo."
+            },
+            "suspend-service": {
+                "title": "Suspend Service",
+                "desc": "Service is paused to avoid additional charges. The service will be inaccessible until you reactivate it. Services paused for more than 30 days will be automatically deleted."
             }
         }
     }

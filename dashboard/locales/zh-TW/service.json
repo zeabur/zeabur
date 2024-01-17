@@ -24,8 +24,7 @@
         "history": "歷史紀錄",
         "toast": {
             "redeploy": "開始重新部署"
-        },
-        "no-domain": "Create a domain for your service"
+        }
     },
     "variables": {
         "title": "環境變數",
@@ -63,6 +62,9 @@
             "custom": "自訂",
             "redirect": "重定向到另一個網域",
             "generate": "產生網域",
+            "invalid": "無效的 DNS",
+            "provisioning": "Provisioning",
+            "provisioned": "Provisioned",
             "generate-title": "產生 Zeabur 網域",
             "custom-title": "加入自訂網域",
             "cancel": "取消",
@@ -128,15 +130,16 @@
                 "error": "綁定分支失敗"
             }
         },
-        "delete": {
-            "title": "刪除服務",
-            "desc": "在所有環境中刪除該服務",
-            "delete": "刪除服務",
-            "modal": {
-                "title": "刪除服務",
-                "warn-text": "你確定要刪除該服務嗎？"
+        "danger-zone": {
+            "title": "Danger Zone",
+            "delete-service": {
+                "title": "Delete Service",
+                "desc": "Service will be deleted and all persistent data will loss. This action cannot undo."
+            },
+            "suspend-service": {
+                "title": "Suspend Service",
+                "desc": "Service is paused to avoid additional charges. The service will be inaccessible until you reactivate it. Services paused for more than 30 days will be automatically deleted."
             }
-        },
-        "wrong": "Wrong format"
+        }
     }
 }
