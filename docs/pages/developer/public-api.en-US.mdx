@@ -4,6 +4,8 @@ ogImageTitle: Public API - Zeabur
 ogImageSubtitle: Use Zeabur API to power your applications
 ---
 
+import { Callout } from 'nextra-theme-docs';
+
 # Public API Reference
 
 Zeabur public API is built with GraphQL. It's the same API that powers our dashboard and CLI.
@@ -63,4 +65,8 @@ curl --request POST \
   --data '{"query":"query { projects { _id name } }"}'
 ```
 
-<WorkingInProgress />
+<Callout>
+  The public API schema and documentation is still working in progress. We will update this page as soon as possible.
+
+  If you want to start to use the API now, you can connect us in [our Discord server](https://discord.gg/yrnVvTCM7g) for help.
+</Callout>
