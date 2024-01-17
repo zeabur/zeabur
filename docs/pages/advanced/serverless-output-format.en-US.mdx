@@ -43,12 +43,6 @@ For purely static website frameworks, such as [Vite](https://vitejs.dev/), etc.,
 
 For frameworks that need to use Serverless, such as [Next.js](https://nextjs.org/) or [Nuxt.js](https://nuxtjs.org/), etc., there will be two directories, `static` and `functions`, in the `.zeabur/output` directory after zbpack is built. The `static` directory stores static resources, and the `functions` directory stores serverless functions.
 
-<Callout>
-    Currently, the deployment of serverless functions is still in the beta stage. If you want to deploy services in a serverless manner, you need to add the `EXPERIMENTAL_SERVERLESS=1` environment variable during the build.
-
-    If your project or a framework can be deployed using serverless functions, but zbpack has not yet supported it, please feel free to submit an Issue or Pull Request on [GitHub](https://github.com/zeabur/zbpack).
-</Callout>
-
 For services deployed on Zeabur, you can see whether they are currently deployed using the serverless method or the containerized method in the upper right corner of the service details page:
 
 ![服務詳情頁面](/advanced/serverless.png)

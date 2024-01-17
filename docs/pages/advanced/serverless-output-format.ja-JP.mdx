@@ -43,12 +43,6 @@ Zeaburはコンテナ化されたデプロイおよびサーバーレスデプ�
 
 [Next.js](https://nextjs.org/) や [Nuxt.js](https://nuxtjs.org/) など、サーバーレスを使用する必要があるフレームワークの場合、zbpackによって構築された後の `.zeabur/output` ディレクトリには `static` ディレクトリと `functions` ディレクトリの2つが存在します。`static` ディレクトリには静的リソースが、`functions` ディレクトリにはサーバーレス関数が格納されます。
 
-        <Callout>
-            現在、サーバーレス関数のデプロイはベータ段階です。サーバーレスメソッドでサービスをデプロイする場合は、ビルド時に `EXPERIMENTAL_SERVERLESS=1` 環境変数を追加する必要があります。
-
-    サーバーレス関数を含むプロジェクトやフレームワークでもzbpackがまだサポートしていない場合は、[GitHub](https://github.com/zeabur/zbpack) でIssueまたはPull Requestを自由に送信してください。
-            </Callout>
-
 Zeaburでデプロイされたサービスでは、サービスの詳細ページの右上のコーナーに、現在サーバーレスメソッドを使用してデプロイされているか、コンテナ化メソッドを使用してデプロイされているかが表示されます：
 
 ![サービスの詳細ページ](/advanced/serverless.png)

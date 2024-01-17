@@ -43,12 +43,6 @@ Zeabur 同时支持容器化（Containerized）和 Serverless 两种部署方式
 
 对于需要使用 Serverless 的框架，例如 [Next.js](https://nextjs.org/) 或 [Nuxt.js](https://nuxtjs.org/) 等等，在 zbpack 构建完的 `.zeabur/output` 目录下，会有 `static` 和 `functions` 两个目录，其中 `static` 目录下存放的是静态资源，而 `functions` 目录下存放的是 Serverless 函数。
 
-<Callout>
-    目前 Serverless 函数的部署还在 Beta 阶段，如果你想要用 Serverless 的方式部署服务，需要在构建时加入 `EXPERIMENTAL_SERVERLESS=1` 的环境变量。
-
-    若您的项目或某个框架能够用 Serverless 函数的方式部署，但 zbpack 尚未对其做出支援，欢迎您在 [GitHub](https://github.com/zeabur/zbpack) 提出 Issue 或 Pull Request。
-</Callout>
-
 对于部署在 Zeabur 的服务，可以在服务详情页面的右上角看到目前是使用 Serverless 方式还是容器化（Containerized）方式进行部署的：
 
 ![服務詳情頁面](/advanced/serverless.png)
