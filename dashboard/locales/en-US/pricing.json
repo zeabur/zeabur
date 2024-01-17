@@ -1,0 +1,17 @@
+{
+    "title": "Update Your Plan",
+    "current": "You are currently on: ",
+    "payment-method": "Current Payment method:",
+    "have-coupon": "Have a coupon?",
+    "not-sure": "Not sure about the billings?",
+    "discord": "Join our Discord server to get more details!",
+    "subscribe": "Subscribe",
+    "unsubscribe": "Unsubscribe",
+    "no-card": "No credit card?",
+    "coupon": {
+      "title": "Use a coupon",
+      "description": "Use a coupon to get discount",
+      "placeholder": "Coupon code",
+      "confirm": "Subscribe"
+    }
+}

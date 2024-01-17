@@ -1,0 +1,50 @@
+{
+    "title": "設定",
+    "tabs": {
+        "project": "專案",
+        "environment": "環境"
+    },
+    "project": {
+        "title": "專案設定",
+        "name": "專案名稱",
+        "wrong": "格式錯誤",
+        "delete-title": "刪除專案",
+        "delete-sub-title": "刪除專案及其所有環境。",
+        "delete": "刪除專案",
+        "leave-title": "退出專案",
+        "leave-sub-title": "離開該專案",
+        "leave": "離開專案",
+        "modal": {
+            "title": "刪除專案",
+            "sub-title": "你確定要刪除這個專案嗎？"
+        },
+        "toast": {
+            "rename": "重新命名成功",
+            "delete": "刪除專案成功",
+            "leave": "離開專案成功",
+            "update": "Update project successfully",
+            "update-description": "Update project description successfully",
+            "update-icon": "Update project icon successfully"
+        },
+        "icon": "Project Icon",
+        "name-and-icon": "Project Name & Icon",
+        "description": "Project Description"
+    },
+    "environment": {
+        "name": "環境名稱",
+        "return": "返回",
+        "save": "儲存",
+        "wrong": "格式錯誤",
+        "delete-title": "刪除環境",
+        "delete-sub-title": "刪除專案中的這個環境",
+        "delete": "刪除環境",
+        "modal": {
+            "title": "刪除環境",
+            "sub-title": "你確定要刪除這個環境嗎？"
+        },
+        "toast": {
+            "delete": "刪除環境成功",
+            "rename": "重新命名環境成功"
+        }
+    }
+}

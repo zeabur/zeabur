@@ -1,0 +1,41 @@
+{
+    "credit-card": {
+        "title": "Credit Card",
+        "submit": "Submit"
+    },
+    "subscription": {
+        "title": "Update Your Plan"
+    },
+    "plan": {
+      "current": "Current Plan",
+      "upgrade": "Upgrade",
+      "include": "It includes",
+      "free-credit": "a US$ 5 free credit",
+      "month": "per month",
+      "serverless": "You can only deploy serverless functions on this plan."
+    },
+    "payment": {
+      "method": "Payment Method",
+      "no-method": "You don't have a payment method yet. You will be asked to manually extend the free trial to keep your services available.",
+      "card": "You have bind a paymend method of credit card ends in",
+      "alipay": "You have bind a paymend method of",
+      "manage": "Manage",
+      "cny-modal": {
+        "title": "No Credit Card?",
+        "sub-title": "For users in China Mainland, we offer Alipay as another payment method choice.",
+        "p-1": "There is a one-time charge of ¥3.99 to authorize your Alipay account as your payment method.",
+        "p-2": "After that, you can use Zeabur without any charge and no need to extend free trial manually.",
+        "setup": "Setup Alipay"
+      },
+      "manage-section": {
+        "no-card": "No credit card?",
+        "add": "Add",
+        "setup-alipay": "Setup Alipay",
+        "have-card": "Have credit card?"
+      }
+    },
+    "credit": {
+      "title": "Account Credit",
+      "desc": "You will not be charged until the credit is empty."
+    }
+}

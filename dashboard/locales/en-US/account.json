@@ -1,0 +1,103 @@
+{
+    "sidebar": {
+        "general": "General",
+        "billing": "Billing",
+        "usage": "Usage",
+        "template": "Template",
+        "referrals": "Referral",
+        "developer": "Developer"
+    },
+    "general": {
+        "title": "General",
+        "profile": "Profile Settings",
+        "name": "Name",
+        "language": "Language",
+        "appearance": "Appearance",
+        "theme": "Theme",
+        "wrong-name": "Username can't be beyond 64 characters",
+        "wrong-url": "URL is not valid",
+        "avatarurl": "Avatar URL",
+        "email": "Email",
+        "save": "Save",
+        "cancel": "Cancel",
+        "integrations": "Integrations",
+        "verify": "Verify",
+        "verified": "You are verified",
+        "link": "Link Your Discord",
+        "discord": "Discord Account",
+        "email_preferences_toast": "Preference update success!",
+        "email_preferences_toast_error": "Preference update failed!",
+        "email_preferences_title": "Email Preferences",
+        "email_preferences_build": "Failing builds",
+        "email_preferences_build_desc": "Get notified when a build fails",
+        "email_preferences_crash": "Crashed deployment",
+        "email_preferences_crash_desc": "Get notified when a deploy crashes"
+    },
+    "billing": {
+      "title": "Billing",
+      "learn-more": "Learn More"
+    },
+    "usage": {
+        "title": "Usage",
+        "balance_history": "Balance History",
+        "balance_desc": "Balance is the amount of money you have in your account. You can use it to pay for your services.",
+        "credit_history": "Credit History",
+        "credit_desc": "You will get credits of US$ 5 each month. Your services usage will be deducted from credits first.",
+        "usage_history": "Usage History",
+        "usage_desc": "The usage history for each project is here",
+        "last_3_days": "Last 3 Days",
+        "last_7_days": "Last 7 Days",
+        "last_14_days": "Last 14 Days",
+        "last_30_days": "Last 30 Days",
+        "category": "Group by",
+        "total_usage": "total cost",
+        "time": "Timestamp",
+        "balance": "Balance",
+        "credit": "Credit",
+        "reason": "Reason",
+        "more": "More",
+        "showing": "Showing",
+        "to": "to",
+        "of": "of",
+        "entries": "entries",
+        "previous": "Previous",
+        "next": "Next",
+        "copied": "Copied to clipboard"
+    },
+    "invoice": {
+        "title": "Next Billing",
+        "invoice_title": "Upcoming invoice",
+        "invoice_desc_1": "This is a preview of the invoice that will be billed on",
+        "invoice_desc_2": ". It may change if the subscription is updated.",
+        "description": "DESCRIPTION",
+        "quantity": "QTY",
+        "unit_price": "UNIT PRICE",
+        "amount": "AMOUNT",
+        "view_usage": "View usage",
+        "subtotal": "Subtotal",
+        "total": "Total"
+    },
+    "template": {
+        "title": "Your Templates",
+        "create": "Create New Template",
+        "browse": "Browse Templates"
+    },
+    "referrals": {
+      "title": "Referrals",
+      "sub-title": "Share your link to earn credits",
+      "description-1": "By referring your friends, you may earn credits to use on Zeabur.",
+      "description-2": "For each friend you refer, you will receive $5 in credits when they upgrade to a paid plan.",
+      "status": {
+        "title": "Referral status",
+        "pending": {
+          "title": "Pending referrals",
+          "no-pending": "No pending referrals.\nRefer your friends to earn credit."
+        },
+        "credited": {
+          "title": "Credited referrals",
+          "no-credited": "No credited referrals."
+        }
+      },
+      "share": "Your referral link"
+    }
+}

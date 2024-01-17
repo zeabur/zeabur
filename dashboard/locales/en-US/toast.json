@@ -1,0 +1,16 @@
+{
+    "top-layer": {
+        "build": "Build",
+        "scheduled": "scheduled",
+        "started": "started",
+        "finished": "finished",
+        "failed": "failed",
+        "domain": "Create a domain for your service"
+    },
+    "projects": {
+        "notice": "You need a project to continue. Please create one."
+    },
+    "copy": "Copied to clipboard",
+    "limit": "You have reached the limit of free plan.",
+    "upgrade": "Upgrade"
+}

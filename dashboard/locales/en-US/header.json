@@ -1,0 +1,13 @@
+{
+    "dashboard": "Dashboard",
+    "upgrade": "Upgrade",
+    "docs": "Docs",
+    "languages": "Languages",
+    "templates": "Templates",
+    "menu": {
+        "settings": "Settings",
+        "billing": "Billing",
+        "logout": "Logout"
+    },
+    "days": "Days"
+}

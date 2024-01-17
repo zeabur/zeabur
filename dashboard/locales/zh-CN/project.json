@@ -1,0 +1,19 @@
+{
+    "card": {
+        "service": "服务",
+        "create-project": "创建项目"
+    },
+    "modal": {
+        "title": "创建项目",
+        "description": "为您的服务创建一个新项目。",
+        "error": "格式错误",
+        "create": "创建",
+        "cancel": "关闭",
+        "placeholder": "请输入项目名称"
+    },
+    "members": "成员",
+    "environments": "环境",
+    "services": "服务",
+    "add-env": "新建环境",
+    "add-service": "新建服务"
+}

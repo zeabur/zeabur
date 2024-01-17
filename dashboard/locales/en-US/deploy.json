@@ -1,0 +1,24 @@
+{
+    "title": "Deploy \n New Service",
+    "create": "Deploy New Service",
+    "desc": "What kind of service do you want to deploy?",
+    "source-code": "Deploy\nYour Source Code",
+    "other-service": "Deploy\nOther Services",
+    "source": {
+        "back": "Back",
+        "configure": "Configure GitHub APP",
+        "placeholder": "Search Repositories",
+        "import": "Import",
+        "service-name": "Service Name",
+        "branches": "Git Branches",
+        "deploy": "Deploy",
+        "wrong": "Service name can only include numbers, lowercases and dashes"
+    },
+    "other": {
+        "back": "Back",
+        "deploy": "Deploy",
+        "service-name": "Service Name",
+        "service": "service",
+        "wrong": "Wrong format"
+    }
+}
