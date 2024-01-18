@@ -129,6 +129,15 @@ monorepo，並且預設的設定會導致專案編譯失敗，你可能得停用
 1. 專案本身使用了如 [Next.js](https://nextjs.org/)、[Nuxt.js](https://nuxtjs.org/)、[Remix](https://remix.run/) 等專為 Serverless 部署所設計的框架。
 2. 專案本身不使用上述框架，但服務本身符合 Serverless 的理念：每個請求的狀態彼此獨立，且可以在沒有請求的情況下自動休眠。
 
+### 啟用 serverless
+
+如果你的專案是使用 Next.js、Nuxt.js、Waku 和 Angular 撰寫的（[完整名單可以參考 zbpack 程式碼庫的 `getServerless` 函式](https://github.com/zeabur/zbpack/blob/main/internal/nodejs/plan.go)），
+Zeabur 會自動將專案部署成 serverless 形式。如果需要停用，可參考[〈啟用 Serverless〉](/deploy/serverless)一章。
+
+如果是其他框架撰寫而成的專案（或者是如下文，自行製作的 Serverless 格式），目前需要手動 opt-in。請參考
+[啟用 Serverless](/deploy/serverless) 頁面啟用 serverless 支援。如果測試上沒有問題，也歡迎送個
+Pull Request 到 [zbpack 程式碼庫](https://github.com/zeabur/zbpack)。
+
 ### 把專案構建成 Serverless 格式
 
 如果你的專案使用了 Next.js、Nuxt.js、Remix 等框架，那麼你可以直接跳過這個步驟，因為 [zbpack](https://github.com/zeabur/zbpack) 會自動將他轉換成 Serverless 產物格式。
@@ -275,7 +284,7 @@ const staticFileDirs = ['public']
 ## 額外注意事項
 1. 監聽的 port 使用 `process.env.PORT`
 
-    例如 
+    例如
     ```js
     const port = process.env.PORT || 3000
     // 而非 const port = 3000
@@ -291,5 +300,5 @@ const staticFileDirs = ['public']
         // 而非 "start": "nodemon server.js"
     },
     }
-        
+
     ```
