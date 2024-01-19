@@ -1,0 +1,84 @@
+---
+title: Editing Configuration Files
+ogImageTitle: Editing Configuration Files
+ogImageSubtitle: Editing Configuration Files
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Editing Configuration Files
+
+When running a service, you can use a configuration file to customize some parameters of the service. Zeabur provides a configuration file editor that allows you to specify the storage location and content of the configuration file via the editor. When the service starts, the configuration file is automatically mounted.
+
+Here, we use [nginx](https://nginx.com/) as a front proxy for [Botway CE](https://github.com/botwayorg/ce) to demonstrate the process of editing ngnix custom configuration files via the configuration file editor.
+
+## Step One: Create a Project
+
+Create a Project in [Zeabur Dash](https://dash.zeabur.com/).
+
+## Step Two: Create Services
+
+Create Prebuilt Services in the Project mentioned above, with service names `nginx` and `botway` respectively.
+
+![Create Ngnix Service](/deploy/config-edit/create-nginx-service.en-US.png)
+
+![Create Botway CE Service](/deploy/config-edit/create-botwayce-service.en-US.png)
+
+## Step 3: Edit Nginx Service Configuration File
+
+1. In the Services column, click on the `Settings` tab for the `nginx` service, click the drop-down button to find the `Configs` section, and click the `Open Config Editor` button to enter the configuration file editor.
+
+![Open Configuration File Editor](/deploy/config-edit/open-config-editor.en-US.png)
+
+2. In the opened window, click the `Add Config file` button to add a configuration file. In the popped-up window, enter the path and name of the configuration file in the `Config Path` input box. Here, we input `/etc/nginx/nginx.conf`, and then click the `Save Config` button.
+
+![Add Configuration File](/deploy/config-edit/create-new-config.en-US.png)
+
+<Callout>
+    The `Config Path` above requires you to input the absolute path of the configuration file, please configure it according to the actual situation.
+</Callout>
+
+3. Edit the content of the configuration file according to your needs. Here, we add a `server` configuration for reverse proxying the Botway CE service.
+
+```nginx
+worker_processes  5;
+error_log  stderr;
+worker_rlimit_nofile 8192;
+
+events {}
+
+http {
+  default_type application/octet-stream;
+  log_format   main '$remote_addr - $remote_user [$time_local]  $status '
+    '"$request" $body_bytes_sent "$http_referer" '
+    '"$http_user_agent" "$http_x_forwarded_for"';
+  access_log   /dev/stdout  main;
+  sendfile     on;
+  tcp_nopush   on;
+  server_names_hash_bucket_size 128; # this seems to be required for some vhosts
+
+  server {
+    listen 80 default_server;
+    server_name _;
+
+    location / {
+      add_header X-Demo-By zeabur;
+    
+      proxy_pass http://botway-ce.zeabur.internal:8080;
+    }
+  }
+}
+```
+In the file content above, `botway-ce.zeabur.internal` in the `proxy_pass` directive is the service name of Botway CE. Here, we used [Private Network](/deploy/private-networking) feature, which allows us to access services via a fixed host name using internal network access.
+
+In the file above, we added a custom log format and log storage location, as well as several custom nginx optimization parameters.
+
+4. Click the `Save` button to save the configuration file.
+
+![Save Configuration File](/deploy/config-edit/save-config.en-US.png)
+
+## Step Four: Restart the Service
+
+In the steps above, we have finished editing the configuration file. Next, we need to restart the service. Go to the Instructions column, find the `Restart` button, and click it to restart the service so that the configuration file takes effect.
+
+![Restart Service](/deploy/config-edit/restart-service.en-US.png)

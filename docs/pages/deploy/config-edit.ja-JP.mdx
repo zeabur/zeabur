@@ -1,0 +1,84 @@
+---
+title: 設定ファイルの編集
+ogImageTitle: 設定ファイルの編集
+ogImageSubtitle: 設定ファイルの編集
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# 設定ファイルの編集
+
+サービスを実行する際、設定ファイルを通じてサービスのいくつかのパラメータをカスタマイズすることができ、Zeaburは設定ファイルのエディタを提供しています。エディタを使って設定ファイルの保存場所と内容を指定することができます。サービスが起動すると、設定ファイルが自動的にマウントされます。
+
+ここでは、[nginx](https://nginx.com/) をフロントエンドのプロキシとして [Botway CE](https://github.com/botwayorg/ce)に使用して、設定ファイルエディタで ngnix のカスタム設定ファイルの編集プロセスを示します。
+
+## ステップ1：プロジェクトの作成
+
+[Zeabur Dash](https://dash.zeabur.com/)で Project を作成します。
+
+## ステップ2：サービスの作成
+
+上述の Project で Prebuilt Service を作成し、それぞれのサービス名を `nginx` と `botway` とします。
+
+![Ngnixサービスの作成](/deploy/config-edit/create-nginx-service.en-US.png)
+
+![Botway CEサービスの作成](/deploy/config-edit/create-botwayce-service.en-US.png)
+
+## ステップ3：Nginxサービス設定ファイルの編集
+
+1. Servicesのカラムで、`nginx`サービスの`Settings`をクリックし、ドロップダウンボタンで`Configs`部分を見つけ、`Open Config Editor`ボタンをクリックして設定ファイルエディタに入ります。
+
+![設定ファイルエディタを開く](/deploy/config-edit/open-config-editor.en-US.png)
+
+2. 開いたウィンドウで、`Add Config file`ボタンをクリックして設定ファイルを追加します。ポップアップウィンドウで、`Config Path`入力欄に設定ファイルのパスと名前を入力して、`/etc/nginx/nginx.conf`を入力し、`Save Config`ボタンをクリックします。
+
+![設定ファイルの追加](/deploy/config-edit/create-new-config.en-US.png)
+
+<Callout>
+    上の`Config Path`は設定ファイルの絶対パスを入力する必要があります。実際の状況に応じて設定してください。
+</Callout>
+
+3. 必要に応じて設定ファイルの内容を編集します。ここでは、Botway CEサービスをリバースプロキシする`server`設定を追加しました。
+
+```nginx
+worker_processes  5;
+error_log  stderr;
+worker_rlimit_nofile 8192;
+
+events {}
+
+http {
+  default_type application/octet-stream;
+  log_format   main '$remote_addr - $remote_user [$time_local]  $status '
+    '"$request" $body_bytes_sent "$http_referer" '
+    '"$http_user_agent" "$http_x_forwarded_for"';
+  access_log   /dev/stdout  main;
+  sendfile     on;
+  tcp_nopush   on;
+  server_names_hash_bucket_size 128; # this seems to be required for some vhosts
+
+  server {
+    listen 80 default_server;
+    server_name _;
+
+    location / {
+      add_header X-Demo-By zeabur;
+    
+      proxy_pass http://botway-ce.zeabur.internal:8080;
+    }
+  }
+}
+```
+上記のファイル内容では、`proxy_pass`命令の`botway-ce.zeabur.internal`はBotway CEサービスのサービス名で、[Private Network](/deploy/private-networking)機能を使用して、固定のホスト名で内部ネットワークからサービスにアクセスすることができます。
+
+上記のファイルでは、カスタムログフォーマットとログ保存場所を追加し、いくつかのnginxの最適化パラメータをカスタマイズしました。
+
+4. `Save`ボタンをクリックして、設定ファイルを保存します。
+
+![設定ファイルの保存](/deploy/config-edit/save-config.en-US.png)
+
+## ステップ4：サービスの再起動
+
+上述のステップで、設定ファイルの編集が完了しました。次にサービスを再起動する必要があります。Instructionsのカラムを検索して`Restart`ボタンを見つけ、クリックしてサービスを再起動し、設定ファイルを有効にします。
+
+![サービスの再起動](/deploy/config-edit/restart-service.en-US.png)
