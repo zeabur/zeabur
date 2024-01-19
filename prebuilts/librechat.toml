@@ -1,0 +1,17 @@
+#:schema ./schema.json
+
+id = "libre-chat"
+name = "Libre Chat"
+icon = "https://github.com/danny-avila/LibreChat/raw/main/docs/assets/LibreChat.svg"
+description = "LibreChat brings together the future of assistant AIs with the revolutionary technology of OpenAI's ChatGPT."
+
+[source]
+image = "danny-avila/librechat-dev:latest"
+
+[[ports]]
+id = "web"
+port = 3080
+type = "HTTP"
+
+[env]
+OPENAI_API_KEY = { default = "sk-xxxx", required = true }
