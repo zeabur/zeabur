@@ -6,7 +6,7 @@ icon = "https://github.com/danny-avila/LibreChat/raw/main/docs/assets/LibreChat.
 description = "LibreChat brings together the future of assistant AIs with the revolutionary technology of OpenAI's ChatGPT."
 
 [source]
-image = "danny-avila/librechat-dev:latest"
+image = "ghcr.io/danny-avila/librechat:v0.6.5"
 
 [[ports]]
 id = "web"
