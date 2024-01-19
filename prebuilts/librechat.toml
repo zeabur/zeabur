@@ -14,4 +14,4 @@ port = 3080
 type = "HTTP"
 
 [env]
-OPENAI_API_KEY = { default = "sk-xxxx" }
+OPENAI_API_KEY = { default = "sk-xxxx", required = true }
