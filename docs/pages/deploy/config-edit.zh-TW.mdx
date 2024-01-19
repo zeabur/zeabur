@@ -10,7 +10,7 @@ import { Callout } from 'nextra-theme-docs'
 
 在執行服務時，可以透過配置檔案來自訂服務的一些參數，Zeabur 提供了一個配置檔案編輯器，可以透過編輯器來指定配置檔案的儲存位置和內容。在服務啟動時，會自動掛載配置檔案。
 
-這裡我們使用 [nginx](https://nginx.com/) 作為前置代理 [Botway CE](https://github.com/botwayorg/ce)，來示範配置檔案編輯器編輯 ngnix 自訂配置檔案的過程。
+這裡我們使用 [nginx](https://nginx.com/) 作為前置代理 [vaultwarden](https://github.com/dani-garcia/vaultwarden)，來示範配置檔案編輯器編輯 ngnix 自訂配置檔案的過程。
 
 ## 步驟一：建立項目
 
@@ -18,15 +18,15 @@ import { Callout } from 'nextra-theme-docs'
 
 ## 步驟二：建立服務
 
-在上述 Project 中分別建立 Prebuilt Service ，服務名稱分別為 `nginx` 和 `botway`。
+在上述 Project 中分別建立 Prebuilt Service ，服務名稱分別為 nginx 和 vaultwarden。
 
 ![建立 Ngnix 服務](/deploy/config-edit/create-nginx-service.en-US.png)
 
-![建立 Botway CE 服務](/deploy/config-edit/create-botwayce-service.en-US.png)
+![建立 Vaultwarden 服務](/deploy/config-edit/create-vultwarden-service.en-US.png)
 
 ## 步驟三：編輯 Nginx 服務配置檔案
 
-1. 在 Services 一欄中，點擊 `nginx` 服務的 `Settings` 欄目，點擊下拉按鈕找到 `Configs` 部分，點擊 `Open Config Editor` 按鈕，進入配置檔案編輯器。
+1. 在 Services 一欄中，點擊 nginx 服務的 `Settings` 欄目，點擊下拉按鈕找到 `Configs` 部分，點擊 `Open Config Editor` 按鈕，進入配置檔案編輯器。
 
 ![打開配置檔案編輯器](/deploy/config-edit/open-config-editor.en-US.png)
 
@@ -38,10 +38,10 @@ import { Callout } from 'nextra-theme-docs'
     上方的 `Config Path` 需要輸入配置檔案的絕對路徑，請根據實際情況配置。
 </Callout>
 
-3. 根據需求，編輯配置檔案的內容，這裡我們添加了一個 `server` 配置，用於反向代理 Botway CE 服務。
+3. 根據需求，編輯配置檔案的內容，這裡我們添加了一個 `server` 配置，用於反向代理 vaultwarden 服務。
 
 ```nginx
-worker_processes  5;
+worker_processes  4;
 error_log  stderr;
 worker_rlimit_nofile 8192;
 
@@ -57,19 +57,31 @@ http {
   tcp_nopush   on;
   server_names_hash_bucket_size 128; # this seems to be required for some vhosts
 
+  map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      "";
+  }
+
   server {
     listen 80 default_server;
-    server_name _;
+    server_name _; 
 
     location / {
-      add_header X-Demo-By zeabur;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection $connection_upgrade;
     
-      proxy_pass http://botway-ce.zeabur.internal:8080;
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+    
+      proxy_pass http://vaultwarden.zeabur.internal:80;
     }
   }
 }
 ```
-上面的文件內容中，`proxy_pass` 指令中的 `botway-ce.zeabur.internal` 是 Botway CE 服務的服務名，這裡我們使用了 [Private Network](/deploy/private-networking) 功能，可以透過固定的主機名稱來使用內網訪問服務。
+上面的文件內容中，`proxy_pass` 程式碼塊中的 `vaultwarden.zeabur.internal` 是 vaultwarden 服務的服務名，這裡我們使用了 [Private Network](/deploy/private-networking) 功能，可以透過固定的主機名稱來使用內網訪問服務。
 
 在上面的文件裡我們添加了自訂的日誌格式和日誌儲存位置，並且自訂了若干 nginx 最佳化參數
 
@@ -79,6 +91,10 @@ http {
 
 ## 步驟四：重啟服務
 
-在上述步驟中，我們已經完成了配置檔案的編輯，接下來我們需要重啟服務，找到 Instructions 欄目，找到 `Restart` 按鈕，點擊重啟服務，以使配置檔案生效。
+在上述步驟中，我們已經完成了配置檔案的編輯，接下來我們需要重啟服務，找到 `Instructions` 欄目，找到 `Restart` 按鈕，點擊重啟服務，以使配置檔案生效。
 
 ![重啟服務](/deploy/config-edit/restart-service.en-US.png)
+
+在 nginx 服務下進行 [綁定域名](/deploy/domain-binding) 後，就可以透過域名訪問 vaultwarden 服務。
+
+![訪問 Vaultwarden](/deploy/config-edit/vultwarden-service.en-US.png)

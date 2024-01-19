@@ -1,47 +1,47 @@
 ---
-title: 設定ファイルの編集
-ogImageTitle: 設定ファイルの編集
-ogImageSubtitle: 設定ファイルの編集
+title: 設定ファイル編集
+ogImageTitle: 設定ファイル編集
+ogImageSubtitle: 設定ファイル編集
 ---
 
 import { Callout } from 'nextra-theme-docs'
 
-# 設定ファイルの編集
+# 設定ファイル編集
 
-サービスを実行する際、設定ファイルを通じてサービスのいくつかのパラメータをカスタマイズすることができ、Zeaburは設定ファイルのエディタを提供しています。エディタを使って設定ファイルの保存場所と内容を指定することができます。サービスが起動すると、設定ファイルが自動的にマウントされます。
+サービスを実行する際に、設定ファイルを通じてサービスのいくつかのパラメータをカスタマイズすることが可能です。Zeaburでは設定ファイルエディタが提供されており、エディタを通じて設定ファイルの保存場所と内容を指定することができます。サービス起動時には設定ファイルが自動的にマウントされます。
 
-ここでは、[nginx](https://nginx.com/) をフロントエンドのプロキシとして [Botway CE](https://github.com/botwayorg/ce)に使用して、設定ファイルエディタで ngnix のカスタム設定ファイルの編集プロセスを示します。
+ここでは [nginx](https://nginx.com/)をフロントエンドのプロキシとして [vaultwarden](https://github.com/dani-garcia/vaultwarden)を用い、設定ファイルエディタによるngnixのカスタム設定ファイルの編集プロセスを示します。
 
 ## ステップ1：プロジェクトの作成
 
-[Zeabur Dash](https://dash.zeabur.com/)で Project を作成します。
+[Zeabur Dash](https://dash.zeabur.com/)でProjectを作成します。
 
 ## ステップ2：サービスの作成
 
-上述の Project で Prebuilt Service を作成し、それぞれのサービス名を `nginx` と `botway` とします。
+上記のProjectでそれぞれPrebuilt Serviceを作成し、それぞれのサービス名はnginxとvaultwardenにします。
 
-![Ngnixサービスの作成](/deploy/config-edit/create-nginx-service.en-US.png)
+![Ngnix サービスの作成](/deploy/config-edit/create-nginx-service.en-US.png)
 
-![Botway CEサービスの作成](/deploy/config-edit/create-botwayce-service.en-US.png)
+![Vaultwarden サービスの作成](/deploy/config-edit/create-vultwarden-service.en-US.png)
 
-## ステップ3：Nginxサービス設定ファイルの編集
+## ステップ3：Nginx サービス設定ファイルの編集
 
-1. Servicesのカラムで、`nginx`サービスの`Settings`をクリックし、ドロップダウンボタンで`Configs`部分を見つけ、`Open Config Editor`ボタンをクリックして設定ファイルエディタに入ります。
+1. Services メニューのなかで、nginx サービスの `Settings` セクションをクリックし、ドロップダウンボタンから `Configs` セクションを選択します。次に `Open Config Editor` ボタンをクリックして設定ファイルエディタを開きます。
 
 ![設定ファイルエディタを開く](/deploy/config-edit/open-config-editor.en-US.png)
 
-2. 開いたウィンドウで、`Add Config file`ボタンをクリックして設定ファイルを追加します。ポップアップウィンドウで、`Config Path`入力欄に設定ファイルのパスと名前を入力して、`/etc/nginx/nginx.conf`を入力し、`Save Config`ボタンをクリックします。
+2. 新しく開いたウィンドウで、`Add Config file` ボタンをクリックして新しい設定ファイルを追加します。ポップアップウィンドウの `Config Path` 入力ボックスに設定ファイルのパスと名前を入力します。ここでは `/etc/nginx/nginx.conf` を入力し、`Save Config` ボタンをクリックします。
 
-![設定ファイルの追加](/deploy/config-edit/create-new-config.en-US.png)
+![設定ファイルを追加する](/deploy/config-edit/create-new-config.en-US.png)
 
 <Callout>
-    上の`Config Path`は設定ファイルの絶対パスを入力する必要があります。実際の状況に応じて設定してください。
+    上の `Config Path` には設定ファイルの絶対パスを入力する必要があります。実際の状況に応じて設定してください。
 </Callout>
 
-3. 必要に応じて設定ファイルの内容を編集します。ここでは、Botway CEサービスをリバースプロキシする`server`設定を追加しました。
+3. 必要に応じて設定ファイルの内容を編集します。ここでは、vaultwarden サービスに対するリバースプロキシを設定する `server` 設定を追加しました。
 
 ```nginx
-worker_processes  5;
+worker_processes  4;
 error_log  stderr;
 worker_rlimit_nofile 8192;
 
@@ -57,28 +57,44 @@ http {
   tcp_nopush   on;
   server_names_hash_bucket_size 128; # this seems to be required for some vhosts
 
+  map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      "";
+  }
+
   server {
     listen 80 default_server;
-    server_name _;
+    server_name _; 
 
     location / {
-      add_header X-Demo-By zeabur;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection $connection_upgrade;
     
-      proxy_pass http://botway-ce.zeabur.internal:8080;
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+    
+      proxy_pass http://vaultwarden.zeabur.internal:80;
     }
   }
 }
 ```
-上記のファイル内容では、`proxy_pass`命令の`botway-ce.zeabur.internal`はBotway CEサービスのサービス名で、[Private Network](/deploy/private-networking)機能を使用して、固定のホスト名で内部ネットワークからサービスにアクセスすることができます。
+上記のファイル内容では、`proxy_pass` ブロック内の `vaultwarden.zeabur.internal` はvaultwarden サービスのサービス名であり、この例では [Private Network](/deploy/private-networking) 機能を使用し、定められたホスト名で内部ネットワーク経由でサービスにアクセスすることができます。
 
-上記のファイルでは、カスタムログフォーマットとログ保存場所を追加し、いくつかのnginxの最適化パラメータをカスタマイズしました。
+このファイルでは、カスタムログフォーマットとログ保存場所設定を追加したほか、nginxの最適化パラメータをカスタム設定しました。
 
-4. `Save`ボタンをクリックして、設定ファイルを保存します。
+4. `Save` ボタンをクリックして、設定ファイルを保存します。
 
-![設定ファイルの保存](/deploy/config-edit/save-config.en-US.png)
+![設定ファイルを保存する](/deploy/config-edit/save-config.en-US.png)
 
 ## ステップ4：サービスの再起動
 
-上述のステップで、設定ファイルの編集が完了しました。次にサービスを再起動する必要があります。Instructionsのカラムを検索して`Restart`ボタンを見つけ、クリックしてサービスを再起動し、設定ファイルを有効にします。
+以上のステップで設定ファイルの編集が完了したので、次に `Instructions` セクションで `Restart` ボタンを探し、サービスを再起動して設定ファイルを有効にします。
 
 ![サービスの再起動](/deploy/config-edit/restart-service.en-US.png)
+
+nginx サービスで [ドメインをバインド](/deploy/domain-binding) した後、ドメインを通じてvaultwarden サービスにアクセスすることが可能になります。
+
+![Vaultwardenにアクセス](/deploy/config-edit/vultwarden-service.en-US.png)
