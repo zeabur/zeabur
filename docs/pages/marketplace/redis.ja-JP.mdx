@@ -4,6 +4,42 @@ ogImageTitle: Redisのデプロイ
 ogImageSubtitle: ZeaburでのRedisのデプロイ方法
 ---
 
-# Redisのデプロイ
+# Redisサービスのデプロイ
 
-<WorkingInProgress />
+Zeaburは、Redisサービスのワンクリックデプロイ機能を提供しており、Zeabur上で迅速にRedisデータベースをデプロイすることができます。
+
+## Redisサービスのデプロイ
+
+プロジェクト内で、**サービスを追加**をクリックし、**マーケットプレイス**を選択してから`Redis`を検索します：
+
+![Redisのデプロイ](/databases/redis/deploy-redis.gif)
+
+"Redis"をクリックすると、Zeaburが自動的にRedisサービスをデプロイします。
+
+## 環境変数
+
+Redisサービスが正常にデプロイされると、Zeaburは自動的にサービスに環境変数を注入します。現在、以下の変数が利用可能です：
+
+- `REDIS_CONNECTION_STRING`
+- `REDIS_HOST`
+- `REDIS_PASSWORD`
+- `REDIS_PORT`
+- `REDIS_URI`
+
+## データベースへの接続
+
+- [Redis cli](https://docs.redis.com/latest/rs/references/cli-utilities/redis-cli/)
+
+### redis-cli
+
+[redis-cli](https://www.mongodb.com/docs/mongodb-shell/)は、Redisデータベースと対話するためのコマンドラインツールです。redis-cliを使用すると、コマンドライン端末や対話モードでRedisコマンドを実行できます。
+
+ドキュメントに従ってダウンロードおよびインストールした後、Zeaburに戻ります。Redisサービスで、指示タブをクリックし、Redisへの接続コマンドのコピーボタンをクリックして、接続アドレスをコピーします。
+
+![接続パス](/databases/redis/redis-connect-path.png)
+
+コピーしたコマンドを端末に貼り付け、「PING」と入力して、接続が成功しているかテストします：
+
+![接続テスト](/databases/redis/redis-test-connection.png)
+
+これで、Redisの操作を開始できます。
