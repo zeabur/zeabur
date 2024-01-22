@@ -1,0 +1,36 @@
+---
+title: Botway CE
+ogImageTitle: 在 Zeabur 上部署 Botway CE
+ogImageSubtitle: 在 Zeabur 上一键部署 Botway CE 服务
+---
+
+# 在 Zeabur 上部署 Botway CE
+
+Zeabur 提供了一键部署 Botway CE 服务的功能，使你能够迅速在 Zeabur 上布置 Botway CE。
+
+## 部署 Botway CE 服务
+
+在你的项目中，点击 **建立服务**，选择 **Marketplace** 然后搜索 `Botway CE`。
+
+![部署 "Botway CE"](/marketplace/botwayce/deploy-botwayce.gif)
+
+选择「Botway CE」后，Zeabur 会自动帮你完成 Botway CE 服务的部署。
+
+## 环境变量
+
+在成功部署 Botway CE 服务之后，Zeabur 会自动把环境变量注入到该服务中。目前包括以下变量：
+
+- `GIT_REPO`
+- `GITHUB_TOKEN`
+- `PASSWORD`
+- `PKGS`
+
+## 连接 Botway CE
+
+我在这里使用了 Zeabur 内置的 Generate Domain 功能来创建一个 Domain，在 **Networking** 部分点击 Generate Domain。
+
+![创建 "Botway CE Domain"](/marketplace/botwayce/gen-botwayce-domain.gif)
+
+创建完成后，打开 Domain 并输入 Variable 的密码即可开始使用 Botway CE
+
+![设置 "Botway CE"](/marketplace/botwayce/setup-botwayce.gif)
