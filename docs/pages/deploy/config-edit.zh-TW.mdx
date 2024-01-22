@@ -81,7 +81,7 @@ http {
   }
 }
 ```
-為了讓其他人可以透過 NGINX 服務存取我們的內部 Vaultwarden，我們在 NGINX 中使用 `proxy_pass http://vaultwarden.zeabur.internal:80;` 指令，表示讓 NGINX 將連線到此處的所有請求都代理到 Vaultwarden。我們利用 [服務內網](/deploy/private-networking) 功能，在我們的私有網路中透過固定主機名稱存取 Vaultwarden。
+為了讓其他人可以透過 NGINX 服務存取我們的內部 Vaultwarden 服務，我們在 NGINX 中使用 `proxy_pass http://vaultwarden.zeabur.internal:80;` 指令，表示讓 NGINX 將連線到此處的所有請求都代理到 Vaultwarden。我們利用 [私有網路](/deploy/private-networking) 功能，在我們的私有網路中透過固定主機名稱存取 Vaultwarden。
 
 4. 點選 `Save` 按鈕儲存設定。
 
@@ -93,6 +93,6 @@ http {
 
 ![重新啟動服務](/deploy/config-edit/restart-service.en-US.png)
 
-[將網域綁定到 NGINX 服務後](/deploy/domain-binding)，即可透過網域造訪 vaultwarden 服務。
+[將網域綁定到 NGINX 服務後](/deploy/domain-binding)，即可透過網域造訪 Vaultwarden 服務。
 
 ![造訪 Vaultwarden](/deploy/config-edit/vultwarden-service.en-US.png)
