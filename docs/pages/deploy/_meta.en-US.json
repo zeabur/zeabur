@@ -9,5 +9,6 @@
   "github": "Integrating with GitHub",
   "private-networking": "Private Networking",
   "special-variables": "Special Variables",
-  "deploy-in-cli": "Deploy in CLI"
+  "deploy-in-cli": "Deploy in CLI",
+  "config-edit": "Config Editing"
 }

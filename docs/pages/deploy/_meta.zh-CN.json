@@ -8,5 +8,6 @@
   "customize-prebuilt": "自定义 Prebuilt",
   "github": "与 GitHub 集成",
   "private-networking": "私有网络",
-  "special-variables": "特殊变量"
+  "special-variables": "特殊变量",
+  "config-edit": "编辑配置文件"
 }
