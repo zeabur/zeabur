@@ -10,5 +10,5 @@
     "private-networking": "プライベートネットワーキング",
     "special-variables": "特殊変数",
     "deploy-in-cli": "CLI でデプロイ",
-    "config-edit": "設定の編集"
+    "config-edit": "設定ファイルを編集する"
 }
