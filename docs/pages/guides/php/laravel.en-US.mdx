@@ -40,10 +40,41 @@ Generating an application key or APP_KEY is one of the most important initial st
 
 Switch to project variable setting page and enter your environment parameter.
 
-You can generate a `APP_KEY` by enter command under your laravel project
+You can generate a `APP_KEY` by enter this command under your Laravel project:
+
 ```shell
-
 php artisan key:generate
-
 ```
+
 ![APP_KEY](/framework/laravel/app-key-setting.jpg)
+
+## Connect to MySQL Database
+
+Typically, your Laravel project will need to connect to a MySQL database.
+You can connect to a MySQL database using the following steps.
+
+1. You need to first install the `ext-pdo_mysql` extension on your Laravel project so that Zeabur can enable MySQL PHP support for you. Install this extension in your local environment using the following command:
+
+    ```shell
+    composer require ext-pdo_mysql
+    ```
+
+    Then commit the new `composer.json` and lock files and push them to your GitHub repository.
+
+2. [Create a MySQL service](/marketplace/mysql) and then, in your local environment, run the following command to migrate your tables to Zeabur:
+
+    ```shell
+    export DATABASE_URL=mysql://<username>:<password>@<host>:<port>/<database>
+    php artisan migrate
+    ```
+
+    The `<username>`, `<password>`, `<host>`, `<port>`, and `<database>` mentioned above are your MySQL service details,
+    which you can find in the "Instruction" section of the MySQL service page.
+
+3. On your Zeabur Laravel service page, set a DATABASE_URL environment variable with the following content:
+
+    ```
+    mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}
+    ```
+
+    The meanings of `${MYSQL_USER}` and other variables can be found in the [MySQL documentation's environment variable section](/marketplace/mysql#environment-variables).

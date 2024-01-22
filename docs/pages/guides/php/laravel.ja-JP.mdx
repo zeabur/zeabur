@@ -40,10 +40,40 @@ Laravel Bootアプリケーションは自動的にデプロイを開始しま�
 
 プロジェクト変数設定ページに切り替えて、環境パラメーターを入力します。
 
-Laravelプロジェクト内で次のコマンドを入力して`APP_KEY`を生成できます
+Laravelプロジェクト内で次のコマンドを入力して`APP_KEY`を生成できます：
+
 ```shell
-
 php artisan key:generate
-
 ```
+
 ![APP_KEY](/framework/laravel/app-key-setting.jpg)
+
+## MySQLデータベースに接続
+
+通常、あなたのLaravelプロジェクトはMySQLデータベースに接続する必要があります。
+以下の手順を使用して、MySQLデータベースに接続できます。
+
+1. まず、`ext-pdo_mysql` 拡張機能をLaravelプロジェクトにインストールする必要があります。これにより、ZeaburがあなたのためにMySQL PHPサポートを有効にできます。次のコマンドを使用して、この拡張機能をローカル環境にインストールします：
+
+ ```shell
+ composer require ext-pdo_mysql
+    ```
+
+次に、新しい `composer.json` とロックファイルをコミットし、GitHubリポジトリにプッシュします。
+
+2. [MySQLサービスを作成](/marketplace/mysql)し、次にローカル環境で以下のコマンドを実行して、テーブルをZeaburに移行します：
+
+ ```shell
+ export DATABASE_URL=mysql://<username>:<password>@<host>:<port>/<database>
+ php artisan migrate
+    ```
+
+上記の `<username>`、`<password>`、`<host>`、`<port>`、および `<database>` は、あなたのMySQLサービスの詳細情報であり、これらはMySQLサービスページの「Instruction」セクションで見つけることができます。
+
+3. ZeaburのLaravelサービスページで、以下の内容でDATABASE_URL環境変数を設定します：
+
+ ```
+ mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}
+    ```
+
+`${MYSQL_USER}` および他の変数の意味については、[MySQLドキュメンテーションの環境変数セクション](/marketplace/mysql#環境変数)で確認できます。

@@ -35,16 +35,45 @@ ogImageSubtitle: 将你的 Laravel 项目部署到 Zeabur
 
 搜索想要部署的 Laravel 代码仓库，点击导入，你的 Laravel 应用就将自动开始部署。
 
-## 第四步：为你的Laravel专案添加`APP_KEY`环境变量
+## 第四步：为你的Laravel項目添加`APP_KEY`环境变量
 
 每次 Laravel 开发人员新建或克隆 Laravel 应用时，生成 application key 或 APP_KEY 是最重要的初始步骤之一。
 
-切换到专案环境变数设置页面，并输入你的`APP_KEY`环境变量。
+切换到項目环境变数设置页面，并输入你的`APP_KEY`环境变量。
 
 你可以通过以下指令为你的Laravel产生一个 `APP_KEY`。
+
 ```shell
-
 php artisan key:generate
-
 ```
+
 ![APP_KEY](/framework/laravel/app-key-setting.jpg)
+
+## 连接 MySQL 数据库
+
+通常情况下，您的 Laravel 项目会需要连接 MySQL 数据库。您可以通过以下步骤连接到 MySQL 数据库。
+
+1. 首先，您需要在您的 Laravel 项目中安装 `ext-pdo_mysql` 扩展，以便 Zeabur 可以为您启用 MySQL 的 PHP 支持。在您的本地环境中，请使用以下命令安装这个扩展：
+
+   ```shell
+   composer require ext-pdo_mysql
+   ```
+
+   然后，提交新的 `composer.json` 和 lockfile，然后推送到您的 GitHub 上。
+
+2. [创建 MySQL 服务](/marketplace/mysql)，然后在您的本地环境中运行以下命令，将 table 等设置 migrate 到 Zeabur 上。
+
+    ```shell
+    export DATABASE_URL=mysql://<username>:<password>@<host>:<port>/<database>
+    php artisan migrate
+    ```
+
+    上述 `<username>`、`<password>`、`<host>`、`<port>`、`<database>` 都是您的 MySQL 服务信息，您可以在 MySQL 服务页面的“Instruction”部分找到。
+
+3. 在您 Zeabur 上的 Laravel 服务页面上，创建一个 DATABASE_URL 环境变量，内容如下：
+
+    ```
+    mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}
+    ```
+
+    `${MYSQL_USER}` 等变量的含义可以参考 [MySQL 文档的环境变量章节](/marketplace/mysql#环境变量)。

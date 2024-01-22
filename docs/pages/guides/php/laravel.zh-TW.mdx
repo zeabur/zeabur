@@ -44,10 +44,38 @@ ogImageSubtitle: 將你的 Laravel 專案部署到 Zeabur
 你可以透過以下指令為你的 Laravel 產生一個 `APP_KEY`。
 
 ```shell
-
 php artisan key:generate
-
 ```
+
 ![APP_KEY](/framework/laravel/app-key-setting.jpg)
 
-{/* converted with zhconvert.org | revision dict-a1f426e3-r1031 */}
+## 連線 MySQL 資料庫
+
+通常你的 Laravel 專案會需要連線 MySQL 資料庫，你可以透過以下步驟連線到 MySQL 資料庫。
+
+1. 你需要先在你的 Laravel 專案上安裝 `ext-pdo_MySQL` 擴充套件，這樣 Zeabur 才能為你啟用 MySQL
+   的 PHP 支援。在你的本機環境，請透過以下指令安裝這個擴充套件：
+
+    ```shell
+    composer require ext-pdo_mysql
+    ```
+
+    然後 commit 新的 `composer.json` 和 lock 檔案，接著 push 到你的 GitHub 上。
+
+2. [建立 MySQL 服務](/marketplace/mysql)，然後在你的本機環境執行以下命令將 table 等 migrate 到 Zeabur 上。
+
+    ```shell
+    export DATABASE_URL=mysql://<username>:<password>@<host>:<port>/<database>
+    php artisan migrate
+    ```
+
+    上面 `<username>`、`<password>`、`<host>`、`<port>`、`<database>` 都是你的 MySQL 服務資訊，
+    你可以在 MySQL 服務頁面的「Instruction」找到。
+
+3. 在你 Zeabur 上的 Laravel 服務頁面，建立一個 DATABASE_URL 環境變數，內容如下：
+
+    ```
+    mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}
+    ```
+
+    `${MYSQL_USER}` 等變數的意義可以參考 [MySQL 文件的環境變數一章](/marketplace/mysql#環境變數)。
