@@ -131,10 +131,10 @@ monorepo，並且預設的設定會導致專案編譯失敗，你可能得停用
 
 ### 啟用 serverless
 
-如果你的專案是使用 Next.js、Nuxt.js、Waku 和 Angular 撰寫的（[完整名單可以參考 zbpack 程式碼庫的 `getServerless` 函式](https://github.com/zeabur/zbpack/blob/main/internal/nodejs/plan.go)），
+如果你的專案是使用 Next.js、Nuxt.js、Waku、Angular 和 Remix 撰寫的（[完整名單可以參考 zbpack 程式碼庫的 `getServerless` 函式](https://github.com/zeabur/zbpack/blob/main/internal/nodejs/plan.go)），
 Zeabur 會自動將專案部署成 serverless 形式。如果需要停用，可參考[〈啟用 Serverless〉](/deploy/serverless)一章。
 
-如果是其他框架撰寫而成的專案（或者是如下文，自行製作的 Serverless 格式），目前需要手動 opt-in。請參考
+如果是其他框架撰寫而成的專案（或者是如下文，自行製作的 Serverless 格式），目前需要 opt-in。請參考
 [啟用 Serverless](/deploy/serverless) 頁面啟用 serverless 支援。如果測試上沒有問題，也歡迎送個
 Pull Request 到 [zbpack 程式碼庫](https://github.com/zeabur/zbpack)。
 

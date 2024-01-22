@@ -11,3 +11,8 @@ ogImageSubtitle: 在 Zeabur 部署 Go 项目
 如果你有多个程序编译入口，则需要将他们放在 `cmd` 目录下，例如一个 `cmd/server-a/main.go` 和一个 `cmd/server-b/main.go`。
 
 Zeabur 会自动识别并部署 `cmd` 目录下与 Service 名称相同的程序编译入口。
+
+## Serverless 支持
+
+Zeabur 支持将 Go 部署为 serverless 项目。但目前需要 opt-in。
+请参考 [启用 Serverless](/deploy/serverless) 页面启用 serverless 支持。
