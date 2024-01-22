@@ -44,10 +44,9 @@ ogImageSubtitle: 將你的 Laravel 專案部署到 Zeabur
 你可以透過以下指令為你的 Laravel 產生一個 `APP_KEY`。
 
 ```shell
-
 php artisan key:generate
-
 ```
+
 ![APP_KEY](/framework/laravel/app-key-setting.jpg)
 
 ## 連線 MySQL 資料庫
@@ -63,7 +62,7 @@ php artisan key:generate
 
     然後 commit 新的 `composer.json` 和 lock 檔案，接著 push 到你的 GitHub 上。
 
-2. [建立 MySQL 服務](/marketplace/mysql)，然後在你的本機環境執行以下命令將 table 等設定到 Zeabur 上。
+2. [建立 MySQL 服務](/marketplace/mysql)，然後在你的本機環境執行以下命令將 table 等 migrate 到 Zeabur 上。
 
     ```shell
     export DATABASE_URL=mysql://<username>:<password>@<host>:<port>/<database>
@@ -79,4 +78,4 @@ php artisan key:generate
     mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}
     ```
 
-    `${MYSQL_USER}` 等變數的意義可以參考 [MySQL 文件的環境變數一章](https://zeabur.com/docs/zh-TW/marketplace/mysql#環境變數)。
+    `${MYSQL_USER}` 等變數的意義可以參考 [MySQL 文件的環境變數一章](/marketplace/mysql#環境變數)。
