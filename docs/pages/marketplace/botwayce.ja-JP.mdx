@@ -1,0 +1,36 @@
+---
+title: Botway CE
+ogImageTitle: ZeaburでのBotway CEのデプロイ
+ogImageSubtitle: ZeaburでBotway CEサービスをワンクリックでデプロイ
+---
+
+# ZeaburでのBotway CEのデプロイ
+
+ZeaburはBotway CEサービスのワンクリックデプロイ機能を提供しており、Zeabur上で迅速にBotway CEをセットアップできます。
+
+## Botway CEサービスのデプロイ
+
+プロジェクト内で **Create Service** をクリックし、**Marketplace** を選択してからBotway CEを検索してください。
+
+![Botway CEをデプロイする](/marketplace/botwayce/deploy-botwayce.gif)
+
+「Botway CE」を選択すると、Zeaburが自動的にBotway CEサービスをデプロイします。
+
+## 環境変数
+
+Botway CEサービスが正常にデプロイされた後、Zeaburは自動的に環境変数をサービスに注入します。現在、以下の変数が利用可能です：
+
+- `GIT_REPO`
+- `GITHUB_TOKEN`
+- `PASSWORD`
+- `PKGS`
+
+## Botway CEへの接続
+
+ここではZeaburの組み込み機能であるGenerate Domainを使用してドメインを作成します。**Networking** セクションで Generate Domain をクリックしてください。
+
+![Botway CEドメインの作成](/marketplace/botwayce/gen-botwayce-domain.gif)
+
+作成が完了したら、Domainを開き、`PASSWORD` という環境変数に設定されているパスワードを入力して、Botway CEの使用を開始します。
+
+![Botway CE ドメインのセットアップ](/marketplace/botwayce/setup-botwayce.gif)
