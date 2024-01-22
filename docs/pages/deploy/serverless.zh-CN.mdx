@@ -1,0 +1,38 @@
+---
+title: 启用 Serverless
+ogImageTitle: 启用 Serverless
+ogImageSubtitle: 将您的服务以 Serverless 形式部署
+---
+
+# 启用 Serverless
+
+目前 Zeabur 支持这些语言/框架的 Serverless 部署：
+
+- [Node.js](/guides/nodejs)
+- [Golang](/guides/go)
+- [Python](/guides/python)
+
+## 在自己的 Zeabur 服务内试用
+
+在“环境变量”一栏加入 `ZBPACK_SERVERLESS=1` 后点击“Redeploy”，您的服务就会被部署成 serverless 服务。
+
+## 直接成为 serverless 服务
+
+在服务的原始码根目录建立一个 `zbpack.json`（如果已经有，直接修改），然后加上以下内容：
+
+```json
+{
+  "serverless": true
+}
+```
+
+即可宣告自己的服务可以用 serverless 形式部署，Zeabur 将自动以 serverless 形式部署。
+
+## 恢复成容器 (containerized) 模式
+
+如果您的服务确定不支持 serverless 模式（例如有重要的后台任务），推荐将 `zbpack.json` 中的
+`serverless` 栏位改成 `false`，以后除非手动设置 `ZBPACK_SERVERLESS`，Zeabur 将不会以
+serverless 模式部署您的服务。
+
+如果只是想测试传统的容器模式是否可以正常运作，在环境变量加上 `FORCE_CONTAINERIZED=1`
+后重新部署即可切换回传统的容器模式。旧服务会预设启用这个变量。
