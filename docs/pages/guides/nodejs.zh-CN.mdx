@@ -129,6 +129,15 @@ monorepo，并且默认的设置会导致项目编译失败，你可能需要停
 1. 项目本身使用了如 [Next.js](https://nextjs.org/)、[Nuxt.js](https://nuxtjs.org/)、[Remix](https://remix.run/) 等专为 Serverless 部署所设计的框架。
 2. 项目本身不使用上述框架，但服务本身符合 Serverless 的理念：每个请求的状态彼此独立，且可以在没有请求的情况下自动休眠。
 
+### 启用 Serverless
+
+如果您的项目是使用 Next.js、Nuxt.js、Waku、Angular 和 Remix 编写的（[完整名单可以参考 zbpack 代码库的 `getServerless` 函数](https://github.com/zeabur/zbpack/blob/main/internal/nodejs/plan.go)），
+Zeabur 会自动将项目部署成 serverless 形式。如果需要停用，可参考[〈启用 Serverless〉](/deploy/serverless)一章。
+
+如果是其他框架编写而成的项目（或者是如下文，自行制作的 Serverless 格式），目前需要 opt-in。请参考
+[启用 Serverless](/deploy/serverless) 页面启用 serverless 支持。如果测试上没有问题，也欢迎送
+Pull Request 到 [zbpack 代码库](https://github.com/zeabur/zbpack)。
+
 ### 把项目构建成 Serverless 格式
 
 如果你的项目使用了 Next.js、Nuxt.js、Remix 等框架，那么你可以直接跳过这个步骤，因为 [zbpack](https://github.com/zeabur/zbpack) 会自动将他转换成 Serverless 产物格式。
@@ -294,5 +303,5 @@ const staticFileDirs = ['public']
         // 而非 "start": "nodemon server.js"
     },
     }
-        
+
     ```

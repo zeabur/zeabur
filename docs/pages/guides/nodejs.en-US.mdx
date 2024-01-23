@@ -91,7 +91,7 @@ The priority of applying the settings is `zbpack.[service name].json` > `zbpack.
 
 ### Node.js Version
 
-By default, Zeabur uses the latest LTS version of Node.js to build your project. 
+By default, Zeabur uses the latest LTS version of Node.js to build your project.
 
 If you want to use a different version, you can specify it in your `package.json`:
 
@@ -119,6 +119,19 @@ If your Node.js project meets the following criteria, you can deploy it in Serve
 
 1. Project is built with frameworks designed for Serverless deployment, such as [Next.js](https://nextjs.org/), [Nuxt.js](https://nuxtjs.org/), [Remix](https://remix.run/), etc.
 2. The Project does not use the above frameworks, but the service itself meets the concept of Serverless: the state of each request is independent of each other, and can automatically sleep when there is no request.
+
+### Enable Serverless
+
+If your project is written using Next.js, Nuxt.js, Waku, Angular, and Remix
+([a complete list can be found in the `getServerless` function of `zeabur/zbpack` repository](https://github.com/zeabur/zbpack/blob/main/internal/nodejs/plan.go)),
+Zeabur will automatically deploy the project in serverless form.
+If you need to disable this, please refer to the [Enable Serverless](/deploy/serverless) chapter.
+
+For projects written in other frameworks (or you build your serverless function manually),
+opting in is currently required.
+Please refer to the [Enable Serverless](/deploy/serverless) page to enable serverless support.
+If there are no issues during testing, feel free to submit a Pull Request to the
+[zbpack code repository](https://github.com/zeabur/zbpack) for supporting your framework.
 
 ### Building Project in Serverless Format
 
@@ -287,5 +300,5 @@ For example, in `package.json`:
         // instead of "start": "nodemon server.js"
     },
     }
-        
+
     ```
