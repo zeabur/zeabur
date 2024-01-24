@@ -1,0 +1,16 @@
+#:schema ./schema.json
+
+id = "browserless"
+name = "Browserless"
+description = "Headless browser automation, without the hosting headaches – For even the most complex scraping, testing and automation tasks."
+
+[source]
+image = "ghcr.io/browserless/chrome:latest"
+
+[[ports]]
+id = "web"
+port = 3000
+type = "HTTP"
+
+[env]
+MAX_CONCURRENT_SESSIONS = { default = "4" }
