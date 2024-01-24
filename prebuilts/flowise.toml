@@ -6,7 +6,7 @@ icon = "https://avatars.githubusercontent.com/u/128289781"
 description = "Drag & drop UI to build your customized LLM flow."
 
 [source]
-image = "ghcr.io/flowiseai/flowise:1.4.10"
+image = "flowiseai/flowise:1.4.10"
 
 [[ports]]
 id = "web"
