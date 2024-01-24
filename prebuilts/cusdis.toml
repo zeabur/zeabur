@@ -1,0 +1,19 @@
+#:schema ./schema.json
+
+id = "cusdis"
+name = "Cusdis"
+icon = "https://d2y5h3osumboay.cloudfront.net/y8vkq20ojwow88m0jl0az2h64psh"
+description = "Cusdis is an open-source, lightweight (~5kb gzip), privacy-friendly alternative to Disqus."
+
+[source]
+image = "djyde/cusdis:1.3"
+
+[[ports]]
+id = "web"
+port = 3000
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/app"
+
