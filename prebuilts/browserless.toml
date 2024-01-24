@@ -2,6 +2,7 @@
 
 id = "browserless"
 name = "Browserless"
+icon = "https://avatars.githubusercontent.com/u/51244358?s=500&v=4"
 description = "Headless browser automation, without the hosting headaches – For even the most complex scraping, testing and automation tasks."
 
 [source]
