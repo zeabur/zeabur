@@ -10,5 +10,7 @@
   "private-networking": "Private Networking",
   "special-variables": "Special Variables",
   "deploy-in-cli": "Deploy in CLI",
-  "config-edit": "Config Editing"
+  "config-edit": "Config Editing",
+  "variables": "Environment Variables",
+  "preview": "Pull Request Preview"
 }
