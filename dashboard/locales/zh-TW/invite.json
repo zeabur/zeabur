@@ -4,7 +4,7 @@
     "desc-owner": "你可以透過電子郵件的形式來邀請其他使用者進入你的專案。",
     "desc-collaborator": "只有專案的擁有者有權限邀請使用者。",
     "owner": "擁有者",
-    "collaborator": "合作者",
+    "collaborator": "協作者",
     "invite": "邀請",
     "placeholder": "邀請他人共同管理專案",
     "toast": {

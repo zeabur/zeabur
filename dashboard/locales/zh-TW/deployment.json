@@ -40,7 +40,7 @@
         "rollback-success": "回滾成功",
         "rollback-fail": "回滾失敗"
     },
-    "click-to-see-more": "點選查看更多",
+    "click-to-see-more": "點擊查看更多",
     "no-more": "沒有找到更多的部署。",
     "keep-building": "繼續建置你的酷炫專案！"
 }

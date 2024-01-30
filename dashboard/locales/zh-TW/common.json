@@ -7,7 +7,7 @@
     },
     "empty-project": {
         "desc": "專案還沒有服務",
-        "click": "點選",
+        "click": "點擊",
         "add": "部署新服務",
         "start": "按鈕以開始"
     }

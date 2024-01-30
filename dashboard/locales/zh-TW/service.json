@@ -25,7 +25,7 @@
         "toast": {
             "redeploy": "開始重新部署"
         },
-        "no-domain": "Create a domain for your service"
+        "no-domain": "為你的服務建立網域"
     },
     "variables": {
         "title": "環境變數",
@@ -33,7 +33,7 @@
         "list-title": "環境變數列表",
         "checkbox-view": "列表檢視",
         "edit-raw": "編輯原始環境變數",
-        "raw-placeholder": "請依照以下格式輸入:\n例如\nVAR1=VALUE1\nVAR2=VALUE2\nVAR3=VALUE3",
+        "raw-placeholder": "請依照以下格式輸入：\n例如\nVAR1=VALUE1\nVAR2=VALUE2\nVAR3=VALUE3",
         "copy-env": "複製環境",
         "cancel": "取消",
         "save": "儲存",
@@ -136,7 +136,7 @@
             },
             "suspend-service": {
                 "title": "暫停服務",
-                "desc": "服務已暫停以避免額外收費。在您重新啟動之前，該服務將無法訪問。暫停超過30天的服務將自動刪除。"
+                "desc": "服務已暫停以避免額外收費。在您重新啟動之前，該服務將無法訪問。暫停超過 30 天的服務將自動刪除。"
             }
         },
         "wrong": "Wrong format"

@@ -1,7 +1,7 @@
 {
     "top-layer": {
         "build": "建置",
-        "scheduled": "已安排",
+        "scheduled": "已排程",
         "started": "已開始",
         "finished": "已完成",
         "failed": "失敗了",
