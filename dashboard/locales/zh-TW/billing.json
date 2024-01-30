@@ -12,7 +12,7 @@
       "include": "它包括",
       "free-credit": "五美金的免費額度",
       "month": "（每月）",
-      "serverless": "你只能在这個方案上部署 serverless functions。"
+      "serverless": "你只能在這個方案上部署 serverless functions。"
     },
     "payment": {
       "method": "付款方式",
@@ -35,7 +35,7 @@
       }
     },
     "credit": {
-      "title": "账户余额",
-      "desc": "我们将会优先使用你的账户余额来支付你的账单。"
+      "title": "帳戶餘額",
+      "desc": "我們將會優先使用你的帳戶餘額来支付你的帳單。"
     }
 }
