@@ -22,13 +22,13 @@
             "rename": "重新命名成功",
             "delete": "刪除專案成功",
             "leave": "離開專案成功",
-            "update": "Update project successfully",
-            "update-description": "Update project description successfully",
-            "update-icon": "Update project icon successfully"
+            "update": "成功更新專案",
+            "update-description": "成功更新專案描述",
+            "update-icon": "成功更新專案圖標"
         },
-        "icon": "Project Icon",
-        "name-and-icon": "Project Name & Icon",
-        "description": "Project Description"
+        "icon": "專案圖標",
+        "name-and-icon": "專案名稱與圖標",
+        "description": "專案描述"
     },
     "environment": {
         "name": "環境名稱",

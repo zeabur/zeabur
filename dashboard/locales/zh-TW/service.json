@@ -131,14 +131,14 @@
             }
         },
         "danger-zone": {
-            "title": "Danger Zone",
+            "title": "危險區域",
             "delete-service": {
-                "title": "Delete Service",
-                "desc": "Service will be deleted and all persistent data will loss. This action cannot undo."
+                "title": "刪除服務",
+                "desc": "服務將被刪除，所有持久數據將丟失。此操作無法撤銷。"
             },
             "suspend-service": {
-                "title": "Suspend Service",
-                "desc": "Service is paused to avoid additional charges. The service will be inaccessible until you reactivate it. Services paused for more than 30 days will be automatically deleted."
+                "title": "暫停服務",
+                "desc": "服務已暫停以避免額外收費。在您重新啟動之前，該服務將無法訪問。暫停超過30天的服務將自動刪除。"
             }
         }
     }
