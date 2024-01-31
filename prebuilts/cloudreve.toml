@@ -1,0 +1,18 @@
+#:schema ./schema.json
+
+id = "cloudreve"
+name = "Cloudreve"
+icon = "https://raw.githubusercontent.com/cloudreve/frontend/master/public/static/img/logo192.png"
+description = "Cloudreve allows you to quickly set up both public and private cloud storage systems."
+
+[source]
+image = "cloudreve/cloudreve:latest"
+
+[[ports]]
+id = "web"
+port = 5212
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/cloudreve"
