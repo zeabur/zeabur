@@ -1,0 +1,40 @@
+#:schema ./schema.json
+
+id = "cloudreve"
+name = "Cloudreve"
+icon = "https://raw.githubusercontent.com/cloudreve/frontend/master/public/static/img/logo192.png"
+description = "Cloudreve allows you to quickly set up both public and private cloud storage systems."
+
+[source]
+image = "cloudreve/cloudreve:latest"
+
+[[ports]]
+id = "web"
+port = 5212
+type = "HTTP"
+
+[[volumes]]
+id = "uploads"
+dir = "/cloudreve/uploads"
+
+[[configs]]
+path = "/cloudreve/conf.ini"
+template = """\
+[System]
+Mode = master
+Listen = :5212
+Debug = false
+SessionSecret = 23333
+HashIDSalt = something really hard to guss
+ProxyHeader = X-Forwarded-For
+
+[Database]
+Type = postgres
+Port = 5432
+User = root
+Password = root
+Host = postgresql.zeabur.internal
+Name = zeabur
+TablePrefix = cd_
+Charset = utf8mb4
+"""
