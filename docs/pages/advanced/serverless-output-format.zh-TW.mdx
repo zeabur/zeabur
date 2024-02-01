@@ -8,9 +8,9 @@ import { Callout } from 'nextra-theme-docs'
 
 # Serverless 輸出格式
 
-Zeabur 同時支援容器化（Containerized）和 Serverless 兩種部署方式，當你把專案的程式碼部署到 Zeabur 後，Zeabur 會使用 [zbpack](https://github.com/zeabur/zbpack) 進行自動化的分析和構建，相關的流程說明可以在 [構建原理](./builds) 中找到。
+Zeabur 同時支援容器化（containerized）和 Serverless 兩種部署方式，當你把專案的程式碼部署到 Zeabur 後，Zeabur 會使用 [zbpack](https://github.com/zeabur/zbpack) 進行自動化的分析和構建，相關的流程說明可以在 [構建原理](./builds) 中找到。
 
-容器化的部署方式需要消耗較多的計算資源，因為即使服務沒有被使用，他也需要保持開啟狀態以便維持服務內部的各種狀態。而 Serverless 的部署方式則是將服務拆解為多個即開即用的 Serverless 函數，當服務接收到外部請求以後，執行函數來計算並返回結果，因此提供了更高的擴展性且節省了不必要的成本。
+容器化的部署方式需要消耗較多的計算資源，因為即使服務沒有被使用，它也需要保持開啟狀態以便維持服務內部的各種狀態。而 Serverless 的部署方式則是將服務拆解為多個即開即用的 Serverless 函數，當服務接收到外部請求以後，執行函數來計算並回應結果，因此提供了更高的擴展性且節省了不必要的成本。
 
 ## 構建產出格式
 
@@ -33,7 +33,7 @@ Zeabur 同時支援容器化（Containerized）和 Serverless 兩種部署方式
 - `functions/api/orders.func` 對應的路徑是 `/api/orders`
 - `functions/api/orders/[id].func` 對應的路徑是 `/api/orders/[id]`，其中 `[id]` 是一個動態路徑，可以匹配任意的路徑。
 
-為了最大化構建產物的相容性，zbpack 的 Serverless 構建產物格式盡可能地與 [Vercel](https://vercel.com/) 的 [Build Output API (v3)](https://vercel.com/docs/build-output-api/v3) 保持一致。如此一來，現有的框架或未來新出的框架的作者及團隊就不需要重新為各個不同的平台開發適配器（Adapter）了。
+為了最大化構建產物的相容性，zbpack 的 Serverless 構建產物格式盡可能地與 [Vercel](https://vercel.com/) 的 [Build Output API (v3)](https://vercel.com/docs/build-output-api/v3) 保持一致。如此一來，現有的框架或未來新出的框架的作者及團隊就不需要重新為各個不同的平台開發適配器（adapter）了。
 
 ## 純靜態輸出
 
@@ -43,6 +43,6 @@ Zeabur 同時支援容器化（Containerized）和 Serverless 兩種部署方式
 
 對於需要使用 Serverless 的框架，例如 [Next.js](https://nextjs.org/) 或 [Nuxt.js](https://nuxtjs.org/) 等等，在 zbpack 構建完的 `.zeabur/output` 目錄下，會有 `static` 和 `functions` 兩個目錄，其中 `static` 目錄下存放的是靜態資源，而 `functions` 目錄下存放的是 Serverless 函數。
 
-對於部署在 Zeabur 的服務，可以在服務詳情頁面的右上角看到目前是使用 Serverless 方式還是容器化（Containerized）方式進行部署的：
+對於部署在 Zeabur 的服務，可以在服務詳情頁面的右上角看到目前是使用 Serverless 方式還是容器化（containerized）方式進行部署的：
 
 ![服務詳情頁面](/advanced/serverless.png)

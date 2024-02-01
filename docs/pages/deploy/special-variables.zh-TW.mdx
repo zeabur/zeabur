@@ -16,30 +16,30 @@ Git 和 Prebuilt 服務均可使用。
 
 ## 變數優先順序
 
-服務間變數的展開優先順序如下：
+服務間變數的展開優先順序由高到低如下所示：
 
-- 目前服務定義的環境變數會是第一個取的值。
-- 假如沒有定義，其他服務暴露 (Expose) 的環境變數會是第二取的值。
-- 假如沒有定義，特殊變數會是第三取的值。
+1. 目前服務定義的環境變數
+2. 其他服務暴露（expose）的環境變數
+3. 特殊變數
 
 ## 變數清單
 
-### Hostname / Port 類
+### 主機名稱與連接埠
 
-- `${ZEABUR_[連線埠名稱]_URL}`：某個 Port 對應的 URL。
-  - 如 `https://test.zeabur.app`。
+- `${ZEABUR_[埠名稱]_URL}`：某個埠對應的 URL
+  - 例如 `https://test.zeabur.app`。
   - 這個 URL 是你在「網域」裡面設定的：
 
     ![網域設定](/deploy/special-variables/domain-port-customization.png)
 
-- `${ZEABUR_[連線埠名稱]_DOMAIN}`：某個 Port 對應的網域。
-  - 如 `test.zeabur.app`。
+- `${ZEABUR_[埠名稱]_DOMAIN}`：某個埠對應的網域
+  - 例如 `test.zeabur.app`。
   - 這個 URL 是你在「網域」裡面設定的。
-- `${CONTAINER_HOSTNAME}`: 目前服務在 Zeabur 專案內的主機名稱 (hostname)。
+- `${CONTAINER_HOSTNAME}`：目前服務在 Zeabur 專案內的主機名稱（hostname）
     - 通常我們會建立一個有 Expose（向專案曝露）屬性的環境變數（如 `${MYSQL_HOST}`），
       然後將 `${CONTAINER_HOSTNAME}` 的值填入這個環境變數。
-    - 不過假如你是要在 Zeabur 內引用其他服務的 Hostname，我們會更推薦使用 Zeabur 未來推出的 DNS 功能。
-- `${[連線埠名稱]_PORT}`：在 Prebuilt 服務裡面定義的連線埠。
+    - 不過假如你是要在 Zeabur 內引用其他服務的 hostname，更推薦使用 Zeabur 未來將推出的 DNS 功能。
+- `${[埠名稱]_PORT}`：在 Prebuilt 服務裡面定義的連線埠
     - 比如你設定了 `database / 3306 / TCP`，則 `DATABASE_PORT` 會是 `3306`。
     - 僅目前服務內可見。
 
@@ -57,13 +57,13 @@ Git 和 Prebuilt 服務均可使用。
 
 這裡的變數只會出現在 Git 服務的編譯階段。
 
-- `${ZEABUR_GIT_COMMIT_SHA}`：目前部署所屬的 Git 提交 SHA 值。
-- `${ZEABUR_GIT_AUTHOR}`：目前部署所屬的 Git 提交作者 ID。
-- `${ZEABUR_GIT_BRANCH}`：目前部署所屬的 Git 分支名稱。
-- `${ZEABUR_GIT_REPO_NAME}`：目前部署所屬的 Git 版本庫名稱。
-- `${ZEABUR_GIT_REPO_OWNER}`：目前部署所屬的 Git 版本庫擁有者 ID。
-- `${ZEABUR_GIT_COMMIT_MESSAGE}`：目前部署所屬的 Git 提交訊息。
+- `${ZEABUR_GIT_COMMIT_SHA}`：目前部署所屬的 Git 提交 SHA 值
+- `${ZEABUR_GIT_AUTHOR}`：目前部署所屬的 Git 提交作者 ID
+- `${ZEABUR_GIT_BRANCH}`：目前部署所屬的 Git 分支名稱
+- `${ZEABUR_GIT_REPO_NAME}`：目前部署所屬的 Git 版本庫名稱
+- `${ZEABUR_GIT_REPO_OWNER}`：目前部署所屬的 Git 版本庫擁有者 ID
+- `${ZEABUR_GIT_COMMIT_MESSAGE}`：目前部署所屬的 Git 提交訊息
 
 ### 工具類
 
-- `${PASSWORD}`：Zeabur 為每個服務產生的隨機密碼。
+- `${PASSWORD}`：Zeabur 為每個服務產生的隨機密碼

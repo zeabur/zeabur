@@ -8,20 +8,20 @@ import { Callout } from 'nextra-theme-docs'
 
 # 備份服務
 
-在生產環境和開發過程中，您可能需要為您的服務建立備份，增強應用的健壯性和可靠性。
+在生產環境和開發過程中，你可能需要為你的服務建立備份，增強應用程式的可靠性。
 我們為所有部署在 Zeabur 上的 [Prebuilt Service](/prebuilt/intro) 提供了一個簡單的方法來建立和復原備份。
 
 <Callout>
-    上方提到的 [Prebuilt Service](/prebuilt/intro) , 是屬於服務下的一個子分類，[Prebuilt Service](/prebuilt/intro) 是有狀態服務，不同於 `Git Service` 是無狀態的， 所以 `Git Service` 不支援備份功能。
+    上方提到的 [Prebuilt Service](/prebuilt/intro)，是屬於服務下的一個子分類，[Prebuilt Service](/prebuilt/intro) 是有狀態服務，不同於 `Git Service` 是無狀態的， 所以 `Git Service` 不支援備份功能。
 </Callout>
 
 ## 步驟一：暫停你的服務
 
-在備份之前請先暫停你的服務，以免在備份過程遺失資料，如果你的服務是執行狀態，系統會提示你暫停服務。
+在備份之前請先暫停你的服務，以免在備份過程遺失資料。如果你的服務處於執行狀態，系統會提示你暫停服務。
 
 ![backup-not-suspend](/deploy/backup/backup-not-suspend.png)
 
-此時你可以打開 **Settings** 區塊，找到 `Danger Zone` 區域， 點選 `Suspend Service` 按鈕暫停你的服務。
+此時你可以打開 **設定**，找到 **危險區域**，點擊 **暫停服務** 按鈕暫停你的服務。
 
 ![suspend](/deploy/backup/backup-suspend-service.png)
 
@@ -39,7 +39,7 @@ import { Callout } from 'nextra-theme-docs'
 
 ## 步驟四：下載備份
 
-等待一段時間後，你可以看到備份已經建立完成，**Backup** 區塊上會顯示 `SUCCESS` ，點選此處即可下載備份檔案。
+等待一段時間後，你可以看到備份已經建立完成，**Backup** 區塊上會顯示 `SUCCESS`，點擊此處即可下載備份檔案。
 
 ![success](/deploy/backup/backup-success.png)
 

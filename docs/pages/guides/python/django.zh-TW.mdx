@@ -11,13 +11,13 @@ ogImageSubtitle: 將你的 Django 專案部署到 Zeabur
 
 開始之前，請確保已在你的電腦上安裝 Python，若沒有則請先安裝[Python 環境](https://www.python.org/downloads/)。
 
-確認是否有 Python 環境
+確認是否有 Python 環境：
 
 ```bash
 python --version
 ```
 
-打開終端並執行以下指令以安裝。
+打開終端並執行以下命令以安裝。
 
 ```bash
 pip install django
@@ -25,11 +25,11 @@ pip install django
 
 ## 2. 建立 Django 專案
 
-使用 `django-admin` 指令建立一個新的 Django 專案，將 `project_name` 取代為你的專案名稱。
+使用 `django-admin` 命令建立一個新的 Django 專案。
 也可使用 [Django-template](https://github.com/zeabur/django-template) 使用 Django 範例後，可跳過第二步驟。
 
 ```bash
-django-admin startproject project_name
+django-admin startproject <專案名稱>
 ```
 
 ## 3. 啟動 Django 專案
@@ -43,7 +43,7 @@ python manage.py runserver
 
 ## 4. 部署 Django 專案
 
-為其初始化一個 Git 儲存庫並部署到你的 GitHub 上，在你的專案中，點選 **Deploy service** 或者 **Add new service** 按鈕，並選擇 **Deploy your source code**。
+為其初始化一個 Git 儲存庫並部署到你的 GitHub 上，在你的專案中，點擊 **Deploy service** 或者 **Add new service** 按鈕，並選擇 **Deploy your source code**。
 
 ![deploy](/deploy/common/select-service.en-US.png)
 

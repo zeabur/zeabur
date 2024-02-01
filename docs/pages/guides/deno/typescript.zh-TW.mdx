@@ -8,11 +8,10 @@ ogImageSubtitle: 在 Zeabur 部署你的 Deno 專案
 
 本文將會教你如何在 Zeabur 上部署你的 [Deno](https://deno.land/) 專案。
 
-## 利用 TypeScript 建立 Deno 應用程式 (可選)
+## 利用 TypeScript 建立 Deno 應用程式（可選）
 
 - 請先在你的電腦上安裝 Deno。
-
-- 你可以在 [Deno 官方文件](https://deno.land/manual/getting_started/installation) 中找到更詳細的說明。
+- 你可以在 [Deno 官方文件](https://deno.land/manual/getting_started/installation)中找到更詳細的說明。
 
 建立一個新檔案 `main.ts`。
 
@@ -22,7 +21,7 @@ touch main.ts
 
 將以下內容加入你的 `main.ts`。
 
-記得在 `serve` 函數中將連接埠參數 `port` 的值修改為 `Deno.env.get("PORT")`，使應用程式能夠正確監聽在 Zeabur 給定的環境變數 `PORT` 上。
+記得在 `serve` 函數中將連接埠參數 `port` 的值修改為 `Deno.env.get("PORT")`，使應用程式能夠正確監聽 Zeabur 給定的 `PORT` 環境變數的埠。
 
 ```typescript
 // in main.ts
@@ -55,7 +54,7 @@ touch deno.json
 deno task start
 ```
 
-接下來，你就可以開始修改程式碼來開發你的 Typescript 專案了。
+接下來，你就可以開始修改程式碼來開發你的 TypeScript 專案了。
 
 當你完成時，為其初始化一個 GitHub 儲存庫，並上傳到你的 GitHub。
 
@@ -65,7 +64,7 @@ deno task start
 
 ![deploy](/deploy/common/select-service.en-US.png)
 
-搜尋想要部署的 TypeScript 程式碼儲存庫，並點選匯入，你的 TypeScript 應用程式就將自動開始部署。
+搜尋想要部署的 TypeScript 專案儲存庫，並點選匯入，你的 TypeScript 應用程式就將自動開始部署。
 
 部署完成後，你可以參考 [綁定網域](../../deploy/domain-binding) 文件瞭解如何為你的 TypeScript 專案綁定一個能夠讓外部造訪的公開網域。
 

@@ -5,7 +5,7 @@ ogImageSubtitle: 將你的 Vapor 專案部署到 Zeabur
 
 # 部署 Vapor 專案
 
-[Vapor](https://vapor.codes) 是 Swift 生態中較為知名的 Web 框架，藉由 Vapor 的幫助，你可以使用 Swift 來開發一個基於 Http 的 Web 應用程式。
+[Vapor](https://vapor.codes) 是 Swift 生態中較為知名的 web 框架，藉由 Vapor 的幫助，你可以使用 Swift 來開發一個基於 HTTP 的 web 應用程式。
 
 本文將介紹如何將你的 Vapor 專案部署到 Zeabur。
 
@@ -21,7 +21,7 @@ brew install vapor
 
 有兩個方法可以建立 Vapor 專案：
 
-### 使用 Vapor 指令工具
+### 使用 `vapor` 命令
 
 ```bash
 vapor new <project-name>
@@ -29,7 +29,7 @@ cd <project-name>
 vapor xcode
 ```
 
-使用 Vapor 指令建立的專案，預設帶有 `Dockerfile` 及 `docker-compose.yml`。好消息是，你不需要 Dockerfile 也能直接在 Zeabur 部署，所以你可以直接刪除這兩個檔案：
+使用 `vapor` 命令建立的專案預設帶有 `Dockerfile` 及 `docker-compose.yml`，不過你不需要 `Dockerfile` 也能直接在 Zeabur 部署，所以你可以直接刪除這兩個檔案：
 
 ```bash
 rm Dockerfile docker-compose.yml
@@ -37,7 +37,7 @@ rm Dockerfile docker-compose.yml
 
 ### 直接使用 Zeabur 為 Vapor 準備的模板
 
-打開 https://github.com/zeabur/vapor-template ，點擊 `Use this template` 按鈕，輸入專案名稱後，點擊 `Create repository from template` 按鈕。
+打開 [zeabur/vapor-template](https://github.com/zeabur/vapor-template)，點擊 **Use this template** 按鈕，輸入專案名稱後，點擊 **Create repository from template** 按鈕。
 
 ```bash
 git clone <your-repository-url>
@@ -67,7 +67,7 @@ git push
 
 接下來，前往 [Zeabur 控制台](https://dash.zeabur.com) 並建立一個新專案。
 
-然後，點選 `Deploy New Service` 按鈕，選擇從 GitHub 部署。
+然後，點擊 **Deploy New Service** 按鈕，選擇從 GitHub 部署。
 
 <Callout>
     如果你是第一次在 Zeabur 上從 GitHub 部署專案，你需要先配置並安裝 GitHub App。
@@ -82,6 +82,6 @@ Zeabur 會自動檢測到你的服務是由 Vapor 建置的，所以你不需要
 
 部署完成後，你可能需要為你的 Vapor 網站配置網域。
 
-打開服務頁面的 "Domain" 分頁，然後點選 "Generate Domain" 或 "Custom Domain"。
+打開服務頁面的 Domain 分頁，然後點擊 Generate Domain 或 Custom Domain。
 
-關於如何為你的服務綁定網域的更多資訊，請參考 [綁定網域](/deploy/domain-binding)。
+關於如何為你的服務綁定網域的更多資訊，請參考[〈綁定網域〉](/deploy/domain-binding)。

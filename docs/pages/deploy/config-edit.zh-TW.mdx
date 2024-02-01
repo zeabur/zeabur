@@ -8,37 +8,37 @@ import { Callout } from 'nextra-theme-docs'
 
 # 編輯設定檔
 
-在執行服務時，你可以透過設定檔來自訂服務的各項設定，Zeabur 提供了設定檔編輯器，讓你可以透過編輯器來指定設定檔的儲存位置和內容。在服務啟動時，會自動掛載配置檔案。
+在執行服務時，你可以透過設定檔來自訂服務的各項設定，Zeabur 提供了設定檔編輯器，讓你可以透過編輯器來指定設定檔的儲存位置和內容。在服務啟動時，會自動掛載設定檔。
 
 這裡我們使用 [NGINX](https://nginx.com/) 反向代理內網的 [vaultwarden](https://github.com/dani-garcia/vaultwarden) 服務，來示範設定檔編輯器更改 NGINX 設定檔的流程。
 
-## 步驟一：建立項目
+## 步驟一：建立專案
 
-在 [Zeabur Dash](https://dash.zeabur.com/) 建立 Project。
+在 [Zeabur Dash](https://dash.zeabur.com/) 建立專案。
 
 ## 步驟二：建立服務
 
-在上述 Project 中分別建立 NGINX 和 Vaultwarden 的 Prebuilt Service。
+在上述專案中分別建立 NGINX 和 vaultwarden 的 Prebuilt Service。
 
 ![建立 NGINX 服務](/deploy/config-edit/create-nginx-service.en-US.png)
 
 ![建立 Vaultwarden 服務](/deploy/config-edit/create-vultwarden-service.en-US.png)
 
-## 步驟三：編輯 Nginx 服務設定檔
+## 步驟三：編輯 NGINX 服務設定檔
 
-1. 在 Services 區中，點選 NGINX 服務的 `Settings` 區塊的下拉按鈕，找到 `Configs` 部分後點選 `Open Config Editor` 按鈕，進入設定檔編輯器。
+1. 在 Services 區中，點選 NGINX 服務的 **設定** 區塊的下拉按鈕，找到 **Configs** 部分後點擊 **Open Config Editor** 按鈕，進入設定檔編輯器。
 
 ![打開設定檔編輯器](/deploy/config-edit/open-config-editor.en-US.png)
 
-2. 在打開的編輯器中，點選 `Add Config file` 按鈕新增一個設定檔。在彈出表單的 `Config Path` 輸入框打上設定檔的路徑和名稱，這裡我們輸入 `/etc/nginx/nginx.conf`，接著點選 `Save Config` 按鈕。
+2. 在打開的編輯器中，點擊 **Add Config file** 按鈕新增一個設定檔。在彈出視窗的 **Config Path** 輸入框打上設定檔的路徑和名稱，這裡我們輸入 `/etc/nginx/nginx.conf`，接著點擊 **Save Config** 按鈕。
 
 ![新增設定檔](/deploy/config-edit/create-new-config.en-US.png)
 
 <Callout>
-    上方的 `Config Path` 需要輸入設定檔的絕對路徑，請根據實際情況調整。
+    上方的 **Config Path** 需要輸入設定檔的絕對路徑，請根據實際情況調整。
 </Callout>
 
-3. 根據需求編輯設定檔的內容，這裡我們新增一個 `server` 區塊，用來反向代理 Vaultwarden 服務。
+3. 根據需求編輯設定檔的內容，這裡我們新增一個 `server` 區塊，用來反向代理 vaultwarden 服務。
 
 ```nginx
 worker_processes  4;
@@ -81,9 +81,9 @@ http {
   }
 }
 ```
-為了讓其他人可以透過 NGINX 服務存取我們的內部 Vaultwarden 服務，我們在 NGINX 中使用 `proxy_pass http://vaultwarden.zeabur.internal:80;` 指令，表示讓 NGINX 將連線到此處的所有請求都代理到 Vaultwarden。我們利用 [私有網路](/deploy/private-networking) 功能，在我們的私有網路中透過固定主機名稱存取 Vaultwarden。
+為了讓其他人可以透過 NGINX 服務存取我們內部的 vaultwarden 服務，我們在 NGINX 中使用 `proxy_pass http://vaultwarden.zeabur.internal:80;` 指令，表示讓 NGINX 將連線到此處的所有請求都代理到 vaultwarden。利用[私有網路](/deploy/private-networking)功能，在我們的私有網路中透過固定主機名稱存取 vaultwarden。
 
-4. 點選 `Save` 按鈕儲存設定。
+4. 點擊 **Save** 按鈕儲存設定。
 
 ![儲存設定檔](/deploy/config-edit/save-config.en-US.png)
 
@@ -93,6 +93,6 @@ http {
 
 ![重新啟動服務](/deploy/config-edit/restart-service.en-US.png)
 
-[將網域綁定到 NGINX 服務後](/deploy/domain-binding)，即可透過網域造訪 Vaultwarden 服務。
+[將網域綁定到 NGINX 服務後](/deploy/domain-binding)，即可透過網域造訪 vaultwarden 服務。
 
 ![造訪 Vaultwarden](/deploy/config-edit/vultwarden-service.en-US.png)

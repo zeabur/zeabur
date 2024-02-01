@@ -10,19 +10,18 @@ ogImageSubtitle: 在 Zeabur 部署你的 Fresh 專案
 
 本文將教你如何在 Zeabur 一鍵部署 Fresh 應用程式。
 
-## 建立 Fresh 應用程式 (可選)
+## 建立 Fresh 應用程式（可選）
 
 - 請先在你的電腦上安裝 Deno。
+- 你可以在 [Deno 官方文件](https://deno.land/manual/getting_started/installation)中找到更詳細的說明。
 
-- 你可以在 [Deno 官方文件](https://deno.land/manual/getting_started/installation) 中找到更詳細的說明。
-
-利用此指令初始化一個Deno專案並且使用Fresh框架。
+利用此命令初始化一個 Deno 專案並且使用 Fresh 框架。
 
 ```bash
 deno run -A -r https://fresh.deno.dev my-project
 ```
 
-在 `main.ts` 中，將 `port: Deno.env.get("PORT")` 加入到 `start` 函數中，使應用程式能夠正確監聽在 Zeabur 給定的環境變數 `PORT` 上。
+在 `main.ts` 中，將 `port: Deno.env.get("PORT")` 加入到 `start` 函數中，使應用程式能夠正確監聽 Zeabur 給定的 `PORT` 環境變數的埠。
 
 ```typescript
 // in main.ts
@@ -47,8 +46,8 @@ deno task start
 
 ![deploy](/deploy/common/select-service.en-US.png)
 
-搜尋想要部署的 Fresh 程式碼儲存庫，並點選匯入，你的 Fresh 應用程式就將自動開始部署。
+搜尋想要部署的 Fresh 專案儲存庫，並點選匯入，你的 Fresh 應用程式就將自動開始部署。
 
-部署完成後，你可以參考 [綁定網域](../../deploy/domain-binding) 文件瞭解如何為你的 Fresh 專案綁定一個能夠讓外部造訪的公開網域。
+部署完成後，你可以參考[〈綁定網域〉](../../deploy/domain-binding)瞭解如何為你的 Fresh 專案綁定一個能夠讓外部造訪的公開網域。
 
 {/* converted with zhconvert.org | revision dict-a1f426e3-r1031 */}

@@ -6,7 +6,7 @@ ogImageSubtitle: 使用 CLI 部署本機程式碼
 
 # 使用 CLI 部署服務
 
-在控制台中一鍵部署服務很簡單，但是如果你想在終端中使用一條指令部署服務，我們也為你提供了這一方案。
+在控制台中一鍵部署服務很簡單，但是如果你想在終端中使用一行命令部署服務，我們也為你提供了這一方案。
 
 本篇文章將會介紹如何使用 Zeabur CLI 在終端中部署服務。
 
@@ -15,20 +15,19 @@ ogImageSubtitle: 使用 CLI 部署本機程式碼
 Zeabur CLI 是一個命令列工具，可以幫助你在終端中部署服務。
 
 ```bash
-# HomeBrew (Linux and macOS)
+# HomeBrew（Linux 及 macOS）
 brew install zeabur/tap/cli
 
-# Using Script (Linux and macOS)
+# 使用腳本（Linux 及 macOS）
 curl -sSL https://dub.sh/zeabur | bash
 
-# Windows Users
+# Windows
 iwr -useb https://dub.sh/zb-win | iex
 ```
 
-You can also download the binary file from [GitHub Release Page](https://github.com/zeabur/cli/releases).
-你也可以從 [GitHub Release Page](https://github.com/zeabur/cli/releases) 下載二進位制文件。
+你也可以從 [GitHub Release 頁面](https://github.com/zeabur/cli/releases)下載二進位檔案。
 
-你可以使用 `zeabur --help` 指令檢查 CLI 是否安裝成功。
+你可以使用 `zeabur --help` 命令檢查 Zeabur CLI 是否安裝成功。
 
 ```bash
 zeabur --help
@@ -44,11 +43,11 @@ zeabur --help
 zeabur auth login
 ```
 
-點選 `Enter` 打開瀏覽器登入頁面，然後點選 `Confirm` 按鈕，你將會被重定向到終端並且看到登入成功的消息。
+點擊 `Enter` 打開瀏覽器登入頁面，然後點選 `Confirm` 按鈕，你將會被重新導向到終端並且看到登入成功的消息。
 
 ## 部署服務
 
-現在你已經準備好部署服務了，只需要在你的服務目錄中運作以下指令。
+現在你已經準備好部署服務了，只需要在你的服務目錄中執行以下命令。
 
 ```bash
 zeabur

@@ -9,7 +9,7 @@ ogImageSubtitle: 如何在 Zeabur 上部署 Qwik 專案
 
 ## 初始化專案
 
-首先，你需要在本機開發環境初始化一個 Qwik 專案，我們可以按照 [Qwik 官方文件](https://qwik.builder.io/docs/getting-started/) 的指示來完成這個步驟。
+首先，你需要在本機開發環境初始化一個 Qwik 專案，我們可以按照 [Qwik 官方文件](https://qwik.builder.io/docs/getting-started/)的指示來完成這個步驟。
 
 ```bash
 npm create qwik@latest
@@ -41,11 +41,11 @@ npm create qwik@latest
    https://qwik.builder.io/media/
 ```
 
-並且你會看到一個 `qwik-app` 的資料夾被建立在你的目前目錄下。
+並且你會看到名為 `qwik-app` 的目錄被建立在你目前所在的目錄下。
 
 ## 開發專案
 
-初始化完成後，你可以先切換到 `qwik-app` 資料夾下，並且執行 `npm start` 來啟動開發伺服器。
+初始化完成後，你可以先切換到 `qwik-app` 目錄下，並且執行 `npm start` 來啟動開發伺服器。
 
 ```bash
 cd qwik-app
@@ -93,9 +93,9 @@ npm run qwik add express
 npm run build
 ```
 
-如果你的程式碼沒有任何問題，你應該可以在專案目錄下看到新增了 `dist` 和 `server` 兩個資料夾。
+如果你的程式碼沒有任何問題，你應該可以在專案目錄下看到新增了 `dist` 和 `server` 兩個目錄。
 
-接下來，試著輸入下面的指令來啟動本機伺服器：
+接下來，試著輸入下面的命令來啟動本機伺服器：
 
 ```bash
 node server/entry.express.js
@@ -108,16 +108,16 @@ node server/entry.express.js
 
 ## 部署專案
 
-在確認本機測試建置沒有問題後，你可以在 GitHub 建立一個程式碼儲存庫，然後將現在的程式碼推送上去。
+在確認本機測試建置沒有問題後，你可以在 GitHub 建立一個專案儲存庫，然後將現在的程式碼推送上去。
 
 在最後，回到 Zeabur 的專案頁面，你的專案中，點選 **Deploy service** 或者 **Add new service** 按鈕，並選擇 **Deploy your source code**.
 
 ![deploy](/deploy/common/select-service.en-US.png)
 
-搜尋你剛剛建立的程式碼儲存庫，然後點選 `import`，你的 Qwik 應用程式就將自動開始部署。
+搜尋你剛剛建立的專案儲存庫，然後點擊匯入，你的 Qwik 應用程式就將自動開始部署。
 
 ![building](/framework/qwik/building.png)
 
-部署完成後，你可以參考 [綁定網域](../../deploy/domain-binding) 文件瞭解如何為你的 Qwik 專案綁定一個能夠讓外部造訪的公開網域。
+部署完成後，你可以參考[〈綁定網域〉](../../deploy/domain-binding)瞭解如何為你的 Qwik 專案綁定一個能夠讓外部造訪的公開網域。
 
 {/* converted with zhconvert.org | revision dict-a1f426e3-r1031 */}

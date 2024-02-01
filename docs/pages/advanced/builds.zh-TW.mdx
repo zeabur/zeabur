@@ -8,7 +8,7 @@ ogImageSubtitle: Zeabur 內部構建使用者部署服務的方式
 
 Zeabur 使用 [zbpack](https://github.com/zeabur/zbpack) 作為內部構建使用者服務的工具，讓使用者可以在不需要理解複雜細節的情況下，一鍵部署基於任何語言和框架的服務。
 
-目前，[zbpack](https://github.com/zeabur/zbpack) 已經支援所有網頁開發主流的程式語言，並對各個較熱門的開發框架實現了進一步的識別及優化，同時也在不斷為新出現的程式語言和框架推出更新：
+目前，[zbpack](https://github.com/zeabur/zbpack) 已經支援所有網頁開發主流的程式語言，並對各個較熱門的開發框架實作了進一步的識別及最佳化，同時也在不斷為新出現的程式語言和框架推出更新：
 
 - Node.js
 - Python
@@ -20,7 +20,7 @@ Zeabur 使用 [zbpack](https://github.com/zeabur/zbpack) 作為內部構建使�
 - Rust
 - Elixir
 
-若你的服務使用的語言或框架不在上述列表中，或是你發現 zbpack 在構建服務的過程中發生了問題，歡迎到 [GitHub](https://github.com/zeabur/zbpack/pulls) 貢獻 Pull Request，幫助我們完善 zbpack 的功能。
+若你的服務使用的語言或框架不在上述列表中，或是你發現 zbpack 在構建服務的過程中發生了問題，歡迎到 [GitHub](https://github.com/zeabur/zbpack/pulls) 貢獻 pull request，幫助我們完善 zbpack 的功能。
 
 當你在某個專案中使用 zbpack 構建服務時，它會根據專案中的程式碼、設定檔等資訊，自動識別出服務使用的語言和框架，並根據這些資訊，選擇適合的構建方式來構建服務。
 
@@ -55,13 +55,13 @@ zbpack .
 ╚═══════════════════════════════════════════════════════════════════════╝
 ```
 
-從圖中可以看到， `zbpack` 選擇使用 `nodejs` Provider 作為構建的方案提供者，這意味著他在進一步的計畫中會做以下事情：
+從圖中可以看到， `zbpack` 選擇使用 `nodejs` provider 作為構建的方案提供者，這意味著他在進一步的計畫中會做以下事情：
 
 1. 確定服務使用哪個 Node.js 版本
 2. 確定服務使用哪個 package manager，是 `npm`、`yarn` 還是 `pnpm`
-3. 確定服務使用哪個指令來安裝依賴
-4. 確定服務使用哪個指令來構建
-5. 確定服務使用哪個指令來啟動
+3. 確定服務使用哪個命令來安裝依賴
+4. 確定服務使用哪個命令來構建
+5. 確定服務使用哪個命令來啟動
 6. 確定服務使用哪個 Node.js 框架
 
 ## 構建服務
@@ -141,7 +141,7 @@ zbpack .
 ╚═══════════════════════════════════════════════════════════════════════╝
 ```
 
-這個時候，由於計畫中找到了 `outputDir`，zbpack 會自動將構建結果輸出到 `.zeabur/output/static` 資料夾中：
+這個時候，由於計畫中找到了 `outputDir`，zbpack 會自動將構建結果輸出到 `.zeabur/output/static` 目錄中：
 
 ```bash
 [+] Building 51.1s (11/11) FINISHED                                                                     docker:orbstack
@@ -172,4 +172,4 @@ npx serve .zeabur/output/static
 
 因此，啟動這個服務的指令從原本的 `docker run -p 8080:8080 -it nextjs-template` 變成了 `npx serve .zeabur/output/static`。 同理，我們可以將這些靜態資源放到任何例如 [Nginx](https://www.nginx.com/)、[Apache](https://httpd.apache.org/)、[Caddy](https://caddyserver.com/) 等等的靜態網頁伺服器中。
 
-關於 zbpack 的 `.zeabur/output` 資料夾的更多細節，請參考 [Serverless 輸出格式](./serverless-output-format) 章節。
+關於 zbpack 的 `.zeabur/output` 目錄的更多細節，請參考 [Serverless 輸出格式](./serverless-output-format) 章節。

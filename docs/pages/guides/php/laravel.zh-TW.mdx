@@ -11,7 +11,7 @@ ogImageSubtitle: 將你的 Laravel 專案部署到 Zeabur
 
 你可以先在本機測試建置，確保你的專案可以正常運作。
 
-你必須提供所使用的 PHP 版本給 Zeabur 作為運作環境，將版本資訊寫在`composer.json` 中，如以下所示：
+你必須提供所使用的 PHP 版本給 Zeabur 作為運作環境，將版本資訊寫在 `composer.json` 中，如以下所示：
 
 ```json
 {
@@ -21,7 +21,7 @@ ogImageSubtitle: 將你的 Laravel 專案部署到 Zeabur
 }
 ```
 
-## 第二步: 建立專案(可選)
+## 第二步: 建立專案（可選）
 
 首先，你需要在本機開發環境初始化一個 Laravel 專案，我們可以按照 [Laravel 官方文件](https://laravel.com/docs/9.x)，初始化 Laravel 專案。
 
@@ -29,15 +29,15 @@ ogImageSubtitle: 將你的 Laravel 專案部署到 Zeabur
 
 ## 第三步：部署 Laravel 專案
 
-在你的專案中，點選 **Deploy service** 或者 **Add new service** 按鈕，並選擇 **Deploy your source code**.
+在你的專案中，點擊 **Deploy service** 或者 **Add new service** 按鈕，並選擇 **Deploy your source code**.
 
 ![deploy](/deploy/common/select-service.en-US.png)
 
-搜尋想要部署的 Laravel 程式碼儲存庫，並點選匯入，你的 Laravel 應用程式就將自動開始部署。
+搜尋想要部署的 Laravel 專案儲存庫，並點選匯入，你的 Laravel 應用程式就將自動開始部署。
 
-## 第四步：為你的Laravel專案加入APP_KEY環境變數
+## 第四步：為你的 Laravel 專案加入 `APP_KEY` 環境變數
 
-每次 Laravel 開發人員建立 Laravel 應用程式時，生成 application key 或 APP_KEY 是最重要的初始步驟之一。
+每次 Laravel 開發人員建立 Laravel 應用程式時，生成 application key 或 `APP_KEY` 是最重要的初始步驟之一。
 
 切換到專案環境變數設定頁面，並輸入你的 `APP_KEY` 環境變數。
 
@@ -69,10 +69,10 @@ php artisan key:generate
     php artisan migrate
     ```
 
-    上面 `<username>`、`<password>`、`<host>`、`<port>`、`<database>` 都是你的 MySQL 服務資訊，
+    上面的 `<username>`、`<password>`、`<host>`、`<port>`、`<database>` 都是你的 MySQL 服務資訊，
     你可以在 MySQL 服務頁面的「Instruction」找到。
 
-3. 在你 Zeabur 上的 Laravel 服務頁面，建立一個 DATABASE_URL 環境變數，內容如下：
+3. 在你 Zeabur 上的 Laravel 服務頁面，建立一個 `DATABASE_URL` 環境變數，內容如下：
 
     ```
     mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}
