@@ -61,3 +61,4 @@ pip freeze > requirements.txt
 ```
 
 - `settings.py`の中の`ALLOWED_HOSTS`が設定されているかどうかを確認してください。このプロパティはPythonのリストであり、Djangoアプリケーションにアクセスできるドメインを含んでいます。`ALLOWED_HOSTS = ['*']`を使用すると、すべてのネットワークがテスト目的で許可されたドメインになります。
+- Zeabur は Django サービスを実行するための WSGI 本番サーバーとして [Gunicorn](https://gunicorn.org) を使用しています。
