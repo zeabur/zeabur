@@ -25,7 +25,7 @@
         "toast": {
             "redeploy": "开始重新部署"
         },
-        "no-domain": "Create a domain for your service"
+        "no-domain": "为你的服务创建域名"
     },
     "variables": {
         "title": "环境变量",
@@ -139,9 +139,9 @@
                 "desc": "服务已暂停，以避免产生额外的费用。服务将会在你重新激活之前无法访问。服务暂停超过 30 天将会被自动删除。"
             }
         },
-        "wrong": "Wrong format"
+        "wrong": "格式错误"
     },
     "networking": {
-        "title": "Networking"
+        "title": "网络"
     }
 }
