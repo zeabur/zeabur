@@ -2,17 +2,33 @@
 
 id = "affine"
 name = "AFFiNE"
-icon = "https://d2y5h3osumboay.cloudfront.net/y8vkq20ojwow88m0jl0az2h64psh"
+icon = "https://i.imgur.com/fBMA1bo.png"
 description = "A next-gen knowledge base that brings planning, sorting and creating all together."
 
 [source]
-image = "ghcr.io/toeverything/affine-self-hosted:alpha-abbey-wood"
+image = "ghcr.io/toeverything/affine-graphql:beta-3e7ebe8"
 
 [[ports]]
 id = "web"
-port = 3000
+port = 3010
 type = "HTTP"
 
 [[volumes]]
 id = "data"
-dir = "/app/data"
+dir = "/root/.affine"
+
+[env]
+DATABASE_URL = { default = "postgres://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}" }
+REDIS_SERVER_HOST = { default = "${REDIS_HOST}" }
+DEBUG = { default = "affine:*" }
+AFFINE_CONFIG_PATH = { default = "/root/.affine/config" }
+NODE_OPTIONS = { default = "--es-module-specifier-resolution=node" }
+NODE_ENV = { default = "production" }
+SERVER_FLAVOR = { default = "allinone" }
+REDIS_SERVER_PASSWORD = { default = "${REDIS_PASSWORD}" }
+AFFINE_ADMIN_PASSWORD = { default = "${PASSWORD}" }
+REDIS_SERVER_PORT = { default = "${REDIS_PORT}" }
+AFFINE_ADMIN_EMAIL = { default = "admin@affine.pro" }
+DEPLOYMENT_TYPE = { default = "selfhosted" }
+AFFINE_SERVER_HTTPS = { default = "true" }
+AFFINE_SERVER_HOST = { default = "${ZEABUR_WEB_DOMAIN}" }
