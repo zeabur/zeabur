@@ -15,7 +15,7 @@ type = "HTTP"
 
 [[volumes]]
 id = "data"
-dir = "/root/.affine"
+dir = "/root/.affine/storage"
 
 [env]
 DATABASE_URL = { default = "postgres://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}" }
@@ -32,3 +32,143 @@ AFFINE_ADMIN_EMAIL = { default = "admin@affine.pro" }
 DEPLOYMENT_TYPE = { default = "selfhosted" }
 AFFINE_SERVER_HTTPS = { default = "true" }
 AFFINE_SERVER_HOST = { default = "${ZEABUR_WEB_DOMAIN}" }
+
+[[configs]]
+path = "/root/.affine/config/affine.env.js"
+template = """\
+// Convenient way to map environment variables to config values.
+AFFiNE.ENV_MAP = {
+    AFFINE_SERVER_PORT: ['port', 'int'],
+    AFFINE_SERVER_HOST: 'host',
+    AFFINE_SERVER_SUB_PATH: 'path',
+    AFFINE_SERVER_HTTPS: ['https', 'boolean'],
+    DATABASE_URL: 'db.url',
+    ENABLE_CAPTCHA: ['auth.captcha.enable', 'boolean'],
+    CAPTCHA_TURNSTILE_SECRET: ['auth.captcha.turnstile.secret', 'string'],
+    OAUTH_GOOGLE_ENABLED: ['auth.oauthProviders.google.enabled', 'boolean'],
+    OAUTH_GOOGLE_CLIENT_ID: 'auth.oauthProviders.google.clientId',
+    OAUTH_GOOGLE_CLIENT_SECRET: 'auth.oauthProviders.google.clientSecret',
+    OAUTH_GITHUB_ENABLED: ['auth.oauthProviders.github.enabled', 'boolean'],
+    OAUTH_GITHUB_CLIENT_ID: 'auth.oauthProviders.github.clientId',
+    OAUTH_GITHUB_CLIENT_SECRET: 'auth.oauthProviders.github.clientSecret',
+    OAUTH_EMAIL_LOGIN: 'auth.email.login',
+    OAUTH_EMAIL_SENDER: 'auth.email.sender',
+    OAUTH_EMAIL_SERVER: 'auth.email.server',
+    OAUTH_EMAIL_PORT: ['auth.email.port', 'int'],
+    OAUTH_EMAIL_PASSWORD: 'auth.email.password',
+    THROTTLE_TTL: ['rateLimiter.ttl', 'int'],
+    THROTTLE_LIMIT: ['rateLimiter.limit', 'int'],
+    REDIS_SERVER_HOST: 'plugins.redis.host',
+    REDIS_SERVER_PORT: ['plugins.redis.port', 'int'],
+    REDIS_SERVER_USER: 'plugins.redis.username',
+    REDIS_SERVER_PASSWORD: 'plugins.redis.password',
+    REDIS_SERVER_DATABASE: ['plugins.redis.db', 'int'],
+    DOC_MERGE_INTERVAL: ['doc.manager.updatePollInterval', 'int'],
+    DOC_MERGE_USE_JWST_CODEC: [
+        'doc.manager.experimentalMergeWithYOcto',
+        'boolean',
+    ],
+    ENABLE_LOCAL_EMAIL: ['auth.localEmail', 'boolean'],
+    STRIPE_API_KEY: 'plugins.payment.stripe.keys.APIKey',
+    STRIPE_WEBHOOK_KEY: 'plugins.payment.stripe.keys.webhookKey',
+    FEATURES_EARLY_ACCESS_PREVIEW: ['featureFlags.earlyAccessPreview', 'boolean'],
+};
+"""
+
+[[configs]]
+path = "/root/.affine/config/affine.js"
+template = """\
+//
+// ###############################################################
+// ##                AFFiNE Configuration System                ##
+// ###############################################################
+// Here is the file of all AFFiNE configurations that will affect runtime behavior.
+// Override any configuration here and it will be merged when starting the server.
+// Any changes in this file won't take effect before server restarted.
+//
+//
+// > Configurations merge order
+//   1. load environment variables (`.env` if provided, and from system)
+//   2. load `src/fundamentals/config/default.ts` for all default settings
+//   3. apply `./affine.env.ts` patches
+//   4. apply `./affine.ts` patches (this file)
+//
+//
+// ###############################################################
+// ##                       General settings                    ##
+// ###############################################################
+//
+// /* The unique identity of the server */
+// AFFiNE.serverId = 'some-randome-uuid';
+//
+// /* The name of AFFiNE Server, may show on the UI */
+// AFFiNE.serverName = 'Your Cool AFFiNE Selfhosted Cloud';
+//
+// /* Whether the server is deployed behind a HTTPS proxied environment */
+AFFiNE.https = false;
+// /* Domain of your server that your server will be available at */
+AFFiNE.host = 'localhost';
+// /* The local port of your server that will listen on */
+AFFiNE.port = 3010;
+// /* The sub path of your server */
+// /* For example, if you set `AFFiNE.path = '/affine'`, then the server will be available at `${domain}/affine` */
+// AFFiNE.path = '/affine';
+//
+//
+// ###############################################################
+// ##                       Database settings                   ##
+// ###############################################################
+//
+// /* The URL of the database where most of AFFiNE server data will be stored in */
+// AFFiNE.db.url = 'postgres://user:passsword@localhost:5432/affine';
+//
+//
+// ###############################################################
+// ##                   Server Function settings                ##
+// ###############################################################
+//
+// /* Whether enable metrics and tracing while running the server */
+// /* The metrics will be available at `http://localhost:9464/metrics` with [Prometheus] format exported */
+// AFFiNE.metrics.enabled = true;
+//
+// /* GraphQL configurations that control the behavior of the Apollo Server behind */
+// /* @see https://www.apollographql.com/docs/apollo-server/api/apollo-server */
+// AFFiNE.graphql = {
+//   /* Path to mount GraphQL API */
+//   path: '/graphql',
+//   buildSchemaOptions: {
+//     numberScalarMode: 'integer',
+//   },
+//   /* Whether allow client to query the schema introspection */
+//   introspection: true,
+//   /* Whether enable GraphQL Playground UI */
+//   playground: true,
+// }
+//
+// /* Doc Store & Collaberation */
+// /* How long the buffer time of creating a new history snapshot when doc get updated */
+// AFFiNE.doc.history.interval = 1000 * 60 * 10; // 10 minutes
+//
+// /* Use `y-octo` to merge updates at the same time when merging using Yjs */
+// AFFiNE.doc.manager.experimentalMergeWithYOcto = true;
+//
+// /* How often the manager will start a new turn of merging pending updates into doc snapshot */
+// AFFiNE.doc.manager.updatePollInterval = 1000 * 3;
+//
+//
+// ###############################################################
+// ##                        Plugins settings                   ##
+// ###############################################################
+//
+// /* Redis Plugin */
+// /* Provide caching and session storing backed by Redis. */
+// /* Useful when you deploy AFFiNE server in a cluster. */
+AFFiNE.plugins.use('redis', {
+/* override options */
+});
+// /* Payment Plugin */
+AFFiNE.plugins.use('payment', {
+    stripe: { keys: {}, apiVersion: '2023-10-16' },
+});
+//
+"""
