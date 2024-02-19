@@ -1,0 +1,49 @@
+---
+title: Java
+ogImageTitle: Java プロジェクトのデプロイ
+ogImageSubtitle: Zeabur で Java プロジェクトをデプロイする
+---
+
+# Java プロジェクトのデプロイ
+
+Zeabur は、Maven または Gradle ビルドシステムを使用し、ネイティブまたは Spring Boot フレームワークの Java プロジェクトのデプロイをサポートしています。
+
+- [Spring Boot のデプロイガイド](/guides/java/spring-boot)
+
+## 環境設定
+
+使用可能な JDK のバージョンは以下の通りです：
+
+- 19
+- 17（デフォルト）
+- 11
+- 8
+- 7
+
+### JDK バージョンの指定
+
+`pom.xml` または `build.gradle` で JDK バージョンを指定できます。
+
+例えば、Maven を使用している場合、`pom.xml` に以下を追加します：
+
+```xml
+<properties>
+    <java.version>11</java.version>
+</properties>
+```
+
+Gradle を使用している場合は、`build.gradle` に以下を追加します：
+
+```groovy
+sourceCompatibility = 11
+```
+
+### JVM スタートアップパラメータの指定
+
+`zbpack.json` の `javaArgs` フィールドで Zeabur のデフォルトの JVM スタートアップパラメータを上書きできます。jar のパスは自分で追加する必要があります。
+
+```json
+{
+  "javaArgs": "-Xms128m -Xmx512m -jar target/your-app.jar"
+}
+```
