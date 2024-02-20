@@ -12,6 +12,19 @@ If you have multiple program compilation entries, you need to put them in the `c
 
 Zeabur will automatically recognize and deploy the program compilation entry with the same Service name under the `cmd` directory.
 
+## Listen on Port
+
+Zeabur will automatically set the `PORT` environment variable for the Go program to listen on.
+
+```go
+port := os.Getenv("PORT")
+if port == "" {
+    port = "8080"
+}
+
+http.ListenAndServe(":"+port, nil)
+```
+
 ## Serverless Support
 
 Zeabur supports deploying Go as a serverless project. However, it currently requires opt-in.

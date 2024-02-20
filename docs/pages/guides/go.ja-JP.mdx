@@ -12,6 +12,19 @@ ogImageSubtitle: ZeaburでGoアプリをデプロイ
 
 Zeaburは`cmd`ディレクトリの下にある同じサービス名を持つプログラムのコンパイルエントリを自動的に認識し、そしてデプロイします。
 
+## ポートでリッスン
+
+Zeabur は Go プログラムがリッスンする `PORT` 環境変数を自動的に設定します。
+
+```go
+port := os.Getenv("PORT")
+if port == "" {
+    port = "8080"
+}
+
+http.ListenAndServe(":"+port, nil)
+```
+
 ## サーバーレスサポート
 
 ZeaburはGoをサーバーレスプロジェクトとしてデプロイするサポートを提供しています。ただし、現在はオプトインが必要です。
