@@ -10,7 +10,7 @@ image = "bellamy/wallos:latest"
 
 [[ports]]
 id = "web"
-port = 8282
+port = 80
 type = "HTTP"
 
 [[volumes]]
