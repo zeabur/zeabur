@@ -12,6 +12,19 @@ ogImageSubtitle: 在 Zeabur 部署 Go 專案
 
 Zeabur 會自動識別並部署 `cmd` 目錄下與服務名稱相同的程式編譯入口。
 
+## 監聽端口
+
+請確保你的程式監聽在 `PORT` 環境變數所指定的端口。這個環境變數是 Zeabur 自動注入的，你不需要自己設定。
+
+```go
+port := os.Getenv("PORT")
+if port == "" {
+    port = "8080"
+}
+
+http.ListenAndServe(":"+port, nil)
+```
+
 ## Serverless 支援
 
 Zeabur 支援將 Go 部署成 serverless 專案。不過目前需要 opt-in。

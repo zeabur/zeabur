@@ -1,0 +1,50 @@
+---
+title: Java
+ogImageTitle: Deploying Java Projects
+ogImageSubtitle: Deploying Java Projects on Zeabur
+---
+
+# Deploying Java Projects
+
+Zeabur supports deploying Java projects that use the Maven or Gradle build systems, with either native or Spring Boot frameworks.
+
+- [Guide to Deploying Spring Boot](/guides/java/spring-boot)
+
+## Environment Setup
+
+The available JDK versions are:
+
+- 19
+- 17 (default)
+- 11
+- 8
+- 7
+
+### Specifying JDK Version
+
+You can specify the JDK version in `pom.xml` or `build.gradle`.
+
+For example, if you're using Maven, add the following to `pom.xml`:
+
+```xml
+<properties>
+    <java.version>11</java.version>
+</properties>
+```
+
+If you're using Gradle, add the following to `build.gradle`:
+
+```groovy
+sourceCompatibility = 11
+```
+
+### Specifying JVM Startup Parameters
+
+You can override Zeabur's default JVM startup parameters with the `javaArgs` field in `zbpack.json`.
+You'll need to add the path to your jar file yourself.
+
+```json
+{
+  "javaArgs": "-Xms128m -Xmx512m -jar target/your-app.jar"
+}
+```
