@@ -1,0 +1,50 @@
+{
+    "title": "Configuraciones",
+    "tabs": {
+        "project": "Proyectos",
+        "environment": "Entorno"
+    },
+    "project": {
+        "title": "Configuración del Proyecto",
+        "name": "Nombre del Proyecto",
+        "icon": "Icono del Proyecto",
+        "name-and-icon": "Nombre e Icono del Proyecto",
+        "description": "Descripción del Proyecto",
+        "wrong": "Formato incorrecto",
+        "delete-title": "Eliminar Proyecto",
+        "delete-sub-title": "Eliminar el proyecto de todos los entornos.",
+        "delete": "Eliminar Proyecto",
+        "leave-title": "Abandonar Proyecto",
+        "leave-sub-title": "Abandonar este proyecto",
+        "leave": "Abandonar Proyecto",
+        "modal": {
+            "title": "Eliminar Proyecto",
+            "sub-title": "¿Estás seguro de que quieres eliminar este proyecto?"
+        },
+        "toast": {
+            "update": "Proyecto actualizado con éxito",
+            "rename": "Proyecto renombrado con éxito",
+            "delete": "Proyecto eliminado con éxito",
+            "leave": "Proyecto abandonado con éxito",
+            "update-description": "Descripción del proyecto actualizada con éxito",
+            "update-icon": "Icono del proyecto actualizado con éxito"
+        }
+    },
+    "environment": {
+        "name": "Nombre del Entorno",
+        "return": "Regresar",
+        "save": "Guardar",
+        "wrong": "Formato incorrecto",
+        "delete-title": "Eliminar Entorno",
+        "delete-sub-title": "Eliminar uno de los entornos para el proyecto actual.",
+        "delete": "Eliminar Entorno",
+        "modal": {
+            "title": "Eliminar Entorno",
+            "sub-title": "¿Estás seguro de que quieres eliminar este entorno?"
+        },
+        "toast": {
+            "delete": "Entorno eliminado con éxito",
+            "rename": "Entorno renombrado con éxito"
+        }
+    }
+}
