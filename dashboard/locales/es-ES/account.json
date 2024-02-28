@@ -30,7 +30,7 @@
     "email_preferences_title": "Preferencias de Correo Electrónico",
     "email_preferences_build": "Construcciones fallidas",
     "email_preferences_build_desc": "Recibe notificaciones cuando una construcción falla",
-    "email_preferences_crash": "Implementación estrellada",
+    "email_preferences_crash": "Despliegue fallido",
     "email_preferences_crash_desc": "Recibe notificaciones cuando una implementación se estrella"
   },
   "billing": {
