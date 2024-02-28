@@ -5,7 +5,7 @@
         "RUNNING": "EJECUTANDO",
         "BUILDING": "CONSTRUYENDO",
         "PENDING": "PENDIENTE",
-        "DEPLOYING": "DESPLIEGUE",
+        "DEPLOYING": "DESPLEGANDO",
         "REMOVED": "ELIMINADO",
         "CANCELED": "CANCELADO",
         "CRASHED": "FALLIDO",
