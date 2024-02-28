@@ -67,7 +67,7 @@
   "invoice": {
     "title": "Próxima Facturación",
     "invoice_title": "Factura próxima",
-    "invoice_desc_1": "Esta es una vista previa de la factura que se facturará en",
+    "invoice_desc_1": "Esta es una vista previa de la factura que se generará en",
     "invoice_desc_2": ". Puede cambiar si la suscripción se actualiza.",
     "description": "DESCRIPCIÓN",
     "quantity": "CANT",
