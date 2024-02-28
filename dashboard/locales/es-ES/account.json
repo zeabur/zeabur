@@ -72,7 +72,7 @@
     "description": "DESCRIPCIÓN",
     "quantity": "CANT",
     "unit_price": "PRECIO UNITARIO",
-    "amount": "CANTIDAD",
+    "amount": "IMPORTE",
     "view_usage": "Ver uso",
     "subtotal": "Subtotal",
     "total": "Total"
