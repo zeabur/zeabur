@@ -43,5 +43,9 @@
         "desc":"Zeabur también proporciona un modelo de valor almacenado para usuarios sin tarjetas de crédito.\nPuedes usar tu saldo para actualizar planes o pagar por el uso.",
         "confirm": "valor almacenado"
       }
+  },
+  "recharge-records": {
+      "title": "Registro de valor almacenado",
+      "desc": "Puedes ver todos tus registros de valores almacenados aquí"
   }
 }
