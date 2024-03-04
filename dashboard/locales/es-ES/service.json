@@ -58,7 +58,7 @@
     "settings": {
         "name": "Nombre del Servicio",
         "name-toast": {
-            "success": "Nombre del servicio cambiado"
+            "success": "El Nombre del servicio ha sido cambiado"
         },
         "wrong": "Formato incorrecto",
         "domain": {
