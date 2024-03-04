@@ -10,7 +10,7 @@
         "deployments": "Despliegues",
         "variables": "Variables",
         "metrics": "Métricas",
-        "settings": "Configuraciones",
+        "settings": "Configuración",
         "connect": "Conectar",
         "empty_1": "Este proyecto no tiene servicios ahora.",
         "empty_2": "Puedes presionar comando+k o ctrl+k para crear un nuevo servicio.",
