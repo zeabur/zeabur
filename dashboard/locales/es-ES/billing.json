@@ -36,6 +36,12 @@
   },
   "credit": {
     "title": "Crédito de la Cuenta",
-    "desc": "No se te cobrará hasta que el crédito esté vacío."
+    "desc": "No se te cobrará hasta que el crédito esté vacío.",
+    "get-credits": "valor almacenado",
+      "get-credits-modal": {
+        "title": "Valor almacenado",
+        "desc":"Zeabur también proporciona un modelo de valor almacenado para usuarios sin tarjetas de crédito.\nPuedes usar tu saldo para actualizar planes o pagar por el uso.",
+        "confirm": "valor almacenado"
+      }
   }
 }
