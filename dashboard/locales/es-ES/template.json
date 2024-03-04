@@ -1,0 +1,51 @@
+{
+    "create": {
+        "title": "Crear Plantilla",
+        "subtitle": "Crea una plantilla para que las personas desplieguen un proyecto con un solo clic",
+        "name": {
+            "title": "Nombre de la Plantilla",
+            "subtitle": "¿Cómo quieres que las personas recuerden tu increíble trabajo?",
+            "placeholder": "El Nombre de Tu Plantilla",
+            "error": "Comenzar y terminar con una letra, y solo contener letras, números y guiones."
+        },
+        "intro": {
+            "title": "Introducción de la Plantilla",
+            "subtitle": "¿Qué hace esta plantilla? ¿Cómo pueden usarla las personas?",
+            "placeholder": "La Introducción de Tu Plantilla"
+        },
+        "variables": {
+            "title": "Variables de la Plantilla",
+            "subtitle": "Las Variables de la Plantilla son las variables que se pueden usar en otros servicios, puedes establecer una variable de servicio a través del formato [clave: ${TEMPLATE_VARIABLE_KEY}]."
+        },
+        "services": {
+            "title": "Servicios",
+            "subtitle": "¿Cuántos servicios integra tu plantilla?",
+            "add": "Agregar Servicio"
+        },
+        "tags": {
+            "title": "Etiquetas",
+            "subtitle": "Añade etiquetas a tu plantilla para que las personas puedan encontrarla fácilmente."
+        },
+        "preview": {
+            "title": "URL de Vista Previa",
+            "subtitle": "Si has alojado un sitio web de vista previa, puedes añadirlo aquí para que las personas puedan ver cómo luce tu plantilla."
+        },
+        "icon": {
+            "title": "Icono",
+            "subtitle": "Sube un icono para tu plantilla para que las personas puedan reconocerla fácilmente.",
+            "placeholder": "URL del Icono"
+        },
+        "readme": {
+            "title": "README de la Plantilla",
+            "subtitle": "Escribe un README para tu plantilla para que las personas puedan entenderla fácilmente."
+        },
+        "next": "Siguiente Paso",
+        "previous": "Paso Anterior",
+        "create": "Crear"
+    },
+    "templates": {
+      "title": "Desplegar proyecto desde plantilla",
+      "find": "Buscar una plantilla",
+      "create": "Crear Plantilla"
+    }
+}

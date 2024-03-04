@@ -1,0 +1,19 @@
+{
+    "card": {
+        "service": "Servicios",
+        "create-project": "Crear Proyecto"
+    },
+    "modal": {
+        "title": "Crear Proyecto",
+        "description": "Crea un nuevo proyecto para tus servicios.",
+        "error": "Formato Incorrecto",
+        "create": "Crear",
+        "cancel": "Cerrar",
+        "placeholder": "Por favor, introduce el nombre del proyecto"
+    },
+    "members": "Miembros",
+    "environments": "Entornos",
+    "services": "Servicios",
+    "add-env": "Añadir Entorno",
+    "add-service": "Añadir Servicio"
+}

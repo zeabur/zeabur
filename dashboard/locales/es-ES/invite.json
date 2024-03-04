@@ -1,0 +1,15 @@
+{
+    "link": "También puedes compartir el enlace de abajo",
+    "title": "Compartir el proyecto",
+    "desc-owner": "Puedes invitar a otros usuarios como colaboradores a tu proyecto a través de correo electrónico o un enlace generado.",
+    "desc-collaborator": "Solo el dueño del proyecto puede invitar a otros usuarios.",
+    "owner": "Dueño",
+    "collaborator": "Colaborador",
+    "invite": "Invitar",
+    "placeholder": "Invita a personas a editar.",
+    "toast": {
+        "success": "El correo de invitación ha sido enviado.",
+        "copy": "El enlace ha sido copiado al portapapeles.",
+        "kick": "El usuario ha sido expulsado."
+    }
+}

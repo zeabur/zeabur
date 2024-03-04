@@ -1,0 +1,46 @@
+{
+    "deployed": "Desplegado",
+    "ago": "hace",
+    "status": {
+        "RUNNING": "EJECUTANDO",
+        "BUILDING": "CONSTRUYENDO",
+        "PENDING": "PENDIENTE",
+        "DEPLOYING": "DESPLEGANDO",
+        "REMOVED": "ELIMINADO",
+        "CANCELED": "CANCELADO",
+        "CRASHED": "FALLIDO",
+        "FAILED": "FALLÓ"
+    },
+    "cancel": "Cancelar",
+    "rollback": "Revertir",
+    "redeploy": "Redesplegar",
+    "stop": "Detener",
+    "logs": {
+        "deployment-id": "ID de despliegue:",
+        "build-logs": "Registros de construcción",
+        "runtime-logs": "Registros de ejecución",
+        "back": "Atrás",
+        "commit-message": "Mensaje de commit",
+        "branch": "Rama",
+        "duration": "Duración",
+        "status": "Estado",
+        "message": "Mensaje",
+        "not-started": "No iniciado",
+        "close": "Cerrar",
+        "open": "Abrir",
+        "export": "Exportar"
+    },
+    "title": "Todos los registros",
+    "history": "Historial",
+    "deployments": "despliegues",
+    "deployment": "Despliegues",
+    "toast": {
+        "cancel-success": "Despliegue cancelado con éxito",
+        "cancel-fail": "Fallo al cancelar despliegue",
+        "rollback-success": "Reversión del despliegue con éxito",
+        "rollback-fail": "Fallo al revertir despliegue"
+    },
+    "click-to-see-more": "Haz clic para ver más",
+    "no-more": "No se encontraron más despliegues.",
+    "keep-building": "¡Sigue construyendo tus cosas geniales!"
+}
