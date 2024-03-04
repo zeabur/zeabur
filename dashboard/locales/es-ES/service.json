@@ -122,7 +122,7 @@
             "desc": "Patrones al estilo Gitignore que se pueden usar para disparar nuevos despliegues basados en qué rutas de archivos han cambiado.",
             "toast": {
                 "success": "Rutas de vigilancia cambiadas",
-                "error": "Cambio de rutas de vigilancia fallido"
+                "error": "El Cambio de rutas de vigilancia ha fallado"
             }
         },
         "branch": {
