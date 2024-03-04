@@ -89,7 +89,7 @@
             "title": "Directorio Raíz",
             "desc": "El directorio raíz de tu proyecto. Este es el directorio que será desplegado en Zeabur.",
             "toast": {
-                "success": "Directorio raíz cambiado",
+                "success": "El Directorio raíz ha cambiado",
                 "error": "Cambio de directorio raíz fallido"
             }
         },
