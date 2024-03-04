@@ -97,7 +97,7 @@
             "title": "Comando de Construcción Personalizado",
             "desc": "Personaliza el comando de construcción para tu proyecto.",
             "toast": {
-                "success": "Comando de construcción personalizado cambiado",
+                "success": "El Comando de construcción personalizado ha cambiado",
                 "error": "Cambio de comando de construcción personalizado fallido"
             }
         },
