@@ -7,5 +7,6 @@
   "go": "Go",
   "deno": "Deno",
   "rust": "Rust",
-  "swift": "Swift"
+  "swift": "Swift",
+  "dart": "Dart"
 }
