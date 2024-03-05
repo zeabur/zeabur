@@ -1,55 +1,86 @@
 ---
 title: Astro
-ogImageTitle: Deploy Astro Site
-ogImageSubtitle: Deploy Astro Site in Zeabur
+ogImageTitle: Deploy Astro on Zeabur
+ogImageSubtitle: Deploy Astro on Zeabur
 ---
 
 import { Callout } from 'nextra-theme-docs';
 
-# Deploy Astro Site
+# Deploy Astro on Zeabur
 
-[Astro](https://astro.build/) is a website build tool for the modern web — powerful developer experience meets lightweight output.
+[Astro](https://astro.build/) is a modern website building tool with a powerful developer experience and lightweight output.
 
-This guide will help you to deploy your Astro site in Zeabur.
+This guide will help you deploy your Astro site on Zeabur.
 
-## Step1: Create an Astro project
+## Step 1: Create an Astro Project
 
-### Method 1: Bootstrap with Astro CLI
-
-You can create an Astro project with the command below and follow the instructions.
+You can create an Astro project using the command below and follow the prompts for configuration.
 
 ```bash
 npm create astro@latest
 ```
 
-### Method 2: Clone from our template
+## Step 2: Install the `@zeabur/astro-adapter` Package
 
-We've prepared two templates for you to get started with Astro.
+Zeabur provides an adapter package for Astro, which you can install using the command below.
 
-- [Astro Static Template](https://github.com/zeabur/astro-static-template)
-- [Astro SSR Template](https://github.com/zeabur/astro-ssr-template)
+```bash
+pnpm i @zeabur/astro-adapter
+```
 
-You can use these template by clicking on the `Use this template` button on the GitHub page.
+After installation, you need to configure the adapter in your `astro.config.mjs`.
 
-## Step2: Deploy to Zeabur
+```javascript
+import zeabur from '@zeabur/astro-adapter/serverless';
 
-Go to [your dashboard of Zeabur](https://dash.zeabur.com) and create a new project if you haven't done so.
+export default {
+  // ...
+  adapter: zeabur(),
+  output: 'server'
+  // ...
+};
+```
 
-Then, click on the `Deploy New Service` button, select deploy from GitHub.
+With that, your Astro project is ready to be deployed to Zeabur.
+
+## Step 3: Deploy to Zeabur
+
+### Method 1: Using the Zeabur CLI
+
+First, ensure that you have installed the Zeabur CLI according to the guide [Deploy in CLI](../deploy/deploy-in-cli).
+
+Then, in your newly initialized Astro project, add uncommitted files to Git.
+
+```bash
+git add -A
+git commit -m "Initial commit"
+```
+
+Next, deploy your service using the command below.
+
+```bash
+zeabur
+```
+
+### Method 2: Using the Zeabur Dashboard
+
+Navigate to the [Zeabur Dashboard](https://dash.zeabur.com) and create a new project.
+
+Then, click on the `Deploy New Service` button and choose to deploy from GitHub.
 
 <Callout>
-    If it's your first time to deploy from GitHub on Zeabur, you need to configure and install the GitHub application first.
-    You can check a more detailed guide [here](/deploy/github).
+    If this is your first time deploying a project from GitHub on Zeabur, you will need to configure and install the GitHub App.
+    You can view a more detailed guide [here](/deploy/github).
 </Callout>
 
-After select the repository and branch, Zeabur will automatically start building your service.
+After selecting the repository and branch, Zeabur will automatically begin to build your service.
 
-Zeabur will automatically detect that your service is built by Astro, so you don't have to do any extra configuration. And your deployment will be finished in a few minutes.
+Zeabur will automatically detect that your service is built with Astro, so you don't need to make any additional configurations. Your deployment will be completed in a few minutes.
 
-## What's next
+## Step 4: Bind a Domain
 
-After the deployment is complete, you may need to configure the domain name for your Astro site.
+After the deployment is complete, you may need to configure a domain for your Astro site.
 
-Open the "Domain" tab in the service page and click on "Generate Domain" or "Custom Domain".
+Open the "Domain" tab on the service page and click on "Generate Domain" or "Custom Domain".
 
-For more information about how to bind a domain to your service, please refer to [Bind a domain](/deploy/domain-binding).
+For more information on how to bind a domain to your service, please refer to [Bind a domain](/deploy/domain-binding).
