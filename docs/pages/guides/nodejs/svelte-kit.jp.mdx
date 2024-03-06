@@ -40,24 +40,24 @@ npm create svelte@latest
 
 その後、Gitリポジトリを初期化し、GitHubにデプロイします。
 
-### ステップ2：`@sveltejs/adapter-node`をセットアップする
+### ステップ2：`@zeabur/svelte-adapter`をセットアップする
 
-次に、`@sveltejs/adapter-node`をインストールする必要があります：
+次に、`@zeabur/svelte-adapter`をインストールする必要があります：
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
   <Tab>
     ```bash
-    pnpm add -D @sveltejs/adapter-node
+    pnpm add -D @zeabur/svelte-adapter
     ```
   </Tab>
   <Tab>
     ```bash
-    npm install -D @sveltejs/adapter-node
+    npm install -D @zeabur/svelte-adapter
     ```
   </Tab>
   <Tab>
     ```bash
-    yarn add -D @sveltejs/adapter-node
+    yarn add -D @zeabur/svelte-adapter
     ```
   </Tab>
 </Tabs>
@@ -65,31 +65,27 @@ npm create svelte@latest
 その後、`svelte.config.js`を開き、以下のように変更します：
 
 ```js
-import adapter from '@sveltejs/adapter-node'; // <-- この行に注意
+import adapter from '@zeabur/svelte-adapter'; // <-- この行に注意
 
 export default {
   kit: {
-    adapter: adapter({ out: 'build' })
+    adapter: adapter()
   }
 }
 ```
 
-### ステップ3：`package.json`をセットアップする
-
-`package.json`を開き、`scripts`に`start`スクリプトを追加します：
-
-```json
-{
-  "scripts": {
-    "start": "node ./build/index.js"
-  }
-}
-```
-
-### ステップ4：Svelte Kitプロジェクトをデプロイする
+### ステップ3：Svelte Kitプロジェクトをデプロイする
 
 プロジェクトで**デプロイサービス**または**新しいサービスを追加**をクリックし、**ソースコードをデプロイ**を選択します。
 
 ![deploy](/deploy/common/select-service.en-US.png)
 
 デプロイしたいSvelte Kitコードリポジトリを検索し、インポートをクリックします。Svelte Kitアプリは自動的にデプロイを開始します。
+
+## ステップ4：ドメインをバインドする
+
+デプロイが完了したら、Svelte Kitウェブサイトにドメインを設定することが求められるかもしれません。
+
+サービスページの「ドメイン」タブを開き、「Generate Domain」または「Custom Domain」をクリックします。
+
+サービスにドメインをバインドする方法についての詳細は、[ドメインのバインド](/deploy/domain-binding)を参照してください。

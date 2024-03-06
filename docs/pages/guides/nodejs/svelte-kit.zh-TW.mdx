@@ -39,24 +39,24 @@ npm create svelte@latest
 
 建立完畢後，為其初始化一個 Git 儲存庫並部署到你的 GitHub 上。
 
-### 第二步：設定 `@sveltejs/adapter-node`
+### 第二步：設定 `@zeabur/svelte-adapter`
 
-接下來，你需要安裝 `@sveltejs/adapter-node`：
+接下來，你需要安裝 `@zeabur/svelte-adapter`：
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
   <Tab>
     ```bash
-    pnpm add -D @sveltejs/adapter-node
+    pnpm add -D @zeabur/svelte-adapter
     ```
   </Tab>
   <Tab>
     ```bash
-    npm install -D @sveltejs/adapter-node
+    npm install -D @zeabur/svelte-adapter
     ```
   </Tab>
   <Tab>
     ```bash
-    yarn add -D @sveltejs/adapter-node
+    yarn add -D @zeabur/svelte-adapter
     ```
   </Tab>
 </Tabs>
@@ -64,28 +64,35 @@ npm create svelte@latest
 然後，打開 `svelte.config.js`，並將其內容改為：
 
 ```js
-import adapter from '@sveltejs/adapter-node'; // <-- 注意這裡
+import adapter from '@zeabur/svelte-adapter'; // <-- 注意這裡
 
 export default {
   kit: {
-    adapter: adapter({ out: 'build' })
+    adapter: adapter()
   }
 }
 ```
 
-### 第三步：設定 `package.json`
+### 第三步：部署 Svelte Kit 專案
 
-打開 `package.json`，在 `scripts` 中加入一個 `start` 指令：
+### 方法一：使用 Zeabur CLI
 
-```json
-{
-  "scripts": {
-    "start": "node ./build/index.js"
-  }
-}
+首先，確保你已經按照 [Zeabur CLI](../deploy/deploy-in-cli) 的指南安裝好了 Zeabur CLI。
+
+然後，在你剛初始化好的 Svelte Kit 專案中，將尚未提交到版本控制的檔案加入到 Git 中。
+
+```bash
+git add -A
+git commit -m "Initial commit"
 ```
 
-### 第四步：部署 Svelte Kit 專案
+接著，使用下面的指令部署你的服務。
+
+```bash
+zeabur
+```
+
+### 方法二：使用 Zeabur 控制台
 
 在你的專案中，點選 **Deploy service** 或者 **Add new service** 按鈕，並選擇 **Deploy your source code**.
 
@@ -93,4 +100,10 @@ export default {
 
 搜尋想要部署的 Svelte Kit 程式碼儲存庫，並點選匯入，你的 Svelte Kit 應用程式就將自動開始部署。
 
-{/* converted with zhconvert.org | revision dict-a1f426e3-r1031 */}
+## 第四步：綁定網域
+
+部署完成後，你可能需要為你的網站配置網域。
+
+打開服務頁面的「網路」分頁，然後點選「產生網域」或「自定義網域」。
+
+關於如何為你的服務綁定網域的更多資訊，請參考 [綁定網域](/deploy/domain-binding)。
