@@ -1,0 +1,50 @@
+---
+title: Java
+ogImageTitle: 部署 Java 项目
+ogImageSubtitle: 在 Zeabur 部署 Java 项目
+---
+
+# 部署 Java 项目
+
+Zeabur 支持部署使用 Maven 或 Gradle 构建系统，原生或 Spring Boot 框架的 Java 项目。
+
+- [部署 Spring Boot 的说明](/guides/java/spring-boot)
+
+## 环境配置
+
+可以使用的 JDK 版本有：
+
+- 19
+- 17（默认）
+- 11
+- 8
+- 7
+
+### 指定 JDK 版本
+
+你可以在 `pom.xml` 或 `build.gradle` 中指定 JDK 版本。
+
+例如，如果你使用 Maven，请在 `pom.xml` 加入以下设置：
+
+```xml
+<properties>
+    <java.version>11</java.version>
+</properties>
+```
+
+如果你使用 Gradle，请在 `build.gradle` 加入以下设置：
+
+```groovy
+sourceCompatibility = 11
+```
+
+### 指定 JVM 启动参数
+
+你可以在 `zbpack.json` 内利用 `javaArgs` 字段覆盖 Zeabur 默认判断的 JVM 启动参数。
+需要自己补上 jar 的路径。
+
+```json
+{
+  "javaArgs": "-Xms128m -Xmx512m -jar target/your-app.jar"
+}
+```

@@ -12,7 +12,7 @@
       "include": "它包括",
       "free-credit": "五美金的免費額度",
       "month": "（每月）",
-      "serverless": "你只能在这個方案上部署 serverless functions。"
+      "serverless": "你只能在這個方案上部署 serverless functions。"
     },
     "payment": {
       "method": "付款方式",
@@ -35,7 +35,17 @@
       }
     },
     "credit": {
-      "title": "账户余额",
-      "desc": "我们将会优先使用你的账户余额来支付你的账单。"
+      "title": "帳戶餘額",
+      "desc": "我們將會優先使用你的帳戶餘額来支付你的帳單。",
+      "get-credits": "儲值",
+      "get-credits-modal": {
+        "title": "儲值",
+        "desc":"Zeabur 同時也為沒有信用卡的用戶提供了儲值模式。\n你可以使用你的餘額來升級方案或者支付用量費。",
+        "confirm": "儲值"
+      }
+    },
+    "recharge-records": {
+      "title": "儲值記錄",
+      "desc": "你可以在這裡看到你的所有儲值記錄"
     }
 }

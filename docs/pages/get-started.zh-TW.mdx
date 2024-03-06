@@ -25,7 +25,8 @@ Zeabur 目前僅支援透過 GitHub 登入，如果你還沒有 GitHub 帳號，
 授權成功後，你會被自動重定向到 Zeabur 的控制台頁面。
 點選 **建立專案** 按鈕建立一個新的專案。你也可以使用快捷鍵 `CMD + k` 打開快速操作選單，然後選擇 `建立專案`。
 
-你會看到一個跳出視窗來供你選擇你的專案所在的區域。Zeabur 目前支援兩個區域，包括 GCP 位於 `asia-east` 和 AWS 位於 `us-west` 的叢集。
+你會看到一個跳出視窗來供你選擇你的專案所在的區域。Zeabur 目前支援兩個區域，包括 AWS 位於 `ap-east`，`us-west`，`eu-central`，`ap-northeast` 的區域。GCP 的位於 `asia-east` 的區域目前僅對企業使用者開放。
+
 選擇你想要部署你的服務的區域，我們會以一個隨機的名稱為你建立專案，稍後可以在專案設定中修改它。
 
 ![new project](/start/create-project.png)
@@ -44,15 +45,17 @@ Zeabur 目前僅支援透過 GitHub 登入，如果你還沒有 GitHub 帳號，
 
 ![select service type](/start/select-service-type.png)
 
-Zeabur 支援兩種類型的服務，包括 **Git Service** 和 **Marketplace Service**。
+Zeabur 支援三種類型的服務，包括 **Git Service**， **Marketplace Service** 和 **Once Service**。
 
 - **Git Service** 允許你部署你的原始碼。Zeabur 會自動為你建置和部署你的原始碼。
   如果是初次使用，你需要為 Zeabur 配置 GitHub 存取權限，這樣 Zeabur 才能存取你的儲存庫。
 
-- **Marketplace Services** 允許你從一個常用服務的市場中部署一個服務（例如資料庫或開源工具），你可以在[這裡](https://github.com/zeabur/zeabur/tree/main/marketplace)看到我們的開源的服務市場列表。
+- **Prebuilt Services** 允許你從一個常用服務的市場中部署一個服務（例如資料庫或開源工具），你可以在[這裡](https://github.com/zeabur/zeabur/tree/main/prebuilts)看到我們的開源的服務市場列表。
+
+- **Once Service** 允許你部署從 [Once](https://once.com) 購買的服務，例如 [Campfire](https://once.com/campfire)。
 
 選擇你想要部署的服務的類型，然後你就可以自由探索你想要部署的服務。
 
 ## 下一步
 
-部署成功以後，你可以學習[網域綁定](/deploy/domain-binding)來為你的服務綁定一個網域並自動配置 TLS 憑證，或者學習[環境變數](/environment/variables)來了解 Zeabur 如何自動注入變數到你的程式中。
+部署成功以後，你可以學習[網域綁定](/deploy/domain-binding)來為你的服務綁定一個網域並自動配置 TLS 憑證，或者學習[環境變數](/deploy/variables)來了解 Zeabur 如何自動注入變數到你的程式中。

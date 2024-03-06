@@ -1,0 +1,12 @@
+{
+  "toast": {
+    "FailedPrecondition": {
+      "message": "Te has quedado sin créditos. Agrega un método de pago para continuar.",
+      "action": "Agregar"
+    },
+    "beyond-limitation": {
+      "message": "Has alcanzado el límite del plan gratuito. Suscríbete a otro plan para continuar.",
+      "action": "Mejorar"
+    }
+  }
+}

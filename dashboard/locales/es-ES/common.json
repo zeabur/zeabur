@@ -1,0 +1,14 @@
+{
+  "edit-form": {
+    "save": "Guardar",
+    "return": "Regresar",
+    "from": "Editar desde",
+    "all": "todos los entornos"
+  },
+  "empty-project": {
+    "desc": "El proyecto está vacío",
+    "click": "Haz clic",
+    "add": "Agregar Nuevo Servicio",
+    "start": "¡botón para comenzar!"
+  }
+}

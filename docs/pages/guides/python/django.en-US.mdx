@@ -61,3 +61,4 @@ pip freeze > requirements.txt
 ```
 
 - Check whether `ALLOWED_HOSTS` in `settings.py` is set, this property is a Python List, which contains the domains that can access the Django application, you can use `ALLOWED_HOSTS = ['*']`, which means that all networks are allowed domain for testing purposes.
+- Zeabur uses [Gunicorn](https://gunicorn.org) as the WSGI production server for running Django services.

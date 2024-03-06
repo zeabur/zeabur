@@ -1,47 +1,47 @@
 {
     "create": {
-        "title": "Create Template",
-        "subtitle": "Create a template for people deploy a project with one click",
+        "title": "創建模板",
+        "subtitle": "為人們創建一鍵部署項目的模板",
         "name": {
-            "title": "Template Name",
-            "subtitle": "How do you want people remember your amazing work?",
-            "placeholder": "Your Template Name",
-            "error": "Start and end with a letter, and only contain letters, numbers, and hyphens."
+            "title": "模板名稱",
+            "subtitle": "你希望人們如何記住你的驚人作品？",
+            "placeholder": "您的模板名稱",
+            "error": "以字母開頭和結尾，並且只能包含字母、數字和連字號。"
         },
         "intro": {
-            "title": "Template Introduction",
-            "subtitle": "What does this template do? How can people use it?",
-            "placeholder": "Your Template Introduction"
+            "title": "模板介紹",
+            "subtitle": "這個模板是做什麼的？人們如何使用它？",
+            "placeholder": "您的模板介紹"
         },
         "variables": {
-            "title": "Template Variables",
-            "subtitle": "Template Variables are the variables that can be used in other services, you can set a service variable through [key: ${TEMPLATE_VARIABLE_KEY}] format."
+            "title": "模板變數",
+            "subtitle": "模板變數是可以在其他服務中使用的變數，您可以通過 [key: ${TEMPLATE_VARIABLE_KEY}] 格式設置服務變數。"
         },
         "services": {
-            "title": "Services",
-            "subtitle": "How many services does your template integrated?",
-            "add": "Add Service"
+            "title": "服務",
+            "subtitle": "您的模板整合了多少服務？",
+            "add": "添加服務"
         },
         "tags": {
-            "title": "Tags",
-            "subtitle": "Add tags for your template so that people can easily find it."
+            "title": "標籤",
+            "subtitle": "為您的模板添加標籤，以便人們輕鬆找到它。"
         },
         "preview": {
-            "title": "Preview URL",
-            "subtitle": "If you have hosted a preview website, you can add it here so that people can see what your template looks like."
+            "title": "預覽網址",
+            "subtitle": "如果您有托管預覽網站，您可以在這裡添加，讓人們看到您的模板長什麼樣。"
         },
         "icon": {
-            "title": "Icon",
-            "subtitle": "Upload an icon for your template so that people can easily recognize it.",
-            "placeholder": "Icon URL"
+            "title": "圖標",
+            "subtitle": "為您的模板上傳一個圖標，以便人們輕鬆識別。",
+            "placeholder": "圖標網址"
         },
         "readme": {
-            "title": "Template README",
-            "subtitle": "Write a README for your template so that people can easily understand it."
+            "title": "模板 README",
+            "subtitle": "為您的模板撰寫一個 README，以便人們輕鬆理解。"
         },
-        "next": "Next Step",
-        "previous": "Previous Step",
-        "create": "Create"
+        "next": "下一步",
+        "previous": "上一步",
+        "create": "創建"
     },
     "templates": {
         "title": "從模板一鍵部署項目",

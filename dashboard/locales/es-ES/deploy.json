@@ -1,0 +1,24 @@
+{
+  "title": "Desplegar\nNuevo Servicio",
+  "create": "Desplegar Nuevo Servicio",
+  "desc": "¿Qué tipo de servicio quieres desplegar?",
+  "source-code": "Desplegar\nTu Código Fuente",
+  "other-service": "Desplegar\nOtros Servicios",
+  "source": {
+    "back": "Atrás",
+    "configure": "Configurar GitHub APP",
+    "placeholder": "Buscar Repositorios",
+    "import": "Importar",
+    "service-name": "Nombre del Servicio",
+    "branches": "Ramas de Git",
+    "deploy": "Desplegar",
+    "wrong": "El nombre del servicio solo puede incluir números, minúsculas y guiones"
+  },
+  "other": {
+    "back": "Atrás",
+    "deploy": "Desplegar",
+    "service-name": "Nombre del Servicio",
+    "service": "servicio",
+    "wrong": "Formato incorrecto"
+  }
+}

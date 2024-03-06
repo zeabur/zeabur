@@ -1,0 +1,148 @@
+{
+    "node": {
+        "ago": "hace",
+        "deployed": "Desplegado",
+        "failed-msg": "El último despliegue falló, abre para ver los registros detallados.",
+        "deploying": "Desplegando...",
+        "building": "Construyendo..."
+    },
+    "tabs": {
+        "deployments": "Despliegues",
+        "variables": "Variables",
+        "metrics": "Métricas",
+        "settings": "Configuración",
+        "connect": "Conectar",
+        "empty_1": "Este proyecto no tiene servicios ahora.",
+        "empty_2": "Puedes presionar comando+k o ctrl+k para crear un nuevo servicio.",
+        "log": "Registro"
+    },
+    "deployments": {
+        "redeploy": "Redesplegar",
+        "restart": "Reiniciar",
+        "building": "Construyendo",
+        "logs": "Registros",
+        "history": "Historia",
+        "no-domain": "Crear un dominio para tu servicio",
+        "toast": {
+            "redeploy": "Redespliegue iniciado"
+        }
+    },
+    "variables": {
+        "title": "Variable",
+        "add-title": "Agregar Nueva Variable",
+        "list-title": "Lista de Variables",
+        "checkbox-view": "Vista de Lista",
+        "edit-raw": "Editar Variables en Bruto",
+        "raw-placeholder": "Por favor escribe en el siguiente formato:\ne.g.\nVAR1=VALOR1\nVAR2=VALOR2\nVAR3=VALOR3",
+        "copy-env": "Copiar ENV",
+        "cancel": "Cancelar",
+        "save": "Guardar",
+        "add": "Agregar",
+        "wrong": "Formato incorrecto",
+        "return": "Regresar",
+        "toast": {
+            "success": "Variables actualizadas",
+            "copy": "Variable copiada al portapapeles"
+        }
+    },
+    "metrics": {
+        "metrics": "Métricas",
+        "memory-cap": "Límite de Memoria:",
+        "cpu-cap": "Límite de CPU:",
+        "memory": "Uso de Memoria",
+        "cpu": "Uso de CPU"
+    },
+    "networking": {
+        "title": "Redes"
+    },
+    "settings": {
+        "name": "Nombre del Servicio",
+        "name-toast": {
+            "success": "El Nombre del servicio ha sido cambiado"
+        },
+        "wrong": "Formato incorrecto",
+        "domain": {
+            "title": "Dominios",
+            "desc": "Expone este servicio al internet público desde ",
+            "custom": "Dominio Personalizado",
+            "redirect": "Redirigir a otro dominio",
+            "generate": "Generar Dominio",
+            "generate-title": "Generar Dominio Zeabur",
+            "custom-title": "Agregar Dominio Personalizado",
+            "available": "Dominio Disponible",
+            "cancel": "Cancelar",
+            "save": "Guardar",
+            "add-dns": "Agregar Registro DNS para tu dominio",
+            "delete": {
+                "title": "Eliminar Dominio",
+                "warn-text": "¿Estás seguro de querer eliminar este dominio?"
+            },
+            "toast": {
+                "delete": "Dominio eliminado",
+                "copy": 
+"Dominio copiado al portapapeles",
+                "create": "Dominio creado"
+            },
+            "doc-link": "Instrucciones"
+        },
+        "root-directory": {
+            "title": "Directorio Raíz",
+            "desc": "El directorio raíz de tu proyecto. Este es el directorio que será desplegado en Zeabur.",
+            "toast": {
+                "success": "El Directorio raíz ha cambiado",
+                "error": "El Cambio de directorio raíz ha fallado"
+            }
+        },
+        "custom-build-command": {
+            "title": "Comando de Construcción Personalizado",
+            "desc": "Personaliza el comando de construcción para tu proyecto.",
+            "toast": {
+                "success": "El Comando de construcción personalizado ha cambiado",
+                "error": "Cambio de comando de construcción personalizado fallido"
+            }
+        },
+        "custom-start-command": {
+            "title": "Comando de Inicio Personalizado",
+            "desc": "Personaliza el comando de inicio para tu proyecto.",
+            "toast": {
+                "success": "Comando de inicio personalizado cambiado",
+                "error": "Cambio de comando de inicio personalizado fallido"
+            }
+        },
+        "output-dir": {
+            "title": "Directorio de Salida Personalizado",
+            "desc": "El directorio que contiene la salida de construcción de tu proyecto. Si especificas un directorio, desplegaremos tu servicio como archivos estáticos con Nginx.",
+            "toast": {
+                "success": "Directorio de salida cambiado",
+                "error": "Cambio de directorio de salida fallido"
+            }
+        },
+        "watch-path": {
+            "title": "Rutas de Vigilancia",
+            "desc": "Patrones al estilo Gitignore que se pueden usar para disparar nuevos despliegues basados en qué rutas de archivos han cambiado.",
+            "toast": {
+                "success": "Las Rutas de vigilancia han sido cambiadas",
+                "error": "El Cambio de rutas de vigilancia ha fallado"
+            }
+        },
+        "branch": {
+            "title": "Cambiar Rama",
+            "desc": "Vincular otra rama de tu proyecto",
+            "toast": {
+                "success": "Rama cambiada",
+                "error": "Fallo al cambiar la rama"
+            }
+        },
+        "danger-zone": {
+            "title": "Zona de Peligro",
+            "delete-service": {
+                "title": "Eliminar Servicio",
+                "desc": "El servicio será eliminado y todos los datos persistentes se perderán. Esta acción no se puede deshacer."
+            },
+            "suspend-service": {
+                "title": "Suspender Servicio",
+                "desc": "El servicio se pausa para evitar cargos adicionales. El servicio será inaccesible hasta que lo reactives. Los servicios pausados por más de 30 días serán eliminados automáticamente."
+            }
+        }
+    }
+}

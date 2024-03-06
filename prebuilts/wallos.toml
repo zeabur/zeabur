@@ -1,0 +1,25 @@
+#:schema ./schema.json
+
+id = "wallos"
+name = "Wallos"
+description = "Open-Source Personal Subscription Tracker"
+icon = "https://github.com/ellite/Wallos/raw/main/images/icon/android-chrome-512x512.png"
+
+[source]
+image = "bellamy/wallos:latest"
+
+[[ports]]
+id = "web"
+port = 80
+type = "HTTP"
+
+[[volumes]]
+id = "db"
+dir = "/var/www/html/db"
+
+[[volumes]]
+id = "logos"
+dir = "/var/www/html/images/uploads/logos"
+
+[env]
+TZ = { default = "Asia/Shanghai" }

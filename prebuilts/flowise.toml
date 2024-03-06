@@ -7,6 +7,8 @@ description = "Drag & drop UI to build your customized LLM flow."
 
 [source]
 image = "flowiseai/flowise:1.4.10"
+command = ["flowise"]
+args = ["start"]
 
 [[ports]]
 id = "web"

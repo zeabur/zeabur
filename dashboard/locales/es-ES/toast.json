@@ -1,0 +1,16 @@
+{
+    "top-layer": {
+        "build": "Construir",
+        "scheduled": "programado",
+        "started": "iniciado",
+        "finished": "finalizado",
+        "failed": "fallado",
+        "domain": "Crea un dominio para tu servicio"
+    },
+    "projects": {
+        "notice": "Necesitas un proyecto para continuar. Por favor, crea uno."
+    },
+    "copy": "Copiado al portapapeles",
+    "limit": "Has alcanzado el límite del plan gratuito.",
+    "upgrade": "Mejorar"
+}

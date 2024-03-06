@@ -1,0 +1,103 @@
+{
+  "sidebar": {
+    "general": "General",
+    "billing": "Facturación",
+    "usage": "Uso",
+    "template": "Plantilla",
+    "referrals": "Referencias",
+    "developer": "Desarrollador"
+  },
+  "general": {
+    "title": "General",
+    "profile": "Configuración de Perfil",
+    "name": "Nombre",
+    "language": "Idioma",
+    "appearance": "Apariencia",
+    "theme": "Tema",
+    "wrong-name": "El nombre de usuario no puede exceder 64 caracteres",
+    "wrong-url": "La URL no es válida",
+    "avatarurl": "URL del Avatar",
+    "email": "Correo Electrónico",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "integrations": "Integraciones",
+    "verify": "Verificar",
+    "verified": "Estás verificado",
+    "link": "Enlaza tu Discord",
+    "discord": "Cuenta de Discord",
+    "email_preferences_toast": "¡Actualización de preferencias exitosa!",
+    "email_preferences_toast_error": "¡Falló la actualización de preferencias!",
+    "email_preferences_title": "Preferencias de Correo Electrónico",
+    "email_preferences_build": "Construcciones fallidas",
+    "email_preferences_build_desc": "Recibe notificaciones cuando una construcción falla",
+    "email_preferences_crash": "Despliegue fallido",
+    "email_preferences_crash_desc": "Recibe notificaciones cuando un despligue falla"
+  },
+  "billing": {
+    "title": "Facturación",
+    "learn-more": "Aprender Más"
+  },
+  "usage": {
+    "title": "Uso",
+    "balance_history": "Historial de Saldo",
+    "balance_desc": "El saldo es la cantidad de dinero que tienes en tu cuenta. Puedes usarlo para pagar tus servicios.",
+    "credit_history": "Historial de Crédito",
+    "credit_desc": "Recibirás créditos de US$ 5 cada mes. El uso de tus servicios se deducirá primero de los créditos.",
+    "usage_history": "Historial de Uso",
+    "usage_desc": "Aquí está el historial de uso para cada proyecto",
+    "last_3_days": "Últimos 3 Días",
+    "last_7_days": "Últimos 7 Días",
+    "last_14_days": "Últimos 14 Días",
+    "last_30_days": "Últimos 30 Días",
+    "category": "Agrupar por",
+    "total_usage": "costo total",
+    "time": "Marca de Tiempo",
+    "balance": "Saldo",
+    "credit": "Crédito",
+    "reason": "Razón",
+    "more": "Más",
+    "showing": "Mostrando",
+    "to": "a",
+    "of": "de",
+    "entries": "entradas",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "copied": "Copiado al portapapeles"
+  },
+  "invoice": {
+    "title": "Próxima Facturación",
+    "invoice_title": "Factura próxima",
+    "invoice_desc_1": "Esta es una vista previa de la factura que se generará en",
+    "invoice_desc_2": ". Puede cambiar si la suscripción se actualiza.",
+    "description": "DESCRIPCIÓN",
+    "quantity": "CANT",
+    "unit_price": "PRECIO UNITARIO",
+    "amount": "IMPORTE",
+    "view_usage": "Ver uso",
+    "subtotal": "Subtotal",
+    "total": "Total"
+  },
+  "template": {
+    "title": "Tus Plantillas",
+    "create": "Crear Nueva Plantilla",
+    "browse": "Explorar Plantillas"
+  },
+  "referrals": {
+    "title": "Referencias",
+    "sub-title": "Comparte tu enlace para ganar créditos",
+    "description-1": "Al referir a tus amigos, puedes ganar créditos para usar en Zeabur.",
+    "description-2": "Por cada amigo que refieras, recibirás $5 en créditos cuando se actualicen a un plan de pago.",
+    "status": {
+      "title": "Estado de la referencia",
+      "pending": {
+        "title": "Referencias pendientes",
+        "no-pending": "No hay referencias pendientes.\nRefiere a tus amigos para ganar crédito."
+      },
+      "credited": {
+        "title": "Referencias acreditadas",
+        "no-credited": "No hay referencias acreditadas."
+      }
+    },
+    "share": "Tu enlace de referencia"
+  }
+}

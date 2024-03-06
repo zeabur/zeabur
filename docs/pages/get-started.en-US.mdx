@@ -25,7 +25,8 @@ A project is presented as a group of services. You can deploy multiple services 
 After the authorization, you will be redirect to the Zeabur dashboard automatically.
 Click on the **Create Project** button to create a new project. You can also type `CMD + k` to open a quick actions menu, where you can find `Create Project` to proceed.
 
-You will see a modal below to select your project region. Zeabur now supports 2 regions, including GCP servers in `asia-east` and AWS servers in `us-west`.
+You will see a modal below to select your project region. Zeabur now supports 2 regions, including `ap-east`，`us-west`，`eu-central`，`ap-northeast` regions on AWS. `asia-east` region on GCP is only open to Team Plan users.
+
 Choose the region you want to deploy your service to, and we will create a project for you with a random name, which you can modify it later in the project settings.
 
 ![new project](/start/create-project.png)
@@ -45,15 +46,17 @@ To deploy a service, just cilick on the **Add Service** button. And you will see
 
 ![select service type](/start/select-service-type.png)
 
-Zeabur supports 2 types of services, including **Git Services** and **Marketplace Services**.
+Zeabur supports 3 types of services, including **Git Services**, **Prebuilt Services** and **Once Services**.
 
 - **Git Services** allows you to deploy your source code from GitHub. Zeabur will automatically build and deploy your source code for you.
   You need to configure your GitHub access for the first time so that Zeabur can access your repositories.
 
-- **Marketplace Services** allows you to deploy a service from a marketplace of common services (such as a database or an open source tool), you can see the open source marketplace [here](https://github.com/zeabur/zeabur/tree/main/marketplace).
+- **Prebuilt Services** allows you to deploy a service from a prebuilt marketplace of common services (such as a database or an open source tool), you can see the open source marketplace [here](https://github.com/zeabur/zeabur/tree/main/prebuilts).
+
+- **Once Services** allows you to deploy a service that you bought from [Once](https://once.com), such as [Campfire](https://once.com/campfire).
 
 Just choose the service type you want, and you can search for the service you want to deploy.
 
 ## What's Next
 
-After deployed, you can learn about [domain binding](/en-US/deploy/domain-binding) to expose your service with an automatically configured TLS certificate, or learn about [environment variables](/en-US/environment/variables) to understand how Zeabur can automatically inject variables into your program.
+After deployed, you can learn about [domain binding](/en-US/deploy/domain-binding) to expose your service with an automatically configured TLS certificate, or learn about [environment variables](/en-US/deploy/variables) to understand how Zeabur can automatically inject variables into your program.

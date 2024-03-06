@@ -36,6 +36,16 @@
     },
     "credit": {
       "title": "Account Credit",
-      "desc": "You will not be charged until the credit is empty."
+      "desc": "You will not be charged until the credit is empty.",
+      "get-credits": "Get More Credits",
+      "get-credits-modal": {
+        "title": "Get More Credits",
+        "desc":"Zeabur offers a way to buy prepaid credits if you don't have a credit card or want to pay in advance.\nYou can use your credits to upgrade your plan and pay for your subscription and usage fees.",
+        "confirm": "Recharge"
+      }
+    },
+    "recharge-records": {
+      "title": "Recharge Records",
+      "desc": "This is a list of all the recharges you have made."
     }
 }

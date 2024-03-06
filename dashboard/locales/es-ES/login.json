@@ -1,0 +1,22 @@
+{
+    "title": "Bienvenido a Zeabur",
+    "accept-tos": "Para comenzar, acepta los",
+    "sub-title": "Despliegue sin dolor, Escala infinitamente.",
+    "login": "Iniciar sesión con GitHub",
+    "notice": "Al crear una cuenta, aceptas nuestros términos y condiciones y la política de privacidad",
+    "tos": "Términos de servicio",
+    "pp": "Política de privacidad",
+    "notice_modal": {
+        "title": "Aviso",
+        "desc-1": "Para usar Zeabur, y mantenerlo genial para todos, debes aceptar nuestros Términos de Servicio:",
+        "desc-2": "Alojar o distribuir cualquiera de los siguientes elementos prohibirá tu cuenta permanentemente",
+        "banned-item-1": "VPN / Xray / Proxy",
+        "banned-item-2": "Espejos / Userbots",
+        "banned-item-3": "Mineros de Criptomonedas",
+        "banned-item-4": "Contenido Protegido por DMCA",
+        "banned-item-5": "Agregadores de Torrents",
+        "banned-item-6": "Cualquier cosa Ilegal",
+        "btn-before-countdown": "Por favor revisa la lista de elementos prohibidos",
+        "btn-confirm": "No desplegaré nada de eso"
+    }
+}
