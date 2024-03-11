@@ -2,11 +2,11 @@
 
 id = "codimd"
 name = "CodiMD"
-icon = "https://presskit.hackmd.io/Logo/PNG/HackMD_LOGO_vertical_black.png"
+icon = "https://i.imgur.com/GA0pa1R.png"
 description = "Collaborative markdown notes on all platforms."
 
 [[ports]]
-id = "app"
+id = "web"
 port = 3000
 type = "HTTP"
 
@@ -20,4 +20,3 @@ image = "nabo.codimd.dev/hackmdio/hackmd:2.5.3"
 [env]
 CMD_DB_URL = { default = "${POSTGRES_CONNECTION_STRING}" }
 CMD_USECDN = { default = "false" }
-
