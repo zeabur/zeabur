@@ -1,0 +1,22 @@
+#:schema ./schema.json
+
+id = "codimd"
+name = "CodiMD"
+icon = "https://i.imgur.com/GA0pa1R.png"
+description = "Collaborative markdown notes on all platforms."
+
+[[ports]]
+id = "web"
+port = 3000
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/home/hackmd/app/public/uploads"
+
+[source]
+image = "nabo.codimd.dev/hackmdio/hackmd:2.5.3"
+
+[env]
+CMD_DB_URL = { default = "${POSTGRES_CONNECTION_STRING}" }
+CMD_USECDN = { default = "false" }
