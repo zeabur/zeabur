@@ -2,7 +2,7 @@
 
 id = "codimd"
 name = "CodiMD"
-icon = "https://presskit.hackmd.io/Logo/SVG/HackMD_LOGO_vertical_WhiteColor.svg"
+icon = "https://presskit.hackmd.io/Logo/PNG/HackMD_LOGO_vertical_black.png"
 description = "Collaborative markdown notes on all platforms."
 
 [[ports]]
