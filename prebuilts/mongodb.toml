@@ -43,6 +43,11 @@ content = "mongosh \"mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${PORT_FORWAR
 
 [[instructions]]
 type = "TEXT"
+title = "MongoDB connection string"
+content = "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}"
+
+[[instructions]]
+type = "TEXT"
 title = "MongoDB username"
 content = "${MONGO_USERNAME}"
 category = "Credentials"
