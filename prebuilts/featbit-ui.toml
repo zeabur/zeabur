@@ -10,7 +10,7 @@ image = "featbit/featbit-ui:latest"
 
 [[ports]]
 id = "web"
-port = 8081
+port = 80
 type = "HTTP"
 
 [env]

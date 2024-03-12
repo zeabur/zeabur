@@ -10,7 +10,7 @@ image = "featbit/featbit-data-analytics-server:latest"
 
 [[ports]]
 id = "web"
-port = 8200
+port = 80
 type = "HTTP"
 
 [env]
