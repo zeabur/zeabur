@@ -1,0 +1,22 @@
+#:schema ./schema.json
+
+id = "featbit-data-analytics"
+name = "FeatBit Data Analytics Server"
+icon = "https://icons.zeabur.com/featbit.png"
+description = "FeatBit Data Analytics Server"
+
+[source]
+image = "featbit/featbit-data-analytics-server:latest"
+
+[[ports]]
+id = "web"
+port = 8200
+type = "HTTP"
+
+[env]
+REDIS_HOST = { default = "${REDIS_HOST}" }
+REDIS_PORT = { default = "${REDIS_PORT}" }
+MONGO_URI = { default = "${MONGO_CONNECTION_STRING}" }
+MONGO_INITDB_DATABASE = { default = "zeabur" }
+MONGO_HOST = { default = "${MONGO_HOST}" }
+CHECK_DB_LIVNESS = { default = "true" }

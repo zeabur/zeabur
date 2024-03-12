@@ -1,0 +1,19 @@
+#:schema ./schema.json
+
+id = "featbit-ui"
+name = "FeatBit UI"
+icon = "https://icons.zeabur.com/featbit.png"
+description = "FeatBit UI"
+
+[source]
+image = "featbit/featbit-ui:latest"
+
+[[ports]]
+id = "web"
+port = 8081
+type = "HTTP"
+
+[env]
+API_URL = { default = "" }
+DEMO_URL = { default = "" }
+EVALUATION_URL = { default = "" }

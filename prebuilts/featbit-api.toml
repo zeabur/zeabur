@@ -1,0 +1,20 @@
+#:schema ./schema.json
+
+id = "featbit-api"
+name = "FeatBit API Server"
+icon = "https://icons.zeabur.com/featbit.png"
+description = "FeatBit API Server"
+
+[source]
+image = "featbit/featbit-api-server:latest"
+
+[[ports]]
+id = "web"
+port = 5000
+type = "HTTP"
+
+[env]
+MongoDb__ConnectionString = { default = "${MONGO_CONNECTION_STRING}" }
+MongoDb__Database = { default = "zeabur" }
+Redis__ConnectionString = { default = "${REDIS_CONNECTION_STRING}" }
+OLAP__ServiceHost = { default = "${FEATBIT_DA_HOST}" }
