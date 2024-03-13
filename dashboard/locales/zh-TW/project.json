@@ -1,19 +1,72 @@
 {
-    "card": {
-        "service": "服務",
-        "create-project": "建立專案"
+  "card": {
+    "service": "服務",
+    "create-project": "建立專案"
+  },
+  "modal": {
+    "title": "建立專案",
+    "description": "為您的服務建立一個新專案。",
+    "error": "格式錯誤",
+    "create": "建立",
+    "cancel": "關閉",
+    "placeholder": "請輸入專案名稱"
+  },
+  "members": "成員",
+  "environments": "環境",
+  "services": "服務",
+  "add-env": "建立環境",
+  "add-service": "建立服務",
+  "settings": {
+    "title": "專案設置",
+    "general": {
+      "title": "通用設置",
+      "basic-information": {
+        "title": "基本資訊",
+        "name": {
+          "title": "專案名稱",
+          "description": "專案的名稱，只允許字母，數字和連字號。",
+          "placeholder": "你的專案名稱"
+        },
+        "icon": {
+          "title": "專案圖示",
+          "description": "專案的圖示地址（可選）。",
+          "placeholder": "你的專案圖示地址"
+        },
+        "description": {
+          "title": "專案描述",
+          "description": "專案的簡要描述，方便你辨別專案（可選）。",
+          "placeholder": "你的專案描述"
+        },
+        "save": "保存"
+      },
+      "danger-zone": {
+        "title": "危險操作",
+        "delete": {
+          "title": "刪除專案",
+          "description": "如果你刪除了該專案，專案裡的所有服務都會被刪除且無法恢復。",
+          "delete": "刪除"
+        },
+        "leave": {
+          "title": "離開專案",
+          "description": "如果你離開了該專案，你將無法再訪問該專案，除非重新接受了邀請。",
+          "leave": "離開專案"
+        }
+      }
     },
-    "modal": {
-        "title": "建立專案",
-        "description": "為您的服務建立一個新專案。",
-        "error": "格式錯誤",
-        "create": "建立",
-        "cancel": "關閉",
-        "placeholder": "請輸入專案名稱"
-    },
-    "members": "成員",
-    "environments": "環境",
-    "services": "服務",
-    "add-env": "建立環境",
-    "add-service": "建立服務"
+    "budget": {
+      "title": "預算設置",
+      "overview": {
+        "monthly-cost": "當月消費",
+        "monthly-budget": "當月預算",
+        "description": "當你的用量達到了80%的預算，你將會收到一封警告郵件。當你的用量超過了預算，你的服務將會被暫停以避免超額收費。",
+        "update": "更新每月預算"
+      },
+      "analysis-by-type": {
+        "title": "分析用量",
+        "CPU": "CPU",
+        "Memory": "記憶體",
+        "Egress": "出站流量"
+      }
+    }
+  }
 }
