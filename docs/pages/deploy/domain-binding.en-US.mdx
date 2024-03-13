@@ -40,8 +40,6 @@ Click on the **Custom Domain** button, and type in your domain name, then click 
 
 After you have added your dedicated domain name to the service, you will find it is in the `Invalid DNS` status. In order to access your service properly, you need to go to your domain registrar and manually configure DNS records for your domain name.
 
-![domain](/deploy/domain/invalid-dns.png)
-
 ### Configure DNS record
 
 Here is an example of using Cloudflare to add DNS records for the domain name.
@@ -69,5 +67,3 @@ If you want to bind a domain name to a root domain (APEX Domain), for example, y
 1. Select `A` record in the `Type` field
 2. Enter `@` in the `Name` field
 3. Enter `34.49.168.86`
-
-![domain-dns](/deploy/domain/dns-a-record.png)

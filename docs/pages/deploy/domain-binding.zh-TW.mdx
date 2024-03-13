@@ -4,8 +4,6 @@ ogImageTitle: 網域綁定
 ogImageSubtitle: 為你的服務綁定一個網域
 ---
 
-import { Callout } from 'nextra-theme-docs'
-
 # 網域綁定
 
 **網域**是你的服務的唯一識別碼，它可以用來從網路上造訪你的服務。例如，這個網站的網域是 [zeabur.com](https://zeabur.com/)。
@@ -40,8 +38,6 @@ Zeabur 提供了一個簡單的服務，用於產生帶有 `zeabur.app` 後綴�
 
 當你將你的網域加入到服務中後，你會發現它處於 `Invalid DNS` 狀態。為了正確造訪你的服務，你需要去你的網域註冊商那裡手動為你的網域配置 DNS 記錄。
 
-![domain](/deploy/domain/invalid-dns.png)
-
 ### 新增 DNS 記錄
 
 我們提供了一個使用 Cloudflare 為網域加入 DNS 記錄的例子：打開 Cloudflare 控制台，選擇你想要設定的網域，然後選擇 DNS 記錄。
@@ -67,5 +63,3 @@ Zeabur 提供了一個簡單的服務，用於產生帶有 `zeabur.app` 後綴�
 1. 在 `Type` 的位置選擇 `A` 紀錄
 2. 在 `Name` 的位置輸入 `@`
 3. 在 `Target` 的位置輸入 `34.49.168.86`
-
-![domain-dns](/deploy/domain/dns-a-record.png)
