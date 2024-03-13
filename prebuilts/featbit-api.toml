@@ -17,4 +17,4 @@ type = "HTTP"
 MongoDb__ConnectionString = { default = "${MONGO_CONNECTION_STRING}" }
 MongoDb__Database = { default = "featbit" }
 Redis__ConnectionString = { default = "redis.zeabur.internal:6379,password=${REDIS_PASSWORD}" }
-OLAP__ServiceHost = { default = "${FEATBIT_DA_HOST}" }
+OLAP__ServiceHost = { default = "http://featbit-data-analytics-server.zeabur.internal" }
