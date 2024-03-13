@@ -60,9 +60,7 @@ If you want to bind a domain name to a subdomain, for example, you purchased the
 
 1. Select `CNAME` record in the `Type` field
 2. Enter your subdomain name in the `Name` field, for example `blog`
-3. Enter `cname.zeabur-dns.com.` in the `Target` field
-
-![domain-dns](/deploy/domain/dns-cname-record.png)
+3. Enter `cdn.zeabur-dns.com.` in the `Target` field
 
 #### Configure root domain DNS record
 
@@ -70,14 +68,6 @@ If you want to bind a domain name to a root domain (APEX Domain), for example, y
 
 1. Select `A` record in the `Type` field
 2. Enter `@` in the `Name` field
-3. Enter `35.71.144.225` or `52.223.32.133`。
-4. You can also add two `A` records, each corresponding to one of these two IP addresses.
-
-<Callout>
-  The two IP addresses mentioned above are Zeabur's Anycast IP. When you add the
-  `A` record of these two IP addresses to DNS, users who visit your website will
-  be resolved to the nearest node to them, ensuring that visitors to your
-  website can open your page at the fastest speed.
-</Callout>
+3. Enter `34.49.168.86`
 
 ![domain-dns](/deploy/domain/dns-a-record.png)
