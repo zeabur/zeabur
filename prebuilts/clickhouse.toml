@@ -22,6 +22,10 @@ type = "TCP"
 id = "data"
 dir = "/var/lib/clickhouse"
 
+[[volumes]]
+id = "log"
+dir = "/var/log/clickhouse-server"
+
 [env]
 CLICKHOUSE_USER = { default = "zeabur", required = true }
 CLICKHOUSE_PASSWORD = { default = "${PASSWORD}" }
