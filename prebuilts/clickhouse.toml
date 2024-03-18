@@ -29,6 +29,8 @@ dir = "/var/log/clickhouse-server"
 [env]
 CLICKHOUSE_USER = { default = "zeabur", required = true }
 CLICKHOUSE_PASSWORD = { default = "${PASSWORD}" }
+CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT = { default = "1" }
+CLICKHOUSE_DB = { default = "zeabur" }
 PORT = { default = "8123", readonly = true }
 
 [[instructions]]
@@ -55,3 +57,8 @@ content = "${CLICKHOUSE_USER}"
 type = "PASSWORD"
 title = "Clickhouse password"
 content = "${CLICKHOUSE_PASSWORD}"
+
+[[instructions]]
+type = "TEXT"
+title = "Clickhouse database"
+content = "${CLICKHOUSE_DB}"
