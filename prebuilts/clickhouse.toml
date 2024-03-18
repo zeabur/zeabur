@@ -1,0 +1,53 @@
+#:schema ./schema.json
+
+id = "clickhouse"
+name = "Clickhouse"
+icon = "https://avatars.githubusercontent.com/u/54801242"
+description = "ClickHouse is an open-source column-oriented database management system."
+
+[source]
+image = "clickhouse/clickhouse-server:24.2.2.71-alpine"
+
+[[ports]]
+id = "web"
+port = 8123
+type = "HTTP"
+
+[[ports]]
+id = "native"
+port = 9000
+type = "TCP"
+
+[[volumes]]
+id = "data"
+dir = "/var/lib/clickhouse"
+
+[env]
+CLICKHOUSE_USER = { default = "zeabur", required = true }
+CLICKHOUSE_PASSWORD = { default = "${PASSWORD}" }
+PORT = { default = "8123", readonly = true }
+
+[[instructions]]
+type = "TEXT"
+title = "Clickhouse HTTP interface URL"
+content = "${ZEABUR_WEB_URL}"
+
+[[instructions]]
+type = "TEXT"
+title = "Clickhouse native interface host"
+content = "${PORT_FORWARDED_HOSTNAME}"
+
+[[instructions]]
+type = "TEXT"
+title = "Clickhouse native interface port"
+content = "${NATIVE_PORT_FORWARDED_PORT}"
+
+[[instructions]]
+type = "TEXT"
+title = "Clickhouse username"
+content = "${CLICKHOUSE_USER}"
+
+[[instructions]]
+type = "PASSWORD"
+title = "Clickhouse password"
+content = "${CLICKHOUSE_PASSWORD}"
