@@ -22,16 +22,25 @@ type = "TCP"
 id = "data"
 dir = "/var/lib/clickhouse"
 
-[[volumes]]
-id = "log"
-dir = "/var/log/clickhouse-server"
-
 [env]
 CLICKHOUSE_USER = { default = "zeabur", required = true }
 CLICKHOUSE_PASSWORD = { default = "${PASSWORD}" }
 CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT = { default = "1" }
 CLICKHOUSE_DB = { default = "zeabur" }
 PORT = { default = "8123", readonly = true }
+
+[[configs]]
+path = "/etc/clickhouse-server/config.d/docker_related_config.xml"
+template = """<clickhouse>
+     <!-- Listen wildcard address to allow accepting connections from other containers and host network. -->
+    <listen_host>::</listen_host>
+    <listen_host>0.0.0.0</listen_host>
+    <listen_try>1</listen_try>
+
+    <logger>
+        <console>1</console>
+    </logger>
+</clickhouse>"""
 
 [[instructions]]
 type = "TEXT"
