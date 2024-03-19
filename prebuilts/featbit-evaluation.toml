@@ -16,4 +16,4 @@ type = "HTTP"
 [env]
 MongoDb__ConnectionString = { default = "${MONGO_CONNECTION_STRING}" }
 MongoDb__Database = { default = "featbit" }
-Redis__ConnectionString = { default = "redis.zeabur.internal:6379,password=${REDIS_PASSWORD}" }
+Redis__ConnectionString = { default = "${REDIS_HOST}:${REDIS_PORT},password=${REDIS_PASSWORD}" }

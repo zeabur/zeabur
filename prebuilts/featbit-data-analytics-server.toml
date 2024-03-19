@@ -14,9 +14,6 @@ port = 80
 type = "HTTP"
 
 [env]
-REDIS_HOST = { default = "${REDIS_HOST}" }
-REDIS_PASSWORD = { default = "${REDIS_PASSWORD}" }
-REDIS_PORT = { default = "${REDIS_PORT}" }
 MONGO_URI = { default = "${MONGO_CONNECTION_STRING}" }
 MONGO_INITDB_DATABASE = { default = "featbit" }
 MONGO_HOST = { default = "mongodb.zeabur.internal" }
