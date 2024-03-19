@@ -1,0 +1,33 @@
+#:schema ./schema.json
+
+id = "planka"
+name = "Planka"
+description = "The realtime kanban board for workgroups built with React and Redux."
+icon = "https://docs.planka.cloud/img/planka.png"
+
+[source]
+image = "ghcr.io/plankanban/planka:1.15.7"
+
+[[ports]]
+id = "web"
+port = 1337
+type = "HTTP"
+
+[[volumes]]
+id = "user-avatars"
+dir = "/app/public/user-avatars"
+
+[[volumes]]
+id = "project-background-images"
+dir = "/app/public/project-background-images"
+
+[[volumes]]
+id = "attachments"
+dir = "/app/private/attachments"
+
+[env]
+BASE_URL = { default = "${ZEABUR_WEB_URL}" }
+DATABASE_URL = { default = "${POSTGRES_CONNECTION_STRING}" }
+SECRET_KEY = { default = "${PASSWORD}" }
+TRUST_PROXY = { default = "1" }
+PGSSLMODE = { default = "disable" }
