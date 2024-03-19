@@ -4,8 +4,6 @@ ogImageTitle: 網域綁定
 ogImageSubtitle: 為你的服務綁定一個網域
 ---
 
-import { Callout } from 'nextra-theme-docs'
-
 # 網域綁定
 
 **網域**是你的服務的唯一識別碼，它可以用來從網路上造訪你的服務。例如，這個網站的網域是 [zeabur.com](https://zeabur.com/)。
@@ -40,8 +38,6 @@ Zeabur 提供了一個簡單的服務，用於產生帶有 `zeabur.app` 後綴�
 
 當你將你的網域加入到服務中後，你會發現它處於 `Invalid DNS` 狀態。為了正確造訪你的服務，你需要去你的網域註冊商那裡手動為你的網域配置 DNS 記錄。
 
-![domain](/deploy/domain/invalid-dns.png)
-
 ### 新增 DNS 記錄
 
 我們提供了一個使用 Cloudflare 為網域加入 DNS 記錄的例子：打開 Cloudflare 控制台，選擇你想要設定的網域，然後選擇 DNS 記錄。
@@ -58,9 +54,12 @@ Zeabur 提供了一個簡單的服務，用於產生帶有 `zeabur.app` 後綴�
 
 1. 在 `Type` 的位置選擇 `CNAME` 紀錄
 2. 在 `Name` 的位置輸入你的子網域名稱，例如 `blog`
-3. 在 `Target` 的位置輸入 `cname.zeabur-dns.com.`
-
-![domain-dns](/deploy/domain/dns-cname-record.png)
+3. 在 `Target` 的位置輸入 `cdn.zeabur-dns.com.`
+    <Callout>
+        請注意，在設定 CloudFlare 的 DNS 時，千萬不要開啟左邊的橘色雲朵（Proxy）功能，否則你的網域將無法正確解析。關於為何你不需要開啟 CloudFlare 的 Proxy 功能，請參考 [關閉 CloudFlare 的 Proxy 功能](#關閉-cloudflare-的-proxy-功能)。
+    </Callout>
+4. 切換回 Zeabur 控制台，大約 5 ~ 10 秒後，你會發現網域狀態從 Invalid DNS 變成紫色的 Provisioning 狀態。
+5. 在 Provisioning 狀態，Zeabur 正在讓 Google Cloud 將你的 SSL 憑證部署到全球上百個邊緣節點，這個過程大約需要 2~3 分鐘。
 
 #### 設定根網域 DNS 紀錄
 
@@ -68,12 +67,22 @@ Zeabur 提供了一個簡單的服務，用於產生帶有 `zeabur.app` 後綴�
 
 1. 在 `Type` 的位置選擇 `A` 紀錄
 2. 在 `Name` 的位置輸入 `@`
-3. 在 `Target` 的位置輸入 `35.71.144.225` 或者 `52.223.32.133`。
-4. 你也可以新增兩個 `A` 紀錄，分別對應這兩個 IP。
+3. 在 `Target` 的位置輸入 `34.49.168.86`
+    <Callout>
+        請注意，在設定 CloudFlare 的 DNS 時，千萬不要開啟左邊的橘色雲朵（Proxy）功能，否則你的網域將無法正確解析。關於為何你不需要開啟 CloudFlare 的 Proxy 功能，請參考 [關閉 CloudFlare 的 Proxy 功能](#關閉-cloudflare-的-proxy-功能)。
+    </Callout>
 
-<Callout>
-  上方提到的兩個 IP 是 Zeabur 的 Anycast IP，當你在 DNS 加入這兩個 IP 的 A
-  紀錄以後，使用者訪問你的網站時會被解析到離他最近的節點，確保你的網站的訪客可以用最快的速度開啟你的頁面。
-</Callout>
+4. 切換回 Zeabur 控制台，大約 5 ~ 10 秒後，你會發現網域狀態從 Invalid DNS 變成紫色的 Provisioning 狀態。
+5. 在 Provisioning 狀態，Zeabur 正在讓 Google Cloud 將你的 SSL 憑證部署到全球上百個邊緣節點，這個過程大約需要兩三分鐘。
 
-![domain-dns](/deploy/domain/dns-a-record.png)
+## 關閉 CloudFlare 的 Proxy 功能
+
+傳統上，在租用伺服器主機並部署網站時，許多人會啟用 CloudFlare Proxy 以獲得諸如 DDoS 防護、免費 SSL 憑證、IP 隱藏以及 CDN 服務等多項好處。然而，在 Zeabur 這個基於 Google Cloud 的 PaaS 平台上，您將自動獲得一系列全面且先進的功能，這使得 CloudFlare Proxy 變得非必要。
+
+首先，當您將域名指向我們提供的 CNAME 記錄後，Google Cloud 的 Cloud Armor 防禦系統將立即啟動，為您的網站提供堅固的 DDoS 防護。此外，您的網站將自動受益於 Google Cloud CDN 的全球快取能力，透過台北及彰濱等本地節點的快取，為訪客提供極速訪問體驗。
+
+再者，我們的 SSL 憑證由 Google Trust Services（GTS）簽發，相較於一般的免費憑證，它更加安全可靠，並且能夠自動更新，確保您的資料傳輸維持最高等級的加密保護。
+
+值得注意的是，儘管 CloudFlare 為許多用戶提供了免費的 CDN 服務，但其在台灣的節點並不對免費用戶開放。這意味著，若您的伺服器位於台灣，而又使用了 CloudFlare CDN，您的網站訪客可能需要先連線到較遠的香港或東京節點，再回傳至台灣，這不僅增加了延遲，也影響了用戶體驗。
+
+綜上所述，部署在 Zeabur 上的網站無需額外開啟 CloudFlare Proxy 功能，因為我們已經提供了全面且高效的服務來滿足您對網站的安全性和性能需求。

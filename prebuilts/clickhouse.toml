@@ -1,0 +1,59 @@
+#:schema ./schema.json
+
+id = "clickhouse"
+name = "Clickhouse"
+icon = "https://avatars.githubusercontent.com/u/54801242"
+description = "ClickHouse is an open-source column-oriented database management system."
+
+[source]
+image = "clickhouse/clickhouse-server:24-alpine"
+
+[[ports]]
+id = "web"
+port = 8123
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/var/lib/clickhouse"
+
+[env]
+CLICKHOUSE_USER = { default = "zeabur", required = true }
+CLICKHOUSE_PASSWORD = { default = "${PASSWORD}" }
+CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT = { default = "1" }
+CLICKHOUSE_DB = { default = "zeabur" }
+PORT = { default = "8123", readonly = true }
+
+[[configs]]
+path = "/etc/clickhouse-server/config.d/docker_related_config.xml"
+template = """<clickhouse>
+     <!-- Listen wildcard address to allow accepting connections from other containers and host network. -->
+    <listen_host>::</listen_host>
+    <listen_host>0.0.0.0</listen_host>
+    <listen_try>1</listen_try>
+
+    <logger>
+        <level>information</level>
+        <console>1</console>
+    </logger>
+</clickhouse>"""
+
+[[instructions]]
+type = "TEXT"
+title = "Clickhouse HTTP interface URL"
+content = "${ZEABUR_WEB_URL}"
+
+[[instructions]]
+type = "TEXT"
+title = "Clickhouse username"
+content = "${CLICKHOUSE_USER}"
+
+[[instructions]]
+type = "PASSWORD"
+title = "Clickhouse password"
+content = "${CLICKHOUSE_PASSWORD}"
+
+[[instructions]]
+type = "TEXT"
+title = "Clickhouse database"
+content = "${CLICKHOUSE_DB}"

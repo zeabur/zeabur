@@ -40,8 +40,6 @@ Zeabur 提供了一个简单的服务，用于生成带有 `zeabur.app` 后缀�
 
 当你将你的域名添加到服务中后，你会发现它处于 `Invalid DNS` 状态。为了正确访问你的服务，你需要去你的域名注册商那里手动为你的域名配置 DNS 记录。
 
-![domain](/deploy/domain/invalid-dns.png)
-
 ### 配置 DNS 记录
 
 我们提供了一个使用 Cloudflare 为域名添加 DNS 记录的例子。
@@ -60,9 +58,12 @@ Zeabur 提供了一个简单的服务，用于生成带有 `zeabur.app` 后缀�
 
 1. 在 `Type` 的位置选择 `CNAME` 记录
 2. 在 `Name` 的位置输入你的子域名，例如 `blog`
-3. 在 `Target` 的位置输入 `cname.zeabur-dns.com.`
-
-![domain-dns](/deploy/domain/dns-cname-record.png)
+3. 在 `Target` 的位置输入 `cdn.zeabur-dns.com.`
+    <Callout>
+        请注意，在设置 CloudFlare 的 DNS 时，千万不要开启左边的橘色云朵（Proxy）功能，否则你的域名将无法正确解析。关于为何你不需要开启 CloudFlare 的 Proxy 功能，请参考 [关闭 CloudFlare 的 Proxy 功能](#关闭-cloudflare-的-proxy-功能)。
+    </Callout>
+4. 切换回 Zeabur 控制台，大约 5 ~ 10 秒后，你会发现域名状态从 Invalid DNS 变成紫色的 Provisioning 状态。
+5. 在 Provisioning 状态，Zeabur 正在让 Google Cloud 将你的 SSL 证书部署到全球上百个边缘节点，这个过程大约需要 2~3 分钟。
 
 #### 设定根域名 DNS 记录
 
@@ -70,12 +71,21 @@ Zeabur 提供了一个简单的服务，用于生成带有 `zeabur.app` 后缀�
 
 1. 在 `Type` 的位置选择 `A` 记录
 2. 在 `Name` 的位置输入 `@`
-3. 在 `Target` 的位置输入 `35.71.144.225` 或者 `52.223.32.133`。
-4. 你也可以新增两个 `A` 记录，分别对应这两个 IP。
+3. 在 `Target` 的位置输入 `34.49.168.86`
+    <Callout>
+        请注意，在设置 CloudFlare 的 DNS 时，千万不要开启左边的橘色云朵（Proxy）功能，否则你的域名将无法正确解析。关于为何你不需要开启 CloudFlare 的 Proxy 功能，请参考 [关闭 CloudFlare 的 Proxy 功能](#关闭-cloudflare-的-proxy-功能)。
+    </Callout>
+4. 切换回 Zeabur 控制台，大约 5 ~ 10 秒后，你会发现域名状态从 Invalid DNS 变成紫色的 Provisioning 状态。
+5. 在 Provisioning 状态，Zeabur 正在让 Google Cloud 将你的 SSL 证书部署到全球上百个边缘节点，这个过程大约需要 2~3 分钟。
 
-<Callout>
-  上方提到的两个 IP 是 Zeabur 的 Anycast IP，当你在 DNS 加入这两个 IP 的 A
-  记录以后，使用者访问你的网站时会被解析到离他最近的节点，确保你的网站的访客可以用最快的速度开启你的页面。
-</Callout>
+## 关闭 CloudFlare 的 Proxy 功能
 
-![domain-dns](/deploy/domain/dns-a-record.png)
+在传统的服务器托管环境中，许多人会启用 CloudFlare 代理以便获得包括 DDoS 防护、免费 SSL 证书、IP 地址隐藏以及 CDN 服务等众多好处。然而，在 Zeabur 这个基于 Google Cloud 的 PaaS 平台上，您已自动获得了一系列全面的先进功能，这使得 CloudFlare 代理变得不必要。
+
+首先，当您将域名指向我们提供的 CNAME 记录后，Google Cloud 的 Cloud Armor 防御系统将立即激活，为您的网站提供坚固的 DDoS 防护。此外，您的网站将自动享受到 Google Cloud CDN 的全球缓存能力，通过全球边缘节点确保访问者的快速访问。
+
+再者，我们的 SSL 证书由 Google Trust Services（GTS）签发，与一般的免费证书相比，它更加安全可靠，并且能够自动更新，确保您的数据传输维持最高级别的加密保护。
+
+值得注意的是，虽然 CloudFlare 提供了免费的 CDN 服务，但其边缘节点可能并不总是对免费用户开放，特别是在某些地区。这可能意味着，如果您的服务器位于这些地区，使用 CloudFlare CDN 可能会导致网站访客需要通过更远的节点进行路由，从而增加延迟并影响用户体验。
+
+综上所述，对于部署在 Zeabur 上的服务，无需额外启用 CloudFlare 代理。我们的平台已经提供了全面且高效的服务，以满足您网站的安全性和性能需求。

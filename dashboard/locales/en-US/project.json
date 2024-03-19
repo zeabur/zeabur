@@ -1,19 +1,72 @@
 {
-    "card": {
-        "service": "Services",
-        "create-project": "Create Project"
+  "card": {
+    "service": "Services",
+    "create-project": "Create Project"
+  },
+  "modal": {
+    "title": "Create Project",
+    "description": "Create a new project for your services.",
+    "error": "Wrong Format",
+    "create": "Create",
+    "cancel": "Close",
+    "placeholder": "Please Enter Project Name"
+  },
+  "members": "Members",
+  "environments": "Environments",
+  "services": "Services",
+  "add-env": "Add Environment",
+  "add-service": "Add Service",
+  "settings": {
+    "title": "Project Settings",
+    "general": {
+      "title": "General",
+      "basic-information": {
+        "title": "Basic Information",
+        "name": {
+          "title": "Project Name",
+          "description": "The name of project. Only alphabet, numbers and dash allowed.",
+          "placeholder": "Name of your project"
+        },
+        "icon": {
+          "title": "Project Icon",
+          "description": "The image URL of project icon. (Optional)",
+          "placeholder": "Icon URL of your project"
+        },
+        "description": {
+          "title": "Description",
+          "description": "The description text of this project. Will show in the project list page. (Optional)",
+          "placeholder": "Description of your project"
+        },
+        "save": "Save"
+      },
+      "danger-zone": {
+        "title": "Danger Zone",
+        "delete": {
+          "title": "Delete Project",
+          "description": "If you delete project, all services and its’ data will permanently removed and cannot recover.",
+          "delete": "Delete"
+        },
+        "leave": {
+          "title": "Leave Project",
+          "description": "If you leave project, you will lose access to this project until you are invited again.",
+          "leave": "Leave"
+        }
+      }
     },
-    "modal": {
-        "title": "Create Project",
-        "description": "Create a new project for your services.",
-        "error": "Wrong Format",
-        "create": "Create",
-        "cancel": "Close",
-        "placeholder": "Please Enter Project Name"
-    },
-    "members": "Members",
-    "environments": "Environments",
-    "services": "Services",
-    "add-env": "Add Environment",
-    "add-service": "Add Service"
+    "budget": {
+      "title": "Budget",
+      "overview": {
+        "monthly-cost": "Monthly Cost",
+        "monthly-budget": "Monthly Budget",
+        "description": "You will receive email notification when monthly cost reaches 80% of budget. When cost over budget your services in project will suspended automatically to prevent extra billing.",
+        "update": "Update Monthly Budget"
+      },
+      "analysis-by-type": {
+        "title": "Cost analysis by usage types",
+        "CPU": "CPU",
+        "Memory": "Memory",
+        "Egress": "Egress"
+      }
+    }
+  }
 }

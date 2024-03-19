@@ -15,6 +15,6 @@ type = "HTTP"
 
 [env]
 MONGO_URI = { default = "${MONGO_CONNECTION_STRING}" }
-MONGO_INITDB_DATABASE = { default = "zeabur" }
+MONGO_INITDB_DATABASE = { default = "featbit" }
 MONGO_HOST = { default = "mongodb.zeabur.internal" }
 CHECK_DB_LIVNESS = { default = "true" }

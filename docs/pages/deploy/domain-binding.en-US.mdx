@@ -40,8 +40,6 @@ Click on the **Custom Domain** button, and type in your domain name, then click 
 
 After you have added your dedicated domain name to the service, you will find it is in the `Invalid DNS` status. In order to access your service properly, you need to go to your domain registrar and manually configure DNS records for your domain name.
 
-![domain](/deploy/domain/invalid-dns.png)
-
 ### Configure DNS record
 
 Here is an example of using Cloudflare to add DNS records for the domain name.
@@ -60,9 +58,12 @@ If you want to bind a domain name to a subdomain, for example, you purchased the
 
 1. Select `CNAME` record in the `Type` field
 2. Enter your subdomain name in the `Name` field, for example `blog`
-3. Enter `cname.zeabur-dns.com.` in the `Target` field
-
-![domain-dns](/deploy/domain/dns-cname-record.png)
+3. Enter `cdn.zeabur-dns.com.` in the `Target` field
+    <Callout>
+        Please note that when setting up CloudFlare's DNS, do not enable the orange cloud (Proxy) feature on the left, otherwise your domain will not be resolved correctly. For why you don't need to enable CloudFlare's Proxy feature, please refer to [Disable CloudFlare's Proxy Feature](#disable-cloudflare-s-proxy-feature).
+    </Callout>
+4. Switch back to the Zeabur console, and after about 5 ~ 10 seconds, you will find that the domain status has changed from `Invalid DNS` to the purple `Provisioning` status.
+5. In the `Provisioning` status, Zeabur is deploying your SSL certificate to hundreds of edge nodes around the world, this process takes about two to three minutes.
 
 #### Configure root domain DNS record
 
@@ -70,14 +71,22 @@ If you want to bind a domain name to a root domain (APEX Domain), for example, y
 
 1. Select `A` record in the `Type` field
 2. Enter `@` in the `Name` field
-3. Enter `35.71.144.225` or `52.223.32.133`。
-4. You can also add two `A` records, each corresponding to one of these two IP addresses.
+3. Enter `34.49.168.86`
+    <Callout>
+        Please note that when setting up CloudFlare's DNS, do not enable the orange cloud (Proxy) feature on the left, otherwise your domain will not be resolved correctly. For why you don't need to enable CloudFlare's Proxy feature, please refer to [Disable CloudFlare's Proxy Feature](#disable-cloudflare-s-proxy-feature).
+    </Callout>
+4. Switch back to the Zeabur console, and after about 5 ~ 10 seconds, you will find that the domain status has changed from `Invalid DNS` to the purple `Provisioning` status.
+5. In the `Provisioning` status, Zeabur is deploying your SSL certificate to hundreds of edge nodes around the world, this process takes about 2~3 minutes.
 
-<Callout>
-  The two IP addresses mentioned above are Zeabur's Anycast IP. When you add the
-  `A` record of these two IP addresses to DNS, users who visit your website will
-  be resolved to the nearest node to them, ensuring that visitors to your
-  website can open your page at the fastest speed.
-</Callout>
 
-![domain-dns](/deploy/domain/dns-a-record.png)
+# Disable CloudFlare's Proxy Feature
+
+Traditionally, when hosting websites on rented servers, many have turned to CloudFlare Proxy for its benefits, such as DDoS protection, free SSL certificates, IP address concealment, and CDN services. However, on the Zeabur platform, a PaaS solution built on Google Cloud, you automatically gain access to a comprehensive suite of advanced features that make the additional layer of CloudFlare Proxy superfluous.
+
+By pointing your domain to the CNAME record we provide, you activate Google Cloud's Cloud Armor defense system, offering robust protection against DDoS attacks. Moreover, your site will benefit from the global caching capabilities of Google Cloud CDN, ensuring fast access for visitors through strategically located edge nodes.
+
+Furthermore, the SSL certificates issued by Google Trust Services (GTS) are not only secure and reliable but also automatically renewed, maintaining the highest level of encryption for your data transfers.
+
+It is important to note that while CloudFlare offers a free CDN service, its edge nodes may not always be accessible to free-tier users in certain regions. This could mean that website visitors might be routed through more distant nodes before reaching your server, potentially increasing latency and affecting user experience.
+
+In summary, there is no necessity to enable CloudFlare Proxy for websites deployed on Zeabur. Our platform already provides comprehensive and efficient services to meet your website's security and performance requirements.
