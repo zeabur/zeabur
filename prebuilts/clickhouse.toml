@@ -13,11 +13,6 @@ id = "web"
 port = 8123
 type = "HTTP"
 
-[[ports]]
-id = "native"
-port = 9000
-type = "TCP"
-
 [[volumes]]
 id = "data"
 dir = "/var/lib/clickhouse"
@@ -47,16 +42,6 @@ template = """<clickhouse>
 type = "TEXT"
 title = "Clickhouse HTTP interface URL"
 content = "${ZEABUR_WEB_URL}"
-
-[[instructions]]
-type = "TEXT"
-title = "Clickhouse native interface host"
-content = "${PORT_FORWARDED_HOSTNAME}"
-
-[[instructions]]
-type = "TEXT"
-title = "Clickhouse native interface port"
-content = "${NATIVE_PORT_FORWARDED_PORT}"
 
 [[instructions]]
 type = "TEXT"
