@@ -1,0 +1,19 @@
+---
+title: PHP
+ogImageTitle: Deploying PHP apps
+ogImageSubtitle: Deploying PHP apps on Zeabur
+---
+
+# Deploying PHP apps
+
+Zeabur supports not only traditional multi-file PHP apps with `index.php` as the entry point but also offers one-click deployment for frameworks like [Laravel](./php/laravel), ThinkPHP, CodeIgniter, etc.
+
+## Customizing `php.ini` Settings
+
+Use Zeabur's [config file editor](/deploy/config-edit) to create a configuration file under `/usr/local/etc/php/conf.d` with the extension `ini`. You can directly write the PHP settings you wish to override in this file.
+
+For example, if you want to set the maximum file upload size to 100MB, you can create a file `/usr/local/etc/php/conf.d/upload.ini` with the following content:
+
+```ini
+upload_max_filesize = 100M
+```

@@ -1,0 +1,19 @@
+---
+title: PHP
+ogImageTitle: 部署 PHP 專案
+ogImageSubtitle: 在 Zeabur 部署 PHP 專案
+---
+
+# 部署 PHP 專案
+
+Zeabur 除了支援傳統的多檔案 PHP、以 `index.php` 為入口的專案，另外也支援 [Laravel](./php/laravel)、ThinkPHP、CodeIgniter 等框架的一鍵部署。
+
+## 自訂 `php.ini` 設定
+
+使用 Zeabur 的[設定檔編輯器](/deploy/config-edit)，建立一個路徑在 `/usr/local/etc/php/conf.d`、副檔名是 `ini` 的設定檔案，並且直接寫上想要覆蓋的 PHP 設定即可。
+
+舉例來說，如果想要將最大上傳檔案大小設定為 100MB，可以建立一個檔案 `/usr/local/etc/php/conf.d/upload.ini`，內容如下：
+
+```ini
+upload_max_filesize = 100M
+```

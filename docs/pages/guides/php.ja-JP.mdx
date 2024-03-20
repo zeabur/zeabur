@@ -1,0 +1,19 @@
+---
+title: PHP
+ogImageTitle: PHP プロジェクトのデプロイ
+ogImageSubtitle: Zeabur で PHP プロジェクトをデプロイする
+---
+
+# PHP プロジェクトのデプロイ
+
+Zeabur は、`index.php` をエントリーポイントとする従来のマルチファイル PHP プロジェクトだけでなく、[Laravel](./php/laravel)、ThinkPHP、CodeIgniter などのフレームワークに対するワンクリックデプロイもサポートしています。
+
+## `php.ini` 設定のカスタマイズ
+
+Zeabur の[設定ファイルエディター](/deploy/config-edit)を使用して、`/usr/local/etc/php/conf.d` にパスがあり、拡張子が `ini` の設定ファイルを作成し、上書きしたい PHP の設定を直接記述します。
+
+例えば、最大ファイルアップロードサイズを 100MB に設定したい場合、`/usr/local/etc/php/conf.d/upload.ini` というファイルを作成し、以下の内容を記載します：
+
+```ini
+upload_max_filesize = 100M
+```
