@@ -17,3 +17,20 @@ Zeabur 除了支援傳統的多檔案 PHP、以 `index.php` 為入口的專案�
 ```ini
 upload_max_filesize = 100M
 ```
+
+## 自訂 NGINX 設定
+
+使用 Zeabur 的[設定檔編輯器](/deploy/config-edit)，建立一個路徑是 `/etc/nginx/sites-enabled/default` 的設定檔案，覆蓋 Zeabur 預設的 NGINX 設定。
+
+如果你想以原本的設定檔為基礎微調 NGINX 設定，你可以從 [zbpack 的 NGINX 設定檔儲存庫](https://github.com/zeabur/zbpack/blob/main/internal/php/nginx-conf/default.conf) 下載目前 Zeabur 使用的 NGINX 設定檔，然後在此基礎上進行修改。舉例來說，假如你想要停用 `gzip` 壓縮，可以將範本的 `gzip_static on;` 改成 `gzip_static off;`。
+
+```
+server {
+    # 參見 https://github.com/zeabur/zbpack/blob/main/internal/php/nginx-conf/default.conf
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+        gzip_static off;  // 停用 GZIP 壓縮
+	}
+}
+```
