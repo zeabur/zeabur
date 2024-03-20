@@ -67,7 +67,7 @@ EXPOSE 8080
 CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
 ```
 
-## Dockerfile in Monorepo
+## Creating Dockerfiles for the specific services in a Monorepo
 
 If you want to deploy different projects in a monorepo, you can create `Dockerfile.[service-name]` (or `[service-name].Dockerfile`) and deploy the specified Dockerfile using the service name.
 

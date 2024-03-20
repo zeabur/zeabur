@@ -67,7 +67,7 @@ EXPOSE 8080
 CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
 ```
 
-## 用 Dockerfile 部署特定项目
+## 制作 Monorepo 中针对特定服务的 Dockerfile
 
 如果你的 Monorepo 里面有不同项目想分开部署，你可以创建 `Dockerfile.[服务名称]`（或 `[服务名称].Dockerfile`) 并通过服务名称部署指定的 Dockerfile。
 
