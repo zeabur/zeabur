@@ -8,6 +8,11 @@ description = "Deploy an RSS3 Node easily!"
 [source]
 image = "rss3/node:alpha"
 
+[[ports]]
+id = "web"
+port = 80
+type = "HTTP"
+
 [[volumes]]
 id = "data"
 dir = "/root/node"
@@ -15,3 +20,5 @@ dir = "/root/node"
 [env]
 NODE_DISCOVERY_MAINTAINER_EVM_ADDRESS = { required = true }
 NODE_DISCOVERY_MAINTAINER_SIGNATURE = { required = true }
+NODE_DISCOVERY_SERVER_ENDPOINT = { required = true }
+NODE_DISCOVERY_SERVER_GLOBAL_INDEXER_ENDPOINT = { default = "https://gi.rss3.io" }
