@@ -17,3 +17,20 @@ For example, if you want to set the maximum file upload size to 100MB, you can c
 ```ini
 upload_max_filesize = 100M
 ```
+
+## Customizing NGINX Configuration
+
+Use Zeabur's [config file editor](/deploy/config-edit) to create a configuration file at the path `/etc/nginx/sites-enabled/default`, which overrides the default NGINX configuration on Zeabur.
+
+If you'd like to tweak the NGINX configuration based on the existing configuration, you can download the current NGINX configuration file used by Zeabur from the [zbpack NGINX configuration repository](https://github.com/zeabur/zbpack/blob/main/internal/php/nginx-conf/default.conf), and make your modifications on that basis. For example, if you wish to disable `gzip` compression, you can change the template's `gzip_static on;` to `gzip_static off;`.
+
+```
+server {
+    # see https://github.com/zeabur/zbpack/blob/main/internal/php/nginx-conf/default.conf
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+        gzip_static off;  // disable gzip compression
+	}
+}
+```
