@@ -14,10 +14,6 @@ id = "web"
 port = 80
 type = "HTTP"
 
-[[volumes]]
-id = "data"
-dir = "/root/node"
-
 [env]
 NODE_DISCOVERY_MAINTAINER_EVM_ADDRESS = { required = true }
 NODE_DISCOVERY_MAINTAINER_SIGNATURE = { required = true }
