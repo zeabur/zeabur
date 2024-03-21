@@ -1,0 +1,36 @@
+---
+title: PHP
+ogImageTitle: 部署 PHP 项目
+ogImageSubtitle: 在 Zeabur 部署 PHP 项目
+---
+
+# 部署 PHP 项目
+
+Zeabur 不仅支持传统的多文件 PHP 项目，以 `index.php` 作为入口的项目，还支持 [Laravel](./php/laravel)、ThinkPHP、CodeIgniter 等框架的一键部署。
+
+## 自定义 `php.ini` 设置
+
+使用 Zeabur 的[配置文件编辑器](/deploy/config-edit)，创建一个路径在 `/usr/local/etc/php/conf.d`，文件扩展名为 `ini` 的配置文件，并直接写上想要覆盖的 PHP 设置即可。
+
+例如，如果你想将最大上传文件大小设置为 100MB，可以创建一个文件 `/usr/local/etc/php/conf.d/upload.ini`，内容如下：
+
+```ini
+upload_max_filesize = 100M
+```
+
+## 自定义 NGINX 配置
+
+使用 Zeabur 的[配置文件编辑器](/deploy/config-edit)，创建一个路径为 `/etc/nginx/sites-enabled/default` 的配置文件，以覆盖 Zeabur 默认的 NGINX 配置。
+
+如果您想在原有配置文件的基础上微调 NGINX 配置，您可以从 [zbpack 的 NGINX 配置文件仓库](https://github.com/zeabur/zbpack/blob/main/internal/php/nginx-conf/default.conf) 下载 Zeabur 当前使用的 NGINX 配置文件，并在此基础上进行修改。例如，如果您想禁用 `gzip` 压缩，可以将模板中的 `gzip_static on;` 修改为 `gzip_static off;`。
+
+```
+server {
+    # 参见 https://github.com/zeabur/zbpack/blob/main/internal/php/nginx-conf/default.conf
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+        gzip_static off;  // 禁用 gzip 压缩
+	}
+}
+```
