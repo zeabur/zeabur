@@ -1,0 +1,20 @@
+#:schema ./schema.json
+
+id = "phpmyadmin"
+name = "phpMyAdmin"
+description = "A free software tool written in PHP, intended to handle the administration of MySQL over the Web."
+icon = "https://icons.zeabur.com/phpmyadmin.png"
+
+[source]
+image = "phpmyadmin/phpmyadmin"
+
+[[ports]]
+id = "web"
+port = 80
+type = "HTTP"
+
+[env]
+PMA_HOST = { default = "${MYSQL_HOST}" }
+PMA_PORT = { default = "${MYSQL_PORT}" }
+PMA_USER = { default = "${MYSQL_USERNAME}" }
+PMA_PASSWORD = { default = "${MYSQL_PASSWORD}" }
