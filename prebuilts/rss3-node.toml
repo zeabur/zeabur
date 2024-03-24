@@ -1,0 +1,21 @@
+#:schema ./schema.json
+
+id = "rss3"
+name = "RSS3 Node"
+icon = "https://explorer.rss3.io/rss3.svg"
+description = "Deploy an RSS3 Node easily!"
+
+[source]
+image = "rss3/node:alpha"
+command = ["./node", "--module=broadcaster"]
+
+[[ports]]
+id = "web"
+port = 80
+type = "HTTP"
+
+[env]
+NODE_DISCOVERY_MAINTAINER_EVM_ADDRESS = { required = true }
+NODE_DISCOVERY_MAINTAINER_SIGNATURE = { required = true }
+NODE_DISCOVERY_SERVER_ENDPOINT = { default = "${ZEABUR_WEB_URL}" }
+NODE_DISCOVERY_SERVER_GLOBAL_INDEXER_ENDPOINT = { default = "https://gi.rss3.io" }

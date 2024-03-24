@@ -1,0 +1,36 @@
+---
+title: PHP
+ogImageTitle: PHP プロジェクトのデプロイ
+ogImageSubtitle: Zeabur で PHP プロジェクトをデプロイする
+---
+
+# PHP プロジェクトのデプロイ
+
+Zeabur は、`index.php` をエントリーポイントとする従来のマルチファイル PHP プロジェクトだけでなく、[Laravel](./php/laravel)、ThinkPHP、CodeIgniter などのフレームワークに対するワンクリックデプロイもサポートしています。
+
+## `php.ini` 設定のカスタマイズ
+
+Zeabur の[設定ファイルエディター](/deploy/config-edit)を使用して、`/usr/local/etc/php/conf.d` にパスがあり、拡張子が `ini` の設定ファイルを作成し、上書きしたい PHP の設定を直接記述します。
+
+例えば、最大ファイルアップロードサイズを 100MB に設定したい場合、`/usr/local/etc/php/conf.d/upload.ini` というファイルを作成し、以下の内容を記載します：
+
+```ini
+upload_max_filesize = 100M
+```
+
+## NGINX 設定のカスタマイズ
+
+Zeabur の[設定ファイルエディター](/deploy/config-edit)を使用して、`/etc/nginx/sites-enabled/default` のパスに設定ファイルを作成し、Zeabur のデフォルト NGINX 設定を上書きします。
+
+既存の設定ファイルをベースに NGINX の設定を微調整したい場合は、[zbpack の NGINX 設定ファイルリポジトリ](https://github.com/zeabur/zbpack/blob/main/internal/php/nginx-conf/default.conf) から現在 Zeabur が使用している NGINX 設定ファイルをダウンロードし、それを基に変更を加えることができます。例えば、`gzip` 圧縮を無効にしたい場合は、テンプレートの `gzip_static on;` を `gzip_static off;` に変更します。
+
+```
+server {
+    # https://github.com/zeabur/zbpack/blob/main/internal/php/nginx-conf/default.conf を参照
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+        gzip_static off;  // gzip 圧縮を無効にする
+	}
+}
+```
