@@ -14,7 +14,7 @@ port = 80
 type = "HTTP"
 
 [env]
-PMA_HOST = { default = "mysql.zeabur.internal" }
-PMA_PORT = { default = "3306" }
-PMA_USER = { default = "root" }
+PMA_HOST = { default = "${MYSQL_HOST}" }
+PMA_PORT = { default = "${MYSQL_PORT}" }
+PMA_USER = { default = "${MYSQL_USERNAME}" }
 PMA_PASSWORD = { default = "${MYSQL_PASSWORD}" }
