@@ -1,0 +1,18 @@
+#:schema ./schema.json
+
+id = "linkwarden"
+name = "Linkwarden"
+icon = "https://github.com/linkwarden/linkwarden/raw/main/assets/logo.png"
+description = "Collaborative bookmark manager to collect, organize and archive webpages"
+
+[source]
+image = "saifbenali/linkwarden:v2.5.1"
+
+[[ports]]
+id = "web"
+port = 3000
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/data"
