@@ -16,3 +16,6 @@ type = "HTTP"
 [[volumes]]
 id = "data"
 dir = "/data"
+
+[env]
+DATABASE_URL = { default = "${POSTGRES_CONNECTION_STRING}" }
