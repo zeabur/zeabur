@@ -24,10 +24,10 @@ GOTRUE_SMTP_SENDER_NAME = { default = "fake_sender" }
 GOTRUE_MAILER_AUTOCONFIRM = { default = false }
 GOTRUE_SMTP_HOST = { default = "supabase-mail" }
 GOTRUE_DB_DATABASE_URL = { default = "postgres://postgres:${POSTGRES_PASSWORD}@db.zeabur.internal:5432/postgres?sslmode=disable&options=-csearch_path=auth" }
-GOTRUE_EXTERNAL_PHONE_ENABLED = { default = false }
-GOTRUE_SMTP_PORT = { default = 2500 }
+GOTRUE_EXTERNAL_PHONE_ENABLED = { default = "false" }
+GOTRUE_SMTP_PORT = { default = "2500" }
 GOTRUE_URI_ALLOW_LIST = { default = "" }
-GOTRUE_SMS_AUTOCONFIRM = { default = false }
+GOTRUE_SMS_AUTOCONFIRM = { default = "false" }
 GOTRUE_MAILER_URLPATHS_INVITE = { default = "" }
 GOTRUE_JWT_ADMIN_ROLES = { default = "service_role" }
 GOTRUE_SMTP_USER = { default = "fake_mail_user" }
@@ -36,8 +36,8 @@ GOTRUE_MAILER_URLPATHS_EMAIL_CHANGE = { default = "" }
 GOTRUE_SMTP_ADMIN_EMAIL = { default = "admin@example.com" }
 GOTRUE_JWT_DEFAULT_GROUP_NAME = { default = "authenticated" }
 GOTRUE_JWT_SECRET = { default = "your-super-secret-jwt-token-with-at-least-32-characters-long" }
-GOTRUE_JWT_EXP = { default = 3600 }
-GOTRUE_DISABLE_SIGNUP = { default = false }
+GOTRUE_JWT_EXP = { default = "3600" }
+GOTRUE_DISABLE_SIGNUP = { default = "false" }
 GOTRUE_JWT_AUD = { default = "authenticated" }
 GOTRUE_API_HOST = { default = "0.0.0.0" }
-GOTRUE_EXTERNAL_EMAIL_ENABLED = { default = true }
+GOTRUE_EXTERNAL_EMAIL_ENABLED = { default = "true" }
