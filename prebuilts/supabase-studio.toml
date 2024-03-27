@@ -1,0 +1,28 @@
+#:schema ./schema.json
+
+id = "supabase-studio"
+name = "Supabase Studio"
+description = "A dashboard for managing your self-hosted Supabase project."
+icon = "https://icons.zeabur.com/supabase.png"
+
+[source]
+image = "supabase/studio:20240301-0942bfe"
+
+[[ports]]
+id = "web"
+port = 3000
+type = "HTTP"
+
+[env]
+SUPABASE_PUBLIC_URL = { default = "${SUPABASE_PUBLIC_URL}" }
+DEFAULT_ORGANIZATION_NAME = { default = "Default Organization" }
+DEFAULT_PROJECT_NAME = { default = "Default Project" }
+HOSTNAME = { default = "0.0.0.0" }
+SUPABASE_SERVICE_KEY = { default = "${SERVICE_ROLE_KEY}" }
+STUDIO_PG_META_URL = { default = "http://meta.zeabur.internal:8080" }
+LOGFLARE_API_KEY = { default = "${LOGFLARE_API_KEY}" }
+SUPABASE_ANON_KEY = { default = "${ANON_KEY}" }
+SUPABASE_URL = { default = "http://kong.zeabur.internal:8000" }
+LOGFLARE_URL = { default = "http://analytics.zeabur.internal:4000" }
+NEXT_PUBLIC_ENABLE_LOGS = { default = "true" }
+NEXT_ANALYTICS_BACKEND_PROVIDER = { default = "postgres" }
