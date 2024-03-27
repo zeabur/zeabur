@@ -18,10 +18,10 @@ API_EXTERNAL_URL = { default = "https://supa.zeabur.app" }
 GOTRUE_SITE_URL = { default = "http://auth.zeabur.internal:9999" }
 GOTRUE_MAILER_URLPATHS_RECOVERY = { default = "" }
 GOTRUE_SMTP_PASS = { default = "fake_mail_password" }
-GOTRUE_API_PORT = { default = 9999 }
+GOTRUE_API_PORT = { default = "9999" }
 GOTRUE_DB_DRIVER = { default = "postgres" }
 GOTRUE_SMTP_SENDER_NAME = { default = "fake_sender" }
-GOTRUE_MAILER_AUTOCONFIRM = { default = false }
+GOTRUE_MAILER_AUTOCONFIRM = { default = "false" }
 GOTRUE_SMTP_HOST = { default = "supabase-mail" }
 GOTRUE_DB_DATABASE_URL = { default = "postgres://postgres:${POSTGRES_PASSWORD}@db.zeabur.internal:5432/postgres?sslmode=disable&options=-csearch_path=auth" }
 GOTRUE_EXTERNAL_PHONE_ENABLED = { default = "false" }
