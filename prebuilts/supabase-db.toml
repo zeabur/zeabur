@@ -19,7 +19,7 @@ dir = "/var/lib/postgresql/data"
 
 [env]
 PGDATABASE = { default = "postgres" }
-POSTGRES_PORT = { default = "5432", expose = "true" }
+POSTGRES_PORT = { default = "5432", expose = true }
 PGPORT = { default = "5432" }
 POSTGRES_HOST = { default = "/var/run/postgresql" }
 PGPASSWORD = { default = "your-super-secret-and-long-postgres-password" }
