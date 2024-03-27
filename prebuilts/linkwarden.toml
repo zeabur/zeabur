@@ -17,4 +17,4 @@ type = "HTTP"
 DATABASE_URL = { default = "${POSTGRES_CONNECTION_STRING}" }
 POSTGRES_PASSWORD = { default = "${POSTGRES_PASSWORD}" }
 NEXTAUTH_URL = { default = "${ZEABUR_WEB_URL}" }
-NEXTAUTH_SECRET = { required = true }
+NEXTAUTH_SECRET = { default = "${PASSWORD}" }
