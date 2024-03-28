@@ -4,20 +4,22 @@ ogImageTitle: Subscription
 ogImageSubtitle: Subscription on Zeabur
 ---
 
+import { Callout } from 'nextra-theme-docs';
+
 # Subscription
 
 ## What is Subscription?
 
-There are 3 types of plans on Zeabur: **Free Plan**, **Developer Plan** and **Team Plan**.
+There are 3 types of plans on Zeabur: **Serverless Plan**, **Developer Plan** and **Team Plan**.
 You can check the details of each plan on [plans](/billing/plans) page.
 
-If you has not subscribed to any plan, you'll be considered as a **Free Plan** user by default.
+If you has not subscribed to any plan, you'll be considered as a **Serverless Plan** user by default.
 
 ## How to Subscribe?
 
 Zeabur's subscription is based on [Stripe](https://stripe.com/).
 
-There are 2 ways to subscribe to a plan: **Credit Card** and **Alipay**.
+There are 2 ways to subscribe to a plan: **Credit Card** and **Prepaid Credits**.
 
 ### Subscribe with Credit Card
 
@@ -26,19 +28,31 @@ You can subscribe to a plan with your credit card, paying in USD.
 - Setup without subscription: Go to [billing page](https://dash.zeabur.com/account/billing), you can setup your credit card in **Payment Method** section. After you've input your credit card information, click **Add** button to save your credit card, then you can simply click **Subscribe** button in [plan page](https://dash.zeabur.com/update-plan) to update your subscription.
 - Setup with subscription: Go to the [plan page](https://dash.zeabur.com/update-plan) in dashboard, choose a plan, and then input your credit card information, click **Subscribe** button, you'll be redirected to Stripe's checkout page, fill the form and you'll be subscribed to the plan with your credit card saved.
 
-### Subscribe with Alipay
+### Subscribe with Prepaid Credits
 
-If you don't have a credit card that is compatible with Stripe service, you can subscribe to a plan with your Alipay account, paying in CNY.
+If you don't have a credit card that is compatible with Stripe service, you can subscribe to a plan with buying some credits.
 
-Go to the [plan page](https://dash.zeabur.com/update-plan) in dashboard, choose a plan and click **No Credit Card?** link, you'll be redirected to Stripe's checkout page, where you can setup your subscription with Alipay.
+Go to the [billing page](https://dash.zeabur.com/account/billing) in dashboard, press the **Get More Credits** button to buy some credits, then you can go to the [plan page](https://dash.zeabur.com/update-plan) in dashboard to upgrade your plan with the credits you've bought.
 
-> **Note**: Once you've subscribed to a plan with Alipay, you can't subscribe with your credit card anymore.
+![Get More Credits](/billing/subscription/get-more-credits.png)
 
-## How to Downgrade to Free Plan
+## How to Change Payment Method 
 
-If you've subscribed to a paid plan, you can downgrade to **Free Plan** at any time.
+If your card is declined or you want to change your payment method, you can do it in the [billing page](https://dash.zeabur.com/account/billing).
 
-Go to the [plan page](https://dash.zeabur.com/update-plan) in dashboard, choose **Free Plan** and click **Subscribe** button, you'll be redirected to Stripe's checkout page, fill the form and you'll be downgraded to **Free Plan**.
+Scroll down to find the **Unbind Payment Method** to unbind current credit card, then you can setup a new credit card.
+
+## How to Downgrade to Serverless Plan
+
+If you've subscribed to a paid plan, you can downgrade to **Serverless Plan** at any time.
+
+Go to [billing page in your dashboard](https://dash.zeabur.com/account/billing), scroll down to the danger zone for unsubscribing.
+
+![Unsubscribe Plan](/billing/subscription/unsubscribe.png)
+
+<Callout>
+    By downgrading to the Serverless Plan, you will no longer incur any charges. However, your currently deployed Containerized services will be automatically suspended by the system.
+</Callout>
 
 ## Contact us
 
