@@ -1,0 +1,22 @@
+#:schema ./schema.json
+
+id = "supabase-pgmeta"
+name = "Supabase Postgres Meta"
+description = "Supabase Postgres Meta"
+icon = "https://icons.zeabur.com/supabase.png"
+
+[source]
+image = "supabase/postgres-meta:v0.79.5"
+
+[[ports]]
+id = "web"
+port = 8080
+type = "HTTP"
+
+[env]
+PG_META_PORT = { default = "8080" }
+PG_META_DB_HOST = { default = "db.zeabur.internal" }
+PG_META_DB_PORT = { default = "5432" }
+PG_META_DB_NAME = { default = "postgres" }
+PG_META_DB_USER = { default = "postgres" }
+PG_META_DB_PASSWORD = { default = "${POSTGRES_PASSWORD}" }

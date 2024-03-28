@@ -1,0 +1,20 @@
+#:schema ./schema.json
+
+id = "linkwarden"
+name = "Linkwarden"
+icon = "https://github.com/linkwarden/linkwarden/raw/main/assets/logo.png"
+description = "Collaborative bookmark manager to collect, organize and archive webpages"
+
+[source]
+image = "saifbenali/linkwarden:v2.5.1"
+
+[[ports]]
+id = "web"
+port = 3000
+type = "HTTP"
+
+[env]
+DATABASE_URL = { default = "${POSTGRES_CONNECTION_STRING}" }
+POSTGRES_PASSWORD = { default = "${POSTGRES_PASSWORD}" }
+NEXTAUTH_URL = { default = "${ZEABUR_WEB_URL}" }
+NEXTAUTH_SECRET = { default = "${PASSWORD}" }
