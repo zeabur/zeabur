@@ -17,3 +17,5 @@ type = "HTTP"
 [env]
 NODE_DISCOVERY_SERVER_ENDPOINT = { default = "${ZEABUR_WEB_URL}" }
 NODE_DISCOVERY_SERVER_GLOBAL_INDEXER_ENDPOINT = { default = "https://gi.rss3.io" }
+NODE_DISCOVERY_MAINTAINER_EVM_ADDRESS = { required = true }
+NODE_DISCOVERY_MAINTAINER_SIGNATURE = { required = true }
