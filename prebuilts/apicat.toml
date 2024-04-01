@@ -2,7 +2,7 @@
 
 id = "apicat"
 name = "ApiCat"
-icon = "https://apicat.zeabur.app/assets/logo-square-015c35cd.svg"
+icon = "https://i.ibb.co/Fw8SqtB/apicat-500.png"
 description = "ApiCat is an API development tool based on AI technology, which aims to help developers develop APIs more quickly and efficiently through automation and intelligence."
 
 [source]
