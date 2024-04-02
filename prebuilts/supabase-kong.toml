@@ -175,8 +175,8 @@ services:
 
   ## Storage routes: the storage server manages its own auth
   - name: storage-v1
-    _comment: 'Storage: /storage/v1/* -> http://storage:5000/*'
-    url: http://storage:5000/
+    _comment: 'Storage: /storage/v1/* -> http://supabase-storage-api:5000/*'
+    url: http://supabase-storage-api:5000/
     routes:
       - name: storage-v1-all
         strip_path: true
