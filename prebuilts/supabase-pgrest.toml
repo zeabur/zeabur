@@ -14,7 +14,7 @@ port = 3000
 type = "HTTP"
 
 [env]
-PGRST_DB_URI = { default = "postgres://postgres:${POSTGRES_PASSWORD}@db.zeabur.internal:5432/postgres" }
+PGRST_DB_URI = { default = "postgres://postgres:${POSTGRES_PASSWORD}@supabase-postgres.zeabur.internal:5432/postgres" }
 PGRST_DB_ANON_ROLE = { default = "anon" }
 PGRST_JWT_SECRET = { default = "${JWT_SECRET}" }
 PGRST_DB_USE_LEGACY_GUCS = { default = "false" }

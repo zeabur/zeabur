@@ -107,8 +107,8 @@ services:
 
   ## Secure REST routes
   - name: rest-v1
-    _comment: 'PostgREST: /rest/v1/* -> http://rest:3000/*'
-    url: http://rest:3000/
+    _comment: 'PostgREST: /rest/v1/* -> http://supabase-postgres-rest:3000/*'
+    url: http://supabase-postgres-rest:3000/
     routes:
       - name: rest-v1-all
         strip_path: true
@@ -209,8 +209,8 @@ services:
 
   ## Secure Database routes
   - name: meta
-    _comment: 'pg-meta: /pg/* -> http://meta:8080/*'
-    url: http://meta:8080/
+    _comment: 'pg-meta: /pg/* -> http://supabase-postgres-meta:8080/*'
+    url: http://supabase-postgres-meta:8080/
     routes:
       - name: meta-all
         strip_path: true
@@ -228,8 +228,8 @@ services:
 
   ## Protected Dashboard - catch all remaining routes
   - name: dashboard
-    _comment: 'Studio: /* -> http://studio:3000/*'
-    url: http://studio:3000/
+    _comment: 'Studio: /* -> http://supabase-studio:3000/*'
+    url: http://supabase-studio:3000/
     routes:
       - name: dashboard-all
         strip_path: true

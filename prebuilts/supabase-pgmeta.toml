@@ -15,7 +15,7 @@ type = "HTTP"
 
 [env]
 PG_META_PORT = { default = "8080" }
-PG_META_DB_HOST = { default = "db.zeabur.internal" }
+PG_META_DB_HOST = { default = "supabase-postgres.zeabur.internal" }
 PG_META_DB_PORT = { default = "5432" }
 PG_META_DB_NAME = { default = "postgres" }
 PG_META_DB_USER = { default = "postgres" }

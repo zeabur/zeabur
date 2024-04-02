@@ -32,4 +32,4 @@ TENANT_ID = { default = "stub" }
 GLOBAL_S3_BUCKET = { default = "stub" }
 STORAGE_BACKEND = { default = "s3" }
 AWS_DEFAULT_REGION = { default = "stub" }
-DATABASE_URL = { default = "postgres://postgres:${POSTGRES_PASSWORD}@db.zeabur.internal:5432/postgres" }
+DATABASE_URL = { default = "postgres://postgres:${POSTGRES_PASSWORD}@supabase-postgres.zeabur.internal:5432/postgres" }
