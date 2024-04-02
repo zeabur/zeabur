@@ -1,0 +1,18 @@
+#:schema ./schema.json
+
+id = "heyform"
+name = "Heyform"
+icon = "https://avatars.githubusercontent.com/u/70623513"
+description = "Build user-focused forms that drive impactful results."
+
+[source]
+image = "heyform/community-edition:latest"
+
+[[ports]]
+id = "web"
+port = 8000
+type = "HTTP"
+
+[env]
+SESSION_KEY = { required = true }
+FORM_ENCRYPTION_KEY = { required = true }
