@@ -14,7 +14,7 @@ port = 3000
 type = "HTTP"
 
 [env]
-SUPABASE_PUBLIC_URL = { default = "https://${PUBLIC_DOMAIN}" }
+SUPABASE_PUBLIC_URL = { default = "https://${PUBLIC_DOMAIN}.zeabur.app" }
 DEFAULT_ORGANIZATION_NAME = { default = "Default Organization" }
 DEFAULT_PROJECT_NAME = { default = "Default Project" }
 HOSTNAME = { default = "0.0.0.0" }

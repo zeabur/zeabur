@@ -14,7 +14,7 @@ port = 9999
 type = "HTTP"
 
 [env]
-API_EXTERNAL_URL = { default = "https://${PUBLIC_DOMAIN}" }
+API_EXTERNAL_URL = { default = "https://${PUBLIC_DOMAIN}.zeabur.app" }
 GOTRUE_SITE_URL = { default = "http://supabase-auth.zeabur.internal:9999" }
 GOTRUE_MAILER_URLPATHS_RECOVERY = { default = "" }
 GOTRUE_SMTP_PASS = { default = "fake_mail_password" }
