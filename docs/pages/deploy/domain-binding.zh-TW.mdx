@@ -75,6 +75,14 @@ Zeabur 提供了一個簡單的服務，用於產生帶有 `zeabur.app` 後綴�
 4. 切換回 Zeabur 控制台，大約 5 ~ 10 秒後，你會發現網域狀態從 Invalid DNS 變成紫色的 Provisioning 狀態。
 5. 在 Provisioning 狀態，Zeabur 正在讓 Google Cloud 將你的 SSL 憑證部署到全球上百個邊緣節點，這個過程大約需要兩三分鐘。
 
+### 確保沒有 CAA 記錄
+
+如果你的自訂網域是從 [騰訊雲](https://buy.cloud.tencent.com/domain) 或 [Vercel](https://vercel.com/docs/getting-started-with-vercel/buy-domain) 等服務商購買的，他們可能會自動為你的網域加入 CAA 記錄，這可能會導致你無法成功綁定你的網域。
+
+由於 Zeabur 的 SSL 憑證是由 Google Trust Services（GTS）簽發的，因此你需要確保你的網域沒有 CAA 記錄，或者新增一個允許 GTS 簽發 SSL 憑證的 CAA 記錄。
+
+![](/deploy/domain/caa.jpg)
+
 ## 關閉 CloudFlare 的 Proxy 功能
 
 傳統上，在租用伺服器主機並部署網站時，許多人會啟用 CloudFlare Proxy 以獲得諸如 DDoS 防護、免費 SSL 憑證、IP 隱藏以及 CDN 服務等多項好處。然而，在 Zeabur 這個基於 Google Cloud 的 PaaS 平台上，您將自動獲得一系列全面且先進的功能，這使得 CloudFlare Proxy 變得非必要。

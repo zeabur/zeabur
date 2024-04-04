@@ -78,6 +78,13 @@ If you want to bind a domain name to a root domain (APEX Domain), for example, y
 4. Switch back to the Zeabur console, and after about 5 ~ 10 seconds, you will find that the domain status has changed from `Invalid DNS` to the purple `Provisioning` status.
 5. In the `Provisioning` status, Zeabur is deploying your SSL certificate to hundreds of edge nodes around the world, this process takes about 2~3 minutes.
 
+### Ensure there is no CAA record
+
+If your custom domain is purchased from [Tencent Cloud](https://buy.cloud.tencent.com/domain) or [Vercel](https://vercel.com/docs/getting-started-with-vercel/buy-domain) and other service providers, they may automatically add CAA records to your domain, which may prevent you from successfully binding your domain.
+
+Since Zeabur's SSL certificate is issued by Google Trust Services (GTS), you need to ensure that your domain does not have a CAA record, or add a CAA record that allows GTS to issue SSL certificates.
+
+![](/deploy/domain/caa.jpg)
 
 ## Disable CloudFlare's Proxy Feature
 

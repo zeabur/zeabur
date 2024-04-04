@@ -78,6 +78,14 @@ Cloudflareコンソールを開き、構成したいドメイン名を選択し�
 4. 切り替えて Zeabur コンソールに戻り、約 5 〜 10 秒後に、ドメインの状態が `Invalid DNS` から紫色の `Provisioning` 状態に変わることに気づくでしょう。
 5. `Provisioning` 状態では、Zeabur はGoogle CloudにSSL証明書を世界中の数百のエッジノードにデプロイするように指示しています。このプロセスには約2〜3分かかります。
 
+### CAA レコードが存在しないことを確認してください
+
+Zeabur の SSL 証明書は Google Trust Services（GTS）によって発行されているため、あなたのドメインに CAA レコードがないことを確認するか、GTS が SSL 証明書を発行できるように CAA レコードを追加する必要があります。
+
+あなたのカスタムドメインが [Tencent Cloud](https://buy.cloud.tencent.com/domain) や [Vercel](https://vercel.com/docs/getting-started-with-vercel/buy-domain) などのサービスプロバイダーから購入された場合、彼らは自動的にあなたのドメインに CAA レコードを追加する可能性があります。これにより、ドメインのバインドに失敗する可能性があります。
+
+![](/deploy/domain/caa.jpg)
+
 ## CloudFlareのプロキシ機能をオフにする
 
 伝統的なサーバーホスティング環境では、多くの人がDDoS防御、無料SSL証明書、IPアドレスの隠蔽、CDNサービスなど、さまざまな利点を得るためにCloudFlareプロキシを有効にします。しかし、Google CloudベースのPaaSプラットフォームであるZeaburでは、あなたは既に一連の包括的な先進機能を自動的に得ているため、CloudFlareプロキシを有効にする必要はありません。
