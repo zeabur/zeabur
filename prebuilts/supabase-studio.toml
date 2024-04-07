@@ -14,6 +14,9 @@ port = 3000
 type = "HTTP"
 
 [env]
+# injected from Template
+PUBLIC_DOMAIN = { required = true }
+
 SUPABASE_PUBLIC_URL = { default = "https://${PUBLIC_DOMAIN}.zeabur.app" }
 DEFAULT_ORGANIZATION_NAME = { default = "Default Organization" }
 DEFAULT_PROJECT_NAME = { default = "Default Project" }
