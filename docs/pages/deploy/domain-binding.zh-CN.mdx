@@ -52,26 +52,9 @@ Zeabur 提供了一个简单的服务，用于生成带有 `zeabur.app` 后缀�
 
 填写相应的名称和目标内容。这里，名称对应于 `Name` 栏位，目标对应于 `Target` 栏位。
 
-#### 设定子域名 DNS 记录
-
-如果你想绑定的域名是一个子域名，例如你购买了 `example.com` 这个域名，但想把服务绑定在 `blog.example.com` 这个子域名：
-
 1. 在 `Type` 的位置选择 `CNAME` 记录
 2. 在 `Name` 的位置输入你的子域名，例如 `blog`
-3. 在 `Target` 的位置输入 `cdn.zeabur-dns.com.`
-    <Callout>
-        请注意，在设置 CloudFlare 的 DNS 时，千万不要开启左边的橘色云朵（Proxy）功能，否则你的域名将无法正确解析。关于为何你不需要开启 CloudFlare 的 Proxy 功能，请参考 [关闭 CloudFlare 的 Proxy 功能](#关闭-cloudflare-的-proxy-功能)。
-    </Callout>
-4. 切换回 Zeabur 控制台，大约 5 ~ 10 秒后，你会发现域名状态从 Invalid DNS 变成紫色的 Provisioning 状态。
-5. 在 Provisioning 状态，Zeabur 正在让 Google Cloud 将你的 SSL 证书部署到全球上百个边缘节点，这个过程大约需要 2~3 分钟。
-
-#### 设定根域名 DNS 记录
-
-如果你想绑定的是一个根域名（APEX Domain），例如你购买了 `example.com` 这个域名，并想把服务绑定在 `example.com` 这个根域名：
-
-1. 在 `Type` 的位置选择 `A` 记录
-2. 在 `Name` 的位置输入 `@`
-3. 在 `Target` 的位置输入 `34.49.168.86`
+3. 在 `Target` 的位置输入 `cname.zeabur-dns.com.`
     <Callout>
         请注意，在设置 CloudFlare 的 DNS 时，千万不要开启左边的橘色云朵（Proxy）功能，否则你的域名将无法正确解析。关于为何你不需要开启 CloudFlare 的 Proxy 功能，请参考 [关闭 CloudFlare 的 Proxy 功能](#关闭-cloudflare-的-proxy-功能)。
     </Callout>

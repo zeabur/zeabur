@@ -48,32 +48,14 @@ Zeabur 提供了一個簡單的服務，用於產生帶有 `zeabur.app` 後綴�
 
 填寫相應的名稱和目標內容。這裡，名稱對應於 `Name` 欄位，目標對應於 `Target` 欄位。
 
-#### 設定子網域 DNS 紀錄
-
-如果你想綁定的網域是一個子網域，例如你購買了 `example.com` 這個網域，但想把服務綁定在 `blog.example.com` 這個子網域：
-
 1. 在 `Type` 的位置選擇 `CNAME` 紀錄
 2. 在 `Name` 的位置輸入你的子網域名稱，例如 `blog`
-3. 在 `Target` 的位置輸入 `cdn.zeabur-dns.com.`
+3. 在 `Target` 的位置輸入 `cname.zeabur-dns.com.`
     <Callout>
         請注意，在設定 CloudFlare 的 DNS 時，千萬不要開啟左邊的橘色雲朵（Proxy）功能，否則你的網域將無法正確解析。關於為何你不需要開啟 CloudFlare 的 Proxy 功能，請參考 [關閉 CloudFlare 的 Proxy 功能](#關閉-cloudflare-的-proxy-功能)。
     </Callout>
 4. 切換回 Zeabur 控制台，大約 5 ~ 10 秒後，你會發現網域狀態從 Invalid DNS 變成紫色的 Provisioning 狀態。
 5. 在 Provisioning 狀態，Zeabur 正在讓 Google Cloud 將你的 SSL 憑證部署到全球上百個邊緣節點，這個過程大約需要 2~3 分鐘。
-
-#### 設定根網域 DNS 紀錄
-
-如果你想綁定的是一個根網域（APEX Domain），例如你購買了 `example.com` 這個網域，並想把服務綁定在 `example.com` 這個根網域：
-
-1. 在 `Type` 的位置選擇 `A` 紀錄
-2. 在 `Name` 的位置輸入 `@`
-3. 在 `Target` 的位置輸入 `34.49.168.86`
-    <Callout>
-        請注意，在設定 CloudFlare 的 DNS 時，千萬不要開啟左邊的橘色雲朵（Proxy）功能，否則你的網域將無法正確解析。關於為何你不需要開啟 CloudFlare 的 Proxy 功能，請參考 [關閉 CloudFlare 的 Proxy 功能](#關閉-cloudflare-的-proxy-功能)。
-    </Callout>
-
-4. 切換回 Zeabur 控制台，大約 5 ~ 10 秒後，你會發現網域狀態從 Invalid DNS 變成紫色的 Provisioning 狀態。
-5. 在 Provisioning 狀態，Zeabur 正在讓 Google Cloud 將你的 SSL 憑證部署到全球上百個邊緣節點，這個過程大約需要兩三分鐘。
 
 ### 確保沒有 CAA 記錄
 
