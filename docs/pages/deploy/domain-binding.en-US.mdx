@@ -52,31 +52,14 @@ On this page, in the Manage DNS section, click the Add Record button.
 
 Fill in the corresponding name and target content. Here, the name corresponds to the `Name` field, and the target corresponds to the `Target` field.
 
-#### Configure subdomain DNS record
-
-If you want to bind a domain name to a subdomain, for example, you purchased the domain name `example.com`, but you want to bind the service to the subdomain `blog.example.com`:
-
 1. Select `CNAME` record in the `Type` field
 2. Enter your subdomain name in the `Name` field, for example `blog`
-3. Enter `cdn.zeabur-dns.com.` in the `Target` field
+3. Enter `cname.zeabur-dns.com.` in the `Target` field
     <Callout>
         Please note that when setting up CloudFlare's DNS, do not enable the orange cloud (Proxy) feature on the left, otherwise your domain will not be resolved correctly. For why you don't need to enable CloudFlare's Proxy feature, please refer to [Disable CloudFlare's Proxy Feature](#disable-cloudflare-s-proxy-feature).
     </Callout>
 4. Switch back to the Zeabur console, and after about 5 ~ 10 seconds, you will find that the domain status has changed from `Invalid DNS` to the purple `Provisioning` status.
 5. In the `Provisioning` status, Zeabur is deploying your SSL certificate to hundreds of edge nodes around the world, this process takes about two to three minutes.
-
-#### Configure root domain DNS record
-
-If you want to bind a domain name to a root domain (APEX Domain), for example, you purchased the domain name `example.com`, and you want to bind the service to the root domain `example.com`:
-
-1. Select `A` record in the `Type` field
-2. Enter `@` in the `Name` field
-3. Enter `34.49.168.86`
-    <Callout>
-        Please note that when setting up CloudFlare's DNS, do not enable the orange cloud (Proxy) feature on the left, otherwise your domain will not be resolved correctly. For why you don't need to enable CloudFlare's Proxy feature, please refer to [Disable CloudFlare's Proxy Feature](#disable-cloudflare-s-proxy-feature).
-    </Callout>
-4. Switch back to the Zeabur console, and after about 5 ~ 10 seconds, you will find that the domain status has changed from `Invalid DNS` to the purple `Provisioning` status.
-5. In the `Provisioning` status, Zeabur is deploying your SSL certificate to hundreds of edge nodes around the world, this process takes about 2~3 minutes.
 
 ### Ensure there is no CAA record
 
