@@ -7,7 +7,7 @@ docs = "https://zeabur.com/docs/marketplace/halo"
 description = "Halo is a powerful and easy-to-use open source website building tool."
 
 [source]
-image = "halohub/halo:2.10"
+image = "halohub/halo:2.14"
 
 [[ports]]
 id = "web"
