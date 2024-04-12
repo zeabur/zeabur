@@ -17,4 +17,4 @@ type = "HTTP"
 
 [[volumes]]
 id = "data"
-dir = "/usr/src/packages"
+dir = "/root/.flowise"
