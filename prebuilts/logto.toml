@@ -7,7 +7,7 @@ description = "The open-source alternative to Auth0, shaping the future of ident
 docs = "https://zeabur.com/docs/marketplace/logto"
 
 [source]
-image = "svhd/logto:1.10"
+image = "svhd/logto:1.15"
 command = ["sh"]
 args = ["-c", "npm run cli db seed -- --swe && npm start"]
 
