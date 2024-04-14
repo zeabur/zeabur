@@ -25,7 +25,7 @@
         "toast": {
             "redeploy": "開始重新部署"
         },
-        "no-domain": "為您的服務創建一個域名"
+        "no-domain": "為您的服務建立一個域名"
     },
     "variables": {
         "title": "環境變數",
@@ -142,6 +142,6 @@
         "wrong": "格式錯誤"
     },
     "networking": {
-        "title": "網絡連接"
+        "title": "網路連線"
     }
 }

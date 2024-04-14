@@ -17,9 +17,9 @@
     "add-env": "建立環境",
     "add-service": "建立服務",
     "settings": {
-        "title": "專案設置",
+        "title": "專案設定",
         "general": {
-            "title": "通用設置",
+            "title": "一般設定",
             "basic-information": {
                 "title": "基本資訊",
                 "name": {
