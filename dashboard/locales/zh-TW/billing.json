@@ -1,10 +1,10 @@
 {
     "credit-card": {
-        "title": "Credit Card",
-        "submit": "Submit"
+        "title": "信用卡",
+        "submit": "提交"
     },
     "subscription": {
-        "title": "Update Your Plan"
+        "title": "更新您的方案"
     },
     "plan": {
         "current": "當前方案",
