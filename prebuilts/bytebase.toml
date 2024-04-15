@@ -13,6 +13,11 @@ id = "web"
 port = 8080
 type = "HTTP"
 
+[[ports]]
+id = "grpc"
+port = 8081
+type = "HTTP"
+
 [[volumes]]
 id = "data"
 dir = "/var/opt/bytebase"
