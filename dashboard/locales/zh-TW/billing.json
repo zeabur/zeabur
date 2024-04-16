@@ -1,51 +1,51 @@
 {
     "credit-card": {
-        "title": "Credit Card",
-        "submit": "Submit"
+        "title": "信用卡",
+        "submit": "提交"
     },
     "subscription": {
-        "title": "Update Your Plan"
+        "title": "更新您的方案"
     },
     "plan": {
-      "current": "當前方案",
-      "upgrade": "升級",
-      "include": "它包括",
-      "free-credit": "五美金的免費額度",
-      "month": "（每月）",
-      "serverless": "你只能在這個方案上部署 serverless functions。"
+        "current": "目前方案",
+        "upgrade": "升級",
+        "include": "它包括",
+        "free-credit": "五美金的免費額度",
+        "month": "（每月）",
+        "serverless": "你只能在這個方案上部署 serverless functions。"
     },
     "payment": {
-      "method": "付款方式",
-      "no-method": "你還沒有綁定付款方式。你將需要手動來打卡延長試用期限，以保證服務穩定運行。",
-      "card": "你綁定了一張信用卡，卡號結尾是",
-      "alipay": "你綁定了支付方式為",
-      "manage": "管理",
-      "cny-modal": {
-        "title": "沒有信用卡？",
-        "sub-title": "對於中國大陸的用戶，我們提供了支付寶作為另一種方案。",
-        "p-1": "將會有一個 3.99 人民币的綁定費用用來激活綁定你的支付寶。",
-        "p-2": "綁定成功以後，你將可以繼續使用 Zeabur 而無需手動來延長試用期限。你也將只會收到超出免費額度的收費。",
-        "setup": "綁定"
-      },
-      "manage-section": {
-        "no-card": "沒有信用卡？",
-        "add": "添加",
-        "setup-alipay": "綁定支付寶",
-        "have-card": "有信用卡？"
-      }
+        "method": "付款方式",
+        "no-method": "你還沒有綁定付款方式。你將需要手動打卡延長試用期限，以保證服務穩定運作。",
+        "card": "你綁定了一張信用卡，卡號結尾是",
+        "alipay": "你綁定了付款方式為",
+        "manage": "管理",
+        "cny-modal": {
+            "title": "沒有信用卡？",
+            "sub-title": "對於中國大陸的用戶，我們提供了支付寶作為另一種方案。",
+            "p-1": "將會有一個 3.99 人民币的綁定費用用來激活綁定你的支付寶。",
+            "p-2": "綁定成功以後，你將可以繼續使用 Zeabur 而無需手動來延長試用期限。你也將只會收到超出免費額度的收費。",
+            "setup": "綁定"
+        },
+        "manage-section": {
+            "no-card": "沒有信用卡？",
+            "add": "添加",
+            "setup-alipay": "綁定支付寶",
+            "have-card": "有信用卡？"
+        }
     },
     "credit": {
-      "title": "帳戶餘額",
-      "desc": "我們將會優先使用你的帳戶餘額来支付你的帳單。",
-      "get-credits": "儲值",
-      "get-credits-modal": {
-        "title": "儲值",
-        "desc":"Zeabur 同時也為沒有信用卡的用戶提供了儲值模式。\n你可以使用你的餘額來升級方案或者支付用量費。",
-        "confirm": "儲值"
-      }
+        "title": "帳戶餘額",
+        "desc": "我們將會優先使用你的帳戶餘額来支付你的帳單。",
+        "get-credits": "儲值",
+        "get-credits-modal": {
+            "title": "儲值",
+            "desc": "Zeabur 同時也為沒有信用卡的用戶提供了儲值模式。\n你可以使用你的餘額來升級方案或者支付用量費。",
+            "confirm": "儲值"
+        }
     },
     "recharge-records": {
-      "title": "儲值記錄",
-      "desc": "你可以在這裡看到你的所有儲值記錄"
+        "title": "儲值記錄",
+        "desc": "你可以在這裡看到你的所有儲值記錄"
     }
 }

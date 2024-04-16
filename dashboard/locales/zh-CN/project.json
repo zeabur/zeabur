@@ -1,72 +1,72 @@
 {
-  "card": {
-    "service": "服务",
-    "create-project": "创建项目"
-  },
-  "modal": {
-    "title": "创建项目",
-    "description": "为您的服务创建一个新项目。",
-    "error": "格式错误",
-    "create": "创建",
-    "cancel": "关闭",
-    "placeholder": "请输入项目名称"
-  },
-  "members": "成员",
-  "environments": "环境",
-  "services": "服务",
-  "add-env": "新建环境",
-  "add-service": "新建服务",
-  "settings": {
-    "title": "项目设置",
-    "general": {
-      "title": "通用设置",
-      "basic-information": {
-        "title": "基本信息",
-        "name": {
-          "title": "项目名称",
-          "description": "项目的名称，只允许字母，数字和连字符。",
-          "placeholder": "你的项目名称"
-        },
-        "icon": {
-          "title": "项目图标",
-          "description": "项目的图标地址（可选）。",
-          "placeholder": "你的项目图标地址"
-        },
-        "description": {
-          "title": "项目描述",
-          "description": "项目的简要描述，方便你辨别项目（可选）。",
-          "placeholder": "你的项目描述"
-        },
-        "save": "保存"
-      },
-      "danger-zone": {
-        "title": "危险操作",
-        "delete": {
-          "title": "删除项目",
-          "description": "如果你删除了该项目，项目里的所有服务都会被删除且无法恢复。",
-          "delete": "删除"
-        },
-        "leave": {
-          "title": "离开项目",
-          "description": "如果你离开了该项目，你将无法再访问该项目，除非重新接受了邀请。",
-          "leave": "离开项目"
-        }
-      }
+    "card": {
+        "service": "服务",
+        "create-project": "创建项目"
     },
-    "budget": {
-      "title": "预算设置",
-      "overview": {
-        "monthly-cost": "当月消费",
-        "monthly-budget": "当月预算",
-        "description": "当你的用量达到了80%的预算，你将会收到一封警告邮件。当你的用量超过了预算，你的服务将会被暂停以避免超额收费。",
-        "update": "更新每月预算"
-      },
-      "analysis-by-type": {
-        "title": "分析用量",
-        "CPU": "CPU",
-        "Memory": "内存",
-        "Egress": "出站流量"
-      }
+    "modal": {
+        "title": "创建项目",
+        "description": "为您的服务创建一个新项目。",
+        "error": "格式错误",
+        "create": "创建",
+        "cancel": "关闭",
+        "placeholder": "请输入项目名称"
+    },
+    "members": "成员",
+    "environments": "环境",
+    "services": "服务",
+    "add-env": "新建环境",
+    "add-service": "新建服务",
+    "settings": {
+        "title": "项目设置",
+        "general": {
+            "title": "通用设置",
+            "basic-information": {
+                "title": "基本信息",
+                "name": {
+                    "title": "项目名称",
+                    "description": "项目的名称，只允许字母，数字和连字符。",
+                    "placeholder": "你的项目名称"
+                },
+                "icon": {
+                    "title": "项目图标",
+                    "description": "项目的图标地址（可选）。",
+                    "placeholder": "你的项目图标地址"
+                },
+                "description": {
+                    "title": "项目描述",
+                    "description": "项目的简要描述，方便你辨别项目（可选）。",
+                    "placeholder": "你的项目描述"
+                },
+                "save": "保存"
+            },
+            "danger-zone": {
+                "title": "危险操作",
+                "delete": {
+                    "title": "删除项目",
+                    "description": "如果你删除了该项目，项目里的所有服务都会被删除且无法恢复。",
+                    "delete": "删除"
+                },
+                "leave": {
+                    "title": "离开项目",
+                    "description": "如果你离开了该项目，你将无法再访问该项目，除非重新接受了邀请。",
+                    "leave": "离开项目"
+                }
+            }
+        },
+        "budget": {
+            "title": "预算设置",
+            "overview": {
+                "monthly-cost": "当月消费",
+                "monthly-budget": "当月预算",
+                "description": "当你的用量达到了80%的预算，你将会收到一封警告邮件。当你的用量超过了预算，你的服务将会被暂停以避免超额收费。",
+                "update": "更新每月预算"
+            },
+            "analysis-by-type": {
+                "title": "分析用量",
+                "CPU": "CPU",
+                "Memory": "内存",
+                "Egress": "出站流量"
+            }
+        }
     }
-  }
 }
