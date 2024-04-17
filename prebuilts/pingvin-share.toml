@@ -1,0 +1,18 @@
+#:schema ./schema.json
+
+id = "pingvin-share"
+name = "Pingvin Share"
+description = "A self-hosted file sharing platform that combines lightness and beauty, perfect for seamless and efficient file sharing."
+icon = "https://icons.zeabur.com/pingvin-share.png"
+
+[source]
+image = "stonith404/pingvin-share"
+
+[[ports]]
+id = "web"
+port = 3000
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/opt/app/backend/data"
