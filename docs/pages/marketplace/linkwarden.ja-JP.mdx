@@ -1,0 +1,53 @@
+---
+title: Linkwardenのデプロイ
+ogImageTitle: Linkwardenのデプロイ
+ogImageSubtitle: ZeaburでLinkwardenのデプロイ
+---
+
+# ZeaburでLinkwardenをデプロイする
+
+[Linkwarden](https://github.com/linkwarden/linkwarden) は、Webページを収集、整理、アーカイブするためのセルフホスト型のオープンソースの共同ブックマークマネージャーです。
+
+この記事では、1分でZeaburにLinkwardenをデプロイする方法を紹介します。
+
+![preview](https://github.com/linkwarden/linkwarden/raw/main/assets/dashboard.png)
+
+## 方法1: テンプレートからデプロイ（推奨）
+
+私たちはあなたのためにテンプレートを作成しました。以下のボタンをクリックするだけで、1分でLinkwardenサービスを設定できます。
+
+[![Zeaburでデプロイ](https://zeabur.com/button.svg)](https://zeabur.com/templates/1E5ABT)
+
+## 方法2: マーケットプレイスからデプロイ
+
+### ステップ1: プロジェクトの作成
+
+まず、プロジェクトを作成する必要があります。[プロジェクトページ](https://dash.zeabur.com/projects)に移動し、プロジェクトのリストが表示されます。新しいプロジェクトを作成するには、「新しいプロジェクト」ボタンをクリックします。
+
+### ステップ2: PostgreSQLサービスのデプロイ
+
+Linkwardenにはデータを保存するためのPostgreSQLデータベースが必要です。"Create Service"ボタンをクリックし、"Prebuilt"を選択すると、リストにPostgreSQLが表示されます。
+
+![PostgreSQLのデプロイ](/marketplace/postgresql/deploy.png)
+
+PostgreSQLを選択すると、PostgreSQLサービスが自動的にデプロイされます。
+
+### ステップ3: Linkwardenサービスのデプロイ
+
+再度「Create Service」ボタンをクリックし、「Prebuilt」を選択すると、リストにLinkwardenが表示されます。
+
+Linkwardenをデプロイした後、Linkwardenサービスの環境変数を記入する必要があります。
+
+```bash
+NEXTAUTH_SECRET=${PASSWORD}
+POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+NEXTAUTH_URL=${ZEABUR_WEB_URL}
+```
+
+### ステップ4: ドメインのバインド
+
+このサービスが実行を開始するのを待っている間、ドメインをバインドできます。
+
+サービスページの「Domain」タブを開き、「Generate Domain」または「Custom Domain」をクリックします。
+
+サービスにドメインをバインドする方法の詳細については、[ドメインのバインド](../deploy/domain-binding)を参照してください。
