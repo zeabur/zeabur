@@ -1,0 +1,53 @@
+---
+title: Deploy Linkwarden
+ogImageTitle: Deploy Linkwarden
+ogImageSubtitle: Deploy Linkwarden on Zeabur
+---
+
+# Deploy Linkwarden on Zeabur
+
+[Linkwarden](https://github.com/linkwarden/linkwarden) a self-hosted, open-source collaborative bookmark manager to collect, organize and archive webpages.
+
+This article will show you how to deploy Linkwarden on Zeabur in a minute.
+
+![preview](https://github.com/linkwarden/linkwarden/raw/main/assets/dashboard.png)
+
+## Method 1: Deploy from template(Recommended)
+
+We have built a template for you, all you need to do is to click the button below, and you will get your Linkwarden service setup in one minute.
+
+[![Deploy on Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/1E5ABT)
+
+## Method 2: Deploy from marketplace
+
+### Step 1: Create a project
+
+First, we need to create a project. Go to the [Projects page](https://dash.zeabur.com/projects), and you will see a list of your projects. Click the "New Project" button to create a new project.
+
+### Step 2: Deploy PostgreSQL service
+
+Linkwarden requires a PostgreSQL database to store data. Click the "Create Service" button and select "Prebuilt", you will find PostgreSQL in the list.
+
+![Deploy PostgreSQL](/marketplace/postgresql/deploy.png)
+
+After selecting PostgreSQL, your PostgreSQL service will be deployed automatically.
+
+### Step 3: Deploy Linkwarden service
+
+Click the "Create Service" button again, and select "Prebuilt", you will find Linkwarden in the list.
+
+After deploying Linkwarden, you need to fill in the environment variables for Linkwarden service.
+
+```bash
+NEXTAUTH_SECRET=${PASSWORD}
+POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+NEXTAUTH_URL=${ZEABUR_WEB_URL}
+```
+
+### Step 4: Bind domain
+
+While you are waiting for this service to start running, you can bind a domain to it.
+
+Open the "Domain" tab in the service page and click on "Generate Domain" or "Custom Domain".
+
+For more information about how to bind a domain to your service, please refer to [Bind a domain](../deploy/domain-binding).

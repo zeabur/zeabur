@@ -1,0 +1,53 @@
+---
+title: 部署 Linkwarden
+ogImageTitle: 部署 Linkwarden
+ogImageSubtitle: 在 Zeabur 部署 Linkwarden
+---
+
+# 在 Zeabur 上部署 Linkwarden
+
+[Linkwarden](https://github.com/linkwarden/linkwarden) 是一个自托管的开源协作式书签管理器，用于收集、组织和归档网页。
+
+本文将向您展示如何在 Zeabur 上部署 Linkwarden。
+
+![preview](https://github.com/linkwarden/linkwarden/raw/main/assets/dashboard.png)
+
+## 方法 1：使用模板部署（推荐）
+
+我们为您构建了一个模板，您只需点击下面的按钮，即可在一分钟内设置 Linkwarden 服务。
+
+[![Deploy on Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/1E5ABT)
+
+## 方法 2：从服务市场部署
+
+### 步骤 1：创建项目
+
+首先，我们需要创建一个项目。转到[项目页面](https://dash.zeabur.com/projects)，您将看到您的项目列表。单击“新建项目”按钮创建一个新项目。
+
+### 步骤 2：部署 PostgreSQL 服务
+
+Linkwarden 需要一个 PostgreSQL 数据库来存储数据。单击“创建服务”按钮，然后选择“Prebuilt”，您将在列表中找到 PostgreSQL。
+
+![Deploy PostgreSQL](/marketplace/postgresql/deploy.png)
+
+选择 PostgreSQL 后，您的 PostgreSQL 服务将自动部署。
+
+### 步骤 3：部署 Linkwarden 服务
+
+点击“创建服务”按钮，然后选择“Prebuilt”，您将在列表中找到 Linkwarden。
+
+在部署 Linkwarden 后，您需要填写 Linkwarden 服务的环境变量。
+
+```bash
+NEXTAUTH_SECRET=${PASSWORD}
+POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+NEXTAUTH_URL=${ZEABUR_WEB_URL}
+```
+
+### 步骤 4：绑定域名
+
+当你等待这个服务开始运行时，你可以为它绑定一个域名。
+
+打开服务页面中的“域名”选项卡，然后单击“生成域名”或“自定义域名”。
+
+关于如何将域名绑定到您的服务的更多信息，请参阅[绑定域名](../deploy/domain-binding)。
