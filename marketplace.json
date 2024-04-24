@@ -4,9 +4,7 @@
         "mongodb",
         "redis",
         "postgresql",
-        "browserless",
         "minio",
-        "nginx",
-        "uptime-kuma"
+        "nginx"
     ]
 }
