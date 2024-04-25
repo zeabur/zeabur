@@ -4,6 +4,7 @@ id = "garnet"
 name = "Garnet"
 icon = "https://avatars.githubusercontent.com/u/107748533?s=200&v=4"
 description = "Garnet is a remote cache-store from Microsoft Research that offers strong performance (throughput and latency), scalability, storage, recovery, cluster sharding, key migration, and replication features. Garnet can work with existing Redis clients."
+tags = ["Database"]
 
 [source]
 image = "zeabur/garnet:v1.0.0"

@@ -5,6 +5,7 @@ name = "MongoDB"
 icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/mongodb.svg"
 description = "MongoDB is a general purpose, document-based, distributed database built for modern application developers and for the cloud era."
 docs = "https://zeabur.com/docs/marketplace/mongodb"
+tags = ["Database"]
 
 [source]
 image = "mongo:7.0"

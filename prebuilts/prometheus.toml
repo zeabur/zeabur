@@ -4,6 +4,7 @@ id = "prometheus"
 name = "prometheus"
 description = "Power your metrics and alerting with the leading open-source monitoring solution."
 icon = "https://avatars.githubusercontent.com/u/3380462?s=48&v=4"
+tags = ["Monitoring"]
 
 [source]
 image = "prom/prometheus:latest"

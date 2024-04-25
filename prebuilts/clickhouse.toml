@@ -4,6 +4,7 @@ id = "clickhouse"
 name = "Clickhouse"
 icon = "https://avatars.githubusercontent.com/u/54801242"
 description = "ClickHouse is an open-source column-oriented database management system."
+tags = ["Database"]
 
 [source]
 image = "clickhouse/clickhouse-server:24-alpine"

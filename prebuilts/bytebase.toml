@@ -4,6 +4,7 @@ id = "bytebase"
 name = "Bytebase"
 icon = "https://avatars.githubusercontent.com/u/74386897"
 description = "Bytebase is Database CI/CD for DevOps teams."
+tags = ["DevOps", "CI/CD"]
 
 [source]
 image = "bytebase/bytebase:2.15.0"

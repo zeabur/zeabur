@@ -4,6 +4,7 @@ id = "phpmyadmin"
 name = "phpMyAdmin"
 description = "A free software tool written in PHP, intended to handle the administration of MySQL over the Web."
 icon = "https://icons.zeabur.com/phpmyadmin.png"
+tags = ["PHP", "Admin"]
 
 [source]
 image = "phpmyadmin/phpmyadmin"

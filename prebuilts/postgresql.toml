@@ -5,6 +5,7 @@ name = "PostgreSQL"
 description = "PostgreSQL is a powerful, open source object-relational database system."
 icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/postgresql.svg"
 docs = "https://zeabur.com/docs/marketplace/postgresql"
+tags = ["Database"]
 
 [source]
 image = "postgres:16"

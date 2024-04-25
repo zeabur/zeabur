@@ -4,6 +4,7 @@ id = "changedetection-io"
 name = "changedetection.io"
 description = "Detect website content changes and perform meaningful actions - trigger notifications via Discord, Email, Slack, Telegram, API calls and many more."
 icon = "https://github.com/dgtlmoon/changedetection.io/raw/8fac593201072573dc3ecbb377f8f29e07b2294c/changedetectionio/static/favicons/android-chrome-256x256.png"
+tags = ["Automation", "Monitoring"]
 
 [source]
 image = "ghcr.io/dgtlmoon/changedetection.io"

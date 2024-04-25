@@ -4,6 +4,7 @@ id = "slash"
 name = "Slash"
 icon = "https://jsd.cdn.zzko.cn/gh/boojack/slash@latest/resources/logo.png"
 description = "Slash is an open source, self-hosted bookmarks and link sharing platform. Save and share your links very easily."
+tags = ["Bookmark Management", "Link Sharing"]
 
 [source]
 image = "yourselfhosted/slash:latest"
