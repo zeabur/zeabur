@@ -24,7 +24,10 @@
 		"tags": {
 			"title": "Service Tags",
 			"description": "Tags for service to identification, only services with tags will be shown in the official prebuilt marketplace.",
-			"type": "array" 
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
 		},
 		"icon": {
 			"title": "Service Icon",
