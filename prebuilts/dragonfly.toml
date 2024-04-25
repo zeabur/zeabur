@@ -4,6 +4,7 @@ id = "dragonfly"
 name = "Dragonfly"
 icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/database/dragonfly.svg"
 description = "Dragonfly is a modern replacement for Redis and Memcached"
+tags = ["Database"]
 
 [source]
 image = "docker.dragonflydb.io/dragonflydb/dragonfly:v1.13.0"

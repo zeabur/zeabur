@@ -4,6 +4,7 @@ id = "ferretdb"
 name = "FerretDB"
 icon = "https://avatars.githubusercontent.com/u/95204649?s=48&v=4"
 description = "A truly Open Source MongoDB alternative, built on Postgres."
+tags = ["Database"]
 
 [source]
 image = "ghcr.io/ferretdb/all-in-one:1.13.0"

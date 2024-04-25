@@ -4,6 +4,7 @@ id = "redis"
 name = "Redis"
 icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/redis.svg"
 description = "Redis Stack is a collection of services that can be used to build a Redis cluster."
+tags = ["Database"]
 
 [source]
 image = "redis/redis-stack-server:latest"

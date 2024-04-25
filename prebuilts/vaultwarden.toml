@@ -4,6 +4,7 @@ id = "vaultwarden"
 name = "vaultwarden"
 icon = "https://github.com/dani-garcia/vaultwarden/raw/main/resources/vaultwarden-icon.svg"
 description = "A Bitwarden compatible server written in Rust."
+tags = ["Password Management"]
 
 [source]
 image = "vaultwarden/server:1.29.2"

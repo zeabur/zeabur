@@ -21,6 +21,14 @@
 			"description": "A short description of this service for the service user.",
 			"type": "string"
 		},
+		"tags": {
+			"title": "Service Tags",
+			"description": "Tags for service to identification, only services with tags will be shown in the official prebuilt marketplace.",
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
+		},
 		"icon": {
 			"title": "Service Icon",
 			"description": "The icon of this service for users to identify. It shows at sidebar.",

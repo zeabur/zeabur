@@ -4,6 +4,7 @@ id = "minio"
 name = "MinIO"
 icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/minio.svg"
 description = "MinIO is a high performance object storage server, designed for large-scale private cloud infrastructure."
+tags = ["Storage", "S3"]
 
 [source]
 image = "quay.io/minio/minio:latest"

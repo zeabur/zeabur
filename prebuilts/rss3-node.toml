@@ -4,6 +4,7 @@ id = "rss3"
 name = "RSS3 Node"
 icon = "https://explorer.rss3.io/rss3.svg"
 description = "Deploy an RSS3 Node easily!"
+tags = ["Web3", "Automation"]
 
 [source]
 image = "rss3/node:alpha"
