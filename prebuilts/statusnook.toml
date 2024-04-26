@@ -1,0 +1,19 @@
+#:schema ./schema.json
+
+id = "statusnook"
+name = "Statusnook"
+description = "Effortlessly deploy a status page and start monitoring endpoints in minutes."
+icon = "https://raw.githubusercontent.com/goksan/Statusnook/main/static/images/statusnook.svg"
+tags = ["Monitoring"]
+
+[source]
+image = "goksan/statusnook:latest"
+
+[[ports]]
+id = "web"
+port = 8000
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/app/statusnook-data"
