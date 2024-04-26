@@ -6,7 +6,7 @@ icon = "https://miniflux.app/favicon.ico"
 description = "Miniflux is a minimalist and opinionated feed reader."
 
 [source]
-image = "miniflux/miniflux:2.0.48"
+image = "miniflux/miniflux:2.1.2"
 
 [[ports]]
 id = "web"
