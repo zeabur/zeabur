@@ -18,5 +18,5 @@ DATABASE_URL = { default = "${POSTGRES_CONNECTION_STRING}" }
 RUN_MIGRATIONS = { default = "1" }
 BASE_URL = { default = "${ZEABUR_WEB_URL}" }
 ADMIN_PASSWORD = { default = "${PASSWORD}" }
-ADMIN_USERNAME = { required = true }
+ADMIN_USERNAME = { default = "Admin" }
 CREATE_ADMIN = { default = "1" }
