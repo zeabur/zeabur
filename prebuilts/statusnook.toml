@@ -3,7 +3,7 @@
 id = "statusnook"
 name = "Statusnook"
 description = "Effortlessly deploy a status page and start monitoring endpoints in minutes."
-icon = "https://raw.githubusercontent.com/goksan/Statusnook/main/static/images/statusnook.svg"
+icon = "https://icons.zeabur.com/statusnook.png"
 tags = ["Monitoring"]
 
 [source]
