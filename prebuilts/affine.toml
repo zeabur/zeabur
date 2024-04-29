@@ -6,7 +6,9 @@ icon = "https://i.imgur.com/fBMA1bo.png"
 description = "A next-gen knowledge base that brings planning, sorting and creating all together."
 
 [source]
-image = "ghcr.io/toeverything/affine-graphql:beta-3e7ebe8"
+image = "ghcr.io/toeverything/affine-graphql:stable"
+command = ["sh"]
+args = ["-c", "node ./scripts/self-host-predeploy && node ./dist/index.js"]
 
 [[ports]]
 id = "web"
@@ -22,7 +24,7 @@ DATABASE_URL = { default = "postgres://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}
 REDIS_SERVER_HOST = { default = "${REDIS_HOST}" }
 DEBUG = { default = "affine:*" }
 AFFINE_CONFIG_PATH = { default = "/root/.affine/config" }
-NODE_OPTIONS = { default = "--es-module-specifier-resolution=node" }
+NODE_OPTIONS = { default = "--import=./scripts/register.js" }
 NODE_ENV = { default = "production" }
 SERVER_FLAVOR = { default = "allinone" }
 REDIS_SERVER_PASSWORD = { default = "${REDIS_PASSWORD}" }
