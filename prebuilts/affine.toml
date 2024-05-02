@@ -35,6 +35,21 @@ DEPLOYMENT_TYPE = { default = "selfhosted" }
 AFFINE_SERVER_HTTPS = { default = "true" }
 AFFINE_SERVER_HOST = { default = "${ZEABUR_WEB_DOMAIN}" }
 
+[[instructions]]
+type = "TEXT"
+title = "AFFiNE Website URL"
+content = "${ZEABUR_WEB_URL}"
+
+[[instructions]]
+type = "TEXT"
+title = "Admin username"
+content = "${AFFINE_ADMIN_EMAIL}"
+
+[[instructions]]
+type = "PASSWORD"
+title = "Admin password"
+content = "${AFFINE_ADMIN_PASSWORD}"
+
 [[configs]]
 path = "/root/.affine/config/affine.env.js"
 template = """\
