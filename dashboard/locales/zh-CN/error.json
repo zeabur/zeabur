@@ -5,8 +5,8 @@
             "action": "添加"
         },
         "beyond-limitation": {
-            "message": "You have reached the limit of free plan. Subscribe another plan to continue.",
-            "action": "Upgrade"
+            "message": "您已达到免费计划的限制，订阅另一个计划以继续",
+            "action": "升级"
         }
     }
 }
