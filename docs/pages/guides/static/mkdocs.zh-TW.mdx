@@ -1,0 +1,91 @@
+---
+title: MkDocs
+ogImageTitle: MkDocs
+ogImageSubtitle: 在 Zeabur 部署 MkDocs 網站
+---
+
+# MkDocs
+
+MkDocs 是一個快速、簡單且極其精美的靜態網站生成器，專為建構專案文件而設計。文件來源檔案使用 Markdown 編寫，並透過一個單一的 YAML 配置檔案來配置。
+
+## 示範影片
+
+以下是一個示範影片，展示了如何在 60 秒內初始化並部署一個 MkDocs 專案到 Zeabur 上。
+
+<iframe style={{marginTop: 12}} width="560" height="315" src="https://www.youtube.com/embed/DYlpqWQgQEM?si=geEMw0kQOnIEEZAC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+## 判斷條件
+
+若你的專案滿足以下條件，Zeabur 會識別出你的專案為 MkDocs 專案，並自動部署：
+
+1. 專案根目錄下有 `mkdocs.yml` 配置檔案。
+
+如果你有興趣參與開源貢獻，可以在 [zbpack 的開源程式碼](https://github.com/zeabur/zbpack/tree/main/internal/static) 中找到相關的部分。
+
+## 立即開始
+
+本文將指導你如何初始化一個 MkDocs 專案，並部署到 Zeabur 上。
+
+### 初始化專案
+
+你可以參考 [MkDocs 官方文檔](https://www.mkdocs.org/getting-started/) 來初始化你的 MkDocs 專案。
+
+```bash
+pip install mkdocs
+mkdocs new my-project
+cd my-project
+```
+
+### 本地測試
+
+你可以在本地測試你的 MkDocs 專案。
+
+```bash
+mkdocs serve
+```
+
+訪問 http://127.0.0.1:8000/ 來預覽你的 MkDocs 專案。
+
+### 部署
+
+你可以選擇兩種方式部署你的 Hono 專案：使用 GitHub 或 使用 Zeabur CLI。
+
+#### 使用 Zeabur CLI 部署
+
+使用 Zeabur CLI 是部署 Hono 專案的最簡單方式，你只需要先登入 Zeabur CLI：
+
+```bash
+npx @zeabur/cli auth login
+```
+
+這個指令會開啟瀏覽器並引導你完成登入。
+
+接著，你可以使用 `deploy` 指令部署：
+
+```bash
+npx @zeabur/cli deploy
+```
+
+這個指令會用互動式的方式詢問你要部署到哪個專案，你也可以選擇建立一個新的專案。
+
+關於更多使用 Zeabur CLI 部署的說明，請查看 [使用 CLI 部署服務](../deploy/deploy-with-cli)。
+
+#### 使用 GitHub 部署
+
+使用 GitHub 部署可以讓你的專案享有開箱即用的 CI/CD 服務，未來只要推送代碼到 GitHub，Zeabur 將自動幫你部署。
+
+請在 GitHub 上建立一個新的儲存庫，然後將程式碼推送到儲存庫中即可，更詳細的說明請參考 [GitHub 文件](https://docs.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line)。
+
+推送完畢後，點選 **Deploy service**，然後選擇 **Deploy your source code**。
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+搜尋你的儲存庫，點選匯入，你的服務將自動開始部署。
+
+### 設定網域
+
+當部署完成後，你需要為你的網站設定一個網域。
+
+打開服務頁面的 "網域" 分頁，然後點選 "產生網域" 或 "自訂網域"。
+
+關於如何為你的服務綁定網域的更多資訊，請參考 [綁定網域](../deploy/domain-binding)。

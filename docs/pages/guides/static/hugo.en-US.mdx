@@ -1,0 +1,85 @@
+---
+title: Hugo
+ogImageTitle: Hugo
+ogImageSubtitle: Deploying Hugo Websites on Zeabur
+---
+
+# Hugo
+
+Hugo is an efficient static site generator known for its rapid build speed and ease of use, making it particularly suitable for creating and managing websites with large content. Hugo's content management is done through Markdown files, and configuration can be done using simple YAML or TOML files.
+
+## Criteria
+
+If your project meets the following criteria, Zeabur will identify it as a Hugo project and deploy it automatically:
+
+1. There is a `hugo.toml` or `config/_default/hugo.toml` configuration file in the project root directory.
+
+If you are interested in contributing to open source, you can find related parts in [Zeabur's open-source code](https://github.com/zeabur).
+
+## Getting Started
+
+This article will guide you on how to initiate a Hugo project and deploy it on Zeabur.
+
+### Initializing the Project
+
+You can refer to the [official Hugo documentation](https://gohugo.io/getting-started/) to initiate your Hugo project.
+
+```bash
+brew install hugo
+hugo new site my-hugo-site
+cd my-hugo-site
+```
+
+### Local Testing
+
+You can test your Hugo project locally.
+
+```bash
+hugo server
+```
+
+Visit http://localhost:1313/ to preview your Hugo website.
+
+### Deployment
+
+You can choose between two ways to deploy your Hugo project: using GitHub or using Zeabur CLI.
+
+#### Deploying with Zeabur CLI
+
+Deploying with Zeabur CLI is the simplest way to deploy your Hugo project. You just need to log in to Zeabur CLI first:
+
+```bash
+npx @zeabur/cli auth login
+```
+
+This command will open a browser and guide you through the login process.
+
+Then, you can use the `deploy` command to deploy:
+
+```bash
+npx @zeabur/cli deploy
+```
+
+This command will interactively ask you which project you want to deploy to, and you can also choose to create a new project.
+
+For more instructions on deploying with Zeabur CLI, please see [Deploying Services with CLI](../deploy/deploy-with-cli).
+
+#### Deploying with GitHub
+
+Deploying with GitHub allows your project to have out-of-the-box CI/CD services. In the future, as soon as you push code to GitHub, Zeabur will automatically deploy for you.
+
+Create a new repository on GitHub, then push the code to the repository. For more detailed instructions, please refer to [GitHub Documentation](https://docs.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line).
+
+After pushing, click **Deploy service**, then choose **Deploy your source code**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Search for your repository, click to import, and your service will automatically begin deploying.
+
+### Setting Up a Domain
+
+After the deployment is complete, you need to set up a domain for your website.
+
+Open the "Domain" tab on the service page, then click "Generate Domain" or "Custom Domain".
+
+For more information on how to bind a domain to your service, please refer to [Binding Domains](../deploy/domain-binding).
