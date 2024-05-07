@@ -8,5 +8,6 @@
   "deno": "Deno",
   "rust": "Rust",
   "swift": "Swift",
-  "dart": "Dart"
+  "dart": "Dart",
+  "static": "Static"
 }

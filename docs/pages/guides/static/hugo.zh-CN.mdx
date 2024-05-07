@@ -1,0 +1,85 @@
+---
+title: Hugo
+ogImageTitle: Hugo
+ogImageSubtitle: 在 Zeabur 上部署 Hugo 网站
+---
+
+# Hugo
+
+Hugo 是一个高效的静态网站生成器，以其快速的构建速度和易用性而闻名，特别适合用来建立和管理大型内容的网站。Hugo 的内容管理通过 Markdown 文件进行，并可以使用简单的 YAML 或 TOML 文件进行配置。
+
+## 判断条件
+
+如果你的项目符合以下条件，Zeabur 将识别你的项目为 Hugo 项目，并自动部署：
+
+1. 项目根目录下有 `hugo.toml` 或 `config/_default/hugo.toml` 配置文件。
+
+如果你对开源贡献感兴趣，可以在 [Zeabur 的开源代码](https://github.com/zeabur) 中找到相关的部分。
+
+## 立即开始
+
+本文将指导你如何初始化一个 Hugo 项目，并部署到 Zeabur 上。
+
+### 初始化项目
+
+你可以参考 [Hugo 官方文档](https://gohugo.io/getting-started/) 来初始化你的 Hugo 项目。
+
+```bash
+brew install hugo
+hugo new site my-hugo-site
+cd my-hugo-site
+```
+
+### 本地测试
+
+你可以在本地测试你的 Hugo 项目。
+
+```bash
+hugo server
+```
+
+访问 http://localhost:1313/ 来预览你的 Hugo 网站。
+
+### 部署
+
+你可以选择两种方式部署你的 Hugo 项目：使用 GitHub 或使用 Zeabur CLI。
+
+#### 使用 Zeabur CLI 部署
+
+使用 Zeabur CLI 是部署 Hugo 项目的最简单方式，你只需要先登录 Zeabur CLI：
+
+```bash
+npx @zeabur/cli auth login
+```
+
+这个指令会打开浏览器并引导你完成登录。
+
+接着，你可以使用 `deploy` 指令部署：
+
+```bash
+npx @zeabur/cli deploy
+```
+
+这个指令会以互动式的方式询问你要部署到哪个项目，你也可以选择创建一个新的项目。
+
+关于更多使用 Zeabur CLI 部署的说明，请查看 [使用 CLI 部署服务](../deploy/deploy-with-cli)。
+
+#### 使用 GitHub 部署
+
+使用 GitHub 部署可以让你的项目享有开箱即用的 CI/CD 服务，未来只要推送代码到 GitHub，Zeabur 将自动帮你部罗。
+
+请在 GitHub 上创建一个新的存储库，然后将代码推送到存储库中即可，更详细的说明请参考 [GitHub 文档](https://docs.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line)。
+
+推送完毕后，点击 **Deploy service**，然后选择 **Deploy your source code**。
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+搜索你的存储库，点击导入，你的服务将自动开始部署。
+
+### 设置域名
+
+当部署完成后，你需要为你的网站设置一个域名。
+
+打开服务页面的“域名”标签，然后点击“生成域名”或“自定义域名”。
+
+关于如何为你的服务绑定域名的更多信息，请参考 [绑定域名](../deploy/domain-binding)。

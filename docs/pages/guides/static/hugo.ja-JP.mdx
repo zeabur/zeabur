@@ -1,0 +1,85 @@
+---
+title: Hugo
+ogImageTitle: Hugo
+ogImageSubtitle: ZeaburでのHugoウェブサイトのデプロイ
+---
+
+# Hugo
+
+Hugoは、その迅速な構築速度と使いやすさで知られる効率的な静的サイトジェネレーターであり、大量のコンテンツを持つウェブサイトの作成と管理に特に適しています。Hugoのコンテンツ管理はMarkdownファイルを通じて行われ、YAMLまたはTOMLファイルを使用して簡単に設定できます。
+
+## 条件
+
+プロジェクトが以下の条件に該当する場合、ZeaburはそれをHugoプロジェクトとして識別し、自動的にデプロイします：
+
+1. プロジェクトのルートディレクトリに`hugo.toml`または`config/_default/hugo.toml`設定ファイルが存在します。
+
+オープンソースへの貢献に興味がある場合は、[Zeaburのオープンソースコード](https://github.com/zeabur)で関連部分を見つけることができます。
+
+## 開始する
+
+この記事では、Hugoプロジェクトの開始とZeaburへのデプロイ方法について説明します。
+
+### プロジェクトの初期化
+
+Hugoプロジェクトを開始するには、[公式Hugoドキュメント](https://gohugo.io/getting-started/)を参照してください。
+
+```bash
+brew install hugo
+hugo new site my-hugo-site
+cd my-hugo-site
+```
+
+### ローカルテスト
+
+Hugoプロジェクトをローカルでテストできます。
+
+```bash
+hugo server
+```
+
+http://localhost:1313/ にアクセスして、Hugoウェブサイトをプレビューしてください。
+
+### デプロイメント
+
+Hugoプロジェクトをデプロイするには、GitHubを使用するか、Zeabur CLIを使用するかの2つの方法があります。
+
+#### Zeabur CLIでデプロイ
+
+Zeabur CLIでデプロイするのは、Hugoプロジェクトをデプロイする最も簡単な方法です。まず、Zeabur CLIにログインする必要があります：
+
+```bash
+npx @zeabur/cli auth login
+```
+
+このコマンドはブラウザを開き、ログインプロセスをガイドします。
+
+その後、`deploy`コマンドを使用してデプロイできます：
+
+```bash
+npx @zeabur/cli deploy
+```
+
+このコマンドは対話的にどのプロジェクトにデプロイするかを尋ね、新しいプロジェクトを作成することもできます。
+
+Zeabur CLIでデプロイする方法の詳細については、[CLIでサービスをデプロイする](../deploy/deploy-with-cli)を参照してください。
+
+#### GitHubでデプロイ
+
+GitHubでデプロイすると、プロジェクトはすぐにCI/CDサービスを利用できます。将来的には、コードをGitHubにプッシュするだけで、Zeaburが自動的にデプロイします。
+
+GitHub上に新しいリポジトリを作成し、リポジトリにコードをプッシュしてください。より詳細な説明については、[GitHubドキュメント](https://docs.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line)を参照してください。
+
+プッシュが完了したら、**Deploy service**をクリックし、**Deploy your source code**を選択します。
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+リポジトリを検索し、インポートをクリックすると、サービスのデプロイが自動的に開始されます。
+
+### ドメインの設定
+
+デプロイが完了した後、ウェブサイトにドメインを設定する必要があります。
+
+サービスページの「ドメイン」タブを開き、「ドメインを生成」または「カスタムドメイン」をクリックします。
+
+サービスにドメインをバインドする方法の詳細については、[ドメインバインディング](../deploy/domain-binding)を参照してください。

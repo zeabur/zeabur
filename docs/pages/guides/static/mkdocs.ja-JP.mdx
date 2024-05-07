@@ -1,0 +1,91 @@
+---
+title: MkDocs
+ogImageTitle: MkDocs
+ogImageSubtitle: ZeaburでMkDocsウェブサイトをデプロイ
+---
+
+# MkDocs
+
+MkDocsは、プロジェクトドキュメントの構築のために特別に設計された、速く、シンプルで非常にエレガントな静的サイトジェネレータです。ドキュメントのソースファイルはMarkdownで記述され、単一のYAML設定ファイルで設定されます。
+
+## デモビデオ
+
+以下はデモビデオで、60秒以内にMkDocsプロジェクトを初期化してZeaburにデプロイする方法を示しています。
+
+<iframe style={{marginTop: 12}} width="560" height="315" src="https://www.youtube.com/embed/DYlpqWQgQEM?si=geEMw0kQOnIEEZAC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+## 条件
+
+以下の条件を満たす場合、ZeaburはあなたのプロジェクトをMkDocsプロジェクトとして認識し、自動的にデプロイします：
+
+1. プロジェクトのルートディレクトリに`mkdocs.yml`設定ファイルがあります。
+
+オープンソースへの貢献に興味がある場合は、[zbpackのオープンソースコード](https://github.com/zeabur/zbpack/tree/main/internal/static)で関連部分を見つけることができます。
+
+## すぐに始める
+
+この記事では、MkDocsプロジェクトを初期化し、Zeaburにデプロイする方法を案内します。
+
+### プロジェクトの初期化
+
+MkDocsプロジェクトを初期化するには、[MkDocs公式ドキュメント](https://www.mkdocs.org/getting-started/)を参照してください。
+
+```bash
+pip install mkdocs
+mkdocs new my-project
+cd my-project
+```
+
+### ローカルテスト
+
+ローカルでMkDocsプロジェクトをテストできます。
+
+```bash
+mkdocs serve
+```
+
+http://127.0.0.1:8000/にアクセスして、MkDocsプロジェクトをプレビューしてください。
+
+### デプロイ
+
+MkDocsプロジェクトをデプロイするには、GitHubまたはZeabur CLIの2つの方法を選択できます。
+
+#### Zeabur CLIでデプロイ
+
+Zeabur CLIを使用してMkDocsプロジェクトをデプロイするのは、最も簡単な方法です。まず、Zeabur CLIにログインします：
+
+```bash
+npx @zeabur/cli auth login
+```
+
+このコマンドはブラウザを開いてログインプロセスを案内します。
+
+次に、`deploy` コマンドを使用してデプロイします：
+
+```bash
+npx @zeabur/cli deploy
+```
+
+このコマンドは対話式にどのプロジェクトにデプロイするかを尋ねますが、新しいプロジェクトを作成することもできます。
+
+Zeabur CLIでのデプロイに関する詳細は、[CLIでサービスをデプロイする](../deploy/deploy-with-cli)をご覧ください。
+
+#### GitHubでデプロイ
+
+GitHubでデプロイすると、プロジェクトはすぐに使えるCI/CDサービスを享受できます。GitHubにコードをプッシュするだけで、Zeaburが自動的にデプロイを行います。
+
+GitHub上に新しいリポジトリを作成し、その後リポジトリにコードをプッシュしてください。詳細な説明は[GitHubドキュメント](https://docs.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line)を参照してください。
+
+プッシュが完了したら、**Deploy service** をクリックし、**Deploy your source code** を選択します。
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+リポジトリを検索してインポートをクリックすると、サービスが自動的にデプロイを開始します。
+
+### ドメインの設定
+
+デプロイが完了したら、ウェブサイトにドメインを設定する必要があります。
+
+サービスページの「ドメイン」タブを開き、「ドメインを生成」または「カスタムドメイン」をクリックします。
+
+サービスにドメインをバインドする方法の詳細については、[ドメインのバインド](../deploy/domain-binding)を参照してください。

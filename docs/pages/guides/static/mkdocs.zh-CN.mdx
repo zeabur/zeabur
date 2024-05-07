@@ -1,0 +1,91 @@
+---
+title: MkDocs
+ogImageTitle: MkDocs
+ogImageSubtitle: 在 Zeabur 上部署 MkDocs 网站
+---
+
+# MkDocs
+
+MkDocs 是一个快速、简单且极其精美的静态网站生成器，专为构建项目文档而设计。文档源文件使用 Markdown 编写，并通过一个单一的 YAML 配置文件来配置。
+
+## 示范视频
+
+以下是一个示范视频，展示了如何在 60 秒内初始化并部署一个 MkDocs 项目到 Zeabur 上。
+
+<iframe style={{marginTop: 12}} width="560" height="315" src="https://www.youtube.com/embed/DYlpqWQgQEM?si=geEMw0kQOnIEEZAC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+## 判断条件
+
+若你的项目满足以下条件，Zeabur 会识别出你的项目为 MkDocs 项目，并自动部署：
+
+1. 项目根目录下有 `mkdocs.yml` 配置文件。
+
+如果你有兴趣参与开源贡献，可以在 [zbpack 的开源代码](https://github.com/zeabur/zbpack/tree/main/internal/static) 中找到相关的部分。
+
+## 立即开始
+
+本文将指导你如何初始化一个 MkDocs 项目，并部署到 Zeabur 上。
+
+### 初始化项目
+
+你可以参考 [MkDocs 官方文档](https://www.mkdocs.org/getting-started/) 来初始化你的 MkDocs 项目。
+
+```bash
+pip install mkdocs
+mkdocs new my-project
+cd my-project
+```
+
+### 本地测试
+
+你可以在本地测试你的 MkDocs 项目。
+
+```bash
+mkdocs serve
+```
+
+访问 http://127.0.0.1:8000/ 来预览你的 MkDocs 项目。
+
+### 部署
+
+你可以选择两种方式部署你的 MkDocs 项目：使用 GitHub 或使用 Zeabur CLI。
+
+#### 使用 Zeabur CLI 部署
+
+使用 Zeabur CLI 是部署 MkDocs 项目的最简单方式，你只需要先登录 Zeabur CLI：
+
+```bash
+npx @zeabur/cli auth login
+```
+
+这个指令会打开浏览器并引导你完成登录。
+
+接着，你可以使用 `deploy` 指令部署：
+
+```bash
+npx @zeabur/cli deploy
+```
+
+这个指令会用互动式的方式询问你要部署到哪个项目，你也可以选择创建一个新的项目。
+
+关于更多使用 Zeabur CLI 部署的说明，请查看 [使用 CLI 部署服务](../deploy/deploy-with-cli)。
+
+#### 使用 GitHub 部署
+
+使用 GitHub 部署可以让你的项目享有开箱即用的 CI/CD 服务，未来只要推送代码到 GitHub，Zeabur 将自动帮你部罗。
+
+请在 GitHub 上建立一个新的存储库，然后将代码推送到存储库中即可，更详细的说明请参考 [GitHub 文档](https://docs.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line)。
+
+推送完毕后，点击 **Deploy service**，然后选择 **Deploy your source code**。
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+搜索你的存储库，点击导入，你的服务将自动开始部署。
+
+### 设置域名
+
+当部署完成后，你需要为你的网站设置一个域名。
+
+打开服务页面的 "域名" 分页，然后点击 "生成域名" 或 "自定义域名"。
+
+关于如何为你的服务绑定域名的更多信息，请参考 [绑定域名](../deploy/domain-binding)。
