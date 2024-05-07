@@ -1,0 +1,98 @@
+---
+title: Hono
+ogImageTitle: Hono
+ogImageSubtitle: ZeaburでHonoプロジェクトをデプロイ
+---
+
+# Hono
+
+[Hono](https://hono.dev)（日本語で「炎🔥」の意味）は、エッジデバイス向けに設計された小さく、シンプルで、超高速なWebフレームワークです。
+
+このドキュメントでは、Zeabur上でHonoプロジェクトをデプロイする方法について説明します。
+
+## 条件
+
+以下のすべての条件を満たす場合、ZeaburはそれをHonoプロジェクトと認識し、自動的にビルドとデプロイを行います：
+
+1. プロジェクトのルートディレクトリに`bun.lockb`ファイルが存在する。
+2. プロジェクトディレクトリに`package.json`ファイルが存在する。
+3. `package.json`ファイルの`dependencies`フィールドに`hono`パッケージが含まれている。
+
+オープンソースへの貢献に興味がある場合は、[zbpackのソースコード](https://github.com/zeabur/zbpack/tree/main/internal/bun)で関連部分を見ることができます。
+
+## ステップ1：プロジェクトの初期化
+
+[Buno公式ドキュメント](https://hono.dev/getting-started/bun)の手順に従って、Bunを使用してHonoプロジェクトを初期化できます。
+
+### Bunのインストール
+
+```bash
+curl https://bun.sh/install | bash
+```
+
+### Honoプロジェクトの初期化
+
+```bash
+bun create hono my-app
+```
+
+作成後、`my-app`ディレクトリに移動して依存関係をインストールします。
+
+```bash
+cd my-app
+bun install
+```
+
+### ローカルテスト
+
+```
+bun run dev
+```
+
+これで、http://localhost:3000 を訪れると、「Hello, Bun!」が表示されるはずです。
+
+## ステップ2：デプロイ
+
+Honoプロジェクトをデプロイする方法として、GitHubを使用するか、Zeabur CLIを使用するかの2つの方法が選択できます。
+
+### Zeabur CLIを使用したデプロイ
+
+Zeabur CLIを使用するのが、Honoプロジェクトをデプロイする最も簡単な方法です。まず、Zeabur CLIにログインする必要があります：
+
+```bash
+npx @zeabur/cli auth login
+```
+
+このコマンドはブラウザを開き、ログインプロセスをガイドします。
+
+次に、`deploy`コマンドを使用してHonoプロジェクトをデプロイします：
+
+```bash
+npx @zeabur/cli deploy
+```
+
+このコマンドは対話的にどのプロジェクトにデプロイするかを尋ね、新しいプロジェクトを作成することもできます。
+
+Zeabur CLIを使用してデプロイする詳細な指示については、[CLIを使用したサービスのデプロイ](../deploy/deploy-with-cli)をご覧ください。
+
+### GitHubを使用したデプロイ
+
+GitHubを使用してデプロイすると、プロジェクトは即座にCI/CDサービスを利用できます。将来的には、コードをGitHubにプッシュするだけで、Zeaburが自動的にデプロイを行います。
+
+GitHub上に新しいリポジトリを作成し、そこにコードをプッシュしてください。詳細な手順については、[GitHubドキュメント](https://docs.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line)を参照してください。
+
+プッシュ後、「Deploy service」をクリックし、「Deploy your source code」を選択します。
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+リポジトリを検索し、インポートをクリックすると、Honoサービスのデプロイが自動的に開始されます。
+
+## ステップ3：ドメインの設定
+
+デプロイが完了した後、Honoサイトにドメインを設定する必要があるかもしれません。
+
+サービスページの「Domain」タブを開き、「Generate Domain」または「Custom Domain」をクリックします。
+
+サービスにドメインをバインドする方法の詳細については、[ドメインバインディング](../deploy/domain-binding)を参照してください。
+
+![Domain Binding](/guides/bun/elysia/domain.png)

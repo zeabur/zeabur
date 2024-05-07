@@ -1,0 +1,98 @@
+---
+title: Hono
+ogImageTitle: Hono
+ogImageSubtitle: Deploying Hono Project on Zeabur
+---
+
+# Hono
+
+[Hono](https://hono.dev) (meaning "flame"🔥 in Japanese) is a small, simple, and ultra-fast web framework designed for edge devices.
+
+This document will guide you on how to deploy a Hono project on Zeabur.
+
+## Criteria
+
+If your service meets all the following conditions, Zeabur will recognize it as a Hono project and automatically handle the build and deployment:
+
+1. There is a `bun.lockb` file in the project root directory.
+2. There is a `package.json` file in the project directory.
+3. The `dependencies` field in the `package.json` includes the `hono` package.
+
+If you are interested in contributing to open source, you can find the relevant part in [zbpack's source code](https://github.com/zeabur/zbpack/tree/main/internal/bun).
+
+## Step One: Initialize the Project
+
+You can follow the steps in the [official Hono documentation](https://hono.dev/getting-started/bun) to initialize a Hono project using Bun.
+
+### Installing Bun
+
+```bash
+curl https://bun.sh/install | bash
+```
+
+### Initializing a Hono Project
+
+```bash
+bun create hono my-app
+```
+
+After creation, you can go to the `my-app` directory and install dependencies.
+
+```bash
+cd my-app
+bun install
+```
+
+### Local Testing
+
+```
+bun run dev
+```
+
+Now, you can visit http://localhost:3000, and you should see `Hello, Bun!`.
+
+## Step Two: Deployment
+
+You can choose one of two ways to deploy your Hono project: using GitHub or using the Zeabur CLI.
+
+### Deploying with Zeabur CLI
+
+Using the Zeabur CLI is the simplest way to deploy your Hono project. You just need to log in to the Zeabur CLI first:
+
+```bash
+npx @zeabur/cli auth login
+```
+
+This command will open a browser and guide you through the login process.
+
+Next, you can use the `deploy` command to deploy your Hono project:
+
+```bash
+npx @zeabur/cli deploy
+```
+
+This command will interactively ask you which project you want to deploy to, and you can also choose to create a new project.
+
+For more instructions on deploying using the Zeabur CLI, please see [Deploying Services Using CLI](../deploy/deploy-with-cli).
+
+### Deploying with GitHub
+
+Deploying with GitHub allows your project to enjoy out-of-the-box CI/CD services. In the future, simply push your code to GitHub, and Zeabur will automatically deploy it for you.
+
+Please create a new repository on GitHub and then push your code to the repository. For more detailed instructions, refer to the [GitHub Documentation](https://docs.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line).
+
+After pushing, click **Deploy service**, then select **Deploy your source code**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Search for your repository, click to import, and your Hono service will automatically begin deploying.
+
+## Step Three: Configure Domain
+
+Once the deployment is complete, you may need to set up a domain for your Hono site.
+
+Open the "Domain" tab on the service page, then click "Generate Domain" or "Custom Domain".
+
+For more information on how to bind a domain to your service, please refer to [Domain Binding](../deploy/domain-binding).
+
+![Domain Binding](/guides/bun/elysia/domain.png)
