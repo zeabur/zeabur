@@ -9,33 +9,108 @@
     },
     "general": {
         "title": "通用设置",
-        "profile": "个人信息",
-        "name": "名称",
-        "language": "语言",
-        "theme": "主题",
-        "appearance": "外观",
-        "wrong-name": "用户名不能超过64个字符",
-        "wrong-url": "URL 不合法",
-        "avatarurl": "头像链接",
-        "email": "邮箱",
-        "save": "保存",
-        "cancel": "取消",
-        "integrations": "账号绑定",
-        "verify": "验证",
-        "verified": "验证成功",
-        "link": "链接 Discord",
-        "discord": "Discord 账户",
-        "email_preferences_toast": "设置已保存",
-        "email_preferences_toast_error": "设置保存失败",
-        "email_preferences_title": "邮件通知",
-        "email_preferences_build": "构建失敗",
-        "email_preferences_build_desc": "当一个构建失败时通知我",
-        "email_preferences_crash": "服务崩溃",
-        "email_preferences_crash_desc": "当一个服务崩溃时通知我"
+        "profile": {
+          "title": "个人信息",
+          "name": "名称",
+          "email": "邮件",
+          "avatar-url": "头像链接",
+          "id": "ID",
+          "language": "语言",
+          "save": "保存",
+          "cancel": "取消",
+          "wrong-name": "用户名过长",
+          "wrong-avatar-url": "无效的链接"
+        },
+        "email": {
+          "toast-success": "更新成功",
+          "toast-error": "更新失败",
+          "title": "邮件设置",
+          "build": "构建失败",
+          "build-desc": "当构建失败时通知我",
+          "crash": "服务崩溃",
+          "crash-desc": "当服务崩溃时通知我"
+        },
+        "integrations": {
+          "title": "整合",
+          "verify": "验证",
+          "verified": "你已成功验证",
+          "link": "链接你的 Discord",
+          "discord": "Discord 账号"
+        },
+        "beta": {
+          "title": "Beta",
+          "description": "Open to get early access to new features"
+        }
     },
     "billing": {
-        "title": "付款信息",
-        "learn-more": "了解更多"
+      "title": "付款设置",
+      "learn-more": "了解更多",
+      "plan": {
+        "current": "当前方案",
+        "upgrade": "升级",
+        "include": "方案包含",
+        "free-credit": "5 美金的免费额度",
+        "month": "每月",
+        "serverless": "该方案只能够部署 Serverless 服务。"
+      },
+      "payment-method": {
+        "title": "付款方式",
+        "no-payment-method": "你现在还没有一个有效的付款方式。 绑定一个付款方式以升级你的方案。 你也可以通过下方的购买积分来支付方案费用和用量费用。",
+        "card-payment-method": "你已绑定银行卡，尾号是",
+        "alipay-payment-method": "你已绑定了",
+        "manage": {
+          "no-card": "没有信用卡？",
+          "add": "添加",
+          "setup-alipay": "设置支付宝",
+          "have-card": "换回信用卡"
+        }
+      },
+      "credit": {
+        "title": "账户余额",
+        "description": "余额是最优先的支付方式。",
+        "get-credits": "充值",
+        "get-credits-modal": {
+          "title": "充值",
+          "desc":"Zeabur 为你提供了一种提前支付的方式\n你可以通过购买的积分来支付方案费用和用量费用",
+          "confirm": "充值"
+        }
+      },
+      "recharge-records": {
+        "title": "充值记录",
+        "description": "你可以在这里查看你的充值记录"
+      },
+      "invoice": {
+        "title": "下一次扣费",
+        "invoice_title": "即将到来的账单",
+        "invoice_desc_1": "下一次扣费将会在",
+        "invoice_desc_2": "。如果订阅更新，它可能会改变。",
+        "description": "描述",
+        "quantity": "数量",
+        "unit_price": "单价",
+        "amount": "金额",
+        "view_usage": "查看用量",
+        "subtotal": "小计",
+        "total": "总计"
+      },
+      "danger-zone": {
+        "title": "危险设置",
+        "unsubscribe": {
+          "unsubscribe": "取消订阅",
+          "plan": "方案",
+          "description": "当你降级到 Serverless 方案，你不会再被收取订阅费。你当前部署的容器化服务将会被自动暂停，并在一段时间后被永久删除。",
+          "reason": "原因",
+          "reason-placeholder": "请告诉我们取消的原因",
+          "refund-description": "你需要退款吗？ 如果你愿意花费十分钟和我们交流一下，我们很乐意协助你。",
+          "refund": "要求退款",
+          "contact": "我们会在 24 小时内联系你",
+          "confirm": "降级到 Serverless 方案"
+        },
+        "unbind": {
+          "title": "解绑信用卡", 
+          "description": "解绑信用卡后，你将无法使用信用卡支付方案费用和用量费用。你可以在付款设置中重新绑定信用卡。",
+          "unbind": "解绑"
+        }
+      }
     },
     "usage": {
         "title": "用量",

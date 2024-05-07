@@ -1,13 +1,10 @@
 {
-  "dashboard": "Tablero",
-  "upgrade": "Mejorar",
   "docs": "Documentos",
-  "languages": "Idiomas",
   "templates": "Plantillas",
+  "community": "Comunidad",
   "menu": {
     "settings": "Configuración",
     "billing": "Facturación",
     "logout": "Cerrar sesión"
-  },
-  "days": "Días"
+  }
 }

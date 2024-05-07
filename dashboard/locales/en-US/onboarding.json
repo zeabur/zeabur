@@ -1,0 +1,47 @@
+{
+    "from-scratch": {
+        "before-agree": {
+            "h1": "Welcome to Zeabur",
+            "h2": "Still one way to go."
+        },
+        "after-agree": {
+            "h1": "Thanks",
+            "h2": "You can deploy your project now."
+        },
+        "create": "Create New Project"
+    },
+    "from-template": {
+        "before-agree": {
+            "h1": "Welcome to Zeabur",
+            "h2": "Still one way to go."
+        },
+        "after-agree": {
+            "h1": "Done",
+            "h2": "Your template is deploying now..."
+        },
+        "pending": "Pending",
+        "deploying": "Deploying"
+    },
+    "tos": {
+        "title": "Terms of Service",
+        "description": "Before deploying your project on Zeabur, you must accept our Terms of Service. Hosting or distributing any of the following items will ban your account permanently.",
+        "confirm": "Agree and Continue",
+        "toast": {
+            "scratch-success": "Successfully accept terms of services, enjoy your journey on Zeabur!",
+            "template-success": "Accepted successfully, your template will is deploying now."
+        },
+        "list": {
+            "vpn": "VPN / Xray / Proxy",
+            "mirror": "Mirros / Userbots",
+            "miner": "Crypto Miners",
+            "dmca": "DMCA Protected",
+            "torrent": "Torrent Aggregators",
+            "illegal": "Anything Illegal"
+        }
+    },
+    "hot-templates": {
+        "scratch-title": "Or deploy our most popular templates",
+        "template-title": "Browsing our most popular templates",
+        "all": "Browse All Templates"
+    }
+}

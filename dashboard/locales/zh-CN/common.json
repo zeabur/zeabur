@@ -10,5 +10,13 @@
         "click": "点击",
         "add": "部署新服务",
         "start": "按钮以开始"
+    },
+    "chat-with-us": "需要帮助吗？联系我们！",
+    "mobile-not-supported": {
+        "title": "糟糕！",
+        "description-1": "目前还不支持在移动端使用控制面板，要不改天再来检查一下？",
+        "description-2": "或者你可以浏览我们的模板市场，阅读文档和加入我们的社群！",
+        "templates": "模板",
+        "docs": "文档"
     }
 }

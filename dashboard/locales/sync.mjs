@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-const locales = ['en-US', 'zh-TW', 'zh-CN']
+const locales = ['en-US', 'zh-TW', 'zh-CN', 'es-ES']
 
 const main = async () => {
     const localeDirs = locales.map(locale => {

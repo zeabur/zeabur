@@ -10,5 +10,13 @@
         "click": "Click",
         "add": "Add New Service",
         "start": "button to get started!"
+    },
+    "chat-with-us": "Need help? Chat with us!",
+    "mobile-not-supported": {
+        "title": "Oops",
+        "description-1": "Dashboard is not supported on mobile at the moment, maybe you can check it out some other time?",
+        "description-2": "Or you can browse our templates, read the docs, and join our community!",
+        "templates": "Templates",
+        "docs": "Docs"
     }
 }

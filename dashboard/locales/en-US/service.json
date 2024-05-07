@@ -17,6 +17,7 @@
         "log": "Log"
     },
     "deployments": {
+        "title": "Deployments",
         "redeploy": "Redeploy",
         "restart": "Restart",
         "building": "Building",
@@ -25,6 +26,20 @@
         "no-domain": "Create a domain for your service",
         "toast": {
             "redeploy": "Redeploying started"
+        }
+    },
+    "instructions": {
+        "title": "Instructions",
+        "restart": "Restart",
+        "pull-failed": {
+            "title": "Service Image Pull Failed",
+            "description": "The service image does not exist or is broken, try another image address and image tag.",
+            "update": "Update",
+            "placeholder": "Image Tag"
+        },
+        "suspended": {
+            "title": "Service is suspended",
+            "description": "Service is paused to avoid additional charges. The service will be inaccessible until you reactivate it. Services paused for more than 30 days will be automatically deleted."
         }
     },
     "variables": {
@@ -53,7 +68,23 @@
         "cpu": "CPU Usage"
     },
     "networking": {
-        "title": "Networking"
+        "title": "Networking",
+        "public": {
+            "title": "Public",
+            "description": "Expose this service to the publich internet.",
+            "generate": "Generate Domain",
+            "custom": "Custom Domain"
+        },
+        "private": {
+            "title": "Private",
+            "description": "Expose this service in the same project."
+        },
+        "update-dns-modal": {
+            "title": "Udate Private DNS Name",
+            "description": "After update the private DNS name, services in the same project can access it with new host.",
+            "input-placeholder": "Service DNS Name",
+            "invalid-dns": "Invalid DNS name"
+        }
     },
     "settings": {
         "name": "Service Name",
@@ -61,29 +92,6 @@
             "success": "Service name changed"
         },
         "wrong": "Wrong format",
-        "domain": {
-            "title": "Domains",
-            "desc": "Expose this service to the public internet from ",
-            "custom": "Custom Domain",
-            "redirect": "Redirect to another domain",
-            "generate": "Generate Domain",
-            "generate-title": "Generate Zeabur Domain",
-            "custom-title": "Add Custom Domain",
-            "available": "Domain Available",
-            "cancel": "Cancel",
-            "save": "Save",
-            "add-dns": "Add DNS Record for your domain",
-            "delete": {
-                "title": "Remove Domain",
-                "warn-text": "Are you sure to remove this domain?"
-            },
-            "toast": {
-                "delete": "Domain removed",
-                "copy": "Domain copied to clipboard",
-                "create": "Domain created"
-            },
-            "doc-link": "Instructions"
-        },
         "root-directory": {
             "title": "Root Directory",
             "desc": "The root directory of your project. This is the directory that will be deployed to Zeabur.",
@@ -92,6 +100,29 @@
                 "error": "Change root directory failed"
             }
         },
+        "domain": {
+    "title": "Domains",
+    "desc": "Expose this service to the public internet from ",
+    "custom": "Custom Domain",
+    "redirect": "Redirect to another domain",
+    "generate": "Generate Domain",
+    "generate-title": "Generate Zeabur Domain",
+    "custom-title": "Add Custom Domain",
+    "available": "Domain Available",
+    "cancel": "Cancel",
+    "save": "Save",
+    "add-dns": "Add DNS Record for your domain",
+    "delete": {
+        "title": "Delete Domain",
+        "warn-text": "Are you sure you want to delete this domain?"
+    },
+    "toast": {
+        "delete": "Domain deleted",
+        "copy": "Domain copied to clipboard",
+        "create": "Domain created"
+    },
+    "doc-link": "Instructions"
+},
         "custom-build-command": {
             "title": "Custom Build Command",
             "desc": "Customize the build command for your project.",
@@ -143,5 +174,16 @@
                 "desc": "Service is paused to avoid additional charges. The service will be inaccessible until you reactivate it. Services paused for more than 30 days will be automatically deleted."
             }
         }
+    },
+    "warning": {
+        "title": "Warning",
+        "sub-title-suspend": "This service may be suspended at any time.",
+        "sub-title-delete": "This service may be deleted at any time.",
+        "description-1": "Your current plan only offers serverless function deployment. This service is currently using the containerized deployment method.",
+        "description-2": "Please upgrade to Developer plan or Team Plan as soon as possible or modify this service to use the serverless deployment method. Otherwise, it may be suspended and deleted at any time.",
+        "contact": "Contact Us",
+        "or": "or refer to",
+        "docs": "the documentation",
+        "upgrade": "Upgrade to Developer Plan"
     }
 }

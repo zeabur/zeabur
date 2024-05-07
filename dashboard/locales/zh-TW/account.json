@@ -1,55 +1,130 @@
 {
     "sidebar": {
-        "general": "一般設定",
-        "billing": "付款設定",
+        "general": "通用設置",
+        "billing": "付款設置",
         "usage": "用量",
         "template": "模板",
         "referrals": "推廣",
         "developer": "開發者"
     },
     "general": {
-        "title": "一般設定",
-        "profile": "個人資訊",
-        "name": "名稱",
-        "language": "語言",
-        "theme": "主題",
-        "appearance": "外觀",
-        "wrong-name": "使用者名稱不能超過 64 個字元",
-        "wrong-url": "URL 不合法",
-        "avatarurl": "頭貼連結",
-        "email": "信箱",
-        "save": "儲存",
-        "cancel": "取消",
-        "integrations": "帳號綁定",
-        "verify": "驗證",
-        "verified": "驗證成功",
-        "link": "連結 Discord",
-        "discord": "Discord 帳號",
-        "email_preferences_toast": "郵件設定已更新",
-        "email_preferences_toast_error": "郵件設定更新失敗",
-        "email_preferences_title": "郵件設定",
-        "email_preferences_build": "建置失敗",
-        "email_preferences_build_desc": "發生建置失敗時通知我",
-        "email_preferences_crash": "部署崩潰",
-        "email_preferences_crash_desc": "發生專案部署崩潰時通知我"
+        "title": "通用設置",
+        "profile": {
+          "title": "個人資訊",
+          "name": "名稱",
+          "email": "郵件",
+          "avatar-url": "頭像連結",
+          "id": "ID",
+          "language": "語言",
+          "save": "保存",
+          "cancel": "取消",
+          "wrong-name": "使用者名稱過長",
+          "wrong-avatar-url": "無效的連結"
+        },
+        "email": {
+          "toast-success": "更新成功",
+          "toast-error": "更新失敗",
+          "title": "郵件設置",
+          "build": "構建失敗",
+          "build-desc": "當構建失敗時通知我",
+          "crash": "服務崩潰",
+          "crash-desc": "當服務崩潰時通知我"
+        },
+        "integrations": {
+          "title": "整合",
+          "verify": "驗證",
+          "verified": "你已成功驗證",
+          "link": "連結你的 Discord",
+          "discord": "Discord 帳號"
+        },
+        "beta": {
+          "title": "Beta",
+          "description": "Open to get early access to new features"
+        }
     },
     "billing": {
-        "title": "付款信息",
-        "learn-more": "了解更多"
+      "title": "付款設置",
+      "learn-more": "了解更多",
+      "plan": {
+        "current": "當前方案",
+        "upgrade": "升級",
+        "include": "方案包含",
+        "free-credit": "5 美金的免費額度",
+        "month": "每月",
+        "serverless": "該方案只能夠部署 Serverless 服務。"
+      },
+      "payment-method": {
+        "title": "付款方式",
+        "no-payment-method": "你現在還沒有一個有效的付款方式。 綁定一個付款方式以升級你的方案。 你也可以透過下方的購買積分來支付方案費用和用量費用。",
+        "card-payment-method": "你已綁定銀行卡，尾號是",
+        "alipay-payment-method": "你已綁定了",
+        "manage": {
+          "no-card": "沒有信用卡？",
+          "add": "添加",
+          "setup-alipay": "設置支付寶",
+          "have-card": "換回信用卡"
+        }
+      },
+      "credit": {
+        "title": "帳戶餘額",
+        "description": "餘額是最優先的支付方式。",
+        "get-credits": "儲值",
+        "get-credits-modal": {
+          "title": "儲值",
+          "desc":"Zeabur 為你提供了一種提前支付的方式\n你可以透過購買的積分來支付方案費用和用量費用",
+          "confirm": "儲值"
+        }
+      },
+      "recharge-records": {
+        "title": "儲值記錄",
+        "description": "你可以在這裡查看你的儲值記錄"
+      },
+      "invoice": {
+        "title": "下一次扣費",
+        "invoice_title": "即將到來的帳單",
+        "invoice_desc_1": "下一次扣費將會在",
+        "invoice_desc_2": "。如果訂閱更新，它可能會改變。",
+        "description": "描述",
+        "quantity": "數量",
+        "unit_price": "單價",
+        "amount": "金額",
+        "view_usage": "查看用量",
+        "subtotal": "小計",
+        "total": "總計"
+      },
+      "danger-zone": {
+        "title": "危險設置",
+        "unsubscribe": {
+          "unsubscribe": "取消訂閱",
+          "plan": "方案",
+          "description": "當你降級到 Serverless 方案，你不會再被收取訂閱費。你當前部署的容器化服務將會被自動暫停，並在一段時間後被永久刪除。",
+          "reason": "原因",
+          "reason-placeholder": "請告訴我們取消的原因",
+          "refund-description": "你需要退款嗎？ 如果你願意花費十分鐘和我們交流一下，我們很樂意協助你。",
+          "refund": "要求退款",
+          "contact": "我們會在 24 小時內聯繫你",
+          "confirm": "降級到 Serverless 方案"
+        },
+        "unbind": {
+          "title": "解綁信用卡", 
+          "description": "解綁信用卡後，你將無法使用信用卡支付方案費用和用量費用。你可以在付款設置中重新綁定信用卡。",
+          "unbind": "解綁"
+        }
+      }
     },
     "usage": {
         "title": "用量",
-        "balance_history": "餘額歷史紀錄",
-        "balance_desc": "餘額指的是你帳號中的餘額，用於超出免費額度的部分以及訂閱的費用。",
-        "credit_history": "免費額度歷史紀錄",
+        "balance_history": "餘額歷史",
+        "balance_desc": "餘額指的是你帳戶中的餘額，用於超出免費額度的部分以及訂閱的費用。",
+        "credit_history": "免費額度歷史",
         "credit_desc": "你每月將會獲得價值 US$ 5 的免費額度。你的服務消耗的用量將優先從免費額度中扣除。",
-        "usage_history": "用量歷史紀錄",
-        "usage_desc": "在這裡可以看到每個專案的用量情況",
-        "last_3_days": "過去 3 天",
-        "last_7_days": "過去 7 天",
-        "last_14_days": "過去 14 天",
-        "last_30_days": "過去 30 天",
-        "category": "類別",
+        "usage_history": "用量歷史",
+        "usage_desc": "在這裡可以看到每個項目的用量分布情況",
+        "last_3_days": "最近 3 天",
+        "last_7_days": "最近 7 天",
+        "last_14_days": "最近 14 天",
+        "last_30_days": "最近 30 天",
+        "category": "計費類型",
         "total_usage": "用量總計",
         "time": "時間",
         "balance": "餘額",
@@ -57,9 +132,9 @@
         "reason": "原因",
         "more": "更多",
         "showing": "顯示",
-        "to": "至",
+        "to": "到",
         "of": "共",
-        "entries": "條",
+        "entries": "條紀錄",
         "previous": "上一頁",
         "next": "下一頁",
         "copied": "複製成功"
@@ -86,7 +161,7 @@
         "title": "推廣",
         "sub-title": "分享你的連結來賺取積分",
         "description-1": "通過分享你的連結，你將有機會賺取在 Zeabur 上抵用的積分。",
-        "description-2": "對每一個接受你邀請的朋友，當他們升級到了某個付費方案，你將會得到五美金的現金抵用。",
+        "description-2": "對每一個接受你邀請的朋友，當他們升級到了某個付費方案，你將會得到五美金（或三十五人民幣）的現金抵扣。",
         "status": {
             "title": "推廣狀態",
             "pending": {
