@@ -1,12 +1,23 @@
 {
-    "toast": {
-        "FailedPrecondition": {
-            "message": "您的账户已欠费，添加支付方式以继续",
-            "action": "添加"
-        },
-        "beyond-limitation": {
-            "message": "您已达到免费计划的限制，订阅另一个计划以继续",
-            "action": "升级"
-        }
-    }
+  "INTERNAL": "内部服务器错误。",
+  "UNAUTHORIZED": "未经授权执行此操作。",
+  "PERMISSION_DENIED": "权限被拒绝。",
+  "FailedPrecondition": "您需要升级或获取更多积分才能继续。",
+  "NOT_ENOUGH_CREDITS": "您的积分已用完，请绑定有效的付款方式以继续。",
+  "OLD_BILL_TO_BE_PAID": "您有一笔旧账单需要支付后才能继续。",
+  "CARD_DECLINED": "您的信用卡被拒绝，请检查您的信用卡信息。", 
+  "EXPIRED_CARD": "您的信用卡已过期，请更新您的信用卡信息。", 
+  "BALANCE_INSUFFICIENT": "您的余额不足，请充值后继续。",
+  "PLAN_PROJECT_LIMIT_REACHED": "您已达到此计划的项目限制。",
+  "DIFFERENT_EMAIL": "由于不同的电子邮件地址，无法加入项目。",
+  "SERVICE_NAME_ALREADY_EXISTS": "服务名称已存在。",
+  "MISSING_REPO_ID": "由于缺少存储库ID，无法创建服务。",
+  "INVALID_SERVICE_TEMPLATE": "无效的服务模板。",
+  "PLAN_SERVICE_LIMIT_REACHED": "您已达到此计划的服务限制。",
+  "TEMPLATE_WITH_PRIVATE_REPO": "由于私有存储库，无法创建服务。",
+  "TEMPLATE_WITH_INVALID_REPO": "由于存储库不存在或未经授权，无法创建服务。",
+  "TEMPLATE_VARIABLE_KEY_DUPLICATE": "由于重复的变量键，无法创建服务。",
+  "REPO_ALREADY_EXISTS": "由于存储库已存在，无法创建服务。",
+  "REPO_NAME_DUPLICATE": "由于存储库名称重复，无法创建服务。",
+  "DEPLOYMENT_IN_PROGRESS": "有一个部署正在进行中，请稍等片刻。"
 }

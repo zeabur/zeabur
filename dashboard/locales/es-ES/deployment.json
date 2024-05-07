@@ -9,12 +9,19 @@
         "REMOVED": "ELIMINADO",
         "CANCELED": "CANCELADO",
         "CRASHED": "FALLIDO",
-        "FAILED": "FALLÓ"
+        "FAILED": "FALLÓ",
+        "SUSPENDED": "SUSPENDED",
+        "UNKNOWN": "DESCONOCIDO",
+        "PULL_FAILED": "PULL_FAILED",
+        "STARTING": "STARTING",
+        "STOPPING": "STOPPING"
     },
     "cancel": "Cancelar",
     "rollback": "Revertir",
     "redeploy": "Redesplegar",
     "stop": "Detener",
+    "restart": "Restart",
+    "log": "Logs",
     "logs": {
         "deployment-id": "ID de despliegue:",
         "build-logs": "Registros de construcción",

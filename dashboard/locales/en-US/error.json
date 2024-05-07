@@ -1,12 +1,23 @@
 {
-  "toast": {
-    "FailedPrecondition": {
-      "message": "You are out of credits. Add a payment method to proceed.",
-      "action": "Add"
-    },
-    "beyond-limitation": {
-      "message": "You have reached the limit of free plan. Subscribe another plan to continue.",
-      "action": "Upgrade"
-    }
-  }
+  "INTERNAL": "Internal server error.",
+  "UNAUTHORIZED": "Unauthorized to perform this action.",
+  "PERMISSION_DENIED": "Permission denied.",
+  "FailedPrecondition": "You need to upgrade or get more credits to proceed.",
+  "NOT_ENOUGH_CREDITS": "You have run out of credits, bind a valid payment method to proceed.",
+  "OLD_BILL_TO_BE_PAID": "You have an old bill to be paid before proceeding.",
+  "CARD_DECLINED": "Your card was declined, please try again or use another card.",
+  "EXPIRED_CARD": "Your card has expired, please update your card.",
+  "BALANCE_INSUFFICIENT": "Your balance is insufficient, please top up your balance.",
+  "PLAN_PROJECT_LIMIT_REACHED": "You have reached the limit of projects for this plan.",
+  "DIFFERENT_EMAIL": "Failed to join project due to different email.",
+  "SERVICE_NAME_ALREADY_EXISTS": "Service name already exists.",
+  "MISSING_REPO_ID": "Failed to create service due to missing repo id.",
+  "INVALID_SERVICE_TEMPLATE": "Invalid service template.",
+  "PLAN_SERVICE_LIMIT_REACHED": "You have reached the limit of services for this plan.",
+  "TEMPLATE_WITH_PRIVATE_REPO": "Failed to create service due to private repo.",
+  "TEMPLATE_WITH_INVALID_REPO": "Failed to create service due to repo not existed or not authorized.",
+  "TEMPLATE_VARIABLE_KEY_DUPLICATE": "Failed to create service due to duplicate variable key.",
+  "REPO_ALREADY_EXISTS": "Failed to create service due to repo already exists.",
+  "REPO_NAME_DUPLICATE": "Failed to create service due to repo name duplicate.",
+  "DEPLOYMENT_IN_PROGRESS": "There is one deployment in progress, please wait a bit."
 }

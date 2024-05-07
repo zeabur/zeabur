@@ -9,12 +9,19 @@
         "REMOVED": "已移除",
         "CANCELED": "已取消",
         "CRASHED": "部署崩溃",
-        "FAILED": "部署失败"
+        "FAILED": "部署失败",
+        "SUSPENDED": "暂停",
+        "UNKNOWN": "未知",
+        "PULL_FAILED": "拉取失败",
+        "STARTING": "STARTING",
+        "STOPPING": "STOPPING"
     },
     "cancel": "取消",
     "rollback": "回滚",
     "redeploy": "重新部署",
     "stop": "停止",
+    "restart": "重启",
+    "log": "日志",
     "logs": {
         "deployment-id": "部署 ID:",
         "build-logs": "构建记录",

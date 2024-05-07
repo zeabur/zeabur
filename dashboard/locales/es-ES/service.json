@@ -17,6 +17,7 @@
         "log": "Registro"
     },
     "deployments": {
+        "title": "Despliegues",
         "redeploy": "Redesplegar",
         "restart": "Reiniciar",
         "building": "Construyendo",
@@ -25,6 +26,20 @@
         "no-domain": "Crear un dominio para tu servicio",
         "toast": {
             "redeploy": "Redespliegue iniciado"
+        }
+    },
+    "instructions": {
+        "title": "Implementación",
+        "restart": "Reiniciar",
+        "pull-failed": {
+            "title": "Fallo en la extracción de la imagen del servicio",
+            "description": "La imagen del servicio no existe o está dañada, intente con otra dirección de imagen y etiqueta de imagen.",
+            "update": "Actualizar",
+            "placeholder": "Etiqueta de la imagen"
+        },
+        "suspended": {
+            "title": "El servicio está suspendido",
+            "description": "El servicio está pausado para evitar cargos adicionales. El servicio no estará accesible hasta que lo reactives. Los servicios pausados por más de 30 días se eliminarán automáticamente."
         }
     },
     "variables": {
@@ -144,5 +159,16 @@
                 "desc": "El servicio se pausa para evitar cargos adicionales. El servicio será inaccesible hasta que lo reactives. Los servicios pausados por más de 30 días serán eliminados automáticamente."
             }
         }
+    },
+    "warning": {
+        "title": "Warning",
+        "sub-title-suspend": "This service may be suspended at any time.",
+        "sub-title-delete": "This service may be deleted at any time.",
+        "description-1": "Your current plan only offers serverless function deployment. This service is currently using the containerized deployment method.",
+        "description-2": "Please upgrade to Developer plan or Team Plan as soon as possible or modify this service to use the serverless deployment method. Otherwise, it may be suspended at any time.",
+        "contact": "Contact Us",
+        "or": "or refer to",
+        "docs": "the documentation",
+        "upgrade": "Upgrade to Developer Plan"
     }
 }

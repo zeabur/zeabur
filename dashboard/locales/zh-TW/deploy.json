@@ -1,24 +1,22 @@
 {
-    "title": "部署\n新服務",
-    "create": "部署新服務",
-    "desc": "你想要部署什麼類型的服務？",
-    "source-code": "部署\n你的程式碼",
-    "other-service": "部署\n其他服務",
-    "source": {
-        "back": "返回",
-        "configure": "設定 GitHub App",
-        "placeholder": "搜尋儲存庫",
-        "import": "匯入",
-        "service-name": "服務名稱",
-        "branches": "Git 分支",
-        "deploy": "部署",
-        "wrong": "服務名稱只能包含數字，小寫字母、中劃線和下劃線，並以字母開頭"
+    "select-type": {
+        "title": "選擇服務類型",
+        "description": "在 Zeabur 上有三種類型的服務可以部署，你想部署什麼項目？",
+        "git": "從 GitHub 倉庫來部署原始碼",
+        "prebuilt": "從預構建的鏡像市場部署",
+        "once": "部署在 Once.com 購買的服務"
     },
-    "other": {
-        "back": "返回",
-        "deploy": "部署",
-        "service-name": "服務名稱",
-        "service": "服務",
-        "wrong": "格式錯誤"
+    "git": {
+        "search": "搜尋 GitHub",
+        "configure": "配置 GitHub",
+        "no-repo": "沒有找到任何倉庫，你可能需要先配置 GitHub 應用"
+    },
+    "prebuilt": {
+        "search": "搜尋鏡像",
+        "customize": "自訂",
+        "upgrade": {
+            "title": "升級帳戶以繼續",
+            "description":"你需要升級到開發者方案或團隊方案來部署預構建的鏡像"
+        }     
     }
 }

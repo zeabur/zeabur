@@ -1,7 +1,10 @@
 {
   "card": {
     "service": "Servicios",
-    "create-project": "Crear Proyecto"
+    "create-project": "Crear Proyecto",
+    "usage": {
+      "title": "Uso"
+    }
   },
   "modal": {
     "title": "Crear Proyecto",
@@ -68,5 +71,10 @@
         "Egress": "Egress"
       }
     }
-  }
+  },
+    "empty": {
+      "title-1": "The project has no services now.",
+      "title-2": "You can press cmd+k or ctrl+k to create a service.",
+      "deploy": "Deploy New Service"
+    }
 }

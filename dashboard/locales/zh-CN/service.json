@@ -17,6 +17,7 @@
         "log": "日志"
     },
     "deployments": {
+        "title": "部署",
         "redeploy": "重新部署",
         "restart": "重启当前版本",
         "building": "构建中",
@@ -24,8 +25,21 @@
         "logs": "查看日志",
         "toast": {
             "redeploy": "开始重新部署"
+        }
+    },
+    "instructions": {
+        "title": "部署",
+        "restart": "重启",
+        "pull-failed": {
+            "title": "服务镜像拉取失败",
+            "description": "服务镜像不存在或损坏，请尝试其他镜像地址和镜像标签。",
+            "update": "更新",
+            "placeholder": "镜像标签"
         },
-        "no-domain": "为您的服务创建一个域名"
+        "suspended": {
+            "title": "服务已暂停",
+            "description": "服务已暂停以避免额外费用。在重新激活之前，服务将无法访问。暂停超过30天的服务将被自动删除。"
+        }
     },
     "variables": {
         "title": "环境变量",
@@ -52,34 +66,53 @@
         "memory": "内存用量",
         "cpu": "CPU 用量"
     },
+    "networking": {
+        "title": "网络",
+        "public": {
+            "title": "公开",
+            "description": "绑定域名暴露到公网访问",
+            "generate": "生成域名",
+            "custom": "自定域名"
+        },
+        "private": {
+            "title": "私有",
+            "description": "通过内网暴露给该项目其他服务"
+        },
+        "update-dns-modal": {
+            "title": "更新 DNS",
+            "description": "更新 DNS 后，其他服务将通过新的 DNS 来访问该服务。",
+            "input-placeholder": "该服务的 DNS 名称",
+            "invalid-dns": "无效的 DNS"
+        }
+    },
     "settings": {
         "name": "服务名称",
         "name-toast": {
             "success": "成功更新服务名称"
         },
         "domain": {
-            "title": "域名",
-            "desc": "将服务公开到网络上，向大家展示或提供自己的服务。\n在这里添加的域名所对应的环境是 ",
-            "custom": "自定义",
-            "redirect": "重定向到另一个域名",
-            "generate": "生成域名",
-            "generate-title": "生成 Zeabur 域名",
-            "custom-title": "添加自定义域名",
-            "cancel": "取消",
-            "save": "保存",
-            "available": "可用",
-            "add-dns": "请为你的域名 DNS 添加以下记录",
-            "delete": {
-                "title": "移除域名",
-                "warn-text": "你确定移除该域名吗？"
-            },
-            "toast": {
-                "delete": "成功移除域名",
-                "copy": "成功复制域名",
-                "create": "成功创建域名"
-            },
-            "doc-link": "配置教程"
-        },
+    "title": "Domains",
+    "desc": "Expose this service to the public internet from ",
+    "custom": "Custom Domain",
+    "redirect": "Redirect to another domain",
+    "generate": "Generate Domain",
+    "generate-title": "Generate Zeabur Domain",
+    "custom-title": "Add Custom Domain",
+    "available": "Domain Available",
+    "cancel": "Cancel",
+    "save": "Save",
+    "add-dns": "Add DNS Record for your domain",
+    "delete": {
+        "title": "Delete Domain",
+        "warn-text": "Are you sure you want to delete this domain?"
+    },
+    "toast": {
+        "delete": "Domain deleted",
+        "copy": "Domain copied to clipboard",
+        "create": "Domain created"
+    },
+    "doc-link": "Instructions"
+},
         "root-directory": {
             "title": "根目录",
             "desc": "服务所处的根目录路径，Zeabur 将根据该路径来作为根目录部署。",
@@ -138,10 +171,17 @@
                 "title": "暂停服务",
                 "desc": "服务已暂停，以避免产生额外的费用。服务将会在你重新激活之前无法访问。服务暂停超过 30 天将会被自动删除。"
             }
-        },
-        "wrong": "格式错误"
+        }
     },
-    "networking": {
-        "title": "网络连接"
+    "warning": {
+        "title": "警告",
+        "sub-title-suspend": "该服务可能会被中止运行",
+        "sub-title-delete": "该服务即将被永久删除",
+        "description-1": "你现在的方案只支持部署静态网页，该服务使用的是容器化部署方式。",
+        "description-2": "请升级到开发者方案或团队方案来继续部署该服务，否则该服务将会被中止。",
+        "contact": "联系我们",
+        "or": "或者去查看",
+        "docs": "文档",
+        "upgrade": "升级到开发者方案"
     }
 }

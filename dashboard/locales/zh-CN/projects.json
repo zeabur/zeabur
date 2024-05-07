@@ -1,0 +1,13 @@
+{
+    "empty": {
+        "title": "即刻开始部署",
+        "intro": "你还没有部署任何项目，点击下方按钮开始部署",
+        "create": "创建新项目"
+    },
+    "header": {
+        "search-placeholder": "寻找你的项目",
+        "create": "创建项目",
+        "time": "创建时间",
+        "name": "项目名称"
+    }
+}
