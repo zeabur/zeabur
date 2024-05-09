@@ -1,0 +1,39 @@
+---
+title: .NET
+ogImageTitle: 部署 .NET 專案
+ogImageSubtitle: 在 Zeabur 部署 .NET 專案
+---
+
+# 部署 .NET 專案
+
+Zeabur 支援可在 Linux 機器上執行的 .NET (Core) 專案。支援以下框架：
+
+-  .NET (Console)
+-  ASP.NET Core
+-  ASP.NET Core Blazor WebAssembly
+
+## Monorepo
+
+Zeabur 支援這樣組織的專案（目錄名字不重要）：
+
+```plain
+-  YourProject.sln
+-  YourLibrary1
+    - YourLibrary1.csproj
+-  YourLibrary2
+    - YourLibrary2.csproj
+-  YourBackend
+    - YourBackend.csproj
+-  YourFrontend
+    - YourFrontend.csproj
+```
+
+不過，你需要使用 `ZBPACK_DOTNET_SUBMODULE_DIR` 環境變數或 `zbpack.json` 中的 `dotnet.submodule_dir` 設定項目來指定您想部署的專案。比如說，如果您想部署 `YourBackend` 專案，則得將環境變數 `ZBPACK_DOTNET_SUBMODULE_DIR` 設定為 `YourBackend`，或將以下內容加到您專案根目錄中的 `zbpack.json` 檔案裡面：
+
+```json
+{
+    "dotnet": {
+        "submodule_dir": "YourBackend"
+    }
+}
+```

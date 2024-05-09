@@ -9,5 +9,6 @@
   "rust": "Rust",
   "swift": "Swift",
   "dart": "Dart",
-  "static": "Static"
+  "static": "Static",
+  "dotnet": ".NET"
 }
