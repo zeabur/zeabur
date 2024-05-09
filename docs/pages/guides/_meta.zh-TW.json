@@ -9,5 +9,6 @@
   "rust": "Rust",
   "swift": "Swift",
   "dart": "Dart",
-  "static": "靜態網頁"
+  "static": "靜態網頁",
+  "dotnet": ".NET"
 }

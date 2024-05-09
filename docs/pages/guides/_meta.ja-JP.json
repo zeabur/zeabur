@@ -9,5 +9,6 @@
   "rust": "Rust",
   "swift": "Swift",
   "dart": "Dart",
-  "static": "静的サイト"
+  "static": "静的サイト",
+  "dotnet": ".NET"
 }

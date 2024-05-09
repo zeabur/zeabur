@@ -1,0 +1,39 @@
+---
+title: .NET
+ogImageTitle: .NET アプリのデプロイ
+ogImageSubtitle: Zeabur で .NET アプリをデプロイ
+---
+
+# .NET アプリのデプロイ
+
+Zeaburは、Linuxマシンで実行可能な.NET（Core）プロジェクトをサポートしています。以下のフレームワークがサポートされています：
+
+* .NET（コンソール）
+* ASP.NET Core
+* ASP.NET Core Blazor WebAssembly
+
+## Monorepo
+
+Zeaburは、次のような構造で整理されたプロジェクトをサポートしています（名前は重要ではありません）：
+
+```plain
+- YourProject.sln
+- YourLibrary1
+    - YourLibrary1.csproj
+- YourLibrary2
+    - YourLibrary2.csproj
+- YourBackend
+    - YourBackend.csproj
+- YourFrontend
+    - YourFrontend.csproj
+```
+
+しかし、デプロイしたいプロジェクトが含まれているディレクトリを環境変数 `ZBPACK_DOTNET_SUBMODULE_DIR` または `zbpack.json` の `dotnet.submodule_dir` 設定で指定する必要があるかもしれません。例えば、`YourBackend` プロジェクトをデプロイしたい場合、環境変数 `ZBPACK_DOTNET_SUBMODULE_DIR` を `YourBackend` に設定するか、プロジェクトのルートディレクトリにある `zbpack.json` ファイルに以下を追加します：
+
+```json
+{
+    "dotnet": {
+        "submodule_dir": "YourBackend"
+    }
+}
+```
