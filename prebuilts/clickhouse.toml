@@ -19,10 +19,10 @@ id = "data"
 dir = "/var/lib/clickhouse"
 
 [env]
-CLICKHOUSE_USER = { default = "zeabur", required = true }
-CLICKHOUSE_PASSWORD = { default = "${PASSWORD}" }
+CLICKHOUSE_USER = { default = "zeabur", required = true, expose = true }
+CLICKHOUSE_PASSWORD = { default = "${PASSWORD}", expose = true }
 CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT = { default = "1" }
-CLICKHOUSE_DB = { default = "zeabur" }
+CLICKHOUSE_DB = { default = "zeabur", expose = true }
 PORT = { default = "8123", readonly = true }
 
 [[configs]]
