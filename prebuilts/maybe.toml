@@ -1,0 +1,21 @@
+#:schema ./schema.json
+
+id = "maybe"
+name = "Maybe"
+icon = "https://avatars.githubusercontent.com/u/80786585"
+description = "The OS for your personal finances."
+
+[source]
+image = "ghcr.io/maybe-finance/maybe:latest"
+
+[[ports]]
+id = "web"
+port = 3000
+type = "HTTP"
+
+[env]
+SECRET_KEY_BASE = { default = "${PASSWORD}" }
+DB_HOST = { default = "POSTGRESQL_HOST" }
+POSTGRES_USER = { default = "POSTGRES_USERNAME" }
+POSTGRES_PASSWORD = { default = "POSTGRES_PASSWORD" }
+RAILS_ENV = { default = "production" }
