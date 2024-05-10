@@ -15,7 +15,7 @@ type = "HTTP"
 
 [env]
 SECRET_KEY_BASE = { default = "${PASSWORD}" }
-DB_HOST = { default = "POSTGRESQL_HOST" }
-POSTGRES_USER = { default = "POSTGRES_USERNAME" }
-POSTGRES_PASSWORD = { default = "POSTGRES_PASSWORD" }
+DB_HOST = { default = "${POSTGRES_HOST}" }
+POSTGRES_USER = { default = "${POSTGRES_USERNAME}" }
+POSTGRES_PASSWORD = { default = "${POSTGRES_PASSWORD}" }
 RAILS_ENV = { default = "production" }
