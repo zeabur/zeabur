@@ -6,7 +6,7 @@ icon = "https://avatars.githubusercontent.com/u/80786585"
 description = "The OS for your personal finances."
 
 [source]
-image = "ghcr.io/maybe-finance/maybe:latest"
+image = "ghcr.io/maybe-finance/maybe:sha-d240c59d7f715bfad9ede718fbee7c90b5a54f8d"
 
 [[ports]]
 id = "web"
