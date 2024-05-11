@@ -15,7 +15,7 @@ type = "HTTP"
 
 [[volumes]]
 id = "uploads"
-dir = "/uploads:/directus/uploads"
+dir = "/directus/uploads"
 
 [[volumes]]
 id = "directus"
