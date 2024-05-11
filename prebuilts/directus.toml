@@ -19,7 +19,7 @@ dir = "/uploads:/directus/uploads"
 
 [[volumes]]
 id = "directus"
-dir = "/extensions:/directus/extensions"
+dir = "/directus/extensions"
 
 [env]
 KEY = { default = "${PASSWORD}" }
