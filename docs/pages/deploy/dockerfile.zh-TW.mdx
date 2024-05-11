@@ -26,6 +26,18 @@ Zeabur 會自動偵測你的專案是否有 `Dockerfile`，如果有的話會以
 
 ![docker-deploy](/deploy/dockerfile/docker-deploy.png)
 
+## 不使用 Dockerfile 部署
+
+如果你的專案有 Dockerfile，但你不希望在 Zeabur 上使用這個 Dockerfile（比如說你想使用 Zeabur 提供的 Serverless 功能），你可以在環境變數中設定 `ZBPACK_IGNORE_DOCKERFILE=true`，或在 `zbpack.json` 裡面加入：
+
+```json
+{
+  "ignore_dockerfile": true
+}
+```
+
+Zeabur 就會忽略你的 Dockerfile，而由 Zeabur 自動決定部署方式。
+
 ## 環境變數
 
 如果你的 `Dockerfile` 需要使用到環境變數，你可以在該服務的頁面點選 **環境變數** 來新增，更多的設定方式請參考 [環境變數](/zh-TW/environment/variables)。
