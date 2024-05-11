@@ -26,6 +26,18 @@ Zeabur will automatically detect if your project has a `Dockerfile`. If so, it w
 
 ![docker-deploy](/deploy/dockerfile/docker-deploy.png)
 
+## Deploying without using Dockerfile
+
+If your project has a Dockerfile but you do not want to use this Dockerfile on Zeabur (for example, if you prefer to deploy as a Serverless service), you can set `ZBPACK_IGNORE_DOCKERFILE=true` in the environment variables, or add the following to `zbpack.json`:
+
+```json
+{
+  "ignore_dockerfile": true
+}
+```
+
+Zeabur will then ignore your Dockerfile and automatically determine the deployment method.
+
 ## Environment Variables
 
 If your `Dockerfile` needs to use environment variables, you can click **Environment Variables** on the service page to add them. For more settings, please refer to [Environment Variables](/en-US/environment/variables).
