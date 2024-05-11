@@ -77,3 +77,19 @@ php artisan key:generate
     ```
 
     `${MYSQL_USER}` 等变量的含义可以参考 [MySQL 文档的环境变量章节](/marketplace/mysql#环境变量)。
+
+## Laravel Octane 支持
+
+Zeabur 内置 Laravel Octane 搭配 Swoole 服务器的支持，不过您需要在 `zbpack.json` 上设置要使用的服务器：
+
+```json
+{
+  "laravel": {
+    "octane": {
+      "server": "swoole"
+    }
+  }
+}
+```
+
+您也可以使用 `ZBPACK_LARAVEL_OCTANE_SERVER=swoole` 环境变量，在服务范围设置 Laravel Octane。

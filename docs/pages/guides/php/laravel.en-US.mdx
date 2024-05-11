@@ -78,3 +78,19 @@ You can connect to a MySQL database using the following steps.
     ```
 
     The meanings of `${MYSQL_USER}` and other variables can be found in the [MySQL documentation's environment variable section](/marketplace/mysql#environment-variables).
+
+## Laravel Octane Support
+
+Zeabur comes with built-in support for Laravel Octane with Swoole server, but you need to set the server to use in `zbpack.json`:
+
+```json
+{
+  "laravel": {
+    "octane": {
+      "server": "swoole"
+    }
+  }
+}
+```
+
+You can also use the `ZBPACK_LARAVEL_OCTANE_SERVER=swoole` environment variable to set Laravel Octane for each services.
