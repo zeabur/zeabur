@@ -1,0 +1,22 @@
+#:schema ./schema.json
+
+id = "metabase"
+name = "Metabase"
+description = "Fast analytics with the friendly UX and integrated tooling to let your company explore data on their own."
+icon = "https://avatars.githubusercontent.com/u/10520629?s=1600&v=4"
+
+[source]
+image = "metabase/metabase:latest"
+
+[[ports]]
+id = "web"
+port = 3000
+type = "HTTP"
+
+[env]
+MB_DB_TYPE = { default = "postgres" }
+MB_DB_DBNAME = { default = "${POSTGRES_DATABASE}" }
+MB_DB_PORT = { default = "${POSTGRES_PORT}" }
+MB_DB_USER = { default = "${POSTGRES_USERNAME}" }
+MB_DB_PASS = { default = "${POSTGRES_PASSWORD}" }
+MB_DB_HOST = { default = "${POSTGRES_HOST}" }
