@@ -1,0 +1,66 @@
+---
+title: Nue
+ogImageTitle: Deploy Nue App
+ogImageSubtitle: Deploy Nue App in Zeabur
+---
+
+<WorkingInProgress />
+
+# Deploy Nue App
+
+[Nue](https://nuejs.org/) is a powerful React, Vue, Next.js, Vite, and Astro alternative. It might change the way you develop for the web.
+
+This documentation is going to show you how to deploy Nue App in Zeabur withing one minute.
+
+## Step1: Create Nue App
+
+### Method 1: Bootstrap with `create-nue`
+
+`create-nue` repository is the best way to get started with Nue JS.
+
+```bash
+# clone the repository
+git clone https://github.com/nuejs/create-nue.git
+
+# cd to your newly created app
+cd create-nue
+
+# install dependencies
+npm install
+
+# Build demo site and start a HTTP server
+npm run start
+
+# Open the demo on the browser
+open "http://localhost:8080"
+```
+
+#### Upload to GitHub
+
+If you want to deploy your Nue App on Zeabur, you need to upload your code to GitHub first.
+
+Just create a new repository on GitHub, and push your code to it, see a more detailed instructions [here](https://docs.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line).
+
+### Method 2: Use Zeabur Template
+
+We've prepared a [template](https://github.com/zeabur/nuejs-template) for Nue App, you can use the template with click on the **Use this template** button.
+
+![Use this template](/guides/nodejs/nue/template.png)
+
+## Step2: Deploy Nue App
+
+Click on **Deploy service** or **Add new service** button, then choose **Deploy your source code**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Search for your Nue App repository, click on import, your Nue App will start deploying automatically.
+
+## What's next
+
+After the deployment is complete, you may need to configure the domain name for your Nue App.
+
+Open the "Domain" tab in the service page and click on "Generate Domain" or "Custom Domain".
+
+For more information about how to bind a domain to your service, please refer to [Bind a domain](../deploy/domain-binding).
+
+![Domain Binding](/guides/nodejs/nue/domain.png)

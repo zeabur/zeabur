@@ -1,0 +1,93 @@
+---
+title: MkDocs
+ogImageTitle: MkDocs
+ogImageSubtitle: Deploying MkDocs Website on Zeabur
+---
+
+<WorkingInProgress />
+
+# MkDocs
+
+MkDocs is a fast, simple, and extremely elegant static site generator specifically designed for building project documentation. Documentation source files are written in Markdown and configured through a single YAML configuration file.
+
+## Demo Video
+
+Below is a demo video showing how to initialize and deploy a MkDocs project on Zeabur in 60 seconds.
+
+<iframe style={{marginTop: 12}} width="560" height="315" src="https://www.youtube.com/embed/DYlpqWQgQEM?si=geEMw0kQOnIEEZAC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+## Criteria
+
+If your project meets the following criteria, Zeabur will recognize it as a MkDocs project and deploy it automatically:
+
+1. There is a `mkdocs.yml` configuration file in the project root directory.
+
+If you are interested in contributing to open source, you can find the relevant part in [zbpack's open-source code](https://github.com/zeabur/zbpack/tree/main/internal/static).
+
+## Get Started Immediately
+
+This article will guide you on how to initialize a MkDocs project and deploy it on Zeabur.
+
+### Initialize the Project
+
+You can refer to the [MkDocs official documentation](https://www.mkdocs.org/getting-started/) to initialize your MkDocs project.
+
+```bash
+pip install mkdocs
+mkdocs new my-project
+cd my-project
+```
+
+### Local Testing
+
+You can test your MkDocs project locally.
+
+```bash
+mkdocs serve
+```
+
+Visit http://127.0.0.1:8000/ to preview your MkDocs project.
+
+### Deployment
+
+You can choose two ways to deploy your MkDocs project: using GitHub or using the Zeabur CLI.
+
+#### Deploying with Zeabur CLI
+
+Deploying with the Zeabur CLI is the simplest way to deploy your MkDocs project. First, log in to the Zeabur CLI:
+
+```bash
+npx @zeabur/cli auth login
+```
+
+This command will open a browser and guide you through the login process.
+
+Then, you can use the `deploy` command to deploy:
+
+```bash
+npx @zeabur/cli deploy
+```
+
+This command will ask you interactively which project you want to deploy to, or you can choose to create a new project.
+
+For more instructions on deploying with the Zeabur CLI, please see [Deploying Services with CLI](../deploy/deploy-with-cli).
+
+#### Deploying with GitHub
+
+Deploying with GitHub allows your project to enjoy out-of-the-box CI/CD services. Simply push the code to GitHub, and Zeabur will automatically deploy it for you.
+
+Create a new repository on GitHub, then push the code to the repository. For more detailed instructions, refer to [GitHub Documentation](https://docs.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line).
+
+After pushing, click **Deploy service**, then select **Deploy your source code**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Search for your repository, click import, and your service will automatically start deploying.
+
+### Setting Up a Domain
+
+After deployment is complete, you need to set up a domain for your website.
+
+Open the "Domains" tab on the service page, then click "Generate Domain" or "Custom Domain".
+
+For more information on how to bind a domain to your service, please refer to [Binding Domains](../deploy/domain-binding).

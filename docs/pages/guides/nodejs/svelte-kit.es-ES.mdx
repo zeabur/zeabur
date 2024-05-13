@@ -1,0 +1,111 @@
+---
+ogImageTitle: Deploy Svelte Kit
+ogImageSubtitle: How to deploy Svelte Kit to Zeabur
+---
+
+import { Tab, Tabs } from 'nextra-theme-docs'
+
+<WorkingInProgress />
+
+# Deploy Svelte Kit
+
+Deploy your Svelte Kit project to Zeabur.
+
+### Step 1: Create a Svelte Kit project (optional)
+
+Open your terminal and run
+
+```bash
+npm create svelte@latest
+```
+
+Next, you need to install the dependencies:
+
+<Tabs items={['pnpm', 'npm', 'yarn']}>
+  <Tab>
+    ```bash
+    pnpm install
+    ```
+  </Tab>
+  <Tab>
+    ```bash
+    npm install
+    ```
+  </Tab>
+  <Tab>
+    ```bash
+    yarn
+    ```
+  </Tab>
+</Tabs>
+
+After that, initialize a Git repository and deploy it to your GitHub.
+
+### Step 2: Set up `@zeabur/svelte-adapter`
+
+Next, you need to install `@zeabur/svelte-adapter`:
+
+<Tabs items={['pnpm', 'npm', 'yarn']}>
+  <Tab>
+    ```bash
+    pnpm add -D @zeabur/svelte-adapter
+    ```
+  </Tab>
+  <Tab>
+    ```bash
+    npm install -D @zeabur/svelte-adapter
+    ```
+  </Tab>
+  <Tab>
+    ```bash
+    yarn add -D @zeabur/svelte-adapter
+    ```
+  </Tab>
+</Tabs>
+
+Then, open `svelte.config.js` and change it to:
+
+```js
+import adapter from '@zeabur/svelte-adapter'; // <-- Note this line
+
+export default {
+  kit: {
+    adapter: adapter()
+  }
+}
+```
+
+### Step 3: Deploy Svelte Kit project
+
+### Method 1: Using the Zeabur CLI
+
+First, ensure that you have installed the Zeabur CLI according to the guide [Deploy in CLI](../deploy/deploy-in-cli).
+
+Then, in your newly initialized Svelte Kit project, add uncommitted files to Git.
+
+```bash
+git add -A
+git commit -m "Initial commit"
+```
+
+Next, deploy your service using the command below.
+
+```bash
+zeabur
+```
+
+### Method 2: Using the Zeabur Dashboard
+
+In your project, click **Deploy service** or **Add new service** and select **Deploy your source code**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Search for the Svelte Kit code repository you want to deploy, and click import. Your Svelte Kit app will automatically start deploying.
+
+## Step 4: Bind a Domain
+
+After the deployment is complete, you may need to configure a domain for your site.
+
+Open the "Domain" tab on the service page and click on "Generate Domain" or "Custom Domain".
+
+For more information on how to bind a domain to your service, please refer to [Bind a domain](/deploy/domain-binding).
