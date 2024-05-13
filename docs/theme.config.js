@@ -1,4 +1,4 @@
-import {Callout, useConfig} from 'nextra-theme-docs'
+import { Callout, useConfig } from 'nextra-theme-docs'
 import { useRouter } from 'next/router'
 import WorkingInProgress from './components/WorkingInProgress'
 import LogoBlack from './public/logo_b.svg'
@@ -25,6 +25,7 @@ export default {
     { locale: 'zh-TW', text: '繁體中文' },
     { locale: 'zh-CN', text: '简体中文' },
     { locale: 'ja-JP', text: '日本語' },
+    { locale: 'es-ES', text: 'Español' },
   ],
   logo: (
     <>
