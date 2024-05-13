@@ -1,0 +1,60 @@
+---
+title: Deploy in CLI
+ogImageTitle: Deploy in CLI
+ogImageSubtitle: Deploy local codes in CLI
+---
+
+<WorkingInProgress />
+
+# Deploy Service in Zeabur CLI
+
+Deploy services with one click in dashboard is easy, but if you want to deploy services in your terminal with one command, we've got you covered.
+
+## Install Zeabur CLI
+
+Zeabur CLI is a command line tool that helps you to deploy services in your terminal.
+
+```bash
+# HomeBrew (Linux and macOS)
+brew install zeabur/tap/cli
+
+# Using Script (Linux and macOS)
+curl -sSL https://dub.sh/zeabur | bash
+
+# Windows Users
+iwr -useb https://dub.sh/zb-win | iex
+```
+
+You can also download the binary file from [GitHub Release Page](https://github.com/zeabur/cli/releases).
+
+You can check the status of CLI with `zeabur --help` command to make sure it's installed correctly.
+
+```bash
+zeabur --help
+```
+
+![CLI help](/deploy/cli/help.png)
+
+## Login your account
+
+After the installation is complete, you need to login your account to deploy services.
+
+```bash
+zeabur auth login
+```
+
+Press `Enter` to open the login page in your browser, and then click on the `Confirm` button, you will be redirected to the terminal and see the login success message.
+
+## Deploy service
+
+Now you are ready to deploy your service, just run the following command in your service directory.
+
+```bash
+zeabur
+```
+
+Then you need to follow the guide to select or create a project where your service will be deployed.
+
+After that, you will see the deployment progress in your terminal. Wait for a few seconds, your service will be automatically deployed, and you will get the service URL in the terminal.
+
+![Deploy in CLI](/deploy/cli/deploy.png)

@@ -1,0 +1,33 @@
+---
+title: Go
+ogImageTitle: Deploy Go App
+ogImageSubtitle: Deploy Go App in Zeabur
+---
+
+<WorkingInProgress />
+
+# Deploy Go App
+
+All projects based on [Go Modules](https://blog.golang.org/using-go-modules) can be deployed. But you need to have a `main.go` in the project root directory as the program compilation entry.
+
+If you have multiple program compilation entries, you need to put them in the `cmd` directory, for example, a `cmd/server-a/main.go` and a `cmd/server-b/main.go`.
+
+Zeabur will automatically recognize and deploy the program compilation entry with the same Service name under the `cmd` directory.
+
+## Listen on Port
+
+Zeabur will automatically set the `PORT` environment variable for the Go program to listen on.
+
+```go
+port := os.Getenv("PORT")
+if port == "" {
+    port = "8080"
+}
+
+http.ListenAndServe(":"+port, nil)
+```
+
+## Serverless Support
+
+Zeabur supports deploying Go as a serverless project. However, it currently requires opt-in.
+Please refer to the [Enable Serverless](/deploy/serverless) page to enable serverless support.

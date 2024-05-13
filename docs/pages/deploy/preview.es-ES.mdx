@@ -1,0 +1,46 @@
+---
+title: Preview Environment
+ogImageTitle: Preview Environment
+ogImageSubtitle: Enable pull requests to be deployed to a preview environment
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+<WorkingInProgress />
+
+# Preview Environment
+
+Sometimes you may want to deploy a preview environment for a pull request. This is useful for testing changes before merging them into the main branch.
+Zeabur offers an easy way to do this for all of your services deployed on Zeabur.
+
+This guide will show you how to enable pull requests preview with one click.
+
+<Callout>
+  This feature is only available for Developer Plan and Team Plan users
+</Callout>
+
+## Select a Git service
+
+As it is mentioned in [get started](/get-started), there are two types of services on Zeabur, including **Git Services** and **Marketplace Services**.
+Pull requests preview is only available for Git services because it is based on the Git repository.
+
+If you have not created a Git service yet, you can create one by following the guidance in [get started page](/get-started).
+
+## Enable pull requests preview
+
+Open your service that you want to enable pull requests preview, scroll down to expand the settings tab.
+You will see a switch button called **Pull Requests Preview**. Click the switch button to enable pull requests preview.
+
+![enable](/environment/preview/enable.png)
+
+## Check the preview environment
+
+After you've enabled pull requests preview, you can now create a pull request on your Git repository.
+As soon as you create a pull request, Zeabur will automatically create a preview environment for you.
+
+What's more, Zeabur will automatically bind a unique domain name for you to access the preview service easily.
+You can either access the link in our dashboard or click the deployment link in your Git repository directly.
+
+![link](/environment/preview/link.png)
+
+And don't worry, after the pull request is merged or closed, the preview environment will be automatically removed.

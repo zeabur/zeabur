@@ -1,0 +1,38 @@
+---
+title: Deploy Botway CE
+ogImageTitle: Deploy Botway CE on Zeabur
+ogImageSubtitle: One-click Deployment of Botway CE Service on Zeabur
+---
+
+<WorkingInProgress />
+
+# Deploy Botway CE on Zeabur
+
+Zeabur provides a one-click deployment feature for the Botway CE service, enabling you to swiftly set up Botway CE on Zeabur.
+
+## Deploying Botway CE Service
+
+In your project, click **Create Service**, select **Marketplace** and then search for `Botway CE`.
+
+![Deploy "Botway CE"](/marketplace/botwayce/deploy-botwayce.gif)
+
+After selecting "Botway CE", Zeabur will automatically deploy the Botway CE service for you.
+
+## Environment Variables
+
+After the Botway CE service is successfully deployed, Zeabur will automatically inject environment variables into the service. Currently, the following variables are available:
+
+- `GIT_REPO`
+- `GITHUB_TOKEN`
+- `PASSWORD`
+- `PKGS`
+
+## Connecting to Botway CE
+
+Here I use Zeabur's built-in Generate Domain feature to create a Domain, click Generate Domain in the **Networking** section.
+
+![Create "Botway CE Domain"](/marketplace/botwayce/gen-botwayce-domain.gif)
+
+Once it's created, open the Domain and enter the password from the `PASSWORD` environment variable to begin using Botway CE.
+
+![Setup "Botway CE"](/marketplace/botwayce/setup-botwayce.gif)

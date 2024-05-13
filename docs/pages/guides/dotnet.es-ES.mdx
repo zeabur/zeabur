@@ -1,0 +1,41 @@
+---
+title: .NET
+ogImageTitle: Deploy .NET App
+ogImageSubtitle: Deploy .NET App in Zeabur
+---
+
+<WorkingInProgress />
+
+# Deploy .NET App
+
+Zeabur supports .NET (Core) projects that can be run on a Linux machine. The following frameworks are supported:
+
+* .NET (Console)
+* ASP.NET Core
+* ASP.NET Core Blazor WebAssembly
+
+## Monorepo
+
+Zeabur supports projects organized in the following structure (the name is not important):
+
+```plain
+- YourProject.sln
+- YourLibrary1
+    - YourLibrary1.csproj
+- YourLibrary2
+    - YourLibrary2.csproj
+- YourBackend
+    - YourBackend.csproj
+- YourFrontend
+    - YourFrontend.csproj
+```
+
+However, you may need to specify the directory that contains the project you want to deploy with the environment variable `ZBPACK_DOTNET_SUBMODULE_DIR` or the `dotnet.submodule_dir` configuration in `zbpack.json`. For example, if you want to deploy the `YourBackend` project, set the environment variable `ZBPACK_DOTNET_SUBMODULE_DIR` to `YourBackend` or add the following to your `zbpack.json` file in the root directory of your project:
+
+```json
+{
+    "dotnet": {
+        "submodule_dir": "YourBackend"
+    }
+}
+```

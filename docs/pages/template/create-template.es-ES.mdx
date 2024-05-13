@@ -1,0 +1,71 @@
+---
+title: Create Template
+ogImageTitle: Create Template
+ogImageSubtitle: Create Template on Zeabur
+---
+
+<WorkingInProgress />
+
+# Create Your Template
+
+Templates on Zeabur can be created by anyone, and they can be used to help other users create their own projects or services much more easily. This guide will show you how to create a template on Zeabur.
+
+## How to Create a Template
+
+Head over to the [Create Template](https://dash.zeabur.com/create-template) page on Zeabur. You can create a template to offer others a one-click deployment of your project or service here.
+
+![Create Template](/template/create/section-1.png)
+
+### Step 1: Fill in the Basic Template Information
+
+Before you start to adding services and configs into the template, you need to fill in the basic informations of your template.
+
+- **Template Name**: The name of your template.
+- **Template Description**: A brief description of your template, 10-30 words is recommended.
+- **Icon URL**: The URL of the icon image of your template. 128x128 pixels is recommended.
+- **Cover URL**: The URL of the cover image of your template.
+- **Preview Demo URL**: The URL of the demo of your template.
+
+### Step 2: Variables and Services
+
+Your template is composed of services and variables. You can add services and variables to your template.
+
+![Section 2](/template/create/section-2.png)
+
+#### Template Variables
+
+You can add some *Project-level* variables in this section.
+
+> Project-level variables are variables that are shared by all services in the template.
+
+Click on the **New Template Variable** button, you will see a simple form to fill in.
+
+![Variables](/template/create/variables.png)
+
+- **Variable Question**: The question will be shown to the user when deploying the template to guide them to fill in the value.
+- **Variable Key**: The key of the variable, it can be referenced in the services with `${{ key }}`.
+- **Variable Description**: The description of the variable, it will be shown to the user when deploying the template.
+
+#### Template Services
+
+A template needs its services to work. You can add some services from GiHub repos or prebuilt images here. 
+
+And you can also add some configs like service variables, root directory, etc.
+
+![Services](/template/create/services.png)
+
+#### Template Tags
+
+You can also add some tags to your template to help users find your template more easily.
+
+### Step 3: Readme
+
+To let other users know how to deploy and use the template, you may need a more detailed guide. You can write a README.md file in markdown format here.
+
+![Readme](/template/create/section-3.png)
+
+### Step 4: Submit Your Template
+
+After all the 3 sections are filled in, you can click on the **Create Template** button to submit your template.
+
+For how to share this template with the deploy button, you can check this [guide](../deploy/deploy-button).
