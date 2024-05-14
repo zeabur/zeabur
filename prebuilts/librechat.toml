@@ -2,7 +2,7 @@
 
 id = "libre-chat"
 name = "Libre Chat"
-icon = "https://github.com/danny-avila/LibreChat/raw/main/docs/assets/LibreChat.svg"
+icon = "https://github.com/danny-avila/LibreChat/raw/638ac5bba61a524cc4ae99711a91f19572c4f2a0/client/public/assets/logo.svg"
 description = "LibreChat brings together the future of assistant AIs with the revolutionary technology of OpenAI's ChatGPT."
 
 [source]
