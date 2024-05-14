@@ -26,13 +26,11 @@ KEY = { default = "${PASSWORD}" }
 SECRET = { default = "${PASSWORD}" }
 
 DB_CLIENT = { default = "pg" }
-DB_HOST = { default = "${POSTGRES_HOST}" }
-DB_USER = { default = "${POSTGRES_USERNAME}" }
-DB_PASSWORD = { default = "${POSTGRES_PASSWORD}" }
+DB_CONNECTION_STRING = { default = "${POSTGRES_CONNECTION_STRING}"}
 
 CACHE_ENABLED = { default = "true" }
 CACHE_STORE = { default = "redis" }
-REDIS = { default = "${REDIS_HOST}" }
+REDIS = { default = "${REDIS_URI}" }
 
 PUBLIC_URL = { default = "${ZEABUR_WEB_URL}" }
 
