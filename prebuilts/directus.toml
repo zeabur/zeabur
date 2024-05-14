@@ -36,3 +36,15 @@ PUBLIC_URL = { default = "${ZEABUR_WEB_URL}" }
 
 ADMIN_EMAIL = { required = true }
 ADMIN_PASSWORD = { default = "${PASSWORD}" }
+
+[[instructions]]
+type = "TEXT"
+title = "Admin Email"
+content = "${ADMIN_EMAIL}"
+category = "Credentials"
+
+[[instructions]]
+type = "PASSWORD"
+title = "Admin Password"
+content = "${ADMIN_PASSWORD}"
+category = "Credentials"
