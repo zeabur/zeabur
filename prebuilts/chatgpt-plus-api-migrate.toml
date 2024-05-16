@@ -1,7 +1,7 @@
 #:schema ./schema.json
 
 id = "chatgpt-plus-api-migrate"
-name = "ChatGPT Plus API (Migrate Script)"
+name = "ChatGPT Plus API (Migrate)"
 icon = "https://raw.githubusercontent.com/yangjian102621/chatgpt-plus/main/web/public/images/logo.png"
 description = "Migration of chatgpt-plus-api"
 

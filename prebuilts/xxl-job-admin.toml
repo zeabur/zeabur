@@ -1,7 +1,7 @@
 #:schema ./schema.json
 
 id = "xxl-job-admin"
-name = "XXL-JOB"
+name = "XXL-JOB Admin"
 icon = "https://www.xuxueli.com/doc/static/xxl-job/images/xxl-logo.jpg"
 description = "XXL-JOB是一个分布式任务调度平台，其核心设计目标是开发迅速、学习简单、轻量级、易扩展。现已开放源代码并接入多家公司线上产品线，开箱即用。"
 

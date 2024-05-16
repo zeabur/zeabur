@@ -1,7 +1,7 @@
 #:schema ./schema.json
 
 id = "xxl-job-admin-migrate"
-name = "XXL-JOB (Migrate Script)"
+name = "XXL-JOB Admin (Migrate)"
 icon = "https://www.xuxueli.com/doc/static/xxl-job/images/xxl-logo.jpg"
 description = "Migration of xxl-job-admin"
 
@@ -27,7 +27,7 @@ if mysqlsh --user=$MYSQL_USERNAME --password=$MYSQL_PASSWORD --host=$MYSQL_HOST 
   echo "Downloading migration files..."
   microdnf -y install curl
 
-  curl -o $MIGRATION_FILE MIGRATION_FILE_URL
+  curl -o $MIGRATION_FILE $MIGRATION_FILE_URL
   mysqlsh --user=$MYSQL_USERNAME --password=$MYSQL_PASSWORD --host=$MYSQL_HOST --port=$MYSQL_PORT --sql -f $MIGRATION_FILE
 
   if [ $? -eq 0 ]; then

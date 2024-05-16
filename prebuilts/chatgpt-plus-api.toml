@@ -55,10 +55,9 @@ path = "/var/www/app/docker-entrypoint.sh"
 template = """\
 set -e
 
-apk add --no-cache envsubst
-
 if [ -f /var/www/app/config.toml.inc ]; then
   echo "Build config.toml from config.toml.inc"
+  apk add --no-cache envsubst
   cat /var/www/app/config.toml.inc | envsubst | tee /var/www/app/config.toml
 fi
 
