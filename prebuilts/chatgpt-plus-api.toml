@@ -152,11 +152,11 @@ WeChatBot = false
   Txt2ImgJsonPath = "res/sd/text2img.json"
 
 [XXLConfig] # xxl-job 配置，需要你部署 XXL-JOB 定时任务工具，用来定期清理未支付订单和清理过期 VIP，如果你没有启用支付服务，则该服务也无需启动
-  Enabled = false # 是否启用 XXL JOB 服务
-  ServerAddr = "http://172.22.11.47:8080/xxl-job-admin" # xxl-job-admin 管理地址
-  ExecutorIp = "172.22.11.47" # 执行器 IP 地址
+  Enabled = true # 是否启用 XXL JOB 服务
+  ServerAddr = "http://xxl-job-admin.zeabur.internal:8080/xxl-job-admin" # xxl-job-admin 管理地址
+  ExecutorIp = "chatgpt-plus-api.zeabur.internal" # 执行器 IP 地址
   ExecutorPort = "9999" # 执行器服务端口
-  AccessToken = "xxl-job-api-token" # 执行器 API 通信 token
+  AccessToken = "${XXL_JOB_EXECUTOR_API_TOKEN}" # 执行器 API 通信 token
   RegistryKey = "chatgpt-plus" # 任务注册 key
 
 [AlipayConfig]

@@ -18,6 +18,7 @@ id = "logs"
 dir = "/data/applogs"
 
 [env]
+XXL_JOB_EXECUTOR_API_TOKEN = { default = "${PASSWORD}", expose = true }
 PARAMS = { default = "--spring.config.location=/application.properties" }
 
 [[configs]]
@@ -78,7 +79,7 @@ spring.mail.properties.mail.smtp.starttls.required=true
 spring.mail.properties.mail.smtp.socketFactory.class=javax.net.ssl.SSLSocketFactory
 
 ### xxl-job, access token
-xxl.job.accessToken=${PASSWORD}
+xxl.job.accessToken=${XXL_JOB_EXECUTOR_API_TOKEN}
 
 ### xxl-job, i18n (default is zh_CN, and you can choose "zh_CN", "zh_TC" and "en")
 xxl.job.i18n=zh_CN
