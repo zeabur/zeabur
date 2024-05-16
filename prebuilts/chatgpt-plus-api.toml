@@ -136,7 +136,7 @@ WeChatBot = false
 
 [[MjProxyConfigs]]
   Enabled = true
-  ApiURL = "http://${MIDJOURNEY_PROXY_HOST}:${MIDJOURNEY_PROXY_PORT}"
+  ApiURL = "http://midjourney-proxy.zeabur.internal:8080"
   ApiKey = "${MIDJOURNEY_PROXY_APISECRET}"
 
 [[MjPlusConfigs]]

@@ -31,7 +31,4 @@ mj_discord_channel_id = { required = true, default = "" }
 mj_discord_user_token = { required = true, default = "" }
 mj_api_secret = { default = "${PASSWORD}" }
 
-MIDJOURNEY_PROXY_HOST = { default = "${CONTAINER_HOSTNAME}", expose = true, readonly = true }
-MIDJOURNEY_PROXY_PORT = { default = "${WEB_PORT}", expose = true, readonly = true }
-
 MIDJOURNEY_PROXY_APISECRET = { default = "${mj_api_secret}", expose = true, readonly = true }
