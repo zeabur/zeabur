@@ -65,4 +65,11 @@ config.toml
 - 為了加快編譯速度，我們使用 `lld` 進行編譯。若你的專案不支援 `lld`，建議你自己在專案中指定 `config.toml` 呼叫標準的 `ld`；若你想使用如 `mold` 等不內建的 linker，則需要自行撰寫 Dockerfile。
 - 我們使用 `cargo-chef` 以使快取的 build layer 最大化。如果有遇到不相容的問題，可以回報給 Zeabur 或上游 [`LukeMathWalker/cargo-chef`](https://github.com/LukeMathWalker/cargo-chef)。
 
+## Serverless 部署
+
+不同於其他 PaaS 平台是直接將你的 Rust 應用程式打包在 Docker 容器中執行，Zeabur 同時支援使用
+[Serverless 部署](../deploy/serverless) Rust 的方式，這可以讓你的 Rust 應用程式只有在收到請求的時候才啟動，而不是像容器一樣一直運行，浪費資源。
+
+如果想要用 Serverless 部署 Rust 應用程式，請在環境變數中加入 `ZBPACK_SERVERLESS=1`。
+
 {/* converted with zhconvert.org | revision dict-a1f426e3-r1031 */}
