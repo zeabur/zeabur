@@ -1,0 +1,50 @@
+#:schema ./schema.json
+
+id = "directus"
+name = "Directus"
+icon = "https://avatars.githubusercontent.com/u/15967950"
+description = "Directus is a real-time API and App dashboard for managing SQL database content."
+
+[source]
+image = "directus/directus:10.10.5"
+
+[[ports]]
+id = "web"
+port = 8055
+type = "HTTP"
+
+[[volumes]]
+id = "uploads"
+dir = "/directus/uploads"
+
+[[volumes]]
+id = "directus"
+dir = "/directus/extensions"
+
+[env]
+KEY = { default = "${PASSWORD}" }
+SECRET = { default = "${PASSWORD}" }
+
+DB_CLIENT = { default = "pg" }
+DB_CONNECTION_STRING = { default = "${POSTGRES_CONNECTION_STRING}"}
+
+CACHE_ENABLED = { default = "true" }
+CACHE_STORE = { default = "redis" }
+REDIS = { default = "${REDIS_URI}" }
+
+PUBLIC_URL = { default = "${ZEABUR_WEB_URL}" }
+
+ADMIN_EMAIL = { required = true }
+ADMIN_PASSWORD = { default = "${PASSWORD}" }
+
+[[instructions]]
+type = "TEXT"
+title = "Admin Email"
+content = "${ADMIN_EMAIL}"
+category = "Credentials"
+
+[[instructions]]
+type = "PASSWORD"
+title = "Admin Password"
+content = "${ADMIN_PASSWORD}"
+category = "Credentials"

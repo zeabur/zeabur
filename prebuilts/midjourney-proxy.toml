@@ -1,0 +1,34 @@
+#:schema ./schema.json
+
+id = "midjourney-proxy"
+name = "Midjourney Proxy"
+icon = "https://upload.wikimedia.org/wikipedia/commons/2/24/Midjourney_Emblem.svg"
+description = "Proxy the Discord channel for MidJourney to enable API-based calls for AI drawing."
+
+[source]
+image = "novicezk/midjourney-proxy:2.6.2"
+
+[[ports]]
+id = "web"
+port = 8080
+type = "HTTP"
+
+[[instructions]]
+type = "URL"
+title = "Midjourney Proxy API endpoint"
+content = "${ZEABUR_WEB_URL}/mj"
+category = "Hostname & Port"
+
+[[instructions]]
+type = "PASSWORD"
+title = "Midjourney Proxy API secret"
+content = "${MIDJOURNEY_PROXY_APISECRET}"
+category = "Credentials"
+
+[env]
+mj_discord_guild_id = { required = true, default = "" }
+mj_discord_channel_id = { required = true, default = "" }
+mj_discord_user_token = { required = true, default = "" }
+mj_api_secret = { default = "${PASSWORD}" }
+
+MIDJOURNEY_PROXY_APISECRET = { default = "${mj_api_secret}", expose = true, readonly = true }

@@ -1,0 +1,41 @@
+#:schema ./schema.json
+
+id = "xxl-job-admin-migrate"
+name = "XXL-JOB Admin (Migrate)"
+icon = "https://www.xuxueli.com/doc/static/xxl-job/images/xxl-logo.jpg"
+description = "Migration of xxl-job-admin"
+
+[source]
+image = "mysql"
+command = ["/bin/bash"]
+args = ["/usr/bin/migrate-script.sh"]
+
+[[configs]]
+path = "/usr/bin/migrate-script.sh"
+template = """\
+DB_NAME="xxl_job"
+MIGRATION_FILE_URL="https://raw.githubusercontent.com/xuxueli/xxl-job/1af1e82f0e54ff1700abb0b6ffb780dc7349e9ca/doc/db/tables_xxl_job.sql"
+MIGRATION_FILE="/tmp/xxl_job_2.4.2.sql"
+
+# Check if the database exists
+echo "Checking if database $DB_NAME exists..."
+
+if mysqlsh --user=$MYSQL_USERNAME --password=$MYSQL_PASSWORD --host=$MYSQL_HOST --port=$MYSQL_PORT --sql -e "USE $DB_NAME" 2>&1 | grep -q "Unknown database"; then
+  echo "Database $DB_NAME does not exist. Running migration..."
+
+  # Run the migration SQL file
+  echo "Downloading migration files..."
+  microdnf -y install curl
+
+  curl -o $MIGRATION_FILE $MIGRATION_FILE_URL
+  mysqlsh --user=$MYSQL_USERNAME --password=$MYSQL_PASSWORD --host=$MYSQL_HOST --port=$MYSQL_PORT --sql -f $MIGRATION_FILE
+
+  if [ $? -eq 0 ]; then
+    echo "Migration completed successfully."
+  else
+    echo "Migration failed."
+  fi
+else
+  echo "Database $DB_NAME already exists. No migration needed."
+fi
+"""
