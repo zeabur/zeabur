@@ -46,7 +46,7 @@ debug: false
 
 # Language (follow Unicode BCP 47) ["en", "zh-CN", "zh-TW", "jp", "fr", "ko", "ru"]
 # -- see https://www.techonthenet.com/js/language_tags.php --
-locale: en
+locale: zh-CN
 
 # Timezone (follow IANA Time Zone Database)
 # -- see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones --
