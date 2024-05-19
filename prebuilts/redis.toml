@@ -34,6 +34,11 @@ title = "Command to connect to your Redis"
 content = "redis-cli -h ${PORT_FORWARDED_HOSTNAME} -p ${DATABASE_PORT_FORWARDED_PORT} -a ${REDIS_PASSWORD}"
 
 [[instructions]]
+type = "TEXT"
+title = "Redis Connection String"
+content = "redis://:${REDIS_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}"
+
+[[instructions]]
 type = "PASSWORD"
 title = "Redis password"
 content = "${REDIS_PASSWORD}"
