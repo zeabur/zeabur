@@ -1,4 +1,4 @@
-import {Callout, useConfig} from 'nextra-theme-docs'
+import { Callout, useConfig } from 'nextra-theme-docs'
 import { useRouter } from 'next/router'
 import WorkingInProgress from './components/WorkingInProgress'
 import LogoBlack from './public/logo_b.svg'
