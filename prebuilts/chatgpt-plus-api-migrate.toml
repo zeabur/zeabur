@@ -1,0 +1,53 @@
+#:schema ./schema.json
+
+id = "chatgpt-plus-api-migrate"
+name = "ChatGPT Plus API (Migrate)"
+icon = "https://raw.githubusercontent.com/yangjian102621/chatgpt-plus/main/web/public/images/logo.png"
+description = "Migration of chatgpt-plus-api"
+
+[source]
+image = "mysql"
+command = ["/bin/bash"]
+args = ["/usr/bin/migrate-script.sh"]
+
+[[configs]]
+path = "/usr/bin/migrate-script.sh"
+template = """\
+DB_NAME="chatgpt_plus"
+MIGRATION_FILES=(
+  "https://raw.githubusercontent.com/yangjian102621/chatgpt-plus/3d37a3d36781aecc2e20d80783deb19f283d1c89/database/chatgpt_plus-v4.0.2.sql"
+  "https://raw.githubusercontent.com/yangjian102621/chatgpt-plus/3d37a3d36781aecc2e20d80783deb19f283d1c89/database/update-v4.0.3.sql"
+)
+
+set -e
+
+# Check if the database exists
+echo "Checking if database $DB_NAME exists..."
+
+if mysqlsh --user=$MYSQL_USERNAME --password=$MYSQL_PASSWORD --host=$MYSQL_HOST --port=$MYSQL_PORT --sql -e "USE $DB_NAME" 2>&1 | grep -q "Unknown database"; then
+  echo "Database $DB_NAME does not exist. Running migration..."
+
+  # download all migration files and concatenate them into a single file
+  echo "Downloading migration files..."
+  microdnf -y install curl
+
+  MIGRATION_FILE="migrations.sql"
+  for url in "${MIGRATION_FILES[@]}"; do
+    echo "Downloading migration file $url..."
+    curl -s $url >> $MIGRATION_FILE
+  done
+
+  # Run the migration SQL file
+  echo "Running migration file $MIGRATION_FILE..."
+  mysqlsh --user=$MYSQL_USERNAME --password=$MYSQL_PASSWORD --host=$MYSQL_HOST --port=$MYSQL_PORT --sql -f $MIGRATION_FILE
+
+  if [ $? -eq 0 ]; then
+    echo "Migration completed successfully."
+  else
+    echo "Migration failed."
+  fi
+else
+  echo "Database $DB_NAME already exists. No migration needed."
+fi
+"""
+

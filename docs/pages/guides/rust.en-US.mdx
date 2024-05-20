@@ -88,3 +88,10 @@ config.toml
 - We use `cargo-chef` to maximize the cache of build layers. If you encounter
   any incompatible problems, please report them to Zeabur or upstream
   [`LukeMathWalker/cargo-chef`](https://github.com/LukeMathWalker/cargo-chef).
+
+## Serverless Deployment
+
+Unlike other PaaS platforms that typically package your Rust application in Docker containers for execution, Zeabur also supports
+[deploying Rust serverlessly](../deploy/serverless). This allows your Rust application to only start when it receives a request, rather than continuously running like a container, wasting resources.
+
+If you want to deploy your Rust application serverlessly, please add `ZBPACK_SERVERLESS=1` to your environment variables.

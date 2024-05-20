@@ -76,6 +76,7 @@ datadir=/var/lib/mysql
 socket=/var/run/mysqld/mysqld.sock
 secure-file-priv=/var/lib/mysql-files
 user=mysql
+max_allowed_packet=10M
 
 pid-file=/var/run/mysqld/mysqld.pid
 [client]
