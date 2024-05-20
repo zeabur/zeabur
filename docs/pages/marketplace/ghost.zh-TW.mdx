@@ -1,70 +1,51 @@
 ---
-title: Ghost
-ogImageTitle: 在 Zeabur 部署 Ghost
-ogImageSubtitle: 在 Zeabur 一鍵部署 Ghost 服務
+title: 部署 Ghost 
+ogImageTitle: 部署 Ghost
+ogImageSubtitle: 在 Zeabur 上一鍵部署 Ghost 服務
 ---
 
 import { Callout } from 'nextra-theme-docs'
 
-# 在 Zeabur 部署 Ghost
+# 部署 Ghost 
 
-[Ghost](https://ghost.org/) 是一款強大的應用程式，適合新媒體創作者發布、分享並發展其內容業務。
+[Ghost](https://ghost.org/) 是一個強大的應用程式，適用於新媒體創作者發布、分享和發展其內容業務。
 
-這篇文章將教你如何在 Zeabur 上透過服務市場輕鬆部署一個自己的 Ghost 服務，並且綁定自己的網域。
+本文將教你如何在幾分鐘內在 Zeabur 上部署你自己的 Ghost 服務。
 
-## 步驟一：建立專案
+## 從模板部署 Ghost
 
-<CreateProject />
+Ghost 需要 MySQL 作為資料庫，因此你不能直接從鏡像部署 Ghost 服務。除非你在同一個項目中執行 MySQL 服務，否則它將無法工作。
 
-## 步驟二：部署 MySQL 服務
+我們已經製作了一個包含 MySQL 服務的 Ghost 模板，因此你可以透過一次點擊同時部署這兩個服務。
 
-目前在 Zeabur 中，Ghost 服務只支援 MySQL 資料庫。在建立 Ghost 服務之前，需要先部署一個 MySQL 服務（資料庫會由 Ghost 服務自動建立）。
+### 步驟 1：打開 Ghost 模板頁面
 
-請點選「建立服務」並選擇「服務市場」，你將在列表中找到 MySQL。
+首先，訪問 [Ghost 模板頁面](https://https://zeabur.com/templates/SHEU50)。
 
-![部署 MySQL](/marketplace/ghost/deploy-mysql.png)
+你會看到模板已經配置了 MySQL 服務，因此你不需要做任何事情。
 
-點選這個項目即可部署完成。
+![模板頁面](/marketplace/ghost/template.png)
 
-## 步驟三：部署 Ghost 服務
+### 步驟 2：部署模板
 
-在 Zeabur 控制台中，請點選「建立服務」並選擇「服務市場」，你將在列表中找到 Ghost。
+點擊 **Deploy** 按鈕，然後選擇一個區域來部署你的服務。
 
-![部署 Ghost 服務](/marketplace/ghost/deploy-ghost.png)
+![選擇區域](/marketplace/ghost/region.png)
 
-點選這個項目即可部署完成。
+選擇後，你將自動重定向到項目頁面，在那裡你可以看到部署進度。
 
-<Callout>
-需要注意的是，因為我們在部署 Ghost 前已經部署了 MySQL 服務，Zeabur
-會自動幫你注入 MySQL 的相關環境變數到 Ghost
-的服務中，所以無需再手動配置資料庫資訊。
+![部署進度](/marketplace/ghost/deployment.png)
 
-如果你先部署了 Ghost 而還沒有部署 MySQL，那麼你需要在部署 MySQL
-服務後重新啟動 Ghost 服務，才能讓 Ghost 取得正確的資料庫連接資訊。
-</Callout>
+再等待幾秒鐘，你的 Ghost 服務將成功部署並開始執行。
 
-部署完成後，立刻點選暫停按鈕暫停 Ghost 服務，接著我們開始設定網域。
+### 步驟 3：訪問 Ghost
 
-![暫停 Ghost 服務](/marketplace/ghost/ghost-suspend.gif)
+部署完成後，你需要綁定一個域名來訪問你的 Ghost 服務。
 
-## 步驟四：綁定網域
+你可以按照 [綁定域名指南](../deploy/domain-binding) 獲取更多詳情。
 
-在 Zeabur 控制台中，Ghost 服務的「網域」區塊中，你可以為其綁定一個網域，這個網域可以是你自己的網域，也可以是 Zeabur 提供的免費網域。
+### 步驟 4：設定 Ghost
 
-![Ghost 服務的網域區塊](/marketplace/ghost/ghost-domain.png)
+域名綁定後，你可以點擊域名訪問 Ghost 首頁。在域名後添加 `/ghost` 以訪問 Ghost 管理設定頁面。
 
-關於如何為你的服務綁定網域，請參閱 [綁定網域](../deploy/domain-binding)。
-
-網域新增完成之後，打開「環境變數」並將 `url` 修改成你剛綁定完成的網域。修改完成後 Ghost 會自動重新啟動。
-
-![Ghost 服務的環境變數區塊](/marketplace/ghost/ghost-env.png)
-
-## 步驟五：登入並設定 Ghost
-
-完成綁定後，你可以點選網域進入 Ghost 的首頁，在網域後方加上 `/ghost` 即可進入 Ghost 的管理員設定介面。
-
-![Ghost 服務的管理員設定介面](/marketplace/ghost/ghost-admin-config.png)
-
-完成設定之後，即可開始你的寫手之旅。
-
-![Ghost 管理介面](/marketplace/ghost/ghost-admin-dashboard.png)
+![設定 Ghost](/marketplace/ghost/setup.png)
