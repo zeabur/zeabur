@@ -1,53 +1,47 @@
 ---
-title: Linkwardenのデプロイ
-ogImageTitle: Linkwardenのデプロイ
-ogImageSubtitle: ZeaburでLinkwardenのデプロイ
+title: Linkwarden のデプロイ
+ogImageTitle: Linkwarden のデプロイ
+ogImageSubtitle: Zeabur で Linkwarden をデプロイ
 ---
 
-# ZeaburでLinkwardenをデプロイする
+# Zeabur で Linkwarden をデプロイ
 
-[Linkwarden](https://github.com/linkwarden/linkwarden) は、Webページを収集、整理、アーカイブするためのセルフホスト型のオープンソースの共同ブックマークマネージャーです。
+[Linkwarden](https://github.com/linkwarden/linkwarden) は、ウェブページを収集、整理、アーカイブするためのセルフホスト型オープンソースの協調ブックマークマネージャーです。
 
-この記事では、1分でZeaburにLinkwardenをデプロイする方法を紹介します。
+この記事では、Zeabur で Linkwardenを1分でデプロイする方法を紹介します。
 
-![preview](https://github.com/linkwarden/linkwarden/raw/main/assets/dashboard.png)
+![プレビュー](https://github.com/linkwarden/linkwarden/raw/main/assets/dashboard.png)
 
-## 方法1: テンプレートからデプロイ（推奨）
+## テンプレートから Linkwarden をデプロイ
 
-私たちはあなたのためにテンプレートを作成しました。以下のボタンをクリックするだけで、1分でLinkwardenサービスを設定できます。
+Linkwarden はデータベースとして PostgreSQL を必要とするため、イメージから直接デプロイすることはできません。
+
+PostgreSQL を含む Linkwarden をワンクリックでデプロイできるテンプレートを用意しました。
 
 [![Zeaburでデプロイ](https://zeabur.com/button.svg)](https://zeabur.com/templates/1E5ABT)
 
-## 方法2: マーケットプレイスからデプロイ
+### ステップ1: Linkwarden テンプレートページを開く
 
-### ステップ1: プロジェクトの作成
+まず、Linkwarden の[テンプレートページ](https://zeabur.com/templates/1E5ABT)を訪問します。
 
-まず、プロジェクトを作成する必要があります。[プロジェクトページ](https://dash.zeabur.com/projects)に移動し、プロジェクトのリストが表示されます。新しいプロジェクトを作成するには、「新しいプロジェクト」ボタンをクリックします。
+テンプレートにはすでに PostgreSQL サービスが設定されているので、特に何もする必要はありません。
 
-### ステップ2: PostgreSQLサービスのデプロイ
+![テンプレートページ](/marketplace/linkwarden/template.png)
 
-Linkwardenにはデータを保存するためのPostgreSQLデータベースが必要です。"Create Service"ボタンをクリックし、"Prebuilt"を選択すると、リストにPostgreSQLが表示されます。
+### ステップ2: テンプレートをデプロイ
 
-![PostgreSQLのデプロイ](/marketplace/postgresql/deploy.png)
+デプロイボタンをクリックし、サービスをデプロイする地域を選択します。
 
-PostgreSQLを選択すると、PostgreSQLサービスが自動的にデプロイされます。
+![地域を選択](/marketplace/linkwarden/region.png)
 
-### ステップ3: Linkwardenサービスのデプロイ
+選択後、プロジェクトページに自動的にリダイレクトされ、デプロイの進捗状況を確認できます。
 
-再度「Create Service」ボタンをクリックし、「Prebuilt」を選択すると、リストにLinkwardenが表示されます。
+![デプロイの進捗](/marketplace/linkwarden/deployment.png)
 
-Linkwardenをデプロイした後、Linkwardenサービスの環境変数を記入する必要があります。
+数秒待つと、Linkwarden サービスが正常にデプロイされ、稼働を開始します。
 
-```bash
-NEXTAUTH_SECRET=${PASSWORD}
-POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-NEXTAUTH_URL=${ZEABUR_WEB_URL}
-```
+### ステップ3: ドメインをバインド
 
-### ステップ4: ドメインのバインド
+デプロイ後、Linkwarden サービスにアクセスするためにドメインをバインドする必要があります。
 
-このサービスが実行を開始するのを待っている間、ドメインをバインドできます。
-
-サービスページの「Domain」タブを開き、「Generate Domain」または「Custom Domain」をクリックします。
-
-サービスにドメインをバインドする方法の詳細については、[ドメインのバインド](../deploy/domain-binding)を参照してください。
+詳細については、[ドメインバインドのガイド](../deploy/domain-binding)を参照してください。

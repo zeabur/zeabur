@@ -1,53 +1,47 @@
 ---
 title: 部署 Linkwarden
 ogImageTitle: 部署 Linkwarden
-ogImageSubtitle: 在 Zeabur 部署 Linkwarden
+ogImageSubtitle: 在 Zeabur 上部署 Linkwarden
 ---
 
 # 在 Zeabur 上部署 Linkwarden
 
-[Linkwarden](https://github.com/linkwarden/linkwarden) 是一个自托管的开源协作式书签管理器，用于收集、组织和归档网页。
+[Linkwarden](https://github.com/linkwarden/linkwarden) 是一个自托管、开源的协作书签管理器，用于收集、组织和存档网页。
 
-本文将向您展示如何在 Zeabur 上部署 Linkwarden。
+本文将向您展示如何在一分钟内在 Zeabur 上部署 Linkwarden。
 
-![preview](https://github.com/linkwarden/linkwarden/raw/main/assets/dashboard.png)
+![预览](https://github.com/linkwarden/linkwarden/raw/main/assets/dashboard.png)
 
-## 方法 1：使用模板部署（推荐）
+## 从模板部署 Linkwarden
 
-我们为您构建了一个模板，您只需点击下面的按钮，即可在一分钟内设置 Linkwarden 服务。
+由于 Linkwarden 需要 PostgreSQL 作为数据库，因此无法直接从镜像部署。
 
-[![Deploy on Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/1E5ABT)
+我们已经为您制作了一个模板，可以一键部署带有 PostgreSQL 的 Linkwarden。
 
-## 方法 2：从服务市场部署
+[![在 Zeabur 上部署](https://zeabur.com/button.svg)](https://zeabur.com/templates/1E5ABT)
 
-### 步骤 1：创建项目
+### 第一步：打开 Linkwarden 模板页面
 
-首先，我们需要创建一个项目。转到[项目页面](https://dash.zeabur.com/projects)，您将看到您的项目列表。单击“新建项目”按钮创建一个新项目。
+首先，访问 [Linkwarden 的模板页面](https://zeabur.com/templates/1E5ABT)。
 
-### 步骤 2：部署 PostgreSQL 服务
+您将看到模板已经配置了 PostgreSQL 服务，因此您无需做任何额外的配置。
 
-Linkwarden 需要一个 PostgreSQL 数据库来存储数据。单击“创建服务”按钮，然后选择“Prebuilt”，您将在列表中找到 PostgreSQL。
+![模板页面](/marketplace/linkwarden/template.png)
 
-![Deploy PostgreSQL](/marketplace/postgresql/deploy.png)
+### 第二步：部署模板
 
-选择 PostgreSQL 后，您的 PostgreSQL 服务将自动部署。
+点击部署按钮，然后选择一个区域来部署您的服务。
 
-### 步骤 3：部署 Linkwarden 服务
+![选择区域](/marketplace/linkwarden/region.png)
 
-点击“创建服务”按钮，然后选择“Prebuilt”，您将在列表中找到 Linkwarden。
+选择后，您将自动重定向到项目页面，在那里您可以看到部署进度。
 
-在部署 Linkwarden 后，您需要填写 Linkwarden 服务的环境变量。
+![部署进度](/marketplace/linkwarden/deployment.png)
 
-```bash
-NEXTAUTH_SECRET=${PASSWORD}
-POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-NEXTAUTH_URL=${ZEABUR_WEB_URL}
-```
+再等待几秒钟，您的 Linkwarden 服务将成功部署并开始运行。
 
-### 步骤 4：绑定域名
+### 第三步：绑定域名
 
-当你等待这个服务开始运行时，你可以为它绑定一个域名。
+部署完成后，您需要绑定一个域名以访问您的 Linkwarden 服务。
 
-打开服务页面中的“域名”选项卡，然后单击“生成域名”或“自定义域名”。
-
-关于如何将域名绑定到您的服务的更多信息，请参阅[绑定域名](../deploy/domain-binding)。
+您可以按照[绑定域名的指南](../deploy/domain-binding)获取更多详细信息。
