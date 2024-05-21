@@ -1,53 +1,47 @@
 ---
 title: 部署 Linkwarden
 ogImageTitle: 部署 Linkwarden
-ogImageSubtitle: 在 Zeabur 部署 Linkwarden
+ogImageSubtitle: 在 Zeabur 上部署 Linkwarden
 ---
 
 # 在 Zeabur 上部署 Linkwarden
 
-[Linkwarden](https://github.com/linkwarden/linkwarden) 是一個自託管的開源協作式書籤管理器，用於收集、組織和歸檔網頁。
+[Linkwarden](https://github.com/linkwarden/linkwarden) 是一個自託管、開源的協作書籤管理器，用於收集、組織和存檔網頁。
 
-本文將向您展示如何在 Zeabur 上部署 Linkwarden。
+本文將向您展示如何在一分鐘內在 Zeabur 上部署 Linkwarden。
 
-![preview](https://github.com/linkwarden/linkwarden/raw/main/assets/dashboard.png)
+![預覽](https://github.com/linkwarden/linkwarden/raw/main/assets/dashboard.png)
 
-## 方法 1：使用模板部署（推薦）
+## 從模板部署 Linkwarden
 
-我們為您建立了一個模板，您只需點擊下面的按鈕，即可在一分鐘內設置 Linkwarden 服務。
+由於 Linkwarden 需要 PostgreSQL 作為資料庫，因此無法直接從鏡像部署。
+
+我們已經為您製作了一個模板，可以一鍵部署帶有 PostgreSQL 的 Linkwarden。
 
 [![在 Zeabur 上部署](https://zeabur.com/button.svg)](https://zeabur.com/templates/1E5ABT)
 
-## 方法 2：從服務市場部署
+### 第一步：打開 Linkwarden 模板頁面
 
-### 步驟 1：創建專案
+首先，訪問 [Linkwarden 的模板頁面](https://zeabur.com/templates/1E5ABT)。
 
-<CreateProject />
+您將看到模板已經配置了 PostgreSQL 服務，因此您無需做任何額外的配置。
 
-### 步驟 2：部署 PostgreSQL 服務
+![模板頁面](/marketplace/linkwarden/template.png)
 
-Linkwarden 需要一個 PostgreSQL 數據庫來存儲數據。點擊“創建服務”按鈕，然後選擇“Prebuilt”，您將在列表中找到 PostgreSQL。
+### 第二步：部署模板
 
-![部署 PostgreSQL](/marketplace/postgresql/deploy.png)
+點擊部署按鈕，然後選擇一個區域來部署您的服務。
 
-選擇 PostgreSQL 後，您的 PostgreSQL 服務將自動部署。
+![選擇區域](/marketplace/linkwarden/region.png)
 
-### 步驟 3：部署 Linkwarden 服務
+選擇後，您將自動重定向到項目頁面，在那裡您可以看到部署進度。
 
-點擊“創建服務”按鈕，然後選擇“Prebuilt”，您將在列表中找到 Linkwarden。
+![部署進度](/marketplace/linkwarden/deployment.png)
 
-在部署 Linkwarden 後，您需要填寫 Linkwarden 服務的環境變量。
+再等待幾秒鐘，您的 Linkwarden 服務將成功部署並開始執行。
 
-```bash
-NEXTAUTH_SECRET=${PASSWORD}
-POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-NEXTAUTH_URL=${ZEABUR_WEB_URL}
-```
+### 第三步：綁定域名
 
-### 步驟 4：綁定域名
+部署完成後，您需要綁定一個域名以訪問您的 Linkwarden 服務。
 
-當您等待這個服務開始運行時，您可以為它綁定一個域名。
-
-打開服務頁面中的“域名”選項卡，然後點擊“生成域名”或“自定義域名”。
-
-關於如何將域名綁定到您的服務的更多信息，請參閱[綁定域名](../deploy/domain-binding)。
+您可以按照[綁定域名的指南](../deploy/domain-binding)獲取更多詳細資訊。
