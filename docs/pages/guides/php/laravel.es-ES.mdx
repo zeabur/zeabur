@@ -1,0 +1,98 @@
+---
+ogImageTitle: Deploy Laravel
+ogImageSubtitle: Deploy Laravel App in Zeabur
+---
+
+<WorkingInProgress />
+
+# Deploy Laravel
+
+This article will teach you how to deploy your [Laravel](https://laravel.com/) project on Zeabur.
+
+## Step 1: Environment Configuration
+
+You can test and build locally first to make sure your project can run normally. You must apply your PHP version in composer.json for Zeabur to deploy.
+```json
+{
+  "require": {
+        "php": "8.1"
+  }
+}
+```
+
+## Step 2: Create a Project (Optional)
+
+First, you need to initialize a Laravel project in your local development environment. We can follow the instructions in the [Laravel official document](https://laravel.com/docs/9.x) to complete this step
+
+After creation, initialize a Git repository for it and deploy it to your GitHub.
+
+## Step 3: Deploy Laravel Project
+
+In your project, click the **Deploy service** or **Add new service** button, and select **Deploy your source code**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+
+Search for the Laravel Boot code repository you want to deploy, and click Import.
+Your Laravel Boot application will automatically start deploying.
+
+## Step 4: Add an `APP_KEY` for you Laravel project
+
+Generating an application key or APP_KEY is one of the most important initial steps every time a Laravel developer creates or clones a Laravel application.
+
+Switch to project variable setting page and enter your environment parameter.
+
+You can generate a `APP_KEY` by enter this command under your Laravel project:
+
+```shell
+php artisan key:generate
+```
+
+![APP_KEY](/framework/laravel/app-key-setting.jpg)
+
+## Connect to MySQL Database
+
+Typically, your Laravel project will need to connect to a MySQL database.
+You can connect to a MySQL database using the following steps.
+
+1. You need to first install the `ext-pdo_mysql` extension on your Laravel project so that Zeabur can enable MySQL PHP support for you. Install this extension in your local environment using the following command:
+
+    ```shell
+    composer require ext-pdo_mysql
+    ```
+
+    Then commit the new `composer.json` and lock files and push them to your GitHub repository.
+
+2. [Create a MySQL service](/marketplace/mysql) and then, in your local environment, run the following command to migrate your tables to Zeabur:
+
+    ```shell
+    export DATABASE_URL=mysql://<username>:<password>@<host>:<port>/<database>
+    php artisan migrate
+    ```
+
+    The `<username>`, `<password>`, `<host>`, `<port>`, and `<database>` mentioned above are your MySQL service details,
+    which you can find in the "Instruction" section of the MySQL service page.
+
+3. On your Zeabur Laravel service page, set a DATABASE_URL environment variable with the following content:
+
+    ```
+    mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}
+    ```
+
+    The meanings of `${MYSQL_USER}` and other variables can be found in the [MySQL documentation's environment variable section](/marketplace/mysql#environment-variables).
+
+## Laravel Octane Support
+
+Zeabur comes with built-in support for Laravel Octane with Swoole server, but you need to set the server to use in `zbpack.json`:
+
+```json
+{
+  "laravel": {
+    "octane": {
+      "server": "swoole"
+    }
+  }
+}
+```
+
+You can also use the `ZBPACK_LARAVEL_OCTANE_SERVER=swoole` environment variable to set Laravel Octane for each services.

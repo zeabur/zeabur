@@ -1,0 +1,28 @@
+---
+title: Private Networking
+ogImageTitle: Private Networking
+ogImageSubtitle: A network that allows services to connect to each other
+---
+
+<WorkingInProgress />
+
+# Private Networking
+
+Private Networking allows services to use a fixed hostname to connect to another service in the same project.
+
+## Find the Hostname
+
+Open the "Networking" section of the service to find the hostname under "Private."
+
+![find hostname](/deploy/private-networking/find-hostname.png)
+
+## Connect to the Service
+
+Use the hostname above to connect to this service (in this example, PostgreSQL). Additionally, according to [the documentation of PostgreSQL](/marketplace/postgresql), the port is injected into the `POSTGRES_PORT` environment variable. So, you can fill in your connection information as follows:
+
+- Hostname: The hostname you found in the previous step, in this example, it is `postgresql.zeabur.internal`.
+- Port: Retrieve the value from the `POSTGRES_PORT` environment variable, which is [defaulted to 5432](https://github.com/zeabur/zeabur/blob/bd565389cf1868a917333d0f74003b4aad6ef0ce/prebuilts/postgresql.toml#L14).
+
+## Important Notes
+
+- Changing the service name does **not** change the hostname.

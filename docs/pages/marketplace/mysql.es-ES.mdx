@@ -1,0 +1,102 @@
+---
+title: Deploy MySQL
+ogImageTitle: Deploy MySQL
+ogImageSubtitle: How to deploy MySQL on Zeabur
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+<WorkingInProgress />
+
+# Deploy MySQL
+
+Zeabur provides a one-click deployment feature for MySQL service, allowing you to quickly deploy a MySQL database on Zeabur.
+
+<Callout type="info" emoji="ℹ️">
+  At present, Zeabur's MySQL service supports the `8.0` version. More versions
+  of the MySQL service will be supported in the future.
+</Callout>
+
+## Deploying a MySQL service
+
+In your project, click **Deploy New Service** and select **Deploy MySQL Service** from **Deploy Other Services**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+![deploy-mysql](/databases/deploy-mysql.en-US.png)
+
+After clicking **Deploy**, Zeabur will automatically deploy the MySQL service for you.
+
+## Environment Variables
+
+After deploying the MySQL service, Zeabur will automatically inject relevant environment variables into other services.
+
+- `MYSQL_HOST`
+- `MYSQL_PORT`
+- `MYSQL_USERNAME`
+- `MYSQL_PASSWORD`
+
+Sometimes, we can create a `DATABASE_URL` to replace the above environment variables, for example:
+
+```bash copy
+mysql://<MYSQL_USERNAME>:<MYSQL_PASSWORD>@<MYSQL_HOST>:<MYSQL_PORT>/<DATABASE_NAME>
+```
+
+Here, `<DATABASE_NAME>` is the name of the database that you added yourself.
+
+## Adding a Database
+
+By default, the username and database name in Zeabur's MySQL are both `root`. Here, we need to add the first database ourselves, which can be done in the following ways.
+
+- [MySQL Workbench](#mysql-workbench)
+- [mysqlsh](#mysqlsh)
+
+### MySQL Workbench
+
+[MySQL Workbench](https://www.mysql.com/products/workbench/) is a database visualization tool that can be used to design, maintain, and manage MySQL databases. It has an easy-to-use interface and can be used to query, back up and restore databases, as well as diagnose and optimize database performance.
+
+You can use [MySQL Workbench](https://www.mysql.com/products/workbench/) to connect to the MySQL database deployed on Zeabur.
+
+First, you need to click the button next to **MySQL connections** to add a connection.
+
+![mysql-workbench](/databases/mysql/mysql-workbench.png)
+
+Then, click **Store in Keychain** to save the password.
+
+![mysql-workbench-connect](/databases/mysql/mysql-workbench-connect.png)
+
+Next, you can execute SQL syntax in the Query Editor to add a database. Enter:
+
+```sql copy
+CREATE DATABASE <DATABASE_NAME>
+```
+
+![mysql-workbench-create-db](/databases/mysql/mysql-workbench-create-db.png)
+
+### mysqlsh
+
+[mysqlsh](https://dev.mysql.com/doc/mysql-shell/8.0/en/) is an advanced command-line tool for managing and operating MySQL databases. It supports multiple programming languages, including JavaScript, Python, and SQL, allowing users to write scripts in their preferred languages.
+
+First, you can connect to the MySQL database deployed on Zeabur using the following command:
+
+```bash copy
+mysqlsh --uri mysql://root:<MYSQL_PASSWORD>@<MYSQL_HOST>:<MYSQL_PORT>
+```
+
+![mysqlsh-connect](/databases/mysql/mysqlsh-connect.png)
+
+Then, switch to SQL mode:
+
+```bash copy
+\sql
+```
+
+![mysqlsh-sql](/databases/mysql/mysqlsh-sql.png)
+
+Finally, you can execute SQL syntax to add a database. Enter:
+
+```sql copy
+create database <DATABASE_NAME>;
+```
+
+![mysqlsh-create-db](/databases/mysql/mysqlsh-create-db.png)

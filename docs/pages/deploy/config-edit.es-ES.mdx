@@ -1,0 +1,100 @@
+---
+title: Editing Configuration Files
+ogImageTitle: Editing Configuration Files
+ogImageSubtitle: Editing Configuration Files
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+<WorkingInProgress />
+
+# Editing Configuration Files
+
+When running a service, you can customize it by using a configuration file. Zeabur provides a configuration file editor that allows you to specify the path and content of your configuration. The configuration file is automatically mounted upon service startup.
+
+We use [NGINX](https://nginx.com/) as a front proxy for [vaultwarden](https://github.com/dani-garcia/vaultwarden) to show how to edit NGINX custom configuration files using the configuration file editor.
+
+## Step One: Create a Project
+
+Create a Project in [Zeabur Dash](https://dash.zeabur.com/).
+
+## Step Two: Create Services
+
+Create your NGINX and Vaultwarden prebuilt services in the project you created in Step One.
+
+![Create NGINX Service](/deploy/config-edit/create-nginx-service.en-US.png)
+
+![Create Vaultwarden Service](/deploy/config-edit/create-vultwarden-service.en-US.png)
+
+## Step Three: Edit Nginx Service Configuration File
+
+1. Click on the `Settings` tab in the Services section for your NGINX service. Then, locate the `Configs` section in the expanded tab. Next, click the `Open Config Editor` button to access the configuration file editor.
+
+![Open Configuration File Editor](/deploy/config-edit/open-config-editor.en-US.png)
+
+2. In the editor, we click on the `Add Config file` button to add a configuration file. In the sheet that appears, enter the filename and path for your configuration in the `Config Path` text box. In this example, we will use `/etc/nginx/nginx.conf`. Finally, click the `Save Config` button.
+
+![Add Configuration File](/deploy/config-edit/create-new-config.en-US.png)
+
+<Callout>
+    The `Config Path` above must be an absolute path. Customize it according to your requirements.
+</Callout>
+
+3. Edit the configuration file according to your requirements. In this case, we will add a `server` configuration to enable reverse-proxying for our vaultwarden service.
+
+```nginx
+worker_processes  4;
+error_log  stderr;
+worker_rlimit_nofile 8192;
+
+events {}
+
+http {
+  default_type application/octet-stream;
+  log_format   main '$remote_addr - $remote_user [$time_local]  $status '
+    '"$request" $body_bytes_sent "$http_referer" '
+    '"$http_user_agent" "$http_x_forwarded_for"';
+  access_log   /dev/stdout  main;
+  sendfile     on;
+  tcp_nopush   on;
+  server_names_hash_bucket_size 128; # this seems to be required for some vhosts
+
+  map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      "";
+  }
+
+  server {
+    listen 80 default_server;
+    server_name _; 
+
+    location / {
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection $connection_upgrade;
+    
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+    
+      proxy_pass http://vaultwarden.zeabur.internal:80;
+    }
+  }
+}
+```
+To allow others to access our internal Vaultwarden through our NGINX service, we use the `proxy_pass vaultwarden.zeabur.internal` directive in NGINX. This instructs NGINX to proxy all requests from this location to Vaultwarden. We make use of the [Private Network](/deploy/private-networking) feature to access Vaultwarden with a fixed hostname within our private network.
+
+4. Click the `Save` button to save your configuration file.
+
+![Save Configuration File](/deploy/config-edit/save-config.en-US.png)
+
+## Step Four: Restart the Service
+
+We have completed the configuration of NGINX in the previous steps. Now, we need to restart the service. Go to the `Instructions` section and click the `Restart` button to apply your configuration changes.
+
+![Restart Service](/deploy/config-edit/restart-service.en-US.png)
+
+Once you have [bound a domain name](/deploy/domain-binding) to your NGINX service, you can access the vaultwarden service using your domain name.
+
+![Access Vaultwarden](/deploy/config-edit/vultwarden-service.en-US.png)

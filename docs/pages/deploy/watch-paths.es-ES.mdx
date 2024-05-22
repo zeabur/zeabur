@@ -1,0 +1,40 @@
+---
+title: Watch Paths
+ogImageTitle: Watch Paths
+ogImageSubtitle: Customize the service trigger path
+---
+
+<WorkingInProgress />
+
+# Watch Paths
+
+After your service is deployed, you may often update your code, but some code updates do not require a service to be redeployed.
+
+For example, in a project where the front-end and back-end code are in the same Git repository, you may have only updated the back-end code, but after committing, you find that the front-end service is redeployed as well.
+
+To avoid this, simply go to the settings and modify the watch paths:
+
+### Step 1: Open the service settings page
+
+Click on the service you want to modify the configuration for, expand the **Settings** page, and swipe down to find the **Watch Paths** item, where you can modify the service's watch paths.
+
+![setting](/deploy/watch-path/setting.png)
+
+### Step 2: Modify the watch paths
+
+You will see that the default watch path is `*`, which means that the service triggers the entire repository, and any file updates in the repository will result in a service redeployment.
+
+You can modify your watch paths in the same format as the `.gitignore` file.
+
+The only difference is that `.gitignore` represents ignore, and here represents trigger.
+
+For example, you have deployed a full-stack application, and the code format is as follows:
+
+![repo](/deploy/watch-path/repo.png)
+
+And you have deployed two services for this repository, one service with the root directory set to `client` and the other to `server`, but this is just to specify the build path. To further isolate, you need to set the **Watch paths**.
+
+For example, after setting the **Watch paths** of the client service to `/client`, any updates you make in the `server` folder will no longer automatically trigger the client service to be redeployed.
+
+![repo](/deploy/watch-path/save.png)
+

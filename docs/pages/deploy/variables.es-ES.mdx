@@ -1,0 +1,65 @@
+---
+title: Setting Environment Variables
+ogImageTitle: Setting Environment Variables
+ogImageSubtitle: Setting Environment Variables in Zeabur
+---
+
+<WorkingInProgress />
+
+# Setting Environment Variables
+
+Environment variables are used to configure your application.
+Zeabur provides a way to set environment variables for your service.
+
+## Add, Edit, Delete
+
+You can set environment variables in the **Variables** tab of your service, and you can **Add Variables** to your service.
+
+![environment variables](/environment/add-variables.en-US.png)
+
+Zeabur will automatically inject these environment variables into your service.
+
+- `<YOUR_SERVICE_NAME>_HOST`：The host of the service.
+
+- `PORT`：The port of the service
+
+- Other variables like database credentials([PostgreSQL](/databases/postgresql)) or [Redis](/databases/redis) connection string and so on.
+
+And you don't need to set the environment variables manually.
+
+![db env](/environment/db-env.en-US.png)
+
+When hovering over a variable, you can choose to start editing or delete the variable.
+
+![hovering](/environment/var-hover.png)
+
+Click the checkbox in the upper right corner to toggle the list view.
+
+![list view](/environment/var-list-view.png)
+
+Click the edit icon to edit the value of the variable.
+
+![edit variable](/environment/var-edit.png)
+
+## Edit as Raw
+
+If you want to add multiple variables at once, you can use the batch editing function.
+
+Click the **Edit as Raw** button to enter the batch editing mode, which will set the service environment variables in `.env` file.
+
+![edit-raw](/environment/var-raw-edit.png)
+
+## Variable Reference
+
+You can reference other variables in Zeabur.
+
+All you need to do is to reference other variables in the template syntax when setting the variable:
+
+```bash
+# For example, you can set the variable like this:
+AUTH_INFOR=${USERNAME}:${PASSWORD}
+```
+
+![reference](/environment/var-reference.png)
+
+By doing this, the value of `USERNAME` and `PASSWORD` will be automatically combined and injected into `AUTH_INFOR`.

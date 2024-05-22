@@ -1,0 +1,46 @@
+---
+title: Umi
+ogImageTitle: Deploy Umi
+ogImageSubtitle: Deploy Umi App in Zeabur
+---
+
+<WorkingInProgress />
+
+# Deploy Umi
+
+Deploy Umi App in Zeabur.
+
+### Step1: Create Umi App (Optional)
+
+- Node.js v14 or greater version.
+- pnpm is recommended
+
+Open your terminal and run
+```bash
+$ pnpm dlx create-umi@latest
+✔ Install the following package: create-umi? (Y/n) · true
+✔ Pick Npm Client › pnpm
+✔ Pick Npm Registry › taobao
+Write: .gitignore
+Write: .npmrc
+Write: .umirc.ts
+Copy:  layouts/index.tsx
+Write: package.json
+Copy:  pages/index.tsx
+Copy:  pages/users.tsx
+Copy:  pages/users/foo.tsx
+> @ postinstall /private/tmp/sorrycc-vylwuW
+> umi setup
+info  - generate files
+```
+
+Init a GitHub repository for it and upload to your GitHub.
+
+### Step2: Deploy Umi App
+
+Click on **Deploy service** or **Add new service** button, then choose **Deploy your source code**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Search for your Umi App repository, click on import, your Umi App will start deploying.
+

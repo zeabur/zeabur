@@ -1,0 +1,63 @@
+---
+title: Waku
+ogImageTitle: Deploy Waku
+ogImageSubtitle: Deploy Waku Application on Zeabur
+---
+
+import { Callout } from 'nextra-theme-docs';
+
+<WorkingInProgress />
+
+# Deploy Waku
+
+[Waku](https://waku.gg/) is a minimal React framework that supports React Server Components.
+
+Waku means "frame" in Japanese. Waku-Waku means being excited.
+
+This guide will help you to deploy your Waku application in Zeabur.
+
+## Step1: Create Waku App
+
+### Method 1: Bootstrap with Waku CLI
+
+You can create a Waku project with the command below and follow the instructions.
+
+<Callout>
+    Minimum requirement: Node.js 18.3.0 or later
+</Callout>
+
+```bash
+# npm
+npm create waku@latest
+# yarn
+yarn create waku 
+# pnpm
+pnpm create waku
+```
+
+### Method 2: Clone from our template
+
+We've prepared a template for you to get started with Waku: [Waku Template](https://github.com/zeabur/waku-template)
+
+## Step 2: Deploy to Zeabur
+
+Go to [your dashboard of Zeabur](https://dash.zeabur.com) and create a new project if you haven't done so.
+
+Then, click on the `Deploy New Service` button, select deploy from GitHub.
+
+<Callout>
+    If it's your first time to deploy from GitHub on Zeabur, you need to configure and install the GitHub application first.
+    You can check a more detailed guide [here](/deploy/github).
+</Callout>
+
+After select the repository and branch, Zeabur will automatically start building your service.
+
+Zeabur will automatically detect that your service is built with Waku, so you don't have to do any extra configuration. And your deployment will be finished in a few minutes.
+
+## What's next
+
+After the deployment is complete, you may need to configure the domain name for your Waku application.
+
+Open the "Domain" tab in the service page and click on "Generate Domain" or "Custom Domain".
+
+For more information about how to bind a domain to your service, please refer to [Bind a domain](/deploy/domain-binding).

@@ -26,6 +26,7 @@ export default {
     { locale: 'zh-TW', text: '繁體中文' },
     { locale: 'zh-CN', text: '简体中文' },
     { locale: 'ja-JP', text: '日本語' },
+    { locale: 'es-ES', text: 'Español' },
   ],
   logo: (
     <>
