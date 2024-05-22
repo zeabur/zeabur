@@ -4,64 +4,47 @@ ogImageTitle: 部署 n8n
 ogImageSubtitle: 在 Zeabur 上部署 n8n
 ---
 
-import { Callout } from 'nextra-theme-docs'
-
 # 部署 n8n
 
 [n8n](https://github.com/n8n-io/n8n) 是一款可扩展的工作流自动化工具。采用公平代码分发模型，n8n 始终具有可见的源代码，可用于自主托管，并允许您添加自己的自定义函数、逻辑和应用程序。n8n 的基于节点的方法使其高度灵活，使您能够将任何东西连接到任何东西。
 
 本文将向你展示如何在 Zeabur 上使用 PostgreSQL 部署 n8n。
 
-## 步骤一：创建项目
+## 从模板部署 n8n
 
-<CreateProject />
+由于 n8n 需要 PostgreSQL 作为数据库，因此无法直接从镜像部署。
 
-## 步骤二：部署 PostgreSQL 服务
+我们已经为您制作了一个模板，可以一键部署带有 PostgreSQL 的 n8n。
 
-n8n 将在 PostgreSQL 数据库中存储用户身份数据。单击 "创建服务"，然后选择 "服务市场"，你将在列表中找到 PostgreSQL。
+[![在 Zeabur 上部署](https://zeabur.com/button.svg)](https://zeabur.com/templates/W2H4RW)
 
-![Deploy PostgreSQL](/marketplace/postgresql/deploy.png)
+### 步骤一：打开 n8n 模板页面
 
-选中 **PostgreSQL** 服务后，Zeabur 将自动开始为你部署该服务。
+首先，访问 [n8n 的模板页面](https://zeabur.com/templates/W2H4RW)。
 
-## 步骤三：创建数据库
+你可以看到模板已经配置了 PostgreSQL 服务，因此你无需做任何额外的配置。
 
-为了使 n8n 服务正常运行，我们需要在 PostgreSQL 数据库中先创建一个名为 `n8n` 的数据库。
+![模板页面](/marketplace/n8n/template.png)
 
-通常情况下，你需要一个 PostgreSQL 客户端来连接 PostgreSQL 服务并创建数据库。但是 Zeabur 提供了一个方便的方法来创建数据库。
+### 步骤二：部署模板
 
-在你的 PostgreSQL 服务中，你可以找到一个名为 **Database（数据库）** 的选项卡，你可以在这里一键管理你的数据库。
+点击部署按钮，然后选择一个区域来部署你的服务。
 
-![Database Tab](/marketplace/n8n/database-tab.png)
+![选择区域](/marketplace/n8n/region.png)
 
-**n8n** 需要一个名为 `n8n` 的数据库，所以我们需要创建一个名为 `n8n` 的数据库。
-在输入框中输入 `n8n`，然后点击 **创建** 按钮，Zeabur 将为你创建一个名为 `n8n` 的数据库。
+选择后，你将自动重定向到项目页面，在那里你可以看到部署进度。  
 
-![Database Tab](/marketplace/n8n/database-n8n.png)
+![部署进度](/marketplace/n8n/deployment.png)
 
-## 步骤四: 部署 n8n 服务
+再等待几秒钟，你的 n8n 服务将成功部署并开始运行。
 
-在成功创建了 PostgreSQL 服务并设置好数据库后，你现在可以开始部署 n8n 了。
-回到刚创建了 **PostgreSQL** 服务的项目页面，点击**创建服务**，然后选择**服务市场**，你将在列表中找到 n8n。
+### 步骤三：绑定域名
 
-![Deploy n8n](/marketplace/n8n/deploy.png)
+部署完成后，你需要绑定一个域名以访问你的 n8n 服务。
 
-选中 **n8n** 服务后，Zeabur 将自动开始为你部署该服务。
+你可以按照[绑定域名的指南](../deploy/domain-binding)获取更多详细信息。
 
-<Callout>
-  如果你在部署 PostgreSQL 之前先部署了 n8n， 那么你需要在部署 PostgreSQL
-  服务后重启 n8n 服务， 以便 n8n 获取正确的数据库连接信息。
-</Callout>
-
-## 步骤五：绑定域名
-
-在 Zeabur 控制台中 n8n 服务的 "域名" 块中，你可以绑定一个域名。
-
-这个域名可以是你自己的域名，也可以是 Zeabur 提供的免费域名。
-
-关于如何为你的服务绑定域名，请参阅 [绑定域名](../deploy/domain-binding)。
-
-## 步骤六：设置账户
+## 步骤四：设置账户
 
 部署完成后，你可以通过你绑定的域名访问你的 n8n 服务。你将会看到如下页面：
 

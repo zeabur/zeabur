@@ -1,67 +1,52 @@
 ---
-title: N8N
-ogImageTitle: 在 Zeabur 部署 N8N
-ogImageSubtitle: 在 Zeabur 上部署 N8N
+title: 部署 n8n
+ogImageTitle: 部署 n8n
+ogImageSubtitle: 在 Zeabur 上部署 n8n
 ---
 
-# 在 Zeabur 部署 N8N
+# 部署 n8n
 
-[n8n](https://github.com/n8n-io/n8n) 是一款可擴展的工作流自動化工具。採用公平程式碼散佈模型，n8n 始終具有可見的原始碼，可用於自主寄管，並允許您加入自己的自訂函數、邏輯和應用程式。n8n 的基於節點的方法使其高度靈活，使您能夠將任何東西連接到任何東西。
+[n8n](https://github.com/n8n-io/n8n) 是一款可擴展的工作流自動化工具。採用公平程式碼分發模型，n8n 始終具有可見的原始碼，可用於自主託管，並允許您添加自己的自訂函數、邏輯和應用程式。n8n 的基於節點的方法使其高度靈活，使您能夠將任何東西連接到任何東西。
 
 本文將向你展示如何在 Zeabur 上使用 PostgreSQL 部署 n8n。
 
-## 步驟一：建立項目
+## 從模板部署 n8n
 
-<CreateProject />
+由於 n8n 需要 PostgreSQL 作為資料庫，因此無法直接從鏡像部署。
 
-## 步驟二：部署 PostgreSQL 服務
+我們已經為您製作了一個模板，可以一鍵部署帶有 PostgreSQL 的 n8n。
 
-n8n 將在 PostgreSQL 資料庫中儲存使用者身份資料。單擊 "建立服務"，然後選擇 "服務市場"，你將在列表中找到 PostgreSQL。
+[![在 Zeabur 上部署](https://zeabur.com/button.svg)](https://zeabur.com/templates/W2H4RW)
 
-![Deploy PostgreSQL](/marketplace/postgresql/deploy.png)
+### 步驟一：打開 n8n 模板頁面
 
-選中 **PostgreSQL** 服務後，Zeabur 將自動開始為你部署該服務。
+首先，訪問 [n8n 的模板頁面](https://zeabur.com/templates/W2H4RW)。
 
-## 步驟三：建立資料庫
+你可以看到模板已經配置了 PostgreSQL 服務，因此你無需做任何額外的配置。
 
-為了使 n8n 服務正常運作，我們需要在 PostgreSQL 資料庫中先建立一個名為 `n8n` 的資料庫。
+![模板頁面](/marketplace/n8n/template.png)
 
-通常情況下，你需要一個 PostgreSQL 用戶端來連接 PostgreSQL 服務並建立資料庫。但是 Zeabur 提供了一個方便的方法來建立資料庫。
+### 步驟二：部署模板
 
-在你的 PostgreSQL 服務中，你可以找到一個名為 **Database（資料庫）** 的頁籤，你可以在這裡一鍵管理你的資料庫。
+點擊部署按鈕，然後選擇一個區域來部署你的服務。
 
-![Database Tab](/marketplace/n8n/database-tab.png)
+![選擇區域](/marketplace/n8n/region.png)
 
-**n8n** 需要一個名為 `n8n` 的資料庫，所以我們需要建立一個名為 `n8n` 的資料庫。
-在輸入框中輸入 `n8n`，然後點選 **建立** 按鈕，Zeabur 將為你建立一個名為 `n8n` 的資料庫。
+選擇後，你將自動重定向到項目頁面，在那裡你可以看到部署進度。  
 
-![Database Tab](/marketplace/n8n/database-n8n.png)
+![部署進度](/marketplace/n8n/deployment.png)
 
-## 步驟四: 部署 n8n 服務
+再等待幾秒鐘，你的 n8n 服務將成功部署並開始執行。
 
-在成功建立了 PostgreSQL 服務並設定好資料庫後，你現在可以開始部署 n8n 了。
-回到剛建立了 **PostgreSQL** 服務的項目頁面，點選**建立服務**，然後選擇**服務市場**，你將在列表中找到 n8n。
+### 步驟三：綁定域名
 
-![Deploy n8n](/marketplace/n8n/deploy.png)
+部署完成後，你需要綁定一個域名以訪問你的 n8n 服務。
 
-選中 **n8n** 服務後，Zeabur 將自動開始為你部署該服務。
+你可以按照[綁定域名的指南](../deploy/domain-binding)獲取更多詳細資訊。
 
-<Callout>
-  如果你在部署 PostgreSQL 之前先部署了 n8n，那麼你需要在部署 PostgreSQL
-  服務後重啟 n8n 服務，以便 n8n 獲取正確的資料庫連接資訊。
-</Callout>
+## 步驟四：設定帳戶
 
-## 步驟五：綁定網域
-
-在 Zeabur 控制台中 n8n 服務的 "網域" 塊中，你可以綁定一個網域。
-
-這個網域可以是你自己的網域，也可以是 Zeabur 提供的免費網域。
-
-關於如何為你的服務綁定網域，請參閱 [綁定網域](../deploy/domain-binding)。
-
-## 步驟六：設定帳戶
-
-部署完成後，你可以透過你綁定的網域造訪你的 n8n 服務。你將會看到如下頁面：
+部署完成後，你可以透過你綁定的域名訪問你的 n8n 服務。你將會看到如下頁面：
 
 ![n8n Setup](/marketplace/n8n/setup.png)
 
