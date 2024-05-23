@@ -5,6 +5,7 @@ name = "PostgreSQL with pgvector"
 description = "Open-source vector similarity search for Postgres"
 icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/postgresql.svg"
 docs = "https://zeabur.com/docs/marketplace/postgresql"
+tags = ["Database"]
 
 [source]
 image = "pgvector/pgvector:pg16"
