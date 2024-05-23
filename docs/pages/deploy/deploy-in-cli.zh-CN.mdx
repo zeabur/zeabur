@@ -10,37 +10,12 @@ ogImageSubtitle: 使用 CLI 部署本地代码
 
 本篇文章将会介绍如何使用 Zeabur CLI 在终端中部署服务。
 
-## 安装 Zeabur CLI
-
-Zeabur CLI 是一个命令行工具，可以帮助你在终端中部署服务。
-
-```bash
-# HomeBrew (Linux and macOS)
-brew install zeabur/tap/cli
-
-# Using Script (Linux and macOS)
-curl -sSL https://dub.sh/zeabur | bash
-
-# Windows Users
-iwr -useb https://dub.sh/zb-win | iex
-```
-
-你也可以从 [GitHub Release Page](https://github.com/zeabur/cli/releases) 下载二进制文件。
-
-你可以使用 `zeabur --help` 命令检查 CLI 是否安装成功。
-
-```bash
-zeabur --help
-```
-
-![CLI help](/deploy/cli/help.png)
-
 ## 登录账号
 
 安装完成后，你需要登录账号才能部署服务。
 
 ```bash
-zeabur auth login
+npx @zeabur/cli auth login
 ```
 
 点击 `Enter` 打开浏览器登录页面，然后点击 `Confirm` 按钮，你将会被重定向到终端并且看到登录成功的消息。
@@ -50,11 +25,9 @@ zeabur auth login
 现在你已经准备好部署服务了，只需要在你的服务目录中运行以下命令。
 
 ```bash
-zeabur
+npx @zeabur/cli deploy
 ```
 
 然后你需要按照指引选择或者创建一个项目，你的服务将会被部署到这个项目中。
 
 选择好项目以后，你将会在终端中看到部署进度。等待几秒钟，你的服务将会被自动部署，你将会在终端中看到服务的 URL。
-
-![Deploy in CLI](/deploy/cli/deploy.png)
