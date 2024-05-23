@@ -21,10 +21,10 @@ type = "HTTP"
 
 [[volumes]]
 id = "data"
-dir = "/var/lib/rabbitmq" # default data directories.
+dir = "/var/lib/rabbitmq"
 
 [env]
-RABBITMQ_DEFAULT_USER = { default = "admin" } # or guest?
+RABBITMQ_DEFAULT_USER = { default = "admin" }
 RABBITMQ_DEFAULT_PASS = { default = "${PASSWORD}" }
 
 RABBITMQ_DEFAULT_VHOST = { default = "/" }
@@ -57,3 +57,10 @@ type = "TEXT"
 title = "RabbitMQ port"
 content = "${DATABASE_PORT_FORWARDED_PORT}"
 category = "Hostname & Port"
+
+[[configs]]
+path = "/etc/rabbitmq/rabbitmq.conf"
+template = """
+# Configuration for Rabbit can be found on https://www.rabbitmq.com/docs/configure#config-file
+# Reference environment variables by $(ENV_VARIABLE_KEY), for example, "$(ZEABUR_SERVICE_ID)".
+"""
