@@ -1,0 +1,23 @@
+#:schema ./schema.json
+
+id = "wewe-rss"
+name = "WeWe RSS"
+icon = "https://raw.githubusercontent.com/cooderl/wewe-rss/main/assets/logo.png"
+description = "更优雅的微信公众号订阅方式。"
+tags = ["RSS", "Automation"]
+
+[source]
+image = "cooderl/wewe-rss-sqlite:latest"
+
+[[volumes]]
+id = "data"
+dir = "/data"
+
+[[ports]]
+id = "web"
+port = 4000
+type = "HTTP"
+
+[env]
+DATABASE_TYPE = { default = "sqlite" }
+AUTH_CODE = { default = "${PASSWORD}" }
