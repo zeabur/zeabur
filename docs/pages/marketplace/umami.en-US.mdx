@@ -4,72 +4,50 @@ ogImageTitle: Deploy Umami
 ogImageSubtitle: Deploy Umami on Zeabur
 ---
 
-import { Callout } from 'nextra-theme-docs'
-
 # Deploy Umami
 
 [Umami](https://umami.is/) is a simple, fast, website analytics tool for those who care about privacy. It's the open-source alternative to Google Analytics.
 
 This article will show you how to deploy Umami on Zeabur with a custom domain.
 
-## Step 1: Create a project
+## Deploy Umami from template
 
-<CreateProject />
+Since Umami requires PostgreSQL as a database, you can not deploy it directly from the image.
 
-## Step 2: Deploy PostgreSQL
+We have made a template for you to deploy Umami with PostgreSQL in one click.
 
-Umami supports both MySQL and PostgreSQL. You can choose either one to store your data.
+[![Deploy on Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/01NQCC)
 
-In this article, we will use PostgreSQL as an example. Click the "Create Service" button and select "Marketplace". You will find PostgreSQL in the list.
+### Step 1: Open Umami template page
 
-![Domain block of Umami service](/marketplace/umami/deploy-postgresql.png)
+First of all, visit [the template page](https://zeabur.com/templates/01NQCC) for Umami.
 
-After selecting PostgreSQL, you can give the service a custom name and click "Deploy".
+You can see that the template is already configured with PostgreSQL service, so you don't need to do anything.
 
-## Step 3: Create a database
+![Template](/marketplace/umami/template.png)
 
-To run Umami, we need to create a database named `umami` in PostgreSQL.
+### Step 2: Deploy template
 
-Please connect to your PostgreSQL service with any PostgreSQL client. In this article, we will use [psql](https://www.postgresql.org/docs/9.1/app-psql.html) to connect.
+Click on the Deploy button, and then select a region to deploy your services.
 
-![PostgreSQL connection information block](/marketplace/umami/postgre-connect.png)
+![Select Region](/marketplace/umami/region.png)
 
-You can find the psql connection command or other connection information in the "Connection" block of the PostgreSQL service in the Zeabur console.
+After the selection, you will be automatically redirected to the project page where you can see the deployment progress.
 
-```bash
-psql postgresql://root:password@infra.zeabur.com:12345
-```
+![Deployment](/marketplace/umami/deployment.png)
 
-Then, please enter the following command in psql to create the `umami` database:
+Wait a few more seconds, and your Umami service will be deployed successfully and start running.
 
-```sql
-CREATE DATABASE umami;
-```
+### Step 3: Bind domain
 
-## Step 4: Deploy Umami
+You need to bind a domain to access your Linkwarden service after the deployment.
 
-In the Zeabur console, click the "Create Service" button and select "Marketplace". You will find Umami in the list.
+You can follow [the guide to bind a domain](../deploy/domain-binding) for more details.
 
-![Domain block of Umami service](/marketplace/umami/deploy-umami.png)
-
-After selecting Umami, you can give the service a custom name and click "Deploy".
-
-<Callout>
-  If you deploy Umami before deploying PostgreSQL, you need to restart Umami after deploying PostgreSQL to make Umami use the correct database connection information.
-</Callout>
-
-## Step 5: Bind a domain
-
-In the "Domain" block of the Umami service in the Zeabur console, you can bind a domain to it. This domain can be your own domain or a free domain provided by Zeabur.
-
-![Domain block of Umami service](/marketplace/umami/umami-domain.png)
-
-For more information about how to bind a domain to your service, please refer to [Bind a domain](../deploy/domain-binding).
-
-## Step 6: Log in and configure Umami
+### Step 4: Log in and configure Umami
 
 After binding the domain, you can click the domain to enter the Umami login page, and use the default account `admin` and password `umami` to log in.
 
-![Umami login page](/marketplace/umami/umami-screenshot.png)
+![Umami login page](/marketplace/umami/screenshot.png)
 
 For more information about Umami, please refer to the [Umami official documentation](https://umami.is/docs).

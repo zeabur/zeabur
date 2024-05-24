@@ -1,65 +1,53 @@
 ---
-title: Umamiのデプロイ
-ogImageTitle: Umamiのデプロイ
-ogImageSubtitle: ZeaburでUmamiをデプロイする
+title: Deploy Umami
+ogImageTitle: Deploy Umami
+ogImageSubtitle: Deploy Umami on Zeabur
 ---
 
-import { Callout } from 'nextra-theme-docs'
+# Deploy Umami
 
-# Umamiのデプロイ
+[Umami](https://umami.is/) は、プライバシーを重視する人々のためのシンプルで高速なウェブ解析ツールです。これは、Google Analytics のオープンソースの代替品です。
 
-[Umami](https://umami.is/)は、プライバシーを重視する人々のためのシンプルで高速なウェブサイト分析ツールです。これは、Google Analyticsのオープンソースの代替です。
+この記事では、カスタムドメインを使用して Zeabur に Umami をデプロイする方法を紹介します。
 
-この記事では、カスタムドメインを使用してZeaburにUmamiをデプロイする方法を紹介します。
+## テンプレートから Umami をデプロイする
 
-## ステップ1：プロジェクトの作成
+Umami はデータベースとして PostgreSQL を必要とするため、イメージから直接デプロイすることはできません。
 
-<CreateProject />
+PostgreSQL と一緒に Umami をワンクリックでデプロイできるテンプレートを作成しました。
 
-## ステップ2：PostgreSQLのデプロイ
+[![Deploy on Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/01NQCC)
 
-UmamiはMySQLとPostgreSQLの両方をサポートしています。データを保存するためにどちらかを選択できます。
+### ステップ 1: Umami テンプレートページを開く
 
-この記事では、PostgreSQLを例に使用します。[サービスの作成](/marketplace/umami/deploy-postgresql.png)ボタンをクリックし、「マーケットプレイス」を選択します。リストにPostgreSQLが表示されます。
+まず、Umami の [テンプレートページ](https://zeabur.com/templates/01NQCC) にアクセスします。
 
-PostgreSQLを選択した後、サービスにカスタム名を付けて、「デプロイ」をクリックします。
+テンプレートにはすでに PostgreSQL サービスが設定されているのがわかりますので、何もする必要はありません。
 
-## ステップ3：データベースの作成
+![Template](/marketplace/umami/template.png)
 
-Umamiを実行するために、PostgreSQLに`umami`という名前のデータベースを作成する必要があります。
+### ステップ 2: テンプレートをデプロイする
 
-任意のPostgreSQLクライアントを使用して、PostgreSQLサービスに接続してください。この記事では、接続に[psql](https://www.postgresql.org/docs/9.1/app-psql.html)を使用します。
+デプロイボタンをクリックし、サービスをデプロイする地域を選択します。
 
-[PostgreSQL接続情報ブロック](/marketplace/umami/postgre-connect.png)に、ZeaburコンソールのPostgreSQLサービスの「接続」ブロックに、psql接続コマンドやその他の接続情報が記載されています。
+![Select Region](/marketplace/umami/region.png)
 
-```bash
-psql postgresql://root:password@infra.zeabur.com:12345
-```
+選択後、自動的にプロジェクトページにリダイレクトされ、デプロイの進行状況を確認できます。
 
-その後、psqlで以下のコマンドを入力して`umami`データベースを作成してください。
+![Deployment](/marketplace/umami/deployment.png)
 
-```sql
-CREATE DATABASE umami;
-```
+数秒待つと、Umami サービスが正常にデプロイされ、稼働を開始します。
 
-## ステップ4：Umamiのデプロイ
+### ステップ 3: ドメインをバインドする
 
-Zeaburコンソールで、「サービスの作成」ボタンをクリックし、「マーケットプレイス」を選択します。リストにUmamiが表示されます。
+デプロイ後、Linkwarden サービスにアクセスするためにドメインをバインドする必要があります。
 
-Umamiを選択した後、サービスにカスタム名を付けて、「デプロイ」をクリックします。
+詳細については、[ドメインをバインドするガイド](../deploy/domain-binding)を参照してください。
 
-<Callout>
-  PostgreSQLをデプロイする前にUmamiをデプロイした場合、Umamiが正しいデータベース接続情報を使用するようにするために、PostgreSQLをデプロイした後にUmamiを再起動する必要があります。
-</Callout>
+### ステップ 4: Umami にログインして設定する
 
-## ステップ5：ドメインのバインド
+ドメインをバインドした後、ドメインをクリックして Umami のログインページにアクセスし、デフォルトのアカウント `admin` とパスワード `umami` を使用してログインします。
 
-ZeaburコンソールのUmamiサービスの「ドメイン」ブロックでは、それにドメインをバインドすることができます。このドメインは、自分のドメインまたはZeaburが提供する無料のドメインにすることができます。
+![Umami login page](/marketplace/umami/screenshot.png)
 
-詳細については、[ドメインのバインディング](../deploy/domain-binding)を参照してください。
-
-## ステップ6：ログインしてUmamiを設定する
-
-ドメインをバインドした後、Umamiのログインページに入るためにドメインをクリックし、デフォルトのアカウント`admin`とパスワード`umami`を使用してログインできます。
-
-Umamiについての詳細については、[Umami公式ドキュメント](https://umami.is/docs)を参照してください。
+Umami についての詳細は、[Umami 公式ドキュメント](https://umami.is/docs)を参照してください。
