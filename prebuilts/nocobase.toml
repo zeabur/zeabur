@@ -21,3 +21,13 @@ dir = "/app/nocobase/storage"
 
 [env]
 APP_KEY = { default = "${PASSWORD}" }
+
+[[instructions]]
+type = "TEXT"
+title = "Initial Admin Account"
+content = "admin@nocobase.com"
+
+[[instructions]]
+type = "TEXT"
+title = "Initial Admin Password"
+content = "admin123"
