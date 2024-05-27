@@ -1,0 +1,23 @@
+#:schema ./schema.json
+
+id = "nocobase"
+name = "NocoBase"
+icon = "https://docs.nocobase.com/favicon-32x32.png"
+description = "NocoBase is a scalability-first, open-source no-code development platform"
+docs = ""
+tags = ["no-code"]
+
+[source]
+image = "nocobase/nocobase:latest"
+
+[[ports]]
+id = "web"
+port = 80
+type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/app/nocobase/storage"
+
+[env]
+APP_KEY = { default = "${PASSWORD}" }
