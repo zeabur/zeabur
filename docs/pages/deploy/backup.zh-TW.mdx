@@ -21,6 +21,12 @@ import { Callout } from 'nextra-theme-docs'
 
 ![created](/deploy/backup/backup-created.png)
 
+<Callout>
+    我們僅支援在不暫停服務的情況下為資料庫建立備份，包括 MongoDB、MySQL、PostgreSQL 和 Redis。
+    對於其他服務，您需要先在服務設定中暫停服務，然後再建立備份。
+    備份建立完成後，您可以重新啟動服務。
+</Callout>
+
 ## 步驟 2：下載備份
 
 備份完成後，您將看到一個成功的消息提醒。點選下載按鈕即可下載備份文件。

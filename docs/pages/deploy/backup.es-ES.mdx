@@ -22,6 +22,12 @@ Haz clic en el botón de Copia de Seguridad, y automáticamente crearemos una co
 
 ![created](/deploy/backup/backup-created.png)
 
+<Callout>
+    Solo admitimos la creación de copias de seguridad sin suspender el servicio para bases de datos, incluidas MongoDB, MySQL, PostgreSQL y Redis.
+    Para otros servicios, deberá suspender el servicio primero en la configuración del servicio antes de crear una copia de seguridad.
+    Puede reiniciar el servicio después de que se haya creado la copia de seguridad.
+</Callout>
+
 ## Paso 2: Descargar la Copia de Seguridad
 
 Después de que se haya creado la copia de seguridad, verás un mensaje de **SUCCESS**. Haz clic en el botón de descarga para descargar el archivo de la copia de seguridad.
