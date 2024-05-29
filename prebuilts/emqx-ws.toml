@@ -1,0 +1,21 @@
+#:schema ./schema.json
+
+id = "emqx-ws"
+name = "EMQX (Websocket)"
+icon = "https://avatars.githubusercontent.com/u/25221711?s=48&v=4"
+description = "The most scalable open-source MQTT broker for IoT, IIoT, and connected vehicles"
+docs = ""
+tags = ["MQTT"]
+
+[source]
+image = "emqx/emqx:latest"
+
+[[ports]]
+id = "ws"
+port = 8083
+type = "HTTP"
+
+[[ports]]
+id = "dashboard"
+port = 18083
+type = "HTTP"
