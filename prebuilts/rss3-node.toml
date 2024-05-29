@@ -1,9 +1,9 @@
 #:schema ./schema.json
 
 id = "rss3"
-name = "RSS3 Node"
+name = "RSS3 Node (Alpha)"
 icon = "https://explorer.rss3.io/rss3.svg"
-description = "Deploy an RSS3 Node easily!"
+description = "Deploy an RSS3 Node (Alpha) easily!"
 tags = ["Web3", "Automation"]
 
 [source]
