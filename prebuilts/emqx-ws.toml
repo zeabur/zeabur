@@ -8,7 +8,7 @@ docs = ""
 tags = ["MQTT"]
 
 [source]
-image = "emqx/emqx:latest"
+image = "emqx/emqx:5.1.6"
 
 [[ports]]
 id = "ws"
@@ -19,3 +19,7 @@ type = "HTTP"
 id = "dashboard"
 port = 18083
 type = "HTTP"
+
+[[volumes]]
+id = "data"
+dir = "/opt/emqx"
