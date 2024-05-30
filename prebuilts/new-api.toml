@@ -1,0 +1,18 @@
+#:schema ./schema.json
+
+id = "new-api"
+name = "New API"
+icon = "https://i.imgur.com/3pRJ59s.png"
+description = "Access all LLMs through the standard OpenAI API format, out of the box"
+
+[source]
+# https://github.com/Calcium-Ion/new-api
+image = "calciumion/new-api:latest"
+
+[[ports]]
+id = "web"
+port = 3000
+type = "HTTP"
+
+[env]
+SQL_DSN = { default = "${MYSQL_USERNAME}:${MYSQL_PASSWORD}@tcp(${MYSQL_HOST}:${MYSQL_PORT})/${MYSQL_DATABASE}" }
