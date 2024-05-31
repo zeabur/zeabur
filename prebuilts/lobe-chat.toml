@@ -5,6 +5,7 @@ name = "Lobe Chat"
 icon = "https://i.imgur.com/1N9pEHJ.png"
 description = "An open-source, high-performance chatbot framework that supports speech synthesis, multimodal, and extensible Function Call plugin system."
 tags = ["LLM", "Chatbot"]
+templateURL = "https://zeabur.com/templates/VZGGTI"
 
 [source]
 image = "lobehub/lobe-chat"

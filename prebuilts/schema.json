@@ -32,8 +32,7 @@
 		"templateURL": {
 		  "title": "Template URL",
 			"description": "The URL of the template that can be used to deploy this service.",
-			"type": "string",
-			"pattern": "^https?://"
+			"type": "string"
 		},
 		"icon": {
 			"title": "Service Icon",

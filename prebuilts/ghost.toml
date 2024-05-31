@@ -5,6 +5,7 @@ name = "Ghost"
 icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/ghost.svg"
 docs = "https://zeabur.com/docs/marketplace/ghost"
 description = "Ghost is a powerful app for new-media creators to publish, share, and grow a business around their content."
+templateURL = "https://zeabur.com/templates/SHEU50"
 
 [source]
 image = "ghost:5-alpine"

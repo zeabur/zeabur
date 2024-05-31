@@ -5,6 +5,7 @@ name = "WeWe RSS"
 icon = "https://raw.githubusercontent.com/cooderl/wewe-rss/main/assets/logo.png"
 description = "更优雅的微信公众号订阅方式。"
 tags = ["RSS", "Automation"]
+templateURL = "https://zeabur.com/templates/DI9BBD"
 
 [source]
 image = "cooderl/wewe-rss-sqlite:latest"

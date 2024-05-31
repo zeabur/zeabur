@@ -5,6 +5,7 @@ name = "Uptime Kuma"
 description = "A fancy self-hosted monitoring tool."
 icon = "https://github.com/louislam/uptime-kuma/raw/master/public/icon.svg"
 tags = ["Monitoring"]
+templateURL = "https://zeabur.com/templates/Q764RP"
 
 [source]
 image = "louislam/uptime-kuma:1"

@@ -4,6 +4,7 @@ id = "one-api"
 name = "One API"
 icon = "https://i.imgur.com/3pRJ59s.png"
 description = "Access all LLMs through the standard OpenAI API format, out of the box"
+templateURL = "https://zeabur.com/templates/7Q0KO3"
 
 [source]
 image = "justsong/one-api"

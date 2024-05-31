@@ -4,6 +4,7 @@ id = "featbit-ui"
 name = "FeatBit UI"
 icon = "https://icons.zeabur.com/featbit.png"
 description = "FeatBit UI"
+templateURL = "https://zeabur.com/templates/37Y44D"
 
 [source]
 image = "featbit/featbit-ui:latest"
