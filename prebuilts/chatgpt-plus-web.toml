@@ -4,6 +4,7 @@ id = "chatgpt-plus-web"
 name = "ChatGPT Plus (Web)"
 icon = "https://raw.githubusercontent.com/yangjian102621/chatgpt-plus/main/web/public/images/logo.png"
 description = "ChatGPT-PLUS 基于 AI 大语言模型 API 实现的 AI 助手全套开源解决方案，自带运营管理后台，开箱即用。集成了 OpenAI, Azure, ChatGLM,讯飞星火，文心一言等多个平台的大语言模型。集成了 MidJourney 和 Stable Diffusion AI绘画功能。"
+templateURL = "https://zeabur.com/templates/KC8NFP"
 
 [source]
 image = "registry.cn-shenzhen.aliyuncs.com/geekmaster/chatgpt-plus-web:v4.0.3-amd64"
@@ -86,4 +87,3 @@ http {
   }
 }
 """
-

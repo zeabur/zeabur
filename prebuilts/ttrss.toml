@@ -5,6 +5,7 @@ name = "Tiny Tiny RSS"
 description = "Tiny Tiny RSS is a free and open source web-based news feed (RSS/Atom) reader and aggregator"
 icon = "https://tt-rss.org/favicon.ico"
 docs = "https://zeabur.com/docs/marketplace/ttrss"
+templateURL = "https://zeabur.com/templates/F1A1Y2"
 
 [source]
 image = "wangqiru/ttrss"

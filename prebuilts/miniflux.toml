@@ -4,6 +4,7 @@ id = "miniflux"
 name = "Miniflux"
 icon = "https://miniflux.app/favicon.ico"
 description = "Miniflux is a minimalist and opinionated feed reader."
+templateURL = "https://zeabur.com/templates/L0KM0H"
 
 [source]
 image = "miniflux/miniflux:2.1.2"

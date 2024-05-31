@@ -4,6 +4,7 @@ id = "supabase-db"
 name = "Supabase Postgres"
 description = "Supabase Postgres"
 icon = "https://icons.zeabur.com/supabase.png"
+templateURL = "https://zeabur.com/templates/SUPABS"
 
 [source]
 image = "supabase/postgres:15.1.0.147"

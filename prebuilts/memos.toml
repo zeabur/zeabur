@@ -5,6 +5,7 @@ name = "Memos"
 icon = "https://avatars.githubusercontent.com/u/95764151"
 description = "An open-source, self-hosted memo hub with knowledge management and social networking."
 tags = ["Knowledge Management", "Social Networking"]
+templateURL = "https://zeabur.com/templates/KIJROJ"
 
 [source]
 image = "neosmemo/memos:0.18.1"

@@ -6,6 +6,7 @@ icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/
 description = "MongoDB is a general purpose, document-based, distributed database built for modern application developers and for the cloud era."
 docs = "https://zeabur.com/docs/marketplace/mongodb"
 tags = ["Database"]
+templateURL = "https://zeabur.com/templates/KXL04P"
 
 [source]
 image = "mongo:7.0"

@@ -4,6 +4,7 @@ id = "new-api"
 name = "New API"
 icon = "https://i.imgur.com/3pRJ59s.png"
 description = "Access all LLMs through the standard OpenAI API format, out of the box"
+templateURL = "https://zeabur.com/templates/6FI58K"
 
 [source]
 # https://github.com/Calcium-Ion/new-api

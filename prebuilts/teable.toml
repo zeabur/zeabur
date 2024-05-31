@@ -4,6 +4,7 @@ id = "teable"
 name = "Teable"
 icon = "https://avatars.githubusercontent.com/u/113977713"
 description = "A Super fast, Real-time, Professional, Developer friendly, No code database."
+templateURL = "https://zeabur.com/templates/QF8695"
 
 [source]
 image = "ghcr.io/teableio/teable:latest"
