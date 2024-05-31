@@ -5,6 +5,7 @@ name = "Metabase"
 description = "Fast analytics with the friendly UX and integrated tooling to let your company explore data on their own."
 icon = "https://avatars.githubusercontent.com/u/10520629?s=1600&v=4"
 templateURL = "https://zeabur.com/templates/VX6J04"
+tags = ["Database"]
 
 [source]
 image = "metabase/metabase:latest"

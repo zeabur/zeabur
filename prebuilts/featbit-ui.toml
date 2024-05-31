@@ -5,6 +5,7 @@ name = "FeatBit UI"
 icon = "https://icons.zeabur.com/featbit.png"
 description = "FeatBit UI"
 templateURL = "https://zeabur.com/templates/37Y44D"
+tags = ["Feature Flag"]
 
 [source]
 image = "featbit/featbit-ui:latest"

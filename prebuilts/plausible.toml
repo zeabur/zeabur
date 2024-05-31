@@ -5,6 +5,7 @@ name = "Plausible"
 description = "Plausible is intuitive, lightweight and open source web analytics."
 icon = "https://asset.brandfetch.io/id2ceYC7ck/idkMMiHKhK.png"
 templateURL = "https://zeabur.com/templates/SF91ZK"
+tags = ["Analytics", "Web Analytics", "Google Analytics Alternative"]
 
 [source]
 image = "plausible/analytics:v2.0"

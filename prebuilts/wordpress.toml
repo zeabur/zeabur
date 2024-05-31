@@ -6,6 +6,7 @@ icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/
 description = "Create a place for your business, your interests, or anything else—with the open source platform that powers the web."
 docs = "https://zeabur.com/docs/marketplace/wordpress"
 templateURL = "https://zeabur.com/templates/CV344X"
+tags = ["CMS", "Blog", "No Code"]
 
 [source]
 image = "wordpress:6-php8.2"

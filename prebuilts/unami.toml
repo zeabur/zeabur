@@ -6,6 +6,7 @@ description = "Umami is a simple, fast, privacy-focused alternative to Google An
 icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/umami.svg"
 docs = "https://zeabur.com/docs/marketplace/umami"
 templateURL = "https://zeabur.com/templates/01NQCC"
+tags = ["Google Analytics Alternative", "Analytics"]
 
 [source]
 image = "ghcr.io/umami-software/umami:postgresql-latest"

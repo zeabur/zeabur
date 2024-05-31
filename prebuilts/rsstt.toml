@@ -4,6 +4,7 @@ id = "rsstt"
 name = "RSStT"
 icon = "https://github.com/Rongronggg9/RSS-to-Telegram-Bot/raw/dev/docs/resources/RSStT_icon.svg"
 description = "A Telegram RSS bot that cares about your reading experience."
+tags = ["RSS", "Bot", "Automation", "Telegram"]
 
 [source]
 image = "rongronggg9/rss-to-telegram:dev"

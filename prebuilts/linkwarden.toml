@@ -5,6 +5,7 @@ name = "Linkwarden"
 icon = "https://github.com/linkwarden/linkwarden/raw/main/assets/logo.png"
 description = "Collaborative bookmark manager to collect, organize and archive webpages"
 templateURL = "https://zeabur.com/templates/1E5ABT"
+tags = ["Bookmark Management"]
 
 [source]
 image = "saifbenali/linkwarden:v2.5.1"

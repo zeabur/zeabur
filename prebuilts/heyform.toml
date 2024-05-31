@@ -5,6 +5,7 @@ name = "Heyform"
 icon = "https://icons.zeabur.com/heyform.png"
 description = "Build user-focused forms that drive impactful results."
 templateURL = "https://zeabur.com/templates/9YAUUO"
+tags = ["Form Builder"]
 
 [source]
 image = "heyform/community-edition:latest"

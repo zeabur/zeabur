@@ -5,6 +5,7 @@ name = "Directus"
 icon = "https://avatars.githubusercontent.com/u/15967950"
 description = "Directus is a real-time API and App dashboard for managing SQL database content."
 templateURL = "https://zeabur.com/templates/1T0LSQ"
+tags = ["CMS"]
 
 [source]
 image = "directus/directus:10.10.5"

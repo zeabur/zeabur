@@ -6,6 +6,7 @@ icon = "https://dev-to-uploads.s3.amazonaws.com/uploads/organization/profile_ima
 description = "The open-source alternative to Auth0, shaping the future of identity development for individuals and businesses of all sizes and project scopes."
 docs = "https://zeabur.com/docs/marketplace/logto"
 templateURL = "https://zeabur.com/templates/AV1NZ4"
+tags = ["Authentication"]
 
 [source]
 image = "svhd/logto:1.15"

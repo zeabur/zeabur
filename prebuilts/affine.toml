@@ -5,6 +5,7 @@ name = "AFFiNE"
 icon = "https://i.imgur.com/fBMA1bo.png"
 description = "A next-gen knowledge base that brings planning, sorting and creating all together."
 templateURL = "https://zeabur.com/templates/GSZA1K"
+tags = ["Note", "Knowledge Management"]
 
 [source]
 image = "ghcr.io/toeverything/affine-graphql:stable"
