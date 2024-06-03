@@ -6,7 +6,6 @@ icon = "https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/
 description = "MySQL is a relational database management system based on SQL."
 docs = "https://zeabur.com/docs/marketplace/mysql"
 tags = ["Database"]
-templateURL = "https://zeabur.com/templates/DGLGRG"
 
 [source]
 image = "mysql:8.0.33"

@@ -5,7 +5,6 @@ name = "RSS3 Node (Alpha)"
 icon = "https://explorer.rss3.io/rss3.svg"
 description = "Deploy an RSS3 Node (Alpha) easily!"
 tags = ["Web3", "Automation"]
-templateURL = "https://zeabur.com/templates/3WXYWU"
 
 [source]
 image = "rss3/node:alpha"

@@ -6,7 +6,6 @@ icon = "https://docs.nocobase.com/favicon-32x32.png"
 description = "NocoBase is a scalability-first, open-source no-code development platform"
 docs = ""
 tags = ["no-code"]
-templateURL = "https://zeabur.com/templates/BSS7VJ"
 
 [source]
 image = "nocobase/nocobase:latest"

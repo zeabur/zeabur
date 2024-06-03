@@ -5,7 +5,6 @@ name = "Statusnook"
 description = "Effortlessly deploy a status page and start monitoring endpoints in minutes."
 icon = "https://icons.zeabur.com/statusnook.png"
 tags = ["Monitoring"]
-templateURL = "https://zeabur.com/templates/STATOK"
 
 [source]
 image = "goksan/statusnook:latest"

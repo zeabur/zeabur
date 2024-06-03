@@ -5,7 +5,6 @@ name = "Wallos"
 description = "Open-Source Personal Subscription Tracker"
 icon = "https://github.com/ellite/Wallos/raw/main/images/icon/android-chrome-512x512.png"
 tags = ["Personal", "Finance"]
-templateURL = "https://zeabur.com/templates/ELBR4V"
 
 [source]
 image = "bellamy/wallos:latest"
