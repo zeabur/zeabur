@@ -11,7 +11,7 @@ image = "cooderl/wewe-rss-sqlite:latest"
 
 [[volumes]]
 id = "data"
-dir = "/data"
+dir = "/app/data"
 
 [[ports]]
 id = "web"
