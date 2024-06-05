@@ -1,116 +1,83 @@
 ---
-title: Deploy Logto
-ogImageTitle: Deploy Logto
-ogImageSubtitle: Deploy Logto on Zeabur
+títle: Implementar Logto
+ogImageTitle: Implementar Logto
+ogImageSubtitle: Implementar Logto en Zeabur
 ---
 
-import { Callout } from 'nextra-theme-docs'
+# Implementar el Servicio Logto
 
-<WorkingInProgress />
+[Logto](https://logto.io/) es un servicio de verificación de identidad de código abierto que te ayuda a implementar rápidamente la verificación de identidad en tus aplicaciones, y también es la alternativa de código abierto más famosa a [Auth0](https://auth0.com/).
 
-# Deploy Logto Service
+Este artículo te enseñará cómo implementar el servicio Logto en Zeabur a través del mercado de servicios y vincular tu propio nombre de dominio para que tus otros sitios web puedan usar tu servicio Logto implementado para verificar la identidad.
 
-[Logto](https://logto.io/) is an open source identity verification service that helps you quickly implement identity verification in your applications, and is also the most famous open source alternative to [Auth0](https://auth0.com/).
+## Paso 1: Implementar desde la plantilla
 
-This article will teach you how to deploy Logto service on Zeabur through the service market, and bind your own domain name so that your other websites can use your deployed Logto service to verify identity.
+### Método 1: Implementar con un nuevo proyecto
 
-## Step 1: Create a Project
+Primero, visita [la página de la plantilla](https://zeabur.com/templates/AV1NZ4) para Logto.
 
-First, we need to create a project on Zeabur. Go to the [Projects](https://dash.zeabur.com/projects) page, you will see all your projects, and the "Create Project" button is at the end of all projects.
+Puedes ver que la plantilla ya está configurada con el servicio PostgreSQL, por lo que no necesitas hacer nada.
 
-## Step 2: Deploy PostgreSQL Service
+![Página de Plantilla](/marketplace/logto/template.png)
 
-Logto will store user identity data in a PostgreSQL database. Click "Create Service" and select "Service Market", you will find PostgreSQL in the list.
+Haz clic en el botón Implementar y luego selecciona una región para implementar tus servicios.
 
-![Deploy PostgreSQL](/marketplace/postgresql/deploy.png)
+![Seleccionar Región](/marketplace/logto/region.png)
 
-After selecting PostgreSQL, your PostgreSQL service will be deployed automatically.
+Después de la selección, serás redirigido automáticamente a la página del proyecto donde puedes ver el progreso de la implementación.
 
-## Step 3: Create a Database
+![Implementación](/marketplace/logto/deployment.png)
 
-In order for the Logto service to run properly, we need to create a database named `logto` in the PostgreSQL database first.
+Espera unos segundos más y tu servicio Logto se implementará con éxito y comenzará a funcionar.
 
-### Method 1: Create in dashboard
+### Método 2: Implementar en un proyecto existente
 
-Usaully, you need a PostgreSQL client to connect to the PostgreSQL service and create a database. But Zeabur provides a convenient way to create a database.
+Si ya tienes un proyecto y deseas agregar un sistema de autenticación para el proyecto, también puedes implementar el servicio Logto en el proyecto existente con un solo clic.
 
-In your PostgreSQL service, you can find a tab named **Database**, where you can manage your databases with one click.
+Navega a la página del proyecto, haz clic en el botón **Implementar Nuevo Servicio** y luego selecciona Logto de la categoría de plantillas.
 
-![Database Tab](/marketplace/postgresql/create-database.png)
+![Plantilla en Proyecto](/marketplace/logto/template-in-project.png)
 
-**Logto Service** requires a database named `logto`, so we need to create a database named `logto`.
-Type `logto` in the input box and click the **Create** button, then Zeabur will create the database for you.
+Después de seleccionar Logto, los servicios en la plantilla (Logto y PostgreSQL) se implementarán automáticamente en tu proyecto.
 
-### Method 2: Use a PostgreSQL client
+## Paso 2: Vincular nombre de dominio para cada puerto
 
-You can also use a PostgreSQL client to create a database. In this article, we use [psql](https://www.postgresql.org/docs/9.1/app-psql.html) to connect.
+En el tablero de Zeabur, puedes vincular el nombre de dominio para cada puerto del servicio Logto en la pestaña **Redes**.
 
-![PostgreSQL Instructions](/marketplace/postgresql/connect.png)
+Hay dos puertos para el servicio Logto, uno para la interfaz web y otro para la interfaz de la consola de administración. Puedes vincular un nombre de dominio para cada puerto en la consola.
 
-You can find the corresponding psql connection command or other connection information in the **Instruction** tab of the PostgreSQL service in the Zeabur console.
+Haz clic en **Generar Dominio** o **Dominio Personalizado**, verás un cuadro de entrada y un selector de puerto, puedes vincular un nombre de dominio para cada puerto aquí.
 
-```bash
-psql postgresql://root:password@infra.zeabur.com:12345
-```
+![Dominio Logto para web](/marketplace/logto/web-domain.png)
 
-Next, please enter the following command in psql to create the `logto` database:
+![Dominio Logto para consola](/marketplace/logto/console-domain.png)
 
-```sql
-CREATE DATABASE logto;
-```
+Puedes consultar [Vinculación de Dominios](../deploy/domain-binding) para obtener más información sobre cómo vincular un nombre de dominio para tu servicio.
 
-## Step 4: Deploy Logto Service
+## Paso 3: Configurar variables de entorno
 
-In the Zeabur console, click "Create Service" and select "Prebuilt", you will find Logto in the list.
+Después de vincular el nombre de dominio, necesitamos informar al servicio Logto sobre el nombre de dominio que vinculamos.
 
-![Deploy Logto](/marketplace/logto/prebuilt.png)
+El servicio Logto requiere 2 variables de entorno:
 
-After selecting Logto, your Logto service will be deployed automatically.
+- `ENDPOINT`: El nombre de dominio que vinculaste para la interfaz web, por ejemplo `https://logto-web.zeabur.app`.
+- `ADMIN_ENDPOINT`: El nombre de dominio que vinculaste para la interfaz de la consola de administración, por ejemplo `https://logto-console.zeabur.app`.
 
-<Callout>
-  If you deploy Logto first without deploying PostgreSQL, then you need to
-  restart the Logto service after deploying the PostgreSQL service to let Logto
-  get the correct database connection information.
-</Callout>
-
-## Step 5: Bind Domain Name for Each Port
-
-In the Zeabur console, in the **Domain** tab of the Logto service, you can bind a domain name to it. This domain name can be your own domain name or a free domain name provided by Zeabur.
-
-For Logto, this service has 2 ports, one is for the web interface, and the other is for the admin console interface. You can bind a domain name for each port in dashboard.
-
-Click on **Generate Domain** or **Custom Domain**, and you will see a input box for domain name and a selector for the port, then you can bind a domain for each port here.
-
-![Logto domain for web](/marketplace/logto/web-domain.png)
-
-![Logto domain for console](/marketplace/logto/console-domain.png)
-
-For more information on how to bind a domain name to your service, please refer to [Bind Domain Name](../deploy/domain-binding).
-
-## Step 6: Set Environment Variable
-
-After binding the domain name, we need to let the Logto service know about the domain name we bound.
-
-Logto service requires 2 environment variables:
-
-- `ENDPOINT`: The domain name you bound for the web interface, for example `https://logto-web.zeabur.app`.
-- `ADMIN_ENDPOINT`: The domain name you bound for the admin console interface, for example `https://logto-console.zeabur.app`.
-
-Open the **Variables** tab in the service page, click the **Edit Raw Variables** button, and you can fill the following variables in the input box.
+Abre la pestaña **Variables** en la página del servicio, haz clic en el botón **Editar Variables en Bruto** y puedes completar las siguientes variables en el cuadro de entrada.
 
 ```json
 {
-  "ENDPOINT": "https://logto-web.zeabur.app", // Your domain name for web interface
-  "ADMIN_ENDPOINT": "https://logto-console.zeabur.app" // Your domain name for admin console interface
+  "ENDPOINT": "https://logto-web.zeabur.app", // Tu nombre de dominio para la interfaz web
+  "ADMIN_ENDPOINT": "https://logto-console.zeabur.app" // Tu nombre de dominio para la interfaz de la consola de administración
 }
 ```
 
-After adding the variable, press the **Restart** button and wait for about 1 minute, then the service will restart and take effect.
+Después de agregar la variable, presiona el botón **Reiniciar** y espera unos 30 segundos, luego el servicio se reiniciará y tomará efecto.
 
-## Step 7: Log in and Configure Logto
+## Paso 4: Iniciar sesión y configurar Logto
 
-Now everything is ready for your Logto service, you may like to configure it. You can open the domain name you bound for the admin console interface, for example `https://logto-console.zeabur.app`, and you will see the login page of the Logto service.
+Ahora todo está listo para tu servicio Logto, es posible que desees configurarlo. Puedes abrir el nombre de dominio que vinculaste para la interfaz de la consola de administración, por ejemplo `https://logto-console.zeabur.app`, y verás la página de inicio de sesión del servicio Logto.
 
 ![Logto admin](/marketplace/logto/admin.png)
 
-And then you can create an account to get started with the Logto service, just follow the instructions given by the Logto service.
+Y luego puedes crear una cuenta para comenzar con el servicio Logto, solo sigue las instrucciones proporcionadas por el servicio Logto.
