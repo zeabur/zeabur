@@ -1,97 +1,53 @@
 ---
-title: WordPress
-ogImageTitle: 在 Zeabur 部署 WordPress
-ogImageSubtitle: 在 Zeabur 一鍵部署 WordPress 服務
+title: 部署 WordPress
+ogImageTitle: 部署 WordPress
+ogImageSubtitle: 一鍵在 Zeabur 上部署 WordPress 服務
 ---
 
-# 在 Zeabur 部署 WordPress
+# 部署 WordPress
 
-[WordPress](https://wordpress.org/) 是一個可以讓任何人輕鬆建置美觀網站、部落格或 App 的開放原始碼軟體。
+[WordPress](https://wordpress.org/) 是一個開源軟體，讓任何人都能輕鬆建置漂亮的網站、部落格或應用程式。
 
-這篇文章將指引你如何在 Zeabur 上透過服務市場輕鬆部署一個自己的 WordPress 服務，並且綁定自己的網域。
+本文將向您展示如何透過 Marketplace 在 Zeabur 上使用您想要的網域部署自己的 WordPress 服務。
 
-## 步驟一：建立專案
+## 從模板部署 WordPress
 
-<CreateProject />
+### 第一步：打開 WordPress 模板頁面
 
-## 步驟二：部署 MySQL 服務
+由於 WordPress 需要一個 MySQL 資料庫，因此您不能直接從鏡像部署它。
 
-在建立 WordPress 服務之前，需要先部署一個 MySQL 服務。
+我們為您製作了一個模板，可以一鍵部署包含 MySQL 的 WordPress。
 
-請點選「建立服務」並選擇「服務市場」，你將在列表中找到 MySQL。
+[![在Zeabur上部署](https://zeabur.com/button.svg)](https://zeabur.com/templates/CV344X)
 
-![部署 MySQL](/marketplace/wordpress/deploy-mysql.png)
+### 第二步：部署模板
 
-點選這個項目即可部署完成。
+![模板](/marketplace/wordpress/template.png)
 
-## 步驟三：建立資料庫
+點選部署按鈕，然後選擇一個區域來部署您的服務。
 
-為了讓 WordPress 服務能夠正常運作，我們需要先在 MySQL 資料庫中建立一個名為 `wordpress` 的資料庫。
+![選擇區域](/marketplace/wordpress/region.png)
 
-請先使用任意 MySQL 用戶端連接你的 MySQL 服務，在本文，我們使用 [mysqlsh](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysqlsh.html) 來連接。
+選擇後，您將自動重定向到項目頁面，在那裡您可以看到部署進度。
 
-![MySQL 連接資訊區塊](/marketplace/wordpress/mysql-connect.png)
+再等幾秒鐘，您的 WordPress 服務將成功部署並開始運作。
 
-你可以在 Zeabur 控制台中，MySQL 服務的「連接」區塊中找到對應的 mysql 連接指令或其他連接資訊。
+### 第三步：綁定網域
 
-例如：
+部署完成後，您需要綁定一個網域以造訪您的 WordPress 服務。
 
-```bash
-mysqlsh --host=infra.zeabur.com --port=11451 --user=root --password=wordpress-demo
-```
+您可以按照[綁定網域的指南](../deploy/domain-binding)了解更多詳情。
 
-在輸入到終端機之前，請在 `mysqlsh` 後面加上 ` --sql`：
+### 第四步：登入並設定 WordPress
 
-```bash
-mysqlsh --sql --host=infra.zeabur.com --port=11451 --user=root --password=wordpress-demo
-```
+完成網域綁定後，您可以點選網域進入 WordPress 安裝介面。首先，選擇您想要的語言並點選“繼續”（或類似的內容）：
 
-接著，請在 mysqlsh 中輸入以下指令來建立 `wordpress` 資料庫：
+![WordPress安裝，選擇語言](/marketplace/wordpress/wordpress-inst-step1.png)
 
-```sql
-CREATE DATABASE wordpress;
-```
+之後，按照步驟進行安裝：
 
-看到形如 `Query OK, 1 row affected (0.0573 sec)` 的字樣就代表完成，
-可以敲 <kbd>Ctrl</kbd> (<kbd>Control</kbd>) + <kbd>D</kbd> 離開。
+![WordPress安裝，設定密碼和站點資訊](/marketplace/wordpress/wordpress-inst-step2.png)
 
-![MySQL 操作](/marketplace/wordpress/mysql-operation.png)
+當您看到這個介面時，安裝就完成了。
 
-## 步驟三：部署 WordPress 服務
-
-在 Zeabur 控制台中，請點選「建立服務」並選擇「服務市場」，你將在列表中找到 WordPress。
-
-![部署 WordPress 服務](/marketplace/wordpress/deploy-wordpress.png)
-
-點選這個項目即可部署完成。
-
-<Callout>
-需要注意的是，因為我們在部署 WordPress 前已經部署了 MySQL 服務，Zeabur
-會自動幫你注入 MySQL 的相關環境變數到 WordPress
-的服務中，所以無需再手動配置資料庫資訊。
-
-如果你先部署了 WordPress 而還沒有部署 MySQL，那麼你需要在部署 MySQL
-服務後重新啟動 WordPress 服務，才能讓 WordPress 取得正確的資料庫連接資訊。
-</Callout>
-
-## 步驟四：綁定網域
-
-在 Zeabur 控制台中，WordPress 服務的「網域」區塊中，你可以為其綁定一個網域，這個網域可以是你自己的網域，也可以是 Zeabur 提供的免費網域。
-
-![WordPress 服務的網域區塊](/marketplace/wordpress/wordpress-domain.png)
-
-關於如何為你的服務綁定網域，請參閱 [綁定網域](../deploy/domain-binding)。
-
-## 步驟五：登入並設定 WordPress
-
-完成綁定後，你可以點選網域進入 WordPress 的安裝介面。首先，在這裡選擇你想要的語言後按下對應語言的 “Continue”：
-
-![WordPress 安裝，選擇語言步驟](/marketplace/wordpress/wordpress-inst-step1.png)
-
-接著照著步驟安裝：
-
-![WordPress 安裝，設定密碼和站台資訊](/marketplace/wordpress/wordpress-inst-step2.png)
-
-看到這個介面就是安裝完成。
-
-![WordPress 安裝，完成安裝](/marketplace/wordpress/wordpress-inst-step3.png)
+![WordPress安裝，完成安裝](/marketplace/wordpress/wordpress-inst-step3.png)
