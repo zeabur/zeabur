@@ -17,3 +17,4 @@ type = "HTTP"
 [env]
 SESSION_KEY = { required = true }
 FORM_ENCRYPTION_KEY = { required = true }
+APP_HOMEPAGE_URL = { default = "${ZEABUR_WEB_URL}" }
