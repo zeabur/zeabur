@@ -14,7 +14,12 @@ spec:
       type: DOMAIN
       name: Domain
       description: Domain of your SearXNG website.
-  readme: SearXNG is a free internet metasearch engine which aggregates results from various search services and databases. Users are neither tracked nor profiled.
+  readme: |
+    Note: This template is maintained by the Zeabur team, if you have any questions or need help, please contact us at [Zeabur's offical Discord server](https://zeabur.com/dc). You can also create issues or pull requests on [https://github.com/zeabur/zeabur/tree/main/templates](https://github.com/zeabur/zeabur/tree/main/templates).
+
+    ---
+
+  	SearXNG is a free internet metasearch engine which aggregates results from various search services and databases. Users are neither tracked nor profiled.
   services:
     - name: caddy
       template: PREBUILT
