@@ -1,0 +1,519 @@
+apiVersion: zeabur.com/v1
+kind: Template
+metadata:
+  name: Dify
+spec:
+  description: Dify is an open-source LLM app development platform.
+  coverImage: https://cdn.zeabur.com/dify-banner.png
+  icon: https://cdn.zeabur.com/dify-icon.png
+  variables:
+    - key: PUBLIC_DOMAIN
+      type: DOMAIN
+      name: Domain
+      description: Domain of your Dify app.
+  tags:
+    - LLM
+    - Workflow
+    - AI
+  readme: |
+    Note: This template is maintained by the Zeabur team, if you have any questions or need help, please contact us at [Zeabur's offical Discord server](https://zeabur.com/dc). You can also create issues or pull requests on [https://github.com/zeabur/dify-template](https://github.com/zeabur/dify-template).
+    
+    ---
+    
+    Dify is an open-source LLM app development platform. Its intuitive interface combines AI workflow, RAG pipeline, agent capabilities, model management, observability features and more, letting you quickly go from prototype to production. Here's a list of the core features:
+
+    **1. Workflow**: 
+      Build and test powerful AI workflows on a visual canvas, leveraging all the following features and beyond.
+
+    **2. Comprehensive model support**: 
+      Seamless integration with hundreds of proprietary / open-source LLMs from dozens of inference providers and self-hosted solutions, covering GPT, Mistral, Llama3, and any OpenAI API-compatible models. A full list of supported model providers can be found [here](https://docs.dify.ai/getting-started/readme/model-providers).
+
+    **3. Prompt IDE**: 
+      Intuitive interface for crafting prompts, comparing model performance, and adding additional features such as text-to-speech to a chat-based app. 
+
+    **4. RAG Pipeline**: 
+      Extensive RAG capabilities that cover everything from document ingestion to retrieval, with out-of-box support for text extraction from PDFs, PPTs, and other common document formats.
+
+    **5. Agent capabilities**: 
+      You can define agents based on LLM Function Calling or ReAct, and add pre-built or custom tools for the agent. Dify provides 50+ built-in tools for AI agents, such as Google Search, DELL·E, Stable Diffusion and WolframAlpha.
+
+    **6. LLMOps**: 
+      Monitor and analyze application logs and performance over time. You could continuously improve prompts, datasets, and models based on production data and annotations.
+
+    **7. Backend-as-a-Service**: 
+      All of Dify's offerings come with corresponding APIs, so you could effortlessly integrate Dify into your own business logic.
+  services:
+    - name: redis
+      template: PREBUILT
+      spec:
+        id: redis
+        name: Redis
+        icon: https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/redis.svg
+        tags:
+          - Database
+        source:
+          image: redis/redis-stack-server:latest
+        ports:
+          - id: database
+            port: 6379
+            type: TCP
+        volumes:
+          - id: data
+            dir: /data
+        env:
+          REDIS_PASSWORD:
+            default: ${PASSWORD}
+            expose: true
+          REDIS_ARGS:
+            default: --requirepass ${REDIS_PASSWORD}
+          REDIS_HOST:
+            default: ${CONTAINER_HOSTNAME}
+            expose: true
+            readonly: true
+          REDIS_PORT:
+            default: ${DATABASE_PORT}
+            expose: true
+            readonly: true
+          REDIS_CONNECTION_STRING:
+            default: redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}
+            expose: true
+            readonly: true
+          REDIS_URI:
+            default: ${REDIS_CONNECTION_STRING}
+            expose: true
+            readonly: true
+        instructions:
+          - type: TEXT
+            title: Command to connect to your Redis
+            content: redis-cli -h ${PORT_FORWARDED_HOSTNAME} -p
+              ${DATABASE_PORT_FORWARDED_PORT} -a ${REDIS_PASSWORD}
+          - type: TEXT
+            title: Redis Connection String
+            content: redis://:${REDIS_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}
+          - type: PASSWORD
+            title: Redis password
+            content: ${REDIS_PASSWORD}
+            category: Credentials
+          - type: TEXT
+            title: Redis host
+            content: ${PORT_FORWARDED_HOSTNAME}
+            category: Hostname & Port
+          - type: TEXT
+            title: Redis port
+            content: ${DATABASE_PORT_FORWARDED_PORT}
+            category: Hostname & Port
+    - name: db
+      template: PREBUILT
+      spec:
+        id: postgresql
+        name: PostgreSQL
+        description: PostgreSQL is a powerful, open source object-relational database system.
+        icon: https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/postgresql.svg
+        docs: https://zeabur.com/docs/marketplace/postgresql
+        tags:
+          - Database
+        source:
+          image: postgres:16
+        ports:
+          - id: database
+            port: 5432
+            type: TCP
+        volumes:
+          - id: data
+            dir: /var/lib/postgresql/data
+        env:
+          POSTGRES_USER:
+            default: root
+          POSTGRES_DB:
+            default: zeabur
+          PGDATA:
+            default: /var/lib/postgresql/data/pgdata
+          POSTGRES_HOST:
+            default: ${CONTAINER_HOSTNAME}
+            expose: true
+            readonly: true
+          POSTGRES_PORT:
+            default: ${DATABASE_PORT}
+            expose: true
+            readonly: true
+          POSTGRES_USERNAME:
+            default: ${POSTGRES_USER}
+            expose: true
+            readonly: true
+          POSTGRES_PASSWORD:
+            default: ${PASSWORD}
+            expose: true
+          POSTGRES_DATABASE:
+            default: ${POSTGRES_DB}
+            expose: true
+            readonly: true
+          POSTGRES_CONNECTION_STRING:
+            default: postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}
+            expose: true
+            readonly: true
+          POSTGRES_URI:
+            default: ${POSTGRES_CONNECTION_STRING}
+            expose: true
+            readonly: true
+        instructions:
+          - type: TEXT
+            title: Connection String
+            content: postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}/${POSTGRES_DATABASE}
+          - type: TEXT
+            title: PostgreSQL Connect Command
+            content: psql
+              "postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}/${POSTGRES_DATABASE}"
+          - type: TEXT
+            title: PostgreSQL username
+            content: ${POSTGRES_USERNAME}
+            category: Credentials
+          - type: PASSWORD
+            title: PostgresSQL password
+            content: ${POSTGRES_PASSWORD}
+            category: Credentials
+          - type: TEXT
+            title: PostgresSQL database
+            content: ${POSTGRES_DATABASE}
+            category: Credentials
+          - type: TEXT
+            title: PostgreSQL host
+            content: ${PORT_FORWARDED_HOSTNAME}
+            category: Hostname & Port
+          - type: TEXT
+            title: PostgreSQL port
+            content: ${DATABASE_PORT_FORWARDED_PORT}
+            category: Hostname & Port
+    - name: minio
+      template: PREBUILT
+      spec:
+        id: minio
+        name: minio
+        icon: https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/minio.svg
+        source:
+          image: quay.io/minio/minio:latest
+          command:
+            - /bin/sh
+          args:
+            - -c
+            - |
+              minio server /data --console-address :9090 &
+              MINIO_PID=$!
+              while ! curl -s http://localhost:9000/minio/health/live; do
+                echo 'Waiting for MinIO to start...'
+                sleep 1
+              done
+              sleep 5
+              mc alias set myminio http://localhost:9000 $MINIO_USERNAME $MINIO_PASSWORD
+              echo "Creating bucket '$MINIO_DEFAULT_BUCKET'"
+              mc mb myminio/$MINIO_DEFAULT_BUCKET
+              wait $MINIO_PID
+        ports:
+          - id: web
+            port: 9000
+            type: HTTP
+          - id: console
+            port: 9090
+            type: HTTP
+        volumes:
+          - id: data
+            dir: /data
+        instructions:
+          - type: URL
+            title: Go to MinIO Console
+            content: ${MINIO_CONSOLE_URL}
+          - type: TEXT
+            title: MinIO Username
+            content: ${MINIO_USERNAME}
+          - type: PASSWORD
+            title: MinIO Password
+            content: ${MINIO_PASSWORD}
+        env:
+          MINIO_DEFAULT_BUCKET:
+            default: dify
+          MINIO_BROWSER_REDIRECT:
+            default: "false"
+          MINIO_CONSOLE_URL:
+            default: ${ZEABUR_CONSOLE_URL}
+            expose: true
+            readonly: true
+          MINIO_PASSWORD:
+            default: ${MINIO_ROOT_PASSWORD}
+            expose: true
+            readonly: true
+          MINIO_ROOT_PASSWORD:
+            default: ${PASSWORD}
+          MINIO_ROOT_USER:
+            default: minio
+          MINIO_USERNAME:
+            default: ${MINIO_ROOT_USER}
+            expose: true
+            readonly: true
+    - name: api
+      template: PREBUILT
+      spec:
+        name: api
+        icon: https://cdn.zeabur.com/dify-icon.png
+        source:
+          image: langgenius/dify-api:latest
+        env:
+          STORAGE_TYPE:
+            default: s3
+          S3_ENDPOINT:
+            default: http://minio.zeabur.internal:9000
+          S3_BUCKET_NAME:
+            default: dify
+          S3_ACCESS_KEY:
+            default: ${MINIO_USERNAME}
+          S3_SECRET_KEY:
+            default: ${MINIO_PASSWORD}
+          S3_REGION:
+            default: us-east-1
+          API_SECRET_KEY:
+            default: ${PASSWORD}
+            expose: true
+          SECRET_KEY:
+            default: ${API_SECRET_KEY}
+          MIGRATION_ENABLED:
+            default: 'true'
+          CONSOLE_WEB_URL:
+            default: https://${PUBLIC_DOMAIN}.zeabur.app
+          CONSOLE_API_URL:
+            default: https://${PUBLIC_DOMAIN}.zeabur.app
+          APP_WEB_URL:
+            default: https://${PUBLIC_DOMAIN}.zeabur.app
+          VECTOR_STORE:
+            default: weaviate
+          WEAVIATE_ENDPOINT:
+            default: http://weaviate:8080
+          WEAVIATE_API_KEY:
+            default: WVF5YThaHlkYwhGUSmCRgsX3tD5ngdN8pkih
+          CELERY_BROKER_URL:
+            default: redis://:${REDIS_PASSWORD}@redis:6379/1
+          MODE:
+            default: api
+          DB_USERNAME:
+            default: ${POSTGRES_USERNAME}
+          DB_PASSWORD:
+            default: ${POSTGRES_PASSWORD}
+          DB_HOST:
+            default: ${POSTGRES_HOST}
+          DB_PORT:
+            default: ${POSTGRES_PORT}
+          DB_DATABASE:
+            default: ${POSTGRES_DATABASE}
+          REDIS_USERNAME:
+            default: ''
+          REDIS_USE_SSL:
+            default: 'false'
+          REDIS_DB:
+            default: 0
+        ports:
+          - id: api
+            port: 5001
+            type: HTTP
+        volumes:
+          - id: data
+            dir: /app/api/storage
+    - name: worker
+      template: PREBUILT
+      spec:
+        name: worker
+        icon: https://cdn.zeabur.com/dify-icon.png
+        source:
+          image: langgenius/dify-api:latest
+        env:
+          STORAGE_TYPE:
+            default: s3
+          S3_ENDPOINT:
+            default: http://minio.zeabur.internal:9000
+          S3_BUCKET_NAME:
+            default: dify
+          S3_ACCESS_KEY:
+            default: ${MINIO_USERNAME}
+          S3_SECRET_KEY:
+            default: ${MINIO_PASSWORD}
+          S3_REGION:
+            default: us-east-1
+          SECRET_KEY:
+            default: ${API_SECRET_KEY}
+          MIGRATION_ENABLED:
+            default: 'true'
+          CONSOLE_WEB_URL:
+            default: https://${PUBLIC_DOMAIN}.zeabur.app
+          CONSOLE_API_URL:
+            default: https://${PUBLIC_DOMAIN}.zeabur.app
+          APP_WEB_URL:
+            default: https://${PUBLIC_DOMAIN}.zeabur.app
+          VECTOR_STORE:
+            default: weaviate
+          WEAVIATE_ENDPOINT:
+            default: http://weaviate:8080
+          WEAVIATE_API_KEY:
+            default: WVF5YThaHlkYwhGUSmCRgsX3tD5ngdN8pkih
+          CELERY_BROKER_URL:
+            default: redis://:${REDIS_PASSWORD}@redis:6379/1
+          MODE:
+            default: worker
+          DB_USERNAME:
+            default: ${POSTGRES_USERNAME}
+          DB_PASSWORD:
+            default: ${POSTGRES_PASSWORD}
+          DB_HOST:
+            default: ${POSTGRES_HOST}
+          DB_PORT:
+            default: ${POSTGRES_PORT}
+          DB_DATABASE:
+            default: ${POSTGRES_DATABASE}
+          REDIS_USERNAME:
+            default: ''
+          REDIS_USE_SSL:
+            default: 'false'
+          REDIS_DB:
+            default: 0
+    - name: web
+      template: PREBUILT
+      spec:
+        name: web
+        icon: https://cdn.zeabur.com/dify-icon.png
+        source:
+          image: langgenius/dify-web:latest
+        env:
+          CONSOLE_API_URL:
+            default: https://${PUBLIC_DOMAIN}.zeabur.app
+          APP_API_URL:
+            default: https://${PUBLIC_DOMAIN}.zeabur.app
+        ports:
+          - id: web
+            port: 3000
+            type: HTTP
+    - name: weaviate
+      template: PREBUILT
+      spec:
+        id: weaviate
+        name: Weaviate
+        icon: https://avatars.githubusercontent.com/u/37794290
+        description: Weaviate is a cloud-native, open source vector database that is
+          robust, fast, and scalable.
+        tags:
+          - Database
+        source:
+          image: semitechnologies/weaviate:1.25.0
+        ports:
+          - id: web
+            port: 8080
+            type: HTTP
+        volumes:
+          - id: data
+            dir: /var/lib/weaviate
+        env:
+          ENABLE_MODULES:
+            default: text2vec-cohere,text2vec-huggingface,text2vec-palm,text2vec-openai,generative-openai,generative-cohere,generative-palm,ref2vec-centroid,reranker-cohere,qna-openai
+          CLUSTER_HOSTNAME:
+            default: node1
+          QUERY_DEFAULTS_LIMIT:
+            default: 25
+          AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED:
+            default: 'false'
+          PERSISTENCE_DATA_PATH:
+            default: '/var/lib/weaviate'
+          DEFAULT_VECTORIZER_MODULE:
+            default: 'none'
+          AUTHENTICATION_APIKEY_ENABLED:
+            default: 'true'
+          AUTHENTICATION_APIKEY_ALLOWED_KEYS:
+            default: 'WVF5YThaHlkYwhGUSmCRgsX3tD5ngdN8pkih'
+          AUTHENTICATION_APIKEY_USERS:
+            default: 'hello@dify.ai'
+          AUTHORIZATION_ADMINLIST_ENABLED:
+            default: 'true'
+          AUTHORIZATION_ADMINLIST_USERS:
+            default: 'hello@dify.ai'
+    - name: nginx
+      template: PREBUILT
+      domainKey: PUBLIC_DOMAIN
+      spec:
+        id: nginx
+        name: NGINX
+        description: nginx [engine x] is an HTTP and reverse proxy server, a mail proxy
+          server, and a generic TCP/UDP proxy server, originally written by Igor Sysoev.
+        icon: https://www.svgrepo.com/show/373924/nginx.svg
+        tags:
+          - Proxy
+          - Server
+        source:
+          image: nginx:1.25
+        ports:
+          - id: web
+            port: 80
+            type: HTTP
+        configs:
+          - path: /etc/nginx/proxy.conf
+            template: >
+              proxy_set_header Host $host;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header X-Forwarded-Proto $scheme;
+              proxy_http_version 1.1;
+              proxy_set_header Connection "";
+              proxy_buffering off;
+              proxy_read_timeout 3600s;
+              proxy_send_timeout 3600s;
+          - path: /etc/nginx/nginx.conf
+            template: >
+              user  nginx;
+              worker_processes  auto;
+              
+              error_log  /var/log/nginx/error.log notice;
+              pid        /var/run/nginx.pid;
+              
+              events {
+                worker_connections  1024;
+              }
+
+              http {
+                include       /etc/nginx/mime.types;
+                default_type  application/octet-stream;
+              
+                log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                '$status $body_bytes_sent "$http_referer" '
+                '"$http_user_agent" "$http_x_forwarded_for"';
+              
+                access_log  /var/log/nginx/access.log  main;
+              
+                sendfile        on;
+                keepalive_timeout  65;
+                client_max_body_size 15M;
+                include /etc/nginx/conf.d/*.conf;
+              }
+
+          - path: /etc/nginx/conf.d/default.conf
+            template: >
+              server {
+                listen 80;
+                server_name _;
+              
+                location /console/api {
+                  proxy_pass http://api:5001;
+                  include proxy.conf;
+                }
+                
+                location /api {
+                  proxy_pass http://api:5001;
+                  include proxy.conf;
+                }
+                
+                location /v1 {
+                  proxy_pass http://api:5001;
+                  include proxy.conf;
+                }
+              
+                location /files {
+                  proxy_pass http://api:5001;
+                  include proxy.conf;
+                }
+              
+                location / {
+                  proxy_pass http://web:3000;
+                  include proxy.conf;
+                }
+              
+              }

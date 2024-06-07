@@ -1,0 +1,187 @@
+apiVersion: zeabur.com/v1
+kind: Template
+metadata:
+  name: Heyform
+spec:
+  description: Create engaging conversational forms for surveys, questionnaires, quizzes, and polls.
+  coverImage: https://github.com/heyform/heyform/raw/main/assets/images/screenshot.png
+  icon: https://icons.zeabur.com/heyform.png
+  variables:
+    - key: PUBLIC_DOMAIN
+      type: DOMAIN
+      name: Domain
+      description: Domain of your Heyform website.
+  tags:
+    - CMS
+    - Website
+    - Tool
+  readme: |
+    Note: This template is maintained by the Zeabur team, if you have any questions or need help, please contact us at [Zeabur's offical Discord server](https://zeabur.com/dc). You can also create issues or pull requests on [https://github.com/zeabur/heyform-template](https://github.com/zeabur/heyform-template).
+    
+    ---
+    
+    HeyForm is an open-source form builder that allows anyone to create engaging conversational forms for surveys, questionnaires, quizzes, and polls. No coding skills required.
+    
+    ![preview](https://github.com/heyform/heyform/raw/main/assets/images/screenshot.png)
+    
+    ## Features
+    
+    HeyForm simplifies the creation of conversational forms, making it accessible for anyone to gather information or feedback through engaging surveys, quizzes, and polls. We are committed to enhancing HeyForm with regular updates, including bug fixes, new features, and performance improvements.
+
+    - Versatile Inputs: From basic text, email, and phone number fields to advanced options like picture choices, date pickers, and file uploads, HeyForm supports a wide array of input types.
+    - Smart Logic: Conditional logic and URL redirections for dynamic, adaptable forms.
+    - Powerful Integrations: Connect with webhooks, analytics, marketing platforms, and tools like Zapier and Make.com.
+    - Visual Themes: Tailor the look and feel of your forms to match your brand identity with customizable fonts, colors, backgrounds, and more.
+    - Advanced Theming: Gain greater control with extensive customization options, including custom CSS for deeper personalization.
+    - Insightful Analytics: Gain insights with detailed analytics, including drop-off rates and completion rates.
+    - Data Export: Easily export your form results to CSV for further analysis or integration into your systems."
+  services:
+    - name: mongodb 
+      template: PREBUILT
+      spec:
+        id: mongodb
+        name: mongodb
+        icon: https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/mongodb.svg
+        docs: https://zeabur.com/docs/marketplace/mongodb
+        source:
+          image: mongo:7.0
+          command:
+            - sh
+          args:
+            - -c
+            - sed -i '10,23d' /usr/local/bin/docker-entrypoint.sh && exec docker-entrypoint.sh mongod
+        ports:
+          - id: database
+            port: 27017
+            type: TCP
+        volumes:
+          - id: data
+            dir: /data/db
+        instructions:
+          - type: TEXT
+            title: Command to connect to your MongoDB
+            content: mongosh "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}"
+          - type: TEXT
+            title: MongoDB connection string
+            content: mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}
+          - type: TEXT
+            title: MongoDB username
+            content: ${MONGO_USERNAME}
+            category: Credentials
+          - type: PASSWORD
+            title: MongoDB password
+            content: ${MONGO_PASSWORD}
+            category: Credentials
+          - type: TEXT
+            title: MongoDB host
+            content: ${PORT_FORWARDED_HOSTNAME}
+            category: Hostname & Port
+          - type: TEXT
+            title: MongoDB port
+            content: ${DATABASE_PORT_FORWARDED_PORT}
+            category: Hostname & Port
+        env:
+          MONGO_CONNECTION_STRING:
+            default: mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}
+            expose: true
+            readonly: true
+          MONGO_HOST:
+            default: ${CONTAINER_HOSTNAME}
+            expose: true
+            readonly: true
+          MONGO_INITDB_ROOT_PASSWORD:
+            default: ${PASSWORD}
+          MONGO_INITDB_ROOT_USERNAME:
+            default: mongo
+          MONGO_PASSWORD:
+            default: ${MONGO_INITDB_ROOT_PASSWORD}
+            expose: true
+            readonly: true
+          MONGO_PORT:
+            default: ${DATABASE_PORT}
+            expose: true
+            readonly: true
+          MONGO_URI:
+            default: ${MONGO_CONNECTION_STRING}
+            expose: true
+            readonly: true
+          MONGO_USERNAME:
+            default: ${MONGO_INITDB_ROOT_USERNAME}
+            expose: true
+            readonly: true
+    - name: redis
+      template: PREBUILT
+      spec:
+        id: redis
+        name: redis
+        icon: https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/redis.svg
+        source:
+          image: redis/redis-stack-server:latest
+        ports:
+          - id: database
+            port: 6379
+            type: TCP
+        volumes:
+          - id: data
+            dir: /data
+        instructions:
+          - type: TEXT
+            title: Command to connect to your Redis
+            content: redis-cli -h ${PORT_FORWARDED_HOSTNAME} -p ${DATABASE_PORT_FORWARDED_PORT} -a ${REDIS_PASSWORD}
+          - type: TEXT
+            title: Redis Connection String
+            content: redis://:${REDIS_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}
+          - type: PASSWORD
+            title: Redis password
+            content: ${REDIS_PASSWORD}
+            category: Credentials
+          - type: TEXT
+            title: Redis host
+            content: ${PORT_FORWARDED_HOSTNAME}
+            category: Hostname & Port
+          - type: TEXT
+            title: Redis port
+            content: ${DATABASE_PORT_FORWARDED_PORT}
+            category: Hostname & Port
+        env:
+          REDIS_ARGS:
+            default: --requirepass ${REDIS_PASSWORD}
+          REDIS_CONNECTION_STRING:
+            default: redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}
+            expose: true
+            readonly: true
+          REDIS_HOST:
+            default: ${CONTAINER_HOSTNAME}
+            expose: true
+            readonly: true
+          REDIS_PASSWORD:
+            default: ${PASSWORD}
+            expose: true
+          REDIS_PORT:
+            default: ${DATABASE_PORT}
+            expose: true
+            readonly: true
+          REDIS_URI:
+            default: ${REDIS_CONNECTION_STRING}
+            expose: true
+            readonly: true
+    - name: heyform
+      template: PREBUILT
+      domainKey: PUBLIC_DOMAIN
+      spec:
+        id: heyform
+        name: heyform
+        icon: https://icons.zeabur.com/heyform.png
+        source:
+          image: heyform/community-edition:latest
+        ports:
+          - id: web
+            port: 8000
+            type: HTTP
+        env:
+          FORM_ENCRYPTION_KEY:
+            default: ${PASSWORD}
+          SESSION_KEY:
+            default: ${PASSWORD}
+          APP_HOMEPAGE_URL:
+            default: https://${PUBLIC_DOMAIN}.zeabur.app
