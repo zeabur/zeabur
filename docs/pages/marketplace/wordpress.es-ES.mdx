@@ -1,99 +1,54 @@
 ---
-title: Deploy WordPress
-ogImageTitle: Deploy WordPress
-ogImageSubtitle: Deploy your own WordPress service on Zeabur with just one click
+
+título: Desplegar WordPress
+ogImageTitle: Desplegar WordPress
+ogImageSubtitle: Despliega tu propio servicio de WordPress en Zeabur con solo un clic
 ---
 
-import { Callout } from 'nextra-theme-docs'
+# Desplegar WordPress
 
-<WorkingInProgress />
+[WordPress](https://wordpress.org/) es un software de código abierto que permite a cualquier persona crear fácilmente sitios web, blogs o aplicaciones hermosas.
 
-# Deploy WordPress
+Este artículo te mostrará cómo desplegar tu propio servicio de WordPress en Zeabur con el dominio que desees a través del Marketplace.
 
-[WordPress](https://wordpress.org/) is an open-source software that allows anyone to easily build beautiful websites, blogs, or apps.
+## Desplegar WordPress desde una plantilla
 
-This article will show you how to deploy your own WordPress service on Zeabur with your desired domain through Marketplace.
+### Paso 1: Abrir la página de la plantilla de WordPress
 
-## Step 1: Create a Project
+Dado que WordPress requiere una base de datos MySQL, no puedes desplegarlo directamente desde la imagen.
 
-First, we need to create a project on Zeabur. Go to the [Project List](https://dash.zeabur.com/projects) page, where you will see a list of your projects, and click "Create Project" button which is at the end of all projects.
+Hemos creado una plantilla para que puedas desplegar WordPress con MySQL con un solo clic.
 
-## Step 2: Deploy MySQL
+[![Desplegar en Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/CV344X)
 
-Before creating a WordPress service, you should deploy a MySQL service.
+### Paso 2: Desplegar la plantilla
 
-Click "Add Service" and select "Marketplace". You will find MySQL in the list.
+![Plantilla](/marketplace/wordpress/template.png)
 
-![Deploy MySQL](/marketplace/wordpress/deploy-mysql.png)
+Haz clic en el botón Desplegar y luego selecciona una región para desplegar tus servicios.
 
-Select this to deploy MySQL.
+![Seleccionar Región](/marketplace/wordpress/region.png)
 
-## Step 3: Create a Database
+Después de la selección, serás redirigido automáticamente a la página del proyecto donde podrás ver el progreso del despliegue.
 
-To enable the WordPress service to function properly, we need to create a database named `wordpress` in the MySQL database first.
+Espera unos segundos más y tu servicio de WordPress se desplegará correctamente y comenzará a funcionar.
 
-You can connect to your MySQL service with your preferred client. In this article, we use [mysqlsh](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysqlsh.html) to connect.
+### Paso 3: Vincular dominio
 
-![MySQL Connection Information](/marketplace/wordpress/mysql-connect.png)
+Necesitas vincular un dominio para acceder a tu servicio de WordPress después del despliegue.
 
-You can find your MySQL connection command in the "Connect" section in the MySQL service.
+Puedes seguir [la guía para vincular un dominio](../deploy/domain-binding) para más detalles.
 
-For example:
+### Paso 4: Iniciar sesión y configurar WordPress
 
-```bash
-mysqlsh --host=infra.zeabur.com --port=11451 --user=root --password=wordpress-demo
-```
+Después de completar la vinculación del dominio, puedes hacer clic en el nombre del dominio para ingresar a la interfaz de instalación de WordPress. Primero, selecciona el idioma deseado y haz clic en "Continuar" (o algo similar en tu idioma):
 
-Before entering to your terminal, please add ` --sql` after `mysqlsh`:
+![Instalación de WordPress, Seleccionar Idioma](/marketplace/wordpress/wordpress-inst-step1.png)
 
-```bash
-mysqlsh --sql --host=infra.zeabur.com --port=11451 --user=root --password=wordpress-demo
-```
+Después de esto, sigue los pasos para instalar:
 
-Then, please enter the following SQL instruction in mysqlsh to create the `wordpress` database:
+![Instalación de WordPress, Configurar Contraseña e Información del Sitio](/marketplace/wordpress/wordpress-inst-step2.png)
 
-```sql
-CREATE DATABASE wordpress;
-```
+Cuando veas esto, la instalación estará completa.
 
-If you see something like `Query OK, 1 row affected (0.0573 sec)`, it means you have created the needed database, and you can press <kbd>Ctrl</kbd> (<kbd>Control</kbd>) + <kbd>D</kbd> to exit.
-
-![MySQL Operation](/marketplace/wordpress/mysql-operation.png)
-
-## Step 4: Deploy WordPress Service
-
-In the Zeabur console, please click "Create Service" and select "Service Marketplace". You will find WordPress in the list.
-
-![Deploy WordPress Service](/marketplace/wordpress/deploy-wordpress.png)
-
-Click on this project to complete the deployment.
-
-<Callout>
-Since we have deployed the MySQL service before deploying WordPress, Zeabur
-will automatically inject MySQL's related environment variables into the WordPress
-service, so there is no need to manually configure the database information.
-
-If you deploy WordPress first and haven't deployed MySQL yet, you need to restart the WordPress service after deploying the MySQL service to allow WordPress to obtain the correct database connection information.
-</Callout>
-
-## Step 5: Bind a Domain
-
-In the "Domain" section of the WordPress service in the Zeabur console, you can bind a domain name to it. This domain name can be your own domain name or a free domain name provided by Zeabur.
-
-![WordPress Service Domain Block](/marketplace/wordpress/wordpress-domain.png)
-
-For information on how to bind a domain name to your service, please refer to [Domain Binding](../deploy/domain-binding).
-
-## Step 6: Log in and Set Up WordPress
-
-After completing the domain binding, you can click on the domain name to enter the WordPress installation interface. First, select the language you want and click "Continue" (or something like this in your language):
-
-![WordPress Installation, Select Language](/marketplace/wordpress/wordpress-inst-step1.png)
-
-After this, follow the steps to install:
-
-![WordPress Installation, Set Password and Site Information](/marketplace/wordpress/wordpress-inst-step2.png)
-
-When you see this, the installation is complete.
-
-![WordPress Installation, Complete Installation](/marketplace/wordpress/wordpress-inst-step3.png)
+![Instalación de WordPress, Instalación Completa](/marketplace/wordpress/wordpress-inst-step3.png)

@@ -1,97 +1,54 @@
 ---
-title: WordPressの展開
-ogImageTitle: WordPressの展開
-ogImageSubtitle: ゼーバーでワンクリックで独自のWordPressサービスを展開
+タイトル：WordPressをデプロイ
+ogImageTitle：WordPressをデプロイ
+ogImageSubtitle：Zeaburでワンクリックで自分のWordPressサービスをデプロイ
 ---
 
-import { Callout } from 'nextra-theme-docs'
+# WordPress をデプロイ
 
-# WordPressの展開
+[WordPress](https://wordpress.org/) は、誰でも簡単に美しいウェブサイト、ブログ、アプリを構築できるオープンソースソフトウェアです。
 
-[WordPress](https://wordpress.org/)は、誰もが簡単に美しいウェブサイト、ブログ、またはアプリを構築できるオープンソースソフトウェアです。
+この記事では、Marketplace を通じて Zeabur 上で希望するドメインを使用して自分の WordPress サービスをデプロイする方法を紹介します。
 
-この記事では、ご希望のドメインでゼーバー上に独自のWordPressサービスを展開する方法を紹介します。
+## テンプレートから WordPress をデプロイ
 
-## ステップ1：プロジェクトの作成
+### ステップ1：WordPressテンプレートページを開く
 
-<CreateProject />
+WordPress は MySQL データベースを必要とするため、イメージから直接デプロイすることはできません。
 
-## ステップ2：MySQLの展開
+MySQL を含む WordPress をワンクリックでデプロイできるテンプレートを用意しました。
 
-WordPressサービスを作成する前に、MySQLサービスを展開する必要があります。
+[![Zeaburでデプロイ](https://zeabur.com/button.svg)](https://zeabur.com/templates/CV344X)
 
-「サービスの追加」をクリックし、「マーケットプレイス」を選択します。リストからMySQLを見つけることができます。
+### ステップ2：テンプレートをデプロイ
 
-![MySQLの展開](/marketplace/wordpress/deploy-mysql.png)
+![テンプレート](/marketplace/wordpress/template.png)
 
-これを選択してMySQLを展開します。
+デプロイボタンをクリックし、サービスをデプロイする地域を選択します。
 
-## ステップ3：データベースの作成
+![地域を選択](/marketplace/wordpress/region.png)
 
-WordPressサービスを正しく機能させるためには、まずMySQLデータベース内に`wordpress`という名前のデータベースを作成する必要があります。
+選択後、自動的にプロジェクトページにリダイレクトされ、デプロイの進行状況が表示されます。
 
-お好みのクライアントでMySQLサービスに接続できます。 この記事では、[mysqlsh](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell.html)を使用します。
+数秒待つと、WordPressサービスが正常にデプロイされ、稼働を開始します。
 
-![MySQL接続情報](/marketplace/wordpress/mysql-connect.png)
+### ステップ3：ドメインをバインド
 
-MySQLサービス内の「接続」セクションでMySQL接続コマンドを見つけることができます。
+デプロイ後、WordPressサービスにアクセスするためにドメインをバインドする必要があります。
 
-例：
+詳細については[ドメインをバインドするガイド](../deploy/domain-binding)をご覧ください。
 
-```bash
-mysqlsh --host=infra.zeabur.com --port=11451 --user=root --password=wordpress-demo
-```
+### ステップ4：WordPressにログインして設定する
 
-ターミナルに入る前に、`mysqlsh`の後に` --sql`を追加してください：
+ドメインのバインドが完了したら、ドメイン名をクリックしてWordPressのインストール画面に入ります。まず、希望する言語を選択し、「続行」（または類似の内容）をクリックします：
 
-```bash
-mysqlsh --sql --host=infra.zeabur.com --port=11451 --user=root --password=wordpress-demo
-```
+![WordPressインストール、言語選択](/marketplace/wordpress/wordpress-inst-step1.png)
 
-その後、mysqlshで次のSQL命令を入力して`wordpress`データベースを作成してください：
-
-```sql
-CREATE DATABASE wordpress;
-```
-
-`Query OK, 1 row affected (0.0573 sec)`のような表示が出た場合、必要なデータベースが作成されていることを意味し、<kbd>Ctrl</kbd>（<kbd>Control</kbd>） + <kbd>D</kbd>を押して終了できます。
-
-![MySQLの操作](/marketplace/wordpress/mysql-operation.png)
-
-## ステップ4：WordPressサービスの展開
-
-ゼーバーコンソールで、「サービスの作成」をクリックし、「サービスマーケットプレイス」を選択してください。リストからWordPressを見つけることができます。
-
-![WordPressサービスの展開](/marketplace/wordpress/deploy-wordpress.png)
-
-プロジェクトをクリックして展開を完了してください。
-
-<Callout>
-WordPressを展開する前にMySQLサービスを展開しているため、ZeaburはMySQLに関連する環境変数を自動的にWordPressサービスに注入します。そのため、データベース情報を手動で設定する必要はありません。
-
-WordPressを先に展開し、まだMySQLを展開していない場合、MySQLサービスを展開した後にWordPressサービスを再起動する必要があります。これによりWordPressが正しいデータベース接続情報を取得できます。
-
-</Callout>
-
-
-## ステップ5：ドメインのバインド
-
-ゼーバーコンソールのWordPressサービスの「ドメイン」セクションでは、ドメイン名をバインドすることができます。このドメイン名は、ご自身のドメイン名またはゼーバーが提供する無料ドメイン名を使用できます。
-
-![WordPressサービスのドメインブロック](/marketplace/wordpress/wordpress-domain.png)
-
-サービスにドメイン名をバインドする方法についての情報は、[ドメインバインディング](../deploy/domain-binding)を参照してください。
-
-## ステップ6：ログインしてWordPressを設定する
-
-ドメインのバインドを完了した後、ドメイン名をクリックしてWordPressのインストール画面に移動できます。まず、希望する言語を選択して「続行」をクリックしてください：
-
-![WordPressインストール、言語の選択](/marketplace/wordpress/wordpress-inst-step1.png)
-
-その後、インストールの手順に従ってください：
+その後、インストール手順に従います：
 
 ![WordPressインストール、パスワードとサイト情報の設定](/marketplace/wordpress/wordpress-inst-step2.png)
 
-これを見たら、インストールが完了です。
+この画面が表示されたら、インストールが完了です。
 
-![WordPressインストール、インストールの完了](/marketplace/wordpress/wordpress-inst-step3.png)
+![WordPressインストール、インストール完了](/marketplace/wordpress/wordpress-inst-step3.png)
+

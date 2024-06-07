@@ -1,0 +1,85 @@
+apiVersion: zeabur.com/v1
+kind: Template
+metadata:
+  name: MinIO
+spec:
+  description: MinIO is a high performance distributed object storage server, designed for large-scale private cloud infrastructure.
+  coverImage: https://raw.githubusercontent.com/minio/minio/master/.github/logo.svg
+  icon: https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/minio.svg
+  tags:
+    - storage
+  readme: |
+    Note: This template is maintained by the Zeabur team, if you have any questions or need help, please contact us at [Zeabur's offical Discord server](https://zeabur.com/dc). You can also create issues or pull requests on [https://github.com/zeabur/minio-template](https://github.com/zeabur/minio-template).
+    
+    ---
+
+    MinIO is a High Performance Object Storage released under GNU Affero General Public License v3.0. It is API compatible with Amazon S3 cloud storage service. Use MinIO to build high performance infrastructure for machine learning, analytics and application data workloads.
+  services:
+    - name: minio
+      template: PREBUILT
+      spec:
+        id: minio
+        name: minio
+        icon: https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/minio.svg
+        source:
+          image: quay.io/minio/minio:latest
+          command:
+            - /bin/sh
+          args:
+            - -c
+            - |
+              minio server /data --console-address :9090 &
+              MINIO_PID=$!
+              while ! curl -s http://localhost:9000/minio/health/live; do
+                echo 'Waiting for MinIO to start...'
+                sleep 1
+              done
+              sleep 5
+              mc alias set myminio http://localhost:9000 $MINIO_USERNAME $MINIO_PASSWORD
+              echo "Creating bucket '$MINIO_DEFAULT_BUCKET'"
+              mc mb myminio/$MINIO_DEFAULT_BUCKET
+              wait $MINIO_PID
+        ports:
+          - id: web
+            port: 9000
+            type: HTTP
+          - id: console
+            port: 9090
+            type: HTTP
+        volumes:
+          - id: data
+            dir: /data
+        instructions:
+          - type: URL
+            title: Go to MinIO Console
+            content: ${MINIO_CONSOLE_URL}
+          - type: TEXT
+            title: Default Username (S3 Access Key ID)
+            content: ${MINIO_USERNAME}
+          - type: PASSWORD
+            title: Default Password (S3 Secret Access Key)
+            content: ${MINIO_PASSWORD}
+          - type: TEXT
+            title: Default Bucket
+            content: ${MINIO_DEFAULT_BUCKET}
+        env:
+          MINIO_DEFAULT_BUCKET:
+            default: zeabur
+          MINIO_BROWSER_REDIRECT:
+            default: "false"
+          MINIO_CONSOLE_URL:
+            default: ${ZEABUR_CONSOLE_URL}
+            expose: true
+            readonly: true
+          MINIO_PASSWORD:
+            default: ${MINIO_ROOT_PASSWORD}
+            expose: true
+            readonly: true
+          MINIO_ROOT_PASSWORD:
+            default: ${PASSWORD}
+          MINIO_ROOT_USER:
+            default: minio
+          MINIO_USERNAME:
+            default: ${MINIO_ROOT_USER}
+            expose: true
+            readonly: true
