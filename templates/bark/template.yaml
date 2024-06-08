@@ -1,0 +1,44 @@
+apiVersion: zeabur.com/v1
+kind: Template
+metadata:
+  name: Bark
+spec:
+  description: 一款注重隐私、安全可控的自定义通知推送工具
+  icon: https://bark.day.app/_media/Icon.png
+  variables:
+    - key: PUBLIC_DOMAIN
+      type: DOMAIN
+      name: Domain
+      description: 你的 Bark 服务的域名
+    - key: BARK_KEY
+      type: STRING
+      name: Bark Key
+      description: 除了不能填 "push" 外，可以随便填写你喜欢的
+    - key: BARK_DEVICE_TOKEN
+      type: STRING
+      name: Device Token
+      description: Bark App 设置中显示的 DeviceToken，此 Token 是 APNS 真实设备 Token，请不要泄露
+  tags:
+    - notification
+  readme: |
+    免费、轻量！简单调用接口即可给自己的iPhone发送推送。
+    依赖苹果APNs，及时、稳定、可靠
+    不会消耗设备的电量， 基于系统推送服务与推送扩展，APP本体并不需要运行。
+    隐私安全，可以通过一些方式确保包含作者本人在内的所有人都无法窃取你的隐私。
+  services:
+    - name: bark-server
+      template: PREBUILT
+      domainKey: PUBLIC_DOMAIN
+      spec:
+        id: bark-server
+        name: bark-server
+        icon: https://bark.day.app/_media/Icon.png
+        source:
+          image: finab/bark-server
+        ports:
+          - id: web
+            port: 8080
+            type: HTTP
+        volumes:
+          - id: data
+            dir: /data
