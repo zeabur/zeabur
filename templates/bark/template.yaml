@@ -1,0 +1,37 @@
+apiVersion: zeabur.com/v1
+kind: Template
+metadata:
+  name: Bark
+spec:
+  description: A privacy-focused, secure and controllable custom notification push tool.
+  icon: https://bark.day.app/_media/Icon.png
+  variables:
+    - key: PUBLIC_DOMAIN
+      type: DOMAIN
+      name: Domain
+      description: Domain of your Bark server.
+  tags:
+    - notification
+  readme: |
+    Note: This template is maintained by the Zeabur team, if you have any questions or need help, please contact us at [Zeabur's offical Discord server](https://zeabur.com/dc). You can also create issues or pull requests on [https://github.com/zeabur/zeabur/tree/main/templates](https://github.com/zeabur/zeabur/tree/main/templates).
+
+    ---
+
+    Bark is an iOS App which allows you to push custom notifications to your iPhone.
+  services:
+    - name: bark-server
+      template: PREBUILT
+      domainKey: PUBLIC_DOMAIN
+      spec:
+        id: bark-server
+        name: bark-server
+        icon: https://bark.day.app/_media/Icon.png
+        source:
+          image: finab/bark-server
+        ports:
+          - id: web
+            port: 8080
+            type: HTTP
+        volumes:
+          - id: data
+            dir: /data
