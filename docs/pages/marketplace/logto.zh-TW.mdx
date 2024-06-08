@@ -1,111 +1,83 @@
 ---
-title: Logto
-ogImageTitle: 在 Zeabur 部署 Logto
-ogImageSubtitle: 在 Zeabur 部署 Logto 服務
+title: 部署 Logto
+ogImageTitle: 部署 Logto
+ogImageSubtitle: 在 Zeabur 上部署 Logto
 ---
 
-# 在 Zeabur 部署 Logto
+# 部署 Logto 服務
 
-[Logto](https://logto.io/) 是一個開源的身份驗證服務，可以幫助你在你的應用程式中快速實現身份驗證，同時也是最著名的 [Auth0](https://auth0.com/) 開源替代品。
+[Logto](https://logto.io/) 是一個開源的身份驗證服務，幫助你快速在應用程式中實現身份驗證，也是[Auth0](https://auth0.com/)的最著名開源替代品。
 
-本文將教你如何在 Zeabur 上輕鬆部署一個 Logto 服務，並且綁定自己的網域，讓你的其他網站能夠用自己部署的 Logto 服務來驗證身份。
+本文將教你如何透過服務市場在 Zeabur 上部署 Logto 服務，並綁定自己的網域，以便其他網站可以使用你部署的 Logto 服務進行身份驗證。
 
-## 步驟一：建立項目
+## 步驟 1：從模板部署
 
-<CreateProject />
+### 方法 1：使用新專案部署
 
-## 步驟二：部署 PostgreSQL 服務
+首先，造訪 [Logto 的模板頁面](https://zeabur.com/templates/AV1NZ4)。
 
-Logto 會將使用者身份資料儲存在 PostgreSQL 資料庫中，請點選「建立服務」並選擇 `Prebuilt`，你將在列表中找到 PostgreSQL。
+你會看到該模板已經配置了 PostgreSQL 服務，所以你不需要做任何事情。
 
-![Deploy PostgreSQL](/marketplace/postgresql/deploy.png)
+![模板頁面](/marketplace/logto/template.png)
 
-選擇了 PostgreSQL 後，你的 PostgreSQL 服務將會自動部署。
+點選部署按鈕，然後選擇一個區域來部署你的服務。
 
-## 步驟三：建立資料庫
+![選擇區域](/marketplace/logto/region.png)
 
-為了讓 Logto 服務能夠正常運作，我們需要先在 PostgreSQL 資料庫中建立一個名為 `logto` 的資料庫。
+選擇後，你將自動重定向到專案頁面，在那裡你可以看到部署進度。
 
-### 方法一：在控制台中建立
+![部署](/marketplace/logto/deployment.png)
 
-通常情況下，你需要一個 PostgreSQL 用戶端來連接 PostgreSQL 服務並建立資料庫。但是 Zeabur 提供了一個方便的方法來建立資料庫。
+再等待幾秒鐘，你的 Logto 服務將成功部署並開始運作。
 
-在你的 PostgreSQL 服務中，你可以找到一個名為 **Database** 的頁籤，你可以在這裡輕鬆管理你的資料庫。
+### 方法 2：部署到現有專案
 
-![Database Tab](/marketplace/postgresql/create-database.png)
+如果你已經有一個專案，並且想為該專案加入一個認證系統，你也可以一鍵將 Logto 服務部署到現有專案中。
 
-**Logto 服務** 需要一個名為 `logto` 的資料庫，所以我們需要建立一個名為 `logto` 的資料庫。
+導航到專案頁面，點選 **部署新服務** 按鈕，然後從模板類別中選擇 Logto。
 
-### 方法二：使用 PostgreSQL 用戶端
+![專案中的模板](/marketplace/logto/template-in-project.png)
 
-你也可以使用 PostgreSQL 用戶端來建立資料庫。在本文中，我們使用 [psql](https://www.postgresql.org/docs/9.1/app-psql.html) 來連接。
+選擇 Logto 後，模板中的服務（Logto 和 PostgreSQL）將自動部署到你的專案中。
 
-![PostgreSQL Instructions](/marketplace/postgresql/connect.png)
+## 步驟 2：為每個埠綁定網域
 
-你可以在 Zeabur 控制台中 PostgreSQL 服務的 **Instruction** 頁籤中找到相應的 psql 連接指令或其他連接資訊。
+在 Zeabur 控制台中，你可以在 **網路** 頁籤中為 Logto 服務的每個 Port 綁定網域。
 
-```bash
-psql postgresql://root:password@infra.zeabur.com:12345
-```
+Logto 服務有兩個埠，一個用於 Web 介面，另一個用於管理控制台介面。你可以在控制台中為每個埠綁定一個網域。
 
-接下來，請在 psql 中輸入以下指令來建立 `logto` 資料庫：
+點選 **生成網域** 或 **自訂網域**，你將看到一個輸入框和一個埠選擇器，在這裡你可以為每個埠綁定一個網域。
 
-```sql
-CREATE DATABASE logto;
-```
+![Logto Web 網域](/marketplace/logto/web-domain.png)
 
-## 步驟四：部署 Logto 服務
+![Logto 控制台網域](/marketplace/logto/console-domain.png)
 
-在 Zeabur 控制台中，點選「建立服務」並選擇 `Prebuilt`，你將在列表中找到 Logto。
+你可以參考 [網域綁定](../deploy/domain-binding) 了解更多關於如何為你的服務綁定網域的資訊。
 
-![Deploy Logto](/marketplace/logto/prebuilt.png)
+## 步驟 3：配置環境變數
 
-在選擇了 Logto 服務後，你的 Logto 服務將會自動部署。
+綁定網域後，我們需要讓 Logto 服務知道我們綁定的網域。
 
-<Callout>
-  如果你先部署了 Logto 服務，然後再部署 PostgreSQL 服務，那麼你需要在部署
-  PostgreSQL 服務並加入好資料庫後重啟 Logto 服務，以便 Logto
-  能夠獲取正確的資料庫連接資訊。
-</Callout>
+Logto 服務需要兩個環境變數：
 
-## 步驟五：為每個埠綁定網域
+- `ENDPOINT`: 你綁定的用於 Web 介面的網域，例如 `https://logto-web.zeabur.app`。
+- `ADMIN_ENDPOINT`: 你綁定的用於管理控制台介面的網域，例如 `https://logto-console.zeabur.app`。
 
-在 Zeabur 控制台中，你可以在 Logto 服務的 **Domain** 頁籤中為其綁定網域。這個網域可以是你自己的網域，也可以是 Zeabur 提供的免費網域。
-
-Logto 服務有兩個埠，一個是用於 web 介面的，另一個是用於管理控制台介面的。你可以在控制台中為每個埠綁定一個網域。
-
-點選 **Generate Domain** 或 **Custom Domain**，你將看到一個輸入框和一個埠選擇器，你可以在這裡為每個埠綁定一個網域。
-
-![Logto domain for web](/marketplace/logto/web-domain.png)
-
-![Logto domain for console](/marketplace/logto/console-domain.png)
-
-關於如何為你的服務綁定網域的更多資訊，請參考 [綁定網域](../deploy/domain-binding)。
-
-## 步驟六：設定環境變數
-
-綁定好網域後，我們需要讓 Logto 服務知道我們綁定的網域。
-
-Logto 服務需要 2 個環境變數：
-
-- `ENDPOINT`: 你給 web 介面綁定的網域，例如 `https://logto-web.zeabur.app`。
-- `ADMIN_ENDPOINT`: 你給管理控制台介面綁定的網域，例如 `https://logto-console.zeabur.app`。
-
-打開服務頁面的 **Variables** 頁籤，點選 **Edit Raw Variables** 按鈕，你可以在輸入框中填寫以下變數。
+在服務頁面打開 **變數** 頁籤，點選 **編輯原始變數** 按鈕，然後你可以在輸入框中填寫以下變數。
 
 ```json
 {
-  "ENDPOINT": "https://logto-web.zeabur.app", // Your domain name for web interface
-  "ADMIN_ENDPOINT": "https://logto-console.zeabur.app" // Your domain name for admin console interface
+  "ENDPOINT": "https://logto-web.zeabur.app", // 你用於 Web 介面的網域
+  "ADMIN_ENDPOINT": "https://logto-console.zeabur.app" // 你用於管理控制台介面的網域
 }
 ```
 
-加入好變數後，點選 **Restart** 按鈕並等待大約 1 分鐘，服務將會重啟並生效。
+加入變數後，按下 **重啟** 按鈕並等待約 30 秒，服務將重新啟動並生效。
 
-## 步驟七：登入並配置 Logto
+## 步驟 4：登入並配置 Logto
 
-現在你的 Logto 服務已經準備就緒，你可以登入並配置它。你可以打開你為管理控制台介面綁定的網域，例如 `https://logto-console.zeabur.app`，你將會看到 Logto 服務的登入頁面。
+現在你的 Logto 服務已經準備就緒，你可能想配置它。你可以打開你為管理控制台介面綁定的網域，例如 `https://logto-console.zeabur.app`，你將看到 Logto 服務的登入頁面。
 
-![Logto admin](/marketplace/logto/admin.png)
+![Logto 管理](/marketplace/logto/admin.png)
 
-創造一個帳戶並開始使用 Logto 服務，只需按照 Logto 服務給出的指示即可。
+然後你可以建立一個帳戶開始使用 Logto 服務，只需按照 Logto 服務提供的說明進行操作即可。
