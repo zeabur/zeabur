@@ -40,7 +40,7 @@ RABBITMQ_DEFAULT_PASS = { default = "${PASSWORD}" }
 RABBITMQ_DEFAULT_VHOST = { default = "/" }
 
 RABBITMQ_HOST = { default = "${CONTAINER_HOSTNAME}", expose = true, readonly = true }
-RABBITMQ_PORT = { default = "${DATABASE_PORT}", expose = true, readonly = true }
+RABBITMQ_PORT = { default = "${AMQP_PORT}", expose = true, readonly = true }
 RABBITMQ_CONNECTION_STRING = { default = "amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@${RABBITMQ_HOST}:${RABBITMQ_PORT}", expose = true, readonly = true }
 RABBITMQ_URI = { default = "${RABBITMQ_CONNECTION_STRING}", expose = true, readonly = true }
 
