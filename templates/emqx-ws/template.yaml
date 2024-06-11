@@ -1,0 +1,36 @@
+apiVersion: zeabur.com/v1
+kind: Template
+metadata:
+  name: EMQX (Websocket)
+spec:
+  description: The most scalable open-source MQTT broker for IoT, IIoT, and connected vehicles.
+  icon: https://avatars.githubusercontent.com/u/25221711
+  variables:
+    - key: PUBLIC_DOMAIN
+      type: DOMAIN
+      name: Domain
+      description: Domain of your EMQX web console
+  tags:
+    - MQTT
+  readme: The most scalable open-source MQTT broker for IoT, IIoT, and connected vehicles.
+  services:
+    - name: emqx
+      template: PREBUILT
+      spec:
+        id: emqx
+        name: emqx
+        description: null
+        icon: https://avatars.githubusercontent.com/u/25221711
+        source:
+          image: emqx/emqx:5.1.6
+        ports:
+          - id: dashboard
+            port: 18083
+            type: HTTP
+          - id: ws
+            port: 8083
+            type: HTTP
+        volumes:
+          - id: data
+            dir: /opt/emqx/data
+      domainKey: PUBLIC_DOMAIN
