@@ -10,7 +10,7 @@ docs = "https://zeabur.com/docs/marketplace/rabbitmq"
 image = "rabbitmq:3-management"
 
 [[ports]]
-id = "database"
+id = "amqp"
 port = 5672
 type = "TCP"
 
@@ -18,6 +18,16 @@ type = "TCP"
 id = "web"
 port = 15672
 type = "HTTP"
+
+[[ports]]
+id = "mqtt"
+port = 1883
+type = "TCP"
+
+[[ports]]
+id = "stomp"
+port = 61613
+type = "TCP"
 
 [[volumes]]
 id = "data"
@@ -30,7 +40,7 @@ RABBITMQ_DEFAULT_PASS = { default = "${PASSWORD}" }
 RABBITMQ_DEFAULT_VHOST = { default = "/" }
 
 RABBITMQ_HOST = { default = "${CONTAINER_HOSTNAME}", expose = true, readonly = true }
-RABBITMQ_PORT = { default = "${DATABASE_PORT}", expose = true, readonly = true }
+RABBITMQ_PORT = { default = "${AMQP_PORT}", expose = true, readonly = true }
 RABBITMQ_CONNECTION_STRING = { default = "amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@${RABBITMQ_HOST}:${RABBITMQ_PORT}", expose = true, readonly = true }
 RABBITMQ_URI = { default = "${RABBITMQ_CONNECTION_STRING}", expose = true, readonly = true }
 
@@ -54,8 +64,20 @@ category = "Hostname & Port"
 
 [[instructions]]
 type = "TEXT"
-title = "RabbitMQ port"
-content = "${DATABASE_PORT_FORWARDED_PORT}"
+title = "RabbitMQ AMQP port"
+content = "${AMQP_PORT_FORWARDED_PORT}"
+category = "Hostname & Port"
+
+[[instructions]]
+type = "TEXT"
+title = "RabbitMQ MQTT port"
+content = "${MQTT_PORT_FORWARDED_PORT}"
+category = "Hostname & Port"
+
+[[instructions]]
+type = "TEXT"
+title = "RabbitMQ STOMP port"
+content = "${STOMP_PORT_FORWARDED_PORT}"
 category = "Hostname & Port"
 
 [[configs]]
@@ -64,3 +86,7 @@ template = """
 # Configuration for Rabbit can be found on https://www.rabbitmq.com/docs/configure#config-file
 # Reference environment variables by $(ENV_VARIABLE_KEY), for example, "$(ZEABUR_SERVICE_ID)".
 """
+
+[[configs]]
+path = "/etc/rabbitmq/enabled_plugins"
+template = """[rabbitmq_management,rabbitmq_mqtt,rabbitmq_stomp]."""
