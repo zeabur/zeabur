@@ -1,0 +1,128 @@
+apiVersion: zeabur.com/v1
+kind: Template
+metadata:
+  name: Milvus
+spec:
+  description: Milvus is an open-source vector database that brings search to GenAI applications.
+  icon: https://miro.medium.com/v2/1*-VEGyAgcIBD62XtZWavy8w.png
+  tags:
+    - database
+    - vector
+  readme: |
+    Milvus is an open-source vector database that brings search to GenAI applications. pip-install on your laptop, use with popular AI dev tools and scale to billions of vectors.
+  services:
+    - name: minio
+      template: PREBUILT
+      spec:
+        id: minio
+        name: minio
+        icon: https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/minio.svg
+        source:
+          image: quay.io/minio/minio:latest
+          command:
+            - minio
+            - server
+            - /data
+        ports:
+          - id: web
+            port: 9000
+            type: HTTP
+          - id: console
+            port: 9090
+            type: HTTP
+        volumes:
+          - id: data
+            dir: /data
+        instructions:
+          - type: URL
+            title: Go to MinIO Console
+            content: ${MINIO_CONSOLE_URL}
+          - type: TEXT
+            title: Default Username (S3 Access Key ID)
+            content: ${MINIO_USERNAME}
+          - type: PASSWORD
+            title: Default Password (S3 Secret Access Key)
+            content: ${MINIO_PASSWORD}
+          - type: TEXT
+            title: Default Bucket
+            content: ${MINIO_DEFAULT_BUCKET}
+        env:
+          MINIO_BROWSER_REDIRECT:
+            default: "false"
+          MINIO_CONSOLE_URL:
+            default: ${ZEABUR_CONSOLE_URL}
+            expose: true
+            readonly: true
+          MINIO_PASSWORD:
+            default: ${MINIO_ROOT_PASSWORD}
+            expose: true
+            readonly: true
+          MINIO_ROOT_PASSWORD:
+            default: minioadmin
+          MINIO_ROOT_USER:
+            default: minioadmin
+          MINIO_USERNAME:
+            default: ${MINIO_ROOT_USER}
+            expose: true
+            readonly: true
+    - name: etcd
+      template: PREBUILT
+      spec:
+        id: etcd
+        name: etcd
+        icon: https://i.imgur.com/jyDr9hI.png
+        source:
+          image: quay.io/coreos/etcd:v3.5.10
+          command:
+            - etcd
+            - --config-file
+            - /etc/etcd/etcd.yml
+        ports:
+          - id: client
+            port: 2379
+            type: TCP
+          - id: peer
+            port: 2380
+            type: TCP
+        env:
+          ALLOW_NONE_AUTHENTICATION:
+            default: "yes"
+        configs:
+          - path: /etc/etcd/etcd.yml
+            template: |
+              name: 'etcd0'
+              data-dir: '/etcd-data'
+              listen-client-urls: 'http://0.0.0.0:2379'
+              advertise-client-urls: 'http://0.0.0.0:2379'
+              listen-peer-urls: 'http://0.0.0.0:2380'
+              initial-advertise-peer-urls: 'http://0.0.0.0:2380'
+              initial-cluster: 'etcd0=http://0.0.0.0:2380'
+              initial-cluster-token: 'etcd-cluster-1'
+              initial-cluster-state: 'new'
+        volumes:
+          - id: data
+            dir: /etcd-data
+    - name: milvus
+      template: PREBUILT
+      spec:
+        id: milvus
+        name: milvus
+        icon: https://miro.medium.com/v2/1*-VEGyAgcIBD62XtZWavy8w.png
+        source:
+          image: milvusdb/milvus:v2.4.4
+          command: [ "milvus", "run", "standalone" ]
+        ports:
+          - id: grpc
+            port: 19530
+            type: HTTP
+          - id: http
+            port: 19121
+            type: HTTP
+        env:
+          ETCD_ENDPOINTS:
+            default: etcd:2379
+          MINIO_ADDRESS:
+            default: minio:9000
+        volumes:
+          - id: data
+            dir: /var/lib/milvus
