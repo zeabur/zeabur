@@ -327,7 +327,7 @@ spec:
             type: TCP
         volumes:
           - id: data
-            dir: /var/lib/postgresql/data
+            dir: /var/lib/postgresql
         instructions:
           - type: TEXT
             title: Connection String
@@ -925,7 +925,7 @@ spec:
           AWS_SECRET_ACCESS_KEY:
             default: ${MINIO_PASSWORD}
           DATABASE_URL:
-            default: postgres://postgres:${POSTGRES_PASSWORD}@db.zeabur.internal:5432/postgres
+            default: postgres://postgres:${POSTGRES_PASSWORD}@${DB_HOST}:5432/postgres
           ENABLE_IMAGE_TRANSFORMATION:
             default: "true"
           FILE_SIZE_LIMIT:
