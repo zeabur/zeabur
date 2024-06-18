@@ -18,3 +18,56 @@ Zeabur 支援眾多類型的 Python 專案，包含但不限於這些：
 
 Zeabur 支援將 Python 部署成 serverless 專案。不過目前需要 opt-in。
 請參考 [啟用 Serverless](/deploy/serverless) 頁面啟用 serverless 支援。
+
+## 設定 Python 的版本
+
+Zeabur 預設使用 Python 3.10 作為執行環境，不過 Zeabur 會根據你專案設定的 Python 版本選擇執行環境，你也可以根據需要自訂執行環境。
+
+### 在專案指定 Python 版本
+
+「在專案指定 Python 版本」是比較通用的做法，在每個環境都能使用。
+
+如果是 **Pipenv**，[請在 `Pipfile` 中指定 Python 版本](https://pipenv.pypa.io/zh-cn/stable/basics.html#specifying-versions-of-python)：
+
+```toml
+[requires]
+python_version = "3.8"   # 在這裡指定 Python 版本
+```
+
+如果是 **Poetry**，[請在 `pyproject.toml` 中指定 Python 版本](https://python-poetry.org/docs/basic-usage#setting-a-python-version)：
+
+```toml
+[tool.poetry.dependencies]
+python = "^3.8"  # 在這裡指定 Python 版本
+```
+
+如果是 **PDM**，[請在 `pyproject.toml` 中指定 `requires-python`](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#python-requires)：
+
+```toml
+[project]
+requires-python = ">= 3.8"  # 在這裡指定 Python 版本
+```
+
+如果是 **Rye**，則[使用 `rye pin` 命令設定 Python 版本](https://rye.astral.sh/guide/commands/pin/)：
+
+```bash
+rye pin 3.8  # 在這裡指定 Python 版本
+```
+
+### 在 Zeabur 指定 Python 版本
+
+如果你使用的是傳統的 `requirements.txt`，或你需要在 Zeabur 覆蓋專案指定的 Python 版本，你可以在 `zbpack.json` 中指定 Python 版本。
+
+```json
+{
+    "python": {
+        "version": "3.8"
+    }
+}
+```
+
+或者是使用 `ZBPACK_PYTHON_VERSION` 環境變數指定 Python 版本：
+
+```env
+ZBPACK_PYTHON_VERSION=3.8
+```

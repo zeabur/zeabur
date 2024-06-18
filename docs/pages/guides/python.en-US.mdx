@@ -18,3 +18,56 @@ If your source code includes `app.py`, `main.py`, or similar entry points, Zeabu
 
 Zeabur supports deploying Python projects as serverless projects. However, this currently requires opt-in.
 Please refer to the [Enable Serverless](/deploy/serverless) page to enable your serverless support.
+
+## Setting the Python Version
+
+Zeabur uses Python 3.10 as the default runtime environment. However, Zeabur will select the runtime environment based on the Python version set in your project. You can also customize the runtime environment as needed.
+
+### Specifying the Python Version in Your Project
+
+Specifying the Python version in your project is a more general approach that works in all environments.
+
+For **Pipenv**, [specify the Python version in the `Pipfile`](https://pipenv.pypa.io/zh-cn/stable/basics.html#specifying-versions-of-python):
+
+```toml
+[requires]
+python_version = "3.8"   # Specify the Python version here
+```
+
+For **Poetry**, [specify the Python version in the `pyproject.toml`](https://python-poetry.org/docs/basic-usage#setting-a-python-version)：
+
+```toml
+[tool.poetry.dependencies]
+python = "^3.8"  # Specify the Python version here
+```
+
+For **PDM**, [specify the `requires-python` in the `pyproject.toml`](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#python-requires):
+
+```toml
+[project]
+requires-python = ">= 3.8"  # Specify the Python version here
+```
+
+For **Rye**, [use the `rye pin` command to set the Python version](https://rye.astral.sh/guide/commands/pin/):
+
+```bash
+rye pin 3.8  # Specify the Python version here
+```
+
+### Specifying the Python Version in Zeabur
+
+If you are using the traditional `requirements.txt` or need to override the Python version specified in your project for Zeabur, you can specify the Python version in `zbpack.json`.
+
+```json
+{
+    "python": {
+        "version": "3.8"
+    }
+}
+```
+
+Alternatively, use the `ZBPACK_PYTHON_VERSION` environment variable to specify the Python version:
+
+```env
+ZBPACK_PYTHON_VERSION=3.8
+```

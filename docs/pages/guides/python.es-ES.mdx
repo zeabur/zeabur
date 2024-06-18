@@ -1,22 +1,74 @@
 ---
 title: Python
-ogImageTitle: Deploy Python Projects
-ogImageSubtitle: Deploy Python Projects on Zeabur
+ogImageTitle: Despliega Proyectos Python
+ogImageSubtitle: Despliega Proyectos Python en Zeabur
 ---
 
-<WorkingInProgress />
+# Despliega Proyectos Python
 
-# Deploy Python Projects
-
-Zeabur supports various types of Python projects, including:
+Zeabur soporta varios tipos de proyectos en Python, incluyendo:
 
 - [Flask](./python/flask)
 - [Django](./python/django)
 - FastAPI
 
-If your source code includes `app.py`, `main.py`, or similar entry points, Zeabur will also start automatically.
+Si tu código fuente incluye `app.py`, `main.py` o puntos de entrada similares, Zeabur también se iniciará automáticamente.
 
 ## Serverless
 
-Zeabur supports deploying Python projects as serverless projects. However, this currently requires opt-in.
-Please refer to the [Enable Serverless](/deploy/serverless) page to enable your serverless support.
+Zeabur soporta el despliegue de proyectos en Python como proyectos serverless. Sin embargo, actualmente requiere una suscripción.
+Por favor, consulta la página [Habilitar Serverless](/deploy/serverless) para habilitar el soporte serverless.
+
+## Configuración de la versión de Python
+
+Zeabur utiliza Python 3.10 como entorno de ejecución predeterminado, sin embargo, Zeabur seleccionará el entorno de ejecución basado en la versión de Python configurada en tu proyecto. También puedes personalizar el entorno de ejecución según sea necesario.
+
+### Especificar la versión de Python en tu proyecto
+
+"Especificar la versión de Python en tu proyecto" es un enfoque más general que funciona en todos los entornos.
+
+Para **Pipenv**, [especifica la versión de Python en el `Pipfile`](https://pipenv.pypa.io/zh-cn/stable/basics.html#specifying-versions-of-python):
+
+```toml
+[requires]
+python_version = "3.8"   # Especifica la versión de Python aquí
+```
+
+Para **Poetry**, [especifica la versión de Python en el `pyproject.toml`](https://python-poetry.org/docs/basic-usage/#setting-a-python-version):
+
+```toml
+[tool.poetry.dependencies]
+python = "^3.8"  # Especifica la versión de Python aquí
+```
+
+Para **PDM**, [especifica `requires-python` en el `pyproject.toml`](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#python-requires):
+
+```toml
+[project]
+requires-python = ">= 3.8"  # Especifica la versión de Python aquí
+```
+
+Para **Rye**, [usa el comando `rye pin` para configurar la versión de Python](https://rye.astral.sh/guide/commands/pin/):
+
+```bash
+rye pin 3.8  # Especifica la versión de Python aquí
+```
+
+### Especificar la versión de Python en Zeabur
+
+Si estás utilizando el tradicional `requirements.txt` o necesitas anular la versión de Python especificada en tu proyecto para Zeabur, puedes especificar la versión de Python en `zbpack.json`.
+
+```json
+{
+    "python": {
+        "version": "3.8"
+    }
+}
+```
+
+O usa la variable de entorno `ZBPACK_PYTHON_VERSION` para especificar la versión de Python:
+
+```env
+ZBPACK_PYTHON_VERSION=3.8
+```
+
