@@ -12,7 +12,10 @@ MkDocsは、プロジェクトドキュメントの構築のために特別に�
 
 以下はデモビデオで、60秒以内にMkDocsプロジェクトを初期化してZeaburにデプロイする方法を示しています。
 
-<iframe style={{marginTop: 12}} width="560" height="315" src="https://www.youtube.com/embed/DYlpqWQgQEM?si=geEMw0kQOnIEEZAC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe style={{marginTop: 12}} width="560" height="315"
+        src="https://www.youtube.com/embed/DYlpqWQgQEM?si=geEMw0kQOnIEEZAC" title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## 条件
 
@@ -55,7 +58,7 @@ MkDocsプロジェクトをデプロイするには、GitHubまたはZeabur CLI�
 Zeabur CLIを使用してMkDocsプロジェクトをデプロイするのは、最も簡単な方法です。まず、Zeabur CLIにログインします：
 
 ```bash
-npx @zeabur/cli auth login
+npx zeabur auth login
 ```
 
 このコマンドはブラウザを開いてログインプロセスを案内します。
@@ -63,7 +66,7 @@ npx @zeabur/cli auth login
 次に、`deploy` コマンドを使用してデプロイします：
 
 ```bash
-npx @zeabur/cli deploy
+npx zeabur deploy
 ```
 
 このコマンドは対話式にどのプロジェクトにデプロイするかを尋ねますが、新しいプロジェクトを作成することもできます。
