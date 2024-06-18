@@ -18,3 +18,56 @@ Zeaburはさまざまな種類のPythonプロジェクトをサポートして�
 
 ZeaburはPythonプロジェクトをサーバーレスプロジェクトとしてデプロイするサポートを提供しています。ただし、現在はオプトインが必要です。
 サーバーレスサポートを有効にするには、[サーバーレスを有効にする](/deploy/serverless) ページを参照してください。
+
+## Pythonのバージョンを設定する
+
+ZeaburはデフォルトでPython 3.10を実行環境として使用しますが、プロジェクトで設定されたPythonのバージョンに基づいて実行環境を選択します。また、必要に応じて実行環境をカスタマイズすることもできます。
+
+### プロジェクトでPythonのバージョンを指定する
+
+「プロジェクトでPythonのバージョンを指定する」は、すべての環境で使用できる一般的な方法です。
+
+**Pipenv**の場合、[ `Pipfile` でPythonのバージョンを指定してください](https://pipenv.pypa.io/zh-cn/stable/basics.html#specifying-versions-of-python)：
+
+```toml
+[requires]
+python_version = "3.8"   # ここでPythonのバージョンを指定します
+```
+
+**Poetry**の場合、[ `pyproject.toml` でPythonのバージョンを指定してください](https://python-poetry.org/docs/basic-usage#setting-a-python-version)：
+
+```toml
+[tool.poetry.dependencies]
+python = "^3.8"  # ここでPythonのバージョンを指定します
+```
+
+**PDM**の場合、[ `pyproject.toml` で `requires-python` を指定してください](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#python-requires)：
+
+```toml
+[project]
+requires-python = ">= 3.8"  # ここでPythonのバージョンを指定します
+```
+
+**Rye**の場合、[ `rye pin` コマンドを使用してPythonのバージョンを設定してください](https://rye.astral.sh/guide/commands/pin/)：
+
+```bash
+rye pin 3.8  # ここでPythonのバージョンを指定します
+```
+
+### ZeaburでPythonのバージョンを指定する
+
+従来の `requirements.txt` を使用している場合、またはプロジェクトで指定されたPythonのバージョンをZeaburで上書きする必要がある場合は、 `zbpack.json` でPythonのバージョンを指定できます。
+
+```json
+{
+    "python": {
+        "version": "3.8"
+    }
+}
+```
+
+または、 `ZBPACK_PYTHON_VERSION` 環境変数を使用してPythonのバージョンを指定します：
+
+```env
+ZBPACK_PYTHON_VERSION=3.8
+```
