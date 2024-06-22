@@ -1,0 +1,55 @@
+---
+ogImageTitle: Reflex プロジェクトのデプロイ
+ogImageSubtitle: Reflex プロジェクトを Zeabur にデプロイ
+---
+
+# Reflex プロジェクトのデプロイ
+
+この記事では、Zeabur を使用して Reflex アプリケーションを Google Cloud Platform、Amazon Web Service、Digital Ocean、Vultr などのクラウドサービスプロバイダーにワンクリックでデプロイする方法を紹介します。
+
+## 既存の Reflex プロジェクト
+
+### 条件判断
+
+既に Reflex プロジェクトをお持ちの場合、以下の要件を満たしているかを確認してください：
+
+1. プロジェクトのルートディレクトリに `requirements.txt` ファイルがあります。
+2. `requirements.txt` ファイルに `reflex` パッケージが含まれています。
+
+プロジェクトが上記の条件を満たしている場合、直接デプロイを開始できます。Zeabur のデプロイプロセスは自動的に Reflex アプリケーションを認識してビルドします。
+
+### デプロイ方法
+
+Zeabur を使用して Reflex プロジェクトをクラウドサービスプロバイダーにデプロイする方法は3つあります：
+
+1. GitHub リポジトリからデプロイします。
+2. Zeabur CLI を使用してデプロイします。
+3. Zeabur のウェブコンソールからコードをアップロードします。
+
+## Reflex プロジェクトの初期化
+
+まだ Reflex プロジェクトを持っていない場合は、[Reflex 公式ドキュメント](https://reflex.dev/docs/getting-started/installation/#installation)を参照して新しい Reflex プロジェクトを初期化できます。
+
+1. 仮想環境を作成します：
+
+  ```bash
+  python3 -m venv venv
+  ```
+
+2. 仮想環境を有効にします：
+
+  ```bash
+  source venv/bin/activate
+  ```
+
+3. Reflex をインストールします：
+
+  ```bash
+  pip install reflex
+  ```
+
+4. Reflex プロジェクトを作成します：
+
+  ```bash
+  reflex init
+  ```

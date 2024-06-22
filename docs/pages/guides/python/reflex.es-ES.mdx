@@ -1,0 +1,55 @@
+---
+ogImageTitle: Despliegue de proyecto Reflex
+ogImageSubtitle: Despliega tu proyecto Reflex en Zeabur
+---
+
+# Despliegue de proyecto Reflex
+
+Este artículo te enseñará cómo desplegar tu aplicación Reflex en proveedores de servicios en la nube como Google Cloud Platform, Amazon Web Service, Digital Ocean, Vultr y más, con un solo clic mediante Zeabur.
+
+## Proyecto Reflex existente
+
+### Requisitos previos
+
+Si ya tienes un proyecto Reflex, asegúrate de que tu código cumpla con los siguientes requisitos:
+
+1. La raíz de tu proyecto contiene un archivo `requirements.txt`.
+2. Tu archivo `requirements.txt` incluye el paquete `reflex`.
+
+Si tu proyecto cumple con los criterios anteriores, puedes comenzar el despliegue inmediatamente. El proceso de despliegue de Zeabur reconocerá y construirá automáticamente tu aplicación Reflex.
+
+### Despliegue
+
+Hay tres maneras de utilizar Zeabur para desplegar tu proyecto Reflex en proveedores de servicios en la nube:
+
+1. Despliegue desde un repositorio de GitHub.
+2. Despliegue utilizando la CLI de Zeabur.
+3. Sube tu código a través de la consola web de Zeabur.
+
+## Inicialización de un proyecto Reflex
+
+Si todavía no tienes un proyecto Reflex, puedes seguir la [documentación oficial de Reflex](https://reflex.dev/docs/getting-started/installation/#installation) para inicializar un nuevo proyecto Reflex.
+
+1. Crea un entorno virtual:
+
+  ```bash
+  python3 -m venv venv
+  ```
+
+2. Activa el entorno virtual:
+
+  ```bash
+  source venv/bin/activate
+  ```
+
+3. Instala Reflex:
+
+  ```bash
+  pip install reflex
+  ```
+
+4. Crea un proyecto Reflex:
+
+  ```bash
+  reflex init
+  ```

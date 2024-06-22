@@ -1,0 +1,55 @@
+---
+ogImageTitle: Deploying Reflex Project
+ogImageSubtitle: Deploy your Reflex project to Zeabur
+---
+
+# Deploying Reflex Project
+
+This article will teach you how to deploy your Reflex application to cloud service providers like Google Cloud Platform, Amazon Web Service, Digital Ocean, Vultr, and more with one click using Zeabur.
+
+## Pre-existing Reflex Project
+
+### Prerequisites
+
+If you already have a Reflex project, ensure that your code meets the following requirements:
+
+1. Your project root directory contains a `requirements.txt` file.
+2. Your `requirements.txt` file includes the `reflex` package.
+
+If your project meets the above criteria, you can start deploying it immediately. The Zeabur deployment process will automatically recognize and build your Reflex application.
+
+### Deployment
+
+There are three ways you can use Zeabur to deploy your Reflex project to cloud service providers:
+
+1. Deploy from a GitHub repository.
+2. Deploy using the Zeabur CLI.
+3. Upload your code through the Zeabur web console.
+
+## Initializing a Reflex Project
+
+If you don't yet have a Reflex project, you can follow the [official Reflex documentation](https://reflex.dev/docs/getting-started/installation/#installation) to initialize a new Reflex project.
+
+1. Create a virtual environment:
+
+  ```bash
+  python3 -m venv venv
+  ```
+
+2. Activate the virtual environment:
+
+  ```bash
+  source venv/bin/activate
+  ```
+
+3. Install Reflex:
+
+  ```bash
+  pip install reflex
+  ```
+
+4. Create a Reflex project:
+
+  ```bash
+  reflex init
+  ```

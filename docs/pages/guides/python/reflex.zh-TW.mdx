@@ -1,0 +1,55 @@
+---
+ogImageTitle: 部署 Reflex 專案
+ogImageSubtitle: 將你的 Reflex 專案部署到 Zeabur
+---
+
+# 部署 Reflex 專案
+
+這篇文章將會教你如何用 Zeabur 一鍵部署 Reflex 應用程式到 Google Cloud Platform、Amazon Web Service、Digital Ocean、Vultr 等雲端服務商。
+
+## 已有 Reflex 專案
+
+### 判斷條件
+
+如果你已經有一個 Reflex 專案，你可以確定你的程式碼是否符合以下要求：
+
+1. 你的專案根目錄有 `requirements.txt` 檔案。
+2. 你的 `requirements.txt` 檔案包含了 `reflex` 套件。
+
+如果你的專案符合以上要求，你可以直接開始部署你的專案，Zeabur 的部署流程會自動識別並構建你的 Reflex 應用程式。
+
+### 部署
+
+你有三種方式可以使用 Zeabur 將你的 Reflex 專案部署到雲端服務商：
+
+1. 從 GitHub 儲存庫部署。
+2. 從 Zeabur CLI 部署。
+3. 從 Zeabur 網頁控制台上傳程式碼。
+
+## 初始化 Reflex 專案
+
+如果你還沒有 Reflex 專案，可以參考 [Reflex 官方文件](https://reflex.dev/docs/getting-started/installation/#installation) 來初始化一個 Reflex 專案。
+
+1. 建立虛擬環境：
+
+  ```bash
+  python3 -m venv venv
+  ```
+
+2. 啟動虛擬環境：
+
+  ```bash
+  source venv/bin/activate
+  ```
+
+3. 安裝 Reflex：
+
+  ```bash
+  pip install reflex
+  ```
+
+4. 建立一個 Reflex 專案：
+
+  ```bash
+  reflex init
+  ```
