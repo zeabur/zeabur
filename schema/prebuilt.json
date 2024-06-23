@@ -1,8 +1,8 @@
 {
-	"$id": "https://github.com/zeabur/zeabur/prebuilts/schema.json",
+	"$id": "https://schema.zeabur.app/prebuilt.json",
 	"$schema": "http://json-schema.org/draft-07/schema",
 	"title": "Service Specification (ServiceSpec)",
-	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.1.2-20240425.",
+	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.2.0-20240623.",
 	"type": "object",
 	"properties": {
 		"id": {
