@@ -17,30 +17,30 @@ spec:
     - AI
   readme: |
     Note: This template is maintained by the Zeabur team, if you have any questions or need help, please contact us at [Zeabur's offical Discord server](https://zeabur.com/dc). You can also create issues or pull requests on [https://github.com/zeabur/dify-template](https://github.com/zeabur/dify-template).
-    
+
     ---
-    
+
     Dify is an open-source LLM app development platform. Its intuitive interface combines AI workflow, RAG pipeline, agent capabilities, model management, observability features and more, letting you quickly go from prototype to production. Here's a list of the core features:
 
-    **1. Workflow**: 
+    **1. Workflow**:
       Build and test powerful AI workflows on a visual canvas, leveraging all the following features and beyond.
 
-    **2. Comprehensive model support**: 
+    **2. Comprehensive model support**:
       Seamless integration with hundreds of proprietary / open-source LLMs from dozens of inference providers and self-hosted solutions, covering GPT, Mistral, Llama3, and any OpenAI API-compatible models. A full list of supported model providers can be found [here](https://docs.dify.ai/getting-started/readme/model-providers).
 
-    **3. Prompt IDE**: 
-      Intuitive interface for crafting prompts, comparing model performance, and adding additional features such as text-to-speech to a chat-based app. 
+    **3. Prompt IDE**:
+      Intuitive interface for crafting prompts, comparing model performance, and adding additional features such as text-to-speech to a chat-based app.
 
-    **4. RAG Pipeline**: 
+    **4. RAG Pipeline**:
       Extensive RAG capabilities that cover everything from document ingestion to retrieval, with out-of-box support for text extraction from PDFs, PPTs, and other common document formats.
 
-    **5. Agent capabilities**: 
+    **5. Agent capabilities**:
       You can define agents based on LLM Function Calling or ReAct, and add pre-built or custom tools for the agent. Dify provides 50+ built-in tools for AI agents, such as Google Search, DELL·E, Stable Diffusion and WolframAlpha.
 
-    **6. LLMOps**: 
+    **6. LLMOps**:
       Monitor and analyze application logs and performance over time. You could continuously improve prompts, datasets, and models based on production data and annotations.
 
-    **7. Backend-as-a-Service**: 
+    **7. Backend-as-a-Service**:
       All of Dify's offerings come with corresponding APIs, so you could effortlessly integrate Dify into your own business logic.
   services:
     - name: redis
@@ -306,7 +306,7 @@ spec:
           REDIS_USE_SSL:
             default: 'false'
           REDIS_DB:
-            default: 0
+            default: '0'
         ports:
           - id: api
             port: 5001
@@ -369,7 +369,7 @@ spec:
           REDIS_USE_SSL:
             default: 'false'
           REDIS_DB:
-            default: 0
+            default: '0'
     - name: web
       template: PREBUILT
       spec:
@@ -411,7 +411,7 @@ spec:
           CLUSTER_HOSTNAME:
             default: node1
           QUERY_DEFAULTS_LIMIT:
-            default: 25
+            default: '25'
           AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED:
             default: 'false'
           PERSISTENCE_DATA_PATH:
@@ -461,10 +461,10 @@ spec:
             template: >
               user  nginx;
               worker_processes  auto;
-              
+
               error_log  /var/log/nginx/error.log notice;
               pid        /var/run/nginx.pid;
-              
+
               events {
                 worker_connections  1024;
               }
@@ -472,13 +472,13 @@ spec:
               http {
                 include       /etc/nginx/mime.types;
                 default_type  application/octet-stream;
-              
+
                 log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
                 '$status $body_bytes_sent "$http_referer" '
                 '"$http_user_agent" "$http_x_forwarded_for"';
-              
+
                 access_log  /var/log/nginx/access.log  main;
-              
+
                 sendfile        on;
                 keepalive_timeout  65;
                 client_max_body_size 15M;
@@ -490,30 +490,30 @@ spec:
               server {
                 listen 80;
                 server_name _;
-              
+
                 location /console/api {
                   proxy_pass http://api:5001;
                   include proxy.conf;
                 }
-                
+
                 location /api {
                   proxy_pass http://api:5001;
                   include proxy.conf;
                 }
-                
+
                 location /v1 {
                   proxy_pass http://api:5001;
                   include proxy.conf;
                 }
-              
+
                 location /files {
                   proxy_pass http://api:5001;
                   include proxy.conf;
                 }
-              
+
                 location / {
                   proxy_pass http://web:3000;
                   include proxy.conf;
                 }
-              
+
               }
