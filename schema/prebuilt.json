@@ -171,8 +171,7 @@
 			"type": "object",
 			"properties": {
 				"source": {
-					"title": "Repository URI type",
-					"description": "- `GITHUB`: `user`/`repo`.\n- `GIT`: `git://somewhere/hi.git`.",
+					"title": "Repository type",
 					"type": "string",
 					"enum": [
 						"GITHUB",
@@ -180,10 +179,13 @@
 					]
 				},
 				"repo": {
-					"title": "Repository URI",
-					"description": "Check `source` for the format to reference your codebase.",
-					"type": "string",
-					"minLength": 1
+					"title": "Repository URL for Git",
+					"description": "Unimplemented yet.",
+					"type": "string"
+				},
+				"repoID": {
+					"title": "Repository ID for GitHub",
+					"type": "number"
 				},
 				"branch": {
 					"title": "Repository branch",
