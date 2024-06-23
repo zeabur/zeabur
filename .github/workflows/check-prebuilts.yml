@@ -1,4 +1,4 @@
-name: Check if prebuilt definition matches schema
+name: Check if definition matches schema
 
 on:
   push:
@@ -6,6 +6,7 @@ on:
 
 jobs:
   check-prebuilts:
+    name: Check prebuilts
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,6 +18,7 @@ jobs:
         working-directory: prebuilts
 
   check-templates:
+    name: Check templates
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
