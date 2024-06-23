@@ -16,6 +16,16 @@ jobs:
       - run: python3 ../scripts/check-prebuilts.py
         working-directory: prebuilts
 
+  check-templates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+      - run: go install github.com/neilpa/yajsv@latest
+      - run: yajsv -s schema/template.json -r 'schema/*.json' 'templates/**/*.yaml'
+
   # check-prebuilts-references:
   #   runs-on: ubuntu-latest
   #   steps:
