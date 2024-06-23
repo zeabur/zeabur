@@ -1,4 +1,5 @@
 {
+    "$id": "https://schema.zeabur.app/template.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Zeabur Template Resource",
     "description": "The Zeabur Template resource is a resource that defines a template that can be used to create a new Zeabur resource like GIT or PREBUILT service. It should be formed in YAML.",
