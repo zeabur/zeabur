@@ -59,6 +59,8 @@ After setting up, you can proceed to configure environment variables, ports, etc
 
 "Readonly" means the variable cannot be modified after Prebuilt creation. For example, `MARIADB_PASSWORD` marked as readonly, so members cannot change its value. Note that its value still reflects to the current `MARIADB_ROOT_PASSWORD` value.
 
+Aside from variables Exposed by other services, you can also use [Zeabur's predefined special variables](/deploy/special-variables), such as using `${ZEABUR_WEB_URL}` to retrieve the URL set on the `web` port.
+
 If you are write a Prebuilt according to a Docker image documentation, environment variables often follow `docker run` with `--env` (or `-e`), such as:
 
 ```bash
