@@ -1,0 +1,233 @@
+---
+title: 從 YAML 建立模板
+ogImageTitle: 從 YAML 建立模板
+ogImageSubtitle: 在 Zeabur 從 YAML 建立模板
+---
+
+# 從 YAML 建立模板
+
+除了使用 [Zeabur Dashboard](/template/create-template) 建立模板以外，你也可以用與 [Docker Compose](https://docs.docker.com/compose/) 或 [Kubernetes Object](https://kubernetes.io/docs/concepts/overview/working-with-objects/) 相似的形式，使用 `zeabur` CLI 從 YAML 部署、建立和管理模板。
+
+## YAML (Resource) 的形式
+
+Zeabur 使用單個 YAML 檔案來描述模板的資源 (Resource)，下稱這種 YAML 格式為 **Template Resource**。
+
+```yaml
+apiVersion: zeabur.com/v1
+kind: Template
+metadata:
+    name: RSSHub
+spec:
+    description: Everything is RSSible
+    icon: https://docs.rsshub.app/logo.png
+    coverImage: https://zeabur.com/docs/_next/image?url=%2Fdocs%2F_next%2Fstatic%2Fmedia%2Fintro.5b73c4f8.png&w=3840&q=75
+    variables:
+        - key: PUBLIC_DOMAIN
+          type: DOMAIN
+          name: Domain
+          description: What is the domain you want for your RSSHub?
+    tags:
+        - Tool
+    readme: |-
+        # RSSHub
+        RSSHub is an open source, easy to use, and extensible RSS feed aggregator, it's capable of generating RSS feeds from pretty much everything.
+
+        RSSHub delivers millions of contents aggregated from all kinds of sources, our vibrant open source community is ensuring the deliver of RSSHub's new routes, new features and bug fixes.
+    services:
+        - name: Redis
+          icon: https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/redis.svg
+          template: PREBUILT
+          spec:
+            source:
+                image: redis/redis-stack-server:latest
+            ports:
+                - id: database
+                  port: 6379
+                  type: TCP
+            volumes:
+                - id: data
+                  dir: /data
+            instructions:
+                - type: TEXT
+                  title: Command to connect to your Redis
+                  content: redis-cli -h ${PORT_FORWARDED_HOSTNAME} -p ${DATABASE_PORT_FORWARDED_PORT} -a ${REDIS_PASSWORD}
+                - type: TEXT
+                  title: Redis Connection String
+                  content: redis://:${REDIS_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}
+                - type: PASSWORD
+                  title: Redis password
+                  content: ${REDIS_PASSWORD}
+                  category: Credentials
+                - type: TEXT
+                  title: Redis host
+                  content: ${PORT_FORWARDED_HOSTNAME}
+                  category: Hostname & Port
+                - type: TEXT
+                  title: Redis port
+                  content: ${DATABASE_PORT_FORWARDED_PORT}
+                  category: Hostname & Port
+            env:
+                REDIS_ARGS:
+                    default: --requirepass ${REDIS_PASSWORD}
+                REDIS_CONNECTION_STRING:
+                    default: redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}
+                    expose: true
+                    readonly: true
+                REDIS_HOST:
+                    default: ${CONTAINER_HOSTNAME}
+                    expose: true
+                    readonly: true
+                REDIS_PASSWORD:
+                    default: ${PASSWORD}
+                    expose: true
+                REDIS_PORT:
+                    default: ${DATABASE_PORT}
+                    expose: true
+                    readonly: true
+                REDIS_URI:
+                    default: ${REDIS_CONNECTION_STRING}
+                    expose: true
+                    readonly: true
+        - name: RSSHub
+          icon: https://docs.rsshub.app/logo.png
+          template: PREBUILT
+          spec:
+            source:
+                image: diygod/rsshub
+            ports:
+                - id: web
+                  port: 1200
+                  type: HTTP
+            env:
+                CACHE_TYPE:
+                    default: ${REDIS_URI}
+                REDIS_URL:
+                    default: ${REDIS_URI}
+            domainKey: PUBLIC_DOMAIN
+```
+
+一個 **Template** 可以分成「模板資訊」和「服務規格」這兩大區塊。完整格式可以在 [Zeabur 的 Schema 儲存庫](https://json-schema.app/view/%23?url=https%3A%2F%2Fschema.zeabur.app%2Ftemplate.json) 瀏覽，下面會簡述每個欄位的用途和其在 Zeabur 模板頁面的呈現。
+
+### 模板定義
+
+![模板定義的各個欄位在 Zeabur 模板頁面呈現的樣貌](/template/template-in-code/field-in-template-page.webp)
+
+`apiVersion` 和 `kind` 固定都是 `zeabur.com/v1` 和 `Template`。
+
+`metadata` 中的 `name` 是模板的名稱，沒有格式限制，比如 `RSSHub`, `Lobe-Chat`, `ChatGPT API` 這幾種都是可以接受的。實際會呈現在上圖中 `WeWe RSS` 的區塊。
+
+`spec` 的 `description` 是模板可以用一段話簡述的文字，會顯示在模板頁面的標題下方。`icon` 是模板的圖示，是一個指向圖片的網址，會顯示在模板標題的旁邊。`tags` 是模板的標籤，既有分類可以參考[模板瀏覽頁面的左側 `Tags` 區塊](https://zeabur.com/templates)。正確的標籤除了讓使用者易於尋找外，也有益於 SEO 最佳化。
+
+`readme` 是模板的說明文件，使用 Markdown 格式編寫，會顯示在模板頁面的下方。`coverImage` 則會呈現在說明文件上方，同樣也是指向圖片的網址，可以不填。
+
+`variables` 是模板可以讓使用者在部署階段設定的變數。其中 `type` 可以是 `STRING`（普通的變數字串）或 `DOMAIN`（Zeabur 引導設定網域）；`key` 對應到服務的環境變數，Zeabur 會自動在所有服務中建立一個這裡指定的環境變數。`name` 和 `description` 分別對應到部署模板時的變數名稱和描述，如下圖。
+
+![模板定義中的變數在 Template 部署彈出框的呈現樣式](/template/template-in-code/variable-example.webp)
+
+### 服務規格
+
+![服務規格的各個欄位在 Zeabur Dashboard 專案頁面呈現的樣貌](/template/template-in-code/service-details.webp)
+
+`services` 是模板的服務規格，使用者部署時會將規格內指定的服務都部署到 Zeabur 裡面。服務的 `name` 是服務的名稱。`icon` 是服務的圖示。`template` 宣告這個服務是 Docker image（`PREBUILT`）或者是從 Git 部署的服務 (`GIT`)。
+
+`spec` 則是服務的服務規格（Service Specification），每個欄位的詳細資訊可以參考 [Template 服務規格
+](https://json-schema.app/view/%23/%23%2Fproperties%2Fspec/%23%2Fproperties%2Fspec%2Fproperties%2Fservices%2Fitems/%23%2Fproperties%2Fspec%2Fproperties%2Fservices%2Fitems%2Fproperties%2Fspec?url=https%3A%2F%2Fschema.zeabur.app%2Ftemplate.json) 的說明文件。下面簡要說明服務規格的重點：
+
+如果是 `PREBUILT` 服務，則需要指定 Docker image (`image`)，以及選擇性的執行命令和執行參數 (`command` 和 `args`)；如果是 `GIT` 服務，則需要指定 Git repository 的類型（目前只支援 `GITHUB`）、儲存庫的代號（目前只支援 GitHub 的 [`repoID`](https://stackoverflow.com/a/47223479)），亦可選擇性填寫分支 (`branch`)。
+
+`ports` 指定要對專案甚至外網公開的服務 Port。HTTP 服務可以用域名連線（如 `https://my-service.zeabur.app`），而 TCP 及 UDP 服務則可以使用 Zeabur 提供的轉送連結 `xxx.clusters.zeabur.com:12345` 連線。比如 `type` 是 `HTTP`，`port` 是 `12345` 的 Port，代表著其他人可以透過 `https://my-service.zeabur.app` 連線到你監聽在 `12345` port 的服務。
+
+`volumes` 指定服務的持久儲存路徑。原則上 Zeabur 在每次 Redeploy 或 Restart 都會將服務的狀態恢復到初始狀態 (Stateless)，但如果你需要持久儲存一些資料，可以使用 `volumes` 指定持久儲存路徑。比如 `dir` 是 `/data` 的 Volume，代表著你的服務可以在 `/data` 這個路徑下持久儲存資料，直到服務刪除前資料永遠都會在 `/data` 下。
+
+`instructions` 告訴其他使用者如何使用你的服務，比如範例的 `Redis Connection String` 就提供了外網其他人可以用 Client 連線 Redis 的方式。`type` 可以是 `DOMAIN`（一個按鈕，點擊後會導向到指定的網址）、`TEXT`（文字）、`PASSWORD`（密碼，預設隱藏顯示），`category` 則是你可以自訂的分類方式，目前前端不會呈現。
+
+`env` 則是服務的環境變數。`default` 是環境變數的預設值，`expose` 表示其他專案是否可以直接使用這個變數或使用 `${VARIABLE}` 語法取用這個變數，`readonly` 表示是否唯讀（服務建立後不能修改）。比如 `REDIS_CONNECTION_STRING` 的 `expose` 是 `true`，代表著其他服務可以透過 `REDIS_CONNECTION_STRING` 這個環境變數連線到 Redis，也可以使用 `${REDIS_CONNECTION_STRING}` 在其他環境變數引用這個連線字串。
+
+`configs` 是服務的檔案型設定，可以使用 `path` 和 `template` 指定預設的設定檔，方便使用者進一步修改。以 MySQL 為例，你可以這樣編寫預設的 `configs`：
+
+```yaml
+configs:
+    -
+        path: /etc/my.cnf
+        template: |
+        [mysqld]
+        default-authentication-plugin=mysql_native_password
+        skip-host-cache
+        skip-name-resolve
+        datadir=/var/lib/mysql
+        socket=/var/run/mysqld/mysqld.sock
+        secure-file-priv=/var/lib/mysql-files
+        user=mysql
+        max_allowed_packet=10M
+
+        pid-file=/var/run/mysqld/mysqld.pid
+        [client]
+        socket=/var/run/mysqld/mysqld.sock
+
+        !includedir /etc/mysql/conf.d/
+```
+
+## 使用 `zeabur` CLI 部署模板
+
+假如你已經編寫好了 Template Resource YAML，想要測試部署效果，可以使用 `zeabur` CLI 來部署模板。
+
+```
+$ cat wp.yaml | head -n 10
+apiVersion: zeabur.com/v1
+kind: Template
+metadata:
+    name: WordPress
+spec:
+    description: A content management system (CMS) that allows you to host and build websites.
+    coverImage: https://kinsta.com/wp-content/uploads/2018/02/what-is-wordpress.png
+    icon: https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/wordpress.png
+    variables:
+        - key: WORDPRESS_DOMAIN
+
+$ npx zeabur template deploy -f wp.yaml
+```
+
+首先 `zeabur` CLI 會先詢問你要部署在哪個專案上，接著會根據服務的 `variables` 詢問你要填入哪些變數，最後會部署模板到你指定的專案上。
+
+```
+$ npx zeabur template deploy -f wp.yaml
+? Select project  [Use arrows to move, type to filter]
+  your-project
+> Create a new project
+? Select project region  [Use arrows to move, type to filter]
+ DigitalOcean - sgp1 (Singapore)
+  HuaWei Cloud - cn-east-3 (Shanghai, China)
+  Vultr - ewr1 (New Jersey, United States)
+  Google Cloud Platform - asia-east1 (Taipei, Taiwan)
+> Amazon Web Services - ap-east-1 (Hong Kong)
+  Amazon Web Services - ap-northeast-1 (Tokyo, Japan)
+  Amazon Web Services - us-west-1 (California, United States)
+? What is the domain of your WordPress website? (For example, if you enter "myapp", the domain will be "myapp.zeabur.app") mywordpressdemo7c918e14
+INFO	Domain mywordpressdemo7c918e14.zeabur.app is available!
+m
+INFO	Template successfully deployed into project "aphylac" (https://dash.zeabur.com/projects/your-project-id).
+```
+
+## 使用 `zeabur` CLI 上架模板
+
+假如測試上沒有問題，你可以使用 `npx zeabur template create` 命令將模板公開給其他人使用。同樣以上文的 `wp.yaml` 為例：
+
+```
+$ npx zeabur template create -f wp.yaml
+INFO	Template "WordPress" (https://zeabur.com/templates/71HORL) created
+```
+
+基本上是一鍵完成的，可以點開連結查看部署完成的模板：
+
+![部署完成的模板](/template/template-in-code/created-template.webp)
+
+也可以在連結後加上 `.yaml` 查看模板的 Resource YAML 形式：`https://zeabur.com/templates/71HORL.yaml`。
+
+## 使用 `zeabur` CLI 更新模板
+
+如果你需要修改模板的內容，比如改名、更新 Image 版本，你可以在修改完成 Resource YAML 後，使用 `npx zeabur template update` 命令更新：
+
+```
+$ npx zeabur template update -c 71HORL -f wp.yaml
+INFO	Template updated.
+```
