@@ -234,6 +234,38 @@
             "required": [
                 "services"
             ]
+        },
+        "localization": {
+            "title": "Resource localization",
+            "description": "The localization of the resource. It is basically the override of the template specification.",
+            "type": "object",
+            "propertyNames": {
+                "title": "Locale key",
+                "description": "The key of the locale that [Zeabur supports](https://github.com/zeabur/zeabur/tree/main/dashboard/locales).",
+                "type": "string"
+            },
+            "additionalProperties": {
+                "$ref": "#/properties/spec"
+            },
+            "examples": [
+                {
+                    "zh-TW": {
+                        "description": "LobeChat 是一個開源的高效能聊天機器人框架。",
+                        "variables": [
+                            {
+                                "key": "SITE_NAME",
+                                "name": "網站名稱",
+                                "description": "這個名稱將會顯示在您的網站標題上。"
+                            },
+                            {
+                                "key": "SITE_DOMAIN",
+                                "name": "網站網域",
+                                "description": "這個網域將會是您的網站的網址。"
+                            }
+                        ]
+                    }
+                }
+            ]
         }
     },
     "definitions": {
