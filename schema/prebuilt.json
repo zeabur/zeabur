@@ -2,7 +2,7 @@
 	"$id": "https://schema.zeabur.app/prebuilt.json",
 	"$schema": "http://json-schema.org/draft-07/schema",
 	"title": "Service Specification (ServiceSpec)",
-	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.2.0-20240623.",
+	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.2.1-20240625.",
 	"type": "object",
 	"properties": {
 		"id": {
@@ -258,7 +258,7 @@
 			"title": "Valid ID representation",
 			"description": "ID is a string that can only contain lowercase letters, numbers and hyphens, and the length of ID is at most 63 characters.",
 			"type": "string",
-			"pattern": "^[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$"
+			"pattern": "^[a-z][a-z0-9-]{0,61}[a-z0-9]$"
 		},
 		"ConnectionInstructions": {
 			"title": "List of connection information and instruction",
