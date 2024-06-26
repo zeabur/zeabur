@@ -237,7 +237,7 @@
         },
         "localization": {
             "title": "Resource localization",
-            "description": "The localization of the resource. It is basically the override of the template specification.",
+            "description": "The localization of the resource.",
             "type": "object",
             "propertyNames": {
                 "title": "Locale key",
@@ -245,7 +245,23 @@
                 "type": "string"
             },
             "additionalProperties": {
-                "$ref": "#/properties/spec"
+                "title": "Localizable Template Specification",
+                "description": "The localizable specification of the template.",
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "$ref": "#/properties/spec/properties/description"
+                    },
+                    "coverImage": {
+                        "$ref": "#/properties/spec/properties/coverImage"
+                    },
+                    "variables": {
+                        "$ref": "#/properties/spec/properties/variables"
+                    },
+                    "readme": {
+                        "$ref": "#/properties/spec/properties/readme"
+                    }
+                }
             },
             "examples": [
                 {
