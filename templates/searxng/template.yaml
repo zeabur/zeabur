@@ -19,7 +19,7 @@ spec:
 
     ---
 
-  	SearXNG is a free internet metasearch engine which aggregates results from various search services and databases. Users are neither tracked nor profiled.
+    SearXNG is a free internet metasearch engine which aggregates results from various search services and databases. Users are neither tracked nor profiled.
   services:
     - name: caddy
       template: PREBUILT
@@ -108,7 +108,7 @@ spec:
                   encode zstd gzip
                   reverse_proxy searxng.zeabur.internal:8080 {
                     header_up X-Forwarded-Port 443
-                    header_up X-Forwarded-Proto https 
+                    header_up X-Forwarded-Proto https
                     header_up X-Real-IP {remote_host}
                   }
                 }

@@ -1,4 +1,4 @@
-name: Check if prebuilt definition matches schema
+name: Check if definition matches schema
 
 on:
   push:
@@ -6,6 +6,7 @@ on:
 
 jobs:
   check-prebuilts:
+    name: Check prebuilts
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,6 +16,17 @@ jobs:
       - run: pip install jsonschema
       - run: python3 ../scripts/check-prebuilts.py
         working-directory: prebuilts
+
+  check-templates:
+    name: Check templates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+      - run: go install github.com/neilpa/yajsv@latest
+      - run: yajsv -s schema/template.json -r 'schema/*.json' 'templates/**/*.yaml'
 
   # check-prebuilts-references:
   #   runs-on: ubuntu-latest
