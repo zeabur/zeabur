@@ -33,8 +33,7 @@ Zeabur supports various types of Node.js projects:
 
 ## Disabling Cache Functionality
 
-By default, Zeabur adjusts the installation process by caching the steps to install dependencies, speeding up subsequent CI/CD processes.
-Most Node.js projects should not be affected, but if your project uses tools like pnpm-workspace to manage a monorepo and the default settings cause compilation failures, you may need to disable the cache functionality to use it properly.
+By default, Zeabur adjusts the installation process by caching the steps to install dependencies, speeding up subsequent CI/CD processes. Most Node.js projects should not be affected, but if your project uses tools like pnpm-workspace to manage a monorepo and the default settings cause compilation failures, you may need to disable the cache functionality to use it properly.
 
 To disable this feature, create a `zbpack.json` file in the root directory of your project and add the following content:
 
@@ -280,25 +279,25 @@ Don't forget to install `esbuild` in your project after adding this script, and 
 You can find the complete sample code at [zeabur/expressjs-template](https://github.com/zeabur/expressjs-template) or modify the `scripts/build.js` script according to your needs.
 
 ## Additional Notes
-1. The port to listen to should use `process.env.PORT`
 
-For example:
+1.  You should get the port to listen from `process.env.PORT`.
+
+    For example:
 
     ```js
     const port = process.env.PORT || 3000
     // instead of const port = 3000
     ```
 
-2. Avoid using nodemon as runtime. Execute your command with general `node` command in production.
+2.  Avoid using nodemon as runtime. Execute your command with general `node` command in production.
 
-For example, in `package.json`:
+    For example, in `package.json`:
 
     ```json
     {
-    "scripts": {
-        "start": "node server.js"
-        // instead of "start": "nodemon server.js"
-    },
+        "scripts": {
+            "start": "node server.js"
+            // instead of "start": "nodemon server.js"
+        }
     }
-
     ```

@@ -33,8 +33,7 @@ Zeaburはさまざまな種類のNode.jsプロジェクトをサポートして�
 
 ## キャッシュ機能の無効化
 
-デフォルトでは、Zeaburは依存関係をインストールする手順をキャッシュし、その後のCI/CDプロセスを高速化します。
-ほとんどのNode.jsプロジェクトには影響しないはずですが、pnpm-workspaceなどのモノレポを管理するツールを使用しており、デフォルトの設定がコンパイルエラーを引き起こす場合、キャッシュ機能を無効にして正しく使用する必要があるかもしれません。
+デフォルトでは、Zeaburは依存関係をインストールする手順をキャッシュし、その後のCI/CDプロセスを高速化します。ほとんどのNode.jsプロジェクトには影響しないはずですが、pnpm-workspaceなどのモノレポを管理するツールを使用しており、デフォルトの設定がコンパイルエラーを引き起こす場合、キャッシュ機能を無効にして正しく使用する必要があるかもしれません。
 
 この機能を無効にするには、プロジェクトのルートディレクトリに`zbpack.json`ファイルを作成し、次の内容を追加してください:
 
@@ -100,17 +99,13 @@ Node.jsプロジェクトが以下の条件を満たす場合、Zeaburでサー�
 （[詳細なリストはzbpackコードリポジトリの`getServerless`関数で確認できます](https://github.com/zeabur/zbpack/blob/main/internal/nodejs/plan.go)），
 Zeaburは自動的にプロジェクトをサーバーレス形式でデプロイします。無効にする必要がある場合は、[サーバーレスを有効にする](/deploy/serverless)章を参照してください。
 
-他のフレームワークで作成されたプロジェクト（または以下のようにカスタムサーバーレス形式の場合）、現在は手動でオプトインが必要です。
-サーバーレスサポートを有効にするには、[サーバーレスを有効にする](/deploy/serverless)ページを参照してください。
-テスト中に問題がない場合、お気軽にあなたのフレームワークをサポートするために [zbpack コードリポジトリ](https://github.com/zeabur/zbpack) にプルリクエストを送信してください。
+他のフレームワークで作成されたプロジェクト（または以下のようにカスタムサーバーレス形式の場合）、現在は手動でオプトインが必要です。サーバーレスサポートを有効にするには、[サーバーレスを有効にする](/deploy/serverless)ページを参照してください。テスト中に問題がない場合、お気軽にあなたのフレームワークをサポートするために [zbpack コードリポジトリ](https://github.com/zeabur/zbpack) にプルリクエストを送信してください。
 
 ### サーバーレス形式でプロジェクトをビルド
 
-次のフレームワークを使用している場合（Next.js、Nuxt.js、Remixなど）、この手順はスキップできます
-なぜなら[zbpack](https://github.com/zeabur/zbpack)が自動的にサーバーレス形式に変換するからです。
+次のフレームワークを使用している場合（Next.js、Nuxt.js、Remixなど）、この手順はスキップできますなぜなら[zbpack](https://github.com/zeabur/zbpack)が自動的にサーバーレス形式に変換するからです。
 
-ただし、上記のフレームワークを使用していない場合、プロジェクトを[サーバーレス形式](../advanced/serverless-output-format)にビルドする必要があります。
-以下は基本的なExpress.jsアプリケーションの例です:
+ただし、上記のフレームワークを使用していない場合、プロジェクトを[サーバーレス形式](../advanced/serverless-output-format)にビルドする必要があります。以下は基本的なExpress.jsアプリケーションの例です:
 
 ```js
 // app.js
@@ -237,24 +232,25 @@ function copyIfDirExists(src, dest) {
 完全なサンプルコードは[zeabur/expressjs-template](https://github.com/zeabur/expressjs-template)で見つけるか、必要に応じて`scripts/build.js`スクリプトを変更できます。
 
 ## 追加の注意事項
-1. リッスンするポートは`process.env.PORT`を使用する必要があります。
 
-例：
+1.  リッスンするポートは`process.env.PORT`を使用する必要があります。
+
+    例：
 
     ```js
     const port = process.env.PORT || 3000
     // 代わりに const port = 3000
     ```
 
-2. ランタイムとしてnodemonを使用しないでください。本番環境では、一般的な`node`コマンドでコマンドを実行してください。
+2.  ランタイムとしてnodemonを使用しないでください。本番環境では、一般的な`node`コマンドでコマンドを実行してください。
 
-例えば、`package.json`内で：
+    例えば、`package.json`内で：
 
     ```json
     {
         "scripts": {
             "start": "node server.js"
             // 代わりに "start": "nodemon server.js"
-        },
+        }
     }
     ```

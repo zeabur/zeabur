@@ -4,9 +4,9 @@ ogImageTitle: Deploying Node.js App
 ogImageSubtitle: Deploying Node.js App in Zeabur
 ---
 
-<WorkingInProgress />
-
 # Deploying Node.js App
+
+<WorkingInProgress />
 
 Zeabur supports various types of Node.js projects:
 
@@ -35,8 +35,7 @@ Zeabur supports various types of Node.js projects:
 
 ## Disabling Cache Functionality
 
-By default, Zeabur adjusts the installation process by caching the steps to install dependencies, speeding up subsequent CI/CD processes.
-Most Node.js projects should not be affected, but if your project uses tools like pnpm-workspace to manage a monorepo and the default settings cause compilation failures, you may need to disable the cache functionality to use it properly.
+By default, Zeabur adjusts the installation process by caching the steps to install dependencies, speeding up subsequent CI/CD processes. Most Node.js projects should not be affected, but if your project uses tools like pnpm-workspace to manage a monorepo and the default settings cause compilation failures, you may need to disable the cache functionality to use it properly.
 
 To disable this feature, create a `zbpack.json` file in the root directory of your project and add the following content:
 
@@ -125,24 +124,17 @@ If your Node.js project meets the following criteria, you can deploy it in Serve
 ### Enable Serverless
 
 If your project is written using Next.js, Nuxt.js, Waku, Angular, and Remix
-([a complete list can be found in the `getServerless` function of `zeabur/zbpack` repository](https://github.com/zeabur/zbpack/blob/main/internal/nodejs/plan.go)),
-Zeabur will automatically deploy the project in serverless form.
-If you need to disable this, please refer to the [Enable Serverless](/deploy/serverless) chapter.
+([a complete list can be found in the `getServerless` function of `zeabur/zbpack` repository](https://github.com/zeabur/zbpack/blob/main/internal/nodejs/plan.go)), Zeabur will automatically deploy the project in serverless form. If you need to disable this, please refer to the [Enable Serverless](/deploy/serverless) chapter.
 
 For projects written in other frameworks (or you build your serverless function manually),
-opting in is currently required.
-Please refer to the [Enable Serverless](/deploy/serverless) page to enable serverless support.
-If there are no issues during testing, feel free to submit a Pull Request to the
-[zbpack code repository](https://github.com/zeabur/zbpack) for supporting your framework.
+opting in is currently required. Please refer to the [Enable Serverless](/deploy/serverless) page to enable serverless support. If there are no issues during testing, feel free to submit a Pull Request to the [zbpack code repository](https://github.com/zeabur/zbpack) for supporting your framework.
 
 ### Building Project in Serverless Format
 
 If your project uses frameworks such as Next.js, Nuxt.js, Remix, etc., you can skip this step
 because [zbpack](https://github.com/zeabur/zbpack) will automatically convert it to Serverless format.
 
-However, if your project does not use the above frameworks,
-you need to build your project into [Serverless format](../advanced/serverless-output-format) yourself.
-Here is an example of a basic Express.js application:
+However, if your project does not use the above frameworks, you need to build your project into [Serverless format](../advanced/serverless-output-format) yourself. Here is an example of a basic Express.js application:
 
 ```js
 // app.js
@@ -282,25 +274,25 @@ Don't forget to install `esbuild` in your project after adding this script, and 
 You can find the complete sample code at [zeabur/expressjs-template](https://github.com/zeabur/expressjs-template) or modify the `scripts/build.js` script according to your needs.
 
 ## Additional Notes
-1. The port to listen to should use `process.env.PORT`
 
-For example:
+1.  You should get the port to listen from `process.env.PORT`.
+
+    For example:
 
     ```js
     const port = process.env.PORT || 3000
     // instead of const port = 3000
     ```
 
-2. Avoid using nodemon as runtime. Execute your command with general `node` command in production.
+2.  Avoid using nodemon as runtime. Execute your command with general `node` command in production.
 
-For example, in `package.json`:
+    For example, in `package.json`:
 
     ```json
     {
-    "scripts": {
-        "start": "node server.js"
-        // instead of "start": "nodemon server.js"
-    },
+        "scripts": {
+            "start": "node server.js"
+            // instead of "start": "nodemon server.js"
+        }
     }
-
     ```
