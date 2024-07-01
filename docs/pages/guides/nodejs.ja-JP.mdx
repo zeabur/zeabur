@@ -31,9 +31,41 @@ Zeaburはさまざまな種類のNode.jsプロジェクトをサポートして�
 - Docusaurus
 - Solid Start（Node、静的）
 
+## Monorepo サポート
+
+Zeabur は [pnpm workspace](https://pnpm.io/workspaces)、[Yarn Workspace](https://yarnpkg.com/features/workspaces) などの 2 つの Monorepo アプローチに基づくほとんどのツールチェーン（Turborepo や Lerna など）を自動的に認識します。
+
+Turborepo の `basic` テンプレートを例にとると、その `pnpm-workspace.yaml` の内容は次のとおりです：
+
+```yaml
+packages:
+  - "apps/*"
+  - "packages/*"
+```
+
+`apps` には `docs` と `web` の 2 つのディレクトリがあります。Zeabur はデフォルトでワークスペースパッケージリストに最初に記載された Node.js アプリケーションをデプロイします。この場合、Zeabur は `apps/docs` アプリケーションをデプロイします。`apps/web` をデプロイしたい場合は、プロジェクトのルートディレクトリに `zbpack.json` ファイルを作成し、次の内容を追加します：
+
+```json
+{
+    "app_dir": "apps/web"
+}
+```
+
+または、[環境変数](/deploy/variables) を使用して設定します：
+
+```env
+ZBPACK_APP_DIR=apps/web
+```
+
+これで `apps/web` アプリケーションがデプロイされます。
+
+<Callout type="info">
+    [Nx](https://nx.dev) や [Rush](https://rushjs.io) などの上述の 2 つの方法に基づかない Monorepo ソリューションは、ワンクリックデプロイをまだサポートしていません。「キャッシュ機能の無効化」と「ビルドおよび開始コマンドの変更」を参照して、Monorepo を設定してください。
+</Callout>
+
 ## キャッシュ機能の無効化
 
-デフォルトでは、Zeaburは依存関係をインストールする手順をキャッシュし、その後のCI/CDプロセスを高速化します。ほとんどのNode.jsプロジェクトには影響しないはずですが、pnpm-workspaceなどのモノレポを管理するツールを使用しており、デフォルトの設定がコンパイルエラーを引き起こす場合、キャッシュ機能を無効にして正しく使用する必要があるかもしれません。
+デフォルトでは、Zeabur は依存関係のインストール手順を記録して CI/CD の速度を向上させるため、インストールプロセスを再配置します。一般的な Node.js プロジェクトには影響しないはずですが、依存関係のインストール中にプロジェクト内の他のファイルを使用する必要があり、プロジェクトのコンパイルが失敗する場合は、キャッシュ機能を無効にする必要があります。
 
 この機能を無効にするには、プロジェクトのルートディレクトリに`zbpack.json`ファイルを作成し、次の内容を追加してください:
 
@@ -43,9 +75,15 @@ Zeaburはさまざまな種類のNode.jsプロジェクトをサポートして�
 }
 ```
 
+または、[環境変数](/deploy/variables) を設定します：
+
+```env
+ZBPACK_CACHE_DEPENDENCIES=false
+```
+
 ## ビルドおよび開始コマンドの変更
 
-プロジェクトが特殊なタイプ（たとえば、ツールを使用したMonorepoの実装など）である場合、サービスのためのビルドおよび開始コマンドを指定する必要があるかもしれません。たとえば、`frontend`サービスの開始コマンドを`pnpm run start:frontend`に変更したり、`api`サービスのビルドコマンドを`pnpm run start:api`に変更したりすることができます。
+プロジェクトのタイプがより特殊な場合（カスタム Monorepo ツールチェーンを使用する場合など）、サービスのビルド (build) および起動 (start) コマンドを指定する必要があります。例えば、`frontend` サービスの起動コマンドを `pnpm run start:frontend` に変更し、`api` サービスのビルドコマンドを `pnpm run start:api` に変更します。
 
 これらのコマンドを変更する方法は次の二つがあります。
 
@@ -85,6 +123,15 @@ Zeaburはさまざまな種類のNode.jsプロジェクトをサポートして�
 ```
 
 設定を適用する優先順位は`zbpack.[service name].json` > `zbpack.json`です。
+
+### 環境変数を使用して変更
+
+[環境変数](/deploy/variables) を使用して、ビルドと起動コマンドを設定することもできます：
+
+```env
+ZBPACK_BUILD_COMMAND=pnpm run build:api
+ZBPACK_START_COMMAND=pnpm run start:api
+```
 
 ## サーバーレスモードでのデプロイ
 

@@ -31,9 +31,41 @@ Zeabur supports various types of Node.js projects:
 - Docusaurus
 - Solid Start (Node, static)
 
+## Monorepo Support
+
+Zeabur will automatically recognize [pnpm workspace](https://pnpm.io/workspaces), [Yarn Workspace](https://yarnpkg.com/features/workspaces), and most toolchains based on these two Monorepo approaches, such as Turborepo and Lerna.
+
+Take the `basic` template of Turborepo as an example, its `pnpm-workspace.yaml` content is as follows:
+
+```yaml
+packages:
+  - "apps/*"
+  - "packages/*"
+```
+
+Under `apps`, there are two directories, `docs` and `web`. By default, Zeabur will select the first Node.js application listed in the workspace package list to deploy. In this case, Zeabur will deploy the application under `apps/docs`. If you want to deploy `apps/web`, you can create a `zbpack.json` file in the root directory of the project and add the following content:
+
+```json
+{
+    "app_dir": "apps/web"
+}
+```
+
+Or use [environment variables](/deploy/variables) to set it:
+
+```env
+ZBPACK_APP_DIR=apps/web
+```
+
+This will deploy the `apps/web` application.
+
+<Callout type="info">
+    [Nx](https://nx.dev) and [Rush](https://rushjs.io), which are not based on the above two Monorepo approaches, are not yet supported for one-click deployment. You can refer to "Disable Cache Functionality" and "Modifying Build and Start Commands" to configure Monorepo.
+</Callout>
+
 ## Disabling Cache Functionality
 
-By default, Zeabur adjusts the installation process by caching the steps to install dependencies, speeding up subsequent CI/CD processes. Most Node.js projects should not be affected, but if your project uses tools like pnpm-workspace to manage a monorepo and the default settings cause compilation failures, you may need to disable the cache functionality to use it properly.
+By default, Zeabur rearranges the installation process to speed up your CI/CD by recording the steps of dependency installation. This should not affect most Node.js projects, but if your project needs to use other files in the project during dependency installation which leads to a project compilation failure, you may need to disable the caching feature.
 
 To disable this feature, create a `zbpack.json` file in the root directory of your project and add the following content:
 
@@ -43,9 +75,15 @@ To disable this feature, create a `zbpack.json` file in the root directory of yo
 }
 ```
 
+Or set [environment variables](/deploy/variables):
+
+```env
+ZBPACK_CACHE_DEPENDENCIES=false
+```
+
 ## Modifying Build and Start Commands
 
-If your project has a special type (such as a Monorepo implemented with tools), you may need to specify the build and start commands for your services. For example, you may want to change the start command for the `frontend` service to `pnpm run start:frontend`, or change the build command for the `api` service to `pnpm run start:api`.
+If your project type is more specialized (such as using a custom Monorepo toolchain), you may need to specify the build and start commands for the service, for example, change the start command of the `frontend` service to `pnpm run start:frontend`; change the build command of the `api` service to `pnpm run start:api`.
 
 Here are two ways to modify these commands.
 
@@ -85,6 +123,15 @@ The default settings in `zbpack.json` will be applied to all deployed services. 
 ```
 
 The priority of applying the settings is `zbpack.[service name].json` > `zbpack.json`.
+
+### Modify Using Environment Variables
+
+You can also use [environment variables](/deploy/variables) to set the build and start commands:
+
+```env
+ZBPACK_BUILD_COMMAND=pnpm run build:api
+ZBPACK_START_COMMAND=pnpm run start:api
+```
 
 ## Configure Node.js Version and Package Manager Version
 

@@ -33,9 +33,41 @@ Zeabur supports various types of Node.js projects:
 - Docusaurus
 - Solid Start (Node, static)
 
-## Disabling Cache Functionality
+## Soporte para Monorepo
 
-By default, Zeabur adjusts the installation process by caching the steps to install dependencies, speeding up subsequent CI/CD processes. Most Node.js projects should not be affected, but if your project uses tools like pnpm-workspace to manage a monorepo and the default settings cause compilation failures, you may need to disable the cache functionality to use it properly.
+Zeabur reconocerá automáticamente [pnpm workspace](https://pnpm.io/workspaces), [Yarn Workspace](https://yarnpkg.com/features/workspaces) y la mayoría de las cadenas de herramientas basadas en estos dos enfoques Monorepo, como Turborepo y Lerna.
+
+Tomemos como ejemplo la plantilla `basic` de Turborepo, su contenido de `pnpm-workspace.yaml` es el siguiente:
+
+```yaml
+packages:
+  - "apps/*"
+  - "packages/*"
+```
+
+Y bajo `apps` hay dos directorios, `docs` y `web`. Por defecto, Zeabur seleccionará la primera aplicación Node.js listada en la lista de paquetes del espacio de trabajo para desplegar. En este caso, Zeabur desplegará la aplicación `apps/docs`. Si deseas desplegar `apps/web`, puedes crear un archivo `zbpack.json` en el directorio raíz del proyecto y agregar el siguiente contenido:
+
+```json
+{
+    "app_dir": "apps/web"
+}
+```
+
+O utilizar [variables de entorno](/deploy/variables) para configurarlo:
+
+```env
+ZBPACK_APP_DIR=apps/web
+```
+
+Esto desplegará la aplicación `apps/web`.
+
+<Callout type="info">
+    [Nx](https://nx.dev) y [Rush](https://rushjs.io), que no se basan en los dos enfoques mencionados anteriormente, aún no son compatibles con el despliegue con un solo clic. Puedes consultar "Desactivar caché" y "Cambiar comandos de construcción y arranque" para configurar Monorepo.
+</Callout>
+
+## Desactivar caché
+
+Por defecto, Zeabur reorganiza el proceso de instalación para acelerar tu CI/CD grabando los pasos de instalación de dependencias. Esto no debería afectar a los proyectos Node.js en general, pero si tu proyecto necesita usar otros archivos en el proyecto durante la instalación de dependencias y esto provoca un fallo en la compilación del proyecto, es posible que necesites desactivar la función de caché para usarlo correctamente.
 
 To disable this feature, create a `zbpack.json` file in the root directory of your project and add the following content:
 
@@ -45,9 +77,15 @@ To disable this feature, create a `zbpack.json` file in the root directory of yo
 }
 ```
 
-## Modifying Build and Start Commands
+O establecer [variables de entorno](/deploy/variables):
 
-If your project has a special type (such as a Monorepo implemented with tools), you may need to specify the build and start commands for your services. For example, you may want to change the start command for the `frontend` service to `pnpm run start:frontend`, or change the build command for the `api` service to `pnpm run start:api`.
+```env
+ZBPACK_CACHE_DEPENDENCIES=false
+```
+
+## Cambiar comandos de construcción y arranque
+
+Si tu tipo de proyecto es más especializado (como el uso de una cadena de herramientas Monorepo personalizada), es posible que necesites especificar los comandos de construcción (build) y arranque (start) para el servicio, por ejemplo, cambiar el comando de arranque del servicio `frontend` a `pnpm run start:frontend`; cambiar el comando de construcción del servicio `api` a `pnpm run start:api`.
 
 Here are two ways to modify these commands.
 
@@ -86,7 +124,16 @@ The default settings in `zbpack.json` will be applied to all deployed services. 
 }
 ```
 
-The priority of applying the settings is `zbpack.[service name].json` > `zbpack.json`.
+La prioridad de aplicación de `zbpack.json` es `zbpack.[nombre del servicio].json` es mayor que `zbpack.json`.
+
+### Modificar Usando Variables de Entorno
+
+También puedes usar [variables de entorno](/deploy/variables) para establecer los comandos de construcción y arranque:
+
+```env
+ZBPACK_BUILD_COMMAND=pnpm run build:api
+ZBPACK_START_COMMAND=pnpm run start:api
+```
 
 ## Configure Node.js Version and Package Manager Version
 

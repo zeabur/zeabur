@@ -31,9 +31,41 @@ Zeabur 支持多种类型的 Node.js 项目：
 - Docusaurus
 - Solid Start（Node、静态）
 
+## Monorepo 支持
+
+Zeabur 会自动识别 [pnpm workspace](https://pnpm.io/workspaces)、[Yarn Workspace](https://yarnpkg.com/features/workspaces) 以及绝大多数基于这两个 Monorepo 方法的工具链，如 Turborepo 和 Lerna 等。
+
+以 Turborepo 的 `basic` 模板为例，它的 `pnpm-workspace.yaml` 内容为：
+
+```yaml
+packages:
+  - "apps/*"
+  - "packages/*"
+```
+
+而 `apps` 下有 `docs` 及 `web` 两个目录。Zeabur 默认会挑选列在 workspace 包清单中的第一个 Node.js 应用程序来部署，就此例而言，Zeabur 会部署 `apps/docs` 这个应用程序。如果想要部署 `apps/web`，可以在项目的根目录新增 `zbpack.json` 文件，并加入以下内容：
+
+```json
+{
+    "app_dir": "apps/web"
+}
+```
+
+或者是使用 [环境变量](/deploy/variables) 进行设置：
+
+```env
+ZBPACK_APP_DIR=apps/web
+```
+
+这样就会部署 `apps/web` 这个应用程序。
+
+<Callout type="info">
+    [Nx](https://nx.dev) 和 [Rush](https://rushjs.io) 等不基于上述两种方法的 Monorepo 方案尚未支持一键部署，可以先参考“停用缓存功能”和“更改编译和启动命令”对 Monorepo 进行设置。
+</Callout>
+
 ## 停用缓存功能
 
-默认情况下，Zeabur 会调整安装流程，通过缓存安装依赖的步骤，加速后续的 CI/CD 速度。一般的 Node.js 项目应该不受影响，但如果你的项目是使用 pnpm-workspace 等工具管理的 monorepo，并且默认的设置会导致项目编译失败，你可能需要停用缓存功能才能正常使用。
+默认 Zeabur 会调换安装流程，通过记录安装依赖的步骤，加速你往后 CI/CD 的速度。一般的 Node.js 项目应该不受影响，但假如你的项目在安装依赖时需要用到项目中的其他文件而导致项目编译失败，你可能得停用缓存功能才能正常使用。
 
 在项目的根目录新增 `zbpack.json` 文件，并加入以下内容，即可停用这个功能。
 
@@ -43,9 +75,15 @@ Zeabur 支持多种类型的 Node.js 项目：
 }
 ```
 
+或者是设置 [环境变量](/deploy/variables)：
+
+```env
+ZBPACK_CACHE_DEPENDENCIES=false
+```
+
 ## 更改编译和启动命令
 
-如果你的项目类型较为特殊（如使用工具实现的 Monorepo），你可能需要指定服务的编译（build）和启动（start）命令，比如将 `frontend` 服务的启动命令改成 `pnpm run start:frontend`；把 `api` 服务的编译命令改成 `pnpm run start:api`。
+假如你的项目类型较为特殊（如使用自定义的 Monorepo 工具链），你可能会需要指定服务的编译 (build) 和启动 (start) 命令，比如将 `frontend` 服务的启动命令改成 `pnpm run start:frontend`；把 `api` 服务的编译命令改成 `pnpm run start:api`。
 
 这里介绍两种更改这个命令的方式。
 
@@ -84,7 +122,16 @@ Zeabur 支持多种类型的 Node.js 项目：
 }
 ```
 
-`zbpack.json` 的应用优先级是 `zbpack.[服务名称].json` > `zbpack.json`。
+`zbpack.json` 的应用优先级是 `zbpack.[服务名称].json` 大于 `zbpack.json`。
+
+### 使用环境变量修改
+
+你也可以使用 [环境变量](/deploy/variables) 来设置编译和启动命令：
+
+```env
+ZBPACK_BUILD_COMMAND=pnpm run build:api
+ZBPACK_START_COMMAND=pnpm run start:api
+```
 
 ## 指定 Node.js 和包管理器版本
 
