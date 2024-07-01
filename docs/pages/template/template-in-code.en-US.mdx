@@ -104,9 +104,22 @@ spec:
                 REDIS_URL:
                     default: ${REDIS_URI}
             domainKey: PUBLIC_DOMAIN
+localization:
+  zh-TW:
+    description: LobeChat 是一個開源的高效能聊天機器人框架。
+    variables:
+      - key: PUBLIC_DOMAIN
+        type: DOMAIN
+        name: 網域
+        description: 你想將 RSSHub 綁在哪個網域上？
+    readme: |-
+        # RSSHub
+        RSSHub 是一個開源、易於使用且可擴展的 RSS 資訊聚合器，能夠從幾乎所有來源生成 RSS 資訊。
+
+        RSSHub 提供來自各種來源的數百萬內容，我們充滿活力的開源社群確保提供 RSSHub 的新路線、新功能和錯誤修復。
 ```
 
-A **Template** can be divided into two main sections: "Template Information" and "Service Specifications". The complete format can be viewed in the [Zeabur Schema Repository](https://json-schema.app/view/%23?url=https%3A%2F%2Fschema.zeabur.app%2Ftemplate.json). Below, each field's purpose and how it is presented on the Zeabur template page will be briefly described.
+A **Template** can be divided into three main sections: "Template Information", "Service Specifications", and "Localization". The complete format can be viewed in the [Zeabur Schema Repository](https://json-schema.app/view/%23?url=https%3A%2F%2Fschema.zeabur.app%2Ftemplate.json). Below, each field's purpose and how it is presented on the Zeabur template page will be briefly described.
 
 ### Template Definition
 
@@ -165,6 +178,18 @@ configs:
 
         !includedir /etc/mysql/conf.d/
 ```
+
+The `domainKey` indicates which service the domain (type `DOMAIN`) variable in the template definition should be bound to. In the example above, `spec.variables` has a variable `PUBLIC_DOMAIN` of type `DOMAIN`, and the RSSHub service specification has a `domainKey` pointing to `PUBLIC_DOMAIN`. When deploying, the domain set in `PUBLIC_DOMAIN` will be bound to the RSSHub service.
+
+### Localization
+
+You can localize the `description`, `coverImage`, `variables` titles and descriptions, and `readme` in the template definition. Zeabur will display the corresponding localized content based on the visitor's language.
+
+![Presentation of various fields localized on the Zeabur template page](/template/template-in-code/localization.webp)
+
+You can localize your contents to `zh-TW`, `zh-CN`, `ja-JP`, and `es-ES`. Note that `en-US` is the default language of the template, and you should write directly in the template definition. The format of `description`, `readme`, and `coverImage` is the same as in the template definition. You can translate the field `name` and `description` in `variables`; however, other parts (`type` and `key`) must remain the same as in the template definition fields.
+
+Leaving fields blank (or omitting them) will automatically use the default content from the template definition. In the above example, the `coverImage` is omitted, so Zeabur picks the `coverImage` from the template definition.
 
 ## Deploying Templates with the `zeabur` CLI
 
