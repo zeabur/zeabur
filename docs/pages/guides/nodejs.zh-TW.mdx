@@ -65,7 +65,7 @@ ZBPACK_APP_DIR=apps/web
 
 ## 停用快取功能
 
-預設 Zeabur 會調換安裝流程，透過儲存（快取）安裝依賴的步驟，加速你往後 CI/CD 的速度。一般的 Node.js 專案應該不受影響，但假如你的專案是以 pnpm-workspace 等利用工具管理的 monorepo，並且預設的設定會導致專案編譯失敗，你可能得停用快取功能才能正常使用。
+預設 Zeabur 會調換安裝流程，透過記錄安裝依賴的步驟，加速你往後 CI/CD 的速度。一般的 Node.js 專案應該不受影響，但假如你的專案在安裝依賴時需要用到專案中的其他檔案而導致專案編譯失敗，你可能得停用快取功能才能正常使用。
 
 在專案的根目錄新增 `zbpack.json` 檔案，並加入以下內容，即可停用這個功能。
 
@@ -77,7 +77,7 @@ ZBPACK_APP_DIR=apps/web
 
 ## 更改編譯和啟動命令
 
-假如你的專案類型較為特殊（如使用工具達到的 Monorepo），你可能會需要指定服務的編譯 (build) 和啟動 (start) 命令，比如將 `frontend` 服務的啟動命令改成 `pnpm run start:frontend`；把 `api` 服務的編譯命令改成 `pnpm run start:api`。
+假如你的專案類型較為特殊（如使用自訂的 Monorepo 工具鏈），你可能會需要指定服務的編譯 (build) 和啟動 (start) 命令，比如將 `frontend` 服務的啟動命令改成 `pnpm run start:frontend`；把 `api` 服務的編譯命令改成 `pnpm run start:api`。
 
 這裡介紹兩個更改這個命令的方式。
 
@@ -116,7 +116,7 @@ ZBPACK_APP_DIR=apps/web
 }
 ```
 
-`zbpack.json` 的套用優先級是 `zbpack.[服務名稱].json` > `zbpack.json`。
+`zbpack.json` 的套用優先級是 `zbpack.[服務名稱].json` 大於 `zbpack.json`。
 
 ## 指定 Node.js 和包管理器版本
 
