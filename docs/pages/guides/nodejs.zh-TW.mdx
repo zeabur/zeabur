@@ -31,6 +31,38 @@ Zeabur 支援眾多類型的 Node.js 專案：
 - Docusaurus
 - Solid Start (Node, Static)
 
+## Monorepo 支援
+
+Zeabur 會自動辨識 [pnpm workspace](https://pnpm.io/workspaces)、[Yarn Workspace](https://yarnpkg.com/features/workspaces) 以及絕大多數基於這兩個 Monorepo 做法的工具鏈，如 Turborepo 和 Lerna 等。
+
+以 Turborepo 的 `basic` 模板為例，它的 `pnpm-workspace.yaml` 內容為：
+
+```yaml
+packages:
+  - "apps/*"
+  - "packages/*"
+```
+
+而 `apps` 下有 `docs` 及 `web` 兩個目錄。Zeabur 預設會挑選列在 workspace 套件清單中的第一個 Node.js 應用程式來部署，就以此例來說，Zeabur 會部署 `apps/docs` 這個應用程式。如果想要部署 `apps/web`，可以在專案的根目錄新增 `zbpack.json` 檔案，並加入以下內容：
+
+```json
+{
+    "app_dir": "apps/web"
+}
+```
+
+或者是使用 [環境變數](/deploy/variables) 進行設定：
+
+```env
+ZBPACK_APP_DIR=apps/web
+```
+
+這樣就會部署 `apps/web` 這個應用程式。
+
+<Callout type="info">
+    [Nx](https://nx.dev) 和 [Rush](https://rushjs.io) 等不以上述兩個作法為基礎的 Monorepo 方案尚未支援一鍵部署，可以先參考〈停用快取功能〉和〈更改編譯和啟動命令〉對 Monorepo 進行設定。
+</Callout>
+
 ## 停用快取功能
 
 預設 Zeabur 會調換安裝流程，透過儲存（快取）安裝依賴的步驟，加速你往後 CI/CD 的速度。一般的 Node.js 專案應該不受影響，但假如你的專案是以 pnpm-workspace 等利用工具管理的 monorepo，並且預設的設定會導致專案編譯失敗，你可能得停用快取功能才能正常使用。
