@@ -75,6 +75,12 @@ ZBPACK_APP_DIR=apps/web
 }
 ```
 
+或者是設定 [環境變數](/deploy/variables)：
+
+```env
+ZBPACK_CACHE_DEPENDENCIES=false
+```
+
 ## 更改編譯和啟動命令
 
 假如你的專案類型較為特殊（如使用自訂的 Monorepo 工具鏈），你可能會需要指定服務的編譯 (build) 和啟動 (start) 命令，比如將 `frontend` 服務的啟動命令改成 `pnpm run start:frontend`；把 `api` 服務的編譯命令改成 `pnpm run start:api`。
@@ -117,6 +123,15 @@ ZBPACK_APP_DIR=apps/web
 ```
 
 `zbpack.json` 的套用優先級是 `zbpack.[服務名稱].json` 大於 `zbpack.json`。
+
+### 使用環境變數修改
+
+你也可以使用 [環境變數](/deploy/variables) 來設定編譯和啟動命令：
+
+```env
+ZBPACK_BUILD_COMMAND=pnpm run build:api
+ZBPACK_START_COMMAND=pnpm run start:api
+```
 
 ## 指定 Node.js 和包管理器版本
 
