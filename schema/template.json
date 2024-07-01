@@ -270,11 +270,13 @@
                         "variables": [
                             {
                                 "key": "SITE_NAME",
+                                "type": "STRING",
                                 "name": "網站名稱",
                                 "description": "這個名稱將會顯示在您的網站標題上。"
                             },
                             {
                                 "key": "SITE_DOMAIN",
+                                "type": "DOMAIN",
                                 "name": "網站網域",
                                 "description": "這個網域將會是您的網站的網址。"
                             }

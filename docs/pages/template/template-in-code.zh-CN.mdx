@@ -104,9 +104,22 @@ spec:
                 REDIS_URL:
                     default: ${REDIS_URI}
             domainKey: PUBLIC_DOMAIN
+localization:
+  zh-CN:
+    description: LobeChat 是一个开源的高性能聊天机器人框架。
+    variables:
+      - key: PUBLIC_DOMAIN
+        type: DOMAIN
+        name: 域名
+        description: 你想将 RSSHub 绑定在哪个域名上？
+    readme: |-
+        # RSSHub
+        RSSHub 是一个开源、易于使用且可扩展的 RSS 信息聚合器，能够从几乎所有来源生成 RSS 信息。
+
+        RSSHub 提供来自各种来源的数百万内容，我们充满活力的开源社区确保提供 RSSHub 的新路线、新功能和错误修复。
 ```
 
-一个 **Template** 可以分成「模板信息」和「服务规格」这两大块。完整格式可以在 [Zeabur 的 Schema 存储库](https://json-schema.app/view/%23?url=https%3A%2F%2Fschema.zeabur.app%2Ftemplate.json) 浏览，下面会简述每个字段的用途和其在 Zeabur 模板页面的呈现。
+一个 **Template** 可以分成“模板信息”、“服务规格”和“本地化翻译”这三大块。完整格式可以在 [Zeabur 的 Schema 存储库](https://json-schema.app/view/%23?url=https%3A%2F%2Fschema.zeabur.app%2Ftemplate.json) 浏览，下面会简述每个字段的用途和其在 Zeabur 模板页面的呈现。
 
 ### 模板定义
 
@@ -165,6 +178,18 @@ configs:
 
         !includedir /etc/mysql/conf.d/
 ```
+
+`domainKey` 标示模板定义中的域名 (`DOMAIN`) 变量应该绑定在哪个服务上面。就以上面的例子来说，`spec.variables` 有一个类型是 `DOMAIN` 的变量 `PUBLIC_DOMAIN`，而 RSSHub 服务规格下有一个 `domainKey` 指向 `PUBLIC_DOMAIN`，届时部署时将会把 `PUBLIC_DOMAIN` 设定的域名绑定到 RSSHub 服务上。
+
+### 本地化翻译
+
+你可以在模板定义中本地化 `description`、`coverImage`、`variables` 的标题和描述以及 `readme` 等栏位。Zeabur 会根据访客的语言显示对应的本地化内容。
+
+![Zeabur 模板页面上本地化翻译的各个栏位呈现](/template/template-in-code/localization.webp)
+
+当前支持的语言代码包括 `zh-TW`、`zh-CN`、`ja-JP` 和 `es-ES`。`en-US` 是模板的默认语言，直接写在模板定义中即可。`description`、`readme`、`coverImage` 的格式与模板定义相同；`variables` 则对应到模板定义中的 `variables`，可以对变量的 `name` 和 `description` 进行本地化，其他部分必须与模板定义中的栏位相同。
+
+留空栏位（或者是不写）则会自动使用模板定义中的默认内容，如 `coverImage` 在上面的示例没写，则会使用模板定义中的 `coverImage`。
 
 ## 使用 `zeabur` CLI 部署模板
 
