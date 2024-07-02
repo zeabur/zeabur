@@ -8,6 +8,56 @@ ogImageSubtitle: 在 Zeabur 部署 PHP 项目
 
 Zeabur 不仅支持传统的多文件 PHP 项目，以 `index.php` 作为入口的项目，还支持 [Laravel](./php/laravel)、ThinkPHP、CodeIgniter 等框架的一键部署。
 
+## NPM 支持
+
+如果你的项目根目录有 `package.json`，Zeabur 会自动帮您安装 Node.js 和 NPM；如果你的 `package.json` 有 `build` 脚本，Zeabur 会自动帮你运行 `npm install && npm run build` 编译产物。
+
+如果需要更改编译的命令（如改运行 `npm run build:dist`），请参阅〈自定义编译与启动命令〉。
+
+## 自定义编译和启动命令
+
+Zeabur 允许你使用环境变量或配置文件自定义 PHP 的编译和启动命令。
+
+“编译命令”适合用在需要下载或编译自定义产物（如 CSS、JavaScript 等等），或者是写入配置文件的情境。举例来说，你想往 `/etc` 文件夹写入配置文件，你可以设置环境变量
+
+```env
+ZBPACK_BUILD_COMMAND=echo 'your-configuration' > /etc/somewhere
+```
+
+或者是在 `zbpack.json` 中加入以下设置：
+
+```json
+{
+    "build_command": "echo 'your-configuration' > /etc/somewhere"
+}
+```
+
+你亦可以在这里运行 npm 的命令。注意 Zeabur 只会在 **项目根目录** 有 `package.json` 的情况下安装 Node.js 和 NPM，如果你的项目没有 `package.json`，则不会有 `npm` 命令可用：
+
+```json
+{
+    "build_command": "npm install && npm run build:dist"
+}
+```
+
+“启动命令”则适合用在启动 PHP 服务器时运行的情境，如在原有的命令基础上加上 `php artisan migrate` 来建立数据库的 tables。举例来说，你可以设置环境变量
+
+```env
+ZBPACK_START_COMMAND="php artisan migrate && _startup"
+```
+
+或者是在 `zbpack.json` 中加入以下设置：
+
+```json
+{
+    "start_command": "php artisan migrate && _startup"
+}
+```
+
+其中 `_startup` 是 Zeabur 原本的启动命令（[可以在 zbpack 查阅](https://github.com/zeabur/zbpack/tree/main/internal/php)）。如果你有自定义 `start_command`，`_startup` 必须在你的启动命令中运行，否则不会启动 PHP 服务器。
+
+`build_command` 和 `start_command` 均会使用 POSIX 兼容的 shell 运行，所以你可以使用 `&&` 串接多个命令，或者使用 `;` 分隔多个命令。
+
 ## 自定义 `php.ini` 设置
 
 使用 Zeabur 的[配置文件编辑器](/deploy/config-edit)，创建一个路径在 `/usr/local/etc/php/conf.d`，文件扩展名为 `ini` 的配置文件，并直接写上想要覆盖的 PHP 设置即可。
