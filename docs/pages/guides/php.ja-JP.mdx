@@ -8,6 +8,56 @@ ogImageSubtitle: Zeabur で PHP プロジェクトをデプロイする
 
 Zeabur は、`index.php` をエントリーポイントとする従来のマルチファイル PHP プロジェクトだけでなく、[Laravel](./php/laravel)、ThinkPHP、CodeIgniter などのフレームワークに対するワンクリックデプロイもサポートしています。
 
+## NPM サポート
+
+プロジェクトのルートディレクトリに `package.json` がある場合、Zeabur は自動的に Node.js と NPM をインストールします。さらに、`package.json` に `build` スクリプトが含まれている場合、Zeabur は自動的に `npm install && npm run build` を実行して成果物をコンパイルします。
+
+ビルドコマンドを変更する必要がある場合（例えば `npm run build:dist` を実行する場合）、〈カスタムビルドおよび起動コマンド〉を参照してください。
+
+## カスタムビルドおよび起動コマンド
+
+Zeabur は、環境変数や設定ファイルを使用して PHP のビルドおよび起動コマンドをカスタマイズすることを許可しています。
+
+「ビルドコマンド」は、カスタム成果物（CSS、JavaScript など）をダウンロードまたはコンパイルする必要がある場合や、設定ファイルを構成するシナリオに適しています。例えば、`/etc` フォルダに設定ファイルを書き込みたい場合、環境変数を次のように設定できます。
+
+```env
+ZBPACK_BUILD_COMMAND=echo 'your-configuration' > /etc/somewhere
+```
+
+または、`zbpack.json` に以下の設定を追加します。
+
+```json
+{
+    "build_command": "echo 'your-configuration' > /etc/somewhere"
+}
+```
+
+ここで npm のコマンドも実行できます。Zeabur はプロジェクトの **ルートディレクトリ** に `package.json` がある場合にのみ Node.js と NPM をインストールします。プロジェクトに `package.json` がない場合、`npm` コマンドは使用できません。
+
+```json
+{
+    "build_command": "npm install && npm run build:dist"
+}
+```
+
+「起動コマンド」は PHP サーバーを起動する際に使用するシナリオに適しています。例えば、元のコマンドに `php artisan migrate` を追加してデータベースのテーブルを作成する場合、環境変数を次のように設定できます。
+
+```env
+ZBPACK_START_COMMAND="php artisan migrate && _startup"
+```
+
+または、`zbpack.json` に以下の設定を追加します。
+
+```json
+{
+    "start_command": "php artisan migrate && _startup"
+}
+```
+
+ここで `_startup` は Zeabur の元の起動コマンドです（[詳細は zbpack で確認できます](https://github.com/zeabur/zbpack/tree/main/internal/php)）。カスタムの `start_command` を設定する場合、`_startup` を起動コマンド内で実行する必要があります。そうしないと PHP サーバーは起動しません。
+
+`build_command` および `start_command` は POSIX 互換のシェルで実行されるため、`&&` を使用して複数のコマンドを連結することや、`;` を使用して複数のコマンドを区切ることができます。
+
 ## `php.ini` 設定のカスタマイズ
 
 Zeabur の[設定ファイルエディター](/deploy/config-edit)を使用して、`/usr/local/etc/php/conf.d` にパスがあり、拡張子が `ini` の設定ファイルを作成し、上書きしたい PHP の設定を直接記述します。

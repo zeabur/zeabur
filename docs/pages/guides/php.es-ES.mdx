@@ -4,11 +4,61 @@ ogImageTitle: Deploying PHP apps
 ogImageSubtitle: Deploying PHP apps on Zeabur
 ---
 
-<WorkingInProgress />
-
 # Deploying PHP apps
 
+<WorkingInProgress />
+
 Zeabur supports not only traditional multi-file PHP apps with `index.php` as the entry point but also offers one-click deployment for frameworks like [Laravel](./php/laravel), ThinkPHP, CodeIgniter, etc.
+
+## NPM Support
+
+If your project root contains a `package.json`, Zeabur will automatically install Node.js and NPM for you; if your `package.json` contains a `build` script, Zeabur will automatically run `npm install && npm run build` to build the artifacts.
+
+If you need to change the build commands (e.g., to run `npm run build:dist`), please refer to the section on Customizing Build and Start Commands.
+
+## Customizing Build and Start Commands
+
+Zeabur allows you to customize PHP build and start commands using environment variables or configuration files.
+
+"Build commands" are suitable for scenarios where you need to download or compile custom artifacts (such as CSS, JavaScript, etc.) or write constant configurations. For example, if you want to write settings to the `/etc` folder, you can set an environment variable like this:
+
+```env
+ZBPACK_BUILD_COMMAND=echo 'your-configuration' > /etc/somewhere
+```
+
+Or add the following settings in `zbpack.json`:
+
+```json
+{
+    "build_command": "echo 'your-configuration' > /etc/somewhere"
+}
+```
+
+You can also execute npm commands here. Note that Zeabur will only install Node.js and NPM if there is a `package.json` in the **project root directory**. If your project does not contain a `package.json`, `npm` commands will not be available:
+
+```json
+{
+    "build_command": "npm install && npm run build:dist"
+}
+```
+
+"Start commands" are suitable for scenarios where you need to start a PHP server, such as adding `php artisan migrate` to the original command to migrate database. For example, you can set an environment variable like this:
+
+```env
+ZBPACK_START_COMMAND="php artisan migrate && _startup"
+```
+
+Or add the following settings in `zbpack.json`:
+
+```json
+{
+    "start_command": "php artisan migrate && _startup"
+}
+```
+
+Here, `_startup` is Zeabur's original start command (which can be found in [the zbpack source code](https://github.com/zeabur/zbpack/tree/main/internal/php)). If you have a custom `start_command`, `_startup` must be included in your start command; otherwise, the PHP server will not start.
+
+Both `build_command` and `start_command` will be executed using a POSIX-compliant shell, so you can use `&&` to chain multiple commands, or use `;` to separate multiple commands.
 
 ## Customizing `php.ini` Settings
 
