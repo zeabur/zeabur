@@ -14,6 +14,56 @@ Zeabur 支援眾多類型的 Python 專案，包含但不限於這些：
 
 如果你的原始碼底下有 `app.py`, `main.py` 等 entrypoint，Zeabur 也會自動啟動。
 
+## NPM 支援
+
+如果你的專案根目錄有 `package.json`，Zeabur 會自動幫您安裝 Node.js 和 NPM；如果你的 `package.json` 有 `build` script，Zeabur 會自動幫你執行 `npm install && npm run build` 編譯產物。
+
+如果需要更改編譯的命令（如改執行 `npm run build:dist`），請參閱〈自訂編譯與啟動命令〉。
+
+## 自訂編譯和啟動命令
+
+Zeabur 允許你使用環境變數或設定檔自訂 Python 的編譯和啟動命令。
+
+「編譯命令」適合用在需要下載或編譯自訂產物（如 CSS、JavaScript 等等），或者是配置設定檔的情境。舉例來說，你想往 `/etc` 資料夾寫入設定檔，你可以設定環境變數
+
+```env
+ZBPACK_BUILD_COMMAND=echo 'your-configuration' > /etc/somewhere
+```
+
+或者是在 `zbpack.json` 中加入以下設定：
+
+```json
+{
+    "build_command": "echo 'your-configuration' > /etc/somewhere"
+}
+```
+
+你亦可以在這裡執行 npm 的命令。注意 Zeabur 只會在 **專案根目錄** 有 `package.json` 的情況下安裝 Node.js 和 NPM，如果你的專案沒有 `package.json`，則不會有 `npm` 命令可用：
+
+```json
+{
+    "build_command": "npm install && npm run build:dist"
+}
+```
+
+「啟動命令」則適合用在啟動 Python 應用程式時執行的情境，如在原有的命令基礎上加上 `python3 migrate.py` 來建立資料庫的 tables。舉例來說，你可以設定環境變數
+
+```env
+ZBPACK_START_COMMAND="python3 migrate.py && _startup"
+```
+
+或者是在 `zbpack.json` 中加入以下設定：
+
+```json
+{
+    "start_command": "python3 migrate.py && _startup"
+}
+```
+
+其中 `_startup` 是 Zeabur 原本的啟動命令（[可以在 zbpack 查閱](https://github.com/zeabur/zbpack/tree/main/internal/python)）。如果你有自訂 `start_command`，`_startup` 必須在你的啟動命令中執行，否則不會啟動 Python 應用程式。
+
+`build_command` 和 `start_command` 均會使用 POSIX 相容的 shell 執行，所以你可以使用 `&&` 串接多個命令，或者使用 `;` 分隔多個命令。
+
 ## Serverless
 
 Zeabur 支援將 Python 部署成 serverless 專案。不過目前需要 opt-in。

@@ -14,6 +14,56 @@ Zeabur soporta varios tipos de proyectos en Python, incluyendo:
 
 Si tu código fuente incluye `app.py`, `main.py` o puntos de entrada similares, Zeabur también se iniciará automáticamente.
 
+## Soporte para NPM
+
+Si la raíz de su proyecto contiene un `package.json`, Zeabur instalará automáticamente Node.js y NPM para usted; si su `package.json` contiene un script de `build`, Zeabur ejecutará automáticamente `npm install && npm run build` para construir los artefactos.
+
+Si necesita cambiar los comandos de construcción (por ejemplo, para ejecutar `npm run build:dist`), consulte la sección sobre Personalización de Comandos de Construcción y Inicio.
+
+## Personalización de Comandos de Construcción y Inicio
+
+Zeabur le permite personalizar los comandos de construcción e inicio de Python utilizando variables de entorno o archivos de configuración.
+
+Los "comandos de construcción" son adecuados para escenarios donde necesita descargar o compilar artefactos personalizados (como CSS, JavaScript, etc.) o escribir configuraciones constantes. Por ejemplo, si desea escribir configuraciones en la carpeta `/etc`, puede establecer una variable de entorno así:
+
+```env
+ZBPACK_BUILD_COMMAND=echo 'your-configuration' > /etc/somewhere
+```
+
+O agregar las siguientes configuraciones en `zbpack.json`:
+
+```json
+{
+    "build_command": "echo 'your-configuration' > /etc/somewhere"
+}
+```
+
+También puede ejecutar comandos npm aquí. Tenga en cuenta que Zeabur solo instalará Node.js y NPM si hay un `package.json` en el **directorio raíz del proyecto**. Si su proyecto no contiene un `package.json`, los comandos de `npm` no estarán disponibles:
+
+```json
+{
+    "build_command": "npm install && npm run build:dist"
+}
+```
+
+Los "comandos de inicio" son adecuados para escenarios cuando necesita ejecutar un comando antes de iniciar una aplicación Python, como agregar `python3 migrate.py` al comando original para migrar la base de datos. Por ejemplo, puede establecer una variable de entorno así:
+
+```env
+ZBPACK_START_COMMAND="python3 migrate.py && _startup"
+```
+
+O agregar las siguientes configuraciones en `zbpack.json`:
+
+```json
+{
+    "start_command": "python3 migrate.py && _startup"
+}
+```
+
+Aquí, `_startup` es el comando de inicio original de Zeabur (que se puede encontrar en [el código fuente de zbpack](https://github.com/zeabur/zbpack/tree/main/internal/python)). Si tiene un `start_command` personalizado, `_startup` debe estar incluido en su comando de inicio; de lo contrario, la aplicación Python no se iniciará.
+
+Tanto `build_command` como `start_command` se ejecutarán utilizando una shell compatible con POSIX, por lo que puede usar `&&` para encadenar múltiples comandos, o usar `;` para separar múltiples comandos.
+
 ## Serverless
 
 Zeabur soporta el despliegue de proyectos en Python como proyectos serverless. Sin embargo, actualmente requiere una suscripción.
