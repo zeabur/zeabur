@@ -122,3 +122,22 @@ O usa la variable de entorno `ZBPACK_PYTHON_VERSION` para especificar la versió
 ZBPACK_PYTHON_VERSION=3.8
 ```
 
+## Especificar el archivo de entrada de Streamlit
+
+Si tienes instalada la dependencia `streamlit` y el nombre del archivo es `app.py`, `main.py` o `streamlit_app.py`, Zeabur lanzará tu aplicación en modo Streamlit por defecto.
+
+Sin embargo, si el nombre del archivo no es uno de estos tres, puedes especificar el nombre del archivo en `zbpack.json`. Por ejemplo, si el nombre del archivo de tu aplicación Streamlit es `myapp.py`:
+
+```json
+{
+    "streamlit": {
+        "entry": "myapp.py"
+    }
+}
+```
+
+De esta manera, Zeabur lanzará tu `myapp.py` en modo Streamlit. También puedes especificar el nombre del archivo usando la variable de entorno `ZBPACK_STREAMLIT_ENTRY`:
+
+```env
+ZBPACK_STREAMLIT_ENTRY=myapp.py
+```

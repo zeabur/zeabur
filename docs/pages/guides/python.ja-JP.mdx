@@ -121,3 +121,23 @@ rye pin 3.8  # ここでPythonのバージョンを指定します
 ```env
 ZBPACK_PYTHON_VERSION=3.8
 ```
+
+## Streamlit 実行ファイルの指定
+
+`streamlit` の依存関係をインストールしていて、ファイル名が `app.py`、`main.py`、`streamlit_app.py` の場合、Zeabur はデフォルトで Streamlit モードでアプリケーションを起動します。
+
+ただし、ファイル名がこれらの3つのいずれでもない場合、`zbpack.json` でファイル名を指定できます。例えば、Streamlit アプリケーションのファイル名が `myapp.py` の場合：
+
+```json
+{
+    "streamlit": {
+        "entry": "myapp.py"
+    }
+}
+```
+
+このようにすると、Zeabur は `myapp.py` を Streamlit モードで起動します。環境変数 `ZBPACK_STREAMLIT_ENTRY` を使用してファイル名を指定することもできます：
+
+```env
+ZBPACK_STREAMLIT_ENTRY=myapp.py
+```

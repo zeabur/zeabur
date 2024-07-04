@@ -121,3 +121,23 @@ rye pin 3.8  # 在这里指定 Python 版本
 ```env
 ZBPACK_PYTHON_VERSION=3.8
 ```
+
+## 指定 Streamlit 启动文件
+
+如果你有安装 `streamlit` 依赖，且文件名是 `app.py`、`main.py` 和 `streamlit_app.py`，Zeabur 默认会以 Streamlit 模式启动你的应用程序。
+
+不过假如文件名不是上面这三个，你可以在 `zbpack.json` 中指定文件名。比如你的 Streamlit 应用程序的文件名是 `myapp.py`：
+
+```json
+{
+    "streamlit": {
+        "entry": "myapp.py"
+    }
+}
+```
+
+这样 Zeabur 就会以 Streamlit 模式启动你的 `myapp.py`。你也可以使用环境变量 `ZBPACK_STREAMLIT_ENTRY` 指定文件名：
+
+```env
+ZBPACK_STREAMLIT_ENTRY=myapp.py
+```
