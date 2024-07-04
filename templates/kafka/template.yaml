@@ -1,0 +1,65 @@
+apiVersion: zeabur.com/v1
+kind: Template
+metadata:
+  name: Kafka
+spec:
+  description: Apache Kafka is an open-source distributed event streaming platform used by thousands of companies for high-performance data pipelines, streaming analytics, data integration, and mission-critical applications.
+  icon: https://upload.wikimedia.org/wikipedia/commons/0/0a/Apache_kafka-icon.svg
+  tags:
+    - Database
+    - Event
+    - Data
+  readme: |
+    # Apache Kafka
+
+    [Apache Kafka](https://kafka.apache.org) is an open-source distributed event streaming platform used by thousands of companies for high-performance data pipelines, streaming analytics, data integration, and mission-critical applications.
+
+    Note that for _external_ connections to the broker i.e. those from _outside_ the docker network. This could be from the host machine running docker, or maybe further afield if you've got a more complicated setup.
+
+    If the latter is true, you will need to change the value `localhost` in `KAFKA_ADVERTISED_LISTENERS` to the forwarded hostname and port, which you can see in the "Networking" tab.
+
+    For connections _internal_ to the docker network, such as from other services and components, use `kafka.zeabur.internal:29092`.
+  services:
+    - name: zookeeper
+      template: PREBUILT
+      spec:
+        source:
+          image: confluentinc/cp-zookeeper:latest
+        ports:
+          - id: service
+            port: 2181
+            type: TCP
+        env:
+          ZOOKEEPER_CLIENT_PORT:
+            default: "2181"
+          ZOOKEEPER_TICK_TIME:
+            default: "2000"
+    - name: kafka
+      template: PREBUILT
+      icon: https://upload.wikimedia.org/wikipedia/commons/0/0a/Apache_kafka-icon.svg
+      spec:
+        source:
+          image: confluentinc/cp-kafka:latest
+        ports:
+          - id: broker
+            port: 9092
+            type: TCP
+          - id: internal
+            port: 29092
+            type: TCP
+        volumes:
+          - id: data
+            dir: /var/lib/kafka/data
+        env:
+          KAFKA_BROKER_ID:
+            default: "1"
+          KAFKA_ZOOKEEPER_CONNECT:
+            default: "zookeeper.zeabur.internal:2181"
+          KAFKA_ADVERTISED_LISTENERS:
+            default: "PLAINTEXT://kafka.zeabur.internal:29092,PLAINTEXT_HOST://localhost:9092"
+          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP:
+            default: "PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT"
+          KAFKA_INTER_BROKER_LISTENER_NAME:
+            default: "PLAINTEXT"
+          KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:
+            default: "1"
