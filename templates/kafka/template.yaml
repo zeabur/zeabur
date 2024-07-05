@@ -3,7 +3,7 @@ kind: Template
 metadata:
   name: Kafka
 spec:
-  description: Apache Kafka is an open-source distributed event streaming platform used by thousands of companies for high-performance data pipelines, streaming analytics, data integration, and mission-critical applications.
+  description: An open-source distributed event streaming platform
   icon: https://cdn.zeabur.com/kafka.png
   tags:
     - Database
@@ -61,7 +61,7 @@ spec:
             default: "1"
 localization:
   zh-TW:
-    description: Apache Kafka 是一個開源的分散式事件串流平台，數以千計的公司使用它來建構高效能資料管道、串流分析、資料整合以及用在重要任務上的應用程式。
+    description: 開源的分散式事件串流平台
     readme: |
       # Apache Kafka
 
@@ -69,7 +69,7 @@ localization:
 
       注意：如果是從 **外部** 連接到 broker，比如從 Zeabur 網路以外（如本機或更複雜的多叢集設定）存取，你需要將 `KAFKA_ADVERTISED_LISTENERS` 中的 `localhost` 值更改為轉送的主機名稱和連線埠，可以在「Networking」標籤中看到。如果是專案中服務之間的內部連線，請使用 `kafka.zeabur.internal:29092`。
   ja-JP:
-    description: Apache Kafka はオープンソースの分散イベントストリーミングプラットフォームで、数千社の企業が高性能データパイプライン、ストリーミング分析、データ統合、およびミッションクリティカルなアプリケーションのために使用しています。
+    description: オープンソースの分散イベントストリーミングプラットフォーム
     readme: |
       # Apache Kafka
 
@@ -77,7 +77,7 @@ localization:
 
       注意：**外部** から broker への接続、例えば Zeabur ネットワーク外（ローカルホストや、より複雑なマルチクラスター設定など）からアクセスする場合、`KAFKA_ADVERTISED_LISTENERS` の `localhost` 値を転送先のホスト名とポートに変更する必要があります。「Networking」タブで確認できます。プロジェクト内のサービス間の内部接続の場合も、`kafka.zeabur.internal:29092` を使用してください。
   zh-CN:
-    description: Apache Kafka 是一个开源的分布式事件流平台，数以千计的公司使用它来构建高性能数据管道、流分析、数据集成以及关键任务应用程序。
+    description: 开源的分布式事件流平台
     readme: |
       # Apache Kafka
 
