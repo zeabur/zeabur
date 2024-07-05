@@ -4,7 +4,7 @@ metadata:
   name: Kafka
 spec:
   description: Apache Kafka is an open-source distributed event streaming platform used by thousands of companies for high-performance data pipelines, streaming analytics, data integration, and mission-critical applications.
-  icon: https://upload.wikimedia.org/wikipedia/commons/0/0a/Apache_kafka-icon.svg
+  icon: https://cdn.zeabur.com/kafka.png
   tags:
     - Database
     - Event
@@ -36,7 +36,7 @@ spec:
             default: "2000"
     - name: kafka
       template: PREBUILT
-      icon: https://upload.wikimedia.org/wikipedia/commons/0/0a/Apache_kafka-icon.svg
+      icon: https://cdn.zeabur.com/kafka.png
       spec:
         source:
           image: confluentinc/cp-kafka:latest
