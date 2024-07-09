@@ -61,6 +61,16 @@ ZBPACK_APP_DIR=apps/web
 
 Esto desplegará la aplicación `apps/web`.
 
+Si tu aplicación está en el directorio raíz pero usa `pnpm-workspace.yaml` para colocar componentes de React, sistemas de diseño y otros elementos, puedes usar la variable de entorno `ZBPACK_APP_DIR=/` o agregar lo siguiente en `zbpack.json`
+
+```json
+{
+    "app_dir": "/"
+}
+```
+
+para que Zeabur despliegue tu aplicación colocada en el directorio raíz.
+
 <Callout type="info">
     [Nx](https://nx.dev) y [Rush](https://rushjs.io), que no se basan en los dos enfoques mencionados anteriormente, aún no son compatibles con el despliegue con un solo clic. Puedes consultar "Desactivar caché" y "Cambiar comandos de construcción y arranque" para configurar Monorepo.
 </Callout>

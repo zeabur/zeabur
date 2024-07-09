@@ -59,6 +59,16 @@ ZBPACK_APP_DIR=apps/web
 
 これで `apps/web` アプリケーションがデプロイされます。
 
+アプリケーションが実際にルートディレクトリにあるが、`pnpm-workspace.yaml` を使用して React コンポーネント、デザインシステムなどの要素を配置している場合、環境変数 `ZBPACK_APP_DIR=/` を使用するか、`zbpack.json` に以下を追加できます
+
+```json
+{
+    "app_dir": "/"
+}
+```
+
+これにより、Zeabur はルートディレクトリに配置されたアプリケーションをデプロイします。
+
 <Callout type="info">
     [Nx](https://nx.dev) や [Rush](https://rushjs.io) などの上述の 2 つの方法に基づかない Monorepo ソリューションは、ワンクリックデプロイをまだサポートしていません。「キャッシュ機能の無効化」と「ビルドおよび開始コマンドの変更」を参照して、Monorepo を設定してください。
 </Callout>

@@ -59,6 +59,16 @@ ZBPACK_APP_DIR=apps/web
 
 This will deploy the `apps/web` application.
 
+If your application is indeed in the root directory but leverage `pnpm-workspace.yaml` to place React components, design systems, etc, you can use the environment variable `ZBPACK_APP_DIR=/` or add the following to `zbpack.json`
+
+```json
+{
+    "app_dir": "/"
+}
+```
+
+to have Zeabur deploy your application placed in the root directory.
+
 <Callout type="info">
     [Nx](https://nx.dev) and [Rush](https://rushjs.io), which are not based on the above two Monorepo approaches, are not yet supported for one-click deployment. You can refer to "Disable Cache Functionality" and "Modifying Build and Start Commands" to configure Monorepo.
 </Callout>

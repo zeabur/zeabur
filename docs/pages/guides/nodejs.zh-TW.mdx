@@ -59,6 +59,16 @@ ZBPACK_APP_DIR=apps/web
 
 這樣就會部署 `apps/web` 這個應用程式。
 
+如果你的應用程式確實在根目錄，但使用 `pnpm-workspace.yaml` 放置 React 元件、設計系統等元素，你可以使用環境變數 `ZBPACK_APP_DIR=/` 或在 `zbpack.json` 加入
+
+```json
+{
+    "app_dir": "/"
+}
+```
+
+讓 Zeabur 部署你放在根目錄的應用程式。
+
 <Callout type="info">
     [Nx](https://nx.dev) 和 [Rush](https://rushjs.io) 等不以上述兩個作法為基礎的 Monorepo 方案尚未支援一鍵部署，可以先參考〈停用快取功能〉和〈更改編譯和啟動命令〉對 Monorepo 進行設定。
 </Callout>
