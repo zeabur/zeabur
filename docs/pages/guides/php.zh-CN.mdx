@@ -58,6 +58,60 @@ ZBPACK_START_COMMAND="php artisan migrate && _startup"
 
 `build_command` 和 `start_command` 均会使用 POSIX 兼容的 shell 运行，所以你可以使用 `&&` 串接多个命令，或者使用 `;` 分隔多个命令。
 
+## 自定义 PHP 版本
+
+Zeabur 默认使用 PHP 8，但你可以使用 `composer.json` 或 zbpack 的设置来指定 PHP 版本。如果你的项目是 Laravel Sail，Zeabur 也会根据 `docker-compose.yml` 自动判断。zbpack 设置优先级最高、`composer.json` 次之、Laravel Sail 最低。
+
+### `composer.json`
+
+在 `composer.json` 的 `require` 设置 `php` 版本的范围：
+
+```json
+{
+    "require": {
+        "php": "7.4"
+    }
+}
+```
+
+以上例来说，Zeabur 会使用 PHP 7.4 的最新 patch 版本来运行你的项目。
+
+```json
+{
+    "require": {
+        "php": "^7.4"
+    }
+}
+```
+
+以上例来说，Zeabur 会使用 PHP 7 的最新 minor 版本来运行你的项目。
+
+### Laravel Sail
+
+如果你的项目是 Laravel Sail，Zeabur 会自动检测并使用 Laravel Sail 在 `docker-compose.yml` 定义的 PHP 版本。
+
+![Laravel Sail 的 Docker Compose 定义](/guides/php/laravel-sail-docker-compose.webp)
+
+### zbpack 设置
+
+如果你没有使用 Laravel Sail 或 Composer，但有更改 PHP 版本的需求，可以使用 `ZBPACK_PHP_VERSION` 环境变量
+
+```env
+ZBPACK_PHP_VERSION=8.0
+```
+
+或者是在 `zbpack.json` 中加入以下设置
+
+```json
+{
+    "php": {
+        "version": "8.0"
+    }
+}
+```
+
+来自定义 PHP 版本。
+
 ## 自定义 `php.ini` 设置
 
 使用 Zeabur 的[配置文件编辑器](/deploy/config-edit)，创建一个路径在 `/usr/local/etc/php/conf.d`，文件扩展名为 `ini` 的配置文件，并直接写上想要覆盖的 PHP 设置即可。

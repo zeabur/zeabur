@@ -58,6 +58,60 @@ Here, `_startup` is Zeabur's original start command (which can be found in [the 
 
 Both `build_command` and `start_command` will be executed using a POSIX-compliant shell, so you can use `&&` to chain multiple commands, or use `;` to separate multiple commands.
 
+## Custom PHP Version
+
+Zeabur defaults to using PHP 8, but you can specify the PHP version using `composer.json` or zbpack settings. If your project uses Laravel Sail, Zeabur will also automatically detect the version based on `docker-compose.yml`. zbpack settings have the highest priority, followed by `composer.json`, and then Laravel Sail.
+
+### `composer.json`
+
+Set the PHP version range in the `require` section of `composer.json`:
+
+```json
+{
+    "require": {
+        "php": "7.4"
+    }
+}
+```
+
+In the example above, Zeabur will use the latest patch version of PHP 7.4 to run your project.
+
+```json
+{
+    "require": {
+        "php": "^7.4"
+    }
+}
+```
+
+In the example above, Zeabur will use the latest minor version of PHP 7 to run your project.
+
+### Laravel Sail
+
+If your project uses Laravel Sail, Zeabur will automatically detect and use the PHP version defined by Laravel Sail in `docker-compose.yml`.
+
+![Laravel Sail Docker Compose definition](/guides/php/laravel-sail-docker-compose.webp)
+
+### zbpack Settings
+
+If you are not using Laravel Sail or Composer but need to change the PHP version, you can use the `ZBPACK_PHP_VERSION` environment variable
+
+```env
+ZBPACK_PHP_VERSION=8.0
+```
+
+Or add the following setting in `zbpack.json`
+
+```json
+{
+    "php": {
+        "version": "8.0"
+    }
+}
+```
+
+to customize the PHP version.
+
 ## Customizing `php.ini` Settings
 
 Use Zeabur's [config file editor](/deploy/config-edit) to create a configuration file under `/usr/local/etc/php/conf.d` with the extension `ini`. You can directly write the PHP settings you wish to override in this file.
