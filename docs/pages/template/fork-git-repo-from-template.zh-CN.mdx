@@ -1,0 +1,33 @@
+---
+title: 从模板服务 Fork 代码
+ogImageTitle: 从模板服务 Fork 代码
+ogImageSubtitle: 如何修改已部署的模板中的 Git 服务的代码
+---
+
+# 从模板服务 Fork 代码
+
+在 Zeabur 上，您可以使用模板服务来快速部署应用程序，一个模板包含了多个服务，而每个服务又分为 Prebuilt 服务（从 Docker Image 部署）或 Git 服务（从 GitHub 部署）。
+
+在默认情况下，当你部署了一个带有 Git 服务的模板时，Zeabur 会直接从模板来源的 GitHub 仓库部署服务到你的项目内，并会自动绑定 CI/CD 在模板作者设置的仓库上，这意味着当模板作者向他的仓库推送新的 commit 时，Zeabur 会自动触发 CI/CD 并部署新的服务到你的项目内。
+
+但有些时候，你可能想基于模板作者的代码进行修改，加入一些你自己的功能或是修改设置等等，Zeabur 为这个场景提供了很方便的一键 Fork 的功能。
+
+## 如何 Fork 模板服务的代码
+
+以这个 [Zeabur 官方的 Express.js 模板](https://zeabur.com/templates/W96I3Z) 为例，当你部署完这个模板以后，点击 express 服务的设置页面，你会看到 Git Repository 栏位目前的值是 `https://github.com/zeabur/expressjs-template` ，也就是这个模板指定的 GitHub 仓库。
+
+如果我们想要基于这个模板对代码进行修改，可以点击下方的 Fork Repository 按钮：
+
+![](https://i.imgur.com/Wz9tJsV.jpeg)
+
+点击后，会弹出一个窗口询问你 Repository 的名字是什么，请你选择一个尚未使用过的仓库名称，否则可能会导致 Fork 失败。 名称下方还有一个输入框让你选择仓库是否要设置为私有的，这可以避免你的代码改动被其他人看到：
+
+![](https://i.imgur.com/ETc1yKk.jpeg)
+
+当你选择好名称以后，点击 Fork 按钮，如果你还没进行过 GitHub 授权可能会被导向到 GitHub 的 OAuth 授权页面，授权完成后即可看到 Fork 的载入画面：
+
+![](https://i.imgur.com/9Y2qX0P.png)
+
+完成后，你可以看到你的 GitHub 账号内已经多了一个仓库，且里面放了和原本相同的代码。
+
+Zeabur 会自动为你 Fork 这个模板的代码到你的 GitHub 账号下，并且将这个 Fork 的仓库设置为你的服务的 Git Repository，这样当你在 GitHub 上对这个 Fork 的仓库进行修改并推送 commit 时，Zeabur 会自动触发 CI/CD 并部署新的服务到你的项目内。

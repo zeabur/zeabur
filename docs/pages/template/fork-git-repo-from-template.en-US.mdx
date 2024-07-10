@@ -1,0 +1,33 @@
+---
+title: Fork Code from Template Services
+ogImageTitle: Fork Code from Template Services
+ogImageSubtitle: How to modify the code of a Git service deployed from a template service
+---
+
+# Fork Code from Template Services
+
+On Zeabur, you can use template services to quickly deploy applications. A template includes multiple services, each being either a Prebuilt service (deployed from a Docker Image) or a Git service (deployed from GitHub).
+
+By default, when you deploy a template with a Git service, Zeabur directly deploys the service from the template source's GitHub repository to your project, and automatically binds CI/CD to the repository set by the template author. This means that when the template author pushes new commits to their repository, Zeabur automatically triggers CI/CD and deploys the new service to your project.
+
+However, there may be times when you want to modify the template author's code, adding your own features or changing settings, etc. For this scenario, Zeabur provides a convenient one-click Fork function.
+
+## How to Fork Code from a Template Service
+
+Taking the [Zeabur official Express.js template](https://zeabur.com/templates/W96I3Z) as an example, after you have deployed this template, click on the settings page for the express service. You will see that the Git Repository field currently has the value `https://github.com/zeabur/expressjs-template`, which is the GitHub repository specified by this template.
+
+If we want to modify the code based on this template, you can click the Fork Repository button below:
+
+![](https://i.imgur.com/Wz9tJsV.jpeg)
+
+After clicking, a window will pop up asking you what the name of the Repository is. Please choose a repository name that has not been used before, otherwise, the Fork may fail. There is also an input box below the name allowing you to choose whether to set the repository to private, which can prevent others from seeing your code changes:
+
+![](https://i.imgur.com/ETc1yKk.jpeg)
+
+After you have chosen a name, click the Fork button. If you have not yet authorized GitHub, you may be directed to GitHub's OAuth authorization page. After authorization is complete, you will see the Fork loading screen:
+
+![](https://i.imgur.com/9Y2qX0P.png)
+
+After completion, you will see that a new repository has been added to your GitHub account, containing the same code as originally.
+
+Zeabur will automatically Fork this template's code to your GitHub account and set this Forked repository as your service's Git Repository. This means that when you modify this Forked repository on GitHub and push commits, Zeabur will automatically trigger CI/CD and deploy the new service to your project.
