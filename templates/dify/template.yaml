@@ -517,3 +517,91 @@ spec:
                 }
 
               }
+localization:
+  zh-TW:
+    description: Dify 是一個開源的 LLM 應用開發平台。
+    readme: |
+      注意：此模板由 Zeabur 團隊維護，如果您有任何問題或需要幫助，請在 [Zeabur 官方 Discord 伺服器](https://zeabur.com/dc) 聯絡我們。您也可以在 [https://github.com/zeabur/dify-template](https://github.com/zeabur/dify-template) 建立問題或提交拉取請求。
+      
+      ---
+
+      Dify 是一個開源的 LLM 應用開發平台。其直觀的介面結合了 AI 工作流、RAG 管道、代理功能、模型管理、可觀測性功能等，讓您能夠快速從原型到生產。以下是其核心功能列表：
+
+      **1. 工作流**：
+        在可視化畫布上建置和測試強大的 AI 工作流，利用以下所有功能及更多功能。
+
+      **2. 全面的模型支援**：
+        與數百個專有/開源 LLM 以及數十個推理提供商和自寄管解決方案無縫整合，涵蓋 GPT、Mistral、Llama3 以及任何相容 OpenAI API 的模型。支援的模型提供商完整列表可在 [這裡](https://docs.dify.ai/getting-started/readme/model-providers) 找到。
+
+      **3. Prompt IDE**：
+        用於製作提示、比較模型效能以及為基於聊天的應用加入語音轉換等額外功能的直觀介面。
+
+      **4. RAG 管道**：
+        從文件攝取到檢索的廣泛 RAG 功能，支援從 PDF、PPT 和其他常見檔案格式中提取文字。
+
+      **5. 代理功能**：
+        您可以基於 LLM 功能呼叫或 ReAct 定義代理，並為代理加入預建置或自訂工具。Dify 提供 50 多種內建工具供 AI 代理使用，如 Google 搜尋、DELL·E、Stable Diffusion 和 WolframAlpha。
+
+      **6. LLMOps**：
+        監控和分析應用日誌和效能隨時間的變化。您可以根據生產資料和注釋持續改進提示、資料集和模型。
+
+      **7. 後端即服務**：
+        Dify 的所有產品都附帶相應的 API，因此您可以輕鬆地將 Dify 整合到您自己的業務邏輯中。
+  ja-JP:
+    description: DifyはオープンソースのLLMアプリ開発プラットフォームです。
+    readme: |
+      注意：このテンプレートはZeaburチームによって管理されています。質問やサポートが必要な場合は、[Zeabur公式Discordサーバー](https://zeabur.com/dc)でお問い合わせください。また、[https://github.com/zeabur/dify-template](https://github.com/zeabur/dify-template)で問題を報告したり、プルリクエストを作成することもできます。
+
+      ---
+
+      DifyはオープンソースのLLMアプリ開発プラットフォームです。その直感的なインターフェースは、AIワークフロー、RAGパイプライン、エージェント機能、モデル管理、可観測性機能などを組み合わせており、プロトタイプからプロダクションまで迅速に移行できます。以下はその主要な機能一覧です：
+
+      **1. ワークフロー**：
+        以下のすべての機能およびその他の機能を活用して、視覚的なキャンバス上で強力なAIワークフローを構築およびテストします。
+
+      **2. 包括的なモデルサポート**：
+        数百の専有/オープンソースLLMおよび数十の推論プロバイダーやセルフホスティングソリューションとシームレスに統合されており、GPT、Mistral、Llama3、およびOpenAI API互換の任意のモデルをカバーしています。サポートされているモデルプロバイダーの完全なリストは[こちら](https://docs.dify.ai/getting-started/readme/model-providers)で確認できます。
+
+      **3. Prompt IDE**：
+        プロンプトの作成、モデルのパフォーマンスの比較、チャットベースのアプリにテキスト読み上げなどの追加機能を追加するための直感的なインターフェース。
+
+      **4. RAGパイプライン**：
+        文書の取り込みから検索までをカバーする広範なRAG機能。PDF、PPT、およびその他の一般的な文書形式からのテキスト抽出をアウトオブボックスでサポートしています。
+
+      **5. エージェント機能**：
+        LLM機能呼び出しやReActに基づいてエージェントを定義し、エージェントにプリビルドまたはカスタムツールを追加できます。Difyは、Google検索、DELL·E、Stable Diffusion、WolframAlphaなど、AIエージェント用の50以上の内蔵ツールを提供しています。
+
+      **6. LLMOps**：
+        アプリケーションログとパフォーマンスを時間の経過と共に監視および分析します。プロダクションデータと注釈に基づいて、プロンプト、データセット、およびモデルを継続的に改善できます。
+
+      **7. バックエンド・アズ・ア・サービス**：
+        Difyのすべての提供物には対応するAPIが付属しているため、Difyを自社のビジネスロジックに簡単に統合できます。
+  zh-CN:
+    description: Dify 是一个开源的 LLM 应用开发平台。
+    readme: |
+      注意：此模板由 Zeabur 团队维护，如果您有任何问题或需要帮助，请在 [Zeabur 官方 Discord 服务器](https://zeabur.com/dc) 联系我们。您也可以在 [https://github.com/zeabur/dify-template](https://github.com/zeabur/dify-template) 创建问题或提交拉取请求。
+      
+      ---
+
+      Dify 是一个开源的 LLM 应用开发平台。其直观的界面结合了 AI 工作流、RAG 管道、代理功能、模型管理、可观测性功能等，让您能够快速从原型到生产。以下是其核心功能列表：
+
+      **1. 工作流**：
+        在可视化画布上构建和测试强大的 AI 工作流，利用以下所有功能及更多功能。
+
+      **2. 全面的模型支持**：
+        与数百个专有/开源 LLM 以及数十个推理提供商和自托管解决方案无缝集成，涵盖 GPT、Mistral、Llama3 以及任何兼容 OpenAI API 的模型。支持的模型提供商完整列表可在 [这里](https://docs.dify.ai/getting-started/readme/model-providers) 找到。
+
+      **3. Prompt IDE**：
+        用于制作提示、比较模型性能以及为基于聊天的应用添加语音转换等额外功能的直观界面。
+
+      **4. RAG 管道**：
+        从文档摄取到检索的广泛 RAG 功能，支持从 PDF、PPT 和其他常见文档格式中提取文本。
+
+      **5. 代理功能**：
+        您可以基于 LLM 功能调用或 ReAct 定义代理，并为代理添加预构建或自定义工具。Dify 提供 50 多种内置工具供 AI 代理使用，如 Google 搜索、DELL·E、Stable Diffusion 和 WolframAlpha。
+
+      **6. LLMOps**：
+        监控和分析应用日志和性能随时间的变化。您可以根据生产数据和注释持续改进提示、数据集和模型。
+
+      **7. 后端即服务**：
+        Dify 的所有产品都附带相应的 API，因此您可以轻松地将 Dify 集成到您自己的业务逻辑中。
