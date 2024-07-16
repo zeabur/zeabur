@@ -64,6 +64,20 @@ ZBPACK_START_COMMAND="python3 migrate.py && _startup"
 
 `build_command` および `start_command` は POSIX 互換のシェルで実行されるため、`&&` を使用して複数のコマンドを連結することや、`;` を使用して複数のコマンドを区切ることができます。
 
+## ウェブスクレイピング
+
+### Playwright のサポート
+
+依存関係リスト（`requirements.txt`、`Pipfile`、`pyproject.toml` など）に `playwright` が宣言されている場合、Zeabur は Playwright を実行するために必要な環境を自動的に準備します。
+
+Playwright は [**ヘッドレス** モードで実行する必要がある](https://playwright.dev/docs/api/class-browsertype#browser-type-launch-option-headless)ことに注意してください。通常はデフォルトでそのように設定されています。
+
+### Selenium のサポート
+
+依存関係リスト（`requirements.txt`、`Pipfile`、`pyproject.toml` など）に `seleniumbase` または `selenium` が宣言されている場合、Zeabur は Selenium を実行するために必要な環境を自動的に準備します。
+
+Selenium は [**ヘッドレス** モードで実行する必要がある](https://www.selenium.dev/blog/2023/headless-is-going-away/)ことに注意してください。
+
 ## サーバーレス
 
 ZeaburはPythonプロジェクトをサーバーレスプロジェクトとしてデプロイするサポートを提供しています。ただし、現在はオプトインが必要です。

@@ -143,6 +143,36 @@ ZBPACK_BUILD_COMMAND=pnpm run build:api
 ZBPACK_START_COMMAND=pnpm run start:api
 ```
 
+## Node.js およびパッケージマネージャのバージョンを指定する
+
+### Node.js バージョン
+
+デフォルトでは、Zeabur は最新の LTS Node.js バージョンを使用してプロジェクトを構築します。
+
+異なるバージョンを使用したい場合は、`package.json` で指定できます：
+
+```json
+{
+    "engines": {
+        "node": "18.1.0"
+    }
+}
+```
+
+## ウェブスクレイピング
+
+### Playwright のサポート
+
+`package.json` に `playwright-chromium` が宣言されている場合、Zeabur は Playwright を実行するために必要な環境を自動的に準備します。
+
+Playwright は [**ヘッドレス** モードで実行する必要がある](https://playwright.dev/docs/api/class-browsertype#browser-type-launch-option-headless)ことに注意してください。通常はデフォルトでそのように設定されています。
+
+### Puppeteer のサポート
+
+`package.json` に `puppeteer` が宣言されている場合、Zeabur は Puppeteer を実行するために必要な環境を自動的に準備します。
+
+Puppeteer は [**ヘッドレス** モードで実行する必要がある](https://pptr.dev/guides/headless-modes)ことに注意してください。通常はデフォルトでそのように設定されています。
+
 ## サーバーレスモードでのデプロイ
 
 Node.jsプロジェクトが以下の条件を満たす場合、Zeaburでサーバーレスモードでデプロイすることができます:
