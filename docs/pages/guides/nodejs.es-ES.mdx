@@ -171,6 +171,20 @@ By default, Zeabur uses yarn to install dependencies for your project. If you wa
 }
 ```
 
+## Raspado web
+
+### Soporte de Playwright
+
+Si tu `package.json` declara `playwright-chromium`, Zeabur preparará automáticamente el entorno necesario para ejecutar Playwright.
+
+Ten en cuenta que Playwright [debe ejecutarse en modo **Headless**](https://playwright.dev/docs/api/class-browsertype#browser-type-launch-option-headless), que suele ser el valor predeterminado.
+
+### Soporte de Puppeteer
+
+Si tu `package.json` declara `puppeteer`, Zeabur preparará automáticamente el entorno necesario para ejecutar Puppeteer.
+
+Ten en cuenta que Puppeteer [debe ejecutarse en modo **Headless**](https://pptr.dev/guides/headless-modes), que suele ser el valor predeterminado.
+
 ## Deploying in Serverless Mode
 
 If your Node.js project meets the following criteria, you can deploy it in Serverless mode on Zeabur:

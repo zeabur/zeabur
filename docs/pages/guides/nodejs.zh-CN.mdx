@@ -172,6 +172,20 @@ ZBPACK_START_COMMAND=pnpm run start:api
 }
 ```
 
+## 网页爬取
+
+### Playwright 支持
+
+如果你的 `package.json` 有声明 `playwright-chromium`，Zeabur 会自动帮您准备好运行 Playwright 必要的环境。
+
+注意 Playwright [应以 **Headless** 模式运行](https://playwright.dev/docs/api/class-browsertype#browser-type-launch-option-headless)，通常默认就是如此。
+
+### Puppeteer 支持
+
+如果你的 `package.json` 有声明 `puppeteer`，Zeabur 会自动帮您准备好运行 Puppeteer 必要的环境。
+
+注意 Puppeteer [应以 **Headless** 模式运行](https://pptr.dev/guides/headless-modes)，通常默认就是如此。
+
 ## 以 Serverless 方式部署
 
 如果你的 Node.js 符合以下条件，那么你可以在 Zeabur 使用 Serverless 方式部署：
@@ -317,7 +331,7 @@ const dynamicRequiredDirs = ['views']
 const staticFileDirs = ['public']
 ```
 
-这两个字段让我们把除了 `.js` 以外的东西也一起放入产物内，其中 `dynamicRequiredDirs` 是一些在执行时期才会被 `require` 的文件，比如 `views` 目录下的模板文件；
+这两个字段让我们把除了 `.js` 以外的东西也一起放入产物内，其中 `dynamicRequiredDirs` 是一些在运行时期才会被 `require` 的文件，比如 `views` 目录下的模板文件；
 则是一些静态文件，比如 `public` 目录下的静态资源，这些资源被放入 `.zeabur/output/static` 目录下，让他们可以直接被 Zeabur Edge Network 用更快的速度分发给全世界的使用者。
 
 加入这个脚本以后别忘了在项目中安装 `esbuild`，然后在 `package.json` 的 `scripts` 中加入 `build` 指令：
