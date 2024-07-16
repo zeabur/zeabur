@@ -172,6 +172,20 @@ ZBPACK_START_COMMAND=pnpm run start:api
 }
 ```
 
+## 網頁爬取
+
+### Playwright 支援
+
+如果你的 `package.json` 有宣告 `playwright-chromium`，Zeabur 會自動幫您準備好執行 Playwright 必要的環境。
+
+注意 Playwright [應以 **Headless** 模式執行](https://playwright.dev/docs/api/class-browsertype#browser-type-launch-option-headless)，通常預設就是如此。
+
+### Puppeteer 支援
+
+如果你的 `package.json` 有宣告 `puppeteer`，Zeabur 會自動幫您準備好執行 Puppeteer 必要的環境。
+
+注意 Puppeteer [應以 **Headless** 模式執行](https://pptr.dev/guides/headless-modes)，通常預設就是如此。
+
 ## 以 Serverless 方式部署
 
 如果你的 Node.js 符合以下條件，那麼你可以在 Zeabur 使用 Serverless 方式部署：
