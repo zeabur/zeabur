@@ -64,6 +64,20 @@ ZBPACK_START_COMMAND="python3 migrate.py && _startup"
 
 `build_command` 和 `start_command` 均会使用 POSIX 兼容的 shell 运行，所以你可以使用 `&&` 串接多个命令，或者使用 `;` 分隔多个命令。
 
+## 网页爬取
+
+### Playwright 支持
+
+如果你的依赖清单（`requirements.txt`、`Pipfile`、`pyproject.toml`⋯⋯）有声明 `playwright`，Zeabur 会自动帮您准备好运行 Playwright 必要的环境。
+
+注意 Playwright [应以 **Headless** 模式运行](https://playwright.dev/docs/api/class-browsertype#browser-type-launch-option-headless)，通常默认就是如此。
+
+### Selenium 支持
+
+如果你的依赖清单（`requirements.txt`、`Pipfile`、`pyproject.toml`⋯⋯）有声明 `seleniumbase` 或 `selenium`，Zeabur 会自动帮您准备好运行 Selenium 必要的环境。
+
+注意 Selenium [应以 **Headless** 模式运行](https://www.selenium.dev/blog/2023/headless-is-going-away/)。
+
 ## Serverless
 
 Zeabur 支持将 Python 项目部署为 serverless 项目。但是目前需要 opt-in。

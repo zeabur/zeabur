@@ -64,6 +64,20 @@ Here, `_startup` is Zeabur's original start command (which can be found in [the 
 
 Both `build_command` and `start_command` will be executed using a POSIX-compliant shell, so you can use `&&` to chain multiple commands, or use `;` to separate multiple commands.
 
+## Web Scraping
+
+### Playwright Support
+
+If your dependency list (`requirements.txt`, `Pipfile`, `pyproject.toml`, etc.) declares `playwright`, Zeabur will automatically prepare the necessary environment to run Playwright.
+
+Note that Playwright [should be run in **Headless** mode](https://playwright.dev/docs/api/class-browsertype#browser-type-launch-option-headless), which is usually the default.
+
+### Selenium Support
+
+If your dependency list (`requirements.txt`, `Pipfile`, `pyproject.toml`, etc.) declares `seleniumbase` or `selenium`, Zeabur will automatically prepare the necessary environment to run Selenium.
+
+Note that Selenium [should be run in **Headless** mode](https://www.selenium.dev/blog/2023/headless-is-going-away/).
+
 ## Serverless
 
 Zeabur supports deploying Python projects as serverless projects. However, this currently requires opt-in.
