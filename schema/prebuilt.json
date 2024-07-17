@@ -2,7 +2,7 @@
 	"$id": "https://schema.zeabur.app/prebuilt.json",
 	"$schema": "http://json-schema.org/draft-07/schema",
 	"title": "Service Specification (ServiceSpec)",
-	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.2.1-20240625.",
+	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.3.0-20240717.",
 	"type": "object",
 	"properties": {
 		"id": {
@@ -179,11 +179,6 @@
 					]
 				},
 				"repo": {
-					"title": "Repository URL for Git",
-					"description": "Unimplemented yet.",
-					"type": "string"
-				},
-				"repoID": {
 					"title": "Repository ID for GitHub",
 					"type": "number"
 				},
@@ -204,6 +199,11 @@
 					"items": {
 						"type": "string"
 					}
+				},
+				"rootDirectory": {
+					"title": "Root directory",
+					"description": "The root directory of the service to deploy. For example, if you place your backend application in <repo>/backend, you should fill 'backend' here.",
+					"type": "string"
 				}
 			},
 			"additionalProperties": false,
