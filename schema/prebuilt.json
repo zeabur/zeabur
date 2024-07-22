@@ -2,7 +2,7 @@
 	"$id": "https://schema.zeabur.app/prebuilt.json",
 	"$schema": "http://json-schema.org/draft-07/schema",
 	"title": "Service Specification (ServiceSpec)",
-	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.3.0-20240717.",
+	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.3.1-20240722.",
 	"type": "object",
 	"properties": {
 		"id": {
@@ -75,7 +75,7 @@
 	"definitions": {
 		"Envs": {
 			"title": "Map of Environment Variables",
-			"description": "Declare the environment variables that are the required variables of a service (“readonly”), need users to fill in (“required”, “default”), or declare the variables that allow other services to pick value (“expose”). The key is the variable name, while the value is the variable specification.",
+			"description": "Declare the environment variables that are the required variables of a service (\"readonly\"), need users to fill in (\"required\", \"default\"), or declare the variables that allow other services to pick value (\"expose\"). The key is the variable name, while the value is the variable specification.",
 			"type": "object",
 			"propertyNames": {
 				"type": "string",
@@ -172,14 +172,15 @@
 			"properties": {
 				"source": {
 					"title": "Repository type",
+					"description": "The provider of this repository. Currently, we support only GitHub.",
 					"type": "string",
 					"enum": [
-						"GITHUB",
-						"GIT"
+						"GITHUB"
 					]
 				},
 				"repo": {
 					"title": "Repository ID for GitHub",
+					"description": "The GitHub repository ID if the source is GitHub. You should set the Zeabur GitHub app in the repository owner or organization before filling this value. You can get the ID [by referring this Stack Overflow answer](https://stackoverflow.com/questions/13902593/how-does-one-find-out-ones-own-repo-id).",
 					"type": "number"
 				},
 				"branch": {
@@ -262,7 +263,7 @@
 		},
 		"ConnectionInstructions": {
 			"title": "List of connection information and instruction",
-			"description": "Represent “variables” in a user-friendly text that allows users knowing to connect to this service from their services or local machines.",
+			"description": "Represent \"variables\" in a user-friendly text that allows users knowing to connect to this service from their services or local machines.",
 			"type": "array",
 			"items": {
 				"$ref": "#/definitions/ConnectionInstruction"
@@ -315,7 +316,7 @@
 		},
 		"Volumes": {
 			"title": "List of Persistent volumes",
-			"description": "Describe the paths (“volumes”) that should be reserved/persistent across the restarts.  Since there are costs to persist data, don't use it unless you need.",
+			"description": "Describe the paths (\"volumes\") that should be reserved/persistent across the restarts.  Since there are costs to persist data, don't use it unless you need.",
 			"type": "array",
 			"items": {
 				"$ref": "#/definitions/VolumeEntry"
