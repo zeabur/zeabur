@@ -1,44 +1,46 @@
 ---
 title: Rust
-ogImageTitle: Deploying Rust app
-ogImageSubtitle: Deploying Rust Applications in Zeabur
+ogImageTitle: Desplegar aplicaciones de Rust
+ogImageSubtitle: Desplegar aplicaciones de Rust en Zeabur
 ---
 
-<WorkingInProgress />
+# Desplegar aplicaciones de Rust
 
-# Deploying Rust Projects
+Zeabur admite todos los tipos de aplicaciones Rust en principio: buscará automáticamente los ejecutables por defecto. Si tu proyecto tiene múltiples ejecutables, puedes especificar el nombre del archivo ejecutable en el campo "Nombre del Servicio" (o usar `ZBPACK_RUST_ENTRY`).
 
-Zeabur supports most types of Rust applications - by default, it finds and runs the executable file automatically;
-however, you can also specify which executable file to run in the "Service Name" field.
+Si no tienes un proyecto a mano, puedes bifurcar el repositorio [zeabur/axum-template](https://github.com/zeabur/axum-template) a tu cuenta de GitHub e intentar desplegarlo en Zeabur.
 
-If you don't currently have a Rust project and want to try it, feel free to fork
-[zeabur/axum-template](https://github.com/zeabur/axum-template) to your GitHub account and deploy it on Zeabur.
+## Tipos de proyectos admitidos
 
-## Supported project types
+- Proyecto de un solo ejecutable: Un proyecto Rust con solo `src/main.rs` como punto de entrada. Zeabur buscará automáticamente el primer ejecutable producido después de `cargo install`.
+- Proyecto de múltiples ejecutables: Si tu proyecto tiene otros ejecutables en `src/bin` además de `src/main.rs`, especifica el nombre del artefacto final que deseas ejecutar en el campo "Nombre del Servicio" o configúralo en `zbpack.json`:
+  ```json
+  {
+    "rust": {
+      "entry": "your-entry"
+    }
+  }
+  ```
+  También puedes usar la variable de entorno `ZBPACK_RUST_ENTRY` para lograr el mismo efecto.
+- Monorepo de Cargo Workspace: Si tu proyecto consiste en múltiples crates, especifica el nombre del artefacto final que deseas ejecutar en el campo "Nombre del Servicio". Por defecto, `cargo install` instalará **todos los proyectos** bajo el workspace. Además de usar el método `ZBPACK_RUST_ENTRY` mencionado anteriormente para especificar el nombre del ejecutable, también puedes especificar directamente la ubicación de este workspace de la aplicación en `zbpack.json`. Si tu aplicación está en la carpeta `rest-api` en el directorio raíz del repositorio, configúralo de la siguiente manera:
+  ```json
+  {
+    "rust": {
+      "app_dir": "rest-api"
+    }
+  }
+  ```
+  También puedes usar la variable de entorno `ZBPACK_RUST_APP_DIR` para lograr el mismo efecto.
 
-- Single-executable projects: Rust project with just one `src/main.rs` entry point.
-  Zeabur finds the only executable artifact in the `target/release` directory.
-  Also, it is acceptable to fill in the "Service Name" field with
-  the artifact filename to execute to ensure Zeabur runs what you want.
-- Multi-executable projects: Rust project with two or more entry points, including `src/main.rs`
-  and other files in `src/bin`. You may need to fill in the "Service Name" field with
-  the artifact filename to execute.
-- Cargo Workspace mono-repo: Rust project with multiple crates. You may need to fill
-  in the "Service Name" field with the artifact filename to execute.
+Si el ejecutable especificado no existe, se cambiará al modo de detección automática. La "detección automática" buscará todos los ejecutables compilados y ejecutará el primer archivo encontrado. Debido a que este modo puede equivocarse fácilmente en escenarios de múltiples proyectos, se recomienda especificar el "Nombre del Servicio" correcto como se describe en las secciones para escenarios de proyectos más complejos (como los puntos segundo y tercero).
 
-When the executable filename you wrote did not hit, Zeabur will try to find the executable file automatically.
-Zeabur scans all the files in `target/release` and runs the first executable file it found.
-Since this pattern is easy to guess wrong in complex scenarios (such as Multi-executable projects
-and Cargo Workspace mono-repo), it is recommended that you fill in the correct "Service Name".
-Refer to "Find artifact filename" for more information.
+## Encontrar el nombre del artefacto final
 
-## Find artifact filename
+El artefacto final se puede encontrar en `target/release` de tu proyecto. Los pasos específicos para encontrarlo:
 
-The artifact can be found in the directory `target/release` of your project. To do this:
-
-1. You need the Rust toolchain to compile the project. Download it on [rust-lang.org](https://www.rust-lang.org).
-2. Clone the project you want to deploy and change to the project directory.
-3. Run `cargo build --release` to compile the project.
+1. Necesitas la herramienta Rust para compilar el proyecto. Descárgala desde el [sitio web oficial de Rust](https://www.rust-lang.org).
+2. Clona el proyecto que deseas desplegar y navega al directorio del proyecto.
+3. Ejecuta `cargo build --release` para compilar el proyecto.
 
     ```bash
     $ cargo run --release
@@ -47,46 +49,46 @@ The artifact can be found in the directory `target/release` of your project. To 
       Running `target/release/zeabur`
     ```
 
-4. Find the line starting with "Running", and we pick the base (trailing) name
-   of the following path (`target/release/zeabur`). For this case, it is `zeabur`.
-5. Fill `zeabur` to the "Service Name" field.
+4. Encuentra la línea Running `target/release/zeabur`, extrae el nombre del ejecutable final (zeabur).
+5. Rellena `zeabur` en el campo Nombre del Servicio o `ZBPACK_RUST_ENTRY`.
 
-## Copy other files
+## Copiar otros archivos
 
-If your application depends on other files or directories in the source code repository
-in addition to the executable file. For example:
+Si tu proyecto depende de otros archivos en la base de código además del ejecutable. Por ejemplo:
 
 ```plain
-*public
-|`-- public <-- Your application depends on this folder
-|``-- src
-|-- main.rs
-|``-- Cargo.toml
-|``-- Cargo.lock
-`-- config.toml <-- Your application depends on this file
+*
+|`-- public  <-- Tu programa depende de esta carpeta
+|`-- src
+|  `-- main.rs
+|`-- Cargo.toml
+|`-- Cargo.lock
+`--- config.toml   <-- Tu programa depende de este archivo
 ```
 
-Zeabur allows you preserving them with the file `.zeabur-preserve`. Fill the file
-and directories you want to preserve to this file. The directories can optionally end with `/`.
-An example is as follows:
+Puedes especificar `rust.assets` en `zbpack.json`, enumerando las carpetas o archivos que deseas conservar. Las carpetas deben terminar con `/`. Ejemplo:
 
-```plain
-public/
-config.toml
+```json
+{
+  "rust": {
+    "assets": [
+      "public/",
+      "config.toml"
+    ]
+  }
+}
 ```
 
-## Technical details and considerations
+## Instalación automática de dependencias
 
-- The Rust image is based on Multi-Stage Build, and the runtime uses
-  `docker.io/library/debian:bookworm-slim` as the base image. Some
-  dynamic libraries may not work properly in the runtime due to the
-  lack of some specific packages. For this case, please open a ticket
-  about adding support for this package.
-  - We currently install `openssl` in the runtime environment.
-- No `root` at runtime. Bring your Dockerfile if you need it.
-- We use `lld` to speed up compilation. If your project does not support `lld`,
-  we recommend that you specify `config.toml` in your project to call the standard `ld`.
-  If you want to use a non-built-in linker such as `mold`, you need to write your own Dockerfile.
-- We use `cargo-chef` to maximize the cache of build layers. If you encounter
-  any incompatible problems, please report them to Zeabur or upstream
-  [`LukeMathWalker/cargo-chef`](https://github.com/LukeMathWalker/cargo-chef).
+Si tu proyecto depende de OpenSSL y lo especifica explícitamente en `Cargo.toml` (o depende indirectamente de él a través de `Cargo.lock`), Zeabur instalará automáticamente la biblioteca de tiempo de ejecución de `openssl`.
+
+## Entorno de ejecución
+
+Zeabur utiliza actualmente [`rust:1-silm`](https://hub.docker.com/_/rust) como la imagen de ejecución. Tu ejecutable se colocará en el directorio `/app`, con `/` (directorio raíz) como directorio de trabajo.
+
+## Despliegue Serverless
+
+A diferencia de otras plataformas PaaS que ejecutan tu aplicación Rust dentro de un contenedor Docker directamente, Zeabur también admite desplegar aplicaciones Rust utilizando el método [despliegue Serverless](/deploy/serverless). Esto permite que tu aplicación Rust se inicie solo cuando recibe una solicitud, en lugar de ejecutarse continuamente como un contenedor, ahorrando recursos.
+
+Para desplegar una aplicación Rust utilizando Serverless, agrega `ZBPACK_SERVERLESS=1` a las variables de entorno.

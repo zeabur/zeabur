@@ -1,28 +1,45 @@
 ---
 title: Rust
-ogImageTitle: 部署 Rust 应用
-ogImageSubtitle: 在 Zeabur 部署 Rust 应用
+ogImageTitle: 部署 Rust 应用程序
+ogImageSubtitle: 在 Zeabur 部署 Rust 应用程序
 ---
 
-# 部署 Rust 项目
+# 部署 Rust 应用程序
 
-Zeabur 原则上支持所有类型的 Rust 应用——默认情况会自动查找执行档；假如项目有多个执行档，亦可在“Service 名称”一栏自行指定要运行的文件名。
+Zeabur 原则上支持所有类型的 Rust 应用程序——默认情况下会自动查找运行文件；如果项目有多个运行文件，也可以在“Service 名称”一栏（或者是使用 `ZBPACK_RUST_ENTRY`）自行指定要运行的文件名称。
 
-倘若你手边没有项目，可以 fork [zeabur/axum-template](https://github.com/zeabur/axum-template) 仓库到你的 GitHub 账号，然后在 Zeabur 上试着部署。
+如果你手边没有项目，可以 fork [zeabur/axum-template](https://github.com/zeabur/axum-template) 仓库到你的 GitHub 账户，然后在 Zeabur 上试着部署。
 
 ## 支持的项目类型
 
-- 单执行档项目：即执行档只有 `src/main.rs` 一个入口的 Rust 项目。Zeabur 会自动查找编译产物 (`target/release`) 中的唯一一个可执行档。你也可以在“Service 名称”一栏填写“你想运行的最终产物的名称，”保证运行的程序符合你的预期。
-- 多执行档项目：假如除了 `src/main.rs`，项目在 `src/bin` 也有其他执行档，请在“Service 名称”一栏填写“你想运行的最终产物的名称。”
-- Cargo Workspace monorepo：假如你的项目是由多个 crate 组成，请在“Service 名称”一栏填写“你想运行的最终产物的名称。”
+- 单运行文件项目：即运行文件只有 `src/main.rs` 一个入口的 Rust 项目。Zeabur 会自动查找 `cargo install` 之后的产出的第一个运行文件。
+- 多运行文件项目：如果除了 `src/main.rs`，项目在 `src/bin` 也有其他运行文件，请在“Service 名称”一栏填写“你想运行的最终产物的名称”，或者是在 `zbpack.json` 填写这个设置
+  ```json
+  {
+    "rust": {
+      "entry": "your-entry"
+    }
+  }
+  ```
+  你也可以使用环境变量 `ZBPACK_RUST_ENTRY` 达到同样的效果。
+- Cargo Workspace monorepo：如果你的项目是由多个 crate 组成，请在“Service 名称”一栏填写“你想运行的最终产物的名称”。默认情况下会 `cargo install` workspace 下的 **所有项目**，你除了可以通过上述 `ZBPACK_RUST_ENTRY` 的方式指定运行文件名称外，也可以在 `zbpack.json` 直接指定这个应用程序 workspace 所在的位置。
+  如果你的应用程序在 Repository 根目录的 `rest-api` 文件夹下，你可以这样填写：
+  ```json
+  {
+    "rust": {
+      "app_dir": "rest-api"
+    }
+  }
+  ```
+  你也可以使用环境变量 `ZBPACK_RUST_APP_DIR` 达到同样的效果。
 
-若你填写的执行档不存在，则会改用自动查找的形式。“自动查找”会查找 `target/release` 的所有文件，并运行找到的第一个文件。因为这种模式在多项目情况下很容易猜错，因此在复杂的项目场景下（如第二和第三点提到的多执行档项目），建议你根据〈查找最终产物名称〉的方式填写正确的“Service 名称”。
+如果你填写的运行文件不存在，则会改用自动查找的形式。“自动查找”会查找编译出的所有运行文件，并运行找到的第一个文件。因为这种模式在多项目情况下很容易猜错，因此在复杂的项目场景下（如第二和第三点提到的多运行文件项目），建议你根据〈查找最终产物名称〉的方式填写正确的“Service 名称”。
 
 ## 查找最终产物名称
 
 最终产物可以在你项目的 `target/release` 中找到。具体查找的方式：
 
-1. 你需要 Rust toolchain 才能编译项目，可到 [Rust 官方网站](https://www.rust-lang.org) 下載。
+1. 你需要 Rust toolchain 才能编译项目，可到 [Rust 官方网站](https://www.rust-lang.org) 下载。
 2. clone 你要部署的项目，并且进到项目目录。
 3. 运行 `cargo build --release` 编译项目。
 
@@ -33,12 +50,12 @@ Zeabur 原则上支持所有类型的 Rust 应用——默认情况会自动查�
       Running `target/release/zeabur`
     ```
 
-4. 找到 Running `target/release/zeabur` 那一行，我们选取最后的执行档名称 (zeabur) 即可
-5. 在 Service 名称填入 `zeabur`。
+4. 找到 Running `target/release/zeabur` 那一行，提取最后的运行文件名称 (zeabur) 即可
+5. 在 Service 名称或 `ZBPACK_RUST_ENTRY` 填入 `zeabur`。
 
-## 拷贝其他文件
+## 复制其他文件
 
-假如你除了执行档之外，还依赖源代码库的其他文件。举例来说：
+如果你除了运行文件之外，还依赖代码库的其他文件。举例来说：
 
 ```plain
 *
@@ -50,24 +67,29 @@ Zeabur 原则上支持所有类型的 Rust 应用——默认情况会自动查�
 `--- config.toml   <-- 你的程序依赖这个文件
 ```
 
-你可以在源代码库填写 `.zeabur-preserve` 文件。里面填入你想保留的文件夹或文件，文件夹可以选择用 `/` 结尾。示例如下：
+你可以在 `zbpack.json` 中填写 `rust.assets`，里面填入你想保留的文件夹或文件，文件夹可以选择用 `/` 结尾。范例如下：
 
-```plain
-public/
-config.toml
+```json
+{
+  "rust": {
+    "assets": [
+      "public/",
+      "config.toml"
+    ]
+  }
+}
 ```
 
-## 技术细节与注意事项
+## 自动安装依赖
 
-- 默认采用 Multi-stage build，runtime 使用 `docker.io/library/debian:bookworm-slim` 作为 base image。某些动态链接的 libraries，可能在迁移到本 image 时，因为缺少某些依赖而无法正常运作。如有遇到此类情况，请回报给我们以便增加这个依赖的支持。
-  - 目前会特别安装的依赖有 `openssl`。
-- 运行时不提供 Root 权限，若有相关需要请自行撰写 Dockerfile。
-- 为了加快编译速度，我们使用 `lld` 进行编译。若你的项目不支持 `lld`，建议你自己在项目中指定 `config.toml` 调用标准的 `ld`；若你想使用如 `mold` 等不内置的 linker，则需要自行撰写 Dockerfile。
-- 我们使用 `cargo-chef` 以使缓存的 build layer 最大化。如果有遇到不兼容的问题，可以报告 Zeabur 或上游 [`LukeMathWalker/cargo-chef`](https://github.com/LukeMathWalker/cargo-chef)。
+如果你的项目依赖 OpenSSL 且有在 `Cargo.toml` 中显式依赖（或 `Cargo.lock` 间接依赖）`openssl`，Zeabur 会自动安装 `openssl` 运行时库。
+
+## 运行环境
+
+Zeabur 目前使用 [`rust:1-silm`](https://hub.docker.com/_/rust) 作为运行镜像。你的运行文件会放在 `/app` 目录，并将 `/`（根目录）作为运行目录。
 
 ## Serverless 部署
 
-与其他 PaaS 平台不同，它们通常会直接将你的 Rust 应用程序打包在 Docker 容器中运行，Zeabur 同时支持使用
-[Serverless 部署](../deploy/serverless) Rust 的方式，这可以让你的 Rust 应用程序只有在接收到请求时才启动，而不是像容器那样一直运行，浪费资源。
+不同于其他 PaaS 平台是直接将你的 Rust 应用程序打包在 Docker 容器中运行，Zeabur 同时支持使用 [Serverless 部署](/deploy/serverless) Rust 的方式，这可以让你的 Rust 应用程序只有在收到请求的时候才启动，而不是像容器一样一直运行，浪费资源。
 
-如果想要用无服务器部署 Rust 应用程序，请在环境变量中加入 `ZBPACK_SERVERLESS=1`。
+如果想要用 Serverless 部署 Rust 应用程序，请在环境变量中加入 `ZBPACK_SERVERLESS=1`。
