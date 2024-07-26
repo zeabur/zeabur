@@ -20,6 +20,50 @@ Zeaburはさまざまな種類のPythonプロジェクトをサポートして�
 
 ビルドコマンドを変更する必要がある場合（例えば `npm run build:dist` を実行する場合）、〈カスタムビルドおよび起動コマンド〉を参照してください。
 
+## カスタムエントリーポイント
+
+Zeabur はデフォルトで `main.py`、`app.py`、`manage.py`、`server.py`、`app/__init__.py` のエントリーポイントを認識しますが、あなたのエントリーポイントが上記リストにない場合、環境変数を設定できます
+
+```env
+ZBPACK_PYTHON_ENTRY=your-entrypoint.py
+```
+
+または、`zbpack.json` に以下の設定を追加します：
+
+```json
+{
+    "python": {
+        "entry": "your-entrypoint.py"
+    }
+}
+```
+
+このようにして、Zeabur は `your-entrypoint.py` を Python の実行ファイルとして使用します。
+
+WSGI/ASGI アプリケーション（Django、Flask、FastAPI など）をデプロイしたい場合で、エントリーポイントが `__init__.py` 内にある場合、完全なパス（`__init__.py` を含む）を指定する必要があります：
+
+```python
+# server/__init__.py
+
+app = Flask(__name__)
+```
+
+```env
+ZBPACK_PYTHON_ENTRY=server/__init__.py
+```
+
+エントリーポイントが `__main__.py` にある場合も、完全なパスを指定する必要があります：
+
+```python
+# server/__main__.py
+
+print("Hello!")
+```
+
+```env
+ZBPACK_PYTHON_ENTRY=server/__main__.py
+```
+
 ## カスタムビルドおよび起動コマンド
 
 Zeabur は、環境変数や設定ファイルを使用して Python のビルドおよび起動コマンドをカスタマイズすることを許可しています。

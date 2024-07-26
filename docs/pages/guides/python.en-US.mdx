@@ -20,6 +20,50 @@ If your project root contains a `package.json`, Zeabur will automatically instal
 
 If you need to change the build commands (e.g., to run `npm run build:dist`), please refer to the section on Customizing Build and Start Commands.
 
+## Customize Entrypoint
+
+Zeabur will recognize `main.py`, `app.py`, `manage.py`, `server.py`, `app/__init__.py` as entry points by default. If your entry point is not listed above, you can set an environment variable
+
+```env
+ZBPACK_PYTHON_ENTRY=your-entrypoint.py
+```
+
+Or add the following setting to `zbpack.json`:
+
+```json
+{
+    "python": {
+        "entry": "your-entrypoint.py"
+    }
+}
+```
+
+This way, Zeabur will use `your-entrypoint.py` as the Python executable file.
+
+If you want to deploy WSGI/ASGI applications (such as Django, Flask, FastAPI) and the entry point is in `__init__.py`, you need to provide the full path (including `__init__.py`):
+
+```python
+# server/__init__.py
+
+app = Flask(__name__)
+```
+
+```env
+ZBPACK_PYTHON_ENTRY=server/__init__.py
+```
+
+If your entry point is in `__main__.py`, you also need to provide the full path:
+
+```python
+# server/__main__.py
+
+print("Hello!")
+```
+
+```env
+ZBPACK_PYTHON_ENTRY=server/__main__.py
+```
+
 ## Customizing Build and Start Commands
 
 Zeabur allows you to customize Python build and start commands using environment variables or configuration files.

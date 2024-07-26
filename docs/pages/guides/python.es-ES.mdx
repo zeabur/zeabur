@@ -20,6 +20,50 @@ Si la raíz de su proyecto contiene un `package.json`, Zeabur instalará automá
 
 Si necesita cambiar los comandos de construcción (por ejemplo, para ejecutar `npm run build:dist`), consulte la sección sobre Personalización de Comandos de Construcción y Inicio.
 
+## Personalizar el punto de entrada
+
+Zeabur reconocerá `main.py`, `app.py`, `manage.py`, `server.py`, `app/__init__.py` como puntos de entrada de manera predeterminada, pero si tu punto de entrada no está en la lista anterior, puedes configurar una variable de entorno
+
+```env
+ZBPACK_PYTHON_ENTRY=your-entrypoint.py
+```
+
+Alternativamente, añade la siguiente configuración a `zbpack.json`:
+
+```json
+{
+    "python": {
+        "entry": "your-entrypoint.py"
+    }
+}
+```
+
+De esta manera, Zeabur usará `your-entrypoint.py` como el archivo ejecutable de Python.
+
+Si deseas desplegar aplicaciones WSGI/ASGI (como Django, Flask, FastAPI) y el punto de entrada está en `__init__.py`, debes proporcionar la ruta completa (incluyendo `__init__.py`):
+
+```python
+# server/__init__.py
+
+app = Flask(__name__)
+```
+
+```env
+ZBPACK_PYTHON_ENTRY=server/__init__.py
+```
+
+Si tu punto de entrada está en `__main__.py`, también debes proporcionar la ruta completa:
+
+```python
+# server/__main__.py
+
+print("Hello!")
+```
+
+```env
+ZBPACK_PYTHON_ENTRY=server/__main__.py
+```
+
 ## Personalización de Comandos de Construcción y Inicio
 
 Zeabur le permite personalizar los comandos de construcción e inicio de Python utilizando variables de entorno o archivos de configuración.
