@@ -20,6 +20,50 @@ Zeabur 支援眾多類型的 Python 專案，包含但不限於這些：
 
 如果需要更改編譯的命令（如改執行 `npm run build:dist`），請參閱〈自訂編譯與啟動命令〉。
 
+## 自訂 Entrypoint
+
+Zeabur 預設會辨識 `main.py`、`app.py`、`manage.py`、`server.py`、`app/__init__.py` 這些 Entrypoint，但如果你的 Entrypoint 不在上面列出的清單中，可以設定環境變數
+
+```env
+ZBPACK_PYTHON_ENTRY=your-entrypoint.py
+```
+
+或者是在 `zbpack.json` 中加入以下設定：
+
+```json
+{
+    "python": {
+        "entry": "your-entrypoint.py"
+    }
+}
+```
+
+這樣 Zeabur 就會以 `your-entrypoint.py` 作為 Python 的執行檔案。
+
+如果你想部署 WSGI/ASGI 應用程式（比如 Django、Flask、FastAPI），且 entrypoint 是在 `__init__.py` 裡面，則必須寫出完整路徑（包含 `__init__.py` 在內）：
+
+```python
+# server/__init__.py
+
+app = Flask(__name__)
+```
+
+```env
+ZBPACK_PYTHON_ENTRY=server/__init__.py
+```
+
+如果你的 entrypoint 在 `__main__.py`，亦需要寫出完整路徑：
+
+```python
+# server/__main__.py
+
+print("Hello!")
+```
+
+```env
+ZBPACK_PYTHON_ENTRY=server/__main__.py
+```
+
 ## 自訂編譯和啟動命令
 
 Zeabur 允許你使用環境變數或設定檔自訂 Python 的編譯和啟動命令。
