@@ -14,7 +14,7 @@
 			"title": "Service name",
 			"description": "The name of this service.",
 			"type": "string",
-			"pattern": "^[a-zA-Z-][a-zA-Z0-9-]*$"
+			"pattern": "^[a-zA-Z][ -~]*$"
 		},
 		"description": {
 			"title": "Service description",
