@@ -1,0 +1,56 @@
+---
+title: Execute Commands
+ogImageTitle: Execute Commands
+ogImageSubtitle: Execute Commands within Zeabur Services
+---
+
+# Execute Commands
+
+You can execute commands within Zeabur services for installing packages, running programs, viewing information, or even backing up specific data.
+
+## Open the Command Execution Interface
+
+Open the service, open the menu next to “Logs”, and click “Command” to open the interface.
+
+![Open the Command Execution Interface](/deploy/command-execution/open-command-executor.webp)
+
+The command execution interface consists of two parts:
+
+- Command Input Bar: Allows you to press <kbd>Enter</kbd> or click the <kbd>⏎</kbd> button next to the input field to execute commands.
+- Command Output Area: Displays the results of the command execution. If the command executes successfully, the output result will be displayed; otherwise, an error code will be shown.
+
+![Command Execution Interface](/deploy/command-execution/interface.webp)
+
+## Execute Commands
+
+Taking a basic `echo` as an example, enter `echo Hello, World!` and you should see the output result `Hello, World!`.
+
+![Execute hello world Command](/deploy/command-execution/command-success.webp)
+
+Entering a non-existent command will display an error code.
+
+![Command Execution Failure](/deploy/command-execution/command-error.webp)
+
+You can even execute SQL statements in database containers like MySQL or PostgreSQL, use cURL to upload logs or back up files, or even run migration programs (e.g., `prisma migrate`, `node seeder.js`).
+
+For MySQL, we can copy the “Command to connect to your MySQL” command, delete the `host` and `port` parameters (no need for remote connection within the container), rewrite `mysqlsh` to `mysql` (since `mysqlsh` is not available in the container), and finally add `-e` to execute the SQL statement.
+
+```bash
+mysql --user=root --password=<password> --database=zeabur -e "SHOW DATABASES;"
+```
+
+![Execute MySQL Command](/deploy/command-execution/mysql-example.webp)
+
+## Display Error Messages
+
+If your command fails to execute, you might not see the error message.
+
+This is because Zeabur does not output standard error (stderr) messages by default. You can redirect the standard error (stderr) messages to the standard output (stdout) to see the error messages.
+
+In short, add `2>&1` at the end of the command, for example:
+
+```bash
+mysql -u nosuchuser 2>&1
+```
+
+![Display Standard Output Error Messages](/deploy/command-execution/stderr-to-stdout.webp)

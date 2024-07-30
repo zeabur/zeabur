@@ -1,0 +1,56 @@
+---
+title: Ejecutar Comandos
+ogImageTitle: Ejecutar Comandos
+ogImageSubtitle: Ejecutar Comandos dentro de los Servicios de Zeabur
+---
+
+# Ejecutar Comandos
+
+Puedes ejecutar comandos dentro de los servicios de Zeabur para instalar paquetes, ejecutar programas, ver información o incluso hacer copias de seguridad de datos específicos.
+
+## Abrir la Interfaz de Ejecución de Comandos
+
+Abre el servicio, abre el menú al lado de “Logs” y haz clic en “Command” para abrir la interfaz.
+
+![Abrir la Interfaz de Ejecución de Comandos](/deploy/command-execution/open-command-executor.webp)
+
+La interfaz de ejecución de comandos consta de dos partes:
+
+- Barra de Entrada de Comandos: Te permite presionar <kbd>Enter</kbd> o hacer clic en el botón <kbd>⏎</kbd> junto al campo de entrada para ejecutar comandos.
+- Área de Salida de Comandos: Muestra los resultados de la ejecución del comando. Si el comando se ejecuta correctamente, se mostrará el resultado de salida; de lo contrario, se mostrará un código de error.
+
+![Interfaz de Ejecución de Comandos](/deploy/command-execution/interface.webp)
+
+## Ejecutar Comandos
+
+Tomando un `echo` básico como ejemplo, ingresa `echo Hello, World!` y deberías ver el resultado de salida `Hello, World!`.
+
+![Ejecutar el Comando hello world](/deploy/command-execution/command-success.webp)
+
+Ingresar un comando inexistente mostrará un código de error.
+
+![Fallo en la Ejecución del Comando](/deploy/command-execution/command-error.webp)
+
+Incluso puedes ejecutar sentencias SQL en contenedores de bases de datos como MySQL o PostgreSQL, usar cURL para subir registros o hacer copias de seguridad de archivos, o incluso ejecutar programas de migración (por ejemplo, `prisma migrate`, `node seeder.js`).
+
+Para MySQL, podemos copiar el comando “Command to connect to your MySQL”, eliminar los parámetros `host` y `port` (no es necesario realizar una conexión remota dentro del contenedor), reescribir `mysqlsh` como `mysql` (ya que `mysqlsh` no está disponible en el contenedor) y finalmente agregar `-e` para ejecutar la sentencia SQL.
+
+```bash
+mysql --user=root --password=<password> --database=zeabur -e "SHOW DATABASES;"
+```
+
+![Ejecutar el Comando MySQL](/deploy/command-execution/mysql-example.webp)
+
+## Mostrar Mensajes de Error
+
+Si tu comando falla al ejecutarse, es posible que no veas el mensaje de error.
+
+Esto se debe a que Zeabur no muestra los mensajes de error estándar (stderr) por defecto. Puedes redirigir los mensajes de error estándar (stderr) a la salida estándar (stdout) para ver los mensajes de error.
+
+En resumen, agrega `2>&1` al final del comando, por ejemplo:
+
+```bash
+mysql -u nosuchuser 2>&1
+```
+
+![Mostrar Mensajes de Error de la Salida Estándar](/deploy/command-execution/stderr-to-stdout.webp)

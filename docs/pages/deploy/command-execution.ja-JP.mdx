@@ -1,0 +1,56 @@
+---
+title: コマンドの実行
+ogImageTitle: コマンドの実行
+ogImageSubtitle: Zeabur サービス内でのコマンド実行
+---
+
+# コマンドの実行
+
+Zeabur のサービス内でコマンドを実行できます。例えば、パッケージのインストール、プログラムの実行、情報の確認、特定データのバックアップなどです。
+
+## コマンド実行インターフェースの開き方
+
+サービスを開き、「Logs」の横にあるメニューを開いて、「コマンド」（Command）をクリックしてインターフェースを開きます。
+
+![コマンド実行インターフェースの開き方](/deploy/command-execution/open-command-executor.webp)
+
+コマンド実行インターフェースは次の2つの部分で構成されています：
+
+- コマンド入力欄：<kbd>Enter</kbd> を押すか、横にある <kbd>⏎</kbd> ボタンをクリックしてコマンドを実行できます。
+- コマンド出力エリア：コマンド実行の結果を表示します。コマンドが成功すれば出力結果が表示され、失敗すればエラーコードが表示されます。
+
+![コマンド実行インターフェース](/deploy/command-execution/interface.webp)
+
+## コマンドの実行
+
+基本的な `echo` の例として、`echo Hello, World!` と入力すると、`Hello, World!` という出力結果が表示されるはずです。
+
+![hello world コマンドの実行](/deploy/command-execution/command-success.webp)
+
+存在しないコマンドを入力すると、エラーコードが表示されます。
+
+![コマンド実行の失敗](/deploy/command-execution/command-error.webp)
+
+さらに高度な使い方として、MySQL や PostgreSQL などのデータベースコンテナ内で SQL 文を実行したり、cURL を使ってログをアップロードしたり、ファイルをバックアップしたり、さらには移行プログラム（例：`prisma migrate`、`node seeder.js`）を実行したりすることができます。
+
+MySQL の例として、「Command to connect to your MySQL」のコマンドをコピーし、その中から `host` と `port` パラメータを削除します（コンテナ内で実行するためリモート接続は不要）。さらに `mysqlsh` を `mysql` に書き換えます（コンテナ内に `mysqlsh` はありません）。最後に `-e` を追加して SQL 文を実行します。
+
+```bash
+mysql --user=root --password=<パスワード> --database=zeabur -e "SHOW DATABASES;"
+```
+
+![MySQL コマンドの実行](/deploy/command-execution/mysql-example.webp)
+
+## エラーメッセージの表示
+
+コマンドの実行が失敗した場合、エラーメッセージが表示されないことがあります。
+
+これは Zeabur がデフォルトで標準エラー (stderr) メッセージを出力しないためです。標準エラー (stderr) メッセージを標準出力 (stdout) にリダイレクトすることで、エラーメッセージを見ることができます。
+
+簡単に言えば、コマンドの末尾に `2>&1` を追加します。例えば：
+
+```bash
+mysql -u nosuchuser 2>&1
+```
+
+![標準出力エラーの表示](/deploy/command-execution/stderr-to-stdout.webp)

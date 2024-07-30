@@ -1,0 +1,56 @@
+---
+title: 运行命令
+ogImageTitle: 运行命令
+ogImageSubtitle: 在 Zeabur 服务内运行命令
+---
+
+# 运行命令
+
+你可以在 Zeabur 的服务内运行命令，例如安装软件包、运行程序、查看信息甚至是备份特定数据等。
+
+## 打开命令运行界面
+
+打开服务，打开“Logs”旁边的菜单，点击“命令”（Command）打开界面。
+
+![打开命令运行界面](/deploy/command-execution/open-command-executor.webp)
+
+命令运行界面由两个部分组成：
+
+- 命令输入栏：允许你敲 <kbd>Enter</kbd> 或者是点击旁边的 <kbd>⏎</kbd> 按钮运行命令。
+- 命令输出区：显示命令运行的结果。如果命令运行成功，会显示输出结果；反之则会显示错误代码。
+
+![命令运行界面](/deploy/command-execution/interface.webp)
+
+## 运行命令
+
+以一个最基本的 `echo` 为例，输入 `echo Hello, World!`，你应该会看到输出结果 `Hello, World!`。
+
+![运行 hello world 命令](/deploy/command-execution/command-success.webp)
+
+而输入不存在的命令，则会显示错误代码。
+
+![运行命令失败](/deploy/command-execution/command-error.webp)
+
+更深入一些，你可以在 MySQL、PostgreSQL 等等的数据库容器中运行 SQL 语句，调用 cURL 上传日志或者是备份文件，甚至是运行迁移程序（如 `prisma migrate`、`node seeder.js`）。
+
+就以 MySQL 来说，我们可以复制“Command to connect to your MySQL”的命令，删除其中的 `host` 和 `port` 参数（容器内运行，无需远程连接），将 `mysqlsh` 改写成 `mysql` 的命令（容器内没有 `mysqlsh`），最后加上 `-e` 运行 SQL 语句。
+
+```bash
+mysql --user=root --password=<密码> --database=zeabur -e "SHOW DATABASES;"
+```
+
+![运行 MySQL 命令](/deploy/command-execution/mysql-example.webp)
+
+## 显示错误信息
+
+如果你的命令运行失败，有可能会看不到错误信息。
+
+这是因为 Zeabur 默认情况下不会输出标准错误 (stderr) 的信息。你可以将标准错误 (stderr) 的信息转移到标准输出 (stdout) 上，这样就可以看到错误信息了。
+
+简而言之，就是在命令结尾加上 `2>&1` 导向，比如：
+
+```bash
+mysql -u nosuchuser 2>&1
+```
+
+![显示标准输出的错误信息](/deploy/command-execution/stderr-to-stdout.webp)
