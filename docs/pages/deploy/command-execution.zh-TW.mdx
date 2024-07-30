@@ -1,0 +1,56 @@
+---
+title: 執行命令
+ogImageTitle: 執行命令
+ogImageSubtitle: 在 Zeabur 服務內執行命令
+---
+
+# 執行命令
+
+你可以在 Zeabur 的服務內執行命令，例如安裝套件、執行程式、查看資訊甚至是備份特定資料等。
+
+## 打開命令執行介面
+
+打開服務，打開「Logs」旁邊的選單，點選「命令」（Command）打開介面。
+
+![打開命令執行介面](/deploy/command-execution/open-command-executor.webp)
+
+命令執行介面由兩個部分組成：
+
+- 命令輸入列：允許你按 <kbd>Enter</kbd> 或者是點選旁邊的 <kbd>⏎</kbd> 按鈕執行命令。
+- 命令輸出區：顯示命令執行的結果。如果命令執行成功，會顯示輸出結果；反之則會顯示錯誤代碼。
+
+![命令執行介面](/deploy/command-execution/interface.webp)
+
+## 執行命令
+
+以一個最基本的 `echo` 為例，輸入 `echo Hello, World!`，你應該會看到輸出結果 `Hello, World!`。
+
+![執行 hello world 命令](/deploy/command-execution/command-success.webp)
+
+而輸入不存在的命令，則會顯示錯誤代碼。
+
+![執行命令失敗](/deploy/command-execution/command-error.webp)
+
+更進階一些，你可以在 MySQL、PostgreSQL 等等的資料庫容器中執行 SQL 語句，呼叫 cURL 上傳日誌或者是備份檔案，甚至是執行遷移程式（如 `prisma migrate`、`node seeder.js`）。
+
+就以 MySQL 來說，我們可以複製「Command to connect to your MySQL」的命令，刪除其中的 `host` 和 `port` 參數（容器內執行，無需遠端連線），將 `mysqlsh` 改寫成 `mysql` 的命令（容器內沒有 `mysqlsh`），最後加上 `-e` 執行 SQL 語句。
+
+```bash
+mysql --user=root --password=<密碼> --database=zeabur -e "SHOW DATABASES;"
+```
+
+![執行 MySQL 命令](/deploy/command-execution/mysql-example.webp)
+
+## 顯示錯誤訊息
+
+如果你的命令執行失敗，有可能會看不到錯誤訊息。
+
+這是因為 Zeabur 預設情況下不會輸出標準錯誤 (stderr) 的訊息。你可以將標準錯誤 (stderr) 的訊息轉移到標準輸出 (stdout) 上，這樣就可以看到錯誤訊息了。
+
+簡而言之，就是在命令結尾加上 `2>&1` 導向，比如：
+
+```bash
+mysql -u nosuchuser 2>&1
+```
+
+![顯示標準輸出的錯誤訊息](/deploy/command-execution/stderr-to-stdout.webp)
