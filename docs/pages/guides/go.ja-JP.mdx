@@ -8,9 +8,47 @@ ogImageSubtitle: ZeaburでGoアプリをデプロイ
 
 [Go Modules](https://blog.golang.org/using-go-modules)に基づくすべてのプロジェクトをデプロイできます。ただし、プロジェクトのルートディレクトリに`main.go`が必要です。それがプログラムのコンパイルエントリとなります。
 
-複数のプログラムのコンパイルエントリがある場合、それらを`cmd`ディレクトリに配置する必要があります。例として、`cmd/server-a/main.go`と`cmd/server-b/main.go`があります。
+## カスタムビルドエントリーポイント
 
-Zeaburは`cmd`ディレクトリの下にある同じサービス名を持つプログラムのコンパイルエントリを自動的に認識し、そしてデプロイします。
+複数のビルドエントリーポイントがある場合、それらを `cmd` ディレクトリに配置する必要があります。例えば、`cmd/server-a/main.go` や `cmd/server-b/main.go` などです。
+
+Zeabur は `cmd` ディレクトリ内の Service 名と同じ名前のビルドエントリーポイントを自動的に認識してデプロイします。
+
+## ビルド前コマンドの設定
+
+Go プロジェクトでビルド前に `go generate` などのコマンドを実行する必要がある場合、`ZBPACK_BUILD_COMMAND` 環境変数を使用して設定できます。
+
+```env
+ZBPACK_BUILD_COMMAND=go generate ./...
+```
+
+また、`zbpack.json` に `build_command` を設定することもできます：
+
+```json
+{
+    "build_command": "go generate ./..."
+}
+```
+
+依存関係のインストールが完了し、ビルドプロセスの前にビルド前コマンドが実行されます。
+
+## cgo の有効化
+
+Go プロジェクトで cgo を使用する必要がある場合、`zbpack.json` に `cgo` を設定できます：
+
+```json
+{
+    "cgo": true
+}
+```
+
+または `CGO_ENABLED` 環境変数を設定します：
+
+```env
+CGO_ENABLED=1
+```
+
+Zeabur は cgo を自動的に有効化し、必要な C/C++ ツールチェーンをインストールします。
 
 ## ポートでリッスン
 

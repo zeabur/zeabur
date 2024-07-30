@@ -8,9 +8,47 @@ ogImageSubtitle: 在 Zeabur 部署 Go 项目
 
 所有基于 [Go Modules](https://blog.golang.org/using-go-modules) 的项目都可以部署。但你需要在项目根目录有一个 `main.go` 作为程序编译入口。
 
-如果你有多个程序编译入口，则需要将他们放在 `cmd` 目录下，例如一个 `cmd/server-a/main.go` 和一个 `cmd/server-b/main.go`。
+## 自定义程序编译入口
+
+如果你有多个程序编译入口，你需要将它们放在 `cmd` 目录下，例如一个 `cmd/server-a/main.go` 和一个 `cmd/server-b/main.go`。
 
 Zeabur 会自动识别并部署 `cmd` 目录下与 Service 名称相同的程序编译入口。
+
+## 设置编译前命令
+
+如果你的 Go 项目需要在编译前执行诸如 `go generate` 相关的命令，可以使用 `ZBPACK_BUILD_COMMAND` 环境变量设置。
+
+```env
+ZBPACK_BUILD_COMMAND=go generate ./...
+```
+
+也可以在 `zbpack.json` 设置 `build_command`：
+
+```json
+{
+    "build_command": "go generate ./..."
+}
+```
+
+你的编译前命令会在依赖安装完成、程序编译前执行。
+
+## 启用 cgo
+
+如果你的 Go 项目需要使用到 cgo，可以在 `zbpack.json` 设置 `cgo`：
+
+```json
+{
+    "cgo": true
+}
+```
+
+或者是设置 `CGO_ENABLED` 环境变量：
+
+```env
+CGO_ENABLED=1
+```
+
+Zeabur 会自动启用 cgo 并安装相关的 C/C++ 编译工具链。
 
 ## 监听端口
 
