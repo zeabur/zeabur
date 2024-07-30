@@ -154,7 +154,8 @@
                                     "Lobe Chat",
                                     "PostgreSQL"
                                 ],
-                                "type": "string"
+                                "type": "string",
+                                "pattern": "^[a-zA-Z-][a-zA-Z0-9-]*$"
                             },
                             "icon": {
                                 "title": "Service icon",
@@ -293,7 +294,8 @@
             "type": "string",
             "examples": [
                 "https://www.postgresql.org/media/img/about/press/elephant.png"
-            ]
+            ],
+            "format": "uri"
         }
     },
     "required": [

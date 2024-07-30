@@ -2,7 +2,7 @@
 	"$id": "https://schema.zeabur.app/prebuilt.json",
 	"$schema": "http://json-schema.org/draft-07/schema",
 	"title": "Service Specification (ServiceSpec)",
-	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.3.1-20240722.",
+	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.3.2-20240730.",
 	"type": "object",
 	"properties": {
 		"id": {
@@ -14,7 +14,7 @@
 			"title": "Service name",
 			"description": "The name of this service.",
 			"type": "string",
-			"pattern": "^[a-zA-Z]"
+			"pattern": "^[a-zA-Z-][a-zA-Z0-9-]*$"
 		},
 		"description": {
 			"title": "Service description",
@@ -38,7 +38,7 @@
 			"title": "Service Icon",
 			"description": "The icon of this service for users to identify. It shows at sidebar.",
 			"type": "string",
-			"pattern": "^https?://"
+			"format": "uri"
 		},
 		"docs": {
 			"title": "Documentation URL",
