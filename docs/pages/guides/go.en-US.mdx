@@ -8,9 +8,47 @@ ogImageSubtitle: Deploy Go App in Zeabur
 
 All projects based on [Go Modules](https://blog.golang.org/using-go-modules) can be deployed. But you need to have a `main.go` in the project root directory as the program compilation entry.
 
-If you have multiple program compilation entries, you need to put them in the `cmd` directory, for example, a `cmd/server-a/main.go` and a `cmd/server-b/main.go`.
+## Custom Application Entry Point
 
-Zeabur will automatically recognize and deploy the program compilation entry with the same Service name under the `cmd` directory.
+If you have multiple entry points, you need to place them in the `cmd` directory, such as a `cmd/server-a/main.go` and a `cmd/server-b/main.go`.
+
+Zeabur will automatically recognize and deploy the application in the `cmd` directory that matches the service name.
+
+## Setting Pre-build Commands
+
+If your Go project requires running commands like `go generate` before building, you can set them using the `ZBPACK_BUILD_COMMAND` environment variable.
+
+```env
+ZBPACK_BUILD_COMMAND=go generate ./...
+```
+
+You can also set the `build_command` in `zbpack.json`:
+
+```json
+{
+    "build_command": "go generate ./..."
+}
+```
+
+Your pre-build commands will run after dependencies are installed and before the build process.
+
+## Enabling cgo
+
+If your Go project needs to use cgo, you can set `cgo` in `zbpack.json`:
+
+```json
+{
+    "cgo": true
+}
+```
+
+Or set the `CGO_ENABLED` environment variable:
+
+```env
+CGO_ENABLED=1
+```
+
+Zeabur will automatically enable cgo and install the necessary C/C++ toolchain.
 
 ## Listen on Port
 
