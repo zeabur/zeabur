@@ -4,7 +4,8 @@ ogImageTitle: ZeaburでAstroをデプロイする
 ogImageSubtitle: ZeaburでAstroをデプロイする
 ---
 
-import { Callout } from 'nextra-theme-docs';
+
+import {Callout} from 'nextra-theme-docs';
 
 # ZeaburでAstroをデプロイする
 
@@ -42,6 +43,23 @@ export default {
 ```
 
 これで、あなたのAstroプロジェクトはZeaburへのデプロイの準備が整いました。
+
+### コンテナ化方式でのデプロイ
+
+場合によっては、Astro プロジェクトに特定の要件があり、Serverless 方式でのデプロイが適していないことがあります。例えば、長時間実行される API リクエストに依存してサーバーサイドレンダリング（Server Side Rendering）を行う必要がある場合です。
+
+このような場合、Astro 公式の [`@astrojs/node`](https://docs.astro.build/en/guides/integrations-guide/node/) を使用して、Zeabur 上にコンテナ化方式でデプロイすることができます：
+
+```js
+import node from '@astrojs/node';
+
+export default {
+  // ...
+  adapter: node({ mode: 'standalone' }),
+  output: 'server'
+  // ...
+};
+```
 
 ## ステップ3：Zeaburにデプロイする
 

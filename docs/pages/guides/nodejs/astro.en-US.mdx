@@ -4,7 +4,8 @@ ogImageTitle: Deploy Astro on Zeabur
 ogImageSubtitle: Deploy Astro on Zeabur
 ---
 
-import { Callout } from 'nextra-theme-docs';
+
+import {Callout} from 'nextra-theme-docs';
 
 # Deploy Astro on Zeabur
 
@@ -43,6 +44,23 @@ export default {
 
 With that, your Astro project is ready to be deployed to Zeabur.
 
+### Deploying with Containerization
+
+Sometimes, your Astro project may have specific needs that make it unsuitable for Serverless deployment. For example, it might rely on an API request that takes a long time to execute for server-side rendering (SSR).
+
+In such cases, you can use Astro's official [`@astrojs/node`](https://docs.astro.build/en/guides/integrations-guide/node/) to deploy your project on Zeabur using containerization:
+
+```js
+import node from '@astrojs/node';
+
+export default {
+  // ...
+  adapter: node({ mode: 'standalone' }),
+  output: 'server'
+  // ...
+};
+```
+
 ## Step 3: Deploy to Zeabur
 
 ### Method 1: Using the Zeabur CLI
@@ -69,7 +87,8 @@ Navigate to the [Zeabur Dashboard](https://dash.zeabur.com) and create a new pro
 Then, click on the `Deploy New Service` button and choose to deploy from GitHub.
 
 <Callout>
-    If this is your first time deploying a project from GitHub on Zeabur, you will need to configure and install the GitHub App.
+    If this is your first time deploying a project from GitHub on Zeabur, you will need to configure and install the
+    GitHub App.
     You can view a more detailed guide [here](/deploy/github).
 </Callout>
 

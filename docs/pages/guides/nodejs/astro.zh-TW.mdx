@@ -4,7 +4,13 @@ ogImageTitle: 在 Zeabur 上部署 Astro
 ogImageSubtitle: 在 Zeabur 上部署 Astro
 ---
 
-import { Callout } from 'nextra-theme-docs';
+
+
+
+
+
+
+import {Callout} from 'nextra-theme-docs';
 
 # 在 Zeabur 上部署 Astro
 
@@ -42,6 +48,23 @@ export default {
 ```
 
 就這樣，你的 Astro 專案已經準備好部署到 Zeabur 了。
+
+### 使用容器化的方式部署
+
+有時候，你的 Astro 專案可能一些特殊的需求而不適合使用 Serverless 的方式部署，例如他可能依賴於某個需要執行很久的 API 請求來進行伺服器端渲染（Server Side Rendering）。
+
+在這個情況下，你可以用 Astro 官方的 [`@astrojs/node`](https://docs.astro.build/en/guides/integrations-guide/node/) 來改用容器化的方式部署在 Zeabur 上：
+
+```js
+import node from '@astrojs/node';
+
+export default {
+  // ...
+  adapter: node({ mode: 'standalone' }),
+  output: 'server'
+  // ...
+};
+```
 
 ## 步驟三：部署到 Zeabur
 
