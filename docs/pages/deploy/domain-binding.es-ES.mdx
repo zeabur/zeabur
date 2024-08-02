@@ -4,9 +4,7 @@ ogImageTitle: Domain Binding
 ogImageSubtitle: Choose a domain for your service
 ---
 
-import { Callout } from 'nextra-theme-docs'
-
-<WorkingInProgress />
+<WorkingInProgress/>
 
 # Domain Binding
 
@@ -54,31 +52,8 @@ On this page, in the Manage DNS section, click the Add Record button.
 
 Fill in the corresponding name and target content. Here, the name corresponds to the `Name` field, and the target corresponds to the `Target` field.
 
-1. Select `CNAME` record in the `Type` field
-2. Enter your subdomain name in the `Name` field, for example `blog`
-3. Enter `cname.zeabur-dns.com.` in the `Target` field
-    <Callout>
-        Please note that when setting up CloudFlare's DNS, do not enable the orange cloud (Proxy) feature on the left, otherwise your domain will not be resolved correctly. For why you don't need to enable CloudFlare's Proxy feature, please refer to [Disable CloudFlare's Proxy Feature](#disable-cloudflare-s-proxy-feature).
-    </Callout>
-4. Switch back to the Zeabur console, and after about 5 ~ 10 seconds, you will find that the domain status has changed from `Invalid DNS` to the purple `Provisioning` status.
-5. In the `Provisioning` status, Zeabur is deploying your SSL certificate to hundreds of edge nodes around the world, this process takes about two to three minutes.
-
-### Ensure there is no CAA record
-
-If your custom domain is purchased from [Tencent Cloud](https://buy.cloud.tencent.com/domain) or [Vercel](https://vercel.com/docs/getting-started-with-vercel/buy-domain) and other service providers, they may automatically add CAA records to your domain, which may prevent you from successfully binding your domain.
-
-Since Zeabur's SSL certificate is issued by Google Trust Services (GTS), you need to ensure that your domain does not have a CAA record, or add a CAA record that allows GTS to issue SSL certificates.
-
-![](/deploy/domain/caa.jpg)
-
-## Disable CloudFlare's Proxy Feature
-
-Traditionally, when hosting websites on rented servers, many have turned to CloudFlare Proxy for its benefits, such as DDoS protection, free SSL certificates, IP address concealment, and CDN services. However, on the Zeabur platform, a PaaS solution built on Google Cloud, you automatically gain access to a comprehensive suite of advanced features that make the additional layer of CloudFlare Proxy superfluous.
-
-By pointing your domain to the CNAME record we provide, you activate Google Cloud's Cloud Armor defense system, offering robust protection against DDoS attacks. Moreover, your site will benefit from the global caching capabilities of Google Cloud CDN, ensuring fast access for visitors through strategically located edge nodes.
-
-Furthermore, the SSL certificates issued by Google Trust Services (GTS) are not only secure and reliable but also automatically renewed, maintaining the highest level of encryption for your data transfers.
-
-It is important to note that while CloudFlare offers a free CDN service, its edge nodes may not always be accessible to free-tier users in certain regions. This could mean that website visitors might be routed through more distant nodes before reaching your server, potentially increasing latency and affecting user experience.
-
-In summary, there is no necessity to enable CloudFlare Proxy for websites deployed on Zeabur. Our platform already provides comprehensive and efficient services to meet your website's security and performance requirements.
+1. En el campo `Type`, selecciona el registro `CNAME`
+2. En el campo `Name`, ingresa tu nombre de subdominio, por ejemplo, `blog`
+3. En el campo `Target`, ingresa el objetivo proporcionado por la consola de Zeabur, por ejemplo, `xxxx.cname.zeabur-dns.com.`
+4. Vuelve a la consola de Zeabur y, después de unos 5 a 10 segundos, verás que el estado del dominio cambia de Invalid DNS al estado púrpura de Provisioning
+5. El proceso de aprovisionamiento toma alrededor de 30 segundos, y luego cambiará al estado verde de Provisioned, y podrás acceder a él
