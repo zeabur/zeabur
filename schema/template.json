@@ -216,11 +216,41 @@
                             },
                             "domainKey": {
                                 "title": "Domain key",
-                                "description": "The variable with the domain name that is used for binding to this service.",
+                                "description": "The variable with the domain name that is used for binding to this service. If this service contains only one domain key, it will be automatically bound to the domain. If there are multiple domain keys, you should specify it with array.",
                                 "examples": [
-                                    "SITE_DOMAIN"
+                                    "SITE_DOMAIN",
+                                    [
+                                        {
+                                            "port": "web",
+                                            "domainKey": "SITE_DOMAIN"
+                                        },
+                                        {
+                                            "port": "console",
+                                            "domainKey": "CONSOLE_DOMAIN"
+                                        }
+                                    ]
                                 ],
-                                "type": "string",
+                                "oneOf": [
+                                    { "type": "string" },
+                                    {
+                                        "type": "array",
+                                        "items": {
+                                            "title": "Domain key binding",
+                                            "description": "The map-binding of the domain key and the port.",
+                                            "type": "object",
+                                            "properties": {
+                                                "port": {
+                                                    "type": "string",
+                                                    "description": "The port name that the domain will be bound to."
+                                                },
+                                                "domainKey": {
+                                                    "type": "string",
+                                                    "description": "The domain key that will be bound to the port."
+                                                }
+                                            }
+                                        }
+                                    }
+                                ],
                                 "nullable": true
                             }
                         },
