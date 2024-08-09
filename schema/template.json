@@ -222,11 +222,11 @@
                                     [
                                         {
                                             "port": "web",
-                                            "domainKey": "SITE_DOMAIN"
+                                            "variable": "SITE_DOMAIN"
                                         },
                                         {
                                             "port": "console",
-                                            "domainKey": "CONSOLE_DOMAIN"
+                                            "variable": "CONSOLE_DOMAIN"
                                         }
                                     ]
                                 ],
@@ -243,9 +243,9 @@
                                                     "type": "string",
                                                     "description": "The port name that the domain will be bound to."
                                                 },
-                                                "domainKey": {
+                                                "variable": {
                                                     "type": "string",
-                                                    "description": "The domain key that will be bound to the port."
+                                                    "description": "The variable containing the domain that will be bound to the port."
                                                 }
                                             }
                                         }
