@@ -87,6 +87,44 @@ If your project depends on OpenSSL and explicitly specifies it in `Cargo.toml` (
 
 Zeabur currently uses [`rust:1-silm`](https://hub.docker.com/_/rust) as the runtime image. Your executable will be placed in the `/app` directory, with `/` (root directory) as the working directory.
 
+Files in `rust.assets` will be placed in the `/app` directory, which is the same directory as the executable file. If you need to read assets, in practice, you usually read files from a **path relative to the executable**. The following example will get the location of your `images` asset.
+
+```rust
+use std::env;
+use std::path::Path;
+
+fn main() {
+    let exe_path = env::current_exe().expect("Failed to get current executable path");
+    let exe_dir = exe_path.parent().expect("Failed to get executable directory");
+    let relative_path = exe_dir.join("images");
+
+    println!("config.toml path: {:?}", relative_path);
+}
+```
+
+Note that for configuration files, **it is usually retrieved from the working directory**. Since the working directory is the root directory, you should place your config in `/config.toml` (instad of `/app/config.toml`) when adding a configuration file using Config Editor. After that, read the file from the working directory:
+
+```rust
+use std::env;
+use std::fs::File;
+use std::io::{self, Read};
+use std::path::PathBuf;
+
+fn main() -> io::Result<()> {
+    let current_dir = env::current_dir()?;
+    let config_path: PathBuf = current_dir.join("config.toml");
+
+    // It is recommended to use serde for deserialization. This is just a demo, so read_to_string is used here.
+    let mut file = File::open(config_path)?;
+    let mut contents = String::new();
+    file.read_to_string(&mut contents)?;
+
+    println!("Config file contents:\n{}", contents);
+
+    Ok(())
+}
+```
+
 ## Serverless Deployment
 
 Unlike other PaaS platforms that run your Rust application inside a Docker container directly, Zeabur also supports deploying Rust applications using the [Serverless deployment](/deploy/serverless) method. This allows your Rust application to start only when it receives a request, instead of running continuously like a container, saving resources.

@@ -88,6 +88,44 @@ Zeabur 原则上支持所有类型的 Rust 应用程序——默认情况下会�
 
 Zeabur 目前使用 [`rust:1-silm`](https://hub.docker.com/_/rust) 作为运行镜像。你的运行文件会放在 `/app` 目录，并将 `/`（根目录）作为运行目录。
 
+`rust.assets` 中的文件会放在 `/app` 目录下，即与可运行文件在同一目录。如果你有读取 assets 的需求，通常实务上会从 **相对于可运行文件的路径** 读取文件。如下例子会获取你 `images` 资源的所在位置。
+
+```rust
+use std::env;
+use std::path::Path;
+
+fn main() {
+    let exe_path = env::current_exe().expect("Failed to get current executable path");
+    let exe_dir = exe_path.parent().expect("Failed to get executable directory");
+    let relative_path = exe_dir.join("images");
+
+    println!("config.toml path: {:?}", relative_path);
+}
+```
+
+注意，如果是配置文件，**实务上通常从运行目录获取**。考虑到运行目录是根目录，在使用 Config Editor 新增配置文件时，请填写 `/config.toml`（而不是 `/app/config.toml`），然后从运行目录读取文件：
+
+```rust
+use std::env;
+use std::fs::File;
+use std::io::{self, Read};
+use std::path::PathBuf;
+
+fn main() -> io::Result<()> {
+    let current_dir = env::current_dir()?;
+    let config_path: PathBuf = current_dir.join("config.toml");
+
+    // 这里推荐使用 serde 进行反序列化。这里只是为了演示所以使用 read_to_string。
+    let mut file = File::open(config_path)?;
+    let mut contents = String::new();
+    file.read_to_string(&mut contents)?;
+
+    println!("Config file contents:\n{}", contents);
+
+    Ok(())
+}
+```
+
 ## Serverless 部署
 
 不同于其他 PaaS 平台是直接将你的 Rust 应用程序打包在 Docker 容器中运行，Zeabur 同时支持使用 [Serverless 部署](/deploy/serverless) Rust 的方式，这可以让你的 Rust 应用程序只有在收到请求的时候才启动，而不是像容器一样一直运行，浪费资源。
