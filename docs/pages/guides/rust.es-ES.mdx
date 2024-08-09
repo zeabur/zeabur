@@ -87,6 +87,44 @@ Si tu proyecto depende de OpenSSL y lo especifica explícitamente en `Cargo.toml
 
 Zeabur utiliza actualmente [`rust:1-silm`](https://hub.docker.com/_/rust) como la imagen de ejecución. Tu ejecutable se colocará en el directorio `/app`, con `/` (directorio raíz) como directorio de trabajo.
 
+Los archivos en `rust.assets` se colocarán en el directorio `/app`, que es el mismo directorio que el archivo ejecutable. Si necesitas leer assets, en la práctica, generalmente se leen archivos desde una **ruta relativa al ejecutable**. El siguiente ejemplo obtendrá la ubicación de tu asset `images`.
+
+```rust
+use std::env;
+use std::path::Path;
+
+fn main() {
+    let exe_path = env::current_exe().expect("Failed to get current executable path");
+    let exe_dir = exe_path.parent().expect("Failed to get executable directory");
+    let relative_path = exe_dir.join("images");
+
+    println!("config.toml path: {:?}", relative_path);
+}
+```
+
+Ten en cuenta que, para los archivos de configuración, **normalmente se recuperan desde el directorio de trabajo**. Dado que el directorio de trabajo es el directorio raíz, deberías colocar tu configuración en `/config.toml` (en lugar de `/app/config.toml`) al agregar un archivo de configuración usando Config Editor. Después de eso, lee el archivo desde el directorio de trabajo:
+
+```rust
+use std::env;
+use std::fs::File;
+use std::io::{self, Read};
+use std::path::PathBuf;
+
+fn main() -> io::Result<()> {
+    let current_dir = env::current_dir()?;
+    let config_path: PathBuf = current_dir.join("config.toml");
+
+    // Se recomienda utilizar serde para la deserialización. Esto es solo una demostración, por lo que aquí se utiliza read_to_string.
+    let mut file = File::open(config_path)?;
+    let mut contents = String::new();
+    file.read_to_string(&mut contents)?;
+
+    println!("Config file contents:\n{}", contents);
+
+    Ok(())
+}
+```
+
 ## Despliegue Serverless
 
 A diferencia de otras plataformas PaaS que ejecutan tu aplicación Rust dentro de un contenedor Docker directamente, Zeabur también admite desplegar aplicaciones Rust utilizando el método [despliegue Serverless](/deploy/serverless). Esto permite que tu aplicación Rust se inicie solo cuando recibe una solicitud, en lugar de ejecutarse continuamente como un contenedor, ahorrando recursos.
