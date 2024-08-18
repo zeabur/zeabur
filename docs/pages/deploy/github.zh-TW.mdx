@@ -1,12 +1,24 @@
 ---
-title: 和 GitHub 整合
-ogImageTitle: 和 GitHub 整合
-ogImageSubtitle: 連接 GitHub 儲存庫
+title: 整合 GitHub
+ogImageTitle: 整合 GitHub
+ogImageSubtitle: 使用 GitHub 登入，並且直接從 GitHub 部署程式碼到 Zeabur
 ---
 
 import { Callout } from 'nextra-theme-docs'
 
-## 部署 GitHub 個人儲存庫
+## 整合 GitHub
+
+Zeabur 提供了與 GitHub 整合的能力，這允許你將 GitHub 帳號與 Zeabur 帳號綁定，使你可以直接用 GitHub 登入 Zeabur，並且直接從 GitHub 部署程式碼到 Zeabur。
+
+使用 GitHub 部署程式碼可以為你的服務啟用開箱即用的 CI/CD 功能，未來只要推送程式碼到 GitHub，Zeabur 將自動部署新的程式碼。
+
+### 綁定 GitHub 帳號
+
+如果你是使用電子郵件註冊 Zeabur 帳號，你需要先將你的 GitHub 帳號與 Zeabur 帳號綁定，你可以在 [控制台 > 設定 > 整合](https://dash.zeabur.com/account/general) 完成綁定。
+
+![綁定 GitHub 帳號](/deploy/intergration/link-github.png)
+
+請注意，一個 GitHub 帳號只能綁定一個 Zeabur 帳號，綁定後你可以在 Zeabur 登入頁面使用 GitHub 按鈕進行登入。
 
 ### 步驟一：建立服務
 
