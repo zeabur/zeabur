@@ -79,7 +79,71 @@ You can specify `rust.assets` in `zbpack.json`, listing the folders or files you
 }
 ```
 
-## Automatic Dependency Installation
+## Custom Build and Start Commands
+
+Zeabur provides "build command", "start command", and "pre-start command" in Rust, allowing you to insert necessary dependencies or write necessary files at various stages of your Rust project's build process.
+
+```mermaid
+graph LR
+  B((Compile Stage)) --> BC[Build Command]
+  BC -->|Compile Software| S((Runtime Stage))
+  S --> PSC[Pre-Start Command]
+  PSC -->|Build Complete| D((Deployment))
+  D --> SC[Start Command]
+  SC --> R((Start))
+```
+
+### Build Command
+
+You can use `ZBPACK_BUILD_COMMAND` to specify **commands to run before compiling**, for example:
+
+```
+ZBPACK_BUILD_COMMAND=sudo apt install sqlite3
+```
+
+You can also specify this in `zbpack.json`:
+
+```json
+{
+  "build_command": "sudo apt install sqlite3"
+}
+```
+
+### Start Command
+
+You can use `ZBPACK_START_COMMAND` to override the default start command specified by Zeabur, for example:
+
+```
+ZBPACK_START_COMMAND="/app/server --debug"
+```
+
+You can also specify this in `zbpack.json`:
+
+```json
+{
+  "start_command": "/app/server --debug"
+}
+```
+
+### Pre-Start Command
+
+If you need to install some dependencies before starting, you can use `ZBPACK_PRE_START_COMMAND` to specify the command to run before execution:
+
+```
+ZBPACK_PRE_START_COMMAND="sudo apt install sqlite3"
+```
+
+You can also specify this in `zbpack.json`:
+
+```json
+{
+  "pre_start_command": "sudo apt install sqlite3"
+}
+```
+
+Compared to `ZBPACK_START_COMMAND`, the content will persist and won't be re-executed each time the system restarts, resulting in faster startup.
+
+### Automatic Dependency Installation
 
 If your project depends on OpenSSL and explicitly specifies it in `Cargo.toml` (or indirectly depends on it via `Cargo.lock`), Zeabur will automatically install the `openssl` runtime library.
 

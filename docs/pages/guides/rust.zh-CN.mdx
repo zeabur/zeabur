@@ -80,7 +80,71 @@ Zeabur 原则上支持所有类型的 Rust 应用程序——默认情况下会�
 }
 ```
 
-## 自动安装依赖
+## 自定义编译和启动命令
+
+Zeabur 在 Rust 中提供了「编译命令」、「启动命令」和「启动前命令」，方便你在 Rust 项目的各个构建阶段插入所需的依赖、写入必要的文件。
+
+```mermaid
+graph LR
+  B((编译阶段)) --> BC[编译命令]
+  BC -->|编译软件| S((Runtime 阶段))
+  S --> PSC[启动前命令]
+  PSC -->|完成构建| D((部署))
+  D --> SC[启动命令]
+  SC --> R((启动))
+```
+
+### 编译命令
+
+你可以使用 `ZBPACK_BUILD_COMMAND` 指定 **编译前要运行的命令**，例如：
+
+```
+ZBPACK_BUILD_COMMAND=sudo apt install sqlite3
+```
+
+也可以使用 `zbpack.json` 指定：
+
+```json
+{
+  "build_command": "sudo apt install sqlite3"
+}
+```
+
+### 启动命令
+
+你可以使用 `ZBPACK_START_COMMAND` 覆盖 Zeabur 默认指定的启动命令，例如：
+
+```
+ZBPACK_START_COMMAND="/app/server --debug"
+```
+
+也可以使用 `zbpack.json` 指定：
+
+```json
+{
+  "start_command": "/app/server --debug"
+}
+```
+
+### 启动前命令
+
+如果你需要在启动前安装一些依赖，可以使用 `ZBPACK_PRE_START_COMMAND` 指定要在启动前运行的命令：
+
+```
+ZBPACK_PRE_START_COMMAND="sudo apt install sqlite3"
+```
+
+也可以使用 `zbpack.json` 指定：
+
+```json
+{
+  "pre_start_command": "sudo apt install sqlite3"
+}
+```
+
+与 `ZBPACK_START_COMMAND` 相比，它会持久运行的内容，不会在每次重新启动时重新执行，从而提高速度。
+
+### 自动安装依赖
 
 如果你的项目依赖 OpenSSL 且有在 `Cargo.toml` 中显式依赖（或 `Cargo.lock` 间接依赖）`openssl`，Zeabur 会自动安装 `openssl` 运行时库。
 
