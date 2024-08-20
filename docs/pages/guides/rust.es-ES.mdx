@@ -79,7 +79,71 @@ Puedes especificar `rust.assets` en `zbpack.json`, enumerando las carpetas o arc
 }
 ```
 
-## Instalación automática de dependencias
+## Comandos personalizados de compilación y inicio
+
+Zeabur proporciona "comando de compilación", "comando de inicio" y "comando previo al inicio" en Rust, lo que te permite insertar las dependencias necesarias o escribir los archivos necesarios en varias etapas del proceso de compilación de tu proyecto en Rust.
+
+```mermaid
+graph LR
+  B((Etapa de Compilación)) --> BC[Comando de Compilación]
+  BC -->|Compilar Software| S((Etapa de Ejecución))
+  S --> PSC[Comando Previo al Inicio]
+  PSC -->|Compilación Completa| D((Despliegue))
+  D --> SC[Comando de Inicio]
+  SC --> R((Inicio))
+```
+
+### Comando de Compilación
+
+Puedes usar `ZBPACK_BUILD_COMMAND` para especificar **comandos a ejecutar antes de compilar**, por ejemplo:
+
+```
+ZBPACK_BUILD_COMMAND=sudo apt install sqlite3
+```
+
+También puedes especificarlo en `zbpack.json`:
+
+```json
+{
+  "build_command": "sudo apt install sqlite3"
+}
+```
+
+### Comando de Inicio
+
+Puedes usar `ZBPACK_START_COMMAND` para sobrescribir el comando de inicio predeterminado especificado por Zeabur, por ejemplo:
+
+```
+ZBPACK_START_COMMAND="/app/server --debug"
+```
+
+También puedes especificarlo en `zbpack.json`:
+
+```json
+{
+  "start_command": "/app/server --debug"
+}
+```
+
+### Comando Previo al Inicio
+
+Si necesitas instalar algunas dependencias antes de iniciar, puedes usar `ZBPACK_PRE_START_COMMAND` para especificar el comando a ejecutar antes de la ejecución:
+
+```
+ZBPACK_PRE_START_COMMAND="sudo apt install sqlite3"
+```
+
+También puedes especificarlo en `zbpack.json`:
+
+```json
+{
+  "pre_start_command": "sudo apt install sqlite3"
+}
+```
+
+En comparación con `ZBPACK_START_COMMAND`, el contenido permanecerá y no se volverá a ejecutar cada vez que el sistema se reinicie, lo que resulta en un inicio más rápido.
+
+### Instalación automática de dependencias
 
 Si tu proyecto depende de OpenSSL y lo especifica explícitamente en `Cargo.toml` (o depende indirectamente de él a través de `Cargo.lock`), Zeabur instalará automáticamente la biblioteca de tiempo de ejecución de `openssl`.
 

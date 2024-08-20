@@ -79,7 +79,71 @@ Zeabur は原則としてすべての種類の Rust アプリケーションを�
 }
 ```
 
-## 自動依存関係インストール
+## カスタムコンパイルと起動コマンド
+
+Zeabur は Rust で「コンパイルコマンド」、「起動コマンド」、および「起動前コマンド」を提供しており、Rust プロジェクトの各構築段階で必要な依存関係を挿入したり、必要なファイルを書き込んだりすることができます。
+
+```mermaid
+graph LR
+  B((コンパイル段階)) --> BC[コンパイルコマンド]
+  BC -->|ソフトウェアのコンパイル| S((ランタイム段階))
+  S --> PSC[起動前コマンド]
+  PSC -->|構築完了| D((デプロイ))
+  D --> SC[起動コマンド]
+  SC --> R((起動))
+```
+
+### コンパイルコマンド
+
+`ZBPACK_BUILD_COMMAND` を使用して **コンパイル前に実行するコマンド** を指定できます。例えば：
+
+```
+ZBPACK_BUILD_COMMAND=sudo apt install sqlite3
+```
+
+また、`zbpack.json` を使用して指定することもできます：
+
+```json
+{
+  "build_command": "sudo apt install sqlite3"
+}
+```
+
+### 起動コマンド
+
+`ZBPACK_START_COMMAND` を使用して、Zeabur がデフォルトで指定する起動コマンドを上書きできます。例えば：
+
+```
+ZBPACK_START_COMMAND="/app/server --debug"
+```
+
+また、`zbpack.json` を使用して指定することもできます：
+
+```json
+{
+  "start_command": "/app/server --debug"
+}
+```
+
+### 起動前コマンド
+
+起動前に依存関係をインストールする必要がある場合、`ZBPACK_PRE_START_COMMAND` を使用して起動前に実行するコマンドを指定できます：
+
+```
+ZBPACK_PRE_START_COMMAND="sudo apt install sqlite3"
+```
+
+また、`zbpack.json` を使用して指定することもできます：
+
+```json
+{
+  "pre_start_command": "sudo apt install sqlite3"
+}
+```
+
+`ZBPACK_START_COMMAND` と比べて、これは持続的に実行され、再起動時に再実行されないため、速度が向上します。
+
+### 自動依存関係インストール
 
 プロジェクトが OpenSSL に依存しており、`Cargo.toml` に明示的に依存関係が記載されている場合（または `Cargo.lock` で間接的に依存している場合）、Zeabur は `openssl` ランタイムライブラリを自動的にインストールします。
 
