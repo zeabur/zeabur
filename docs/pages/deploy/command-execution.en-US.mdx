@@ -40,17 +40,3 @@ mysql --user=root --password=<password> --database=zeabur -e "SHOW DATABASES;"
 ```
 
 ![Execute MySQL Command](/deploy/command-execution/mysql-example.webp)
-
-## Display Error Messages
-
-If your command fails to execute, you might not see the error message.
-
-This is because Zeabur does not output standard error (stderr) messages by default. You can redirect the standard error (stderr) messages to the standard output (stdout) to see the error messages.
-
-In short, add `2>&1` at the end of the command, for example:
-
-```bash
-mysql -u nosuchuser 2>&1
-```
-
-![Display Standard Output Error Messages](/deploy/command-execution/stderr-to-stdout.webp)

@@ -40,17 +40,3 @@ mysql --user=root --password=<密碼> --database=zeabur -e "SHOW DATABASES;"
 ```
 
 ![執行 MySQL 命令](/deploy/command-execution/mysql-example.webp)
-
-## 顯示錯誤訊息
-
-如果你的命令執行失敗，有可能會看不到錯誤訊息。
-
-這是因為 Zeabur 預設情況下不會輸出標準錯誤 (stderr) 的訊息。你可以將標準錯誤 (stderr) 的訊息轉移到標準輸出 (stdout) 上，這樣就可以看到錯誤訊息了。
-
-簡而言之，就是在命令結尾加上 `2>&1` 導向，比如：
-
-```bash
-mysql -u nosuchuser 2>&1
-```
-
-![顯示標準輸出的錯誤訊息](/deploy/command-execution/stderr-to-stdout.webp)
