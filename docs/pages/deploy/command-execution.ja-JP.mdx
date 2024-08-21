@@ -40,17 +40,3 @@ mysql --user=root --password=<パスワード> --database=zeabur -e "SHOW DATABA
 ```
 
 ![MySQL コマンドの実行](/deploy/command-execution/mysql-example.webp)
-
-## エラーメッセージの表示
-
-コマンドの実行が失敗した場合、エラーメッセージが表示されないことがあります。
-
-これは Zeabur がデフォルトで標準エラー (stderr) メッセージを出力しないためです。標準エラー (stderr) メッセージを標準出力 (stdout) にリダイレクトすることで、エラーメッセージを見ることができます。
-
-簡単に言えば、コマンドの末尾に `2>&1` を追加します。例えば：
-
-```bash
-mysql -u nosuchuser 2>&1
-```
-
-![標準出力エラーの表示](/deploy/command-execution/stderr-to-stdout.webp)
