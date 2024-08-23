@@ -88,7 +88,7 @@ export default {
         <meta property="og:url" content={`https://zeabur.com${p}`} />
         <meta property="og:image" content={ogUrl} />
 
-        <meta property="conaonical" content={`https://zeabur.com${p}`} />
+        <link rel="canonical" href={`https://zeabur.com${p}`} />
 
         <meta name="apple-mobile-web-app-title" content="Zeabur" />
         <link
