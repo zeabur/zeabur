@@ -85,7 +85,7 @@ Git service only allows 1 port, which is the port you defined in the Dockerfile 
 
 Some code examples of using the `$PORT` environment variable:
 
-```js filename=server.js
+```js filename="server.js"
 const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
@@ -93,7 +93,7 @@ app.listen(port, () => {
 });
 ```
 
-```go filename=main.go
+```go filename="main.go"
 package main
 
 import (

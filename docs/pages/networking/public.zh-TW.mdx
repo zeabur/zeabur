@@ -85,7 +85,7 @@ Git 服務只能監聽 1 個連線埠，即你在 Dockerfile 中定義的連線�
 
 以下是使用 `$PORT` 環境變數的一些程式碼範例：
 
-```js filename=server.js
+```js filename="server.js"
 const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
@@ -93,7 +93,7 @@ app.listen(port, () => {
 });
 ```
 
-```go filename=main.go
+```go filename="main.go"
 package main
 
 import (

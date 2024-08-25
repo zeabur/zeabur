@@ -85,7 +85,7 @@ Git 服务只能监听 1 个端口，即你在 Dockerfile 中定义的端口，�
 
 以下是使用 `$PORT` 环境变量的一些代码示例：
 
-```js filename=server.js
+```js filename="server.js"
 const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
@@ -93,7 +93,7 @@ app.listen(port, () => {
 });
 ```
 
-```go filename=main.go
+```go filename="main.go"
 package main
 
 import (

@@ -85,7 +85,7 @@ Git サービスは 1 つのポートしかリッスンできません。それ�
 
 以下は、`$PORT` 環境変数を使用するコード例です：
 
-```js filename=server.js
+```js filename="server.js"
 const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
@@ -93,7 +93,7 @@ app.listen(port, () => {
 });
 ```
 
-```go filename=main.go
+```go filename="main.go"
 package main
 
 import (
