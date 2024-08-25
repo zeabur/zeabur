@@ -23,6 +23,16 @@ module.exports = withNextra({
         destination: '/guides/rust',
         permanent: true,
       },
+      {
+        source: '/deploy/domain-binding',
+        destination: '/networking/public',
+        permanent: true,
+      },
+      {
+        source: '/deploy/private-networking',
+        destination: '/networking/private',
+        permanent: true,
+      }
     ]
   },
 })

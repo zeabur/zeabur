@@ -1,0 +1,78 @@
+---
+title: 公网存取
+ogImageTitle: 公网存取
+ogImageSubtitle: 让你的服务可以从外部网络存取
+---
+
+## 公网存取
+
+“公网存取”让你的服务可以从外部网络存取。
+
+Zeabur 提供两种方法来存取你的服务：
+
+- **HTTP 服务**：使用 Zeabur 提供的域名或你自己的域名存取你的服务。
+- **非 HTTP 服务**：使用分配的主机名称和连接端口存取你的服务。
+
+## 绑定域名
+
+**域名** 是你服务独特的识别代号，允许从公网存取服务。举例来说，这个网站的域名是 `zeabur.com`。
+
+要绑定域名到你的服务，首先前往 Zeabur 控制台中的服务，展开 **域名** 区块。你会看到有两个创建域名的选项。
+
+![两个绑定域名的选项](/networking/public/two-buttons-to-bind-domain.webp)
+
+### 生成域名
+
+“**生成域名**”选项让你在没人使用的前提下创建带有 `zeabur.app` 后缀的域名名称，例如 `your-service.zeabur.app`，是最简单能让你服务得以公开存取的方式。
+
+![绑定 zeabur.app 域名](/networking/public/binding-zeabur-app-domain.webp)
+
+当你的 `zeabur.app` 域名设置完成后，你可以使用 Zeabur 提供的域名名称存取你的服务。
+
+![绑定 zeabur.app 域名完成](/networking/public/bound-zeabur-app-domain.webp)
+
+### 自定义域名
+
+若要使用自己的域名名称，请选择“**自定义域名**”选项。
+
+首先，在输入框中输入你的域名名称，然后点击“创建域名”按钮。
+
+![绑定自定义域名](/networking/public/binding-custom-domain.webp)
+
+添加域名名称后，你会看到域名的 DNS 信息。
+
+![设置域名的 DNS](/networking/public/custom-domain-setting-dns.webp)
+
+你需要自行为你的域名添加 DNS 记录。以 Cloudflare 为例，你可以在“DNS”→“记录”页面中，用 Zeabur 提供的设置创建此域名的记录。如果你使用不同的 DNS 提供商，可以参考提供商文档中的 CNAME 记录添加说明。
+
+![在 Cloudflare 设置 DNS](/networking/public/configure-dns-record-in-cloudflare.webp)
+
+如果你偏好使用我们的 Edge CDN，需要将 Cloudflare 代理（即橙色云）关闭。
+
+设置 DNS 记录后，可能需要几分钟让变更生效。完成后即可使用自定义域名存取你的服务。
+
+![绑定自定义域名完成](/networking/public/bound-custom-domain.webp)
+
+## 设置重定向
+
+若要将你的域名重定向到另一个 URL，可以使用“**重定向域名**”功能。这会暂时（307）将你的域名重定向到指定的目标域名。
+
+![绑定自定义域名进行重定向](/networking/public/binding-custom-domain-for-redirect.webp)
+
+## 删除域名
+
+若要删除域名，请点击域名名称旁的垃圾桶图标。
+
+![删除按钮](/networking/public/delete-button.webp)
+
+然后，在输入框中输入你的域名名称，并点击“删除”按钮确认。
+
+![删除域名的对话框](/networking/public/deleting-domain-modal.webp)
+
+## 使用分配的主机名称和连接端口
+
+如果服务不是使用 HTTP 协议，你可以使用分配的主机名称和连接端口，又称“端口转发”。例如，如果你有一个监听连接端口 `25565` 的 Minecraft 服务器，你可以使用分配的主机名称和连接端口，例如 `hkg1.clusters.zeabur.com:34567`，进行连接。
+
+![分配的主机名称和连接端口](/networking/public/assigned-hostname-and-port.webp)
+
+这种端口可以在 [设置 Docker 服务](/deploy/customize-prebuilt) 时定义。虽然主机名称和连接端口通常是固定的，但也有可能会更改。建议不要假设主机名称和连接端口是永远不变的。你也可以在服务中设置自己的端口转发方式。

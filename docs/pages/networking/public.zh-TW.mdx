@@ -1,0 +1,78 @@
+---
+title: 公網存取
+ogImageTitle: 公網存取
+ogImageSubtitle: 讓你的服務可以從外部網路存取
+---
+
+## 公網存取
+
+「公網存取」讓你的服務可以從外部網路存取。
+
+Zeabur 提供兩種方法來存取你的服務：
+
+- **HTTP 服務**：使用 Zeabur 提供的網域或你自己的網域存取你的服務。
+- **非 HTTP 服務**：使用分配的主機名稱和連線埠存取你的服務。
+
+## 綁定網域
+
+**網域** 是你服務獨特的識別代號，允許從公網存取服務。舉例來說，這個網站的網域名稱是 `zeabur.com`。
+
+要綁定網域到你的服務，首先前往 Zeabur 控制台中的服務，展開 **網域** 區塊。你會看到有兩個建立網域的選項。
+
+![兩個綁定網域的選項](/networking/public/two-buttons-to-bind-domain.webp)
+
+### 產生網域
+
+「**產生網域**」選項讓你在沒人使用的前提下建立帶有 `zeabur.app` 後綴的網域名稱，例如 `your-service.zeabur.app`，是最簡單能讓你服務得以公開存取的方式。
+
+![綁定 zeabur.app 網域](/networking/public/binding-zeabur-app-domain.webp)
+
+當你的 `zeabur.app` 網域設定完成後，你可以使用 Zeabur 提供的網域名稱存取你的服務。
+
+![綁定 zeabur.app 網域完成](/networking/public/bound-zeabur-app-domain.webp)
+
+### 自訂網域
+
+若要使用自己的網域名稱，請選擇「**自訂網域**」選項。
+
+首先，在輸入框中輸入你的網域名稱，然後點擊「建立網域」按鈕。
+
+![綁定自訂網域](/networking/public/binding-custom-domain.webp)
+
+加入網域名稱後，你會看到網域該有的 DNS 資訊。
+
+![設定網域的 DNS](/networking/public/custom-domain-setting-dns.webp)
+
+你得自行往你的網域新增 DNS 記錄。以 Cloudflare 為例，你可以在「DNS」→「記錄」頁面中，用 Zeabur 提供的設定建立這筆網域的記錄。如果你使用不同的 DNS 提供商，可以參考提供商文件中的 CNAME 記錄新增說明。
+
+![在 Cloudflare 設定 DNS](/networking/public/configure-dns-record-in-cloudflare.webp)
+
+如果你偏好使用我們的 Edge CDN，得將 Cloudflare 代理（也就是橘色雲）關閉。
+
+設定 DNS 記錄後，可能需要幾分鐘讓變更生效。完成後即可使用自訂網域存取你的服務。
+
+![綁定自訂網域完成](/networking/public/bound-custom-domain.webp)
+
+## 設定重新導向
+
+若要將你的網域重新導向到另一個 URL，可以使用「**重新導向網域**」功能。這會暫時（307）將你的網域重新導向到指定的目標網域。
+
+![綁定自訂網域進行重新導向](/networking/public/binding-custom-domain-for-redirect.webp)
+
+## 刪除網域
+
+若要刪除網域，請點選網域名稱旁的垃圾桶圖示。
+
+![刪除按鈕](/networking/public/delete-button.webp)
+
+然後，在輸入框中輸入你的網域名稱，並點選「刪除」按鈕確認。
+
+![刪除網域的對話框](/networking/public/deleting-domain-modal.webp)
+
+## 使用分配的主機名稱和連線埠
+
+如果服務不是使用 HTTP 協定，你可以使用分配的主機名稱和連線埠，又稱「連線埠轉送」。例如，如果你有一個監聽連線埠 `25565` 的 Minecraft 伺服器，你可以使用分配的主機名稱和連線埠，例如 `hkg1.clusters.zeabur.com:34567`，進行連線。
+
+![分配的主機名稱和連線埠](/networking/public/assigned-hostname-and-port.webp)
+
+這種 Port 可以在 [設定 Docker 服務](/deploy/customize-prebuilt) 時定義。雖然主機名稱和連線埠通常是固定的，但也有可能會變更。建議不要假設主機名稱和連線埠是永遠不變的。你也可以在服務中設定自己的連線埠轉送方式。
