@@ -75,4 +75,47 @@ Zeabur 提供两种方法来存取你的服务：
 
 ![分配的主机名称和连接端口](/networking/public/assigned-hostname-and-port.webp)
 
-这种端口可以在 [设置 Docker 服务](/deploy/customize-prebuilt) 时定义。虽然主机名称和连接端口通常是固定的，但也有可能会更改。建议不要假设主机名称和连接端口是永远不变的。你也可以在服务中设置自己的端口转发方式。
+虽然主机名称和连接端口通常是固定的，但也有可能会更改。建议不要假设主机名称和连接端口是永远不变的。你也可以在服务中设置自己的端口转发方式。
+
+## 端口配置
+
+### Git 服务
+
+Git 服务只能监听 1 个端口，即你在 Dockerfile 中定义的端口，如果没有定义（或者不是使用 Dockerfile 部署）则默认为 `8080`。考虑到端口号将来可能会有所改变，**不建议**直接在代码中写入 `8080`，更推荐使用 `$PORT` 环境变量。
+
+以下是使用 `$PORT` 环境变量的一些代码示例：
+
+```js filename=server.js
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+```
+
+```go filename=main.go
+package main
+
+import (
+    "fmt"
+    "net/http"
+    "os"
+)
+
+func main() {
+    port := os.Getenv("PORT")
+    if port == "" {
+        port = "8080"
+    }
+
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprintf(w, "Hello, World!")
+    })
+
+    http.ListenAndServe(":"+port, nil)
+}
+```
+
+### Docker 服务
+
+你可以在 [Docker 服务设置](/deploy/customize-prebuilt) 时配置端口。详细信息请参阅 Docker 服务设置文档中的「Ports」部分。

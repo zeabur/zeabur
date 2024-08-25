@@ -75,4 +75,47 @@ Zeabur 提供兩種方法來存取你的服務：
 
 ![分配的主機名稱和連線埠](/networking/public/assigned-hostname-and-port.webp)
 
-這種 Port 可以在 [設定 Docker 服務](/deploy/customize-prebuilt) 時定義。雖然主機名稱和連線埠通常是固定的，但也有可能會變更。建議不要假設主機名稱和連線埠是永遠不變的。你也可以在服務中設定自己的連線埠轉送方式。
+雖然主機名稱和連線埠通常是固定的，但也有可能會變更。建議不要假設主機名稱和連線埠是永遠不變的。你也可以在服務中設定自己的連線埠轉送方式。
+
+## 連線埠設定
+
+### Git 服務
+
+Git 服務只能監聽 1 個連線埠，即你在 Dockerfile 中定義的連線埠，如果沒定義（或者不是 Dockerfile）則是 `8080`。考慮到連線埠號未來可能會有所改變，**不建議**直接在程式碼中寫入 `8080`，比較推薦使用 `$PORT` 環境變數。
+
+以下是使用 `$PORT` 環境變數的一些程式碼範例：
+
+```js filename=server.js
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+```
+
+```go filename=main.go
+package main
+
+import (
+    "fmt"
+    "net/http"
+    "os"
+)
+
+func main() {
+    port := os.Getenv("PORT")
+    if port == "" {
+        port = "8080"
+    }
+
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprintf(w, "Hello, World!")
+    })
+
+    http.ListenAndServe(":"+port, nil)
+}
+```
+
+### Docker 服務
+
+你可以在 [Docker 服務設定](/deploy/customize-prebuilt) 時設定連線埠。詳細資訊請參閱〈Docker 服務設定〉文件中的「Ports」章節。

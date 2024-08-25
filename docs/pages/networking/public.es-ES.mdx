@@ -76,4 +76,47 @@ Para servicios no HTTP, puedes acceder a ellos a través del nombre de host y pu
 
 ![Nombre de host y puerto asignados](/networking/public/assigned-hostname-and-port.webp)
 
-Dicho puerto se puede definir durante [la configuración del servicio Docker](/deploy/customize-prebuilt). Aunque el nombre de host y el puerto generalmente son consistentes, puede haber raras ocasiones en las que cambien. Es recomendable no asumir que son fijos permanentemente. También puedes configurar la redirección de puertos personalizada dentro de tu servicio.
+Aunque el nombre de host y el puerto generalmente son consistentes, puede haber raras instancias en las que cambien. Es recomendable no asumir que son fijos permanentemente. También puedes configurar un reenvío de puertos personalizado dentro de tu servicio.
+
+## Configuración de puertos
+
+### Servicio de Git
+
+El servicio de Git solo permite 1 puerto, que es el puerto que definiste en el Dockerfile o `8080` si no lo especificas o no estás desplegando con Dockerfile. **No se recomienda** escribir `8080` directamente en tu código, ya que el puerto podría cambiar en el futuro. En su lugar, debes usar la variable de entorno `$PORT`.
+
+Algunos ejemplos de código que utilizan la variable de entorno `$PORT`:
+
+```js filename=server.js
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+```
+
+```go filename=main.go
+package main
+
+import (
+    "fmt"
+    "net/http"
+    "os"
+)
+
+func main() {
+    port := os.Getenv("PORT")
+    if port == "" {
+        port = "8080"
+    }
+
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprintf(w, "Hello, World!")
+    })
+
+    http.ListenAndServe(":"+port, nil)
+}
+```
+
+### Servicios de Docker
+
+Puedes configurar los puertos durante [la configuración del servicio Docker](/deploy/customize-prebuilt). Consulta la sección "Puertos" en la documentación de configuración de Docker para más detalles.

@@ -75,4 +75,47 @@ For non-HTTP services, you can access them via the assigned hostname and port, c
 
 ![Assigned hostname and port](/networking/public/assigned-hostname-and-port.webp)
 
-Such the port can be defined during [the configuration of Docker service](/deploy/customize-prebuilt). While the hostname and port are generally consistent, there may be rare instances where they change. It's advisable not to assume they are permanently fixed. You can also configure custom port forwarding within your service.
+While the hostname and port are generally consistent, there may be rare instances where they change. It's advisable not to assume they are permanently fixed. You can also configure custom port forwarding within your service.
+
+## Port configuration
+
+### Git service
+
+Git service only allows 1 port, which is the port you defined in the Dockerfile or `8080` if you does not specify it or are not deploying with Dockerfile. It is **not recommended** to write `8080` directly in your code, as the port may change in the future. Instead, you should use the `$PORT` environment variable.
+
+Some code examples of using the `$PORT` environment variable:
+
+```js filename=server.js
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+```
+
+```go filename=main.go
+package main
+
+import (
+    "fmt"
+    "net/http"
+    "os"
+)
+
+func main() {
+    port := os.Getenv("PORT")
+    if port == "" {
+        port = "8080"
+    }
+
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprintf(w, "Hello, World!")
+    })
+
+    http.ListenAndServe(":"+port, nil)
+}
+```
+
+### Docker services
+
+You can set up the ports during [the configuration of Docker service](/deploy/customize-prebuilt). Check the “Ports” section in the Docker configuration docs for details.
