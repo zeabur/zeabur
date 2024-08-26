@@ -1,0 +1,45 @@
+---
+title: Actualizar la referencia de imagen
+ogImageTitle: Actualizar la referencia de imagen
+ogImageSubtitle: Actualizar la referencia de imagen de un servicio Docker
+---
+
+# Actualizar la referencia de imagen del servicio Docker
+
+Zeabur te permite actualizar la referencia de imagen de un servicio después de que haya sido creado. Esto es útil cuando deseas actualizar la imagen de un servicio a una versión más reciente, una imagen diferente o cambiar tu servicio a otra imagen.
+
+<Callout type="info">
+    Solo el **servicio Docker** puede actualizar la referencia de imagen. Los servicios Git y Once no pueden cambiar la etiqueta de la imagen ya que no tienen una.
+</Callout>
+
+## Actualizar etiquetas
+
+La “Etiqueta” es la parte de la referencia de imagen que especifica la versión de la imagen. Por ejemplo, en la referencia de imagen `nginx:latest`, `latest` es la etiqueta. Puedes actualizar la etiqueta para cambiar a una versión diferente de la imagen.
+
+Abre la pestaña “Configuración” de tu servicio, y verás una sección llamada “Imagen del servicio”. Aquí puedes actualizar la referencia de imagen de tu servicio.
+
+![imagen del servicio](/deploy/update-image-reference/service-image.webp)
+
+Haz clic y modifica la parte de la etiqueta de la referencia de imagen (que es el segundo campo de entrada), y verás el botón **Guardar** que te permite aplicar tu nueva etiqueta.
+
+![actualizar etiqueta](/deploy/update-image-reference/update-tag.webp)
+
+Después de guardar los cambios, Zeabur reiniciará automáticamente tu servicio con la nueva referencia de imagen. Si no se puede obtener, Zeabur te indicará que modifiques la referencia de imagen nuevamente.
+
+![error de extracción](/deploy/update-image-reference/pull-failed.webp)
+
+## Actualizar el repositorio
+
+El “Repositorio” es la parte de la referencia de imagen que especifica el nombre de la imagen. Por ejemplo, en la referencia de imagen `nginx:latest`, `nginx` es el repositorio. Puedes actualizar el repositorio para cambiar a una imagen diferente.
+
+Abre la pestaña “Configuración” de tu servicio, y verás una sección llamada “Imagen del servicio”. Aquí puedes actualizar el repositorio de la imagen de tu servicio.
+
+![imagen del servicio](/deploy/update-image-reference/service-image.webp)
+
+Haz clic y modifica la parte del repositorio de la referencia de imagen (que es el primer campo de entrada), y verás el botón **Guardar** que te permite aplicar tu nuevo repositorio.
+
+![actualizar repositorio](/deploy/update-image-reference/update-repository.webp)
+
+Después de guardar los cambios, Zeabur reiniciará automáticamente tu servicio con la nueva referencia de imagen. Si no se puede obtener, Zeabur te indicará que modifiques la referencia de imagen nuevamente.
+
+![error de extracción](/deploy/update-image-reference/pull-failed.webp)
