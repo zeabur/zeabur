@@ -1,0 +1,121 @@
+---
+title: Public Networking
+ogImageTitle: Public Networking
+ogImageSubtitle: Expose your service to the Internet
+---
+
+## Public Networking
+
+"Public Networking" enables you to expose your service to the Internet.
+
+Zeabur offers two methods for accessing your service:
+
+- **HTTP Services:** Access your service using the domain name provided by Zeabur or your custom domain.
+- **Non-HTTP Services:** Access your service using the assigned hostname and port.
+
+## Binding Your Domains
+
+A **domain** is a unique identifier for your service, allowing it to be accessed from the Internet. For instance, the domain name of this website is `zeabur.com`.
+
+To bind a domain to your service, navigate to your service in the Zeabur Dashboard and expand the **Domains** tab. You'll have two options for creating a domain for your service.
+
+![Two options to bind a domain](/networking/public/two-buttons-to-bind-domain.webp)
+
+### Generate Domain
+
+The "**Generate Domain**" option allows you to create a domain name with the `zeabur.app` suffix, such as `your-service.zeabur.app`, provided it is available. This is the simplest way to make your service publicly accessible.
+
+![Binding a zeabur.app domain](/networking/public/binding-zeabur-app-domain.webp)
+
+Once your `zeabur.app` domain is set up, you can access your service using the domain name provided by Zeabur.
+
+![Bound zeabur.app domain](/networking/public/bound-zeabur-app-domain.webp)
+
+### Custom Domain
+
+To use your own domain name, select the "**Custom Domain**" option.
+
+First, enter your domain name in the input box and click the "Create Domain" button.
+
+![Binding a custom domain](/networking/public/binding-custom-domain.webp)
+
+After adding your domain name, you'll see the DNS information for your domain.
+
+![Setting DNS for your domain](/networking/public/custom-domain-setting-dns.webp)
+
+You'll need to manually configure the DNS records for your domain. For example, if you're using Cloudflare, you can add the required record in the "DNS" → "Record" section using the configuration provided by Zeabur. If you use a different DNS provider, refer to their documentation for instructions on adding a CNAME record.
+
+![Configuring DNS in Cloudflare](/networking/public/configure-dns-record-in-cloudflare.webp)
+
+Make sure to disable the Cloudflare proxy (orange cloud) for the CNAME record if you want to utilize our edge CDN.
+
+After configuring the DNS record, it may take a few minutes for the changes to propagate. Once complete, you can access your service using your custom domain.
+
+![Bound custom domain](/networking/public/bound-custom-domain.webp)
+
+## Setting Up Redirections
+
+To redirect your domain to another URL, use the "**Redirect to another domain**" feature. This will temporarily (307) redirect your domain to the specified target domain.
+
+![Binding custom domain for redirection](/networking/public/binding-custom-domain-for-redirect.webp)
+
+## Deleting Domains
+
+To delete a domain, click the trash bin icon next to the domain name.
+
+![Delete button](/networking/public/delete-button.webp)
+
+Then, enter your domain name in the input box and click the "Delete" button to confirm.
+
+![Deleting domain modal](/networking/public/deleting-domain-modal.webp)
+
+## Using the Assigned Hostname and Port
+
+For non-HTTP services, you can access them via the assigned hostname and port, commonly referred to as "port forwarding." For instance, if you have a Minecraft server running on port `25565`, it can be accessed using the assigned hostname and port, such as `hkg1.clusters.zeabur.com:34567`.
+
+![Assigned hostname and port](/networking/public/assigned-hostname-and-port.webp)
+
+While the hostname and port are generally consistent, there may be rare instances where they change. It's advisable not to assume they are permanently fixed. You can also configure custom port forwarding within your service.
+
+## Port configuration
+
+### Git service
+
+Git service only allows 1 port, which is the port you defined in the Dockerfile or `8080` if you does not specify it or are not deploying with Dockerfile. It is **not recommended** to write `8080` directly in your code, as the port may change in the future. Instead, you should use the `$PORT` environment variable.
+
+Some code examples of using the `$PORT` environment variable:
+
+```js filename="server.js"
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+```
+
+```go filename="main.go"
+package main
+
+import (
+    "fmt"
+    "net/http"
+    "os"
+)
+
+func main() {
+    port := os.Getenv("PORT")
+    if port == "" {
+        port = "8080"
+    }
+
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprintf(w, "Hello, World!")
+    })
+
+    http.ListenAndServe(":"+port, nil)
+}
+```
+
+### Docker services
+
+You can set up the ports during [the configuration of Docker service](/deploy/customize-prebuilt). Check the “Ports” section in the Docker configuration docs for details.

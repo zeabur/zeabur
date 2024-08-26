@@ -1,0 +1,26 @@
+---
+title: Red privada
+ogImageTitle: Red privada
+ogImageSubtitle: Una red que permite la conexión entre servicios
+---
+
+# Red privada
+
+La Red privada permite a los servicios utilizar un nombre de host fijo para conectarse a otro servicio en el mismo proyecto.
+
+## Encontrar el nombre de host
+
+Abre la sección de "Redes" del servicio para encontrar el nombre de host bajo "Privado".
+
+![encontrar nombre de host](/networking/private/find-hostname.webp)
+
+## Conectarse al servicio
+
+Utiliza el nombre de host mencionado anteriormente para conectarte a este servicio (en este ejemplo, PostgreSQL). Además, según [la documentación de PostgreSQL](/marketplace/postgresql), el puerto se inyecta en la variable de entorno `POSTGRES_PORT`. Por lo tanto, puedes completar tu información de conexión de la siguiente manera:
+
+- Nombre de host: El nombre de host que encontraste en el paso anterior; en este ejemplo, es `postgresql.zeabur.internal`.
+- Puerto: Recupera el valor de la variable de entorno `POSTGRES_PORT`, que [por defecto es 5432](https://github.com/zeabur/zeabur/blob/bd565389cf1868a917333d0f74003b4aad6ef0ce/prebuilts/postgresql.toml#L14).
+
+## Notas importantes
+
+- Cambiar el nombre del servicio **no** cambia el nombre de host.

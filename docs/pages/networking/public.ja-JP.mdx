@@ -1,0 +1,121 @@
+---
+title: パブリックネットワーキング
+ogImageTitle: パブリックネットワーキング
+ogImageSubtitle: サービスをインターネットに公開する
+---
+
+## パブリックネットワーキング
+
+「パブリックネットワーキング」では、サービスをインターネットに公開することができます。
+
+Zeabur は、サービスにアクセスするための 2 つの方法を提供しています：
+
+- **HTTP サービス**：Zeabur が提供するドメイン名またはカスタムドメイン名を使用してサービスにアクセスします。
+- **非 HTTP サービス**：割り当てられたホスト名とポートを使用してサービスにアクセスします。
+
+## ドメインのバインディング
+
+**ドメイン** は、サービスがインターネットからアクセス可能になるための一意の識別子です。たとえば、このウェブサイトのドメイン名は `zeabur.com` です。
+
+サービスにドメインをバインドするには、まず Zeabur ダッシュボードのサービスに移動し、**ドメイン** タブを展開します。サービスにドメインを作成するための2つのオプションが表示されます。
+
+![2つのドメインバインディングオプション](/networking/public/two-buttons-to-bind-domain.webp)
+
+### ドメインの生成
+
+「**ドメインの生成**」オプションでは、利用可能であれば `zeabur.app` サフィックス付きのドメイン名（例：`your-service.zeabur.app`）を作成できます。これは、サービスを公開するための最も簡単な方法です。
+
+![zeabur.app ドメインのバインディング](/networking/public/binding-zeabur-app-domain.webp)
+
+`zeabur.app` ドメインが設定されると、Zeabur が提供するドメイン名を使用してサービスにアクセスできます。
+
+![バインディングされた zeabur.app ドメイン](/networking/public/bound-zeabur-app-domain.webp)
+
+### カスタムドメイン
+
+自分のドメイン名を使用する場合は、「**カスタムドメイン**」オプションを選択します。
+
+まず、入力ボックスにドメイン名を入力し、「ドメインを作成」ボタンをクリックします。
+
+![カスタムドメインのバインディング](/networking/public/binding-custom-domain.webp)
+
+ドメイン名を追加すると、ドメインの DNS 情報が表示されます。
+
+![DNS 設定](/networking/public/custom-domain-setting-dns.webp)
+
+ドメインの DNS レコードを手動で設定する必要があります。たとえば、Cloudflare を使用している場合は、「DNS」→「レコード」セクションで、Zeabur が提供する設定を使用して必要なレコードを追加できます。別の DNS プロバイダを使用している場合は、CNAME レコードの追加手順については、そのプロバイダのドキュメントを参照してください。
+
+![Cloudflare での DNS 設定](/networking/public/configure-dns-record-in-cloudflare.webp)
+
+Cloudflare のプロキシ（オレンジの雲）を無効にすると、当社のエッジ CDN を利用できます。
+
+DNS レコードを設定した後、変更が反映されるまで数分かかる場合があります。完了すると、カスタムドメインを使用してサービスにアクセスできるようになります。
+
+![バインディングされたカスタムドメイン](/networking/public/bound-custom-domain.webp)
+
+## リダイレクトの設定
+
+ドメインを別の URL にリダイレクトするには、「**別のドメインにリダイレクト**」機能を使用します。これにより、ドメインが指定されたターゲットドメインに一時的に（307）リダイレクトされます。
+
+![リダイレクト用にカスタムドメインをバインド](/networking/public/binding-custom-domain-for-redirect.webp)
+
+## ドメインの削除
+
+ドメインを削除するには、ドメイン名の横にあるゴミ箱アイコンをクリックします。
+
+![削除ボタン](/networking/public/delete-button.webp)
+
+次に、入力ボックスにドメイン名を入力し、「削除」ボタンをクリックして確認します。
+
+![ドメイン削除の確認ダイアログ](/networking/public/deleting-domain-modal.webp)
+
+## 割り当てられたホスト名とポートの使用
+
+非 HTTP サービスの場合、割り当てられたホスト名とポート（ポートフォワーディングとも呼ばれます）を使用してアクセスできます。たとえば、ポート `25565` で実行されている Minecraft サーバーがある場合、`hkg1.clusters.zeabur.com:34567` のように割り当てられたホスト名とポートを使用してアクセスできます。
+
+![割り当てられたホスト名とポート](/networking/public/assigned-hostname-and-port.webp)
+
+ホスト名とポートは通常は固定されていますが、変更される可能性もあります。そのため、これらが永久に固定されていると仮定しないことをお勧めします。また、サービス内で独自のポートフォワーディングを設定することも可能です。
+
+## ポート設定
+
+### Git サービス
+
+Git サービスは 1 つのポートしかリッスンできません。それは Dockerfile に定義されているポートか、未定義の場合（または Dockerfile を使用しない場合）は `8080` です。ポート番号が将来変更される可能性を考慮して、コードに `8080` を直接記述することは**推奨されません**。代わりに、`$PORT` 環境変数を使用することをお勧めします。
+
+以下は、`$PORT` 環境変数を使用するコード例です：
+
+```js filename="server.js"
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+```
+
+```go filename="main.go"
+package main
+
+import (
+    "fmt"
+    "net/http"
+    "os"
+)
+
+func main() {
+    port := os.Getenv("PORT")
+    if port == "" {
+        port = "8080"
+    }
+
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprintf(w, "Hello, World!")
+    })
+
+    http.ListenAndServe(":"+port, nil)
+}
+```
+
+### Docker サービス
+
+[Docker サービスの設定](/deploy/customize-prebuilt) 時にポートを設定できます。詳細については、Docker サービス設定ドキュメントの「Ports」セクションを参照してください。
