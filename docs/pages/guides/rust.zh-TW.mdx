@@ -53,6 +53,8 @@ Zeabur 原則上支援所有類型的 Rust 應用程式——預設情況會自�
 4. 找到 Running `target/release/zeabur` 那一行，擷取最後的執行檔名稱 (zeabur) 即可
 5. 在 Service 名稱或 `ZBPACK_RUST_ENTRY` 填入 `zeabur`。
 
+設定的最終產物最後會被命名為 `/app/main`。
+
 ## 複製其他檔案
 
 假如你除了執行檔之外，還依賴程式碼庫的其他檔案。舉例來說：
@@ -115,14 +117,14 @@ ZBPACK_BUILD_COMMAND=sudo apt install sqlite3
 你可以使用 `ZBPACK_START_COMMAND` 覆蓋 Zeabur 預設指定的啟動命令，比如：
 
 ```
-ZBPACK_START_COMMAND="/app/server --debug"
+ZBPACK_START_COMMAND="/app/main --debug"
 ```
 
 也可以使用 `zbpack.json` 指定：
 
 ```json
 {
-  "start_command": "/app/server --debug"
+  "start_command": "/app/main --debug"
 }
 ```
 
