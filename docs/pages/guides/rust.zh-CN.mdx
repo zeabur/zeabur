@@ -53,6 +53,8 @@ Zeabur 原则上支持所有类型的 Rust 应用程序——默认情况下会�
 4. 找到 Running `target/release/zeabur` 那一行，提取最后的运行文件名称 (zeabur) 即可
 5. 在 Service 名称或 `ZBPACK_RUST_ENTRY` 填入 `zeabur`。
 
+設定的最终产物最后会被命名为 `/app/main`。
+
 ## 复制其他文件
 
 如果你除了运行文件之外，还依赖代码库的其他文件。举例来说：
@@ -99,14 +101,14 @@ graph LR
 你可以使用 `ZBPACK_BUILD_COMMAND` 指定 **编译前要运行的命令**，例如：
 
 ```
-ZBPACK_BUILD_COMMAND=sudo apt install sqlite3
+ZBPACK_BUILD_COMMAND=apt update && apt install -y sqlite3 && rm -rf /var/lib/apt/lists/*
 ```
 
 也可以使用 `zbpack.json` 指定：
 
 ```json
 {
-  "build_command": "sudo apt install sqlite3"
+  "build_command": "apt update && apt install -y sqlite3 && rm -rf /var/lib/apt/lists/*"
 }
 ```
 
@@ -115,14 +117,14 @@ ZBPACK_BUILD_COMMAND=sudo apt install sqlite3
 你可以使用 `ZBPACK_START_COMMAND` 覆盖 Zeabur 默认指定的启动命令，例如：
 
 ```
-ZBPACK_START_COMMAND="/app/server --debug"
+ZBPACK_START_COMMAND="/app/main --debug"
 ```
 
 也可以使用 `zbpack.json` 指定：
 
 ```json
 {
-  "start_command": "/app/server --debug"
+  "start_command": "/app/main --debug"
 }
 ```
 
@@ -131,14 +133,14 @@ ZBPACK_START_COMMAND="/app/server --debug"
 如果你需要在启动前安装一些依赖，可以使用 `ZBPACK_PRE_START_COMMAND` 指定要在启动前运行的命令：
 
 ```
-ZBPACK_PRE_START_COMMAND="sudo apt install sqlite3"
+ZBPACK_PRE_START_COMMAND="apt update && apt install -y sqlite3 && rm -rf /var/lib/apt/lists/*"
 ```
 
 也可以使用 `zbpack.json` 指定：
 
 ```json
 {
-  "pre_start_command": "sudo apt install sqlite3"
+  "pre_start_command": "apt update && apt install -y sqlite3 && rm -rf /var/lib/apt/lists/*"
 }
 ```
 
