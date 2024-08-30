@@ -79,6 +79,8 @@ Puedes especificar `rust.assets` en `zbpack.json`, enumerando las carpetas o arc
 }
 ```
 
+El artefacto final (punto de entrada) se llamará `/app/main`.
+
 ## Comandos personalizados de compilación y inicio
 
 Zeabur proporciona "comando de compilación", "comando de inicio" y "comando previo al inicio" en Rust, lo que te permite insertar las dependencias necesarias o escribir los archivos necesarios en varias etapas del proceso de compilación de tu proyecto en Rust.
@@ -98,14 +100,14 @@ graph LR
 Puedes usar `ZBPACK_BUILD_COMMAND` para especificar **comandos a ejecutar antes de compilar**, por ejemplo:
 
 ```
-ZBPACK_BUILD_COMMAND=sudo apt install sqlite3
+ZBPACK_BUILD_COMMAND=apt update && apt install -y sqlite3 && rm -rf /var/lib/apt/lists/*
 ```
 
 También puedes especificarlo en `zbpack.json`:
 
 ```json
 {
-  "build_command": "sudo apt install sqlite3"
+  "build_command": "apt update && apt install -y sqlite3 && rm -rf /var/lib/apt/lists/*"
 }
 ```
 
@@ -114,14 +116,14 @@ También puedes especificarlo en `zbpack.json`:
 Puedes usar `ZBPACK_START_COMMAND` para sobrescribir el comando de inicio predeterminado especificado por Zeabur, por ejemplo:
 
 ```
-ZBPACK_START_COMMAND="/app/server --debug"
+ZBPACK_START_COMMAND="/app/main --debug"
 ```
 
 También puedes especificarlo en `zbpack.json`:
 
 ```json
 {
-  "start_command": "/app/server --debug"
+  "start_command": "/app/main --debug"
 }
 ```
 
@@ -130,14 +132,14 @@ También puedes especificarlo en `zbpack.json`:
 Si necesitas instalar algunas dependencias antes de iniciar, puedes usar `ZBPACK_PRE_START_COMMAND` para especificar el comando a ejecutar antes de la ejecución:
 
 ```
-ZBPACK_PRE_START_COMMAND="sudo apt install sqlite3"
+ZBPACK_PRE_START_COMMAND="apt update && apt install -y sqlite3 && rm -rf /var/lib/apt/lists/*"
 ```
 
 También puedes especificarlo en `zbpack.json`:
 
 ```json
 {
-  "pre_start_command": "sudo apt install sqlite3"
+  "pre_start_command": "apt update && apt install -y sqlite3 && rm -rf /var/lib/apt/lists/*"
 }
 ```
 

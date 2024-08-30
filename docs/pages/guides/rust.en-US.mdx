@@ -52,6 +52,8 @@ The final artifact can be found in `target/release` of your project. To find the
 4. Find the line Running `target/release/zeabur`, extract the final executable name (zeabur).
 5. Fill in `zeabur` in the Service Name or `ZBPACK_RUST_ENTRY`.
 
+The final artifact (entry point) will be named `/app/main`.
+
 ## Copying Other Files
 
 If your project relies on other files in the codebase besides the executable. For example:
@@ -98,14 +100,14 @@ graph LR
 You can use `ZBPACK_BUILD_COMMAND` to specify **commands to run before compiling**, for example:
 
 ```
-ZBPACK_BUILD_COMMAND=sudo apt install sqlite3
+ZBPACK_BUILD_COMMAND=apt update && apt install -y sqlite3 && rm -rf /var/lib/apt/lists/*
 ```
 
 You can also specify this in `zbpack.json`:
 
 ```json
 {
-  "build_command": "sudo apt install sqlite3"
+  "build_command": "apt update && apt install -y sqlite3 && rm -rf /var/lib/apt/lists/*"
 }
 ```
 
@@ -114,14 +116,14 @@ You can also specify this in `zbpack.json`:
 You can use `ZBPACK_START_COMMAND` to override the default start command specified by Zeabur, for example:
 
 ```
-ZBPACK_START_COMMAND="/app/server --debug"
+ZBPACK_START_COMMAND="/app/main --debug"
 ```
 
 You can also specify this in `zbpack.json`:
 
 ```json
 {
-  "start_command": "/app/server --debug"
+  "start_command": "/app/main --debug"
 }
 ```
 
@@ -130,14 +132,14 @@ You can also specify this in `zbpack.json`:
 If you need to install some dependencies before starting, you can use `ZBPACK_PRE_START_COMMAND` to specify the command to run before execution:
 
 ```
-ZBPACK_PRE_START_COMMAND="sudo apt install sqlite3"
+ZBPACK_PRE_START_COMMAND="apt update && apt install -y sqlite3 && rm -rf /var/lib/apt/lists/*"
 ```
 
 You can also specify this in `zbpack.json`:
 
 ```json
 {
-  "pre_start_command": "sudo apt install sqlite3"
+  "pre_start_command": "apt update && apt install -y sqlite3 && rm -rf /var/lib/apt/lists/*"
 }
 ```
 
