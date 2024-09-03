@@ -2,7 +2,7 @@
 	"$id": "https://schema.zeabur.app/prebuilt.json",
 	"$schema": "http://json-schema.org/draft-07/schema",
 	"title": "Service Specification (ServiceSpec)",
-	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.3.2-20240730.",
+	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.4.0-20240903.",
 	"type": "object",
 	"properties": {
 		"id": {
@@ -158,6 +158,21 @@
 						"type": "string"
 					},
 					"default": []
+				},
+				"username": {
+					"title": "Registry username",
+					"description": "The username for the private registry. If not specified, the anonymous identity will be used.",
+					"type": "string"
+				},
+				"password": {
+					"title": "Registry password",
+					"description": "The password for the private registry. If not specified, the anonymous identity will be used.",
+					"type": "string"
+				},
+				"runAsUserID": {
+					"title": "Container user ID",
+					"description": "The user ID to run the container as. If runAsUserID is zero or null, we run it as the root user; otherwise, we run it as the specified user.",
+					"type": "integer"
 				}
 			},
 			"additionalProperties": false,
@@ -444,6 +459,11 @@
 					"title": "Content template",
 					"description": "The content template (default content) of this file.",
 					"type": "string"
+				},
+				"permission": {
+					"title": "File permission",
+					"description": "The permission of this file. It should be an octal number between 0o000 and 0o777. You must convert it to decimal. For example, 0o644 = 436, 0o755 = 493, etc. Refer to this article for what these permission flags mean: <https://docs.nersc.gov/filesystems/unix-file-permissions/#chmod>.",
+					"type": "integer"
 				}
 			},
 			"additionalProperties": false,
