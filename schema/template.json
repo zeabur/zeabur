@@ -163,6 +163,17 @@
                                 "$ref": "#/definitions/Picture",
                                 "nullable": true
                             },
+                            "dependencies": {
+                                "title": "Service dependencies",
+                                "description": "The dependencies of the service. It should be the name of the services that this service depends on.",
+                                "type": "array",
+                                "items": {
+                                    "title": "Dependency",
+                                    "description": "The name of the service that this service depends on.",
+                                    "type": "string"
+                                },
+                                "nullable": true
+                            },
                             "template": {
                                 "title": "Service type",
                                 "description": "The type of the service. It can be `GIT`, `PREBUILT` and `PREBUILT_V2`. `PREBUILT` is the alias of `PREBUILT_V2`.",
