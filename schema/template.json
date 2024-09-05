@@ -49,20 +49,23 @@
                 "description": {
                     "title": "Template description",
                     "description": "The description of the template.",
-                    "type": "string",
-                    "nullable": true
+                    "type": ["string", "null"]
                 },
                 "coverImage": {
                     "title": "Template cover image",
                     "description": "The cover image of the template. It should be a URL link to the image. It can be SVG, PNG, WebP…",
-                    "$ref": "#/definitions/Picture",
-                    "nullable": true
+                    "oneOf": [
+                        { "$ref": "#/definitions/Picture" },
+                        { "type": "null" }
+                    ]
                 },
                 "icon": {
                     "title": "Template icon",
                     "description": "The icon of the template. It should be a URL link to the image. It can be SVG, PNG, WebP…",
-                    "$ref": "#/definitions/Picture",
-                    "nullable": true
+                    "oneOf": [
+                        { "$ref": "#/definitions/Picture" },
+                        { "type": "null" }
+                    ]
                 },
                 "variables": {
                     "title": "Template fillable variables",
@@ -132,11 +135,10 @@
                 "readme": {
                     "title": "Template README",
                     "description": "The README content of the Template. It will be showed in the description section in Template. It should be in Markdown.",
-                    "type": "string",
+                    "type": ["string", "null"],
                     "examples": [
                         "# PostgreSQL\nPostgreSQL is a powerful, open source object-relational database system with over 35 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance."
-                    ],
-                    "nullable": true
+                    ]
                 },
                 "services": {
                     "title": "Template services",
@@ -160,19 +162,20 @@
                             "icon": {
                                 "title": "Service icon",
                                 "description": "The icon of the service. It should be a URL link to the image. It can be SVG, PNG, WebP…",
-                                "$ref": "#/definitions/Picture",
-                                "nullable": true
+                                "oneOf": [
+                                    { "$ref": "#/definitions/Picture" },
+                                    { "type": "null" }
+                                ]
                             },
                             "dependencies": {
                                 "title": "Service dependencies",
                                 "description": "The dependencies of the service. It should be the name of the services that this service depends on.",
-                                "type": "array",
+                                "type": ["array", "null"],
                                 "items": {
                                     "title": "Dependency",
                                     "description": "The name of the service that this service depends on.",
                                     "type": "string"
-                                },
-                                "nullable": true
+                                }
                             },
                             "template": {
                                 "title": "Service type",
@@ -242,6 +245,7 @@
                                     ]
                                 ],
                                 "oneOf": [
+                                    { "type": "null" },
                                     { "type": "string" },
                                     {
                                         "type": "array",
@@ -261,8 +265,7 @@
                                             }
                                         }
                                     }
-                                ],
-                                "nullable": true
+                                ]
                             }
                         },
                         "required": [
