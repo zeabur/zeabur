@@ -143,6 +143,30 @@ localization:
 
 `services` 是模板的服务规格，用户部署时会将规格内指定的服务都部署到 Zeabur 里面。服务的 `name` 是服务的名称。`icon` 是服务的图标。`template` 声明这个服务是 Docker image（`PREBUILT`）或者是从 Git 部署的服务 (`GIT`)。
 
+`dependencies` 声明这个服务的依赖服务。Zeabur 可以在等待指定服务启动完成后，再启动你的服务，避免重复重启服务的麻烦。比如说你的服务 `blog` 依赖于 `redis` 和 `postgresql`，你可以按下面的形式进行指定，这样 `blog` 就会等待 `redis` 和 `postgresql` 启动完成后再启动。注意 `redis` 和 `postgresql` 必须也是定义在模板中的服务。
+
+```yaml
+dependencies:
+    - redis
+    - postgresql
+```
+
+其启动关系为：
+
+```mermaid
+graph LR
+  subgraph 依赖关系
+    direction LR
+
+    redis
+    postgresql
+
+    redis -- 等待 2 秒启动 --> postgresql
+  end
+
+  依赖关系 -- 等待 2 个都启动完成 --> blog
+```
+
 `spec` 则是服务的服务规格（Service Specification），每个字段的详细信息可以参考 [Template 服务规格](https://json-schema.app/view/%23/%23%2Fproperties%2Fspec/%23%2Fproperties%2Fspec%2Fproperties%2Fservices%2Fitems/%23%2Fproperties%2Fspec%2Fproperties%2Fservices%2Fitems%2Fproperties%2Fspec?url=https%3A%2F%2Fschema.zeabur.app%2Ftemplate.json) 的说明文件。下面简要说明服务规格的重点：
 
 如果是 `PREBUILT` 服务，则需要指定 Docker image (`image`)，以及可选的运行命令和运行参数 (`command` 和 `args`)，如果 image 存在于私有镜像仓库中，还可以指定仓库的用户名与密码 (`username` 和 `password`)，另外如果 image 需要以无 root 权限运行，也可以指定模拟的用户 ID (`runAsUserID`)；如果是 `GIT` 服务，则需要指定 Git 仓库的类型（目前只支持 `GITHUB`）、仓库的代号（目前只支持 GitHub 的 [`repoID`](https://stackoverflow.com/a/47223479)），也可以选择性填写分支 (`branch`)。

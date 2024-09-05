@@ -145,6 +145,30 @@ In `spec`, `description` is a brief summary of the template, displayed under the
 
 `services` are the template's service specifications. Zeabur will deploy the specified services into the project during deployment. The service's `name` is its name, and `icon` is its icon. `template` declares whether the service is a Docker image (`PREBUILT`) or a service deployed from Git (`GIT`).
 
+`dependencies` declare the services this service depends on. Zeabur can wait for the specified services to start before starting your service, avoiding the trouble of repeatedly restarting services. For example, if your service `blog` depends on `redis` and `postgresql`, you can specify as below. Note that `redis` and `postgresql` must also be services defined in the template.
+
+```yaml
+dependencies:
+    - redis
+    - postgresql
+```
+
+The startup relationship is as follows:
+
+```mermaid
+graph LR
+  subgraph Dependencies
+    direction LR
+
+    redis
+    postgresql
+
+    redis -- Wait 2 seconds to start --> postgresql
+  end
+
+  Dependencies -- Wait for both to start --> blog
+```
+
 `spec` is the Service Specification. Detailed information on each field can be found in the [Template Service Specifications documentation](https://json-schema.app/view/%23/%23%2Fproperties%2Fspec/%23%2Fproperties%2Fspec%2Fproperties%2Fservices%2Fitems/%23%2Fproperties%2Fspec%2Fproperties%2Fservices%2Fitems%2Fproperties%2Fspec?url=https%3A%2F%2Fschema.zeabur.app%2Ftemplate.json). Below is a brief description of key points in the service specifications:
 
 For `PREBUILT` services, you need to specify the Docker image (`image`), and optionally the execution command and parameters (`command` and `args`). If your image is stored in a private registry, you may want to specify the `username` and `password` to pull. Additionally, you can specify the user ID (`runAsUserID`) to run your container in the non-root mode. For `GIT` services, you need to specify the Git repository type (currently only `GITHUB`), repository ID (currently only GitHub's [`repoID`](https://stackoverflow.com/a/47223479)), and optionally the branch (`branch`).

@@ -143,6 +143,30 @@ localization:
 
 `services` 是模板的服務規格，使用者部署時會將規格內指定的服務都部署到 Zeabur 裡面。服務的 `name` 是服務的名稱。`icon` 是服務的圖示。`template` 宣告這個服務是 Docker image（`PREBUILT`）或者是從 Git 部署的服務 (`GIT`)。
 
+`dependencies` 宣告這個服務的依賴服務。Zeabur 可以等待指定的服務啟動完成後，再啟動你的服務，避免重複重啟服務的麻煩。比如說你的服務 `blog` 依賴 `redis` 和 `postgresql`，你可以指定為下方的形式，這樣 `blog` 就會等待 `redis` 和 `postgresql` 啟動完成後再啟動。注意 `redis` 和 `postgresql` 必須也是定義在模板中的服務。
+
+```yaml
+dependencies:
+    - redis
+    - postgresql
+```
+
+其啟動關係為：
+
+```mermaid
+graph LR
+  subgraph 依賴關係
+    direction LR
+
+    redis
+    postgresql
+
+    redis -- 等待 2 秒啟動 --> postgresql
+  end
+
+  依賴關係 -- 等待 2 個都啟動完成 --> blog
+```
+
 `spec` 則是服務的服務規格（Service Specification），每個欄位的詳細資訊可以參考 [Template 服務規格
 ](https://json-schema.app/view/%23/%23%2Fproperties%2Fspec/%23%2Fproperties%2Fspec%2Fproperties%2Fservices%2Fitems/%23%2Fproperties%2Fspec%2Fproperties%2Fservices%2Fitems%2Fproperties%2Fspec?url=https%3A%2F%2Fschema.zeabur.app%2Ftemplate.json) 的說明文件。下面簡要說明服務規格的重點：
 
