@@ -145,7 +145,7 @@ localization:
 
 `spec` 则是服务的服务规格（Service Specification），每个字段的详细信息可以参考 [Template 服务规格](https://json-schema.app/view/%23/%23%2Fproperties%2Fspec/%23%2Fproperties%2Fspec%2Fproperties%2Fservices%2Fitems/%23%2Fproperties%2Fspec%2Fproperties%2Fservices%2Fitems%2Fproperties%2Fspec?url=https%3A%2F%2Fschema.zeabur.app%2Ftemplate.json) 的说明文件。下面简要说明服务规格的重点：
 
-如果是 `PREBUILT` 服务，则需要指定 Docker image (`image`)，以及选择性的运行命令和运行参数 (`command` 和 `args`)；如果是 `GIT` 服务，则需要指定 Git repository 的类型（目前只支持 `GITHUB`）、存储库的代号（目前只支持 GitHub 的 [`repoID`](https://stackoverflow.com/a/47223479)），亦可选择性填写分支 (`branch`)。
+如果是 `PREBUILT` 服务，则需要指定 Docker image (`image`)，以及可选的运行命令和运行参数 (`command` 和 `args`)，如果 image 存在于私有镜像仓库中，还可以指定仓库的用户名与密码 (`username` 和 `password`)，另外如果 image 需要以无 root 权限运行，也可以指定模拟的用户 ID (`runAsUserID`)；如果是 `GIT` 服务，则需要指定 Git 仓库的类型（目前只支持 `GITHUB`）、仓库的代号（目前只支持 GitHub 的 [`repoID`](https://stackoverflow.com/a/47223479)），也可以选择性填写分支 (`branch`)。
 
 `ports` 指定要对项目甚至外网公开的服务 Port。HTTP 服务可以用域名连接（如 `https://my-service.zeabur.app`），而 TCP 及 UDP 服务则可以使用 Zeabur 提供的转发链接 `xxx.clusters.zeabur.com:12345` 连接。比如 `type` 是 `HTTP`，`port` 是 `12345` 的 Port，代表着其他人可以通过 `https://my-service.zeabur.app` 连接到你监听在 `12345` port 的服务。
 
@@ -155,7 +155,7 @@ localization:
 
 `env` 则是服务的环境变量。`default` 是环境变量的默认值，`expose` 表示其他项目是否可以直接使用这个变量或使用 `${VARIABLE}` 语法取用这个变量，`readonly` 表示是否只读（服务建立后不能修改）。比如 `REDIS_CONNECTION_STRING` 的 `expose` 是 `true`，代表着其他服务可以通过 `REDIS_CONNECTION_STRING` 这个环境变量连接到 Redis，也可以使用 `${REDIS_CONNECTION_STRING}` 在其他环境变量引用这个连接字符串。
 
-`configs` 是服务的文件型设置，可以使用 `path` 和 `template` 指定默认的设置文件，方便用户进一步修改。以 MySQL 为例，你可以这样编写默认的 `configs`：
+`configs` 是服务的文件型配置，可以使用 `path` 和 `template` 指定默认的配置文件，方便用户进一步修改。也可以使用 `permission` 来指定文件的权限。以 MySQL 为例，你可以这样编写默认的 `configs`：
 
 ```yaml
 configs:
@@ -178,6 +178,16 @@ configs:
 
         !includedir /etc/mysql/conf.d/
 ```
+
+注意 `permission` 必须是一个十进制数字，由八进制的 [UNIX 文件权限](https://mason.gmu.edu/~montecin/UNIXpermiss.htm) 转换而来。以下是几个常见的权限对照表：
+
+| `permission` 值 | 权限原始值 | 读  | 写  | 执行 | 适合场景                       |
+| --------------- | ---------- | --- | --- | ---- | ------------------------------ |
+| 256             | 0400       | O   | X   | X    | 机密文件（如密码）             |
+| 420             | 0644       | O   | O   | X    | 普通可读写文件，默认权限        |
+| 493             | 0755       | O   | O   | O    | 可执行文件（如 bash 脚本）     |
+
+注意这里的“读、写、执行”均指容器用户的权限。详细的信息（组、everyone 等）可以参考上方网址。
 
 `domainKey` 标示模板定义中的域名 (`DOMAIN`) 变量应该绑定在哪个服务上面。就以上面的例子来说，`spec.variables` 有一个类型是 `DOMAIN` 的变量 `PUBLIC_DOMAIN`，而 RSSHub 服务规格下有一个 `domainKey` 指向 `PUBLIC_DOMAIN`，届时部署时将会把 `PUBLIC_DOMAIN` 设定的域名绑定到 RSSHub 服务上。
 
