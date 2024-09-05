@@ -162,20 +162,17 @@
 				"username": {
 					"title": "Registry username",
 					"description": "The username for the private registry. If not specified, the anonymous identity will be used.",
-					"type": "string",
-					"nullable": true
+					"type": ["string", "null"]
 				},
 				"password": {
 					"title": "Registry password",
 					"description": "The password for the private registry. If not specified, the anonymous identity will be used.",
-					"type": "string",
-					"nullable": true
+					"type": ["string", "null"]
 				},
 				"runAsUserID": {
 					"title": "Container user ID",
 					"description": "The user ID to run the container as. If runAsUserID is zero or null, we run it as the root user; otherwise, we run it as the specified user.",
-					"type": "integer",
-					"nullable": true
+					"type": ["integer", "null"]
 				}
 			},
 			"additionalProperties": false,
@@ -466,8 +463,7 @@
 				"permission": {
 					"title": "File permission",
 					"description": "The permission of this file. It should be an octal number between 0o000 and 0o777. You must convert it to decimal. For example, 0o644 = 436, 0o755 = 493, etc. Refer to this article for what these permission flags mean: <https://docs.nersc.gov/filesystems/unix-file-permissions/#chmod>.",
-					"type": "integer",
-					"nullable": true
+					"type": ["integer", "null"]
 				}
 			},
 			"additionalProperties": false,
