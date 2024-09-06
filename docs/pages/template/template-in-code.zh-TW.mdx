@@ -143,10 +143,34 @@ localization:
 
 `services` 是模板的服務規格，使用者部署時會將規格內指定的服務都部署到 Zeabur 裡面。服務的 `name` 是服務的名稱。`icon` 是服務的圖示。`template` 宣告這個服務是 Docker image（`PREBUILT`）或者是從 Git 部署的服務 (`GIT`)。
 
+`dependencies` 宣告這個服務的依賴服務。Zeabur 可以等待指定的服務啟動完成後，再啟動你的服務，避免重複重啟服務的麻煩。比如說你的服務 `blog` 依賴 `redis` 和 `postgresql`，你可以指定為下方的形式，這樣 `blog` 就會等待 `redis` 和 `postgresql` 啟動完成後再啟動。注意 `redis` 和 `postgresql` 必須也是定義在模板中的服務。
+
+```yaml
+dependencies:
+    - redis
+    - postgresql
+```
+
+其啟動關係為：
+
+```mermaid
+graph LR
+  subgraph 依賴關係
+    direction LR
+
+    redis
+    postgresql
+
+    redis -- 等待 2 秒啟動 --> postgresql
+  end
+
+  依賴關係 -- 等待 2 個都啟動完成 --> blog
+```
+
 `spec` 則是服務的服務規格（Service Specification），每個欄位的詳細資訊可以參考 [Template 服務規格
 ](https://json-schema.app/view/%23/%23%2Fproperties%2Fspec/%23%2Fproperties%2Fspec%2Fproperties%2Fservices%2Fitems/%23%2Fproperties%2Fspec%2Fproperties%2Fservices%2Fitems%2Fproperties%2Fspec?url=https%3A%2F%2Fschema.zeabur.app%2Ftemplate.json) 的說明文件。下面簡要說明服務規格的重點：
 
-如果是 `PREBUILT` 服務，則需要指定 Docker image (`image`)，以及選擇性的執行命令和執行參數 (`command` 和 `args`)；如果是 `GIT` 服務，則需要指定 Git repository 的類型（目前只支援 `GITHUB`）、儲存庫的代號（目前只支援 GitHub 的 [`repoID`](https://stackoverflow.com/a/47223479)），亦可選擇性填寫分支 (`branch`)。
+如果是 `PREBUILT` 服務，則需要指定 Docker image (`image`)，以及選擇性的執行命令和執行參數 (`command` 和 `args`)，如果 image 存在私有映像 registry 裡，則還可以指定 Registry 的使用者名稱與密碼 (`username` 和 `password`)，另外如果 image 需要以無 root 權限執行，也可以指定模擬的使用者 ID (`runAsUserID`)；如果是 `GIT` 服務，則需要指定 Git repository 的類型（目前只支援 `GITHUB`）、儲存庫的代號（目前只支援 GitHub 的 [`repoID`](https://stackoverflow.com/a/47223479)），亦可選擇性填寫分支 (`branch`)。
 
 `ports` 指定要對專案甚至外網公開的服務 Port。HTTP 服務可以用域名連線（如 `https://my-service.zeabur.app`），而 TCP 及 UDP 服務則可以使用 Zeabur 提供的轉送連結 `xxx.clusters.zeabur.com:12345` 連線。比如 `type` 是 `HTTP`，`port` 是 `12345` 的 Port，代表著其他人可以透過 `https://my-service.zeabur.app` 連線到你監聽在 `12345` port 的服務。
 
@@ -156,7 +180,7 @@ localization:
 
 `env` 則是服務的環境變數。`default` 是環境變數的預設值，`expose` 表示其他專案是否可以直接使用這個變數或使用 `${VARIABLE}` 語法取用這個變數，`readonly` 表示是否唯讀（服務建立後不能修改）。比如 `REDIS_CONNECTION_STRING` 的 `expose` 是 `true`，代表著其他服務可以透過 `REDIS_CONNECTION_STRING` 這個環境變數連線到 Redis，也可以使用 `${REDIS_CONNECTION_STRING}` 在其他環境變數引用這個連線字串。
 
-`configs` 是服務的檔案型設定，可以使用 `path` 和 `template` 指定預設的設定檔，方便使用者進一步修改。以 MySQL 為例，你可以這樣編寫預設的 `configs`：
+`configs` 是服務的檔案型設定，可以使用 `path` 和 `template` 指定預設的設定檔，方便使用者進一步修改。也可以使用 `permission` 來指定檔案的權限。以 MySQL 為例，你可以這樣編寫預設的 `configs`：
 
 ```yaml
 configs:
@@ -179,6 +203,16 @@ configs:
 
         !includedir /etc/mysql/conf.d/
 ```
+
+注意 `permission` 必須是一個十進位數字，由八進位的 [UNIX 檔案權限](https://mason.gmu.edu/~montecin/UNIXpermiss.htm) 轉換而來。以下是幾個常見的權限對照表：
+
+| `permission` 值 | 權限原始值 | 讀  | 寫  | 執行 | 適合情境                       |
+| --------------- | ---------- | --- | --- | ---- | ------------------------------ |
+| 256             | 0400       | O   | X   | X    | 機密檔案（如密碼）             |
+| 420             | 0644       | O   | O   | X    | 普通可以讀寫的檔案，為預設權限 |
+| 493             | 0755       | O   | O   | O    | 可執行檔案（如 bash scripts）  |
+
+注意這裡的「讀、寫、執行」均指容器使用者的權限。詳細的資訊（群組、everyone⋯⋯）可以參考上方網址。
 
 `domainKey` 標示模板定義中的網域 (`DOMAIN`) 變數應該綁在哪個服務上面。就以上面的例子來說，`spec.variables` 有一個類型是 `DOMAIN` 的變數 `PUBLIC_DOMAIN`，而 RSSHub 服務規格下有一個 `domainKey` 指向 `PUBLIC_DOMAIN`，屆時部署時將會把 `PUBLIC_DOMAIN` 設定的網域綁定到 RSSHub 服務上。
 
