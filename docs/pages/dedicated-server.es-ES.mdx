@@ -1,0 +1,50 @@
+---
+title: Servidor Dedicado
+ogImageTitle: Servidor Dedicado
+ogImageSubtitle: Despliega tus servicios en un servidor dedicado
+---
+
+# Servidor Dedicado
+
+Puedes usar Zeabur para desplegar fácilmente varios servicios en dos tipos diferentes de servidores: Clúster Compartido (Shared Cluster) y Servidor Dedicado (Dedicated Server). Estos dos tipos de recursos de computación son adecuados para diferentes escenarios de uso.
+
+## Clúster Compartido
+
+El Clúster Compartido es la forma más sencilla de desplegar servicios usando Zeabur porque no necesitas entender ningún conocimiento o configuración relacionada con servidores, y ni siquiera percibirás el concepto de un servidor. Solo necesitas elegir la ubicación del centro de datos adecuada.
+
+Cada Clúster Compartido es un clúster de computación compuesto por múltiples servidores gestionados por Zeabur. Un clúster contiene múltiples servidores, y los servicios que despliegues compartirán estos servidores con otros usuarios que elijan el mismo clúster.
+
+El Clúster Compartido es adecuado para desplegar servicios con demandas de hardware fluctuantes porque utiliza un modelo de pago por uso. Puede ahorrar costos cuando la demanda de hardware es baja y escalar automáticamente cuando la demanda es alta, evitando así la escasez de recursos de hardware.
+
+Actualmente, Zeabur tiene los siguientes Clústeres Compartidos:
+
+- California, EE.UU. (proporcionado por Amazon Web Services)
+- Frankfurt, Alemania (proporcionado por Amazon Web Services)
+- Tokio, Japón (proporcionado por Amazon Web Services)
+- Hong Kong (proporcionado por Amazon Web Services)
+- Taipéi (proporcionado por Google Cloud) — disponible solo para clientes empresariales
+- Singapur (proporcionado por DigitalOcean) — disponible solo para clientes empresariales
+- Nueva Jersey, EE.UU. (proporcionado por Vultr)
+
+## Servidor Dedicado
+
+Un Servidor Dedicado es un servidor que te pertenece solo a ti, por lo que tus servicios no se verán afectados por los servicios de otros usuarios, y los recursos de hardware son completamente tuyos, sin ser ocupados por otros usuarios.
+
+Los Servidores Dedicados son adecuados para los siguientes escenarios:
+
+- Usuarios que han alquilado o comprado servidores de otros proveedores de la nube pueden registrar sus servidores en Zeabur con un solo clic, evitando así la necesidad de pagar por el uso de recursos de hardware.
+- Usuarios con altos requisitos de estabilidad y seguridad del servicio, como entornos de producción para sistemas grandes.
+- Usuarios cuya principal área de acceso al servicio no tiene una región de Clúster Compartido pueden alquilar o construir un Servidor Dedicado que se ajuste a su ubicación geográfica.
+
+Puedes crear múltiples proyectos en un Servidor Dedicado, pero debes prestar atención al uso de los recursos de hardware de estos servicios para evitar que el impacto en el servicio debido a la insuficiencia de recursos de hardware en el Servidor Dedicado.
+
+## Registrar un Servidor Dedicado
+
+Puedes optar por comprar un Servidor Dedicado en Zeabur (en desarrollo) o registrar un servidor que ya hayas alquilado o comprado de otros proveedores de la nube.
+
+Si deseas saber cómo registrar tu servidor, puedes consultar [Registrar un Servidor Dedicado](./dedicated-server/register).
+
+## Limitaciones Conocidas
+
+- Actualmente, los Servidores Dedicados no admiten el despliegue sin servidor (Serverless).
+- Actualmente, los Servidores Dedicados no admiten el subdominio gratuito `.zeabur.app`. Necesitas tener tu propio dominio para vincularlo a los servicios desplegados en el Servidor Dedicado.

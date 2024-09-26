@@ -1,0 +1,32 @@
+---
+title: Registrar Servidor Dedicado
+ogImageTitle: Registrar Servidor Dedicado
+ogImageSubtitle: Registra un servidor en Zeabur
+---
+
+# Registrar Servidor Dedicado
+
+Este artículo explicará cómo registrar un [Servidor Dedicado](../dedicated-server) en Zeabur.
+
+## Requisitos Previos
+
+- Ya tienes un servidor, y este servidor debe tener al menos una dirección IP pública que pueda conectarse.
+- El servidor debe tener al menos 1 núcleo de CPU y al menos 2 GB de memoria.
+- El servidor debe tener los siguientes puertos abiertos: `22`, `80`, `443`, `4222`, `6443`, `30000-32767`.
+- El servidor debe permitir el inicio de sesión SSH, y el nombre de usuario debe ser `root`.
+- El servidor debe permitir que el usuario `root` inicie sesión utilizando una contraseña o una clave SSH.
+
+## Pasos de Registro
+
+1. Después de iniciar sesión en Zeabur, haz clic en "Mis Servidores" en la barra de navegación superior o en la parte superior de la página de la lista de proyectos, o visita directamente [https://dash.zeabur.com/servers](https://dash.zeabur.com/servers).
+2. Haz clic en el botón "Crear" en la esquina superior derecha de la página.
+3. Ingresa la dirección IP del servidor y el puerto SSH (el valor predeterminado es `22`).
+4. Elige el método para que el usuario `root` inicie sesión a través de SSH: contraseña o clave SSH.
+5. Si eliges contraseña, ingresa la contraseña a continuación; si eliges clave SSH, ingresa la clave SSH a continuación.
+6. Haz clic en el botón "Agregar Servidor" y espera a que se complete el registro del servidor (este proceso tarda unos 30 segundos).
+7. Después de un registro exitoso, verás el servidor recién registrado en la lista de servidores.
+8. Espera aproximadamente un minuto hasta que el estado muestre "En línea" y el uso de CPU y memoria se pueda mostrar normalmente.
+
+## Fallo de Registro
+
+Si encuentras un fallo de registro, infórmanos en el [servidor de Discord](https://zeabur.com/dc).
