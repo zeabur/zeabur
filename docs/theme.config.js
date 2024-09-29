@@ -1,4 +1,8 @@
-import { Callout, useConfig } from 'nextra-theme-docs'
+//@ts-check
+
+import React from 'react';
+import { Callout } from 'nextra/components'
+import { useConfig } from 'nextra-theme-docs'
 import { useRouter } from 'next/router'
 import WorkingInProgress from './components/WorkingInProgress'
 import CreateProject from './components/CreateProject'
