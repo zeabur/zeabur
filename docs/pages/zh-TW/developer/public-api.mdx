@@ -4,7 +4,7 @@ ogImageTitle: 開放 API - Zeabur
 ogImageSubtitle: 使用 Zeabur 開放 API
 ---
 
-import { Callout } from 'nextra-theme-docs';
+import { Callout } from 'nextra/components';
 
 # 開放 API
 
@@ -49,7 +49,7 @@ curl --request POST \
 然後你需要把你的程式碼壓縮成 zip 文件並傳送給 API。
 
 ```bash
-curl --request POST \ 
+curl --request POST \
   --url https://gateway.zeabur.com/projects/{PROJECT_ID}/services/{SERVICE_ID}/deploy \
   --header 'Authorization: Bearer {YOUR_API_TOKEN}' \
   --data '{"code": {YOUR_CODE_AS_ZIP_FILE}, "environment": {ENVIRONMENT_ID}}'
@@ -67,6 +67,6 @@ curl --request POST \
 
 <Callout>
   開放 API 的 Schema 和文檔仍在開發中。我們會盡快更新這個頁面。
-  
+
   如果你想現在就能夠開始使用開放 API，你可以加入我們的 [Discord 伺服器](https://discord.gg/yrnVvTCM7g) 尋求幫助。
 </Callout>

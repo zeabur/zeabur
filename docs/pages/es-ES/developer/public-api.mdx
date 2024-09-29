@@ -4,7 +4,7 @@ ogImageTitle: Public API - Zeabur
 ogImageSubtitle: Use Zeabur API to power your applications
 ---
 
-import { Callout } from 'nextra-theme-docs';
+import { Callout } from 'nextra/components';
 
 <WorkingInProgress />
 
@@ -51,7 +51,7 @@ To deploy codes on Zeabur, you will need a project ID, service ID, and environme
 Then you will need to zip your code and send it to the API.
 
 ```bash
-curl --request POST \ 
+curl --request POST \
   --url https://gateway.zeabur.com/projects/{PROJECT_ID}/services/{SERVICE_ID}/deploy \
   --header 'Authorization: Bearer {YOUR_API_TOKEN}' \
   --data '{"code": {YOUR_CODE_AS_ZIP_FILE}, "environment": {ENVIRONMENT_ID}}'
