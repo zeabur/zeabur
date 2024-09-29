@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Documentation of Zeabur.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "start": "next start",
