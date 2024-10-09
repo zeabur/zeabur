@@ -35,7 +35,12 @@ export default withNextra({
         source: '/deploy/private-networking',
         destination: '/networking/private',
         permanent: true,
-      }
+      },
+      {
+        source: '/',
+        destination: '/en-US',
+        permanent: true,
+      },
     ]
   },
 })
