@@ -12,16 +12,17 @@
   },
   "author": "Zeabur",
   "dependencies": {
-    "next": "^14.2.13",
-    "nextra": "^3.0.1",
-    "nextra-theme-docs": "^3.0.1",
+    "next": "^14.2.15",
+    "nextra": "^3.0.7",
+    "nextra-theme-docs": "^3.0.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "sharp": "^0.33.5"
+    "sharp": "^0.33.5",
+    "source-map-support": "^0.5.21"
   },
   "devDependencies": {
-    "@types/node": "22.7.4",
-    "@types/react": "^18.3.10",
+    "@types/node": "22.7.5",
+    "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
     "prettier": "^3.3.3"
   },
