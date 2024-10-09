@@ -4,7 +4,7 @@ ogImageTitle: Deploy Nuxt App
 ogImageSubtitle: Deploy Nuxt App in Zeabur
 ---
 
-import { Tab, Tabs, Callout } from 'nextra/components'
+import { Tabs, Callout } from 'nextra/components'
 
 # Deploy Nuxt App
 
@@ -15,36 +15,36 @@ Deploy your Nuxt app in Zeabur.
 Open your terminal and run the following command to create a new Nuxt app.
 
 <Tabs items={['pnpm', 'npx']}>
-  <Tab>
+  <Tabs.Tab>
     ```bash copy
     pnpm dlx nuxi init <project-name>
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash copy
     npx nuxi init <project-name>
     ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Then, install the dependencies:
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
-  <Tab>
+  <Tabs.Tab>
     ```bash copy
     pnpm install --shamefully-hoist
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash copy
     npm install
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash copy
     yarn
     ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 <Callout type="info" emoji="ℹ️">

@@ -4,7 +4,7 @@ ogImageTitle: Nuxtアプリのデプロイ
 ogImageSubtitle: ZeaburでNuxtアプリをデプロイ
 ---
 
-import { Tab, Tabs, Callout } from 'nextra/components'
+import { Tabs, Callout } from 'nextra/components'
 
 # Nuxtアプリのデプロイ
 
@@ -15,36 +15,36 @@ ZeaburでNuxtアプリをデプロイしてください。
 端末を開いて、以下のコマンドを実行して新しいNuxtアプリを作成します。
 
 <Tabs items={['pnpm', 'npx']}>
-  <Tab>
+  <Tabs.Tab>
     ```bash copy
     pnpm dlx nuxi init <project-name>
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash copy
     npx nuxi init <project-name>
     ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 その後、依存関係をインストールします。
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
-  <Tab>
+  <Tabs.Tab>
     ```bash copy
     pnpm install --shamefully-hoist
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash copy
     npm install
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash copy
     yarn
     ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 <Callout type="info" emoji="ℹ️">

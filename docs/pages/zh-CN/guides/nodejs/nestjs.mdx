@@ -4,7 +4,7 @@ ogImageTitle: 部署 NestJS 应用
 ogImageSubtitle: 教你如何在 Zeabur 上部署 NestJS 应用
 ---
 
-import { Tab, Tabs, Callout } from 'nextra/components'
+import { Tabs, Callout } from 'nextra/components'
 
 # 部署 NestJS 项目
 
@@ -35,21 +35,21 @@ git clone https://github.com/zeabur/nestjs-template.git <your project name>
 接下来，你需要安装组件：
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
-  <Tab>
+  <Tabs.Tab>
     ```bash
     pnpm install
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     npm install
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     yarn
     ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ### 第二步: 设定环境变量
@@ -61,21 +61,21 @@ git clone https://github.com/zeabur/nestjs-template.git <your project name>
 在 NodeJS 中，我们常用 `.env` 来设定环境变量，而 NestJS 也有提供一个依赖来读取 `.env` 档案，所以你可以先安装它。
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
-  <Tab>
+  <Tabs.Tab>
     ```bash
     pnpm add @nestjs/config
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     npm install @nestjs/config
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     yarn add @nestjs/config
     ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 接着，你需要在 `src/app.module.ts` 中引入 `ConfigModule`，并在 `imports` 中加入 `ConfigModule.forRoot()`。

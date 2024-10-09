@@ -4,7 +4,7 @@ ogImageTitle: NestJSアプリのデプロイ
 ogImageSubtitle: ZeaburでNestJSアプリをデプロイ
 ---
 
-import { Tab, Tabs, Callout } from 'nextra/components'
+import { Tabs, Callout } from 'nextra/components'
 
 # NestJSアプリのデプロイ
 
@@ -35,21 +35,21 @@ git clone https://github.com/zeabur/nestjs-template.git <your project name>
 その後、依存関係をインストールします：
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
-  <Tab>
+  <Tabs.Tab>
     ```bash
     pnpm install
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     npm install
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     yarn
     ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ### ステップ2：環境変数の設定
@@ -63,21 +63,21 @@ Node.jsアプリケーションでは、各キーが特定の値を表すキー�
 NestJSでは、`@nestjs/config`というパッケージを利用して、環境変数を管理するのに役立ちます。
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
-  <Tab>
+  <Tabs.Tab>
     ```bash
     pnpm add @nestjs/config
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     npm install @nestjs/config
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     yarn add @nestjs/config
     ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 インストールプロセスが完了したら、`ConfigModule`を`src/app.module.ts`にインポートし、`.forRoot（）`静的メソッドを使用してその動作を制御できます。

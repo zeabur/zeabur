@@ -3,7 +3,7 @@ ogImageTitle: Deploy Svelte Kit
 ogImageSubtitle: How to deploy Svelte Kit to Zeabur
 ---
 
-import { Tab, Tabs } from 'nextra/components'
+import { Tabs } from 'nextra/components'
 
 # Deploy Svelte Kit
 
@@ -20,21 +20,21 @@ npm create svelte@latest
 Next, you need to install the dependencies:
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
-  <Tab>
+  <Tabs.Tab>
     ```bash
     pnpm install
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     npm install
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     yarn
     ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 After that, initialize a Git repository and deploy it to your GitHub.
@@ -44,21 +44,21 @@ After that, initialize a Git repository and deploy it to your GitHub.
 Next, you need to install `@zeabur/svelte-adapter`:
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
-  <Tab>
+  <Tabs.Tab>
     ```bash
     pnpm add -D @zeabur/svelte-adapter
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     npm install -D @zeabur/svelte-adapter
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     yarn add -D @zeabur/svelte-adapter
     ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Then, open `svelte.config.js` and change it to:

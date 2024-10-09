@@ -3,7 +3,7 @@ ogImageTitle: 部署 Svelte Kit 项目
 ogImageSubtitle: 教你如何在 Zeabur 上部署 Svelte Kit 项目
 ---
 
-import { Tab, Tabs } from 'nextra/components'
+import { Tabs } from 'nextra/components'
 
 # 部署 Svelte Kit 项目
 
@@ -20,21 +20,21 @@ npm create svelte@latest
 接下来，你需要安装依赖：
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
-  <Tab>
+  <Tabs.Tab>
     ```bash
     pnpm install
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     npm install
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     yarn
     ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 创建完成后，为其初始化一个 Git 仓库并部署到你的 GitHub 上。
@@ -44,21 +44,21 @@ npm create svelte@latest
 接下来，你需要安装 `@zeabur/svelte-adapter`：
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
-  <Tab>
+  <Tabs.Tab>
     ```bash
     pnpm add -D @zeabur/svelte-adapter
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     npm install -D @zeabur/svelte-adapter
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     yarn add -D @zeabur/svelte-adapter
     ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 然后，打开 `svelte.config.js`，并将其内容改为：

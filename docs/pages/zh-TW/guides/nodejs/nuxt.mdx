@@ -4,7 +4,7 @@ ogImageTitle: 部署 Nuxt 專案
 ogImageSubtitle: 教你如何在 Zeabur 上部署 Nuxt 專案
 ---
 
-import { Tab, Tabs, Callout } from 'nextra/components'
+import { Tabs, Callout } from 'nextra/components'
 
 # 部署 Nuxt 專案
 
@@ -15,36 +15,36 @@ import { Tab, Tabs, Callout } from 'nextra/components'
 打開終端機，輸入以下指令，並透過 `nuxi` 來建立 Nuxt 專案：
 
 <Tabs items={['pnpm', 'npx']}>
-  <Tab>
+  <Tabs.Tab>
     ```bash copy
     pnpm dlx nuxi init <project-name>
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash copy
     npx nuxi init <project-name>
     ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 再來你需要安裝套件，並在終端機輸入以下指令：
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
-  <Tab>
+  <Tabs.Tab>
     ```bash copy
     pnpm install --shamefully-hoist
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash copy
     npm install
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash copy
     yarn
     ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 <Callout type="info" emoji="ℹ️">

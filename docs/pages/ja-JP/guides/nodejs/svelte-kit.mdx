@@ -4,7 +4,7 @@ ogImageTitle: Svelte Kitのデプロイ
 ogImageSubtitle: Svelte KitのZeaburへのデプロイ方法
 ---
 
-import { Tab, Tabs } from 'nextra/components'
+import { Tabs } from 'nextra/components'
 
 # Svelte Kitのデプロイ
 
@@ -21,21 +21,21 @@ npm create svelte@latest
 次に、依存関係をインストールする必要があります：
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
-  <Tab>
+  <Tabs.Tab>
     ```bash
     pnpm install
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     npm install
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     yarn
     ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 その後、Gitリポジトリを初期化し、GitHubにデプロイします。
@@ -45,21 +45,21 @@ npm create svelte@latest
 次に、`@zeabur/svelte-adapter`をインストールする必要があります：
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
-  <Tab>
+  <Tabs.Tab>
     ```bash
     pnpm add -D @zeabur/svelte-adapter
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     npm install -D @zeabur/svelte-adapter
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     yarn add -D @zeabur/svelte-adapter
     ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 その後、`svelte.config.js`を開き、以下のように変更します：

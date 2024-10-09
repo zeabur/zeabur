@@ -4,7 +4,7 @@ ogImageTitle: Deploy NestJS App
 ogImageSubtitle: Deploy NestJS App in Zeabur
 ---
 
-import { Tab, Tabs, Callout } from 'nextra/components'
+import { Tabs, Callout } from 'nextra/components'
 
 # Deploy NestJS App
 
@@ -35,21 +35,21 @@ git clone https://github.com/zeabur/nestjs-template.git <your project name>
 Then, install the dependencies:
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
-  <Tab>
+  <Tabs.Tab>
     ```bash
     pnpm install
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     npm install
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     yarn
     ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ### Step 2: Setup environment variables
@@ -63,21 +63,21 @@ In Node.js applications, it's common to use `.env` files, holding key-value pair
 NestJS provides a package called `@nestjs/config` to help you manage your environment variables.
 
 <Tabs items={['pnpm', 'npm', 'yarn']}>
-  <Tab>
+  <Tabs.Tab>
     ```bash
     pnpm add @nestjs/config
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     npm install @nestjs/config
     ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash
     yarn add @nestjs/config
     ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Once the installation process is complete, You can import the `ConfigModule` into `src/app.module.ts` and control its behavior using the `.forRoot()` static method.
