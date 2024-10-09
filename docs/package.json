@@ -12,6 +12,8 @@
   },
   "author": "Zeabur",
   "dependencies": {
+    "@formatjs/intl-localematcher": "^0.5.4",
+    "negotiator": "^0.6.3",
     "next": "^14.2.15",
     "nextra": "^3.0.7",
     "nextra-theme-docs": "^3.0.7",

@@ -1,6 +1,7 @@
 //@ts-check
 
 import nextra from 'nextra';
+import i18n from './i18n-config.js';
 
 const withNextra = nextra({
   theme: 'nextra-theme-docs',
@@ -9,10 +10,7 @@ const withNextra = nextra({
 })
 
 export default withNextra({
-  i18n: {
-    locales: ['en-US', 'zh-TW', 'zh-CN', 'ja-JP', 'es-ES'],
-    defaultLocale: 'en-US',
-  },
+  i18n,
   basePath: '/docs',
   async redirects() {
     return [
@@ -34,11 +32,6 @@ export default withNextra({
       {
         source: '/deploy/private-networking',
         destination: '/networking/private',
-        permanent: true,
-      },
-      {
-        source: '/',
-        destination: '/en-US',
         permanent: true,
       },
     ]
