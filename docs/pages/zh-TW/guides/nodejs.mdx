@@ -1,0 +1,366 @@
+---
+title: Node.js
+ogImageTitle: 部署 Node.js 專案
+ogImageSubtitle: 在 Zeabur 部署 Node.js 專案
+---
+
+import { Callout } from 'nextra/components';
+
+# 部署 Node.js 專案
+
+Zeabur 支援眾多類型的 Node.js 專案：
+
+- 原生專案 (支援 NPM/Yarn/PNPM/Bun 等套件管理器)
+- 使用 [Vite](./nodejs/vite) 打包的專案
+- [Qwik](./nodejs/qwik)
+- [Next.js](./nodejs/nextjs)
+- [Remix](./nodejs/remix)
+- [Nuxt.js](./nodejs/nuxt)
+- [Umi](./nodejs/umi)
+- [Svelte (Kit)](./nodejs/svelte-kit)
+- [Nest.js](./nodejs/nestjs)
+- [Nue.js](./nodejs/nue)
+- [Express](./nodejs/express)
+- [Astro](./nodejs/astro)
+- [Waku](./nodejs/waku)
+- [Nue](./nodejs/nue)
+- Create React App
+- vue-cli
+- Hexo
+- Vitepress
+- Astro (Static, SSR)
+- Slidev
+- Docusaurus
+- Solid Start (Node, Static)
+
+## Monorepo 支援
+
+Zeabur 會自動辨識 [pnpm workspace](https://pnpm.io/workspaces)、[Yarn Workspace](https://yarnpkg.com/features/workspaces) 以及絕大多數基於這兩個 Monorepo 做法的工具鏈，如 Turborepo 和 Lerna 等。
+
+以 Turborepo 的 `basic` 模板為例，它的 `pnpm-workspace.yaml` 內容為：
+
+```yaml
+packages:
+  - "apps/*"
+  - "packages/*"
+```
+
+而 `apps` 下有 `docs` 及 `web` 兩個目錄。Zeabur 預設會挑選列在 workspace 套件清單中的第一個 Node.js 應用程式來部署，就以此例來說，Zeabur 會部署 `apps/docs` 這個應用程式。如果想要部署 `apps/web`，可以在專案的根目錄新增 `zbpack.json` 檔案，並加入以下內容：
+
+```json
+{
+    "app_dir": "apps/web"
+}
+```
+
+或者是使用 [環境變數](/deploy/variables) 進行設定：
+
+```env
+ZBPACK_APP_DIR=apps/web
+```
+
+這樣就會部署 `apps/web` 這個應用程式。
+
+如果你的應用程式確實在根目錄，但使用 `pnpm-workspace.yaml` 放置 React 元件、設計系統等元素，你可以使用環境變數 `ZBPACK_APP_DIR=/` 或在 `zbpack.json` 加入
+
+```json
+{
+    "app_dir": "/"
+}
+```
+
+讓 Zeabur 部署你放在根目錄的應用程式。
+
+<Callout type="info">
+    [Nx](https://nx.dev) 和 [Rush](https://rushjs.io) 等不以上述兩個作法為基礎的 Monorepo 方案尚未支援一鍵部署，可以先參考〈停用快取功能〉和〈更改編譯和啟動命令〉對 Monorepo 進行設定。
+</Callout>
+
+## 停用快取功能
+
+預設 Zeabur 會調換安裝流程，透過記錄安裝依賴的步驟，加速你往後 CI/CD 的速度。一般的 Node.js 專案應該不受影響，但假如你的專案在安裝依賴時需要用到專案中的其他檔案而導致專案編譯失敗，你可能得停用快取功能才能正常使用。
+
+在專案的根目錄新增 `zbpack.json` 檔案，並加入以下內容，即可停用這個功能。
+
+```json
+{
+    "cache_dependencies": false
+}
+```
+
+或者是設定 [環境變數](/deploy/variables)：
+
+```env
+ZBPACK_CACHE_DEPENDENCIES=false
+```
+
+## 更改編譯和啟動命令
+
+假如你的專案類型較為特殊（如使用自訂的 Monorepo 工具鏈），你可能會需要指定服務的編譯 (build) 和啟動 (start) 命令，比如將 `frontend` 服務的啟動命令改成 `pnpm run start:frontend`；把 `api` 服務的編譯命令改成 `pnpm run start:api`。
+
+這裡介紹兩個更改這個命令的方式。
+
+### 使用檔案修改
+
+在 `zbpack.json` 加入以下兩個設定項目：
+
+```json
+{
+    "build_command": "<自訂編譯命令>",
+    "start_command": "<自訂啟動命令>"
+}
+```
+
+預設 `zbpack.json` 的設定會套用到所有部署的服務。如果你想限定「服務名稱為 `api` 的使用某個命令；服務名稱為 `frontend` 的使用另一個命令」，則需要建立 `zbpack.[服務名稱].json` 的檔案：
+
+```json
+// zbpack.api.json
+{
+    "build_command": "pnpm run build:api",
+    "start_command": "pnpm run start:api"
+}
+```
+
+```json
+// zbpack.frontend.json
+{
+    "build_command": "pnpm run build:frontend",
+    "start_command": "pnpm run start:frontend"
+}
+```
+
+`zbpack.json` 的套用優先級是 `zbpack.[服務名稱].json` 大於 `zbpack.json`。
+
+### 使用環境變數修改
+
+你也可以使用 [環境變數](/deploy/variables) 來設定編譯和啟動命令：
+
+```env
+ZBPACK_BUILD_COMMAND=pnpm run build:api
+ZBPACK_START_COMMAND=pnpm run start:api
+```
+
+## 指定 Node.js 和包管理器版本
+
+### Node.js 版本
+
+預設情況下，Zeabur 會使用最新的 LTS Node.js 版本來建置你的項目。
+
+如果你想使用不同的版本，你可以在 `package.json` 中指定：
+
+```json
+{
+    "engines": {
+        "node": "18.1.0"
+    }
+}
+```
+
+### 套件管理器版本
+
+預設情況下，Zeabur 會使用 yarn 來安裝你的專案依賴。
+
+如果你想使用其他的套件管理器以及特定的版本，你可以在 `package.json` 中指定：
+
+
+```json
+{
+    "packageManager": "pnpm@8.0.0"
+}
+```
+
+## 網頁爬取
+
+### Playwright 支援
+
+如果你的 `package.json` 有宣告 `playwright-chromium`，Zeabur 會自動幫您準備好執行 Playwright 必要的環境。
+
+注意 Playwright [應以 **Headless** 模式執行](https://playwright.dev/docs/api/class-browsertype#browser-type-launch-option-headless)，通常預設就是如此。
+
+### Puppeteer 支援
+
+如果你的 `package.json` 有宣告 `puppeteer`，Zeabur 會自動幫您準備好執行 Puppeteer 必要的環境。
+
+注意 Puppeteer [應以 **Headless** 模式執行](https://pptr.dev/guides/headless-modes)，通常預設就是如此。
+
+## 以 Serverless 方式部署
+
+如果你的 Node.js 符合以下條件，那麼你可以在 Zeabur 使用 Serverless 方式部署：
+
+1. 專案本身使用了如 [Next.js](https://nextjs.org/)、[Nuxt.js](https://nuxtjs.org/)、[Remix](https://remix.run/) 等專為 Serverless 部署所設計的框架。
+2. 專案本身不使用上述框架，但服務本身符合 Serverless 的理念：每個請求的狀態彼此獨立，且可以在沒有請求的情況下自動休眠。
+
+### 啟用 serverless
+
+如果你的專案是使用 Next.js、Nuxt.js、Waku、Angular 和 Remix 撰寫的（[完整名單可以參考 zbpack 程式碼庫的 `getServerless` 函式](https://github.com/zeabur/zbpack/blob/main/internal/nodejs/plan.go)），
+Zeabur 會自動將專案部署成 serverless 形式。如果需要停用，可參考[〈啟用 Serverless〉](/deploy/serverless)一章。
+
+如果是其他框架撰寫而成的專案（或者是如下文，自行製作的 Serverless 格式），目前需要 opt-in。請參考
+[啟用 Serverless](/deploy/serverless) 頁面啟用 serverless 支援。如果測試上沒有問題，也歡迎送個
+Pull Request 到 [zbpack 程式碼庫](https://github.com/zeabur/zbpack)。
+
+### 把專案構建成 Serverless 格式
+
+如果你的專案使用了 Next.js、Nuxt.js、Remix 等框架，那麼你可以直接跳過這個步驟，因為 [zbpack](https://github.com/zeabur/zbpack) 會自動將他轉換成 Serverless 產物格式。
+
+如果你的專案不使用上述框架，那麼你需要自行把專案構建成 [Serverless 格式](../advanced/serverless-output-format)，這裡以一個最基本的 Express.js 應用程式為例：
+
+```js
+// app.js
+
+const express = require('express')
+const app = express()
+
+app.get('/', (req, res) => {
+    res.send('Hello World!')
+})
+
+module.exports = app
+```
+
+從上述示範中，可以看到 `app.js` 這個模組已經輸出了 `app` 這個物件，這是一個符合 Zeabur 的 Serverless 處理函數格式的物件，因此我們唯一要做的就是將他在構建階段輸出到 `.zeabur/output/functions` 中的 `index.func` 目錄下。
+
+為了實現這件事，我們可以在程式碼中加入以下腳本：
+
+```js
+// scripts/build.js
+
+const esbuild = require('esbuild');
+const fs = require('fs');
+
+// dynamic-required files
+const dynamicRequiredDirs = ['views']
+
+// static files
+const staticFileDirs = ['public']
+
+// Remove old output
+if (fs.existsSync('.zeabur/output')) {
+    console.info('Removing old .zeabur/output')
+    fs.rmSync('.zeabur/output', {recursive: true})
+}
+
+function getModuleEntries() {
+    function getModuleEntriesRecursive(dir) {
+        let entries = []
+        fs.readdirSync(dir).forEach(file => {
+            const path = `${dir}/${file}`
+            if (fs.statSync(path).isDirectory()) {
+                if(file === 'node_modules') return
+                entries = entries.concat(getModuleEntriesRecursive(path))
+            } else if (file.endsWith('.js')) {
+                entries.push(path)
+            }
+        })
+        return entries
+    }
+    return getModuleEntriesRecursive('.')
+}
+
+// build with esbuild
+try {
+    esbuild.build({
+        entryPoints: getModuleEntries(),
+        bundle: false,
+        minify: false,
+        outdir: '.zeabur/output/functions/index.func',
+        platform: 'node',
+        target: 'node20',
+        plugins: [{
+            name: 'make-all-packages-external',
+            setup(build) {
+                let filter = /^[^.\/]|^\.[^.\/]|^\.\.[^\/]/ // Must not start with "/" or "./" or "../"
+                build.onResolve({filter}, args => ({path: args.path, external: true}))
+            },
+        }],
+    }).then(res => {
+        if (res.errors.length > 0) {
+            console.error(res.errors)
+            process.exit(1)
+        }
+        console.info('Successfully built app.js into .zeabur/output/functions/index.func')
+        fs.copyFileSync('.zeabur/output/functions/index.func/app.js', '.zeabur/output/functions/index.func/index.js')
+        fs.rmSync('.zeabur/output/functions/index.func/app.js')
+    })
+} catch (error) {
+    console.error(error)
+}
+
+// copy node_modules into function output directory
+console.info('Copying node_modules into .zeabur/output/functions/index.func/node_modules')
+fs.cpSync('node_modules', '.zeabur/output/functions/index.func/node_modules', {recursive: true, verbatimSymlinks: true})
+
+// copy package.json into function output directory
+console.info('Copying package.json into .zeabur/output/functions/index.func')
+fs.cpSync('package.json', '.zeabur/output/functions/index.func/package.json')
+
+// copy dynamic-required files into function output directory, so they can be required during runtime
+dynamicRequiredDirs.forEach(dir => {
+    copyIfDirExists(dir, `.zeabur/output/functions/index.func/${dir}`)
+})
+
+// copy static files into function output directory, so they can be served by the web server directly
+staticFileDirs.forEach(dir => {
+    copyIfDirExists(dir, `.zeabur/output/static`)
+})
+
+function copyIfDirExists(src, dest) {
+    if (fs.statSync(src).isDirectory()) {
+        console.info(`Copying ${src} to ${dest}`)
+        fs.cp(src, dest, {recursive: true}, (err) => {
+            if (err) throw err;
+        });
+        return
+    }
+    console.warn(`${src} is not a directory`)
+}
+```
+
+這個腳本做的事情非常單純，他會使用 [esbuild](https://esbuild.github.io/) 構建你的專案，然後把所有 `.js` 檔案按照原有的相對路徑放入 `.zeabur/output/functions/index.func` 目錄下，並且把 `node_modules` 和 `package.json` 複製到 `.zeabur/output/functions/index.func` 目錄下，這樣就完成了專案的構建。
+
+特別注意到，我們在這個腳本中保留了兩個特殊的可設定欄位：
+
+```js
+// dynamic-required files
+const dynamicRequiredDirs = ['views']
+
+// static files
+const staticFileDirs = ['public']
+```
+
+這兩個欄位讓我們把除了 `.js` 以外的東西也一起放入產物內，其中 `dynamicRequiredDirs` 是一些在執行時期才會被 `require` 的檔案，比如 `views` 目錄下的模板檔案；`staticFileDirs` 則是一些靜態檔案，比如 `public` 目錄下的靜態資源，這些資源被放入 `.zeabur/output/static` 目錄下，讓他們可以直接被 Zeabur Edge Network 用更快的速度分發給全世界的使用者。
+
+加入這個腳本以後別忘了在專案中安裝 `esbuild`，然後在 `package.json` 的 `scripts` 中加入 `build` 指令：
+
+```json
+{
+    "scripts": {
+        "build": "node scripts/build.js"
+    }
+}
+```
+
+你可以在 [zeabur/expressjs-template](https://github.com/zeabur/expressjs-template) 找到完整的範例程式碼。也可以根據自己的需求修改 `scripts/build.js` 腳本。
+
+## 額外注意事項
+
+1.  監聽的 port 使用 `process.env.PORT`
+
+    例如：
+
+    ```js
+    const port = process.env.PORT || 3000
+    // 而非 const port = 3000
+    ```
+
+2.  避免使用 nodemon 作為 runtime，開發完後，換成一般的 node 指令
+
+    例如 package.json 內：
+
+    ```json
+    {
+        "scripts": {
+            "start": "node server.js"
+            // 而非 "start": "nodemon server.js"
+        }
+    }
+    ```

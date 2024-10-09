@@ -1,0 +1,90 @@
+---
+ogImageTitle: Deploy Vapor Project
+ogImageSubtitle: Deploy Vapor Project to Zeabur
+---
+
+import { Callout } from 'nextra/components';
+
+# Deploy Vapor Project
+
+[Vapor](https://vapor.codes) is a well-known Web framework in Swift ecosystem. With the help of Vapor, you can use Swift to develop a Web application based on Http.
+
+This article will introduce how to deploy your Vapor project to Zeabur.
+
+## Prerequisites
+
+Please make sure your computer is ready for Swift and Vapor development environment:
+
+
+```bash
+brew install vapor
+```
+
+## Create Vapor Project
+
+There are two ways to create Vapor projects:
+
+### Use Vapor Command Tool
+
+```bash
+vapor new <project-name>
+cd <project-name>
+vapor xcode
+```
+
+The project created by Vapor command has `Dockerfile` and `docker-compose.yml` by default. The good news is that you can deploy it directly on Zeabur without Dockerfile, so you can delete these two files directly:
+
+```bash
+rm Dockerfile docker-compose.yml
+```
+
+### Use Zeabur Template
+
+Open https://github.com/zeabur/vapor-template , click `Use this template` button, enter the project name, and then click `Create repository from template` button.
+
+```bash
+git clone <your-repository-url>
+cd <project-name>
+vapor xcode
+```
+
+## Development
+
+During development, you can run the project directly on your local machine:
+
+```bash
+vapor run
+```
+
+Next, modify the Swift code according to your needs.
+
+## Deployment
+
+First, make sure that all your changes have been synchronized to GitHub:
+
+```bash
+git add .
+git commit -m "your commit message"
+git push
+```
+
+Next, go to [Zeabur Console](https://dash.zeabur.com) and create a new project.
+
+Then, click the `Deploy New Service` button and select deploy from GitHub.
+
+<Callout>
+    If you are deploying a project from GitHub for the first time on Zeabur, you need to configure and install GitHub App first.
+    You can view more detailed guides [here](/deploy/github).
+</Callout>
+
+After you select the repository and branch, Zeabur will automatically start building your service.
+
+Zeabur will automatically detect that your service is built by Vapor, so you don't need to do any additional configuration. Your deployment will be completed in a few minutes.
+
+## Next
+
+After the deployment is completed, you may need to configure the domain for your Vapor website.
+
+Open the "Domain" tab of the service page, and then click "Generate Domain" or "Custom Domain".
+
+For more information on how to bind a domain to your service, please refer to [Domain Binding](/deploy/domain-binding).

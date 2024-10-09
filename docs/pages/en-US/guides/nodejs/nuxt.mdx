@@ -1,0 +1,65 @@
+---
+title: Nuxt
+ogImageTitle: Deploy Nuxt App
+ogImageSubtitle: Deploy Nuxt App in Zeabur
+---
+
+import { Tabs, Callout } from 'nextra/components'
+
+# Deploy Nuxt App
+
+Deploy your Nuxt app in Zeabur.
+
+### Step 1: Create Nuxt app (optional)
+
+Open your terminal and run the following command to create a new Nuxt app.
+
+<Tabs items={['pnpm', 'npx']}>
+  <Tabs.Tab>
+    ```bash copy
+    pnpm dlx nuxi init <project-name>
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    npx nuxi init <project-name>
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+Then, install the dependencies:
+
+<Tabs items={['pnpm', 'npm', 'yarn']}>
+  <Tabs.Tab>
+    ```bash copy
+    pnpm install --shamefully-hoist
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    npm install
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    yarn
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+<Callout type="info" emoji="ℹ️">
+  Because pnpm uses another way to manage dependencies, you need to use `--shamefully-hoist` flag to install dependencies.
+  If using pnpm, make sure to have `.npmrc` with `shamefully-hoist=true` inside it before deploying.
+</Callout>
+
+````.npmrc filename=".npmrc" copy
+shamefully-hoist=true
+````
+
+### Step 2: Deploy
+
+Click on **Add new service** button, then choose **Deploy your source code**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Search for your Nuxt App repository, click on import, your Nuxt App will start deploying.

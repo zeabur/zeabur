@@ -1,0 +1,38 @@
+---
+title: 備份服務
+ogImageTitle: 備份服務
+ogImageSubtitle: 在 Zeabur 上備份您的服務
+---
+import { Callout } from 'nextra/components'
+
+# 備份服務
+在生產環境和開發過程中，您可能需要建立服務的備份，以增強應用程式的穩健性和可靠性。
+我們為在 Zeabur 上部署的所有預建置服務提供了建立和復原備份的簡單方法。
+
+<Callout>
+    上文提到的 Prebuilt 服務屬於服務類別的子類別。Prebuilt 服務是有狀態的服務，不同於無狀態的`Git 服務`。
+</Callout>
+
+## 步驟 1：建立備份
+
+打開 [Zeabur Dashboard](https://dash.zeabur.com)，導航到您想要備份的服務頁面，打開**備份**頁籤，您將看到一個按鈕，用於為您的服務建立備份。
+
+點選備份按鈕，我們將自動為您的服務建立備份。此過程可能需要一些時間。
+
+![created](/deploy/backup/backup-created.png)
+
+<Callout>
+    我們僅支援在不暫停服務的情況下為資料庫建立備份，包括 MongoDB、MySQL、PostgreSQL 和 Redis。
+    對於其他服務，您需要先在服務設定中暫停服務，然後再建立備份。
+    備份建立完成後，您可以重新啟動服務。
+</Callout>
+
+## 步驟 2：下載備份
+
+備份完成後，您將看到一個成功的消息提醒。點選下載按鈕即可下載備份文件。
+
+![success](/deploy/backup/backup-success.png)
+
+下載文件後，您可以解壓縮並查看其內容。
+
+![files](/deploy/backup/backup-files.png)
