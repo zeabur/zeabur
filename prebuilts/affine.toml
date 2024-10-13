@@ -60,7 +60,7 @@ AFFiNE.ENV_MAP = {
     AFFINE_SERVER_HOST: 'host',
     AFFINE_SERVER_SUB_PATH: 'path',
     AFFINE_SERVER_HTTPS: ['https', 'boolean'],
-    DATABASE_URL: 'db.url',
+    DATABASE_URL: 'database.datasourceUrl',
     ENABLE_CAPTCHA: ['auth.captcha.enable', 'boolean'],
     CAPTCHA_TURNSTILE_SECRET: ['auth.captcha.turnstile.secret', 'string'],
     OAUTH_GOOGLE_ENABLED: ['auth.oauthProviders.google.enabled', 'boolean'],
