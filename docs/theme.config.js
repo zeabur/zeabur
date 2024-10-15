@@ -54,10 +54,7 @@ const config = {
   ),
   head: () => {
     const r = useRouter()
-    const p =
-      r.basePath +
-      (r.locale === 'en-US' ? '' : '/' + r.locale) +
-      r.asPath.replace('.' + r.locale, '')
+    const p = `${r.basePath}${r.pathname}`;
     const { frontMatter } = useConfig()
     const ogEndpoint = 'https://og.zeabur.com/api/og'
     const ogQueryString = `title=${frontMatter.ogImageTitle}&desc=${frontMatter.ogImageSubtitle}`
