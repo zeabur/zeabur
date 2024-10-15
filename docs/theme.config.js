@@ -1,5 +1,8 @@
-import { Callout, useConfig } from 'nextra-theme-docs'
-import { useRouter } from 'next/router'
+//@ts-check
+
+import React from 'react';
+import { useConfig } from 'nextra-theme-docs'
+import { useRouter } from 'nextra/hooks'
 import WorkingInProgress from './components/WorkingInProgress'
 import CreateProject from './components/CreateProject'
 import LogoBlack from './public/logo_b.svg'
@@ -11,22 +14,27 @@ function base64Encode(str) {
   return buffer.toString('base64')
 }
 
-export default {
+/**
+ * @type {import('nextra-theme-docs').DocsThemeConfig}
+ */
+const config = {
   project: {
     link: 'https://github.com/zeabur',
   },
   sidebar: {
     defaultMenuCollapseLevel: 1,
   },
-  primaryHue: { dark: 278, light: 265 },
+  color: {
+    hue: { dark: 278, light: 265 },
+  },
   docsRepositoryBase: 'https://github.com/zeabur/zeabur/tree/main/docs',
-  components: { WorkingInProgress, CreateProject, Callout },
+  components: { WorkingInProgress, CreateProject },
   i18n: [
-    { locale: 'en-US', text: 'English' },
-    { locale: 'zh-TW', text: '繁體中文' },
-    { locale: 'zh-CN', text: '简体中文' },
-    { locale: 'ja-JP', text: '日本語' },
-    { locale: 'es-ES', text: 'Español' },
+    { locale: 'en-US', name: 'English' },
+    { locale: 'zh-TW', name: '繁體中文' },
+    { locale: 'zh-CN', name: '简体中文' },
+    { locale: 'ja-JP', name: '日本語' },
+    { locale: 'es-ES', name: 'Español' },
   ],
   logo: (
     <>
@@ -44,17 +52,9 @@ export default {
       />
     </>
   ),
-  useNextSeoProps() {
-    return {
-      titleTemplate: '%s – Zeabur',
-    }
-  },
   head: () => {
     const r = useRouter()
-    const p =
-      r.basePath +
-      (r.locale === 'en-US' ? '' : '/' + r.locale) +
-      r.asPath.replace('.' + r.locale, '')
+    const p = `${r.basePath}${r.pathname}`;
     const { frontMatter } = useConfig()
     const ogEndpoint = 'https://og.zeabur.com/api/og'
     const ogQueryString = `title=${frontMatter.ogImageTitle}&desc=${frontMatter.ogImageSubtitle}`
@@ -118,7 +118,7 @@ export default {
     )
   },
   footer: {
-    text: (
+    component: (
       <span>
         {new Date().getFullYear()} ©{' '}
         <a href="https://zeabur.com" target="_blank">
@@ -129,3 +129,5 @@ export default {
     ),
   },
 }
+
+export default config

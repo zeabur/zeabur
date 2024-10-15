@@ -1,0 +1,116 @@
+---
+title: NestJS
+ogImageTitle: NestJSアプリのデプロイ
+ogImageSubtitle: ZeaburでNestJSアプリをデプロイ
+---
+
+import { Tabs, Callout } from 'nextra/components'
+
+# NestJSアプリのデプロイ
+
+NestJSアプリをZeaburにデプロイします。
+
+### ステップ1：NestJSアプリの作成（任意）
+
+NestJS CLIを使用して新しいアプリを作成できます。
+
+ターミナルを開いて、次のコマンドを実行します：
+
+```bash
+npm install -g @nestjs/cli
+```
+
+その後、新しいアプリを作成します：
+
+```bash
+nest new <your project name>
+```
+
+また、当社のGitHubリポジトリからスタータープロジェクトをクローンすることもできます。
+
+```bash
+git clone https://github.com/zeabur/nestjs-template.git <your project name>
+```
+
+その後、依存関係をインストールします：
+
+<Tabs items={['pnpm', 'npm', 'yarn']}>
+  <Tabs.Tab>
+    ```bash
+    pnpm install
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    npm install
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    yarn
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+### ステップ2：環境変数の設定
+
+<Callout type="info" emoji="ℹ️">
+  当社のGitHubリポジトリからスタータープロジェクトを使用している場合は、このステップをスキップできます。
+</Callout>
+
+Node.jsアプリケーションでは、各キーが特定の値を表すキーと値のペアを保持する`.env`ファイルを使用して、各環境を表すのは一般的です。
+
+NestJSでは、`@nestjs/config`というパッケージを利用して、環境変数を管理するのに役立ちます。
+
+<Tabs items={['pnpm', 'npm', 'yarn']}>
+  <Tabs.Tab>
+    ```bash
+    pnpm add @nestjs/config
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    npm install @nestjs/config
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    yarn add @nestjs/config
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+インストールプロセスが完了したら、`ConfigModule`を`src/app.module.ts`にインポートし、`.forRoot（）`静的メソッドを使用してその動作を制御できます。
+
+```typescript
+import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
+
+@Module({
+  imports: [ConfigModule.forRoot()],
+})
+export class AppModule {}
+```
+
+次に、`src/main.ts`でポートを設定できます。
+
+```typescript
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  await app.listen(process.env.PORT || 3000);
+}
+bootstrap().then(() =>
+  console.log(`Application is running on: ${process.env.PORT || 3000}`),
+);
+```
+
+### ステップ3：デプロイ
+
+**新しいサービスを追加**ボタンをクリックし、**ソースコードをデプロイ**を選択します。
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+NestJSアプリのリポジトリを検索し、インポートをクリックすると、NestJSアプリがデプロイされます。

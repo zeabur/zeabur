@@ -1,0 +1,59 @@
+---
+title: Waku
+ogImageTitle: 在 Zeabur 上部署 Waku
+ogImageSubtitle: 在 Zeabur 上部署 Waku
+---
+
+import { Callout } from 'nextra/components';
+
+# 在 Zeabur 上部署 Waku
+
+[Waku](https://waku.gg/) 是一个支持 React Server Components 的最小化 React 框架。
+
+Waku 在日语中的意思是 "框架"。Waku-Waku 意味着兴奋。
+
+本文将帮助你在 Zeabur 上部署 Waku 应用。
+
+## 步骤一：创建一个 Waku 项目
+
+### 方法一：使用 Waku CLI 创建项目
+
+你可以使用下面的命令创建一个 Waku 项目并跟随提示进行配置。
+
+```bash
+# npm
+npm create waku@latest
+# yarn
+yarn create waku
+# pnpm
+pnpm create waku
+```
+
+### 方法二：使用模板创建项目
+
+我们为你准备了一个模板来帮助你快速开始 Waku 的开发：[Waku 模板](https://github.com/zeabur/waku-template)
+
+你可以在 GitHub 页面上点击 `Use this template` 按钮来使用这个模板。
+
+## 步骤二：部署到 Zeabur
+
+前往 [Zeabur 控制台](https://dash.zeabur.com) 并创建一个新项目。
+
+然后，点击 `Deploy New Service` 按钮，选择从 GitHub 部署。
+
+<Callout>
+    如果你是第一次在 Zeabur 上从 GitHub 部署项目，你需要先配置并安装 GitHub 应用。
+    你可以在 [这里](/deploy/github) 查看更详细的指南。
+</Callout>
+
+当你选择好仓库和分支后，Zeabur 将会自动开始构建你的服务。
+
+Zeabur 会自动检测到你的服务是由 Waku 构建的，所以你不需要做任何额外的配置。你的部署将会在几分钟内完成。
+
+## 下一步
+
+部署完成后，你可能需要为你的 Waku 网站配置域名。
+
+打开服务页面的 "Domain" 标签页，然后点击 "Generate Domain" 或 "Custom Domain"。
+
+关于如何为你的服务绑定域名的更多信息，请参考 [绑定域名](/deploy/domain-binding)。

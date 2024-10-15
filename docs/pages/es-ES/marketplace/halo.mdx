@@ -1,0 +1,80 @@
+---
+title: Deploy Halo
+ogImageTitle: Deploy Halo
+ogImageSubtitle: Deploy Halo on Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+<WorkingInProgress />
+
+# Deploy Halo Service
+
+[Halo](https://halo.run/) is a powerful and easy-to-use open source website building tool, with rich themes and plugins to help you build the ideal site in your mind.
+
+This article will teach you how to deploy your own Halo service on Zeabur through the service market, and bind your own domain name.
+
+## Step 1: Create a project
+
+First, we need to create a project. Go to the [Projects](https://dash.zeabur.com/projects) page, and you will see a list of your projects. Click the "Create Project" button at the end of the list.
+
+## Step 2: Deploy PostgreSQL Service
+
+Halo service currently only supports PostgreSQL databases in Zeabur. Before creating a Halo service, you need to deploy a PostgreSQL service and create a database.
+
+Click the "Create Service" button and select "Marketplace". You will find PostgreSQL in the list.
+
+![Deploy PostgreSQL Service](/marketplace/halo/deploy-postgresql.en-US.png)
+
+After selecting PostgreSQL, you can give the service a custom name and click "Deploy".
+
+## Step 3: Create a database
+
+To run Halo, we need to create a database named `halo` in PostgreSQL.
+
+Please connect to your PostgreSQL service with any PostgreSQL client. In this article, we will use [psql](https://www.postgresql.org/docs/9.1/app-psql.html) to connect.
+
+![PostgreSQL connection information block](/marketplace/halo/postgre-connect.en-US.png)
+
+You can find the psql connection command or other connection information in the "Connection" block of the PostgreSQL service in the Zeabur console.
+
+For example：
+
+```bash
+psql postgresql://root:password@infra.zeabur.com:12345
+```
+
+Then, please enter the following command in psql to create the `halo` database:
+
+```sql
+CREATE DATABASE halo;
+```
+
+## Step 4: Deploy Halo Service
+
+In the Zeabur console, click the "Create Service" button and select "Marketplace". You will find Halo in the list.
+
+![Deploy Halo Service](/marketplace/halo/deploy-halo.en-US.png)
+
+After selecting Halo, you can give the service a custom name and click "Deploy".
+
+<Callout>
+It should be noted that because we have deployed the PostgreSQL service before deploying Halo, Zeabur will automatically help you inject PostgreSQL-related environment variables into Halo's service, so there is no need to manually configure database information.
+
+If you deploy Halo before deploying PostgreSQL, you need to restart Halo after deploying PostgreSQL to make Halo use the correct database connection information.
+
+</Callout>
+
+## Step 5: Bind a domain
+
+In the "Domain" block of the Halo service in the Zeabur console, you can bind a domain to it. This domain can be your own domain or a free domain provided by Zeabur.
+
+![Domain block of Halo service](/marketplace/halo/halo-domain.en-US.png)
+
+For more information about how to bind a domain to your service, please refer to [Bind a domain](/deploy/domain-binding).
+
+## Step 6: Log in and configure Halo
+
+After binding the domain, you can click the domain name to enter the setup page of Halo, and follow the prompts to complete the setup and use the Halo service.
+
+![Console of Halo](/marketplace/halo/halo-console.en-US.png)

@@ -1,0 +1,40 @@
+---
+title: Backup Service
+ogImageTitle: Backup Service
+ogImageSubtitle: Back Up Your Services on Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Backup Service
+
+In production environments and during development, you may need to create backups of your services to enhance the robustness and reliability of your applications.
+We provide a straightforward method for creating and recovering backups for all Prebuilt Services deployed on Zeabur.
+
+<Callout>
+    The previously mentioned Prebuilt Service, which belongs to the service category, is a subcategory of services. Prebuilt Service is a stateful service, unlike `Git Service`, which is stateless. Therefore, `Git Service` does not support backup functionality.
+</Callout>
+
+## Step 1: Create a backup
+
+Open the [Zeabur dashboard](https://dash.zeabur.com) and navigate to the service page that you want to back up and open the **Backup** tab, and you will see a button to create a backup for your service.
+
+Click on the Backup button, and we will automatically create a backup for your service. This process may take some time.
+
+![created](/deploy/backup/backup-created.png)
+
+<Callout>
+    We only support creating backups without suspending the service for databases, including MongoDB, MySQL, PostgreSQL and Redis.
+    For other services, you will need to suspend the service first in the service settings before creating a backup.
+    You can restart the service after the backup is created.
+</Callout>
+
+## Step 2: Download the Backup
+
+After the backup is created, you will see a **SUCCESS** message. Click on the download button to download the backup file.
+
+![success](/deploy/backup/backup-success.png)
+
+Once you have the downloaded file, you can unzip it and view its contents.
+
+![files](/deploy/backup/backup-files.png)
