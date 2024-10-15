@@ -12,11 +12,11 @@
   },
   "author": "Zeabur",
   "dependencies": {
-    "@formatjs/intl-localematcher": "^0.5.4",
+    "@formatjs/intl-localematcher": "^0.5.5",
     "negotiator": "^0.6.3",
     "next": "^14.2.15",
-    "nextra": "^3.0.7",
-    "nextra-theme-docs": "^3.0.7",
+    "nextra": "^3.0.11",
+    "nextra-theme-docs": "^3.0.11",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "sharp": "^0.33.5",
@@ -25,7 +25,7 @@
   "devDependencies": {
     "@types/node": "22.7.5",
     "@types/react": "^18.3.11",
-    "@types/react-dom": "^18.3.0",
+    "@types/react-dom": "^18.3.1",
     "prettier": "^3.3.3"
   },
   "prettier": {
