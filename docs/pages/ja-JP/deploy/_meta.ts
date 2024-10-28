@@ -1,6 +1,5 @@
 export default {
     "create-project": "プロジェクトを作成する",
-    "domain-binding": "ドメインバインディング",
     "root-directory": "ルートディレクトリ",
     "watch-paths": "監視パス",
     "dockerfile": "Dockerfile でデプロイ",
@@ -8,7 +7,6 @@ export default {
     "backup": "バックアップサービス",
     "customize-prebuilt": "カスタムプリビルト",
     "github": "GitHub との統合",
-    "private-networking": "プライベートネットワーキング",
     "special-variables": "特殊変数",
     "deploy-in-cli": "CLI でデプロイ",
     "config-edit": "設定ファイルを編集する",
