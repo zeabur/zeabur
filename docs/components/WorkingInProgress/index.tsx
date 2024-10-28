@@ -1,25 +1,22 @@
 import { useRouter } from 'nextra/hooks'
 
-// To make Nextra's custom MDX component style work, we have
-// to move what we want to render into a MDX file – which
-// made the codebase a bit messy :(
-import ja_JP from './ja_JP.mdx'
-import zh_TW from './zh_TW.mdx'
-import zh_CN from './zh_CN.mdx'
-import en_US from './en_US.mdx'
+import JaJP from './ja_JP.mdx'
+import ZhTW from './zh_TW.mdx'
+import ZhCN from './zh_CN.mdx'
+import EnUS from './en_US.mdx'
 
 export default function WorkingInProgress() {
   const router = useRouter()
 
   switch (router.locale) {
     case 'ja_JP':
-      return ja_JP({})
+      return <JaJP />
     case 'zh-TW':
-      return zh_TW({})
+      return <ZhTW />
     case 'zh-CN':
-      return zh_CN({})
+      return <ZhCN />
     case 'en-US':
     default:
-      return en_US({})
+      return <EnUS />
   }
 }

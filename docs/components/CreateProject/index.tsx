@@ -1,23 +1,23 @@
 import { useRouter } from 'nextra/hooks'
 
-import en_US from './en_US.mdx'
-import zh_CN from './zh_CN.mdx'
-import zh_TW from './zh_TW.mdx'
-import ja_JP from './ja_JP.mdx'
+import EnUS from './en_US.mdx'
+import ZhCN from './zh_CN.mdx'
+import ZhTW from './zh_TW.mdx'
+import JaJP from './ja_JP.mdx'
 
 export default function CreateProject() {
   const router = useRouter()
 
   switch (router.locale) {
     case 'en-US':
-      return en_US({})
+      return <EnUS />
     case 'zh-CN':
-      return zh_CN({})
+      return <ZhCN />
     case 'zh-TW':
-      return zh_TW({})
+      return <ZhTW />
     case 'ja-JP':
-      return ja_JP({})
+      return <JaJP />
     default:
-      return en_US({})
+      return <EnUS />
   }
 }
