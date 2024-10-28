@@ -1,0 +1,102 @@
+---
+title: Dockerfile 部署
+ogImageTitle: Dockerfile 部署
+ogImageSubtitle: 藉由 Dockerfile 部署到 Zeabur 上
+---
+
+import { Callout } from 'nextra/components'
+
+# Dockerfile 部署
+
+正常情況下你無需自行撰寫 `Dockerfile`，Zeabur 目前已針對各種主流框架提供了快速部署的方式，但如果你的專案不是使用這些框架，或是你想要自行定義部署的方式，你可以使用 `Dockerfile` 來部署。
+
+<Callout type="warning">
+  Zeabur 目前僅支援 `Dockerfile` 的部署方式，目前不提供 Docker Compose 的方式。
+</Callout>
+
+## 建立 Dockerfile
+
+在你的專案根目錄建立一個名為 `Dockerfile` 或 `dockerfile` 的檔案，並且在裡面撰寫你的部署方式，最後須確保你有暴露對應的 `PORT`。
+
+Zeabur 會自動偵測你的專案是否有 `Dockerfile`，如果有的話會以 docker 的方式來部署你的專案。
+
+<Callout type="info">
+  開始部署後即可在上方看到 docker 的圖示，代表你的專案已經以 docker 的方式來部署。
+</Callout>
+
+![docker-deploy](/deploy/dockerfile/docker-deploy.png)
+
+## 不使用 Dockerfile 部署
+
+如果你的專案有 Dockerfile，但你不希望在 Zeabur 上使用這個 Dockerfile（比如說你想使用 Zeabur 提供的 Serverless 功能），你可以在環境變數中設定 `ZBPACK_IGNORE_DOCKERFILE=true`，或在 `zbpack.json` 裡面加入：
+
+```json
+{
+  "ignore_dockerfile": true
+}
+```
+
+Zeabur 就會忽略你的 Dockerfile，而由 Zeabur 自動決定部署方式。
+
+## 環境變數
+
+如果你的 `Dockerfile` 需要使用到環境變數，你可以在該服務的頁面點選 **環境變數** 來新增，更多的設定方式請參考 [環境變數](/zh-TW/environment/variables)。
+
+![環境變數設定](/environment/add-variables.png)
+
+如果你的 `Dockerfile` 撰寫方式為一個階段 (stage)，或是你的環境變數只需在最後一個階段中使用，很好的你無需手動寫 `ENV`，Zeabur 會自動幫你加上。
+
+### ARG
+
+但如果你的 `Dockerfile` 撰寫方式為多個階段 ([multi-stage](https://docs.docker.com/build/building/multi-stage/))，並且需要在建置前就設定環境變數，你可以使用 `ARG` 來設定。
+
+以下我們以 nodejs 及 nginx 為例，撰寫一個 `Dockerfile` 來部署。
+
+```docker {7-8} copy
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+COPY . .
+
+## 這裡的 `BUILDTIME_ENV_EXAMPLE` 會自動在建置前被設定
+ARG BUILDTIME_ENV_EXAMPLE
+ENV BUILDTIME_ENV_EXAMPLE=${BUILDTIME_ENV_EXAMPLE}
+
+RUN npm install && \
+    npm run build
+
+FROM nginx:alpine
+
+COPY nginx.conf /etc/nginx/conf.d/configfile.template
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+ENV \
+    PORT=8080 \
+    HOST=0.0.0.0
+
+EXPOSE 8080
+
+CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+```
+
+## 製作 Monorepo 中針對特定服務的 Dockerfile
+
+如果你的 Monorepo 裡有不同專案想要分開部署，你可以建立 `Dockerfile.[服務名稱]` （或 `[服務名稱].Dockerfile`) 並透過服務名稱部署指定的 Dockerfile。
+
+以這個 case 來說，假如你想部署三個微服務，但都使用同一個 Git Repository，你可以這樣命名自己的 Dockerfile：
+
+- `Dockerfile.storage`（或 `storage.Dockerfile`）: 部署 Node.js 的 `storage` 微服務
+- `Dockerfile.discord`（或 `discord.Dockerfile`）: 部署 Node.js 的 `discord` 微服務
+- `Dockerfile.frontend`（或 `frontend.Dockerfile`）: 部署 Next.js 的 `frontend` 前端
+
+接著在 Zeabur 部署你的專案，並到「設定」→「服務名稱」中改成你想部署的服務名稱，比如 `storage`、`discord` 或 `frontend`：
+
+![specify-service-name](/deploy/dockerfile/specify-service-name.png)
+
+接著點選「Redeploy」重新部署專案，即可部署你想要的服務。你也可以與 [觸發路徑](./watch-paths) 搭配使用，只在修改相應檔案時才觸發部署。
+
+## Docker Compose
+
+Zeabur 目前僅支援 `Dockerfile` 的部署方式，目前不提供 Docker Compose 的方式。
+
+{/* converted with zhconvert.org | revision dict-a1f426e3-r1031 */}

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Documentation of Zeabur.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "start": "next start",
@@ -11,25 +12,25 @@
   },
   "author": "Zeabur",
   "dependencies": {
-    "next": "^14.2.5",
-    "nextra": "^2.13.4",
-    "nextra-theme-docs": "^2.13.4",
+    "@formatjs/intl-localematcher": "^0.5.6",
+    "negotiator": "^1.0.0",
+    "next": "^15.0.1",
+    "nextra": "^3.1.2",
+    "nextra-theme-docs": "^3.1.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "sharp": "^0.33.5"
+    "sharp": "^0.33.5",
+    "source-map-support": "^0.5.21"
   },
   "devDependencies": {
-    "@types/node": "22.4.1",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "prettier": "^3.3.3",
-    "typescript": "^5.5.4"
-  },
-  "resolutions": {
-    "@tanstack/virtual-core": "3.9.0"
+    "@types/node": "22.8.1",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "prettier": "^3.3.3"
   },
   "prettier": {
     "semi": false,
     "singleQuote": true
-  }
+  },
+  "packageManager": "pnpm@9.11.0+sha512.0a203ffaed5a3f63242cd064c8fb5892366c103e328079318f78062f24ea8c9d50bc6a47aa3567cabefd824d170e78fa2745ed1f16b132e16436146b7688f19b"
 }

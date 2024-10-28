@@ -1,0 +1,55 @@
+---
+title: 部署 Umami
+ogImageTitle: 部署 Umami
+ogImageSubtitle: 在 Zeabur 一键部署 Umami
+---
+
+import { Callout } from 'nextra/components'
+
+# 部署 Umami 服务
+
+[Umami](https://umami.is/) 是一个简单的分析工具，可以帮助你了解你的网站访客，同时也是最著名的 [Google Analytics](https://analytics.google.com/) 开源替代品。
+
+这篇文章将教你如何在 Zeabur 上通过服务市场轻松部署一个自己的 Umami 服务，并且绑定自己的域名，让你的其他网站能够用自己部署的 Umami 服务来分析访客流量。
+
+## 从模板部署 Umami
+
+由于 Umami 需要 PostgreSQL 作为数据库，因此无法直接从镜像部署。
+
+我们已经为您制作了一个模板，可以一键部署带有 PostgreSQL 的 Umami。
+
+[![在 Zeabur 上部署](https://zeabur.com/button.svg)](https://zeabur.com/templates/01NQCC)
+
+### 步骤一：打开 Umami 模板页面
+
+首先，访问 [Umami 的模板页面](https://zeabur.com/templates/01NQCC)。
+
+你可以看到模板已经配置了 PostgreSQL 服务，因此你无需做任何额外的配置。
+
+![Umami 模板页面](/marketplace/umami/template.png)
+
+### 步骤二：部署模板
+
+点击部署按钮，然后选择一个区域来部署你的服务。
+
+![选择区域](/marketplace/umami/region.png)
+
+选择后，你将自动重定向到项目页面，在那里你可以看到部署进度。
+
+![部署进度](/marketplace/umami/deployment.png)
+
+再等待几秒钟，你的 Umami 服务将成功部署并开始运行。
+
+### 步骤三：绑定域名
+
+部署完成后，你需要绑定一个域名以访问你的 n8n 服务。
+
+你可以按照[绑定域名的指南](/deploy/domain-binding)获取更多详细信息。
+
+### 步骤四：登入并设定 Umami
+
+完成绑定后，你可以点击域名进入 Umami 的登入页面，并使用预设的帐号 `admin` 及密码 `umami` 来登入。
+
+![Umami 登入页面](/marketplace/umami/screenshot.png)
+
+关于其他 Umami 的设定，请参阅 [Umami 官方文件](https://umami.is/docs)。

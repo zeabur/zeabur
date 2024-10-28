@@ -1,0 +1,103 @@
+---
+title: Astro
+ogImageTitle: ZeaburでAstroをデプロイする
+ogImageSubtitle: ZeaburでAstroをデプロイする
+---
+
+import { Callout } from 'nextra/components';
+
+# ZeaburでAstroをデプロイする
+
+[Astro](https://astro.build/) は、現代のウェブサイト構築ツールで、強力な開発者体験と軽量な出力を提供します。
+
+この記事では、ZeaburでAstroウェブサイトをデプロイする方法を案内します。
+
+## ステップ1：Astroプロジェクトを作成する
+
+以下のコマンドを使用してAstroプロジェクトを作成し、プロンプトに従って設定します。
+
+```bash
+npm create astro@latest
+```
+
+## ステップ2：`@zeabur/astro-adapter`パッケージをインストールする
+
+ZeaburはAstro用のアダプターパッケージを提供しており、以下のコマンドを使用してインストールできます。
+
+```bash
+pnpm i @zeabur/astro-adapter
+```
+
+インストール後、`astro.config.mjs`でアダプターを設定する必要があります。
+
+```javascript
+import zeabur from '@zeabur/astro-adapter/serverless';
+
+export default {
+  // ...
+  adapter: zeabur(),
+  output: 'server'
+  // ...
+};
+```
+
+これで、あなたのAstroプロジェクトはZeaburへのデプロイの準備が整いました。
+
+### コンテナ化方式でのデプロイ
+
+場合によっては、Astro プロジェクトに特定の要件があり、Serverless 方式でのデプロイが適していないことがあります。例えば、長時間実行される API リクエストに依存してサーバーサイドレンダリング（Server Side Rendering）を行う必要がある場合です。
+
+このような場合、Astro 公式の [`@astrojs/node`](https://docs.astro.build/en/guides/integrations-guide/node/) を使用して、Zeabur 上にコンテナ化方式でデプロイすることができます：
+
+```js
+import node from '@astrojs/node';
+
+export default {
+  // ...
+  adapter: node({ mode: 'standalone' }),
+  output: 'server'
+  // ...
+};
+```
+
+## ステップ3：Zeaburにデプロイする
+
+### 方法1：Zeabur CLIを使用する
+
+まず、[Zeabur CLIのデプロイ](/deploy/deploy-in-cli)ガイドに従ってZeabur CLIがインストールされていることを確認してください。
+
+次に、新しく初期化されたAstroプロジェクトで、バージョン管理にコミットされていないファイルをGitに追加します。
+
+```bash
+git add -A
+git commit -m "Initial commit"
+```
+
+次に、以下のコマンドを使用してサービスをデプロイします。
+
+```bash
+zeabur
+```
+
+### 方法2：Zeaburダッシュボードを使用する
+
+[Zeaburダッシュボード](https://dash.zeabur.com)に移動して新しいプロジェクトを作成します。
+
+次に、`Deploy New Service`ボタンをクリックして、GitHubからデプロイを選択します。
+
+<Callout>
+    Zeaburで初めてGitHubからプロジェクトをデプロイする場合は、GitHub Appを設定してインストールする必要があります。
+    詳細なガイドは[こちら](/deploy/github)で確認できます。
+</Callout>
+
+リポジトリとブランチを選択した後、Zeaburは自動的にサービスのビルドを開始します。
+
+Zeaburは自動的にサービスがAstroで構築されたことを検出するため、追加の設定は必要ありません。デプロイは数分で完了します。
+
+## ステップ4：ドメインをバインドする
+
+デプロイが完了したら、Astroウェブサイトにドメインを設定することが求められるかもしれません。
+
+サービスページの「ドメイン」タブを開き、「Generate Domain」または「Custom Domain」をクリックします。
+
+サービスにドメインをバインドする方法についての詳細は、[ドメインのバインド](/deploy/domain-binding)を参照してください。

@@ -1,0 +1,74 @@
+---
+title: Public API
+ogImageTitle: Public API - Zeabur
+ogImageSubtitle: Use Zeabur API to power your applications
+---
+
+import { Callout } from 'nextra/components';
+
+<WorkingInProgress />
+
+# Public API Reference
+
+Zeabur public API is built with GraphQL. It's the same API that powers our dashboard and CLI.
+
+## Endpoint
+
+You can access the Zeabur API via the following endpoint:
+
+```http
+https://gateway.zeabur.com/graphql
+```
+
+## Authentication
+
+To get started with the Zeabur API, you need to create an account and generate an API key. You can create one by visiting the [Developer Panel](https://dash.zeabur.com/account/developer).
+
+You can also check [this documentation](./use-api-key) for more information on how to generate an API key.
+
+```bash
+curl --request POST \
+  --url https://gateway.zeabur.com/graphql \
+  --header 'Authorization: Bearer {YOUR_API_TOKEN}' \
+  --header 'Content-Type: application/json' \
+  --data '{"query":"query { me { username } }"}'
+```
+
+## Support
+
+If you encounter any issues or have suggestions regarding the API, we encourage you to join our Discord server. There, you can directly interact with the engineers who are working on the API.
+
+Join our Discord server [here](https://discord.gg/yrnVvTCM7g).
+
+## Schema
+
+### Deploy Codes on Zeabur
+
+You can deploy your code on Zeabur with the deploy API without linking a GitHub repository. You can use this API to deploy your code from your local machine or any other source.
+
+To deploy codes on Zeabur, you will need a project ID, service ID, and environment ID. You can get these IDs from the dashboard or CLI or just create a new project and service through API.
+
+Then you will need to zip your code and send it to the API.
+
+```bash
+curl --request POST \
+  --url https://gateway.zeabur.com/projects/{PROJECT_ID}/services/{SERVICE_ID}/deploy \
+  --header 'Authorization: Bearer {YOUR_API_TOKEN}' \
+  --data '{"code": {YOUR_CODE_AS_ZIP_FILE}, "environment": {ENVIRONMENT_ID}}'
+```
+
+### Retrieve Projects
+
+```bash
+curl --request POST \
+  --url https://gateway.zeabur.com/graphql \
+  --header 'Authorization: Bearer {YOUR_API_TOKEN}' \
+  --header 'Content-Type: application/json' \
+  --data '{"query":"query { projects { _id name } }"}'
+```
+
+<Callout>
+  The public API schema and documentation is still working in progress. We will update this page as soon as possible.
+
+  If you want to start to use the API now, you can connect us in [our Discord server](https://discord.gg/yrnVvTCM7g) for help.
+</Callout>

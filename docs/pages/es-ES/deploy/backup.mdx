@@ -1,0 +1,39 @@
+---
+title: Servicio de Copia de Seguridad
+ogImageTitle: Servicio de Copia de Seguridad
+ogImageSubtitle: Haz Copias de Seguridad de tus Servicios en Zeabur
+---
+import { Callout } from 'nextra/components'
+
+# Servicio de Copia de Seguridad
+
+En entornos de producción y durante el desarrollo, es posible que necesites crear copias de seguridad de tus servicios para mejorar la robustez y la fiabilidad de tus aplicaciones.
+Proporcionamos un método sencillo para crear y recuperar copias de seguridad para todos los Servicios Preconstruidos desplegados en Zeabur.
+
+<Callout>
+    El mencionado Servicio Preconstruido, que pertenece a la categoría de servicios, es una subcategoría de servicios. Servicio Preconstruido es un servicio con estado, a diferencia del `Servicio Git`, que es sin estado. Por lo tanto, el `Servicio Git` no admite la funcionalidad de copia de seguridad.
+</Callout>
+
+## Paso 1: Crear una copia de seguridad
+
+Abre el [panel de control de Zeabur](https://dash.zeabur.com) y navega a la página del servicio que deseas respaldar y abre la pestaña **Backup**, donde verás un botón para crear una copia de seguridad de tu servicio.
+
+Haz clic en el botón de Copia de Seguridad, y automáticamente crearemos una copia de seguridad de tu servicio. Este proceso puede tardar algún tiempo.
+
+![created](/deploy/backup/backup-created.png)
+
+<Callout>
+    Solo admitimos la creación de copias de seguridad sin suspender el servicio para bases de datos, incluidas MongoDB, MySQL, PostgreSQL y Redis.
+    Para otros servicios, deberá suspender el servicio primero en la configuración del servicio antes de crear una copia de seguridad.
+    Puede reiniciar el servicio después de que se haya creado la copia de seguridad.
+</Callout>
+
+## Paso 2: Descargar la Copia de Seguridad
+
+Después de que se haya creado la copia de seguridad, verás un mensaje de **SUCCESS**. Haz clic en el botón de descarga para descargar el archivo de la copia de seguridad.
+
+![success](/deploy/backup/backup-success.png)
+
+Una vez que hayas descargado el archivo, puedes descomprimirlo y ver su contenido.
+
+![files](/deploy/backup/backup-files.png)

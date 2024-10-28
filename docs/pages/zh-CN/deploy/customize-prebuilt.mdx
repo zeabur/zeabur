@@ -1,0 +1,166 @@
+---
+title: 自定义 Prebuilt
+ogImageTitle: 自定义 Prebuilt
+ogImageSubtitle: 将 Docker image 部署到 Zeabur 上
+---
+
+import { Callout } from 'nextra/components'
+
+# 自定义 Prebuilt
+
+虽然 Zeabur 已经涵盖众多由社区提供的 Prebuilt Images 和模板，但你可能会需要部署自己的 Docker 映像、设置持久化存储、设置启动命令等。Zeabur 针对这个需求，提供了 Prebuilt 的自定义功能。
+
+<Callout>
+  Prebuilt 主要是针对单个服务的部署，〈模板〉则涵盖了一键部署多个服务 (Docker Compose) 的功能。
+</Callout>
+
+## 打开界面
+
+点击“Add Service”→“Prebuilt Images”→“Customize”打开自定义 Prebuilt 的页面。
+
+![打开自定义 Prebuilt 的页面](/deploy/customize-prebuilt/open-customize-page.webp)
+
+## 设置说明
+
+### Image
+
+![Image 设置说明](/deploy/customize-prebuilt/select-image.webp)
+
+“Image”为要拉取的 Docker image，通常就是紧随 `docker pull` 或 `docker run` 后面的 image tag，比如
+
+```bash
+docker pull mariadb      # tag 是 "mariadb"
+docker run mariadb:lts   # tag 是 "mariadb:lts"
+```
+
+或者是 Docker Compose 中的这个地方
+
+```yaml
+version: '3.9'
+services:
+  db:
+    image: postgres      # tag 是 "postgres"
+    # ...
+```
+
+设置完成后，即可接下去设置环境变量、Port⋯等等的 Prebuilt 启动设置。
+
+### Environment Variable
+
+![环境变量的设置示例](/deploy/customize-prebuilt/environment-variable.webp)
+
+“Environment Variable”，顾名思义就是传给服务的环境变量。不过除了单纯的环境变量设置外，Zeabur 也允许你将环境变量传给其他服务 (Expose)，甚至是设置“不能再次更改”(Readonly)，让你有更大的环境变量设置弹性。
+
+“Key”是环境变量的键，只能由英文字母、数字和底线组成，如 `MARIADB_USER` 或 `DB_1_HOST` 都是可以接受的。
+
+“Value”则是环境变量的值，里面可以使用 `${KEY}` 来在引用其他环境变量的 key。如上图中 `MARIADB_PASSWORD` 直接引用了 `MARIADB_ROOT_PASSWORD`，所以 `MARIADB_PASSWORD` 的值就会等于 `123456`；同理，假如有个环境变量的值是 `password=${MARIADB_PASSWORD}`，展开之后的结果就是 `password=123456`。`${KEY}` 这种引用格式 **会在服务启动时直接展开**，所以应用程序看到的会是已经展开完成的值，你不需要在应用层重新展开。
+
+“Expose”指把环境变量的键值同时套用到其他服务上。以上图为例，`MARIADB_USERNAME` 和 `MARIADB_PASSWORD` 都有勾选 Expose，所以同项目下的其他服务都可以看到 `MARIADB_USERNAME`、`MARIADB_PASSWORD` 这两个环境变量，当然也可以使用 `${KEY}` 引用它们。
+
+“Readonly”则代表“变量在 Prebuilt 创建后不能由用户修改”。以上图为例，`MARIADB_PASSWORD` 勾选了 Readonly，所以之后直接针对 `MARIADB_PASSWORD` 的修改都不会生效（不过修改 `MARIADB_ROOT_PASSWORD` 后，`MARIADB_PASSWORD` 的值依然会变化）。
+
+除了其他服务 Exposed 的变量以外，你也可以使用 Zeabur 预先定义好的特殊变量，比如使用 `${ZEABUR_WEB_URL}` 取回设置在 web port 的网址。
+
+如果你在参考 Docker image 的文件，通常环境变量在 `docker run` 之后的 `--env`（或 `-e`）参数中，如下示例所示。
+
+```bash
+docker run --detach --name some-mariadb --env MARIADB_USER=example-user --env MARIADB_PASSWORD=my_cool_secret --env MARIADB_DATABASE=example-database --env MARIADB_ROOT_PASSWORD=my-secret-pw  mariadb:latest
+
+# MARIADB_USER          = example-user
+# MARIADB_PASSWORD      = my_cool_secret
+# MARIADB_DATABASE      = example-database
+# MARIADB_ROOT_PASSWORD = my-secret-pw
+```
+
+如果是 Docker Compose，则是
+
+```yaml
+version: '3.9'
+services:
+  adminer:
+    image: adminer
+    restart: always
+    environment:
+      DEBUG: "true"   # (or) - DEBUG=true
+      # DEBUG = true
+```
+
+### Ports
+
+![Ports 的设置示例](/deploy/customize-prebuilt/ports.webp)
+
+“Ports”相当于防火墙的连入 (inbound) 规则，只有声明的 Ports 可以被其他服务或外网连接。
+
+“Port Name”只能由英文字母和连接号组成。“Port”则写上服务监听的 Port，如 MariaDB 就是 `3306`；Web 服务大部分都是 `8080`, `3000`, `80`, …。
+
+“Port Type”可以是 `HTTP` 或 `TCP`。外网的部分，`HTTP` 可以使用域名（如 `my-service.zeabur.app`）直连，同时 Zeabur 也会自动签署 TLS 证书；`TCP` 则可以使用 Zeabur 自动分配的转发主机名和 Port 连接（如 `reg.clusters.zeabur.com:12345`）。如果是服务之间，可以使用 [服务内网](/deploy/private-networking) 直连到服务，减少不必要的流量费用，此时 Port 直接填写你声明的 Port 即可（亦即 `mariadb.zeabur.internal:3306`、`backend.zeabur.internal:8080`）。
+
+如果你看的是 Docker image 的文件，通常环境变量在 `docker run` 之后的 `-p` 参数中，如下示例所示。
+
+```bash
+docker run -p 3306 mariadb:latest
+
+# Port Name = <Custom>; Port = 3306; Port Type = TCP
+# TCP 是因为 MariaDB 是使用基于 TCP 的自定义协议。
+```
+
+如果是 Docker Compose，则是
+
+```yaml
+version: '3.9'
+services:
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 80:8080
+      # Port Name = <Custom>; Port = 8080; Port Type = HTTP
+      # HTTP 是因为 adminer 是一个管理数据库的 PHP Web 界面。
+```
+
+### Volumes
+
+![Volumes 的设置示例](/deploy/customize-prebuilt/volumes.webp)
+
+“Volumes”是持久存储空间的挂载路径。
+
+默认情况下 Zeabur 在服务每次重新启动时，都会将服务里面的数据重置回 Image 的默认状态（又称 Stateless）。假如你需要在容器中长期存储数据，可以配置一个持久存储空间，并挂载在你想长期存储的目录下，这样服务无论重启还是更新，挂载的目录都不会变动——直到你删除服务或者是自己修改目录的内容。另外服务的“Backup”功能也是备份这个空间的数据。持久存储空间的收费方式可以参阅 [Zeabur 的 Pricing 页面](https://zeabur.com/pricing)。
+
+“Volume id”为存储空间的代号，只能输入英文字母、数字和连接号。“Path” 为存储空间的挂载路径，可以参考 Docker image 的 **Volume** 设置做配置。
+
+如果你看的是 Docker image 的文件，通常环境变量在 `docker run` 之后的 `-p` 参数中，如下示例所示。
+
+```bash
+docker run -v your-storage:/var/lib/mysql mariadb:latest
+
+# Volume ID = <Custom>; Path = /var/lib/mysql
+```
+
+如果是 Docker Compose，则是
+
+```yaml
+version: '3.9'
+services:
+  mariadb:
+    image: mariadb
+    volumes:
+      - your-storage:/var/lib/mysql
+      # Volume ID = <Custom>; Path = /var/lib/mysql
+```
+
+### Start Command
+
+![Start Command 的设置示例](/deploy/customize-prebuilt/start-command.webp)
+
+“Start Command”让你可以改掉 Docker image 默认使用的 Entrypoint 和参数。这部分比较进阶，如果你不太清楚意义，可以略过。
+
+从 GUI 创建的 Start Command 默认的 Command 都是 `/bin/sh`。如果你的 Command 不是 `/bin/sh`，可使用 Edit TOML 功能直接修改，或与 [客服](/community/help) 讨论更改方式。
+
+## 手动撰写 Prebuilt TOML
+
+虽然 GUI 已经提供了制作 Prebuilt 服务必要的众多参数，但你或许想要加入自定义的 icon、配置服务连接指引 (Instruction)、设置更多更细的项目⋯这时候你可以使用 **Edit TOML** 帮助你撰写功能更完善（也更为复杂的）Prebuilt TOML 文件。
+
+![Edit TOML 的打开方式](/deploy/customize-prebuilt/edit-toml.webp)
+
+每个字段的说明可以参考 [Prebuilt TOML 的 JSON schema 文件](https://json-schema.app/view/%23?url=https%3A%2F%2Fschema.zeabur.app%2Fprebuilt.json)，TOML 的撰写说明可以参阅这份 [TOML 格式文件](https://toml.io/en/v1.0.0)。如果有任何撰写上的疑问，欢迎与 [客服](/community/help) 询问。
+

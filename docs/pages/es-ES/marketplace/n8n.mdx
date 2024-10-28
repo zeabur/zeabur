@@ -1,0 +1,59 @@
+---
+title: Deploy n8n
+ogImageTitle: Deploy n8n
+ogImageSubtitle: Deploy n8n on Zeabur
+---
+
+# Deploy n8n
+
+<WorkingInProgress />
+
+[n8n](https://github.com/n8n-io/n8n) is an extendable workflow automation tool. With a fair-code distribution model, n8n will always have visible source code, be available to self-host, and allow you to add your own custom functions, logic and apps. n8n's node-based approach makes it highly versatile, enabling you to connect anything to everything.
+
+This article will show you how to deploy n8n with PostgreSQL on Zeabur.
+
+## Deploy n8n from template
+
+Since n8n requires PostgreSQL as a database, you can not deploy it directly from the image.
+
+We have made a template for you to deploy n8n with PostgreSQL in one click.
+
+[![Deploy on Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/W2H4RW)
+
+### Step 1: Open n8n template page
+
+First of all, visit [the template page](https://zeabur.com/templates/W2H4RW) for n8n.
+
+You can see that the template is already configured with PostgreSQL service, so you don't need to do anything.
+
+![Template Page](/marketplace/n8n/template.png)
+
+### Step 2: Deploy template
+
+Click on the Deploy button, and then select a region to deploy your services.
+
+![Select Region](/marketplace/n8n/region.png)
+
+After the selection, you will be automatically redirected to the project page where you can see the deployment progress.
+
+![Deployment](/marketplace/n8n/deployment.png)
+
+Wait a few more seconds, and your n8n service will be deployed successfully and start running.
+
+### Step 3: Bind domain
+
+You need to bind a domain to access your n8n service after the deployment.
+
+You can follow [the guide to bind a domain](/deploy/domain-binding) for more details.
+
+### Step 4: Setup Account
+
+After the deployment is complete, you can access your n8n service through the domain name you bound.
+
+You will see a page like this:
+
+![n8n Setup](/marketplace/n8n/setup.png)
+
+Follow the instructions on the page to set up your n8n account. After the setup is complete, you can use n8n normally.
+
+![finish](/marketplace/n8n/finish.png)

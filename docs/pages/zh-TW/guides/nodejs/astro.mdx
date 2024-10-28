@@ -1,0 +1,102 @@
+---
+title: Astro
+ogImageTitle: 在 Zeabur 上部署 Astro
+ogImageSubtitle: 在 Zeabur 上部署 Astro
+---
+import { Callout } from 'nextra/components';
+
+# 在 Zeabur 上部署 Astro
+
+[Astro](https://astro.build/) 是一個現代網站建置工具，擁有強大的開發者體驗與輕量級輸出。
+
+本文將幫助你在 Zeabur 上部署 Astro 網站。
+
+## 步驟一：建立一個 Astro 專案
+
+你可以使用下面的指令建立一個 Astro 專案並跟隨提示進行配置。
+
+```bash
+npm create astro@latest
+```
+
+## 步驟二：安裝 `@zeabur/astro-adapter` 套件
+
+Zeabur 已經為 Astro 提供了一個適配器套件，你可以使用下面的指令安裝。
+
+```bash
+pnpm i @zeabur/astro-adapter
+```
+
+安裝好了以後，你需要在你的 `astro.config.mjs` 中配置適配器。
+
+```javascript
+import zeabur from '@zeabur/astro-adapter/serverless';
+
+export default {
+  // ...
+  adapter: zeabur(),
+  output: 'server'
+  // ...
+};
+```
+
+就這樣，你的 Astro 專案已經準備好部署到 Zeabur 了。
+
+### 使用容器化的方式部署
+
+有時候，你的 Astro 專案可能一些特殊的需求而不適合使用 Serverless 的方式部署，例如他可能依賴於某個需要執行很久的 API 請求來進行伺服器端渲染（Server Side Rendering）。
+
+在這個情況下，你可以用 Astro 官方的 [`@astrojs/node`](https://docs.astro.build/en/guides/integrations-guide/node/) 來改用容器化的方式部署在 Zeabur 上：
+
+```js
+import node from '@astrojs/node';
+
+export default {
+  // ...
+  adapter: node({ mode: 'standalone' }),
+  output: 'server'
+  // ...
+};
+```
+
+## 步驟三：部署到 Zeabur
+
+### 方法一：使用 Zeabur CLI
+
+首先，確保你已經按照 [Zeabur CLI](/deploy/deploy-in-cli) 的指南安裝好了 Zeabur CLI。
+
+然後，在你剛初始化好的 Astro 專案中，將尚未提交到版本控制的檔案加入到 Git 中。
+
+```bash
+git add -A
+git commit -m "Initial commit"
+```
+
+接著，使用下面的指令部署你的服務。
+
+```bash
+zeabur
+```
+
+### 方法二：使用 Zeabur 控制台
+
+前往 [Zeabur 控制台](https://dash.zeabur.com) 並建立一個新專案。
+
+然後，點選 `Deploy New Service` 按鈕，選擇從 GitHub 部署。
+
+<Callout>
+    如果你是第一次在 Zeabur 上從 GitHub 部署專案，你需要先配置並安裝 GitHub App。
+    你可以在 [這裡](/deploy/github) 查看更詳細的指南。
+</Callout>
+
+當你選擇好儲存庫和分支後，Zeabur 將會自動開始建置你的服務。
+
+Zeabur 會自動檢測到你的服務是由 Astro 建置的，所以你不需要做任何額外的配置。你的部署將會在幾分鐘內完成。
+
+## 步驟四：綁定網域
+
+部署完成後，你可能需要為你的 Astro 網站配置網域。
+
+打開服務頁面的 "Domain" 分頁，然後點選 "Generate Domain" 或 "Custom Domain"。
+
+關於如何為你的服務綁定網域的更多資訊，請參考 [綁定網域](/deploy/domain-binding)。

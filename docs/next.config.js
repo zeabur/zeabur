@@ -1,15 +1,16 @@
-const withNextra = require('nextra')({
+//@ts-check
+
+import nextra from 'nextra';
+import i18n from './i18n-config.js';
+
+const withNextra = nextra({
   theme: 'nextra-theme-docs',
   themeConfig: './theme.config.js',
-  unstable_staticImage: true,
   defaultShowCopyCode: true,
 })
 
-module.exports = withNextra({
-  i18n: {
-    locales: ['en-US', 'zh-TW', 'zh-CN', 'ja-JP', 'es-ES'],
-    defaultLocale: 'en-US',
-  },
+export default withNextra({
+  i18n,
   basePath: '/docs',
   async redirects() {
     return [
@@ -32,7 +33,7 @@ module.exports = withNextra({
         source: '/deploy/private-networking',
         destination: '/networking/private',
         permanent: true,
-      }
+      },
     ]
   },
 })

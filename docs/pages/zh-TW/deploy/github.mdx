@@ -1,0 +1,93 @@
+---
+title: 整合 GitHub
+ogImageTitle: 整合 GitHub
+ogImageSubtitle: 使用 GitHub 登入，並且直接從 GitHub 部署程式碼到 Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+## 整合 GitHub
+
+Zeabur 提供了與 GitHub 整合的能力，這允許你將 GitHub 帳號與 Zeabur 帳號綁定，使你可以直接用 GitHub 登入 Zeabur，並且直接從 GitHub 部署程式碼到 Zeabur。
+
+使用 GitHub 部署程式碼可以為你的服務啟用開箱即用的 CI/CD 功能，未來只要推送程式碼到 GitHub，Zeabur 將自動部署新的程式碼。
+
+### 綁定 GitHub 帳號
+
+如果你是使用電子郵件註冊 Zeabur 帳號，你需要先將你的 GitHub 帳號與 Zeabur 帳號綁定，你可以在 [控制台 > 設定 > 整合](https://dash.zeabur.com/account/general) 完成綁定。
+
+![綁定 GitHub 帳號](/deploy/intergration/link-github.jpg)
+
+請注意，一個 GitHub 帳號只能綁定一個 Zeabur 帳號，綁定後你可以在 Zeabur 登入頁面使用 GitHub 按鈕進行登入。
+
+### 步驟一：建立服務
+
+選擇想要部署的服務，點擊 `建立服務` ，你會看到兩個選項：`Git` 和 `Marketplace`，在這種情況下，我們選擇 `Git`。
+
+![建立服務](/deploy/intergration/add-service.png)
+
+![選擇服務](/deploy/intergration/select-service.png)
+
+### 步驟二：綁定個人儲存庫
+
+此時我們會看到一個搜尋框和 `Configure GitHub` 按鈕，點擊按鈕，根據跳轉的頁面提示，完成對個人儲存庫的授權。
+
+![綁定 GitHub](/deploy/intergration/configure-github.png)
+
+### 步驟三：選擇儲存庫
+
+完成授權後，你會看到一個搜尋框，輸入你想要部署的儲存庫名稱或者關鍵字，點擊搜尋按鈕，選擇你想要部署的儲存庫
+
+![選擇儲存庫](/deploy/intergration/select-repo.png)
+
+## 部署 GitHub 組織儲存庫
+
+### 步驟一：建立服務
+和上文 [步驟一：建立服務](/docs/zh-TW/intergration/github#步驟一建立服務) 一致
+
+### 步驟二：綁定組織儲存庫
+
+此時我們會看到一個搜尋框和 `Configure GitHub` 按鈕，點擊按鈕，根據跳轉的頁面提示，完成對組織儲存庫的授權，在安裝過程中，可以根據需求授權所有/部分儲存庫。
+
+![綁定 GitHub 組織](/deploy/intergration/configure-org.png)
+
+### 步驟三：選擇儲存庫
+
+<Callout>
+1. 如果你是目前組織的 `Member`，而非 `Owner` ，你可能沒有足夠的權限綁定該組織，但是你仍然可以讀取所有你有權限的儲存庫，並且在 `GitHub` 授權頁面顯示您已經設定過該儲存庫
+2. 如果你是目前組織其中任一儲存庫的 `Outside Collaborator`，而非 `Owner` 或者 `Member` ，你可能沒有足夠的權限綁定該組織，但是你仍然可以讀取你擁有權限的儲存庫，並且在 `GitHub` 授權頁面顯示您已經設定過該儲存庫
+</Callout>
+
+完成授權後，你會看到一個搜尋框，輸入你想要部署的儲存庫名稱或者關鍵字，點擊搜尋按鈕，選擇你想要部署的儲存庫
+
+![選擇組織儲存庫](/deploy/intergration/select-org-repo.png)
+
+## 更新
+
+### 儲存庫變更
+
+對於個人/組織儲存庫的變更，我們會隨著您的操作自動重新整理程式碼庫
+
+### 組織人員變化
+
+對於組織人員的變化，我們會即時監聽 `GitHub Webhook` 事件，保證您的儲存庫存取權限和 `GitHub` 保持一致
+
+## 移除
+
+### 個人儲存庫
+
+#### 完全移除
+
+如果需要完全移除 `Zeabur` ，您可以在 `GitHub` 的 `Settings` -> `Intergrations` -> `Applications` -> `Installed Gtihub Apps` 中找到 `Zeabur` ，點擊 `Configure`，在彈出的頁面中 `Danger zone` 點擊 `Uninstall "Zeabur"` 即可
+
+![完全移除](/deploy/intergration/uninstall-zeabur.png)
+
+#### 復原權限
+
+如果需要復原權限以後續重新授權 `Zeabur` ，您可以在 `GitHub` 的 `Settings` -> `Intergrations` -> `Applications` -> `Authorized Gtihub Apps` 中找到 `Zeabur` ，點擊 `Revoke`，在彈出的頁面中確認風險並點擊同意即可
+
+![復原權限](/deploy/intergration/revoke-zeabur.png)
+
+### 組織儲存庫
+
+和上文 [個人儲存庫](./github#個人儲存庫)流程一致，需要額外在 `GitHub` 的 `Settings` -> `Switch to another account` 中選擇您想要操作的組織
