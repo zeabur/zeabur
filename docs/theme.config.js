@@ -118,13 +118,12 @@ const config = {
     )
   },
   footer: {
-    component: (
+    content: (
       <span>
         {new Date().getFullYear()} ©{' '}
         <a href="https://zeabur.com" target="_blank">
           Zeabur Pte. Ltd.
         </a>
-        .
       </span>
     ),
   },
