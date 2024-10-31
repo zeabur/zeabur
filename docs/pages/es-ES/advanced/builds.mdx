@@ -8,9 +8,9 @@ ogImageSubtitle: How Zeabur builds your source code into service?
 
 # Builds
 
-Zeabur uses [zbpack]() as the internal tool to build user services, so that users can deploy services based on any language and framework with one click without understanding the complex details.
+Zeabur uses [zbpack](https://github.com/zeabur/zbpack) as the internal tool to build user services, so that users can deploy services based on any language and framework with one click without understanding the complex details.
 
-For now, [zbpack]() has supported all mainstream programming languages for web development, and has further identified and optimized for each popular development framework. At the same time, it is also constantly updating for new programming languages and frameworks:
+For now, [zbpack](https://github.com/zeabur/zbpack) has supported all mainstream programming languages for web development, and has further identified and optimized for each popular development framework. At the same time, it is also constantly updating for new programming languages and frameworks:
 
 - Node.js
 - Python
@@ -115,7 +115,7 @@ It is worth noting that [zbpack](https://github.com/zeabur/zbpack) has a key dif
 
 In modern application deployment methods, Docker-based containerized deployment is a very popular choice because of its high versatility, but it is not suitable for some types of services: for example, static websites composed of static resources, or stateless services based on cloud functions.
 
-In the design of zbpack, Docker Image is the most basic output format, which ensures that we can always build a service that can run. But in addition to this, zbpack also supports the output formats of static resources and cloud functions. For example, when we use [Vite]() to develop a static website:
+In the design of zbpack, Docker Image is the most basic output format, which ensures that we can always build a service that can run. But in addition to this, zbpack also supports the output formats of static resources and cloud functions. For example, when we use [Vite](https://vitejs.dev/) to develop a static website:
 
 ```bash
 git clone git@github.com:zeabur/astro-static-template.git
@@ -172,6 +172,6 @@ To run the image, use the following command:
 npx serve .zeabur/output/static
 ```
 
-Therefore, the command to start this service has changed from the original `docker run -p 8080:8080 -it nextjs-template` to `npx serve .zeabur/output/static`. Similarly, we can put these static resources into any static web server such as [Nginx](), [Apache](), [Caddy]() and so on.
+Therefore, the command to start this service has changed from the original `docker run -p 8080:8080 -it nextjs-template` to `npx serve .zeabur/output/static`. Similarly, we can put these static resources into any static web server such as [Nginx](https://www.nginx.com/), [Apache](https://httpd.apache.org/), [Caddy](https://caddyserver.com/) and so on.
 
 For more details about the `.zeabur/output` folder of zbpack, please refer to the [Serverless Output Format](./serverless-output-format) section.
