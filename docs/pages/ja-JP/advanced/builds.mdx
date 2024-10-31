@@ -6,9 +6,9 @@ ogImageSubtitle: Zeaburはどのようにしてソースコードをサービス
 
 # ビルド
 
-Zeaburは、[zbpack]()という社内ツールを使用してユーザーサービスをビルドしているため、ユーザーは複雑な詳細を理解することなく、任意の言語やフレームワークに基づいたサービスをワンクリックでデプロイできます。
+Zeaburは、[zbpack](https://github.com/zeabur/zbpack)という社内ツールを使用してユーザーサービスをビルドしているため、ユーザーは複雑な詳細を理解することなく、任意の言語やフレームワークに基づいたサービスをワンクリックでデプロイできます。
 
-現在、[zbpack]()はWeb開発におけるすべての主流プログラミング言語をサポートしており、各人気開発フレームワークを特定して最適化しています。また、新しいプログラミング言語やフレームワークに対するアップデートも継続的に行っています：
+現在、[zbpack](https://github.com/zeabur/zbpack)はWeb開発におけるすべての主流プログラミング言語をサポートしており、各人気開発フレームワークを特定して最適化しています。また、新しいプログラミング言語やフレームワークに対するアップデートも継続的に行っています：
 
 - Node.js
 - Python
@@ -113,7 +113,7 @@ docker run -p 8080:8080 -it nextjs-template
 
 現代のアプリケーションのデプロイ方法において、Dockerベースのコンテナ化デプロイはその汎用性の高さから非常に人気があります。しかし、いくつかのタイプのサービスには適していません。例えば、静的リソースで構成される静的ウェブサイトや、クラウド関数に基づくステートレスサービスなどです。
 
-zbpackの設計では、Dockerイメージは最も基本的な出力形式であり、いつでも実行できるサービスをビルドすることができます。しかし、それに加えて、zbpackは静的リソースやクラウド関数の出力形式もサポートしています。たとえば、[Vite]()を使用して静的ウェブサイトを開発するとき：
+zbpackの設計では、Dockerイメージは最も基本的な出力形式であり、いつでも実行できるサービスをビルドすることができます。しかし、それに加えて、zbpackは静的リソースやクラウド関数の出力形式もサポートしています。たとえば、[Vite](https://vitejs.dev/)を使用して静的ウェブサイトを開発するとき：
 
 ```bash
 git clone git@github.com:zeabur/astro-static-template.git
@@ -170,6 +170,6 @@ To run the image, use the following command:
 npx serve .zeabur/output/static
 ```
 
-したがって、このサービスを開始するコマンドは、元の`docker run -p 8080:8080 -it nextjs-template`から`npx serve .zeabur/output/static`に変更されています。同様に、これらの静的リソースを、[Nginx]()、[Apache]()、[Caddy]()などの任意の静的ウェブサーバーに置くことができる。
+したがって、このサービスを開始するコマンドは、元の`docker run -p 8080:8080 -it nextjs-template`から`npx serve .zeabur/output/static`に変更されています。同様に、これらの静的リソースを、[Nginx](https://www.nginx.com/)、[Apache](https://httpd.apache.org/)、[Caddy](https://caddyserver.com/)などの任意の静的ウェブサーバーに置くことができる。
 
 zbpackの`.zeabur/output`フォルダの詳細については、[Serverless Output Format](./serverless-output-format)のセクションを参照してください。
