@@ -54,6 +54,20 @@ ZBPACK_START_COMMAND="php artisan migrate && _startup"
 }
 ```
 
+注意：如果是持续运行的服务，需要将启动命令放在 `()` 内，并使用 `&` 连接命令。
+
+```env
+ZBPACK_START_COMMAND="(php artisan reverb:start &); _startup"
+```
+
+或
+
+```json
+{
+    "start_command": "(php artisan reverb:start &); _startup"
+}
+```
+
 其中 `_startup` 是 Zeabur 原本的启动命令（[可以在 zbpack 查阅](https://github.com/zeabur/zbpack/tree/main/internal/php)）。如果你有自定义 `start_command`，`_startup` 必须在你的启动命令中运行，否则不会启动 PHP 服务器。
 
 `build_command` 和 `start_command` 均会使用 POSIX 兼容的 shell 运行，所以你可以使用 `&&` 串接多个命令，或者使用 `;` 分隔多个命令。
