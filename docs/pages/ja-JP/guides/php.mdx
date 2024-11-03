@@ -54,7 +54,7 @@ ZBPACK_START_COMMAND="php artisan migrate && _startup"
 }
 ```
 
-注意: サービスが継続実行される場合、開始コマンドを () 内に配置し、コマンドを & で連結します。
+注意: サービスが継続実行される場合、開始コマンドを `()` 内に配置し、コマンドを `&` で連結します。
 
 ```env
 ZBPACK_START_COMMAND="(php artisan reverb:start &); _startup"
