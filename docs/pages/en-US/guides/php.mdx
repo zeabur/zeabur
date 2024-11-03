@@ -54,6 +54,20 @@ Or add the following settings in `zbpack.json`:
 }
 ```
 
+Note: If it’s a continuous running service, place the start command within () and concatenate commands using &.
+
+```env
+ZBPACK_START_COMMAND="(php artisan reverb:start &); _startup"
+```
+
+or
+
+```json
+{
+    "start_command": "(php artisan reverb:start &); _startup"
+}
+```
+
 Here, `_startup` is Zeabur's original start command (which can be found in [the zbpack source code](https://github.com/zeabur/zbpack/tree/main/internal/php)). If you have a custom `start_command`, `_startup` must be included in your start command; otherwise, the PHP server will not start.
 
 Both `build_command` and `start_command` will be executed using a POSIX-compliant shell, so you can use `&&` to chain multiple commands, or use `;` to separate multiple commands.
