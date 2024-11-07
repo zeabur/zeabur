@@ -32,9 +32,11 @@ Git 和 Prebuilt 服務均可使用。
 
     ![網域設定](/deploy/special-variables/domain-port-customization.png)
 
+  - 如果是從 Git 儲存庫部署的服務，`連線埠名稱` 會是 `web`。
 - `${ZEABUR_[連線埠名稱]_DOMAIN}`：某個 Port 對應的網域。
   - 如 `test.zeabur.app`。
   - 這個 URL 是你在「網域」裡面設定的。
+  - 如果是從 Git 儲存庫部署的服務，`連線埠名稱` 會是 `web`。
 - `${CONTAINER_HOSTNAME}`: 目前服務在 Zeabur 專案內的主機名稱 (hostname)。
     - 通常我們會建立一個有 Expose（向專案曝露）屬性的環境變數（如 `${MYSQL_HOST}`），
       然後將 `${CONTAINER_HOSTNAME}` 的值填入這個環境變數。
@@ -42,6 +44,7 @@ Git 和 Prebuilt 服務均可使用。
 - `${[連線埠名稱]_PORT}`：在 Prebuilt 服務裡面定義的連線埠。
     - 比如你設定了 `database / 3306 / TCP`，則 `DATABASE_PORT` 會是 `3306`。
     - 僅目前服務內可見。
+    - 如果是從 Git 儲存庫部署的服務，這個連線埠會是 `8080`。你可以從 `${PORT}` 讀取這個連線埠。
 
 ### Zeabur 資訊類
 

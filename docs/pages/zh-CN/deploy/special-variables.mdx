@@ -32,9 +32,11 @@ Git 和 Prebuilt 服务均可使用。
 
     ![域名设置](/deploy/special-variables/domain-port-customization.png)
 
+  - 对于从 Git 存储库部署的服务，`端口名称` 总是 `web`。
 - `${ZEABUR_[端口名称]_DOMAIN}`：某个端口对应的域名。
   - 例如 `test.zeabur.app`。
   - 此 URL 是您在“域名”中设置的。
+  - 对于从 Git 存储库部署的服务，`端口名称` 总是 `web`。
 - `${CONTAINER_HOSTNAME}`: 当前服务在 Zeabur 项目中的主机名（hostname）。
     - 通常我们会创建一个具有 Expose（向项目暴露）属性的环境变量（例如 `${MYSQL_HOST}`），
       然后将 `${CONTAINER_HOSTNAME}` 的值填入此环境变量。
@@ -42,6 +44,7 @@ Git 和 Prebuilt 服务均可使用。
 - `${[端口名称]_PORT}`：在 Prebuilt 服务中定义的端口。
     - 例如，如果您设置了 `database / 3306 / TCP`，那么 `DATABASE_PORT` 将是 `3306`。
     - 仅在当前服务内可见。
+    - 对于从 Git 存储库部署的服务，值是 `8080`。您可以从 `${PORT}` 中读取这个端口值。
 
 ### Zeabur 信息类
 
