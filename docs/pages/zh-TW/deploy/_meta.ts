@@ -10,5 +10,4 @@ export default {
   "special-variables": "特殊變數",
   "config-edit": "編輯設定檔",
   "variables": "變數",
-  "preview": "預覽"
 }

@@ -10,5 +10,4 @@ export default {
   "special-variables": "特殊变量",
   "config-edit": "编辑配置文件",
   "variables": "环境变量",
-  "preview": "预览"
 }

@@ -11,5 +11,4 @@ export default {
   "deploy-in-cli": "Deploy in CLI",
   "config-edit": "Config Editing",
   "variables": "Environment Variables",
-  "preview": "Pull Request Preview"
 }
