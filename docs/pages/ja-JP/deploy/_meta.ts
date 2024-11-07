@@ -11,5 +11,4 @@ export default {
     "deploy-in-cli": "CLI でデプロイ",
     "config-edit": "設定ファイルを編集する",
     "variables": "変数",
-    "preview": "プレビュー"
 }

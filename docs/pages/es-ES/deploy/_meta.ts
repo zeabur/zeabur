@@ -10,5 +10,4 @@ export default {
   "deploy-in-cli": "Implementar en CLI",
   "config-edit": "Edición de Configuración",
   "variables": "Variables de Entorno",
-  "preview": "Vista Previa de Pull Request"
 }
