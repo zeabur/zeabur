@@ -32,9 +32,11 @@ ogImageSubtitle: 直接参照でき、特別な意味を持つ変数。
 
     ![ドメインポートのカスタマイズ](/deploy/special-variables/domain-port-customization.png)
 
+  - Gitリポジトリからデプロイされたサービスの場合、 `PORTNAME` は常に `web` です。
 - `${ZEABUR_[PORTNAME]_DOMAIN}`: 特定のポートに対応するドメイン。
   - 例えば、 `test.zeabur.app`。
   - このURLは "ドメイン" セクションで設定するものです。
+  - Gitリポジトリからデプロイされたサービスの場合、 `PORTNAME` は常に `web` です。
 - `${CONTAINER_HOSTNAME}`: Zeaburプロジェクト内の現在のサービスのホスト名。
     - 通常、Exposeプロパティを持つ環境変数を作成します（例: `${MYSQL_HOST}`）。
       そして、この環境変数に `${CONTAINER_HOSTNAME}` の値を記入します。
@@ -42,6 +44,7 @@ ogImageSubtitle: 直接参照でき、特別な意味を持つ変数。
 - `${[PORTNAME]_PORT}`: Prebuiltサービスで定義されたポート。
     - 例えば、 `database / 3306 / TCP` と設定した場合、 `DATABASE_PORT` は `3306` になります。
     - 現在のサービス内でのみ可視です。
+    - Gitリポジトリからデプロイされたサービスの場合、`8080` です。このポートは `${PORT}` から読み取ることができます。
 
 ### Zeabur情報
 

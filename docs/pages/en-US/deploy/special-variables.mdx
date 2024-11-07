@@ -32,9 +32,11 @@ The order of expansion for variables within a service is as follows:
 
     ![Domain Port Customization](/deploy/special-variables/domain-port-customization.png)
 
+  - For services deployed from Git repositories, the `PORTNAME` is always `web`.
 - `${ZEABUR_[PORTNAME]_DOMAIN}`: The domain corresponding to a specific port.
   - For example, `test.zeabur.app`.
   - This URL is that one you set in the "Domain" section.
+  - For services deployed from Git repositories, the `PORTNAME` is always `web`.
 - `${CONTAINER_HOSTNAME}`: The hostname of the current service in the Zeabur project.
     - Usually, we create an environment variable with the Expose property (e.g., `${MYSQL_HOST}`),
       and then fill in the value of `${CONTAINER_HOSTNAME}` in this environment variable.
@@ -42,6 +44,7 @@ The order of expansion for variables within a service is as follows:
 - `${[PORTNAME]_PORT}`: The port defined in the Prebuilt service.
     - For example, if you set `database / 3306 / TCP`, then `DATABASE_PORT` will be `3306`.
     - Only visible within the current service.
+    - For services deployed from Git repositories, it is `8080`. You can read this port from `${PORT}`.
 
 ### Zeabur Information
 
