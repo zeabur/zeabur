@@ -9,7 +9,7 @@
 
 ## Intro
 
-Zeabur is a platform that help developers deploy their services with one click. 
+Zeabur is a platform that help developers deploy their services with one click.
 
 No matter what programming language or framework is used.
 
@@ -37,7 +37,7 @@ Are you still 'renting a server'? Zeabur uses a pay-as-you-go model, so you only
 
 ### Integration
 
-Your powerful system needs many different services to work together, such as MySQL, Redis, Kafka, Elastic Search, and so on. 
+Your powerful system needs many different services to work together, such as MySQL, Redis, Kafka, Elastic Search, and so on.
 
 Zeabur can help you easily deploy them in the same place, reduce management costs, and improve transmission speeds.
 
@@ -54,12 +54,6 @@ After deployment, you can easily manage your services through the dashboard.
 
 For details on how to use Zeabur, check out our [documentation](https://zeabur.com/docs).
 
-## Contributing Dashboard Internationalization
+## Contributing Dashboard Localization
 
-In `dashboard/locales`, there are language files that used in Zeabur's dashboard.
-If you found there is something wrong in the translation, or some translation is missing, you can help us to improve it. 
-
-If you are trying to add missing translation,
-first you need to find out the corresponding translation key in English file. 
-
-You can run `node dashboard/locales/sync.mjs` to sync the translation keys with primary language (English).
+Contact us on [Discord](https://zeabur.com/dc). You can apply for the [Reward Program](https://zeabur.com/docs/billing/reward) for this contribution.
