@@ -26,11 +26,9 @@ const files = getFiles(pagesDir);
 let sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
 for (let file of files) {
   const fileName = path.basename(file);
-  let languageCode = "/" + fileName.split(".")[1];
   const pageName = fileName.split(".")[0];
   const fileDir = path.dirname(file);
-  if(languageCode === '/en-US') languageCode = '';
-  const url = baseUrl + languageCode + fileDir.replace(/^pages/, "") + "/" + pageName;
+  const url = baseUrl + fileDir.replace(/^pages/, "") + "/" + pageName;
   sitemap += `  <url>\n    <loc>${url}</loc>\n  </url>\n`;
 }
 sitemap += "</urlset>";
