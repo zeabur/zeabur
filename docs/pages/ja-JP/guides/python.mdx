@@ -199,3 +199,32 @@ ZBPACK_PYTHON_VERSION=3.8
 ```env
 ZBPACK_STREAMLIT_ENTRY=myapp.py
 ```
+
+## カスタムパッケージマネージャー
+
+Zeabur は複数の Python パッケージマネージャーをサポートしています：
+
+- Pip
+- [Pipenv](https://pipenv.pypa.io/)
+- [Poetry](https://python-poetry.org/)
+- [PDM](https://pdm-project.org/)
+- [Rye](https://rye.astral.sh/)
+- [uv](https://docs.astral.sh/uv/)
+
+Zeabur はプロジェクトの構造に基づいて最適なパッケージマネージャーを選択します。もしパッケージ管理の lockfile を提出せず、プロジェクト構造からどのパッケージマネージャーが使用されているかを明確に判断できない場合、Zeabur はパッケージをインストールしません。この場合、次のように `zbpack.json` 内でパッケージマネージャーを指定できます：
+
+```json
+{
+    "python": {
+        "package_manager": "pipenv"
+    }
+}
+```
+
+または、環境変数 `ZBPACK_PYTHON_PACKAGE_MANAGER` を使用してパッケージマネージャーを指定することもできます：
+
+```env
+ZBPACK_PYTHON_PACKAGE_MANAGER=pipenv
+```
+
+値は `pip`、`pipenv`、`poetry`、`pdm`、`rye`、`uv` のいずれかです。

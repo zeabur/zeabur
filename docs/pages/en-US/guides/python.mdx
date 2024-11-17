@@ -199,3 +199,32 @@ This way, Zeabur will launch your `myapp.py` in Streamlit mode. You can also spe
 ```env
 ZBPACK_STREAMLIT_ENTRY=myapp.py
 ```
+
+## Specifying the Package Manager
+
+Zeabur supports multiple Python package managers:
+
+- Pip
+- [Pipenv](https://pipenv.pypa.io/)
+- [Poetry](https://python-poetry.org/)
+- [PDM](https://pdm-project.org/)
+- [Rye](https://rye.astral.sh/)
+- [uv](https://docs.astral.sh/uv/)
+
+Zeabur determines the most suitable package manager based on the project structure. If you haven't committed your lockfile and the package manager used in the project is unclear, Zeabur will not install any packages. In this case, you can specify the package manager in `zbpack.json`:
+
+```json
+{
+    "python": {
+        "package_manager": "pipenv"
+    }
+}
+```
+
+Alternatively, you can use the `ZBPACK_PYTHON_PACKAGE_MANAGER` environment variable to specify the package manager:
+
+```env
+ZBPACK_PYTHON_PACKAGE_MANAGER=pipenv
+```
+
+The value should be one of `pip`, `pipenv`, `poetry`, `pdm`, `rye`, or `uv`.
