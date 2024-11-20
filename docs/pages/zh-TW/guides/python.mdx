@@ -199,3 +199,32 @@ ZBPACK_PYTHON_VERSION=3.8
 ```env
 ZBPACK_STREAMLIT_ENTRY=myapp.py
 ```
+
+## 自訂套件管理器
+
+Zeabur 支援多種 Python 套件管理器：
+
+- Pip
+- [Pipenv](https://pipenv.pypa.io/)
+- [Poetry](https://python-poetry.org/)
+- [PDM](https://pdm-project.org/)
+- [Rye](https://rye.astral.sh/)
+- [uv](https://docs.astral.sh/uv/)
+
+Zeabur 會根據專案結構選擇最適合的套件管理器。如果你沒提交套件管理的 lockfile，且不能從專案結構明顯猜出這個專案使用的套件管理器，則 Zeabur 會選擇不安裝任何套件。此時，你可以選擇在 `zbpack.json` 中指定套件管理器：
+
+```json
+{
+    "python": {
+        "package_manager": "pipenv"
+    }
+}
+```
+
+或者是使用環境變數 `ZBPACK_PYTHON_PACKAGE_MANAGER` 指定套件管理器：
+
+```env
+ZBPACK_PYTHON_PACKAGE_MANAGER=pipenv
+```
+
+值可以是 `pip`, `pipenv`, `poetry`, `pdm`, `rye`, `uv` 其中一個。

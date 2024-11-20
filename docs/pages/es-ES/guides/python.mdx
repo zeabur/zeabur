@@ -199,3 +199,32 @@ De esta manera, Zeabur lanzará tu `myapp.py` en modo Streamlit. También puedes
 ```env
 ZBPACK_STREAMLIT_ENTRY=myapp.py
 ```
+
+## Especificar el gestor de paquetes
+
+Zeabur admite varios gestores de paquetes de Python:
+
+- Pip
+- [Pipenv](https://pipenv.pypa.io/)
+- [Poetry](https://python-poetry.org/)
+- [PDM](https://pdm-project.org/)
+- [Rye](https://rye.astral.sh/)
+- [uv](https://docs.astral.sh/uv/)
+
+Zeabur determina el gestor de paquetes más adecuado según la estructura del proyecto. Si no has enviado tu archivo de bloqueo (lockfile) y no está claro qué gestor de paquetes se utiliza en el proyecto, Zeabur no instalará ningún paquete. En este caso, puedes especificar el gestor de paquetes en el archivo `zbpack.json`:
+
+```json
+{
+    "python": {
+        "package_manager": "pipenv"
+    }
+}
+```
+
+Alternativamente, puedes usar la variable de entorno `ZBPACK_PYTHON_PACKAGE_MANAGER` para especificar el gestor de paquetes:
+
+```env
+ZBPACK_PYTHON_PACKAGE_MANAGER=pipenv
+```
+
+El valor debe ser uno de los siguientes: `pip`, `pipenv`, `poetry`, `pdm`, `rye` o `uv`.

@@ -199,3 +199,32 @@ ZBPACK_PYTHON_VERSION=3.8
 ```env
 ZBPACK_STREAMLIT_ENTRY=myapp.py
 ```
+
+## 自定义包管理器
+
+Zeabur 支持多种 Python 包管理器：
+
+- Pip
+- [Pipenv](https://pipenv.pypa.io/)
+- [Poetry](https://python-poetry.org/)
+- [PDM](https://pdm-project.org/)
+- [Rye](https://rye.astral.sh/)
+- [uv](https://docs.astral.sh/uv/)
+
+Zeabur 会根据项目结构选择最适合的包管理器。如果你没有提交包管理的 lockfile，且无法从项目结构中明显判断出该项目使用的包管理器，那么 Zeabur 将不会安装任何包。此时，你可以选择在 `zbpack.json` 中指定包管理器：
+
+```json
+{
+    "python": {
+        "package_manager": "pipenv"
+    }
+}
+```
+
+或者通过环境变量 `ZBPACK_PYTHON_PACKAGE_MANAGER` 指定包管理器：
+
+```env
+ZBPACK_PYTHON_PACKAGE_MANAGER=pipenv
+```
+
+值可以是 `pip`, `pipenv`, `poetry`, `pdm`, `rye`, `uv` 其中之一。
