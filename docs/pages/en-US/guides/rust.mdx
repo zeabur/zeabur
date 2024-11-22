@@ -190,9 +190,3 @@ fn main() -> io::Result<()> {
     Ok(())
 }
 ```
-
-## Serverless Deployment
-
-Unlike other PaaS platforms that run your Rust application inside a Docker container directly, Zeabur also supports deploying Rust applications using the [Serverless deployment](/deploy/serverless) method. This allows your Rust application to start only when it receives a request, instead of running continuously like a container, saving resources.
-
-To deploy a Rust application using Serverless, add `ZBPACK_SERVERLESS=1` to the environment variables.
