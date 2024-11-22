@@ -28,7 +28,7 @@ for (let file of files) {
   const fileName = path.basename(file);
   const pageName = fileName.split(".")[0];
   const fileDir = path.dirname(file);
-  const url = baseUrl + fileDir.replace(/^pages/, "") + "/" + pageName;
+  const url = `${baseUrl}${fileDir.replace(/^pages/, "")}${pageName === "index" ? "" : `/${pageName}`}`;
   sitemap += `  <url>\n    <loc>${url}</loc>\n  </url>\n`;
 }
 sitemap += "</urlset>";
