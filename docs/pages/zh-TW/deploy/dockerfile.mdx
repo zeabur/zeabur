@@ -28,7 +28,7 @@ Zeabur 會自動偵測你的專案是否有 `Dockerfile`，如果有的話會以
 
 ## 不使用 Dockerfile 部署
 
-如果你的專案有 Dockerfile，但你不希望在 Zeabur 上使用這個 Dockerfile（比如說你想使用 Zeabur 提供的 Serverless 功能），你可以在環境變數中設定 `ZBPACK_IGNORE_DOCKERFILE=true`，或在 `zbpack.json` 裡面加入：
+如果你的專案有 Dockerfile，但你不希望在 Zeabur 上使用這個 Dockerfile（例如想由 Zeabur 決定專案最佳的部署方式），你可以在環境變數中設定 `ZBPACK_IGNORE_DOCKERFILE=true`，或在 `zbpack.json` 裡面加入：
 
 ```json
 {

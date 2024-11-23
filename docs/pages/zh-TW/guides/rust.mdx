@@ -191,10 +191,3 @@ fn main() -> io::Result<()> {
     Ok(())
 }
 ```
-
-## Serverless 部署
-
-不同於其他 PaaS 平台是直接將你的 Rust 應用程式打包在 Docker 容器中執行，Zeabur 同時支援使用
-[Serverless 部署](/deploy/serverless) Rust 的方式，這可以讓你的 Rust 應用程式只有在收到請求的時候才啟動，而不是像容器一樣一直運行，浪費資源。
-
-如果想要用 Serverless 部署 Rust 應用程式，請在環境變數中加入 `ZBPACK_SERVERLESS=1`。
