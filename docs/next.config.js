@@ -34,6 +34,19 @@ export default withNextra({
         destination: '/networking/private',
         permanent: true,
       },
+
+      // The GUI of Create Template is temporarily removed
+      // since it is unmaintained. We may add it back in the future.
+      {
+        source: '/template/create-template',
+        destination: '/template/template-in-code',
+        permanent: false,
+      },
+      {
+        source: '/:locale/template/create-template',
+        destination: '/:locale/template/template-in-code',
+        permanent: false,
+      },
     ]
   },
 })
