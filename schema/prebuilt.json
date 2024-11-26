@@ -2,7 +2,7 @@
 	"$id": "https://schema.zeabur.app/prebuilt.json",
 	"$schema": "http://json-schema.org/draft-07/schema",
 	"title": "Service Specification (ServiceSpec)",
-	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.4.0-20240903.",
+	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.5.1-20241118.",
 	"type": "object",
 	"properties": {
 		"id": {
@@ -65,6 +65,9 @@
 		},
 		"configs": {
 			"$ref": "#/definitions/Configs"
+		},
+		"gpu": {
+			"$ref": "#/definitions/GPU"
 		}
 	},
 	"required": [
@@ -464,12 +467,33 @@
 					"title": "File permission",
 					"description": "The permission of this file. It should be an octal number between 0o000 and 0o777. You must convert it to decimal. For example, 0o644 = 436, 0o755 = 493, etc. Refer to this article for what these permission flags mean: <https://docs.nersc.gov/filesystems/unix-file-permissions/#chmod>.",
 					"type": ["integer", "null"]
+				},
+				"envsubst": {
+					"title": "Substitute with environment variables",
+					"description": "If true, we will substitute the environment variables (${VARIABLES}) in the content template.",
+					"type": ["boolean", "null"]
 				}
 			},
 			"additionalProperties": false,
 			"required": [
 				"path",
 				"template"
+			]
+		},
+		"GPU": {
+			"title": "GPU support",
+			"description": "Declare the GPU for this service. Note that you should set up GPU in your server to make it work.",
+			"type": "object",
+			"properties": {
+				"enabled": {
+					"title": "Enabled",
+					"description": "If true, we enable GPU support for this service.",
+					"type": "boolean"
+				}
+			},
+			"additionalProperties": false,
+			"required": [
+				"enabled"
 			]
 		}
 	}

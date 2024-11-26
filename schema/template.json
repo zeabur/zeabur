@@ -222,6 +222,9 @@
                                         "title": "Configs",
                                         "description": "The configurations that will be set or declared for the service.",
                                         "$ref": "https://schema.zeabur.app/prebuilt.json#/definitions/Configs"
+                                    },
+                                    "gpu": {
+                                        "$ref": "https://schema.zeabur.app/prebuilt.json#/definitions/GPU"
                                     }
                                 },
                                 "required": [
