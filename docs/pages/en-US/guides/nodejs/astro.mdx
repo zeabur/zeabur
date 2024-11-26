@@ -20,34 +20,9 @@ You can create an Astro project using the command below and follow the prompts f
 npm create astro@latest
 ```
 
-## Step 2: Install the `@zeabur/astro-adapter` Package
+### Step 2: Set up Node.js Adapter
 
-Zeabur provides an adapter package for Astro, which you can install using the command below.
-
-```bash
-pnpm i @zeabur/astro-adapter
-```
-
-After installation, you need to configure the adapter in your `astro.config.mjs`.
-
-```javascript
-import zeabur from '@zeabur/astro-adapter/serverless';
-
-export default {
-  // ...
-  adapter: zeabur(),
-  output: 'server'
-  // ...
-};
-```
-
-With that, your Astro project is ready to be deployed to Zeabur.
-
-### Deploying with Containerization
-
-Sometimes, your Astro project may have specific needs that make it unsuitable for Serverless deployment. For example, it might rely on an API request that takes a long time to execute for server-side rendering (SSR).
-
-In such cases, you can use Astro's official [`@astrojs/node`](https://docs.astro.build/en/guides/integrations-guide/node/) to deploy your project on Zeabur using containerization:
+Use Astro's official [`@astrojs/node`](https://docs.astro.build/en/guides/integrations-guide/node/) to deploy your project on Zeabur using containerization mode:
 
 ```js
 import node from '@astrojs/node';

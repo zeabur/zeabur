@@ -31,7 +31,7 @@ Zeabur は自動的にあなたのプロジェクトに `Dockerfile` がある�
 
 ## Dockerfile を使用せずにデプロイする
 
-Zeabur で Dockerfile を使用しないようにする場合（例えば、Serverless サービスとしてデプロイすることを好む場合）、環境変数に `ZBPACK_IGNORE_DOCKERFILE=true` を設定するか、`zbpack.json` に以下を追加することができます。
+Zeabur で Dockerfile を使用しないようにする場合（例えば、Zeabur にこのプロジェクトの最適なデプロイ方法を決定させること）、環境変数に `ZBPACK_IGNORE_DOCKERFILE=true` を設定するか、`zbpack.json` に以下を追加することができます。
 
 ```json
 {

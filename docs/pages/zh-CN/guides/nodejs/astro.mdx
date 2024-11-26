@@ -20,34 +20,9 @@ import { Callout } from 'nextra/components';
 npm create astro@latest
 ```
 
-## 步骤二：安装 `@zeabur/astro-adapter` 包
+### 步骤二：设置 Node.js 适配器
 
-Zeabur 为 Astro 提供了一个适配器包，你可以使用下面的命令进行安装。
-
-```bash
-pnpm i @zeabur/astro-adapter
-```
-
-安装完成后，你需要在你的 `astro.config.mjs` 中配置适配器。
-
-```javascript
-import zeabur from '@zeabur/astro-adapter/serverless';
-
-export default {
-  // ...
-  adapter: zeabur(),
-  output: 'server'
-  // ...
-};
-```
-
-这样，你的 Astro 项目就准备好部署到 Zeabur 了。
-
-### 使用容器化的方式部署
-
-有时候，你的 Astro 项目可能有一些特殊的需求而不适合使用 Serverless 的方式部署，例如它可能依赖于某个需要执行很久的 API 请求来进行服务器端渲染（Server Side Rendering）。
-
-在这种情况下，你可以用 Astro 官方的 [`@astrojs/node`](https://docs.astro.build/en/guides/integrations-guide/node/) 来改用容器化的方式部署在 Zeabur 上：
+使用 Astro 官方的 [`@astrojs/node`](https://docs.astro.build/en/guides/integrations-guide/node/) 在 Zeabur 上以容器化模式运行您的项目：
 
 ```js
 import node from '@astrojs/node';
