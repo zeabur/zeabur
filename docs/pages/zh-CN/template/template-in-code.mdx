@@ -91,6 +91,7 @@ spec:
         - name: RSSHub
           icon: https://docs.rsshub.app/logo.png
           template: PREBUILT
+          domainKey: PUBLIC_DOMAIN
           spec:
             source:
                 image: diygod/rsshub
@@ -103,7 +104,7 @@ spec:
                     default: ${REDIS_URI}
                 REDIS_URL:
                     default: ${REDIS_URI}
-            domainKey: PUBLIC_DOMAIN
+            
 localization:
   zh-CN:
     description: LobeChat 是一个开源的高性能聊天机器人框架。
