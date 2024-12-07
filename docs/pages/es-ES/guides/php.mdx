@@ -1,88 +1,102 @@
 ---
 title: PHP
-ogImageTitle: Deploying PHP apps
-ogImageSubtitle: Deploying PHP apps on Zeabur
+ogImageTitle: Desplegando aplicaciones PHP
+ogImageSubtitle: Desplegando aplicaciones PHP en Zeabur
 ---
 
-# Deploying PHP apps
+# Desplegando aplicaciones PHP
 
-<WorkingInProgress />
+Zeabur no solo admite aplicaciones PHP tradicionales de varios archivos con `index.php` como punto de entrada, sino también el despliegue con un solo clic de frameworks como [Laravel](./php/laravel), [Symfony](./php/symfony), ThinkPHP y CodeIgniter.
 
-Zeabur supports not only traditional multi-file PHP apps with `index.php` as the entry point but also offers one-click deployment for frameworks like [Laravel](./php/laravel), ThinkPHP, CodeIgniter, etc.
+## Entorno PHP
 
-## NPM Support
+Zeabur utiliza por defecto la última versión de PHP 8 y un servidor NGINX + php-fpm para ejecutar tu código.
 
-If your project root contains a `package.json`, Zeabur will automatically install Node.js and NPM for you; if your `package.json` contains a `build` script, Zeabur will automatically run `npm install && npm run build` to build the artifacts.
+El entorno PHP en Zeabur incluye Composer y extensiones PHP integradas como `apcu`, `bcmath`, `gd`, `intl`, `mysqli`, `opcache`, `pcntl`, `pdo_mysql`, `sysvsem` y `zip`. Si tu archivo `composer.json` incluye definiciones de extensiones prefijadas con `ext-`, Zeabur instalará automáticamente las extensiones correspondientes. Además, herramientas como Node.js, Crontab, cURL, gettext, Git, grep, pkg-config y unzip están preinstaladas.
 
-If you need to change the build commands (e.g., to run `npm run build:dist`), please refer to the section on Customizing Build and Start Commands.
+Por defecto, Zeabur proporciona las variables de entorno `APP_ENV=prod` y `APP_DEBUG=true` a tu aplicación. Puedes sobrescribir estas variables manualmente en la sección "Variables de Entorno" de la consola de Zeabur.
 
-## Customizing Build and Start Commands
+Para ver la configuración completa de la imagen base, consulta el [repositorio de código de zbpack](https://github.com/zeabur/zbpack/blob/main/internal/php/Dockerfile).
 
-Zeabur allows you to customize PHP build and start commands using environment variables or configuration files.
+## Soporte para NPM
 
-"Build commands" are suitable for scenarios where you need to download or compile custom artifacts (such as CSS, JavaScript, etc.) or write constant configurations. For example, if you want to write settings to the `/etc` folder, you can set an environment variable like this:
+Si tu proyecto contiene un archivo `package.json`, Zeabur ejecutará automáticamente `npm install` para instalar las dependencias.
+
+Si tu archivo `package.json` contiene un script `build`, Zeabur también ejecutará `npm run build` para generar los artefactos de compilación.
+
+## Comandos Personalizados de Compilación y Inicio
+
+Zeabur te permite personalizar los comandos de compilación e inicio para PHP utilizando variables de entorno o archivos de configuración.
+
+### Comando de Compilación
+
+El "comando de compilación" es ideal para escenarios donde necesitas descargar o compilar artefactos personalizados (por ejemplo, CSS, JavaScript) o configurar ajustes. Por ejemplo, para escribir un archivo de configuración en el directorio `/etc`, puedes establecer una variable de entorno:
 
 ```env
 ZBPACK_BUILD_COMMAND=echo 'your-configuration' > /etc/somewhere
 ```
 
-Or add the following settings in `zbpack.json`:
+O puedes añadir lo siguiente en `zbpack.json`:
 
-```json
+```json filename="zbpack.json"
 {
     "build_command": "echo 'your-configuration' > /etc/somewhere"
 }
 ```
 
-You can also execute npm commands here. Note that Zeabur will only install Node.js and NPM if there is a `package.json` in the **project root directory**. If your project does not contain a `package.json`, `npm` commands will not be available:
+También puedes ejecutar comandos npm adicionales aquí:
 
-```json
+```json filename="zbpack.json"
 {
-    "build_command": "npm install && npm run build:dist"
+    "build_command": "npm run build:dist"
 }
 ```
 
-"Start commands" are suitable for scenarios where you need to start a PHP server, such as adding `php artisan migrate` to the original command to migrate database. For example, you can set an environment variable like this:
+El comando de compilación **no interferirá** con el proceso de compilación predeterminado de Zeabur, por lo que no es necesario repetir los comandos que Zeabur ya maneja.
+
+### Comando de Inicio
+
+El "comando de inicio" es adecuado para situaciones donde deseas ejecutar comandos mientras se inicia el servidor PHP, como ejecutar `php artisan migrate` para crear tablas de base de datos. Por ejemplo, puedes establecer una variable de entorno:
 
 ```env
 ZBPACK_START_COMMAND="php artisan migrate && _startup"
 ```
 
-Or add the following settings in `zbpack.json`:
+O añadir lo siguiente en `zbpack.json`:
 
-```json
+```json filename="zbpack.json"
 {
     "start_command": "php artisan migrate && _startup"
 }
 ```
 
-Nota: Si es un servicio de ejecución continua, coloca el comando de inicio dentro de `()` y concatena los comandos usando `&`.
+Para servicios que se ejecutan de forma continua, el comando de inicio debe estar encerrado en `()` y unido con `&`:
 
 ```env
 ZBPACK_START_COMMAND="(php artisan reverb:start &); _startup"
 ```
 
-o
+O:
 
-```json
+```json filename="zbpack.json"
 {
     "start_command": "(php artisan reverb:start &); _startup"
 }
 ```
 
-Here, `_startup` is Zeabur's original start command (which can be found in [the zbpack source code](https://github.com/zeabur/zbpack/tree/main/internal/php)). If you have a custom `start_command`, `_startup` must be included in your start command; otherwise, the PHP server will not start.
+Aquí, `_startup` es el comando de inicio predeterminado de Zeabur ([consulta zbpack](https://github.com/zeabur/zbpack/tree/main/internal/php)). Si personalizas el `start_command`, debes incluir `_startup` en el comando; de lo contrario, el servidor PHP no se iniciará.
 
-Both `build_command` and `start_command` will be executed using a POSIX-compliant shell, so you can use `&&` to chain multiple commands, or use `;` to separate multiple commands.
+Tanto `build_command` como `start_command` se ejecutan utilizando un shell compatible con POSIX, por lo que puedes encadenar varios comandos con `&&` o separarlos con `;`.
 
-## Versión personalizada de PHP
+## Versión Personalizada de PHP
 
-Zeabur usa por defecto PHP 8, pero puedes especificar la versión de PHP usando la configuración de `composer.json` o zbpack. Si tu proyecto utiliza Laravel Sail, Zeabur también detectará automáticamente la versión según `docker-compose.yml`. La configuración de zbpack tiene la mayor prioridad, seguida de `composer.json` y luego Laravel Sail.
+Zeabur utiliza PHP 8 por defecto, pero puedes especificar la versión de PHP a través de `composer.json` o la configuración de zbpack. Si tu proyecto utiliza Laravel Sail, Zeabur puede detectar automáticamente la versión de PHP desde `docker-compose.yml`. El orden de prioridad es: configuración de zbpack > `composer.json` > Laravel Sail.
 
 ### `composer.json`
 
 Establece el rango de la versión de PHP en la sección `require` de `composer.json`:
 
-```json
+```json filename="composer.json"
 {
     "require": {
         "php": "7.4"
@@ -90,9 +104,9 @@ Establece el rango de la versión de PHP en la sección `require` de `composer.j
 }
 ```
 
-En el ejemplo anterior, Zeabur utilizará la última versión patch de PHP 7.4 para ejecutar tu proyecto.
+En este ejemplo, Zeabur usará la última versión parcheada de PHP 7.4 para ejecutar tu proyecto.
 
-```json
+```json filename="composer.json"
 {
     "require": {
         "php": "^7.4"
@@ -100,55 +114,51 @@ En el ejemplo anterior, Zeabur utilizará la última versión patch de PHP 7.4 p
 }
 ```
 
-En el ejemplo anterior, Zeabur utilizará la última versión minor de PHP 7 para ejecutar tu proyecto.
+Aquí, Zeabur usará la última versión menor de PHP 7 para ejecutar tu proyecto.
 
 ### Laravel Sail
 
-Si tu proyecto utiliza Laravel Sail, Zeabur detectará y usará automáticamente la versión de PHP definida por Laravel Sail en `docker-compose.yml`.
+Si tu proyecto utiliza Laravel Sail, Zeabur detectará y usará automáticamente la versión de PHP definida en el archivo `docker-compose.yml`.
 
-![Definición de Docker Compose de Laravel Sail](/guides/php/laravel-sail-docker-compose.webp)
+![Definición de Docker Compose para Laravel Sail](/guides/php/laravel-sail-docker-compose.webp)
 
 ### Configuración de zbpack
 
-Si no estás usando Laravel Sail o Composer pero necesitas cambiar la versión de PHP, puedes usar la variable de entorno `ZBPACK_PHP_VERSION`
+Si no estás utilizando Laravel Sail ni Composer pero necesitas especificar una versión de PHP, puedes usar la variable de entorno `ZBPACK_PHP_VERSION`:
 
 ```env
 ZBPACK_PHP_VERSION=8.0
 ```
 
-O agrega la siguiente configuración en `zbpack.json`
+O añadir lo siguiente en `zbpack.json`:
 
-```json
+```json filename="zbpack.json"
 {
-    "php_version": "8.0"
+    "php": {
+        "version": "8.0"
+    }
 }
 ```
 
-para personalizar la versión de PHP.
+## Configuraciones Personalizadas de `php.ini`
 
-## Customizing `php.ini` Settings
+Usando el [editor de archivos de configuración](/deploy/config-edit) de Zeabur, crea un archivo de configuración en el directorio `/usr/local/etc/php/conf.d` con la extensión `.ini` e incluye las configuraciones PHP que deseas sobrescribir.
 
-Use Zeabur's [config file editor](/deploy/config-edit) to create a configuration file under `/usr/local/etc/php/conf.d` with the extension `ini`. You can directly write the PHP settings you wish to override in this file.
+Por ejemplo, para establecer el tamaño máximo de subida de archivos a 100 MB, crea un archivo `/usr/local/etc/php/conf.d/upload.ini` con el siguiente contenido:
 
-For example, if you want to set the maximum file upload size to 100MB, you can create a file `/usr/local/etc/php/conf.d/upload.ini` with the following content:
-
-```ini
+```ini filename="/usr/local/etc/php/conf.d/upload.ini"
 upload_max_filesize = 100M
 ```
 
-## Customizing NGINX Configuration
+## Configuración Personalizada de NGINX
 
-Use Zeabur's [config file editor](/deploy/config-edit) to create a configuration file at the path `/etc/nginx/sites-enabled/default`, which overrides the default NGINX configuration on Zeabur.
+Usando el [editor de archivos de configuración](/deploy/config-edit) de Zeabur, crea un archivo de configuración en `/etc/nginx/sites-enabled/default` para sobrescribir las configuraciones predeterminadas de NGINX en Zeabur. El editor rellenará previamente la configuración actual de NGINX, que puedes modificar según sea necesario.
 
-If you'd like to tweak the NGINX configuration based on the existing configuration, you can download the current NGINX configuration file used by Zeabur from the [zbpack NGINX configuration repository](https://github.com/zeabur/zbpack/blob/main/internal/php/nginx-conf/default.conf), and make your modifications on that basis. For example, if you wish to disable `gzip` compression, you can change the template's `gzip_static on;` to `gzip_static off;`.
+Por ejemplo, para desactivar la compresión `gzip`, cambia `gzip_static on;` a `gzip_static off;` en la plantilla.
 
-```
-server {
-    # see https://github.com/zeabur/zbpack/blob/main/internal/php/nginx-conf/default.conf
-
-    location / {
-        try_files $uri $uri/ /index.php?$query_string;
-        gzip_static off;  // disable gzip compression
-	}
+```nginx filename="/etc/nginx/sites-enabled/default" {3}
+location / {
+    try_files $uri $uri/ /index.php$is_args$args;
+    gzip_static off;
 }
 ```

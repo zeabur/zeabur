@@ -1,0 +1,40 @@
+---
+title: Symfony
+ogImageTitle: Symfony デプロイガイド
+ogImageSubtitle: Symfony を Zeabur にデプロイする手順
+---
+
+# Symfony デプロイガイド
+
+Zeabur はデフォルトで NGINX + PHP-FPM の構成を使用して Symfony プロジェクトを起動します。
+
+## 自動最適化
+
+Zeabur はデフォルトで以下の最適化コマンドを実行します [^1] [^2]：
+
+```bash
+composer dump-env prod
+composer run-script --no-dev post-install-cmd
+php bin/console cache:clear
+```
+
+これらの自動最適化コマンドを無効にしたい場合は、`PHP_OPTIMIZE=false` 変数を使用し、その後カスタムビルドコマンドで最適化プロセスを調整してください。
+
+[^1]: https://symfony.com/doc/current/performance.html
+[^2]: https://github.com/dunglas/symfony-docker
+
+## Webpack Encore および AssetMapper サポート
+
+Zeabur はプロジェクト内で AssetMapper または Webpack Encore が設定されていることを検出した場合、以下のコマンドを自動的に実行します。
+
+```bash
+php bin/console asset-map:compile
+```
+
+```bash
+./node_modules/.bin/encore production
+```
+
+Zeabur は最初に `npm install`、`composer install`、およびカスタムビルドコマンドを実行し、最後にこれらのアセットをビルドします。
+
+自動アセットビルドを無効にしたい場合は、`PHP_OPTIMIZE=false` 変数を使用し、その後カスタムビルドコマンドでアセットのビルドプロセスを調整してください。

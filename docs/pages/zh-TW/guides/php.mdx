@@ -6,19 +6,29 @@ ogImageSubtitle: 在 Zeabur 部署 PHP 專案
 
 # 部署 PHP 專案
 
-Zeabur 除了支援傳統的多檔案 PHP、以 `index.php` 為入口的專案，另外也支援 [Laravel](./php/laravel)、ThinkPHP、CodeIgniter 等框架的一鍵部署。
+Zeabur 除了支援傳統的多檔案 PHP、以 `index.php` 為入口的專案，另外也支援 [Laravel](./php/laravel)、[Symfony](./php/symfony)、ThinkPHP、CodeIgniter 等框架的一鍵部署。
+
+## PHP 環境
+
+Zeabur 預設使用 PHP 8 的最新版本、NGINX + php-fpm 伺服器來執行您的程式碼。
+
+Zeabur 的 PHP 環境內建 Composer、`apcu`、`bcmath`、`gd`、`intl`、`mysqli`、`opcache`、`pcntl`、`pdo_mysql`、`sysvsem`、`zip` 等 PHP 擴充套件。如果您的 `composer.json` 有安裝其他 `ext-` 開頭的擴充套件類型定義，Zeabur 也會自動安裝對應的擴充套件。除此之外，也會預設安裝 Node.js、Crontab、cURL、gettext、Git、grep、pkg-config、unzip 等工具。
+
+Zeabur 預設會帶入 `APP_ENV=prod` 和 `APP_DEBUG=true` 環境變數到您的應用程式當中，您可以在 Zeabur 控制台的「環境變數」區塊中手動覆蓋這些變數。
+
+完整的基礎 Image 設定可以參考 [zbpack 的程式碼儲存庫](https://github.com/zeabur/zbpack/blob/main/internal/php/Dockerfile)。
 
 ## NPM 支援
 
-如果你的專案根目錄有 `package.json`，Zeabur 會自動幫您安裝 Node.js 和 NPM；如果你的 `package.json` 有 `build` script，Zeabur 會自動幫你執行 `npm install && npm run build` 編譯產物。
+如果您的專案有 `package.json`，Zeabur 會幫您執行 `npm install` 安裝依賴。
 
-如果需要更改編譯的命令（如改執行 `npm run build:dist`），請參閱〈自訂編譯與啟動命令〉。
+如果您的專案的 `package.json` 有 `build` script，Zeabur 會自動幫您執行 `npm run build` 編譯產物。
 
 ## 自訂編譯和啟動命令
 
 Zeabur 允許你使用環境變數或設定檔自訂 PHP 的編譯和啟動命令。
 
-「編譯命令」適合用在需要下載或編譯自訂產物（如 CSS、JavaScript 等等），或者是配置設定檔的情境。舉例來說，你想往 `/etc` 資料夾寫入設定檔，你可以設定環境變數
+「編譯命令」適合用在需要下載或編譯自訂產物（如 CSS、JavaScript 等等），或者是配置設定檔的情境。舉例來說，你想往 `/etc` 資料夾寫入設定檔，你可以設定環境變數：
 
 ```env
 ZBPACK_BUILD_COMMAND=echo 'your-configuration' > /etc/somewhere
@@ -26,19 +36,21 @@ ZBPACK_BUILD_COMMAND=echo 'your-configuration' > /etc/somewhere
 
 或者是在 `zbpack.json` 中加入以下設定：
 
-```json
+```json filename="zbpack.json"
 {
     "build_command": "echo 'your-configuration' > /etc/somewhere"
 }
 ```
 
-你亦可以在這裡執行 npm 的命令。注意 Zeabur 只會在 **專案根目錄** 有 `package.json` 的情況下安裝 Node.js 和 NPM，如果你的專案沒有 `package.json`，則不會有 `npm` 命令可用：
+你亦可以在這裡執行其他 npm 的命令。
 
-```json
+```json filename="zbpack.json"
 {
-    "build_command": "npm install && npm run build:dist"
+    "build_command": "npm run build:dist"
 }
 ```
+
+編譯命令 **不會** 影響 Zeabur 原本的編譯流程，所以您不需要手動再這裡重複指定 Zeabur 預設幫您執行的命令。
 
 「啟動命令」則適合用在啟動 PHP 伺服器時執行的情境，如在原有的命令基礎上加上 `php artisan migrate` 來建立資料庫的 tables。舉例來說，你可以設定環境變數
 
@@ -48,13 +60,13 @@ ZBPACK_START_COMMAND="php artisan migrate && _startup"
 
 或者是在 `zbpack.json` 中加入以下設定：
 
-```json
+```json filename="zbpack.json"
 {
     "start_command": "php artisan migrate && _startup"
 }
 ```
 
-注意：若是持續運行的服務，則需將啟動指令放置於 `()` 內，並使用 `&` 串接命令
+注意：若是持續運行的服務，則需將啟動指令放置於 `()` 內，並使用 `&` 串接命令：
 
 ```env
 ZBPACK_START_COMMAND="(php artisan reverb:start &); _startup"
@@ -62,7 +74,7 @@ ZBPACK_START_COMMAND="(php artisan reverb:start &); _startup"
 
 或
 
-```json
+```json filename="zbpack.json"
 {
     "start_command": "(php artisan reverb:start &); _startup"
 }
@@ -80,7 +92,7 @@ Zeabur 預設使用 PHP 8，但你可以使用 `composer.json` 或 zbpack 的設
 
 在 `composer.json` 的 `require` 設定 `php` 版本的範圍：
 
-```json
+```json filename="composer.json"
 {
     "require": {
         "php": "7.4"
@@ -90,7 +102,7 @@ Zeabur 預設使用 PHP 8，但你可以使用 `composer.json` 或 zbpack 的設
 
 以上例來說，Zeabur 會使用 PHP 7.4 的最新 patch 版本來執行你的專案。
 
-```json
+```json filename="composer.json"
 {
     "require": {
         "php": "^7.4"
@@ -116,7 +128,7 @@ ZBPACK_PHP_VERSION=8.0
 
 或者是在 `zbpack.json` 中加入以下設定
 
-```json
+```json filename="zbpack.json"
 {
     "php": {
         "version": "8.0"
@@ -132,23 +144,19 @@ ZBPACK_PHP_VERSION=8.0
 
 舉例來說，如果想要將最大上傳檔案大小設定為 100MB，可以建立一個檔案 `/usr/local/etc/php/conf.d/upload.ini`，內容如下：
 
-```ini
+```ini filename="/usr/local/etc/php/conf.d/upload.ini"
 upload_max_filesize = 100M
 ```
 
 ## 自訂 NGINX 設定
 
-使用 Zeabur 的[設定檔編輯器](/deploy/config-edit)，建立一個路徑是 `/etc/nginx/sites-enabled/default` 的設定檔案，覆蓋 Zeabur 預設的 NGINX 設定。
+使用 Zeabur 的[設定檔編輯器](/deploy/config-edit)，建立一個路徑是 `/etc/nginx/sites-enabled/default` 的設定檔案，覆蓋 Zeabur 預設的 NGINX 設定。建立後會自動帶入目前的 NGINX 設定，你可以在此基礎上進行修改。
 
-如果你想以原本的設定檔為基礎微調 NGINX 設定，你可以從 [zbpack 的 NGINX 設定檔儲存庫](https://github.com/zeabur/zbpack/blob/main/internal/php/nginx-conf/default.conf) 下載目前 Zeabur 使用的 NGINX 設定檔，然後在此基礎上進行修改。舉例來說，假如你想要停用 `gzip` 壓縮，可以將範本的 `gzip_static on;` 改成 `gzip_static off;`。
+舉例來說，假如你想要停用 `gzip` 壓縮，可以將範本的 `gzip_static on;` 改成 `gzip_static off;`。
 
-```
-server {
-    # 參見 https://github.com/zeabur/zbpack/blob/main/internal/php/nginx-conf/default.conf
-
-    location / {
-        try_files $uri $uri/ /index.php?$query_string;
-        gzip_static off;  // 停用 GZIP 壓縮
-	}
+```nginx filename="/etc/nginx/sites-enabled/default" {3}
+location / {
+    try_files $uri $uri/ /index.php$is_args$args;
+    gzip_static off;
 }
 ```

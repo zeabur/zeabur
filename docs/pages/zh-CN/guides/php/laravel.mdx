@@ -1,4 +1,5 @@
 ---
+title: Laravel
 ogImageTitle: 部署 Laravel 项目
 ogImageSubtitle: 将你的 Laravel 项目部署到 Zeabur
 ---
@@ -78,18 +79,22 @@ php artisan key:generate
 
     `${MYSQL_USER}` 等变量的含义可以参考 [MySQL 文档的环境变量章节](/marketplace/mysql#环境变量)。
 
-## Laravel Octane 支持
+## 自动优化
 
-Zeabur 内置 Laravel Octane 搭配 Swoole 服务器的支持，不过您需要在 `zbpack.json` 上设置要使用的服务器：
+Zeabur 在构建 Laravel 服务时，会运行这些优化指令 [^1]：
 
-```json
-{
-  "laravel": {
-    "octane": {
-      "server": "swoole"
-    }
-  }
-}
+```bash
+php artisan optimize
+php artisan config:cache
+php artisan event:cache
+php artisan route:cache
+php artisan view:cache
 ```
 
-您也可以使用 `ZBPACK_LARAVEL_OCTANE_SERVER=swoole` 环境变量，在服务范围设置 Laravel Octane。
+您可以使用 `PHP_OPTIMIZE=false` 变量来关闭这些自动优化命令，然后再使用自定义编译命令微调您的优化流程。
+
+[^1]: https://laravel.com/docs/11.x/deployment#optimization
+
+## Vite / Laravel Mix 支持
+
+Zeabur 会在 `package.json` 中存在 `build` 指令时，自动运行 `npm install` 和 `npm run build`。考虑到 Vite 和 Laravel Mix 默认都会在 `package.json` 中设置 `build` 指令，Zeabur 会在构建 Laravel 服务时自动编译这些 assets。

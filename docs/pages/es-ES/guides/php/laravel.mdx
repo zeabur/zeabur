@@ -1,17 +1,16 @@
 ---
-ogImageTitle: Deploy Laravel
-ogImageSubtitle: Deploy Laravel App in Zeabur
+title: Laravel
+ogImageTitle: Desplegar Laravel
+ogImageSubtitle: Desplegar una aplicación Laravel en Zeabur
 ---
 
-<WorkingInProgress />
+# Desplegar Laravel
 
-# Deploy Laravel
+Este artículo te enseñará cómo desplegar tu proyecto de [Laravel](https://laravel.com/) en Zeabur.
 
-This article will teach you how to deploy your [Laravel](https://laravel.com/) project on Zeabur.
+## Paso 1: Configuración del Entorno
 
-## Step 1: Environment Configuration
-
-You can test and build locally first to make sure your project can run normally. You must apply your PHP version in composer.json for Zeabur to deploy.
+Primero puedes probar y compilar localmente para asegurarte de que tu proyecto se ejecute normalmente. Debes especificar la versión de PHP en `composer.json` para que Zeabur pueda desplegarlo.
 ```json
 {
   "require": {
@@ -20,29 +19,28 @@ You can test and build locally first to make sure your project can run normally.
 }
 ```
 
-## Step 2: Create a Project (Optional)
+## Paso 2: Crear un Proyecto (Opcional)
 
-First, you need to initialize a Laravel project in your local development environment. We can follow the instructions in the [Laravel official document](https://laravel.com/docs/9.x) to complete this step
+Primero, necesitas inicializar un proyecto de Laravel en tu entorno de desarrollo local. Podemos seguir las instrucciones en la [documentación oficial de Laravel](https://laravel.com/docs/9.x) para completar este paso.
 
-After creation, initialize a Git repository for it and deploy it to your GitHub.
+Después de la creación, inicializa un repositorio Git y súbelo a tu GitHub.
 
-## Step 3: Deploy Laravel Project
+## Paso 3: Desplegar el Proyecto Laravel
 
-In your project, click the **Deploy service** or **Add new service** button, and select **Deploy your source code**.
+En tu proyecto, haz clic en el botón **Deploy service** o **Add new service** y selecciona **Deploy your source code**.
 
 ![deploy](/deploy/common/select-service.en-US.png)
 
+Busca el repositorio de código de tu proyecto Laravel que deseas desplegar y haz clic en Importar.
+Tu aplicación Laravel comenzará a desplegarse automáticamente.
 
-Search for the Laravel Boot code repository you want to deploy, and click Import.
-Your Laravel Boot application will automatically start deploying.
+## Paso 4: Agrega una `APP_KEY` a tu proyecto Laravel
 
-## Step 4: Add an `APP_KEY` for you Laravel project
+Generar una clave de aplicación o `APP_KEY` es uno de los pasos iniciales más importantes cada vez que un desarrollador de Laravel crea o clona una aplicación de Laravel.
 
-Generating an application key or APP_KEY is one of the most important initial steps every time a Laravel developer creates or clones a Laravel application.
+Accede a la página de configuración de variables del proyecto e ingresa tu parámetro de entorno.
 
-Switch to project variable setting page and enter your environment parameter.
-
-You can generate a `APP_KEY` by enter this command under your Laravel project:
+Puedes generar una `APP_KEY` ejecutando este comando dentro de tu proyecto Laravel:
 
 ```shell
 php artisan key:generate
@@ -50,49 +48,52 @@ php artisan key:generate
 
 ![APP_KEY](/framework/laravel/app-key-setting.jpg)
 
-## Connect to MySQL Database
+## Conectar a una Base de Datos MySQL
 
-Typically, your Laravel project will need to connect to a MySQL database.
-You can connect to a MySQL database using the following steps.
+Normalmente, tu proyecto Laravel necesitará conectarse a una base de datos MySQL.
+Puedes conectarte a una base de datos MySQL siguiendo estos pasos:
 
-1. You need to first install the `ext-pdo_mysql` extension on your Laravel project so that Zeabur can enable MySQL PHP support for you. Install this extension in your local environment using the following command:
+1. Primero necesitas instalar la extensión `ext-pdo_mysql` en tu proyecto Laravel para que Zeabur pueda habilitar el soporte PHP para MySQL. Instala esta extensión en tu entorno local usando el siguiente comando:
 
     ```shell
     composer require ext-pdo_mysql
     ```
 
-    Then commit the new `composer.json` and lock files and push them to your GitHub repository.
+    Luego, confirma los nuevos archivos `composer.json` y `composer.lock` y súbelos a tu repositorio de GitHub.
 
-2. [Create a MySQL service](/marketplace/mysql) and then, in your local environment, run the following command to migrate your tables to Zeabur:
+2. [Crea un servicio MySQL](/marketplace/mysql) y luego, en tu entorno local, ejecuta el siguiente comando para migrar tus tablas a Zeabur:
 
     ```shell
-    export DATABASE_URL=mysql://<username>:<password>@<host>:<port>/<database>
+    export DATABASE_URL=mysql://<usuario>:<contraseña>@<host>:<puerto>/<base_de_datos>
     php artisan migrate
     ```
 
-    The `<username>`, `<password>`, `<host>`, `<port>`, and `<database>` mentioned above are your MySQL service details,
-    which you can find in the "Instruction" section of the MySQL service page.
+    Los valores `<usuario>`, `<contraseña>`, `<host>`, `<puerto>` y `<base_de_datos>` son los detalles de tu servicio MySQL, que puedes encontrar en la sección "Instruction" de la página del servicio MySQL.
 
-3. On your Zeabur Laravel service page, set a DATABASE_URL environment variable with the following content:
+3. En la página de servicio Laravel de Zeabur, configura una variable de entorno `DATABASE_URL` con el siguiente contenido:
 
     ```
     mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}
     ```
 
-    The meanings of `${MYSQL_USER}` and other variables can be found in the [MySQL documentation's environment variable section](/marketplace/mysql#environment-variables).
+    El significado de `${MYSQL_USER}` y otras variables se puede encontrar en la [sección de variables de entorno de la documentación de MySQL](/marketplace/mysql#environment-variables).
 
-## Laravel Octane Support
+## Optimización Automática
 
-Zeabur comes with built-in support for Laravel Octane with Swoole server, but you need to set the server to use in `zbpack.json`:
+Cuando construyes un servicio Laravel, Zeabur ejecuta estos comandos de optimización [^1]:
 
-```json
-{
-  "laravel": {
-    "octane": {
-      "server": "swoole"
-    }
-  }
-}
+```bash
+php artisan optimize
+php artisan config:cache
+php artisan event:cache
+php artisan route:cache
+php artisan view:cache
 ```
 
-You can also use the `ZBPACK_LARAVEL_OCTANE_SERVER=swoole` environment variable to set Laravel Octane for each services.
+Puedes deshabilitar estos comandos de optimización automática configurando la variable `PHP_OPTIMIZE=false`. Luego, utiliza comandos de compilación personalizados para ajustar tu proceso de optimización.
+
+[^1]: https://laravel.com/docs/11.x/deployment#optimization
+
+## Soporte para Vite / Laravel Mix
+
+Zeabur ejecuta automáticamente `npm install` y `npm run build` si existe un script `build` en tu archivo `package.json`. Dado que tanto Vite como Laravel Mix definen un script `build` en `package.json` por defecto, Zeabur compila automáticamente estos recursos al construir una aplicación Laravel.
