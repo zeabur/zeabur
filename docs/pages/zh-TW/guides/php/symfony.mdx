@@ -1,0 +1,40 @@
+---
+title: Symfony
+ogImageTitle: Symfony 部署說明
+ogImageSubtitle: Symfony 在 Zeabur 上部署的細項說明
+---
+
+# Symfony 部署說明
+
+Zeabur 預設使用 NGINX + PHP-FPM 的配置來啟動您的 Symfony 專案。
+
+## 自動最佳化
+
+Zeabur 預設會執行這幾個最佳化命令 [^1] [^2]：
+
+```bash
+composer dump-env prod
+composer run-script --no-dev post-install-cmd
+php bin/console cache:clear
+```
+
+您可以使用 `PHP_OPTIMIZE=false` 變數來關閉這些自動最佳化命令，然後再使用自訂編譯命令微調您的最佳化流程。
+
+[^1]: https://symfony.com/doc/current/performance.html
+[^2]: https://github.com/dunglas/symfony-docker
+
+## Webpack Encore 和 AssetMapper 支援
+
+Zeabur 若發現您的專案有設定 AssetMapper 或 Webpack Encore，會自動執行這些命令：
+
+```bash
+php bin/console asset-map:compile
+```
+
+```bash
+./node_modules/.bin/encore production
+```
+
+Zeabur 會先執行 `npm install`、`composer install` 和自訂編譯命令，最後才會建構這些 assets。
+
+您可以使用 `PHP_OPTIMIZE=false` 變數來關閉自動 assets 編譯，然後再使用自訂編譯命令微調您的編譯流程。
