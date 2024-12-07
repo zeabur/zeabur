@@ -10,10 +10,6 @@ import { Callout } from 'nextra/components'
 
 正常情況下你無需自行撰寫 `Dockerfile`，Zeabur 目前已針對各種主流框架提供了快速部署的方式，但如果你的專案不是使用這些框架，或是你想要自行定義部署的方式，你可以使用 `Dockerfile` 來部署。
 
-<Callout type="warning">
-  Zeabur 目前僅支援 `Dockerfile` 的部署方式，目前不提供 Docker Compose 的方式。
-</Callout>
-
 ## 建立 Dockerfile
 
 在你的專案根目錄建立一個名為 `Dockerfile` 或 `dockerfile` 的檔案，並且在裡面撰寫你的部署方式，最後須確保你有暴露對應的 `PORT`。
@@ -79,24 +75,26 @@ EXPOSE 8080
 CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
 ```
 
-## 製作 Monorepo 中針對特定服務的 Dockerfile
+## 指定要部署的 Dockerfile
 
-如果你的 Monorepo 裡有不同專案想要分開部署，你可以建立 `Dockerfile.[服務名稱]` （或 `[服務名稱].Dockerfile`) 並透過服務名稱部署指定的 Dockerfile。
-
-以這個 case 來說，假如你想部署三個微服務，但都使用同一個 Git Repository，你可以這樣命名自己的 Dockerfile：
-
-- `Dockerfile.storage`（或 `storage.Dockerfile`）: 部署 Node.js 的 `storage` 微服務
-- `Dockerfile.discord`（或 `discord.Dockerfile`）: 部署 Node.js 的 `discord` 微服務
-- `Dockerfile.frontend`（或 `frontend.Dockerfile`）: 部署 Next.js 的 `frontend` 前端
-
-接著在 Zeabur 部署你的專案，並到「設定」→「服務名稱」中改成你想部署的服務名稱，比如 `storage`、`discord` 或 `frontend`：
+若想指定要在專案部署的 Dockerfile，請將 Dockerfile 命名為 `[服務名稱].Dockerfile` 或 `Dockerfile.[服務名稱]`。例如，如果你的專案中有一個 `Dockerfile.storage` 檔案，而你的服務名稱是 `storage`，Zeabur 將會使用這個 Dockerfile 來部署 `storage` 服務。
 
 ![specify-service-name](/deploy/dockerfile/specify-service-name.png)
 
-接著點選「Redeploy」重新部署專案，即可部署你想要的服務。你也可以與 [觸發路徑](./watch-paths) 搭配使用，只在修改相應檔案時才觸發部署。
+您也可以指定 `ZBPACK_DOCKERFILE_NAME` 環境變數，或在 `zbpack.json` 中加入以下內容：
+
+```json
+{
+  "dockerfile": {
+    "name": "storage"
+  }
+}
+```
+
+例如，如果您在服務中設定 `ZBPACK_DOCKERFILE_NAME=storage`，Zeabur 將使用 `Dockerfile.storage` Dockerfile 來部署 `storage` 服務。
 
 ## Docker Compose
 
-Zeabur 目前僅支援 `Dockerfile` 的部署方式，目前不提供 Docker Compose 的方式。
+Zeabur 目前還不支援從 Docker Compose YAML 進行部署。
 
-{/* converted with zhconvert.org | revision dict-a1f426e3-r1031 */}
+您可以將 Docker Compose 檔案轉換成 Zeabur Template YAML，可以參考[〈從 YAML 建立模板〉](/template/template-in-code)一文。如果需要協助，也可以在 [社群](https://discord.gg/zeabur) 詢問我們。
