@@ -79,6 +79,30 @@ You can install `bun-types` into your project if you prefer not to commit the `b
 }
 ```
 
+## Specify Bun Version
+
+By default, Zeabur uses the *latest stable* version of Bun.
+
+You can specify the Bun runtime version in the `package.json` file using the `engines.bun` field.
+
+```json filename="package.json" {3}
+{
+  "engines": {
+    "bun": "1.1.38"
+  }
+}
+```
+
+You can also specify a range of versions in Semver format.
+
+```json filename="package.json" {3}
+{
+  "engines": {
+    "bun": "^1.1.38"
+  }
+}
+```
+
 ## Deploy
 
 Click on **Git** button.
