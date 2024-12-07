@@ -12,25 +12,25 @@
   },
   "author": "Zeabur",
   "dependencies": {
-    "@formatjs/intl-localematcher": "^0.5.6",
+    "@formatjs/intl-localematcher": "^0.5.8",
     "negotiator": "^1.0.0",
-    "next": "^15.0.1",
-    "nextra": "^3.1.2",
-    "nextra-theme-docs": "^3.1.2",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "next": "^15.0.4",
+    "nextra": "^3.2.4",
+    "nextra-theme-docs": "^3.2.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "sharp": "^0.33.5",
     "source-map-support": "^0.5.21"
   },
   "devDependencies": {
-    "@types/node": "22.8.1",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "prettier": "^3.3.3"
+    "@types/node": "22.10.1",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
+    "prettier": "^3.4.2"
   },
   "prettier": {
     "semi": false,
     "singleQuote": true
   },
-  "packageManager": "pnpm@9.11.0+sha512.0a203ffaed5a3f63242cd064c8fb5892366c103e328079318f78062f24ea8c9d50bc6a47aa3567cabefd824d170e78fa2745ed1f16b132e16436146b7688f19b"
+  "packageManager": "pnpm@9.15.0+sha512.76e2379760a4328ec4415815bcd6628dee727af3779aaa4c914e3944156c4299921a89f976381ee107d41f12cfa4b66681ca9c718f0668fa0831ed4c6d8ba56c"
 }
