@@ -79,6 +79,30 @@ root
 }
 ```
 
+## 指定 Bun 版本
+
+預設情況下 Zeabur 會選擇 **最新** 的 Bun **穩定版**。
+
+您可以在 `package.json` 檔案中使用 `engines.bun` 欄位指定 Bun runtime 的版本。
+
+```json filename="package.json" {3}
+{
+  "engines": {
+    "bun": "1.1.38"
+  }
+}
+```
+
+您也可以使用 Semver 格式指定一個版本範圍。
+
+```json filename="package.json" {3}
+{
+  "engines": {
+    "bun": "^1.1.38"
+  }
+}
+```
+
 ## 部署
 
 點擊 **Git** 按鈕。
