@@ -1,31 +1,28 @@
 ---
-title: Pricing
-ogImageTitle: Pricing
-ogImageSubtitle: Zeabur Pricing
+title: Precios
+ogImageTitle: Precios
+ogImageSubtitle: Precios de Zeabur
 ---
 
-<WorkingInProgress />
+# Precios
 
-# Pricing
+Zeabur ofrece un modelo de precios basado en el consumo para tus proyectos. No recibirás facturas por recursos que no utilices.
 
-Zeabur offers a consumption-based pricing model for your projects. You won't get any bills for resources you don't use.
+En su lugar, Zeabur cobra por minuto según los recursos que tus servicios utilicen realmente.
 
-Instead, Zeabur charges by the minute for each vCPU and memory resource that your services actually use.
+## Tarifas de precios
 
-## Pricing Rates
+En Zeabur hay dos tipos de servidores: _clústeres compartidos_ y [_servidores dedicados_](/dedicated-server). Estas tarifas de precios se aplican únicamente a los **clústeres compartidos**, y no cobramos ninguna tarifa de uso por los servidores dedicados.
 
-Zeabur computes the usage cost with the following formula:
+Las tarifas por el uso en los **clústeres compartidos** son las siguientes:
 
-`Total Service Time` (in minutes) x (`Memory usage` (in GB) + `vCPU usage` (in cores))
+- vCPU - Sin coste ($0.00 / minuto de vCPU)
 
-And the rates for usage are as the following:
+- Memoria - **US$0.00025** / minuto por GB (aproximadamente US$10.80 / mes por GB)
+  - Solo se te cobrará por la memoria que tus servicios utilicen realmente. Si tu servicio se detiene o se suspende, no se generarán cargos por el uso de memoria.
 
-- Memory - **US$0.0001** / GB-minute (About US$4 / GB-month)
+- Salida de red - **US$0.10** / GB (US$10.00 / 100GB)
+  - 1GB equivale aproximadamente a 1,000 visitantes únicos accediendo a una página de 1MiB sin CDN ni compresión.
+  - [Red privada](/networking/private) no se considera ancho de banda de salida.
 
-- vCPU - **US$0.0003** / vCPU-minute (About US$12 / vCPU-month)
-
-- Network Egress - First 10GB is free for Serverless Plan, 100GB for Developer Plan and Team Plan. Then **US$10** / 100GB.
-
-- Persistent Volume - **US$0.2** / GB-month
-
-There is no minimum service cost and you won't get charged if your services use no resources or crashed.
+- Volumen persistente - **US$0.20** / mes por GB
