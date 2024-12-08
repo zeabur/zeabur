@@ -1,80 +1,81 @@
 ---
-title: Deploy Halo
-ogImageTitle: Deploy Halo
-ogImageSubtitle: Deploy Halo on Zeabur
+title: Halo サービスのデプロイ
+ogImageTitle: Halo サービスのデプロイ
+ogImageSubtitle: ZeaburでワンクリックでHaloサービスをデプロイ
 ---
 
 import { Callout } from 'nextra/components'
 
-# Deploy Halo Service
+# Halo サービスのデプロイ
 
-<WorkingInProgress />
+[Halo](https://www.halo.run/) は、強力で使いやすいオープンソースのウェブサイト構築ツールです。豊富なテンプレートとプラグインを組み合わせることで、理想的なサイトを構築するのに役立ちます。
 
-[Halo](https://halo.run/) is a powerful and easy-to-use open source website building tool, with rich themes and plugins to help you build the ideal site in your mind.
+この記事では、Zeaburのサービスマーケットプレイスを通じて、独自のHaloサービスを簡単にデプロイし、独自のドメイン名をバインドする方法を紹介します。
 
-This article will teach you how to deploy your own Halo service on Zeabur through the service market, and bind your own domain name.
+## テンプレートからHaloをデプロイ
 
-## Step 1: Create a project
+### ステップ1: Haloテンプレートページを開く
 
-<CreateProject />
+Haloは独立したデータベースサービスを必要とするため、単独のHaloイメージだけでデプロイを完了することはできません。
 
-## Step 2: Deploy PostgreSQL Service
+PostgreSQLを含むHaloをワンクリックでデプロイできるテンプレートを用意しました。
 
-Halo service currently only supports PostgreSQL databases in Zeabur. Before creating a Halo service, you need to deploy a PostgreSQL service and create a database.
+[![Zeaburでデプロイ](https://zeabur.com/button.svg)](https://zeabur.com/templates/Q6H2MA)
 
-Click the "Create Service" button and select "Marketplace". You will find PostgreSQL in the list.
+### ステップ2: テンプレートをデプロイ
 
-![Deploy PostgreSQL Service](/marketplace/halo/deploy-postgresql.en-US.png)
+![テンプレート](/marketplace/halo/template-overview.en-US.png)
 
-After selecting PostgreSQL, you can give the service a custom name and click "Deploy".
+デプロイボタンをクリックし、サービスをデプロイする地域を選択します。
 
-## Step 3: Create a database
+![地域を選択](/marketplace/halo/create-by-template.en-US.png)
 
-To run Halo, we need to create a database named `halo` in PostgreSQL.
+選択後、自動的にプロジェクトページにリダイレクトされ、デプロイの進行状況を確認できます。
 
-Please connect to your PostgreSQL service with any PostgreSQL client. In this article, we will use [psql](https://www.postgresql.org/docs/9.1/app-psql.html) to connect.
+数秒待つと、Haloサービスが正常にデプロイされ、稼働を開始します。
 
-![PostgreSQL connection information block](/marketplace/halo/postgre-connect.en-US.png)
+![サービスのステータス](/marketplace/halo/service-overview.en-US.png)
 
-You can find the psql connection command or other connection information in the "Connection" block of the PostgreSQL service in the Zeabur console.
+### ステップ3: ドメイン名をバインド
 
-For example：
+デプロイが完了したら、Haloサービスにアクセスするためにドメイン名をバインドする必要があります。
 
-```bash
-psql postgresql://root:password@infra.zeabur.com:12345
-```
-
-Then, please enter the following command in psql to create the `halo` database:
-
-```sql
-CREATE DATABASE halo;
-```
-
-## Step 4: Deploy Halo Service
-
-In the Zeabur console, click the "Create Service" button and select "Marketplace". You will find Halo in the list.
-
-![Deploy Halo Service](/marketplace/halo/deploy-halo.en-US.png)
-
-After selecting Halo, you can give the service a custom name and click "Deploy".
+詳細は[ドメイン名のバインドガイド](/deploy/domain-binding)をご覧ください。
 
 <Callout>
-It should be noted that because we have deployed the PostgreSQL service before deploying Halo, Zeabur will automatically help you inject PostgreSQL-related environment variables into Halo's service, so there is no need to manually configure database information.
-
-If you deploy Halo before deploying PostgreSQL, you need to restart Halo after deploying PostgreSQL to make Halo use the correct database connection information.
-
+ドメイン名をバインドした後、次回Haloサービスを再起動すると、このドメインがHaloの外部アクセスアドレスとして自動的に設定され、再度手動で設定する必要はありません。
 </Callout>
 
-## Step 5: Bind a domain
+### ステップ4: Haloにログインして設定
 
-In the "Domain" block of the Halo service in the Zeabur console, you can bind a domain to it. This domain can be your own domain or a free domain provided by Zeabur.
+ドメインのバインドが完了したら、ドメインをクリックしてHaloの初期化画面に入ります。
 
-![Domain block of Halo service](/marketplace/halo/halo-domain.en-US.png)
+![初期化](/marketplace/halo/setup.en-US.png)
 
-For more information about how to bind a domain to your service, please refer to [Bind a domain](/deploy/domain-binding).
+初期化してログインすると、Haloコンソールにジャンプできます。
 
-## Step 6: Log in and configure Halo
+![コンソール](/marketplace/halo/console.en-US.png)
 
-After binding the domain, you can click the domain name to enter the setup page of Halo, and follow the prompts to complete the setup and use the Halo service.
+Haloの使用ドキュメントは以下を参照してください：[Halo ドキュメント - ユーザーガイド](https://docs.halo.run/category/%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97)
 
-![Console of Halo](/marketplace/halo/halo-console.en-US.png)
+## 後続のメンテナンス
+
+### バージョンアップグレード
+
+今後Haloのバージョンをアップグレードするには、サービスの設定でイメージのバージョン番号を変更するだけです。以下の図のように：
+
+![タグ名を変更](/marketplace/halo/change-tag-name.en-US.png)
+
+Haloのバージョンリストは[halohub/halo](https://hub.docker.com/r/halohub/halo/tags)で確認でき、リリースノートは次のリンクから参照できます：[Halo公式サイト - リリースノート](https://www.halo.run/categories/release-notes)
+
+<Callout>
+イメージのバージョンを変更した後、サービスは自動的に再起動し、少し待つとアップグレードが完了します。
+</Callout>
+
+### バックアップと移行
+
+Zeaburはサービスにバックアップ機能を提供していますが、Haloの組み込みバックアップ機能はプラットフォームに依存しないため、Haloの組み込みバックアップ機能を使用することをお勧めします。
+
+さらに、既存のHaloサービスをZeaburに移行する必要がある場合、Haloのバックアップと復元機能を使用するのが最適な選択です。
+
+Haloのバックアップと復元機能の使用方法については、次のドキュメントを参照してください：[Halo ドキュメント - バックアップと復元](https://docs.halo.run/user-guide/backup)
