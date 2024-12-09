@@ -1,0 +1,40 @@
+---
+title: Symfony
+ogImageTitle: Symfony Deployment Guide
+ogImageSubtitle: Some useful tips for deploying Symfony on Zeabur
+---
+
+# Symfony Deployment Guide
+
+Zeabur uses NGINX + PHP-FPM as the default server to run your Symfony service.
+
+## Automatic Optimization
+
+By default, Zeabur runs the following optimization commands [^1] [^2]:
+
+```bash
+composer dump-env prod
+composer run-script --no-dev post-install-cmd
+php bin/console cache:clear
+```
+
+You can disable these automatic optimization commands by setting the `PHP_OPTIMIZE=false` variable. Then, use custom build commands to fine-tune your optimization process.
+
+[^1]: https://symfony.com/doc/current/performance.html
+[^2]: https://github.com/dunglas/symfony-docker
+
+## Webpack Encore and AssetMapper Support
+
+If Zeabur detects that your project is configured with AssetMapper or Webpack Encore, it will automatically run the following commands:
+
+```bash
+php bin/console asset-map:compile
+```
+
+```bash
+./node_modules/.bin/encore production
+```
+
+Zeabur will first run `npm install`, `composer install`, and any custom build commands before building these assets.
+
+You can disable automatic asset compilation by setting the `PHP_OPTIMIZE=false` variable. Then, use custom build commands to fine-tune your asset compilation process.

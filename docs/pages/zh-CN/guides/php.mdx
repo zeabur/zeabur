@@ -6,81 +6,93 @@ ogImageSubtitle: 在 Zeabur 部署 PHP 项目
 
 # 部署 PHP 项目
 
-Zeabur 不仅支持传统的多文件 PHP 项目，以 `index.php` 作为入口的项目，还支持 [Laravel](./php/laravel)、ThinkPHP、CodeIgniter 等框架的一键部署。
+Zeabur 除了支持传统的多文件 PHP、以 `index.php` 为入口的项目，还支持 [Laravel](./php/laravel)、[Symfony](./php/symfony)、ThinkPHP、CodeIgniter 等框架的一键部署。
+
+## PHP 环境
+
+Zeabur 默认使用 PHP 8 的最新版本、NGINX + php-fpm 服务器来运行您的代码。
+
+Zeabur 的 PHP 环境内置 Composer、`apcu`、`bcmath`、`gd`、`intl`、`mysqli`、`opcache`、`pcntl`、`pdo_mysql`、`sysvsem`、`zip` 等 PHP 扩展。如果您的 `composer.json` 中安装了其他以 `ext-` 开头的扩展类型定义，Zeabur 也会自动安装对应的扩展。此外，还会默认安装 Node.js、Crontab、cURL、gettext、Git、grep、pkg-config、unzip 等工具。
+
+Zeabur 默认会带入 `APP_ENV=prod` 和 `APP_DEBUG=true` 环境变量到您的应用程序中，您可以在 Zeabur 控制台的“环境变量”区域手动覆盖这些变量。
+
+完整的基础镜像配置可以参考 [zbpack 的代码仓库](https://github.com/zeabur/zbpack/blob/main/internal/php/Dockerfile)。
 
 ## NPM 支持
 
-如果你的项目根目录有 `package.json`，Zeabur 会自动帮您安装 Node.js 和 NPM；如果你的 `package.json` 有 `build` 脚本，Zeabur 会自动帮你运行 `npm install && npm run build` 编译产物。
+如果您的项目有 `package.json`，Zeabur 会帮您运行 `npm install` 安装依赖。
 
-如果需要更改编译的命令（如改运行 `npm run build:dist`），请参阅〈自定义编译与启动命令〉。
+如果您的项目的 `package.json` 有 `build` 脚本，Zeabur 会自动帮您运行 `npm run build` 编译产物。
 
 ## 自定义编译和启动命令
 
-Zeabur 允许你使用环境变量或配置文件自定义 PHP 的编译和启动命令。
+Zeabur 允许您使用环境变量或配置文件自定义 PHP 的编译和启动命令。
 
-“编译命令”适合用在需要下载或编译自定义产物（如 CSS、JavaScript 等等），或者是写入配置文件的情境。举例来说，你想往 `/etc` 文件夹写入配置文件，你可以设置环境变量
+“编译命令”适用于需要下载或编译自定义产物（如 CSS、JavaScript 等等）或配置文件的场景。例如，您希望往 `/etc` 文件夹写入配置文件，可以设置环境变量：
 
 ```env
 ZBPACK_BUILD_COMMAND=echo 'your-configuration' > /etc/somewhere
 ```
 
-或者是在 `zbpack.json` 中加入以下设置：
+或者在 `zbpack.json` 中加入以下配置：
 
-```json
+```json filename="zbpack.json"
 {
     "build_command": "echo 'your-configuration' > /etc/somewhere"
 }
 ```
 
-你亦可以在这里运行 npm 的命令。注意 Zeabur 只会在 **项目根目录** 有 `package.json` 的情况下安装 Node.js 和 NPM，如果你的项目没有 `package.json`，则不会有 `npm` 命令可用：
+您也可以在这里执行其他 npm 的命令：
 
-```json
+```json filename="zbpack.json"
 {
-    "build_command": "npm install && npm run build:dist"
+    "build_command": "npm run build:dist"
 }
 ```
 
-“启动命令”则适合用在启动 PHP 服务器时运行的情境，如在原有的命令基础上加上 `php artisan migrate` 来建立数据库的 tables。举例来说，你可以设置环境变量
+编译命令 **不会** 影响 Zeabur 原本的编译流程，所以您不需要手动在这里重复指定 Zeabur 默认帮您执行的命令。
+
+“启动命令”适用于启动 PHP 服务器时的场景，比如在原有命令基础上加上 `php artisan migrate` 来创建数据库表。例如，您可以设置环境变量：
 
 ```env
 ZBPACK_START_COMMAND="php artisan migrate && _startup"
 ```
 
-或者是在 `zbpack.json` 中加入以下设置：
+或者在 `zbpack.json` 中加入以下配置：
 
-```json
+```json filename="zbpack.json"
 {
     "start_command": "php artisan migrate && _startup"
 }
 ```
 
-注意：如果是持续运行的服务，需要将启动命令放在 `()` 内，并使用 `&` 连接命令。
+注意：如果是持续运行的服务，则需要将启动指令放置于 `()` 内，并使用 `&` 连接命令：
 
 ```env
 ZBPACK_START_COMMAND="(php artisan reverb:start &); _startup"
 ```
 
-或
+或者
 
-```json
+```json filename="zbpack.json"
 {
     "start_command": "(php artisan reverb:start &); _startup"
 }
 ```
 
-其中 `_startup` 是 Zeabur 原本的启动命令（[可以在 zbpack 查阅](https://github.com/zeabur/zbpack/tree/main/internal/php)）。如果你有自定义 `start_command`，`_startup` 必须在你的启动命令中运行，否则不会启动 PHP 服务器。
+其中 `_startup` 是 Zeabur 原本的启动命令（[可以在 zbpack 查阅](https://github.com/zeabur/zbpack/tree/main/internal/php)）。如果您有自定义 `start_command`，`_startup` 必须在您的启动命令中执行，否则不会启动 PHP 服务器。
 
-`build_command` 和 `start_command` 均会使用 POSIX 兼容的 shell 运行，所以你可以使用 `&&` 串接多个命令，或者使用 `;` 分隔多个命令。
+`build_command` 和 `start_command` 均会使用 POSIX 兼容的 shell 执行，因此您可以使用 `&&` 连接多个命令，或者使用 `;` 分隔多个命令。
 
 ## 自定义 PHP 版本
 
-Zeabur 默认使用 PHP 8，但你可以使用 `composer.json` 或 zbpack 的设置来指定 PHP 版本。如果你的项目是 Laravel Sail，Zeabur 也会根据 `docker-compose.yml` 自动判断。zbpack 设置优先级最高、`composer.json` 次之、Laravel Sail 最低。
+Zeabur 默认使用 PHP 8，但您可以使用 `composer.json` 或 zbpack 的配置来指定 PHP 版本。如果您的项目是 Laravel Sail，Zeabur 也会根据 `docker-compose.yml` 自动判断。zbpack 配置优先级最高，`composer.json` 次之，Laravel Sail 最低。
 
 ### `composer.json`
 
-在 `composer.json` 的 `require` 设置 `php` 版本的范围：
+在 `composer.json` 的 `require` 中设置 `php` 版本范围：
 
-```json
+```json filename="composer.json"
 {
     "require": {
         "php": "7.4"
@@ -88,9 +100,9 @@ Zeabur 默认使用 PHP 8，但你可以使用 `composer.json` 或 zbpack 的设
 }
 ```
 
-以上例来说，Zeabur 会使用 PHP 7.4 的最新 patch 版本来运行你的项目。
+以上例子中，Zeabur 会使用 PHP 7.4 的最新补丁版本运行您的项目。
 
-```json
+```json filename="composer.json"
 {
     "require": {
         "php": "^7.4"
@@ -98,25 +110,25 @@ Zeabur 默认使用 PHP 8，但你可以使用 `composer.json` 或 zbpack 的设
 }
 ```
 
-以上例来说，Zeabur 会使用 PHP 7 的最新 minor 版本来运行你的项目。
+以上例子中，Zeabur 会使用 PHP 7 的最新次版本运行您的项目。
 
 ### Laravel Sail
 
-如果你的项目是 Laravel Sail，Zeabur 会自动检测并使用 Laravel Sail 在 `docker-compose.yml` 定义的 PHP 版本。
+如果您的项目是 Laravel Sail，Zeabur 会自动检测并使用 Laravel Sail 在 `docker-compose.yml` 中定义的 PHP 版本。
 
 ![Laravel Sail 的 Docker Compose 定义](/guides/php/laravel-sail-docker-compose.webp)
 
-### zbpack 设置
+### zbpack 配置
 
-如果你没有使用 Laravel Sail 或 Composer，但有更改 PHP 版本的需求，可以使用 `ZBPACK_PHP_VERSION` 环境变量
+如果您没有使用 Laravel Sail 或 Composer，但需要更改 PHP 版本，可以使用 `ZBPACK_PHP_VERSION` 环境变量：
 
 ```env
 ZBPACK_PHP_VERSION=8.0
 ```
 
-或者是在 `zbpack.json` 中加入以下设置
+或者在 `zbpack.json` 中加入以下配置：
 
-```json
+```json filename="zbpack.json"
 {
     "php": {
         "version": "8.0"
@@ -126,29 +138,25 @@ ZBPACK_PHP_VERSION=8.0
 
 来自定义 PHP 版本。
 
-## 自定义 `php.ini` 设置
+## 自定义 `php.ini` 配置
 
-使用 Zeabur 的[配置文件编辑器](/deploy/config-edit)，创建一个路径在 `/usr/local/etc/php/conf.d`，文件扩展名为 `ini` 的配置文件，并直接写上想要覆盖的 PHP 设置即可。
+使用 Zeabur 的[配置文件编辑器](/deploy/config-edit)，创建一个路径在 `/usr/local/etc/php/conf.d`、后缀名为 `ini` 的配置文件，直接写上您想覆盖的 PHP 配置即可。
 
-例如，如果你想将最大上传文件大小设置为 100MB，可以创建一个文件 `/usr/local/etc/php/conf.d/upload.ini`，内容如下：
+例如，如果想将最大上传文件大小设置为 100MB，可以创建一个文件 `/usr/local/etc/php/conf.d/upload.ini`，内容如下：
 
-```ini
+```ini filename="/usr/local/etc/php/conf.d/upload.ini"
 upload_max_filesize = 100M
 ```
 
 ## 自定义 NGINX 配置
 
-使用 Zeabur 的[配置文件编辑器](/deploy/config-edit)，创建一个路径为 `/etc/nginx/sites-enabled/default` 的配置文件，以覆盖 Zeabur 默认的 NGINX 配置。
+使用 Zeabur 的[配置文件编辑器](/deploy/config-edit)，创建一个路径为 `/etc/nginx/sites-enabled/default` 的配置文件，覆盖 Zeabur 默认的 NGINX 配置。创建后会自动带入当前的 NGINX 配置，您可以在此基础上进行修改。
 
-如果您想在原有配置文件的基础上微调 NGINX 配置，您可以从 [zbpack 的 NGINX 配置文件仓库](https://github.com/zeabur/zbpack/blob/main/internal/php/nginx-conf/default.conf) 下载 Zeabur 当前使用的 NGINX 配置文件，并在此基础上进行修改。例如，如果您想禁用 `gzip` 压缩，可以将模板中的 `gzip_static on;` 修改为 `gzip_static off;`。
+例如，假如您想要禁用 `gzip` 压缩，可以将模板中的 `gzip_static on;` 改为 `gzip_static off;`。
 
-```
-server {
-    # 参见 https://github.com/zeabur/zbpack/blob/main/internal/php/nginx-conf/default.conf
-
-    location / {
-        try_files $uri $uri/ /index.php?$query_string;
-        gzip_static off;  // 禁用 gzip 压缩
-	}
+```nginx filename="/etc/nginx/sites-enabled/default" {3}
+location / {
+    try_files $uri $uri/ /index.php$is_args$args;
+    gzip_static off;
 }
 ```

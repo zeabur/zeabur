@@ -1,4 +1,5 @@
 ---
+title: Laravel
 ogImageTitle: Deploy Laravel
 ogImageSubtitle: Deploy Laravel App in Zeabur
 ---
@@ -79,18 +80,22 @@ You can connect to a MySQL database using the following steps.
 
     The meanings of `${MYSQL_USER}` and other variables can be found in the [MySQL documentation's environment variable section](/marketplace/mysql#environment-variables).
 
-## Laravel Octane Support
+## Automatic Optimization
 
-Zeabur comes with built-in support for Laravel Octane with Swoole server, but you need to set the server to use in `zbpack.json`:
+When building a Laravel service, Zeabur runs these optimization commands [^1]:
 
-```json
-{
-  "laravel": {
-    "octane": {
-      "server": "swoole"
-    }
-  }
-}
+```bash
+php artisan optimize
+php artisan config:cache
+php artisan event:cache
+php artisan route:cache
+php artisan view:cache
 ```
 
-You can also use the `ZBPACK_LARAVEL_OCTANE_SERVER=swoole` environment variable to set Laravel Octane for each services.
+You can disable these automatic optimization commands by setting the `PHP_OPTIMIZE=false` variable. Then, use custom build commands to fine-tune your optimization process.
+
+[^1]: https://laravel.com/docs/11.x/deployment#optimization
+
+## Vite / Laravel Mix Support
+
+Zeabur automatically runs `npm install` and `npm run build` if a `build` script exists in your `package.json`. Since both Vite and Laravel Mix define a `build` script in `package.json` by default, Zeabur automatically compiles these assets when building a Laravel application.
