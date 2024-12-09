@@ -1,78 +1,79 @@
 ---
 title: Deploy Halo
 ogImageTitle: Deploy Halo
-ogImageSubtitle: Deploy Halo on Zeabur
+ogImageSubtitle: Deploy Halo Service on Zeabur with One Click
 ---
 
 import { Callout } from 'nextra/components'
 
-# Deploy Halo Service
+# Deploy Halo
 
-[Halo](https://halo.run/) is a powerful and easy-to-use open source website building tool, with rich themes and plugins to help you build the ideal site in your mind.
+[Halo](https://www.halo.run/) is a powerful and easy-to-use open-source website building tool. With a rich set of templates and plugins, it helps you build your ideal website.
 
-This article will teach you how to deploy your own Halo service on Zeabur through the service market, and bind your own domain name.
+This article will guide you on how to easily deploy your own Halo service on Zeabur through the service marketplace and bind your own domain name.
 
-## Step 1: Create a project
+## Step 1: Open the Halo Template Page
 
-<CreateProject />
+Since Halo requires a separate database service, you cannot complete the deployment with just a standalone Halo image.
 
-## Step 2: Deploy PostgreSQL Service
+We have created a template for you that can deploy Halo with PostgreSQL in one click.
 
-Halo service currently only supports PostgreSQL databases in Zeabur. Before creating a Halo service, you need to deploy a PostgreSQL service and create a database.
+[![Deploy on Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/Q6H2MA)
 
-Click the "Create Service" button and select "Marketplace". You will find PostgreSQL in the list.
+## Step 2: Deploy the Template
 
-![Deploy PostgreSQL Service](/marketplace/halo/deploy-postgresql.en-US.png)
+![Template](/marketplace/halo/template-overview.en-US.png)
 
-After selecting PostgreSQL, you can give the service a custom name and click "Deploy".
+Click the deploy button and choose a region to deploy your service.
 
-## Step 3: Create a database
+![Select Region](/marketplace/halo/create-by-template.en-US.png)
 
-To run Halo, we need to create a database named `halo` in PostgreSQL.
+After selecting, you will be automatically redirected to the project page where you can see the deployment progress.
 
-Please connect to your PostgreSQL service with any PostgreSQL client. In this article, we will use [psql](https://www.postgresql.org/docs/9.1/app-psql.html) to connect.
+Wait a few seconds, and your Halo service will be successfully deployed and start running.
 
-![PostgreSQL connection information block](/marketplace/halo/postgre-connect.en-US.png)
+![Service Status](/marketplace/halo/service-overview.en-US.png)
 
-You can find the psql connection command or other connection information in the "Connection" block of the PostgreSQL service in the Zeabur console.
+## Step 3: Bind Domain Name
 
-For example：
+After deployment, you need to bind a domain name to access your Halo service.
 
-```bash
-psql postgresql://root:password@infra.zeabur.com:12345
-```
-
-Then, please enter the following command in psql to create the `halo` database:
-
-```sql
-CREATE DATABASE halo;
-```
-
-## Step 4: Deploy Halo Service
-
-In the Zeabur console, click the "Create Service" button and select "Marketplace". You will find Halo in the list.
-
-![Deploy Halo Service](/marketplace/halo/deploy-halo.en-US.png)
-
-After selecting Halo, you can give the service a custom name and click "Deploy".
+You can follow the [domain binding guide](/deploy/domain-binding) for more details.
 
 <Callout>
-It should be noted that because we have deployed the PostgreSQL service before deploying Halo, Zeabur will automatically help you inject PostgreSQL-related environment variables into Halo's service, so there is no need to manually configure database information.
-
-If you deploy Halo before deploying PostgreSQL, you need to restart Halo after deploying PostgreSQL to make Halo use the correct database connection information.
-
+After binding the domain name, the next time you restart the Halo service, it will automatically set this domain as the external access address for Halo, without needing to set it manually again.
 </Callout>
 
-## Step 5: Bind a domain
+## Step 4: Login and Set Up Halo
 
-In the "Domain" block of the Halo service in the Zeabur console, you can bind a domain to it. This domain can be your own domain or a free domain provided by Zeabur.
+After completing domain binding, you can click the domain to enter the Halo initialization interface.
 
-![Domain block of Halo service](/marketplace/halo/halo-domain.en-US.png)
+![Initialization](/marketplace/halo/setup.en-US.png)
 
-For more information about how to bind a domain to your service, please refer to [Bind a domain](/deploy/domain-binding).
+After initialization and login, you can jump to the Halo console.
 
-## Step 6: Log in and configure Halo
+![Console](/marketplace/halo/console.en-US.png)
 
-After binding the domain, you can click the domain name to enter the setup page of Halo, and follow the prompts to complete the setup and use the Halo service.
+For Halo's usage documentation, refer to: [Halo Documentation - User Guide](https://docs.halo.run/category/%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97)
 
-![Console of Halo](/marketplace/halo/halo-console.en-US.png)
+## Subsequent Maintenance
+
+### Upgrade Version
+
+To upgrade the version of Halo later, just change the version number of the image in the service settings, as shown:
+
+![Change tag name](/marketplace/halo/change-tag-name.en-US.png)
+
+The list of Halo versions can be viewed at [halohub/halo](https://hub.docker.com/r/halohub/halo/tags), and the release notes can be found at: [Halo Official Site - Release Notes](https://www.halo.run/categories/release-notes)
+
+<Callout>
+After changing the image version, the service will automatically restart, and the upgrade will be completed after a short wait.
+</Callout>
+
+### Backup and Migration
+
+Although Zeabur also provides a backup function for services, Halo's built-in backup feature is platform-independent, so it is more recommended to use Halo's built-in backup feature for backups.
+
+Moreover, if you need to migrate your existing Halo service to Zeabur, using Halo's backup and restore function is also a better choice.
+
+For instructions on using Halo's backup and restore features, refer to: [Halo Documentation - Backup and Restore](https://docs.halo.run/user-guide/backup)

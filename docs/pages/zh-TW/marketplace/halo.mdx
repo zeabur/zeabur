@@ -1,81 +1,79 @@
 ---
-title: Halo
-ogImageTitle: 在 Zeabur 部署 Halo
+title: 部署 Halo 服務
+ogImageTitle: 部署 Halo 服務
 ogImageSubtitle: 在 Zeabur 一鍵部署 Halo 服務
 ---
 
 import { Callout } from 'nextra/components'
 
-# 在 Zeabur 部署 Halo
+# 部署 Halo 服務
 
-[Halo](https://halo.run/) 是一個強大易用的開源建站工具，配合上豐富的模板與外掛程式，幫助你建置你心中的理想站點。
+[Halo](https://www.halo.run/) 是一個強大易用的開源建站工具，配合上豐富的模板與插件，幫助你構建你心中的理想站點。
 
-這篇文章將教你如何在 Zeabur 上透過服務市場輕鬆部署一個自己的 Halo 服務，並且綁定自己的網域。
+這篇文章將教您如何在 Zeabur 上透過服務市場輕鬆部署一個自己的 Halo 服務，並且綁定自己的網域名稱。
 
-## 步驟一：建立專案
+## 第一步：打開 Halo 模板頁面
 
-<CreateProject />
+由於 Halo 需要獨立的資料庫服務，所以您不能僅透過單獨的 Halo 映像完成部署。
 
-## 步驟二：部署 PostgreSQL 服務
+我們為您製作了一個模板，可以一鍵部署包含 PostgreSQL 的 Halo。
 
-Halo 服務目前在 Zeabur 中僅支援 PostgreSQL 資料庫，在建立 Halo 服務之前，需要先部署一個 PostgreSQL 服務並建立一個資料庫。
+[![在Zeabur上部署](https://zeabur.com/button.svg)](https://zeabur.com/templates/Q6H2MA)
 
-請點選「建立服務」並選擇「服務市場」，你將在列表中找到 PostgreSQL。
+## 第二步：部署模板
 
-![部署 PostgreSQL](/marketplace/halo/deploy-postgresql.zh-TW.png)
+![模板](/marketplace/halo/template-overview.zh-TW.png)
 
-選擇 PostgreSQL 後，你可以給該服務輸入一個自訂的名字，然後點選部署。
+點擊部署按鈕，然後選擇一個區域來部署您的服務。
 
-## 步驟三：建立資料庫
+![選擇區域](/marketplace/halo/create-by-template.zh-TW.png)
 
-為了讓 Halo 服務能夠正常運作，我們需要先在 PostgreSQL 資料庫中建立一個名為 `halo` 的資料庫。
+選擇後，您將自動重定向到專案頁面，在那裡您可以看到部署進度。
 
-請先使用任意 PostgreSQL 用戶端連接你的 PostgreSQL 服務，在本文，我們使用 [psql](https://www.postgresql.org/docs/9.1/app-psql.html) 來連接。
+再等幾秒鐘，您的 Halo 服務將成功部署並開始運行。
 
-![PostgreSQL 連接資訊區塊](/marketplace/halo/postgre-connect.zh-TW.png)
+![服務狀態](/marketplace/halo/service-overview.zh-TW.png)
 
-你可以在 Zeabur 控制台中，PostgreSQL 服務的「連接」區塊中找到對應的 psql 連接指令或其他連接資訊。
+## 第三步：綁定網域名稱
 
-例如：
+部署完成後，您需要綁定一個網域名稱以訪問您的 Halo 服務。
 
-```bash
-psql postgresql://root:password@infra.zeabur.com:12345
-```
-
-接著，請在 psql 中輸入以下指令來建立 `halo` 資料庫：
-
-```sql
-CREATE DATABASE halo;
-```
-
-## 步驟四：部署 Halo 服務
-
-在 Zeabur 控制台中，請點選「建立服務」並選擇「服務市場」，你將在列表中找到 Halo。
-
-![部署 Halo 服務](/marketplace/halo/deploy-halo.zh-TW.png)
-
-選擇 Halo 後，你可以給該服務輸入一個自訂的名字，然後點選部署。
+您可以按照[綁定網域名稱的指南](/deploy/domain-binding)了解更多詳情。
 
 <Callout>
-需要注意的是，因為我們在部署 Halo 前已經部署了 PostgreSQL 服務，Zeabur
-會自動幫你注入 PostgreSQL 的相關環境變數到 Halo
-的服務中，所以無需再手動配置資料庫資訊。
-
-如果你先部署了 Halo 而還沒有部署 PostgreSQL，那麼你需要在部署 PostgreSQL
-服務後重新啟動 Halo 服務，才能讓 Halo 取得正確的資料庫連接資訊。
-
+綁定網域名稱之後，下次重啟 Halo 服務將自動設置此網域為 Halo 的外部訪問地址，無需再次手動設置。
 </Callout>
 
-## 步驟五：綁定網域
+## 第四步：登入並設置 Halo
 
-在 Zeabur 控制台中，Halo 服務的「網域」區塊中，你可以為其綁定一個網域，這個網域可以是你自己的網域，也可以是 Zeabur 提供的免費網域。
+完成網域綁定後，您可以點擊網域進入 Halo 初始化介面。
 
-![Halo 服務的網域區塊](/marketplace/halo/halo-domain.zh-TW.png)
+![初始化](/marketplace/halo/setup.zh-TW.png)
 
-關於如何為你的服務綁定網域，請參閱 [綁定網域](/deploy/domain-binding)。
+初始化並登入之後即可跳轉到 Halo 控制台。
 
-## 步驟六：登入並設定 Halo
+![控制台](/marketplace/halo/console.zh-TW.png)
 
-完成綁定後，你可以點擊網域進入 Halo 的初始化頁面，按照提示完成初始化之後即可使用 Halo 服務。
+Halo 的使用文檔可查閱：[Halo 文檔 - 用戶指南](https://docs.halo.run/category/%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97)
 
-![Halo 控制台](/marketplace/halo/halo-console.zh-TW.png)
+## 後續維護
+
+### 升級版本
+
+後續升級 Halo 的版本，只需要在服務的設置中，修改映像的版本號即可，如圖所示：
+
+![Change tag name](/marketplace/halo/change-tag-name.zh-TW.png)
+
+Halo 的版本列表可以在 [halohub/halo](https://hub.docker.com/r/halohub/halo/tags) 查看，版本發佈日誌可查閱：[Halo 官網 - 版本發佈](https://www.halo.run/categories/release-notes)
+
+<Callout>
+修改映像版本之後，服務將自動重啟，稍等片刻即可完成升級。
+</Callout>
+
+### 備份與遷移
+
+雖然 Zeabur 也為服務提供了備份的功能，但 Halo 自帶的備份功能可以實現與平台無關，所以更加推薦使用 Halo 自帶的備份功能進行備份。
+
+此外，如果您需要將您已有的 Halo 服務遷移到 Zeabur，使用 Halo 的備份恢復功能也是更佳的選擇。
+
+關於 Halo 的備份恢復功能使用說明可查閱：[Halo 文檔 - 備份與恢復](https://docs.halo.run/user-guide/backup)
