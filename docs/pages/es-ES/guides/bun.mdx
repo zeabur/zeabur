@@ -1,24 +1,22 @@
 ---
 title: Bun
-ogImageTitle: Deploy Bun App
-ogImageSubtitle: Deploy Bun App in Zeabur
+ogImageTitle: Implementar aplicación Bun
+ogImageSubtitle: Implementar aplicación Bun en Zeabur
 ---
 
 import { Callout } from 'nextra/components'
 
-<WorkingInProgress />
-
 # Bun
 
-Bun is an all-in-one JavaScript runtime & toolkit designed for speed, complete with a bundler, test runner, and Node.js-compatible package manager.
+Bun es un entorno de ejecución y un conjunto de herramientas todo en uno para JavaScript, diseñado para la velocidad. Incluye un empaquetador, un ejecutor de pruebas y un gestor de paquetes compatible con Node.js.
 
-You can easily deploy your Bun app in Zeabur.
+Puedes implementar fácilmente tu aplicación Bun en Zeabur.
 
-## Quick Start
+## Inicio Rápido
 
-### Create a Bun App
+### Crear una Aplicación Bun
 
-You can initialize a Bun app using the following command:
+Puedes inicializar una aplicación Bun utilizando el siguiente comando:
 
 ```bash
 mkdir bun-app
@@ -28,15 +26,15 @@ cd bun-app
 bun init
 ```
 
-### Create a HTTP Server
+### Crear un Servidor HTTP
 
-Open `index.ts` and paste the following code snippet, which implements a simple HTTP server with `Bun.serve`.
+Abre `index.ts` y pega el siguiente fragmento de código, que implementa un servidor HTTP simple con `Bun.serve`.
 
-Remember modify the port to `Bun.env.PORT` in your `serve` function to make sure the application can listen correctly on the environment variable `PORT` given by Zeabur.
+Recuerda modificar el puerto a `Bun.env.PORT` en tu función `serve` para asegurarte de que la aplicación pueda escuchar correctamente la variable de entorno `PORT` proporcionada por Zeabur.
 
 ```typescript filename="index.ts" {2}
 const server = Bun.serve({
-  port: Bun.env.PORT ?? 3000, // modify the port to Bun.env.PORT
+  port: Bun.env.PORT ?? 3000, // modificar el puerto a Bun.env.PORT
   fetch() {
     return new Response("Bun on Zeabur!");
   },
@@ -45,24 +43,24 @@ const server = Bun.serve({
 console.log(`Listening on http://localhost:${server.port} ...`);
 ```
 
-Additionally, make sure to specify an entry point in the `package.json` file.
+Además, asegúrate de especificar un punto de entrada en el archivo `package.json`.
 
 <Callout type="info">
- Zeabur currently supports the following file extensions as entry point: `.js`, `.ts`, `.tsx`, `.jsx`, `.mjs`, `.mts`, `.cjs`, or `.cts`.
- </Callout>
+ Zeabur actualmente soporta las siguientes extensiones de archivo como puntos de entrada: `.js`, `.ts`, `.tsx`, `.jsx`, `.mjs`, `.mts`, `.cjs`, o `.cts`.
+</Callout>
 
 ```json filename="package.json" {3}
 {
   "name": "bun-app",
-  "module": "index.ts", // let zeabur know where to start
+  "module": "index.ts", // informar a Zeabur dónde comenzar
   "type": "module",
   // ...
 }
 ```
 
-## Detection
+## Detección
 
-Zeabur will automatically recognize your application as a Bun app. Ensure that you have a `bun.lockb` file in the root directory of your project.
+Zeabur reconocerá automáticamente tu aplicación como una aplicación Bun. Asegúrate de tener un archivo `bun.lockb` en el directorio raíz de tu proyecto.
 
 ```plainc {2}
 root
@@ -71,7 +69,7 @@ root
 └── package.json
 ```
 
-You can install `bun-types` into your project if you prefer not to commit the `bun.lockb` file to your repository.
+Si prefieres no comprometer el archivo `bun.lockb` en tu repositorio, puedes instalar `bun-types` en tu proyecto.
 
 ```json filename="package.json" {3}
 {
@@ -81,18 +79,42 @@ You can install `bun-types` into your project if you prefer not to commit the `b
 }
 ```
 
-## Deploy
+## Especificar la Versión de Bun
 
-Click on **Git** button.
+De manera predeterminada, Zeabur utiliza la versión *estable más reciente* de Bun.
 
-Search for your **Bun app** repository, click on import, your **Bun app** will start deploying.
+Puedes especificar la versión de ejecución de Bun en el archivo `package.json` utilizando el campo `engines.bun`.
+
+```json filename="package.json" {3}
+{
+  "engines": {
+    "bun": "1.1.38"
+  }
+}
+```
+
+También puedes especificar un rango de versiones utilizando el formato Semver.
+
+```json filename="package.json" {3}
+{
+  "engines": {
+    "bun": "^1.1.38"
+  }
+}
+```
+
+## Implementar
+
+Haz clic en el botón **Git**.
+
+Busca el repositorio de tu **aplicación Bun**, haz clic en importar y tu **aplicación Bun** comenzará a implementarse.
 
 ![deploy](/deploy/common/select-service.en-US.png)
 
-## Ecosystem
+## Ecosistema
 
-Bun has a strong ecosystem, allowing you to build applications using various frameworks such as Astro, Nuxt, SvelteKit, ElysiaJS, and more.
+Bun tiene un ecosistema sólido, que te permite construir aplicaciones utilizando varios frameworks como Astro, Nuxt, SvelteKit, ElysiaJS, y más.
 
-You can deploy these applications and use Bun as your runtime or package manager.
+Puedes implementar estas aplicaciones y usar Bun como tu entorno de ejecución o gestor de paquetes.
 
-Learn more about [Bun - Ecosystem](https://bun.sh/guides/ecosystem).
+Aprende más sobre [Bun - Ecosistema](https://bun.sh/guides/ecosystem).
