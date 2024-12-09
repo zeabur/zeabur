@@ -104,7 +104,7 @@ spec:
                     default: ${REDIS_URI}
                 REDIS_URL:
                     default: ${REDIS_URI}
-            
+
 localization:
   zh-TW:
     description: LobeChat 是一個開源的高效能聊天機器人框架。
@@ -168,6 +168,8 @@ graph LR
   Dependencies -- Wait for both to start --> blog
 ```
 
+The `domainKey` indicates which service the domain (type `DOMAIN`) variable in the template definition should be bound to. In the example above, `spec.variables` has a variable `PUBLIC_DOMAIN` of type `DOMAIN`, and the RSSHub service specification has a `domainKey` pointing to `PUBLIC_DOMAIN`. When deploying, the domain set in `PUBLIC_DOMAIN` will be bound to the RSSHub service.
+
 `spec` is the Service Specification. Detailed information on each field can be found in the [Template Service Specifications documentation](https://json-schema.app/view/%23/%23%2Fproperties%2Fspec/%23%2Fproperties%2Fspec%2Fproperties%2Fservices%2Fitems/%23%2Fproperties%2Fspec%2Fproperties%2Fservices%2Fitems%2Fproperties%2Fspec?url=https%3A%2F%2Fschema.zeabur.app%2Ftemplate.json). Below is a brief description of key points in the service specifications:
 
 For `PREBUILT` services, you need to specify the Docker image (`image`), and optionally the execution command and parameters (`command` and `args`). If your image is stored in a private registry, you may want to specify the `username` and `password` to pull. Additionally, you can specify the user ID (`runAsUserID`) to run your container in the non-root mode. For `GIT` services, you need to specify the Git repository type (currently only `GITHUB`), repository ID (currently only GitHub's [`repoID`](https://stackoverflow.com/a/47223479)), and optionally the branch (`branch`).
@@ -180,31 +182,25 @@ For `PREBUILT` services, you need to specify the Docker image (`image`), and opt
 
 `env` is the service's environment variables. `default` is the default value of the environment variable, `expose` indicates whether other projects can directly use this variable or use the `${VARIABLE}` syntax to reference this variable, and `readonly` indicates whether it is read-only (cannot be modified after the service is created). For example, if `REDIS_CONNECTION_STRING`'s `expose` is `true`, other services can connect to Redis through the `REDIS_CONNECTION_STRING` environment variable, and can also reference this connection string in other environment variables using `${REDIS_CONNECTION_STRING}`.
 
-`configs` are the file-based settings of the service. You can use `path` and `template` to specify the default configuration file, making it easier for users to further modify it. You can also specify the `permission` of your configuration file. For example, with MySQL, you can write the default `configs` as follows:
+`configs` are the file-based settings for the service. You can use `path` and `template` to specify the default configuration file, making it easier for users to modify it. Use `envsubst` to replace variable references in the template with their corresponding values. For example, when `envsubst` is enabled and the variable `MONGO_URI=mongodb://mongo.zeabur.internal:27017` is set:
 
-```yaml
+```yaml {6}
 configs:
-    -
-        path: /etc/my.cnf
-        template: |
-        [mysqld]
-        default-authentication-plugin=mysql_native_password
-        skip-host-cache
-        skip-name-resolve
-        datadir=/var/lib/mysql
-        socket=/var/run/mysqld/mysqld.sock
-        secure-file-priv=/var/lib/mysql-files
-        user=mysql
-        max_allowed_packet=10M
-
-        pid-file=/var/run/mysqld/mysqld.pid
-        [client]
-        socket=/var/run/mysqld/mysqld.sock
-
-        !includedir /etc/mysql/conf.d/
+    - path: /config.yaml
+      template: |
+        mongo:
+            uri: ${MONGO_URI}
+      envsubst: true
 ```
 
-Note that `permission` must be a decimal number, converted from the octal [UNIX file permissions](https://mason.gmu.edu/~montecin/UNIXpermiss.htm). Here are some common permission mappings:
+The `/config.yml` file will be populated with the following content in the service instance:
+
+```yaml filename="/config.yaml"
+mongo:
+    uri: mongodb://mongo.zeabur.internal:27017
+```
+
+You can also specify the `permission` of your configuration file. Note that `permission` must be a decimal number, converted from the octal [UNIX file permissions](https://mason.gmu.edu/~montecin/UNIXpermiss.htm). Here are some common permission mappings:
 
 | `permission` value | Raw octal value | Read | Write | Execute | Suitable for |
 | ------------------ | --------------- | ---- | ----- | ------- | ------------ |
@@ -212,9 +208,14 @@ Note that `permission` must be a decimal number, converted from the octal [UNIX 
 | 420                | 0644            | O    | O     | X       | Normal readable and writable files. Default permission |
 | 493                | 0755            | O    | O     | O       | Executable files (e.g., bash scripts) |
 
-Note that "Read", "Write", and "Execute" here refer to the permissions of the container user. For details (groups, everyone, etc.), please refer to the above URL.
+"Read", "Write", and "Execute" here refer to the permissions of the container user. For details (groups, everyone, etc.), please refer to the above URL.
 
-The `domainKey` indicates which service the domain (type `DOMAIN`) variable in the template definition should be bound to. In the example above, `spec.variables` has a variable `PUBLIC_DOMAIN` of type `DOMAIN`, and the RSSHub service specification has a `domainKey` pointing to `PUBLIC_DOMAIN`. When deploying, the domain set in `PUBLIC_DOMAIN` will be bound to the RSSHub service.
+`gpu` specifies the GPU resources required by the service. Currently, you can only enable or disable these resources. To use GPU resources, set `gpu.enabled` to `true`:
+
+```yaml
+gpu:
+    enabled: true
+```
 
 ### Localization
 
