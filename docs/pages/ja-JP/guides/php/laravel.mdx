@@ -1,15 +1,19 @@
 ---
-ogImageTitle: Laravelのデプロイ
-ogImageSubtitle: ZeaburでLaravelアプリをデプロイ
+title: Laravel
+ogImageTitle: Laravel プロジェクトのデプロイ
+ogImageSubtitle: Laravel プロジェクトを Zeabur にデプロイする
 ---
 
-# Laravelのデプロイ
+# Laravel プロジェクトのデプロイ
 
-この記事では、[Laravel](https://laravel.com/)プロジェクトをZeaburにデプロイする方法を学びます。
+この記事では、[Laravel](https://laravel.com/) プロジェクトを Zeabur にデプロイする方法を解説します。
 
-## ステップ1：環境設定
+## ステップ 1：環境設定
 
-まず、プロジェクトが正常に実行できることを確認するために、ローカルでテストおよびビルドを行うことができます。Zeaburでデプロイするために、composer.jsonでPHPバージョンを指定する必要があります。
+まずローカルでビルドをテストし、プロジェクトが正常に動作することを確認してください。
+
+Zeabur が利用する PHP バージョンを指定する必要があります。以下のように、バージョン情報を `composer.json` に記述してください。
+
 ```json
 {
   "require": {
@@ -18,29 +22,27 @@ ogImageSubtitle: ZeaburでLaravelアプリをデプロイ
 }
 ```
 
-## ステップ2：プロジェクトの作成（オプション）
+## ステップ 2: プロジェクトを作成 (オプション)
 
-まず、ローカル開発環境でLaravelプロジェクトを初期化する必要があります。このステップは、[Laravel公式ドキュメント](https://laravel.com/docs/9.x)の手順に従うことができます。
+最初に、ローカルの開発環境で Laravel プロジェクトを初期化する必要があります。[Laravel 公式ドキュメント](https://laravel.com/docs/9.x) に従って、Laravel プロジェクトを初期化してください。
 
-作成したら、それに対してGitリポジトリを初期化し、GitHubにデプロイします。
+プロジェクトの作成が完了したら、Git リポジトリを初期化し、GitHub にデプロイしてください。
 
-## ステップ3：Laravelプロジェクトのデプロイ
+## ステップ 3：Laravel プロジェクトをデプロイ
 
-プロジェクト内で、**デプロイサービス**または**新しいサービスを追加**ボタンをクリックし、**ソースコードをデプロイ**を選択します。
+プロジェクトのダッシュボードで **Deploy service** または **Add new service** ボタンをクリックし、**Deploy your source code** を選択します。
 
 ![deploy](/deploy/common/select-service.en-US.png)
 
+デプロイしたい Laravel コードリポジトリを検索し、インポートをクリックすると、Laravel アプリケーションのデプロイが自動的に開始されます。
 
-デプロイしたいLaravel Bootコードリポジトリを検索し、**インポート**をクリックします。
-Laravel Bootアプリケーションは自動的にデプロイを開始します。
+## ステップ 4：Laravel プロジェクトに APP_KEY 環境変数を追加する
 
-## ステップ4：Laravelプロジェクトに`APP_KEY`を追加
+Laravel 開発者が Laravel アプリケーションを作成するとき、アプリケーションキー (APP_KEY) を生成することは、最も重要な初期ステップの一つです。
 
-アプリケーションキーまたは`APP_KEY`を生成することは、Laravel開発者がLaravelアプリケーションを作成またはクローンするたびに行う重要な初期ステップの1つです。
+プロジェクトの環境変数設定ページに移動し、`APP_KEY` 環境変数を入力してください。
 
-プロジェクト変数設定ページに切り替えて、環境パラメーターを入力します。
-
-Laravelプロジェクト内で次のコマンドを入力して`APP_KEY`を生成できます：
+以下のコマンドを使用して、Laravel の `APP_KEY` を生成することができます。
 
 ```shell
 php artisan key:generate
@@ -48,48 +50,51 @@ php artisan key:generate
 
 ![APP_KEY](/framework/laravel/app-key-setting.jpg)
 
-## MySQLデータベースに接続
+## MySQL データベースへの接続
 
-通常、あなたのLaravelプロジェクトはMySQLデータベースに接続する必要があります。
-以下の手順を使用して、MySQLデータベースに接続できます。
+Laravel プロジェクトでは通常、MySQL データベースへの接続が必要です。以下の手順で MySQL データベースに接続してください。
 
-1. まず、`ext-pdo_mysql` 拡張機能をLaravelプロジェクトにインストールする必要があります。これにより、ZeaburがあなたのためにMySQL PHPサポートを有効にできます。次のコマンドを使用して、この拡張機能をローカル環境にインストールします：
+1. Laravel プロジェクトで `ext-pdo_MySQL` 拡張モジュールをインストールする必要があります。これにより、Zeabur で MySQL の PHP サポートが有効になります。ローカル環境で以下のコマンドを実行して拡張モジュールをインストールしてください。
 
- ```shell
- composer require ext-pdo_mysql
+    ```shell
+    composer require ext-pdo_mysql
     ```
 
-次に、新しい `composer.json` とロックファイルをコミットし、GitHubリポジトリにプッシュします。
+    新しい `composer.json` とロックファイルをコミットして、GitHub にプッシュします。
 
-2. [MySQLサービスを作成](/marketplace/mysql)し、次にローカル環境で以下のコマンドを実行して、テーブルをZeaburに移行します：
+2. [MySQL サービスを作成する](/marketplace/mysql) その後、以下のコマンドをローカル環境で実行してテーブルなどを Zeabur にマイグレーションします。
 
- ```shell
- export DATABASE_URL=mysql://<username>:<password>@<host>:<port>/<database>
- php artisan migrate
+    ```shell
+    export DATABASE_URL=mysql://<username>:<password>@<host>:<port>/<database>
+    php artisan migrate
     ```
 
-上記の `<username>`、`<password>`、`<host>`、`<port>`、および `<database>` は、あなたのMySQLサービスの詳細情報であり、これらはMySQLサービスページの「Instruction」セクションで見つけることができます。
+    `<username>`、`<password>`、`<host>`、`<port>`、`<database>` はすべて MySQL サービスの情報です。これらは MySQL サービスページの「Instruction」で確認できます。
 
-3. ZeaburのLaravelサービスページで、以下の内容でDATABASE_URL環境変数を設定します：
+3. Zeabur の Laravel サービスページで、以下の内容の DATABASE_URL 環境変数を作成します。
 
- ```
- mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}
+    ```
+    mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}
     ```
 
-`${MYSQL_USER}` および他の変数の意味については、[MySQLドキュメンテーションの環境変数セクション](/marketplace/mysql#環境変数)で確認できます。
+    `${MYSQL_USER}` などの変数の詳細は [MySQL ドキュメントの環境変数セクション](/marketplace/mysql#環境変數) を参照してください。
 
-## Laravel Octane サポート
+## 自動最適化
 
-Zeabur は Swoole サーバーを使用した Laravel Octane の組み込みサポートがありますが、`zbpack.json` でサーバーを設定する必要があります：
+Zeabur は Laravel サービスを構築する際、以下の最適化コマンドを実行します [^1]：
 
-```json
-{
-  "laravel": {
-    "octane": {
-      "server": "swoole"
-    }
-  }
-}
+```bash
+php artisan optimize
+php artisan config:cache
+php artisan event:cache
+php artisan route:cache
+php artisan view:cache
 ```
 
-また、`ZBPACK_LARAVEL_OCTANE_SERVER=swoole` 環境変数を使用して、各サービスで Laravel Octane を設定することもできます。
+これらの自動最適化コマンドを無効にしたい場合は、`PHP_OPTIMIZE=false` 変数を使用し、その後カスタムビルドコマンドで最適化プロセスを調整してください。
+
+[^1]: https://laravel.com/docs/11.x/deployment#optimization
+
+## Vite / Laravel Mix サポート
+
+Zeabur は `package.json` に `build` コマンドが設定されている場合、`npm install` と `npm run build` を自動的に実行します。Vite や Laravel Mix はデフォルトで `package.json` の `build` コマンドを設定するため、Zeabur は Laravel サービスを構築する際にこれらのアセットを自動的にビルドします。
