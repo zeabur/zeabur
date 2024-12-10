@@ -8,22 +8,21 @@ ogImageSubtitle: Zeabur Pricing
 
 Zeabur offers a consumption-based pricing model for your projects. You won't get any bills for resources you don't use.
 
-Instead, Zeabur charges by the minute for each vCPU and memory resource that your services actually use.
+Instead, Zeabur charges by the minute for each resource that your services actually use.
 
 ## Pricing Rates
 
-Zeabur computes the usage cost with the following formula:
+There are two kinds of servers in Zeabur: _shared clusters_ and [_dedicated servers_](/dedicated-server). These pricing rates apply only to **shared clusters**, and we do not charge a usage fee for dedicated servers.
 
-`Total Service Time` (in minutes) x (`Memory usage` (in GB) + `vCPU usage` (in cores))
+The rates for usage in the **shared clusters** are as the following:
 
-And the rates for usage are as the following:
+- vCPU - No cost ($0.00 / vCPU-minute)
 
-- Memory - **US$0.0001** / GB-minute (About US$4 / GB-month)
+- Memory - **US$0.00025** / GB-minute (approx. US$10.80 / GB-month)
+  - You will only be charged for the memory your services actually use. If your service crashes or is suspended, you won't incur any memory usage charges.
 
-- vCPU - **US$0.0003** / vCPU-minute (About US$12 / vCPU-month)
+- Network Egress - **US$0.10** / GB (US$10.00 / 100GB)
+  - 1GB accommodates about 1,000 unique visitors accessing your 1MiB page without a CDN or compression.
+  - [Private networking](/networking/private) does not count as egress bandwidth.
 
-- Network Egress - First 10GB is free for Serverless Plan, 100GB for Developer Plan and Team Plan. Then **US$10** / 100GB.
-
-- Persistent Volume - **US$0.2** / GB-month
-
-There is no minimum service cost and you won't get charged if your services use no resources or crashed.
+- Persistent Volume - **US$0.20** / GB-month
