@@ -12,7 +12,23 @@ ogImageSubtitle: ZeaburでGoアプリをデプロイ
 
 複数のビルドエントリーポイントがある場合、それらを `cmd` ディレクトリに配置する必要があります。例えば、`cmd/server-a/main.go` や `cmd/server-b/main.go` などです。
 
-Zeabur は `cmd` ディレクトリ内の Service 名と同じ名前のビルドエントリーポイントを自動的に認識してデプロイします。
+Zeabur は `cmd` ディレクトリ内の Service* 名と同じ名前のビルドエントリーポイントを自動的に認識してデプロイします。
+
+`ZBPACK_GO_ENTRY` 環境変数を使用してプログラムのコンパイルエントリーポイントを指定することもできます：
+
+```env
+ZBPACK_GO_ENTRY=cmd/server-a/main.go
+```
+
+または、zbpack.json で go.entry を設定することもできます：
+
+```json
+{
+    "go": {
+        "entry": "cmd/server-a/main.go"
+    }
+}
+```
 
 ## ビルド前コマンドの設定
 
