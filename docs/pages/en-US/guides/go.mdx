@@ -14,6 +14,22 @@ If you have multiple entry points, you need to place them in the `cmd` directory
 
 Zeabur will automatically recognize and deploy the application in the `cmd` directory that matches the service name.
 
+Alternatively, you can specify the entry point using the `ZBPACK_GO_ENTRY` environment variable:
+
+```env
+ZBPACK_GO_ENTRY=cmd/server-a/main.go
+```
+
+You can also set the `go.entry` configuration in `zbpack.json`:
+
+```json
+{
+    "go": {
+        "entry": "cmd/server-a/main.go"
+    }
+}
+```
+
 ## Setting Pre-build Commands
 
 If your Go project requires running commands like `go generate` before building, you can set them using the `ZBPACK_BUILD_COMMAND` environment variable.

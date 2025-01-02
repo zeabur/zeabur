@@ -14,6 +14,22 @@ ogImageSubtitle: 在 Zeabur 部署 Go 專案
 
 Zeabur 會自動辨識並部署 `cmd` 目錄下與 Service 名稱相同的程式編譯入口。
 
+你也可以使用 `ZBPACK_GO_ENTRY` 環境變數指定程式編譯入口：
+
+```env
+ZBPACK_GO_ENTRY=cmd/server-a/main.go
+```
+
+或者是在 `zbpack.json` 設定 `go.entry`：
+
+```json
+{
+    "go": {
+        "entry": "cmd/server-a/main.go"
+    }
+}
+```
+
 ## 設定編譯前命令
 
 如果你的 Go 專案需要在編譯前執行諸如 `go generate` 相關的命令，可以使用 `ZBPACK_BUILD_COMMAND` 環境變數設定。
