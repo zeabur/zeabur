@@ -50,21 +50,23 @@ ZBPACK_BUILD_COMMAND=go generate ./...
 
 ## cgo の有効化
 
-Go プロジェクトで cgo を使用する必要がある場合、`zbpack.json` に `cgo` を設定できます：
+Go プロジェクトで cgo を使用する必要がある場合、`zbpack.json` に `go.cgo` を設定できます：
 
 ```json
 {
-    "cgo": true
+    "go": {
+        "cgo": true
+    }
 }
 ```
 
-または `CGO_ENABLED` 環境変数を設定します：
+または、環境変数 `ZBPACK_GO_CGO` を設定します：
 
 ```env
-CGO_ENABLED=1
+ZBPACK_GO_CGO=true
 ```
 
-Zeabur は cgo を自動的に有効化し、必要な C/C++ ツールチェーンをインストールします。
+Zeabur は自動的に cgo を有効化し、必要な C/C++ ツールチェーンをインストールします。
 
 ## ポートでリッスン
 
