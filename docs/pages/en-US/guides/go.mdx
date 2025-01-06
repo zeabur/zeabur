@@ -50,18 +50,20 @@ Your pre-build commands will run after dependencies are installed and before the
 
 ## Enabling cgo
 
-If your Go project needs to use cgo, you can set `cgo` in `zbpack.json`:
+If your Go project needs to use cgo, you can set `go.cgo` in `zbpack.json`:
 
 ```json
 {
-    "cgo": true
+    "go": {
+        "cgo": true
+    }
 }
 ```
 
-Or set the `CGO_ENABLED` environment variable:
+Or set the `ZBPACK_GO_CGO` environment variable:
 
 ```env
-CGO_ENABLED=1
+ZBPACK_GO_CGO=true
 ```
 
 Zeabur will automatically enable cgo and install the necessary C/C++ toolchain.

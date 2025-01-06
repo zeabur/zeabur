@@ -50,18 +50,20 @@ ZBPACK_BUILD_COMMAND=go generate ./...
 
 ## 啟用 cgo
 
-如果你的 Go 專案需要使用到 cgo，可以在 `zbpack.json` 設定 `cgo`：
+如果您的 Go 專案需要使用到 cgo，可以在 `zbpack.json` 設定 `go.cgo`：
 
 ```json
 {
-    "cgo": true
+    "go": {
+        "cgo": true
+    }
 }
 ```
 
-或者是設定 `CGO_ENABLED` 環境變數：
+或者是設定 `ZBPACK_GO_CGO` 環境變數：
 
 ```env
-CGO_ENABLED=1
+ZBPACK_GO_CGO=true
 ```
 
 Zeabur 會自動啟用 cgo 並安裝相關的 C/C++ 編譯工具鏈。
