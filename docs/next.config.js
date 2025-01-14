@@ -4,8 +4,7 @@ import nextra from 'nextra';
 import i18n from './i18n-config.js';
 
 const withNextra = nextra({
-  theme: 'nextra-theme-docs',
-  themeConfig: './theme.config.js',
+  contentDirBasePath: '/docs',
   defaultShowCopyCode: true,
 })
 
