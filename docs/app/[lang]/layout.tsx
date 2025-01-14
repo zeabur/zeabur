@@ -122,7 +122,7 @@ export default async function RootLayout({
       <body>
         <Layout
           pageMap={pageMap}
-          docsRepositoryBase='https://github.com/zeabur/zeabur/tree/main/docs'
+          docsRepositoryBase='https://github.com/zeabur/zeabur/blob/main/docs'
           editLink="Edit this page on GitHub"
           navbar={navbar}
           footer={footer}
