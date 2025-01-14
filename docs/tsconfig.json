@@ -20,6 +20,6 @@
     }
   },
   "include": [
-    "next-env.d.ts", "**/*.ts", "**/*.tsx"],
+    "next-env.d.ts", "**/*.ts", "**/*.tsx", "app/[[...mdxPath]]/page.jsx"],
   "exclude": ["node_modules"]
 }

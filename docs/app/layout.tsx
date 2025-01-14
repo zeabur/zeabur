@@ -1,9 +1,13 @@
-import { Head, Html, Main, NextScript } from 'next/document'
+import './styles.css'
 
-export default function Document() {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <Html lang="en">
-      <Head>
+    <html lang="en">
+      <head>
         <meta charSet="utf-8" />
         <link rel="icon" href="/icon?<generated>" />
         <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
@@ -12,23 +16,20 @@ export default function Document() {
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-F0FE9EJZ4E"
-        />
+        ></script>
         <script
           dangerouslySetInnerHTML={{
             __html: `
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
 
-gtag('config', 'G-F0FE9EJZ4E');
-`,
+              gtag('config', 'G-F0FE9EJZ4E');
+            `,
           }}
         />
-      </Head>
-      <body>
-        <Main />
-        <NextScript />
-      </body>
-    </Html>
+      </head>
+      <body>{children}</body>
+    </html>
   )
 }
