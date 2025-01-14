@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": "..",
-    "target": "es5",
+    "target": "esnext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -11,9 +11,9 @@
     "incremental": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "moduleResolution": "node",
+    "moduleResolution": "NodeNext",
     "jsx": "preserve",
-    "module": "esnext",
+    "module": "NodeNext",
     "resolveJsonModule": true,
     "paths": {
       "@components/*": ["components/*"]
