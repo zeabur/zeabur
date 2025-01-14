@@ -1,11 +1,12 @@
-import { Footer, Layout, LocaleSwitch, Navbar } from 'nextra-theme-docs'
-import { Banner, Head } from 'nextra/components'
+import { Footer, Layout, Navbar } from 'nextra-theme-docs'
+import { Head } from 'nextra/components'
 import { getPageMap } from 'nextra/page-map'
 import './styles.css'
 import 'nextra-theme-docs/style.css'
 import { Metadata, Viewport } from 'next'
 import LogoBlack from '../../public/logo_b.svg'
 import LogoWhite from '../../public/logo_w.svg'
+import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: {
@@ -90,7 +91,7 @@ export default async function RootLayout({
   params,
 }: {
   children: React.ReactNode,
-  params: { lang: string },
+  params: Promise<{ lang: string }>,
 }) {
   const { lang } = await params
   const pageMap = await getPageMap(`/${lang}`);

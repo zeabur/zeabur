@@ -11,6 +11,9 @@ importers:
       '@formatjs/intl-localematcher':
         specifier: ^0.5.10
         version: 0.5.10
+      '@theguild/remark-mermaid':
+        specifier: ^0.2.0
+        version: 0.2.0(react@19.0.0)
       negotiator:
         specifier: ^1.0.0
         version: 1.0.0

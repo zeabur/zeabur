@@ -15,9 +15,9 @@
     "incremental": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "bundler",
     "jsx": "preserve",
-    "module": "NodeNext",
+    "module": "Preserve",
     "resolveJsonModule": true,
     "paths": {
       "@components/*": [
