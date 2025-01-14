@@ -4,7 +4,6 @@ import nextra from 'nextra';
 import i18n from './i18n-config.js';
 
 const withNextra = nextra({
-  contentDirBasePath: '/docs',
   defaultShowCopyCode: true,
 })
 

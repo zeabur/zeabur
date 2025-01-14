@@ -1,11 +1,11 @@
-import { Footer, Layout, Navbar } from 'nextra-theme-docs'
+import { Footer, Layout, LocaleSwitch, Navbar } from 'nextra-theme-docs'
 import { Banner, Head } from 'nextra/components'
 import { getPageMap } from 'nextra/page-map'
 import './styles.css'
 import 'nextra-theme-docs/style.css'
 import { Metadata, Viewport } from 'next'
-import LogoBlack from '../public/logo_b.svg'
-import LogoWhite from '../public/logo_w.svg'
+import LogoBlack from '../../public/logo_b.svg'
+import LogoWhite from '../../public/logo_w.svg'
 
 export const metadata: Metadata = {
   title: {
@@ -78,7 +78,7 @@ const navbar = (
 
 const footer = (
   <Footer className="flex-col items-center md:items-start">
-    {new Date().getFullYear()} ©
+    {new Date().getFullYear()} ©{' '}
     <a href="https://zeabur.com" target="_blank">
       Zeabur Pte. Ltd.
     </a>
@@ -87,37 +87,40 @@ const footer = (
 
 export default async function RootLayout({
   children,
+  params,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode,
+  params: { lang: string },
 }) {
-  return (
-    <html lang="en">
-      <head>
-        <Head
-          color={{
-            hue: { dark: 278, light: 265 },
-          }}
-        >
-          <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=G-F0FE9EJZ4E"
-          ></script>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
+  const { lang } = await params
+  const pageMap = await getPageMap(`/${lang}`);
 
-                gtag('config', 'G-F0FE9EJZ4E');
-              `,
-            }}
-          />
-        </Head>
-      </head>
+  return (
+    <html lang={lang} suppressHydrationWarning>
+      <Head
+        color={{
+          hue: { dark: 278, light: 265 },
+        }}
+      >
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-F0FE9EJZ4E"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-F0FE9EJZ4E');
+            `,
+          }}
+        />
+      </Head>
       <body>
         <Layout
-          pageMap={await getPageMap()}
+          pageMap={pageMap}
           docsRepositoryBase='https://github.com/zeabur/zeabur/tree/main/docs'
           editLink="Edit this page on GitHub"
           navbar={navbar}

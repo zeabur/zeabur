@@ -2,7 +2,11 @@
   "compilerOptions": {
     "baseUrl": "..",
     "target": "esnext",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -16,10 +20,24 @@
     "module": "NodeNext",
     "resolveJsonModule": true,
     "paths": {
-      "@components/*": ["components/*"]
-    }
+      "@components/*": [
+        "components/*"
+      ]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
-    "next-env.d.ts", "**/*.ts", "**/*.tsx", "app/[[...mdxPath]]/page.jsx"],
-  "exclude": ["node_modules"]
+    "**/*.ts",
+    "**/*.tsx",
+    "app/[lang]/[[...mdxPath]]/page.tsx",
+    "next-env.d.ts",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

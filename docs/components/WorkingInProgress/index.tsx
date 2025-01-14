@@ -1,4 +1,6 @@
-import { useRouter } from 'nextra/hooks'
+"use client";
+
+import { useParams } from "next/navigation";
 
 import JaJP from './ja_JP.mdx'
 import ZhTW from './zh_TW.mdx'
@@ -6,9 +8,9 @@ import ZhCN from './zh_CN.mdx'
 import EnUS from './en_US.mdx'
 
 export default function WorkingInProgress() {
-  const router = useRouter()
+  const { lang } = useParams();
 
-  switch (router.locale) {
+  switch (lang) {
     case 'ja_JP':
       return <JaJP />
     case 'zh-TW':
