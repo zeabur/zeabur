@@ -2,7 +2,7 @@
 	"$id": "https://schema.zeabur.app/prebuilt.json",
 	"$schema": "http://json-schema.org/draft-07/schema",
 	"title": "Service Specification (ServiceSpec)",
-	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.5.1-20241118.",
+	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.6.0-20250119.",
 	"type": "object",
 	"properties": {
 		"id": {
@@ -68,6 +68,9 @@
 		},
 		"gpu": {
 			"$ref": "#/definitions/GPU"
+		},
+		"healthCheck": {
+			"$ref": "#/definitions/HealthCheck"
 		}
 	},
 	"required": [
@@ -495,6 +498,48 @@
 			"additionalProperties": false,
 			"required": [
 				"enabled"
+			]
+		},
+		"HealthCheck": {
+			"title": "Health Check",
+			"description": "Declare the health check for this service. It is useful for monitoring the service status.",
+			"type": "object",
+			"properties": {
+				"type": {
+					"title": "Health check type",
+					"description": "The type of health check.",
+					"enum": [
+						"HTTP",
+						"TCP"
+					],
+					"type": "string"
+				},
+				"port": {
+					"title": "Health check port",
+					"description": "The port to check the health status. It can be a port ID or a number.",
+					"type": ["number", "string"],
+					"minimum": 0,
+					"maximum": 65535
+				},
+				"http": {
+					"title": "HTTP health check configuration",
+					"description": "The configuration for HTTP health check.",
+					"type": ["object", "null"],
+					"properties": {
+						"path": {
+							"title": "HTTP path",
+							"description": "The path to check the health status. It is only useful when the health check type is HTTP.",
+							"type": "string"
+						}
+					},
+					"required": [
+						"path"
+					]
+				}
+			},
+			"required": [
+				"type",
+				"port"
 			]
 		}
 	}

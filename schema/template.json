@@ -225,6 +225,9 @@
                                     },
                                     "gpu": {
                                         "$ref": "https://schema.zeabur.app/prebuilt.json#/definitions/GPU"
+                                    },
+                                    "healthCheck": {
+                                        "$ref": "https://schema.zeabur.app/prebuilt.json#/definitions/HealthCheck"
                                     }
                                 },
                                 "required": [
