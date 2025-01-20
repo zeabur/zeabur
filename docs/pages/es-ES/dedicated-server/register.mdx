@@ -27,6 +27,30 @@ Este artículo explicará cómo registrar un [Servidor Dedicado](../dedicated-se
 7. Después de un registro exitoso, verás el servidor recién registrado en la lista de servidores.
 8. Espera aproximadamente un minuto hasta que el estado muestre "En línea" y el uso de CPU y memoria se pueda mostrar normalmente.
 
-## Fallo de Registro
-
 Si encuentras un fallo de registro, infórmanos en el [servidor de Discord](https://zeabur.com/dc).
+
+## Desinstalación
+
+Primero, debes eliminar el servidor y los servicios desplegados en él desde Zeabur.
+
+![Eliminar servidor](/dedicated-server/remove-server.webp)
+
+Los pasos para eliminar el servidor **no eliminarán la infraestructura configurada por Zeabur en tu servidor**. La infraestructura de Zeabur está principalmente construida sobre [K3s](https://k3s.io/), por lo que los pasos de desinstalación deben [seguir las instrucciones de desinstalación de K3s](https://docs.k3s.io/installation/uninstall).
+
+```bash
+$ /usr/local/bin/k3s-uninstall.sh
+```
+
+## Liberar espacio en disco
+
+Si notas que el espacio libre del host es bajo, puedes limpiar las imágenes de Docker que K3s ha descargado en tu host. Ten en cuenta que esta tarea generalmente se ejecuta de forma automática.
+
+```bash
+# Comprobar qué imágenes se han descargado actualmente (no necesitas escribir esta línea)
+$ sudo k3s crictl images
+
+# Eliminar todas las imágenes no utilizadas
+$ sudo k3s crictl rmi --prune
+```
+
+A veces, los logs de K3s para cada contenedor también pueden ocupar una cantidad significativa de espacio. Puedes intentar limpiar estos logs en el [directorio de logs de K3s](https://docs.k3s.io/faq#where-are-the-k3s-logs).
