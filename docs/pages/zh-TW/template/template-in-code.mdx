@@ -104,7 +104,7 @@ spec:
                     default: ${REDIS_URI}
                 REDIS_URL:
                     default: ${REDIS_URI}
-            
+
 localization:
   zh-TW:
     description: LobeChat 是一個開源的高效能聊天機器人框架。
@@ -168,6 +168,8 @@ graph LR
   依賴關係 -- 等待 2 個都啟動完成 --> blog
 ```
 
+`domainKey` 表示模板定義中的網域（類型 `DOMAIN`）變數應該綁定到哪個服務。在上面的例子中，`spec.variables` 有一個類型為 `DOMAIN` 的變數 `PUBLIC_DOMAIN`，而 RSSHub 服務設定中有一個 `domainKey` 指向 `PUBLIC_DOMAIN`。在部署時，`PUBLIC_DOMAIN` 中設定的網域將會被綁定到 RSSHub 服務。
+
 `spec` 則是服務的服務規格（Service Specification），每個欄位的詳細資訊可以參考 [Template 服務規格
 ](https://json-schema.app/view/%23/%23%2Fproperties%2Fspec/%23%2Fproperties%2Fspec%2Fproperties%2Fservices%2Fitems/%23%2Fproperties%2Fspec%2Fproperties%2Fservices%2Fitems%2Fproperties%2Fspec?url=https%3A%2F%2Fschema.zeabur.app%2Ftemplate.json) 的說明文件。下面簡要說明服務規格的重點：
 
@@ -181,31 +183,25 @@ graph LR
 
 `env` 則是服務的環境變數。`default` 是環境變數的預設值，`expose` 表示其他專案是否可以直接使用這個變數或使用 `${VARIABLE}` 語法取用這個變數，`readonly` 表示是否唯讀（服務建立後不能修改）。比如 `REDIS_CONNECTION_STRING` 的 `expose` 是 `true`，代表著其他服務可以透過 `REDIS_CONNECTION_STRING` 這個環境變數連線到 Redis，也可以使用 `${REDIS_CONNECTION_STRING}` 在其他環境變數引用這個連線字串。
 
-`configs` 是服務的檔案型設定，可以使用 `path` 和 `template` 指定預設的設定檔，方便使用者進一步修改。也可以使用 `permission` 來指定檔案的權限。以 MySQL 為例，你可以這樣編寫預設的 `configs`：
+`configs` 是服務的檔案式設定。你可以使用 `path` 和 `template` 來指定預設的設定檔，方便使用者進一步修改。使用 `envsubst` 可以將模板中的變數參照替換成對應的值。舉例來說，當啟用 `envsubst` 且設定了變數 `MONGO_URI=mongodb://mongo.zeabur.internal:27017` 時：
 
-```yaml
+```yaml {6}
 configs:
-    -
-        path: /etc/my.cnf
-        template: |
-        [mysqld]
-        default-authentication-plugin=mysql_native_password
-        skip-host-cache
-        skip-name-resolve
-        datadir=/var/lib/mysql
-        socket=/var/run/mysqld/mysqld.sock
-        secure-file-priv=/var/lib/mysql-files
-        user=mysql
-        max_allowed_packet=10M
-
-        pid-file=/var/run/mysqld/mysqld.pid
-        [client]
-        socket=/var/run/mysqld/mysqld.sock
-
-        !includedir /etc/mysql/conf.d/
+    - path: /config.yaml
+      template: |
+        mongo:
+            uri: ${MONGO_URI}
+      envsubst: true
 ```
 
-注意 `permission` 必須是一個十進位數字，由八進位的 [UNIX 檔案權限](https://mason.gmu.edu/~montecin/UNIXpermiss.htm) 轉換而來。以下是幾個常見的權限對照表：
+`/config.yml` 檔案會在服務實例中填入以下內容：
+
+```yaml filename="/config.yaml"
+mongo:
+    uri: mongodb://mongo.zeabur.internal:27017
+```
+
+您也可以指定設定檔的權限（`permission`）。請注意 `permission` 必須是十進位數字，數字由 8 進位的 [UNIX 檔案權限](https://mason.gmu.edu/~montecin/UNIXpermiss.htm) 轉換而來。以下是一些常見的權限對照：
 
 | `permission` 值 | 權限原始值 | 讀  | 寫  | 執行 | 適合情境                       |
 | --------------- | ---------- | --- | --- | ---- | ------------------------------ |
@@ -213,9 +209,14 @@ configs:
 | 420             | 0644       | O   | O   | X    | 普通可以讀寫的檔案，為預設權限 |
 | 493             | 0755       | O   | O   | O    | 可執行檔案（如 bash scripts）  |
 
-注意這裡的「讀、寫、執行」均指容器使用者的權限。詳細的資訊（群組、everyone⋯⋯）可以參考上方網址。
+「讀」、「寫」和「執行」在這邊指的是容器使用者的權限。如需更多詳細資訊（群組、所有使用者等），請參考上方網址。
 
-`domainKey` 標示模板定義中的網域 (`DOMAIN`) 變數應該綁在哪個服務上面。就以上面的例子來說，`spec.variables` 有一個類型是 `DOMAIN` 的變數 `PUBLIC_DOMAIN`，而 RSSHub 服務規格下有一個 `domainKey` 指向 `PUBLIC_DOMAIN`，屆時部署時將會把 `PUBLIC_DOMAIN` 設定的網域綁定到 RSSHub 服務上。
+`gpu` 指定服務所需的 GPU 資源。目前，你只能選擇啟用或停用 GPU 資源。若要使用 GPU 資源，請將 `gpu.enabled` 設定為 `true`：
+
+```yaml
+gpu:
+    enabled: true
+```
 
 ### 本地化翻譯
 
