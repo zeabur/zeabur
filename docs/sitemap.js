@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 const baseUrl = "https://zeabur.com/docs";
-const pagesDir = "./pages";
+const pagesDir = "./content";
 const publicDir = "./public";
 
 // Recursively get all .mdx files in a directory
@@ -28,7 +28,7 @@ for (let file of files) {
   const fileName = path.basename(file);
   const pageName = fileName.split(".")[0];
   const fileDir = path.dirname(file);
-  const url = `${baseUrl}${fileDir.replace(/^pages/, "")}${pageName === "index" ? "" : `/${pageName}`}`;
+  const url = `${baseUrl}${fileDir.replace(/^content/, "")}${pageName === "index" ? "" : `/${pageName}`}`;
   sitemap += `  <url>\n    <loc>${url}</loc>\n  </url>\n`;
 }
 sitemap += "</urlset>";

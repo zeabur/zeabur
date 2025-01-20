@@ -1,5 +1,3 @@
-@import 'nextra-theme-docs/style.css' layer(nextra-base);
-
 main {
 	padding-top: 64px !important;
 }
