@@ -1,0 +1,85 @@
+---
+title: Static Web Pages
+ogImageTitle: Deploying Static Web Pages
+ogImageSubtitle: Deploy Static Web Pages on Zeabur
+---
+
+import { Callout } from 'nextra/components';
+
+# Deploy Static Web Pages
+
+Zeabur uses the [Caddy server](https://caddyserver.com/) to deploy your static web pages and includes built-in features such as `_redirects` and `_headers`, allowing you to customize your static web page behavior without the need to configure a Caddyfile.
+
+## Getting Started
+
+You only need to upload the folder or Git repository you want to host on Zeabur. If the project is not associated with any language (like Python, Node.js, Go, etc.), Zeabur will default to deploying it in static mode. If an `index.html` file is present, it will serve as the homepage of your site. Some languages also support turning build outputs into static web pages (You can usually observe this behavior in the `outputDir` field within the Plan Meta section of the Build Logs). In such cases, the built service is also applicable to the contents of this section.
+
+## Single-Page Applications (SPA)
+
+Zeabur supports both multi-page applications (MPA) and single-page applications (SPA). If a file corresponding to the user-provided path cannot be found, the system will automatically return the `index.html` page.
+
+If you need a `404.html` file, you can add it to the root directory of your project, and Zeabur will automatically treat it as the 404 error page. If a user enters a non-existent URL, the contents of `404.html` will be returned.
+
+<Callout type="warning">
+**Currently, navigating to `404.html` still returns a 200 status code.** This will be fixed in the future. In the meantime, you may need to adjust the Caddyfile to meet your needs.
+</Callout>
+
+## Unsafe Paths
+
+Zeabur blocks certain paths that may contain sensitive content, such as `.git`, `node_modules`, `.venv`, and `vendor`. If your project contains these paths, Caddy will return a 404 page.
+
+You can adjust this list in the `Caddyfile` as needed. You are welcome to share additional suggestions for unsafe paths with us on Discord.
+
+## Configuring Redirect Rules (`_redirects`)
+
+You can add a `_redirects` file to the root directory of your project. When users visit your site, Zeabur will follow the rules in this file to handle redirects. The syntax for [`_redirects`](https://docs.netlify.com/routing/redirects/#syntax-for-the-redirects-file) is largely based on Netlify.
+
+The file format is as follows:
+
+```plaintext filename="_redirects"
+# Use a hash (#) to add comments.
+# [Source Path] [Target Path] [Status Code]
+/ /home 302
+/about /about-us 301
+```
+
+For example:
+
+- When users visit the root directory (`/`), they will be redirected to `/home` with a 302 (Found) status code.
+- When users visit `/about`, they will be redirected to `/about-us` with a 301 (Moved Permanently) status code.
+
+## Configuring Custom Headers (`_headers`)
+
+You can add a `_headers` file to the root directory of your project. When users visit your site, Zeabur will apply header rules specified in this file for the specified paths. The syntax for [`_headers`](https://docs.netlify.com/routing/headers/) is largely based on Netlify.
+
+The file format is as follows:
+
+```plaintext filename="_headers"
+# Use a hash (#) to add comments.
+/test.html
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+/index.json
+  Content-Type: application/json
+```
+
+For example:
+
+- When users visit `/test.html`, the headers `X-Frame-Options` and `X-XSS-Protection` will be set to `DENY` and `1; mode=block`, respectively.
+- When users visit `/index.json`, the `Content-Type` header will be set to `application/json`.
+
+## Configuring the Caddyfile
+
+You can edit the `/etc/caddy/Caddyfile` file in the “Config Editor” or “File Management” section. Changes take effect after restarting the service. Refer to the [official tutorial](https://caddyserver.com/docs/caddyfile-tutorial) for Caddyfile configurations. In general, you can configure all built-in directives from the official Caddy distribution in this Caddyfile.
+
+![Caddyfile Configuration](/guides/static/caddyfile-configuration.webp)
+
+When configuring the Caddyfile in Zeabur, there are several important points to note:
+
+- Do not modify the `:8080` listening port.
+- The `@unsafePath` block contains the “unsafe paths.” Zeabur blocks certain paths by default to prevent access to sensitive content. You can make adjustments in this block.
+- The `try_files` directive implements the SPA + MPA logic. If users visit a non-existent path, the request will be routed to `404.html` or `index.html`.
+- `zeaburextension` powers Zeabur’s `_redirects` and `_headers` features.
+- `log` writes Caddy server access logs to the Runtime Logs.
+
+Note that after configuring the Caddyfile, if Zeabur updates the default Caddyfile, **your service will not automatically apply the updates**. To apply updates, you must delete the modified Caddyfile from the [Config Editor](/deploy/config-edit), restart the service, and then update your configuration based on the new Caddyfile template.

@@ -1,0 +1,85 @@
+---
+title: 静态网页
+ogImageTitle: 部署静态网页
+ogImageSubtitle: 在 Zeabur 部署静态网页
+---
+
+import { Callout } from 'nextra/components';
+
+# 部署静态网页
+
+Zeabur 使用 [Caddy 服务器](https://caddyserver.com/) 部署您的静态网页，并内置 `_redirects` 和 `_headers` 等功能，让您无需设置 Caddyfile 也能自定义静态网页服务的行为。
+
+## 开始部署
+
+您只需将想托管的文件夹或 Git 仓库上传至 Zeabur。如果这个项目不属于任何语言（如 Python、Node.js、Go 等），Zeabur 将默认以静态网页模式进行部署。如果有 `index.html`，它将成为您网站的首页。某些语言也支持将构建产物转换为静态网页（通常在 Build Logs 的 Plan Meta 中会看到 `outputDir` 字段），此时构建出的服务同样适用于本章节的内容。
+
+## 单页面应用程序 (SPA)
+
+Zeabur 支持多页面应用程序（MPA）和单页面应用程序（SPA）。如果根据用户提供的路径找不到对应的文件，系统将自动返回 `index.html` 页面。
+
+如果您需要 `404.html`，可以在项目根目录添加一个 `404.html` 文件，Zeabur 会自动将其视为 404 错误页面。如果用户输入的网址不存在，将返回 `404.html` 的内容。
+
+<Callout type="warning">
+**目前跳转至 `404.html` 时仍会返回 200 状态码**。未来将进行修正，在此之前，您可能需要调整 Caddyfile 以满足需求。
+</Callout>
+
+## 不安全路径 (unsafe path)
+
+Zeabur 封锁一些可能包含机密内容的路径，例如 `.git`、`node_modules`、`.venv` 和 `vendor`。如果您的项目中包含这些路径，Caddy 服务器将返回 404 页面。
+
+您可以在 `Caddyfile` 中根据需求进行调整，也欢迎您在 Discord 和我们分享还有哪些不安全路径。
+
+## 设置重定向规则 (`_redirects`)
+
+您可以在项目根目录添加一个 `_redirects` 文件，当用户访问您的网站时，Zeabur 将根据文件中的规则进行重定向。[`_redirects`](https://docs.netlify.com/routing/redirects/#syntax-for-the-redirects-file) 的格式大致参考自 Netlify。
+
+文件格式如下：
+
+```plaintext filename="_redirects"
+# 您可以使用井号进行注释。
+# [来源路径] [目标路径] [状态码]
+/ /home 302
+/about /about-us 301
+```
+
+例如：
+
+- 当用户访问根目录 (`/`) 时，将重定向到 `/home` 并返回 302 (Found) 状态码。
+- 当用户访问 `/about` 时，将重定向到 `/about-us` 并返回 301 (Moved Permanently) 状态码。
+
+## 设置自定义标头 (`_headers`)
+
+您可以在项目根目录添加一个 `_headers` 文件，当用户访问您的网站时，Zeabur 将根据文件中的规则针对指定路径设置标头。[`_headers`](https://docs.netlify.com/routing/headers/) 的格式大致参考自 Netlify。
+
+文件格式如下：
+
+```plaintext filename="_headers"
+# 您可以使用井号进行注释。
+/test.html
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+/index.json
+  Content-Type: application/json
+```
+
+例如：
+
+- 当用户访问 `/test.html` 时，将设置 `X-Frame-Options` 和 `X-XSS-Protection` 标头，内容分别为 `DENY` 和 `1; mode=block`。
+- 当用户访问 `/index.json` 时，将设置 `Content-Type` 标头，内容为 `application/json`。
+
+## 设置 Caddyfile
+
+您可以在“Config Editor”或“File Management”中编辑 `/etc/caddy/Caddyfile` 文件，重新启动服务后即可生效。Caddyfile 的设置可以参考 [官方教程](https://caddyserver.com/docs/caddyfile-tutorial)，基本上您可以在这份 Caddyfile 中设置所有官方 Caddy 发行版内置的指令 (directive)。
+
+![Caddyfile 设置](/guides/static/caddyfile-configuration.webp)
+
+在 Zeabur Caddyfile 设置中，有一些值得注意的部分：
+
+- 请不要更动 `:8080` 监听端口。
+- `@unsafePath` 区块即为“不安全路径”，Zeabur 默认封锁一些可能包含机密内容的路径，您可以在此区块中进行调整。
+- `try_files` 整行是我们实现 SPA + MPA 的方法。当用户访问不存在的路径时，请求将导向 `404.html` 或 `index.html`。
+- `zeaburextension` 驱动 Zeabur 的 `_redirects` 和 `_headers` 功能。
+- `log` 将 Caddy 服务器的访问记录写入 Runtime Logs。
+
+注意，设置 Caddyfile 后，若 Zeabur 更新默认 Caddyfile，您的服务 **不会** 自动应用更新。您需要从 [Config Editor](/deploy/config-edit) 中 **删除** 修改的 Caddyfile，重新启动服务，然后根据新版本的 Caddyfile 模板添加所需项目。
