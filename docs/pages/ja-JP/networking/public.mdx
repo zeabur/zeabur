@@ -47,7 +47,7 @@ Zeabur は、サービスにアクセスするための 2 つの方法を提供�
 
 ![Cloudflare での DNS 設定](/networking/public/configure-dns-record-in-cloudflare.webp)
 
-Cloudflare のプロキシ（オレンジの雲）を無効にすると、当社のエッジ CDN を利用できます。
+トラフィックコストを削減し閲覧速度を向上させるために、Cloudflare の CDN（オレンジのクラウドを有効化）を使用できます。ただし、Cloudflare の [SSL/TLS 暗号化モード](https://developers.cloudflare.com/ssl/origin-configuration/ssl-modes/#custom-ssltls) では、**Full (Strict) を選択することはできません**。自己署名証明書により接続エラーが発生する可能性があるためです。また、Cloudflare は第 3 レベル以上のカスタムドメインの SSL 証明書発行をサポートしていません（`*.example.com` はサポートされていますが、`*.sub.example.com` はサポートされていません）。この場合、Zeabur サーバーへの直接接続に戻すことができます（オレンジのクラウドを無効化）。
 
 DNS レコードを設定した後、変更が反映されるまで数分かかる場合があります。完了すると、カスタムドメインを使用してサービスにアクセスできるようになります。
 

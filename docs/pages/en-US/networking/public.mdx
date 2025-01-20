@@ -47,7 +47,7 @@ You'll need to manually configure the DNS records for your domain. For example, 
 
 ![Configuring DNS in Cloudflare](/networking/public/configure-dns-record-in-cloudflare.webp)
 
-Make sure to disable the Cloudflare proxy (orange cloud) for the CNAME record if you want to utilize our edge CDN.
+You can use Cloudflare's CDN (orange cloud enabled) to reduce traffic costs and improve browsing speed. However, for Cloudflare [SSL/TLS encryption mode](https://developers.cloudflare.com/ssl/origin-configuration/ssl-modes/#custom-ssltls), you **cannot select Full (Strict)**, as it may cause connection failures due to self-signed certificates. Additionally, Cloudflare does not support SSL certificate issuance for custom domains beyond 3rd-level domains (i.e., `*.example.com` is supported, but `*.sub.example.com` is not). In this case, you can switch back to direct connection to Zeabur servers (orange cloud disabled).
 
 After configuring the DNS record, it may take a few minutes for the changes to propagate. Once complete, you can access your service using your custom domain.
 
