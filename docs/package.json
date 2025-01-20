@@ -15,17 +15,17 @@
     "@formatjs/intl-localematcher": "^0.5.10",
     "@theguild/remark-mermaid": "^0.2.0",
     "negotiator": "^1.0.0",
-    "next": "^15.1.4",
-    "nextra": "^4.0.0",
-    "nextra-theme-docs": "^4.0.0",
+    "next": "^15.1.5",
+    "nextra": "^4.0.4",
+    "nextra-theme-docs": "^4.0.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sharp": "^0.33.5",
     "source-map-support": "^0.5.21"
   },
   "devDependencies": {
-    "@types/node": "22.10.6",
-    "@types/react": "^19.0.6",
+    "@types/node": "22.10.7",
+    "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
     "prettier": "^3.4.2"
   },
