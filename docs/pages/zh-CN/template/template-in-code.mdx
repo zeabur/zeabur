@@ -104,7 +104,7 @@ spec:
                     default: ${REDIS_URI}
                 REDIS_URL:
                     default: ${REDIS_URI}
-            
+
 localization:
   zh-CN:
     description: LobeChat 是一个开源的高性能聊天机器人框架。
@@ -168,6 +168,8 @@ graph LR
   依赖关系 -- 等待 2 个都启动完成 --> blog
 ```
 
+`domainKey` 表示模板定义中的域（类型为 `DOMAIN`）变量应该绑定到哪个服务。在上述示例中，`spec.variables` 有一个类型为 `DOMAIN` 的变量 `PUBLIC_DOMAIN`，而 RSSHub 服务的设置中有一个 `domainKey` 指向 `PUBLIC_DOMAIN`。在部署时，`PUBLIC_DOMAIN` 中设置的域将会绑定到 RSSHub 服务。
+
 `spec` 则是服务的服务规格（Service Specification），每个字段的详细信息可以参考 [Template 服务规格](https://json-schema.app/view/%23/%23%2Fproperties%2Fspec/%23%2Fproperties%2Fspec%2Fproperties%2Fservices%2Fitems/%23%2Fproperties%2Fspec%2Fproperties%2Fservices%2Fitems%2Fproperties%2Fspec?url=https%3A%2F%2Fschema.zeabur.app%2Ftemplate.json) 的说明文件。下面简要说明服务规格的重点：
 
 如果是 `PREBUILT` 服务，则需要指定 Docker image (`image`)，以及可选的运行命令和运行参数 (`command` 和 `args`)，如果 image 存在于私有镜像仓库中，还可以指定仓库的用户名与密码 (`username` 和 `password`)，另外如果 image 需要以无 root 权限运行，也可以指定模拟的用户 ID (`runAsUserID`)；如果是 `GIT` 服务，则需要指定 Git 仓库的类型（目前只支持 `GITHUB`）、仓库的代号（目前只支持 GitHub 的 [`repoID`](https://stackoverflow.com/a/47223479)），也可以选择性填写分支 (`branch`)。
@@ -180,41 +182,40 @@ graph LR
 
 `env` 则是服务的环境变量。`default` 是环境变量的默认值，`expose` 表示其他项目是否可以直接使用这个变量或使用 `${VARIABLE}` 语法取用这个变量，`readonly` 表示是否只读（服务建立后不能修改）。比如 `REDIS_CONNECTION_STRING` 的 `expose` 是 `true`，代表着其他服务可以通过 `REDIS_CONNECTION_STRING` 这个环境变量连接到 Redis，也可以使用 `${REDIS_CONNECTION_STRING}` 在其他环境变量引用这个连接字符串。
 
-`configs` 是服务的文件型配置，可以使用 `path` 和 `template` 指定默认的配置文件，方便用户进一步修改。也可以使用 `permission` 来指定文件的权限。以 MySQL 为例，你可以这样编写默认的 `configs`：
+`configs` 是服务的基于文件的配置。你可以使用 `path` 和 `template` 指定默认的配置文件，以便用户进一步修改。通过使用 `envsubst`，可以将模板中的变量引用替换为对应的值。例如，当启用 `envsubst` 并设置变量 `MONGO_URI=mongodb://mongo.zeabur.internal:27017` 时：
 
-```yaml
+```yaml {6}
 configs:
-    -
-        path: /etc/my.cnf
-        template: |
-        [mysqld]
-        default-authentication-plugin=mysql_native_password
-        skip-host-cache
-        skip-name-resolve
-        datadir=/var/lib/mysql
-        socket=/var/run/mysqld/mysqld.sock
-        secure-file-priv=/var/lib/mysql-files
-        user=mysql
-        max_allowed_packet=10M
-
-        pid-file=/var/run/mysqld/mysqld.pid
-        [client]
-        socket=/var/run/mysqld/mysqld.sock
-
-        !includedir /etc/mysql/conf.d/
+    - path: /config.yaml
+      template: |
+        mongo:
+            uri: ${MONGO_URI}
+      envsubst: true
 ```
 
-注意 `permission` 必须是一个十进制数字，由八进制的 [UNIX 文件权限](https://mason.gmu.edu/~montecin/UNIXpermiss.htm) 转换而来。以下是几个常见的权限对照表：
+服务实例中的 `/config.yml` 文件将会填入以下内容：
 
-| `permission` 值 | 权限原始值 | 读  | 写  | 执行 | 适合场景                       |
-| --------------- | ---------- | --- | --- | ---- | ------------------------------ |
-| 256             | 0400       | O   | X   | X    | 机密文件（如密码）             |
-| 420             | 0644       | O   | O   | X    | 普通可读写文件，默认权限        |
-| 493             | 0755       | O   | O   | O    | 可执行文件（如 bash 脚本）     |
+```yaml filename="/config.yaml"
+mongo:
+    uri: mongodb://mongo.zeabur.internal:27017
+```
 
-注意这里的“读、写、执行”均指容器用户的权限。详细的信息（组、everyone 等）可以参考上方网址。
+你还可以指定配置文件的权限（`permission`）。请注意，`permission` 必须是十进制数字，该数字是从八进制的 [UNIX 文件权限](https://mason.gmu.edu/~montecin/UNIXpermiss.htm) 转换而来的。以下是一些常见的权限对照：
 
-`domainKey` 标示模板定义中的域名 (`DOMAIN`) 变量应该绑定在哪个服务上面。就以上面的例子来说，`spec.variables` 有一个类型是 `DOMAIN` 的变量 `PUBLIC_DOMAIN`，而 RSSHub 服务规格下有一个 `domainKey` 指向 `PUBLIC_DOMAIN`，届时部署时将会把 `PUBLIC_DOMAIN` 设定的域名绑定到 RSSHub 服务上。
+| `permission` 值 | 权限原始值 | 读  | 写  | 运行 | 适用场景                     |
+| --------------- | ---------- | --- | --- | ---- | ---------------------------- |
+| 256             | 0400       | O   | X   | X    | 机密文件（如密码）           |
+| 420             | 0644       | O   | O   | X    | 普通可读写文件，为默认权限   |
+| 493             | 0755       | O   | O   | O    | 可执行文件（如 bash 脚本）   |
+
+“读”、“写”和“运行”在这里指的是容器用户的权限。如需更多详细信息（组、所有用户等），请参考上方链接。
+
+`gpu` 用于指定服务所需的 GPU 资源。目前，你只能选择启用或禁用 GPU 资源。若要使用 GPU 资源，请将 `gpu.enabled` 设置为 `true`：
+
+```yaml
+gpu:
+    enabled: true
+```
 
 ### 本地化翻译
 
