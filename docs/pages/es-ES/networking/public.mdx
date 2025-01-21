@@ -47,7 +47,7 @@ Necesitarás configurar manualmente los registros DNS para tu dominio. Por ejemp
 
 ![Configuración de DNS en Cloudflare](/networking/public/configure-dns-record-in-cloudflare.webp)
 
-Asegúrate de deshabilitar el proxy de Cloudflare (nube naranja) para el registro CNAME si deseas utilizar nuestro CDN de borde.
+Puedes usar el CDN de Cloudflare (nube naranja activada) para reducir los costos de tráfico y mejorar la velocidad de navegación. Sin embargo, para el [modo de cifrado SSL/TLS](https://developers.cloudflare.com/ssl/origin-configuration/ssl-modes/#custom-ssltls) de Cloudflare, **no puedes seleccionar Full (Strict)**, ya que puede causar fallos de conexión debido a certificados autofirmados. Además, Cloudflare no admite la emisión de certificados SSL para dominios personalizados más allá de dominios de tercer nivel (es decir, `*.example.com` es compatible, pero `*.sub.example.com` no lo es). En este caso, puedes volver a la conexión directa a los servidores de Zeabur (nube naranja desactivada).
 
 Después de configurar el registro DNS, puede tomar unos minutos para que los cambios se propaguen. Una vez completado, podrás acceder a tu servicio utilizando tu dominio personalizado.
 

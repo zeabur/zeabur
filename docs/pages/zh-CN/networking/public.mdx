@@ -47,7 +47,7 @@ Zeabur 提供两种方法来存取你的服务：
 
 ![在 Cloudflare 设置 DNS](/networking/public/configure-dns-record-in-cloudflare.webp)
 
-如果你偏好使用我们的 Edge CDN，需要将 Cloudflare 代理（即橙色云）关闭。
+您可以使用 Cloudflare 的 CDN（开启橙色云）来降低流量费用并提升浏览速度，但 Cloudflare 的 [SSL/TLS 证书模式](https://developers.cloudflare.com/ssl/origin-configuration/ssl-modes/#custom-ssltls) **不能选择 Full (Strict)**，否则可能会因为自签证书而导致连接失败。另外 Cloudflare 不支持三级域名以上自定义域名的 SSL 证书签发（即 `*.example.com` 是支持的，但 `*.sub.example.com` 不支持），此时您可以改回直连到 Zeabur 服务器（关闭橙色云）。
 
 设置 DNS 记录后，可能需要几分钟让变更生效。完成后即可使用自定义域名存取你的服务。
 
