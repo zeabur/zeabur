@@ -1,0 +1,68 @@
+#:schema ./schema.json
+
+id = "oceanbase"
+name = "OceanBase"
+icon = "https://avatars.githubusercontent.com/u/82347605"
+description = "OceanBase is an enterprise distributed relational database with high availability, high performance, horizontal scalability, and compatibility with SQL standards."
+tags = ["Database"]
+
+[source]
+image = "oceanbase/oceanbase-ce:4.3.5.0-100000202024123117"
+
+[[ports]]
+id = "database"
+port = 2881
+type = "TCP"
+
+[[volumes]]
+id = "data"
+dir = "/data/1"
+
+[[volumes]]
+id = "log"
+dir = "/data/log1"
+
+[env]
+OCEANBASE_ROOT_PASSWORD = { default = "${PASSWORD}" }
+
+OCEANBASE_HOST = { default = "${CONTAINER_HOSTNAME}", expose = true, readonly = true }
+OCEANBASE_PORT = { default = "${DATABASE_PORT}", expose = true, readonly = true }
+OCEANBASE_USERNAME = { default = "root", expose = true, readonly = true }
+OCEANBASE_PASSWORD = { default = "${OCEANBASE_ROOT_PASSWORD}", expose = true, readonly = true }
+
+OCEANBASE_DATABASE = { default = "test", expose = true }
+
+[[instructions]]
+type = "TEXT"
+title = "Command to connect to your OceanBase"
+content = "mysql -h${PORT_FORWARDED_HOSTNAME} -P${DATABASE_PORT_FORWARDED_PORT} -u${OCEANBASE_USERNAME} -p${OCEANBASE_PASSWORD} -D${OCEANBASE_DATABASE}"
+
+[[instructions]]
+type = "TEXT"
+title = "OceanBase username"
+content = "${OCEANBASE_USERNAME}"
+category = "Credentials"
+
+[[instructions]]
+type = "PASSWORD"
+title = "OceanBase password"
+content = "${OCEANBASE_PASSWORD}"
+category = "Credentials"
+
+[[instructions]]
+type = "TEXT"
+title = "OceanBase database"
+content = "${OCEANBASE_PASSWORD}"
+category = "Credentials"
+
+[[instructions]]
+type = "TEXT"
+title = "OceanBase host"
+content = "${PORT_FORWARDED_HOSTNAME}"
+category = "Hostname & Port"
+
+[[instructions]]
+type = "TEXT"
+title = "OceanBase port"
+content = "${DATABASE_PORT_FORWARDED_PORT}"
+category = "Hostname & Port"
