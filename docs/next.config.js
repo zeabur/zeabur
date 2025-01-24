@@ -41,12 +41,12 @@ export default withNextra({
       return [
         {
           source: `/marketplace/${template}`,
-          destination: code ? `https://zeabur.com/templates/${code}` : '/marketplace',
+          destination: `https://zeabur.com/templates/${code}`,
           permanent: true,
         },
         {
           source: `/:locale/marketplace/${template}`,
-          destination: code ? `https://zeabur.com/:locale/templates/${code}` : '/:locale/marketplace',
+          destination: `https://zeabur.com/:locale/templates/${code}`,
           permanent: true,
         },
       ]
