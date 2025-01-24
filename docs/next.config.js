@@ -13,7 +13,46 @@ export default withNextra({
   i18n,
   basePath: '/docs',
   async redirects() {
-    return [
+    const templateDocsMap = {
+      'dragonfly': 'UKMPPL',
+      'flowise': '2JYZTR',
+      'focalboard': 'SU7RTR',
+      'ghost': 'SHEU50',
+      'halo': 'Q6H2MA',
+      'likit': 'KZOLHA',
+      'linkwarden': '1E5ABT',
+      'logto': 'AV1NZ4',
+      'memos': 'KIJROJ',
+      'mongodb': 'KXL04P',
+      'mysql': 'DGLGRG',
+      'n8n': 'W2H4RW',
+      'postgresql': 'B20CX0',
+      'rabbitmq': 'QAQWVO',
+      'redis': 'KQZHXT',
+      'rsshub': 'X46PTP',
+      'ttrss': 'F1A1Y2',
+      'umami': '01NQCC',
+      'uptime-kuma': 'Q764RP',
+      'wewe-rss': 'DI9BBD',
+      'wordpress': 'CV344X',
+    };
+
+    const templateRedirectsRule = Object.entries(templateDocsMap).filter(([_, code]) => code !== null).map(([template, code]) => {
+      return [
+        {
+          source: `/marketplace/${template}`,
+          destination: code ? `https://zeabur.com/templates/${code}` : '/marketplace',
+          permanent: true,
+        },
+        {
+          source: `/:locale/marketplace/${template}`,
+          destination: code ? `https://zeabur.com/:locale/templates/${code}` : '/:locale/marketplace',
+          permanent: true,
+        },
+      ]
+    }).flat();
+
+    return templateRedirectsRule.concat([
       {
         source: '/guides/go/go',
         destination: '/guides/go',
@@ -47,6 +86,6 @@ export default withNextra({
         destination: '/:locale/template/template-in-code',
         permanent: false,
       },
-    ]
+    ]);
   },
 })
