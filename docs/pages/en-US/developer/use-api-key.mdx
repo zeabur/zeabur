@@ -45,7 +45,7 @@ You can use any HTTP client library or within your application to send requests.
 You can paste the following command into the terminal to run your first REST API request. Be sure to replace `$ZEABUR_API_KEY` with your API Key:
 
 ```bash
-curl https://gateway.zeabur.com/api/v1/users/me \
+curl https://api.zeabur.com/api/v1/users/me \
   -H "Authorization: Bearer $ZEABUR_API_KEY" \
   -H "Content-Type: application/json" \
 ```
@@ -77,4 +77,4 @@ This queries the current user's information. You should receive a response simil
 
 Now that you have successfully authenticated with the API Key, you can use the API Key to access other REST APIs.
 
-The access method for the GrapQL API is the same as above, but the request method is different. You can try the GraphQL API in the [GraphQL Playground](https://gateway.zeabur.com/graphql).
+The access method for the GrapQL API is the same as above, but the request method is different. You can try the GraphQL API in the [GraphQL Playground](https://api.zeabur.com/graphql).

@@ -45,7 +45,7 @@ Authorization: Bearer ZEABUR_API_KEY
 您可以將以下命令貼到終端機中，來執行您的第一個 REST API 請求。確定您已經將 `$ZEABUR_API_KEY` 替換為您的 API Key：
 
 ```bash
-curl https://gateway.zeabur.com/api/v1/users/me \
+curl https://api.zeabur.com/api/v1/users/me \
   -H "Authorization: Bearer $ZEABUR_API_KEY" \
   -H "Content-Type: application/json" \
 ```
@@ -77,5 +77,5 @@ curl https://gateway.zeabur.com/api/v1/users/me \
 
 現在您已成功使用 API Key 進行了身分驗證，您可以使用 API Key 來存取其他 REST API 了。
 
-GrapQL API 的存取方式與上述相同，只是請求方式不同。您可以在 [GraphQL Playground](https://gateway.zeabur.com/graphql) 中嘗試 GraphQL API。
+GrapQL API 的存取方式與上述相同，只是請求方式不同。您可以在 [GraphQL Playground](https://api.zeabur.com/graphql) 中嘗試 GraphQL API。
 

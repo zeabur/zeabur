@@ -45,7 +45,7 @@ Authorization: Bearer ZEABUR_API_KEY
 以下のコマンドをターミナルに貼り付けて、最初のREST APIリクエストを行ってください。`$ZEABUR_API_KEY`をあなたのAPIキーに置き換えてください。
 
 ```bash
-curl https://gateway.zeabur.com/api/v1/users/me \
+curl https://api.zeabur.com/api/v1/users/me \
   -H "Authorization: Bearer $ZEABUR_API_KEY" \
   -H "Content-Type: application/json" \
 ```
@@ -77,4 +77,4 @@ curl https://gateway.zeabur.com/api/v1/users/me \
 
 これであなたはAPIキーを用いて身元を確認することに成功しました。他のREST APIにアクセスするためにAPIキーを使用することができます。
 
-GrapQL APIへのアクセス方法は上記と同様で、リクエスト方法だけが異なります。あなたは [GraphQL Playground](https://gateway.zeabur.com/graphql)で Graphql APIを試すことができます。
+GrapQL APIへのアクセス方法は上記と同様で、リクエスト方法だけが異なります。あなたは [GraphQL Playground](https://api.zeabur.com/graphql)で Graphql APIを試すことができます。
