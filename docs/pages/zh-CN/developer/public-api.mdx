@@ -15,7 +15,7 @@ Zeabur 的开放 API 是使用 GraphQL 构建的。它是驱动我们的 Dashboa
 你可以通过以下端点访问 Zeabur API：
 
 ```http
-https://gateway.zeabur.com/graphql
+https://api.zeabur.com/graphql
 ```
 
 ## 认证
@@ -26,7 +26,7 @@ https://gateway.zeabur.com/graphql
 
 ```bash
 curl --request POST \
-  --url https://gateway.zeabur.com/graphql \
+  --url https://api.zeabur.com/graphql \
   --header 'Authorization: Bearer {YOUR_API_TOKEN}' \
   --header 'Content-Type: application/json' \
   --data '{"query":"query { me { username } }"}'
@@ -50,7 +50,7 @@ curl --request POST \
 
 ```bash
 curl --request POST \
-  --url https://gateway.zeabur.com/projects/{PROJECT_ID}/services/{SERVICE_ID}/deploy \
+  --url https://api.zeabur.com/projects/{PROJECT_ID}/services/{SERVICE_ID}/deploy \
   --header 'Authorization: Bearer {YOUR_API_TOKEN}' \
   --data '{"code": {YOUR_CODE_AS_ZIP_FILE}, "environment": {ENVIRONMENT_ID}}'
 ```
@@ -59,7 +59,7 @@ curl --request POST \
 
 ```bash
 curl --request POST \
-  --url https://gateway.zeabur.com/graphql \
+  --url https://api.zeabur.com/graphql \
   --header 'Authorization: Bearer {YOUR_API_TOKEN}' \
   --header 'Content-Type: application/json' \
   --data '{"query":"query { projects { _id name } }"}'

@@ -15,7 +15,7 @@ Zeabur public API is built with GraphQL. It's the same API that powers our dashb
 You can access the Zeabur API via the following endpoint:
 
 ```http
-https://gateway.zeabur.com/graphql
+https://api.zeabur.com/graphql
 ```
 
 ## Authentication
@@ -26,7 +26,7 @@ You can also check [this documentation](./use-api-key) for more information on h
 
 ```bash
 curl --request POST \
-  --url https://gateway.zeabur.com/graphql \
+  --url https://api.zeabur.com/graphql \
   --header 'Authorization: Bearer {YOUR_API_TOKEN}' \
   --header 'Content-Type: application/json' \
   --data '{"query":"query { me { username } }"}'
@@ -50,7 +50,7 @@ Then you will need to zip your code and send it to the API.
 
 ```bash
 curl --request POST \
-  --url https://gateway.zeabur.com/projects/{PROJECT_ID}/services/{SERVICE_ID}/deploy \
+  --url https://api.zeabur.com/projects/{PROJECT_ID}/services/{SERVICE_ID}/deploy \
   --header 'Authorization: Bearer {YOUR_API_TOKEN}' \
   --data '{"code": {YOUR_CODE_AS_ZIP_FILE}, "environment": {ENVIRONMENT_ID}}'
 ```
@@ -59,7 +59,7 @@ curl --request POST \
 
 ```bash
 curl --request POST \
-  --url https://gateway.zeabur.com/graphql \
+  --url https://api.zeabur.com/graphql \
   --header 'Authorization: Bearer {YOUR_API_TOKEN}' \
   --header 'Content-Type: application/json' \
   --data '{"query":"query { projects { _id name } }"}'
