@@ -2,7 +2,7 @@
 	"$id": "https://schema.zeabur.app/prebuilt.json",
 	"$schema": "http://json-schema.org/draft-07/schema",
 	"title": "Service Specification (ServiceSpec)",
-	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.6.0-20250119.",
+	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.6.1-20250204.",
 	"type": "object",
 	"properties": {
 		"id": {
@@ -516,10 +516,8 @@
 				},
 				"port": {
 					"title": "Health check port",
-					"description": "The port to check the health status. It can be a port ID or a number.",
-					"type": ["number", "string"],
-					"minimum": 0,
-					"maximum": 65535
+					"description": "The port to check the health status. It should be a port ID.",
+					"type": "string"
 				},
 				"http": {
 					"title": "HTTP health check configuration",
