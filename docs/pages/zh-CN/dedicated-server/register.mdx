@@ -4,6 +4,8 @@ ogImageTitle: 注册独立服务器
 ogImageSubtitle: 注册一个服务器到 Zeabur 上
 ---
 
+import { Callout } from 'nextra/components';
+
 # 注册独立服务器
 
 本文将介绍如何注册一台 [独立服务器](../dedicated-server) 到 Zeabur 上。
@@ -14,14 +16,18 @@ ogImageSubtitle: 注册一个服务器到 Zeabur 上
 - 这台服务器必须至少有 1 个 CPU 核心，且至少有 2 GB 的内存。
 - 这台服务器必须对外开放 `22`, `80`, `443`, `4222`, `6443`, `30000-32767` 这些端口。
 - 这台服务器必须允许 SSH 登录，且用户名为 `root`。
-- 这台服务器必须允许使用 `root` 用户进行密码或 SSH 密钥登录。
+- 这台服务器必须允许使用 `root` 或其他可以使用 `sudo` 的用户，通过密码或 SSH 密钥登录。
+
+<Callout type="default">
+    如果您不是使用 `root` 用户，考虑到 Zeabur 是在非交互环境下配置机器的（无法代为输入密码），请确保您这个用户所在的 `sudo` 用户组已被授予 [`NOPASSWD`](https://linux.die.net/man/5/sudoers) 标记。
+</Callout>
 
 ## 注册步骤
 
 1. 登录 Zeabur 后，点击顶部导航栏或项目列表页面上方的“我的服务器”，或是直接访问 [https://dash.zeabur.com/servers](https://dash.zeabur.com/servers)。
 2. 点击页面右上角的“创建”按钮。
 3. 输入服务器的 IP 地址及 SSH 端口（默认为 `22`）。
-4. 选择 `root` 用户使用 SSH 登录的方式：密码或 SSH 密钥。
+4. 输入用户名（例如 `root`），然后选择登录方式（密码或 SSH 密钥）。
 5. 若选择密码，则在下方输入密码，若选择 SSH 密钥，则在下方输入 SSH 密钥。
 6. 点击“新增服务器”按钮，等待服务器注册完成（过程约需 30 秒）。
 7. 注册成功后，你会在服务器列表看到多了一台刚刚注册的服务器。
