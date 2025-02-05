@@ -1,0 +1,107 @@
+---
+title: 檔案管理
+ogImageTitle: 檔案管理
+ogImageSubtitle: 在 Zeabur 上管理服務內的檔案
+---
+
+import { Callout } from 'nextra/components'
+
+# 檔案管理
+
+Zeabur 為使用者提供了一個直觀的檔案管理介面，讓使用者能夠輕鬆管理服務內的所有檔案。透過這個介面，使用者可以進行檔案的上傳、下載、線上編輯，以及建立或刪除檔案和資料夾等操作。
+
+<Callout type="warning">
+  某些容器過於精簡，以至於不支援 File Management 必須的元件（cat 等），因此可能無法使用此功能。
+</Callout>
+
+## 打開檔案管理
+
+在服務頁面的 **服務狀態** 分頁中，點選 **檔案** 區塊即可開啟檔案管理介面。
+
+![file management](/deploy/file-management/file-management.png)
+
+檔案管理介面由五個區塊組成：(1) 建立資料夾、(2) 建立檔案、(3) 重新整理、(4) 目錄清單以及 (5) 檔案內容。其中，重新整理功能可在檔案更新後重新載入檔案列表；目錄清單顯示服務的完整目錄架構，使用者可透過資料夾左側的箭頭展開或收合子目錄；而檔案內容區塊則提供檔案內容的查看與編輯功能。
+
+## 建立檔案和資料夾
+
+建立資料夾時，點選「建立資料夾」按鈕後，輸入完整的資料夾路徑，再按下打勾鍵即可完成。如需取消操作，只要將路徑保持空白並點選返回按鈕即可。
+
+![create folder](/deploy/file-management/create-folder.png)
+
+建立檔案的步驟類似，點選「建立檔案」按鈕，輸入完整的檔案路徑後按下打勾鍵即可。同樣地，若要取消建立，將路徑保持空白並點選返回按鈕即可。
+
+![create file](/deploy/file-management/create-file.png)
+
+## 線上編輯檔案
+
+在目錄清單中選擇要編輯的檔案後，檔案內容會顯示在右側的檔案內容區塊中。
+
+<Callout type="info">
+  目前僅支援編輯文字檔案，請使用下載功能來下載二進位檔案（圖片、音訊、壓縮檔）。如果您開啟了二進位檔案，會看到一串無法編輯的亂碼。
+</Callout>
+
+使用者可以直接在檔案內容區塊中進行編輯，完成後按下右上角的儲存按鈕即可保存變更。儲存成功後會在右下角顯示確認訊息。
+
+![edit file](/deploy/file-management/edit-file.png)
+
+編輯的檔案內容會同步更新到 [Config Editor](/deploy/config-edit) 中，確保服務重新啟動後仍能保持修改後的內容。如需將檔案恢復至原始狀態，可以在 Config Editor 中移除對應的項目。
+
+## 刪除檔案和資料夾
+
+將滑鼠游標移至檔案項目上，點選「刪除」按鈕即可刪除檔案。需要注意的是，目前系統在刪除前不會顯示確認提示，請謹慎操作。
+
+![delete file](/deploy/file-management/delete-file.png)
+
+目前 Zeabur 不支援在介面刪除整個資料夾，您可以使用 [命令執行](/deploy/command-execution) 功能搭配 `rm` 命令來刪除整個資料夾。以下是使用 `rm -rf` 刪除整個 `/tmp/testdir` 資料夾的範例：
+
+```bash
+rm -rf /tmp/testdir
+```
+
+## 下載檔案
+
+要下載檔案，只需將滑鼠游標移至檔案項目上，點選「下載」按鈕即可。系統會在右下角顯示下載進度，下載完成後可選擇儲存位置。
+
+![download file](/deploy/file-management/download-file.png)
+
+![select downloaded file destination](/deploy/file-management/download-select-destination.png)
+
+## 上傳檔案
+
+上傳檔案時，只需將檔案拖曳到目標目錄上即可。系統會以背景色標示目標上傳位置，放開滑鼠後即開始上傳。目前系統僅支援單一檔案上傳。
+
+![upload file](/deploy/file-management/upload.png)
+
+### 上傳目錄
+
+如需上傳整個目錄，可先將目錄壓縮為 `tar` 檔案：
+
+![compress directory as TAR file](/deploy/file-management/compress-as-tar.png)
+
+將壓縮後的 `tar` 檔案拖曳至 Zeabur 檔案管理介面的 `/tmp` 目錄：
+
+![upload TAR file to temporary path](/deploy/file-management/upload-tar-file.png)
+
+接著使用 [命令執行](/deploy/command-execution) 功能，輸入以下指令來查看 `tar` 檔案內容：
+
+```bash
+tar tvf <你上傳的 tar 檔案>
+```
+
+確認目錄結構無誤後，使用以下指令解壓縮：
+
+```bash
+tar xvf <你上傳的 tar 檔案> -C <你想要解壓縮到的目錄>
+```
+
+例如：
+
+```bash
+tar xvf /tmp/myfolder.tar -C /usr/share
+```
+
+解壓縮後的檔案結構如下：
+
+![extracted folder structure](/deploy/file-management/extracted-folder-structure.png)
+
+完成後，可以刪除 `/tmp` 目錄中的 `tar` 檔案來節省空間。
