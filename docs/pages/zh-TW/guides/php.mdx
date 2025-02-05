@@ -66,7 +66,7 @@ ZBPACK_START_COMMAND="php artisan migrate && _startup"
 }
 ```
 
-注意：若是持續運行的服務，則需將啟動指令放置於 `()` 內，並使用 `&` 串接命令：
+注意：若是需要持續運作的服務，則需將啟動指令放置於 `()` 內，並使用 `&` 將任務置於背景執行：
 
 ```env
 ZBPACK_START_COMMAND="(php artisan reverb:start &); _startup"
@@ -83,6 +83,49 @@ ZBPACK_START_COMMAND="(php artisan reverb:start &); _startup"
 其中 `_startup` 是 Zeabur 原本的啟動命令（[可以在 zbpack 查閱](https://github.com/zeabur/zbpack/tree/main/internal/php)）。如果你有自訂 `start_command`，`_startup` 必須在你的啟動命令中執行，否則不會啟動 PHP 伺服器。
 
 `build_command` 和 `start_command` 均會使用 POSIX 相容的 shell 執行，所以你可以使用 `&&` 串接多個命令，或者使用 `;` 分隔多個命令。
+
+### 複雜啟動命令的處理方式
+
+如果你的啟動命令很複雜（比如涉及到 Cronjob 的設定、多個服務的啟動等等），`start_command` 可能會變成太為複雜且不容易除錯。可以試試看將這些指令用 [Config Editor](/deploy/config-edit) 打包在一個指令稿，比如 `worker.sh`：
+
+```bash filename="worker.sh"
+#!/usr/bin/env bash
+
+php artisan migrate
+php artisan queue:work &
+# 以及你的各種指令
+```
+
+然後在 `start_command` 中執行這個指令稿：
+
+```json filename="zbpack.json"
+{
+    "start_command": "(bash worker.sh &); _startup"
+}
+
+```env
+ZBPACK_START_COMMAND=(bash worker.sh &); _startup
+```
+
+### Workers 的處理方式
+
+諸如佇列處理或定時任務，我們會推薦你分開服務處理。
+
+假如您想要啟動一個佇列 worker，您可以在主服務之外，另外部署一個服務 `queue-worker`，其中 `start_command` 是：
+
+```env
+ZBPACK_START_COMMAND="php artisan queue:work"
+```
+
+記得不要加入 `; _startup` 以免啟動 PHP 伺服器。這樣你就會有單獨的一個用來處理非同步任務的服務了。
+
+如果您還需要多一個處理 Cronjob 的服務，您可以再部署一個服務 `cron-worker`，其中 `start_command` 是：
+
+```env
+ZBPACK_START_COMMAND="php artisan schedule:work"
+```
+
+這樣一來，就算您其中一個 worker 出問題，其他 workers 以及主服務也不會受到影響。
 
 ## 自訂 PHP 版本
 

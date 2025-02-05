@@ -66,7 +66,7 @@ ZBPACK_START_COMMAND="php artisan migrate && _startup"
 }
 ```
 
-注意：如果是持续运行的服务，则需要将启动指令放置于 `()` 内，并使用 `&` 连接命令：
+注意：如果是需要持续运行的服务，需要把启动命令放在 `()` 中，并用 `&` 把任务放到后台运行：
 
 ```env
 ZBPACK_START_COMMAND="(php artisan reverb:start &); _startup"
@@ -83,6 +83,49 @@ ZBPACK_START_COMMAND="(php artisan reverb:start &); _startup"
 其中 `_startup` 是 Zeabur 原本的启动命令（[可以在 zbpack 查阅](https://github.com/zeabur/zbpack/tree/main/internal/php)）。如果您有自定义 `start_command`，`_startup` 必须在您的启动命令中执行，否则不会启动 PHP 服务器。
 
 `build_command` 和 `start_command` 均会使用 POSIX 兼容的 shell 执行，因此您可以使用 `&&` 连接多个命令，或者使用 `;` 分隔多个命令。
+
+### 复杂启动命令的处理方式
+
+如果你的启动命令很复杂（比如涉及到定时任务的设置、多个服务的启动等），`start_command` 可能会变得太复杂且不容易调试。可以尝试将这些命令用 [Config Editor](/deploy/config-edit) 打包在一个脚本中，比如 `worker.sh`：
+
+```bash filename="worker.sh"
+#!/usr/bin/env bash
+
+php artisan migrate
+php artisan queue:work &
+# 以及你的各种命令
+```
+
+然后在 `start_command` 中执行这个脚本：
+
+```json filename="zbpack.json"
+{
+    "start_command": "(bash worker.sh &); _startup"
+}
+
+```env
+ZBPACK_START_COMMAND=(bash worker.sh &); _startup
+```
+
+### Workers 的处理方式
+
+对于队列处理或定时任务，我们建议你分开服务处理。
+
+假如你想要启动一个队列 worker，你可以在主服务之外，另外部署一个服务 `queue-worker`，其中 `start_command` 是：
+
+```env
+ZBPACK_START_COMMAND="php artisan queue:work"
+```
+
+记得不要加入 `; _startup` 以免启动 PHP 服务器。这样你就会有单独的一个用来处理异步任务的服务了。
+
+如果你还需要多一个处理定时任务的服务，你可以再部署一个服务 `cron-worker`，其中 `start_command` 是：
+
+```env
+ZBPACK_START_COMMAND="php artisan schedule:work"
+```
+
+这样一来，就算你其中一个 worker 出现问题，其他 workers 以及主服务也不会受到影响。
 
 ## 自定义 PHP 版本
 
