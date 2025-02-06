@@ -66,7 +66,7 @@ ZBPACK_START_COMMAND="php artisan migrate && _startup"
 }
 ```
 
-注意：永続的に動作するサービスの場合、起動コマンドを `()` で囲み、`&` を使用してコマンドを接続する必要があります。
+注意：継続的に実行する必要があるサービスの場合、起動コマンドを `()` で囲み、`&` を使用してタスクをバックグラウンドで実行する必要があります：
 
 ```env
 ZBPACK_START_COMMAND="(php artisan reverb:start &); _startup"
@@ -83,6 +83,50 @@ ZBPACK_START_COMMAND="(php artisan reverb:start &); _startup"
 ここで、`_startup` は Zeabur のデフォルトの起動コマンドです（[zbpack で確認可能](https://github.com/zeabur/zbpack/tree/main/internal/php)）。カスタム `start_command` を設定する場合、`_startup` を必ず含める必要があります。含めない場合、PHP サーバーが起動しません。
 
 `build_command` と `start_command` は、POSIX 互換のシェルで実行されるため、`&&` を使用して複数のコマンドを接続したり、`;` を使用して複数のコマンドを区切ることができます。
+
+### 複雑な起動コマンドの処理方法
+
+起動コマンドが複雑な場合（たとえば、スケジュールタスクの設定や複数のサービスの起動など）、`start_command` が複雑になり、デバッグが困難になる可能性があります。これらのコマンドを [Config Editor](/deploy/config-edit) を使用してスクリプトにまとめることをお勧めします。例えば `worker.sh` のように：
+
+```bash filename="worker.sh"
+#!/usr/bin/env bash
+
+php artisan migrate
+php artisan queue:work &
+# その他のコマンド
+```
+
+そして、`start_command` でこのスクリプトを実行します：
+
+```json filename="zbpack.json"
+{
+    "start_command": "(bash worker.sh &); _startup"
+}
+```
+
+```env
+ZBPACK_START_COMMAND=(bash worker.sh &); _startup
+```
+
+### Workers の処理方法
+
+キューの処理やスケジュールタスクについては、サービスを分けて処理することをお勧めします。
+
+キューワーカーを起動したい場合、メインサービスとは別に `queue-worker` というサービスを配置し、その `start_command` を以下のように設定します：
+
+```env
+ZBPACK_START_COMMAND="php artisan queue:work"
+```
+
+PHP サーバーが起動しないように `; _startup` を追加しないように注意してください。これにより、非同期タスクを処理する専用のサービスが作成されます。
+
+スケジュールタスクを処理する追加のサービスが必要な場合は、`cron-worker` という別のサービスを配置し、その `start_command` を以下のように設定します：
+
+```env
+ZBPACK_START_COMMAND="php artisan schedule:work"
+```
+
+このようにすることで、いずれかのワーカーに問題が発生しても、他のワーカーやメインサービスには影響を与えません。
 
 ## PHP バージョンのカスタマイズ
 

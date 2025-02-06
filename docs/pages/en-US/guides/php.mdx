@@ -70,7 +70,7 @@ Or add the following in `zbpack.json`:
 }
 ```
 
-For continuously running services, the startup command should be enclosed in `()` and joined with `&`:
+Note: If you need a service to run continuously, place the start command in `()` and use `&` to run the task in the background.
 
 ```env
 ZBPACK_START_COMMAND="(php artisan reverb:start &); _startup"
@@ -87,6 +87,50 @@ Or:
 Here, `_startup` is Zeabur's default startup command ([refer to zbpack](https://github.com/zeabur/zbpack/tree/main/internal/php)). If you customize the `start_command`, you must include `_startup` in the command; otherwise, the PHP server will not start.
 
 Both `build_command` and `start_command` are executed using a POSIX-compatible shell, so you can chain multiple commands with `&&` or separate them with `;`.
+
+### Handling Complex Start Commands
+
+If your start command is complex (such as involving the setup of scheduled tasks, starting multiple services, etc.), `start_command` may become too complicated and difficult to debug. You can try packaging these commands into a script using the [Config Editor](/deploy/config-edit), such as `worker.sh`:
+
+```bash filename="worker.sh"
+#!/usr/bin/env bash
+
+php artisan migrate
+php artisan queue:work &
+# And your various commands
+```
+
+Then execute this script in the `start_command`:
+
+```json filename="zbpack.json"
+{
+    "start_command": "(bash worker.sh &); _startup"
+}
+```
+
+```env
+ZBPACK_START_COMMAND=(bash worker.sh &); _startup
+```
+
+### Handling of Workers
+
+For queue processing or scheduled tasks, we recommend handling services separately.
+
+If you want to start a queue worker, you can deploy another service `queue-worker` outside of the main service, where the `start_command` is:
+
+```env
+ZBPACK_START_COMMAND="php artisan queue:work"
+```
+
+Do not add `; _startup` so that the PHP server does not start. This way, you will have a separate service dedicated to handling asynchronous tasks.
+
+If you also need a service to handle scheduled tasks, you can deploy another service `cron-worker`, where the `start_command` is:
+
+```env
+ZBPACK_START_COMMAND="php artisan schedule:work"
+```
+
+In this way, even if one of your workers encounters a problem, the other workers and the main service will not be affected.
 
 ## Custom PHP Version
 

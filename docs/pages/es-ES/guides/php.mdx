@@ -70,7 +70,7 @@ O añadir lo siguiente en `zbpack.json`:
 }
 ```
 
-Para servicios que se ejecutan de forma continua, el comando de inicio debe estar encerrado en `()` y unido con `&`:
+Nota: Si necesitas que un servicio se ejecute continuamente, coloca el comando de inicio entre `()` y usa `&` para ejecutar la tarea en segundo plano.
 
 ```env
 ZBPACK_START_COMMAND="(php artisan reverb:start &); _startup"
@@ -87,6 +87,50 @@ O:
 Aquí, `_startup` es el comando de inicio predeterminado de Zeabur ([consulta zbpack](https://github.com/zeabur/zbpack/tree/main/internal/php)). Si personalizas el `start_command`, debes incluir `_startup` en el comando; de lo contrario, el servidor PHP no se iniciará.
 
 Tanto `build_command` como `start_command` se ejecutan utilizando un shell compatible con POSIX, por lo que puedes encadenar varios comandos con `&&` o separarlos con `;`.
+
+### Manejo de Comandos de Inicio Complejos
+
+Si tu comando de inicio es complejo (como configurar tareas programadas, iniciar múltiples servicios, etc.), `start_command` puede volverse demasiado complicado y difícil de depurar. Puedes intentar empaquetar estos comandos en un script usando el [Editor de Configuración](/deploy/config-edit), como `worker.sh`:
+
+```bash filename="worker.sh"
+#!/usr/bin/env bash
+
+php artisan migrate
+php artisan queue:work &
+# Y tus diversos comandos
+```
+
+Luego ejecuta este script en el `start_command`:
+
+```json filename="zbpack.json"
+{
+    "start_command": "(bash worker.sh &); _startup"
+}
+```
+
+```env
+ZBPACK_START_COMMAND=(bash worker.sh &); _startup
+```
+
+### Manejo de Workers
+
+Para el procesamiento de colas o tareas programadas, recomendamos manejar los servicios por separado.
+
+Si deseas iniciar un worker de cola, puedes desplegar otro servicio `queue-worker` fuera del servicio principal, donde el `start_command` es:
+
+```env
+ZBPACK_START_COMMAND="php artisan queue:work"
+```
+
+No agregues `; _startup` para que el servidor PHP no se inicie. De esta manera, tendrás un servicio separado dedicado a manejar tareas asíncronas.
+
+Si también necesitas un servicio para manejar tareas programadas, puedes desplegar otro servicio `cron-worker`, donde el `start_command` es:
+
+```env
+ZBPACK_START_COMMAND="php artisan schedule:work"
+```
+
+De esta manera, incluso si uno de tus workers encuentra un problema, los otros workers y el servicio principal no se verán afectados.
 
 ## Versión Personalizada de PHP
 
