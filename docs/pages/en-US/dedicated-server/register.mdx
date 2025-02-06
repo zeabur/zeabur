@@ -4,6 +4,8 @@ ogImageTitle: Register Dedicated Server
 ogImageSubtitle: Register a server on Zeabur
 ---
 
+import { Callout } from 'nextra/components';
+
 # Register Dedicated Server
 
 This article will explain how to register a [Dedicated Server](../dedicated-server) on Zeabur.
@@ -14,14 +16,20 @@ This article will explain how to register a [Dedicated Server](../dedicated-serv
 - The server must have at least 1 CPU core and at least 2 GB of memory.
 - The server must have the following ports open: `22`, `80`, `443`, `4222`, `6443`, `30000-32767`.
 - The server must allow SSH login, and the username must be `root`.
-- The server must allow `root` user to log in using a password or SSH key.
+- This server must allow login using the `root` user or another user who can use `sudo`, either through a password or SSH key.
+
+<Callout type="default">
+    If you are not using the `root` user, considering that Zeabur configures the machine in a non-interactive environment (unable to enter the password on your behalf), please ensure that the `sudo` user group to which your user belongs has been granted the tag, [`NOPASSWD`](https://linux.die.net/man/5/sudoers).
+</Callout>
 
 ## Registration Steps
 
+![add machine to zeabur](/dedicated-server/add-machine-to-zeabur.webp)
+
 1. After logging into Zeabur, click on "My Servers" in the top navigation bar or at the top of the project list page, or directly visit [https://dash.zeabur.com/servers](https://dash.zeabur.com/servers).
-2. Click the "Create" button in the upper right corner of the page.
+2. Click the "Create" button in the upper right corner of the page, then select "Connect your own Server".
 3. Enter the server's IP address and SSH port (default is `22`).
-4. Choose the method for the `root` user to log in via SSH: password or SSH key.
+4. Enter the username (e.g., `root`), then choose the login method (password or SSH key).
 5. If you choose a password, enter the password below; if you choose an SSH key, enter the SSH key below.
 6. Click the "Add Server" button and wait for the server registration to complete (this process takes about 30 seconds).
 7. After successful registration, you will see the newly registered server in the server list.

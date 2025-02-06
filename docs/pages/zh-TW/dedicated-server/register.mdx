@@ -4,6 +4,8 @@ ogImageTitle: 註冊專用伺服器
 ogImageSubtitle: 註冊一個伺服器到 Zeabur 上
 ---
 
+import { Callout } from 'nextra/components';
+
 # 註冊專用伺服器
 
 本文將介紹如何註冊一台 [專用伺服器](../dedicated-server) 到 Zeabur 上。
@@ -14,14 +16,20 @@ ogImageSubtitle: 註冊一個伺服器到 Zeabur 上
 - 這台伺服器必須至少有 1 個 CPU 核心，且至少有 2 GB 的記憶體。
 - 這台伺服器必須對外開放 `22`, `80`, `443`, `4222`, `6443`, `30000-32767` 這些埠。
 - 這台伺服器必須允許 SSH 登入，且使用者名稱為 `root`。
-- 這台伺服器必須允許使用 `root` 使用者進行密碼或 SSH 金鑰登入。
+- 這台伺服器必須允許使用 `root` 或其他可以 `sudo` 的使用者，進行密碼或 SSH 金鑰登入。
+
+<Callout type="default">
+    如果您不是用 `root` 使用者，考慮到 Zeabur 是在非互動環境設定機器的（無法代為輸入密碼），請確保您這個使用者所在的 `sudo` 身分組有被授予 [`NOPASSWD`](https://linux.die.net/man/5/sudoers) 標籤。
+</Callout>
 
 ## 註冊步驟
 
+![add machine to zeabur](/dedicated-server/add-machine-to-zeabur.webp)
+
 1. 登入 Zeabur 後，點選頂部導航欄或專案列表頁面上方的「我的伺服器」，或是直接訪問 [https://dash.zeabur.com/servers](https://dash.zeabur.com/servers)。
-2. 點選頁面右上角的「建立」按鈕。
+2. 點選頁面右上角的「建立」按鈕，然後選擇「新增自己的伺服器」。
 3. 輸入伺服器的 IP 位址及 SSH 端口（預設為 `22`）。
-4. 選擇 `root` 使用者使用 SSH 登入的方式：密碼或 SSH 金鑰。
+4. 輸入使用者（比如 `root`），然後選擇登入方式（密碼或 SSH 金鑰）。
 5. 若選擇密碼，則在下方輸入密碼，若選擇 SSH 金鑰，則在下方輸入 SSH 金鑰。
 6. 點選「新增伺服器」按鈕，等待伺服器註冊完成（過程約需 30 秒）。
 7. 註冊成功後，你會在伺服器列表看到多了一台剛剛註冊的伺服器。
