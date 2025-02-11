@@ -7,6 +7,7 @@ export default {
     title: 'Zeaburテンプレートカタログ',
     href: 'https://zeabur.com/templates',
   },
+  'data-management': 'データ管理',
   networking: 'ネットワーキング',
   guides: 'ガイド',
   manage: 'プロジェクト管理',

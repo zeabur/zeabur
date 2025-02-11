@@ -86,6 +86,38 @@ export default withNextra({
         destination: '/:locale/template/template-in-code',
         permanent: false,
       },
+
+      // deploy -> data management
+      {
+        source: '/deploy/backup',
+        destination: '/data-management/backup',
+        permanent: true,
+      },
+      {
+        source: '/:locale/deploy/backup',
+        destination: '/:locale/data-management/backup',
+        permanent: true,
+      },
+      {
+        source: '/deploy/config-edit',
+        destination: '/data-management/config-edit',
+        permanent: true,
+      },
+      {
+        source: '/:locale/deploy/config-edit',
+        destination: '/:locale/data-management/config-edit',
+        permanent: true,
+      },
+      {
+        source: '/deploy/file-management',
+        destination: '/data-management/file-management',
+        permanent: true,
+      },
+      {
+        source: '/:locale/deploy/file-management',
+        destination: '/:locale/data-management/file-management',
+        permanent: true,
+      },
     ]);
   },
 })
