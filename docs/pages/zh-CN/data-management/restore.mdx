@@ -1,0 +1,55 @@
+---
+title: 还原备份
+ogImageTitle: 还原备份
+ogImageSubtitle: 在 Zeabur 上还原您创建的备份
+---
+
+import { Callout } from 'nextra/components'
+
+# 还原备份
+
+这里会提供或简述各种服务的数据还原方式。
+
+## 数据库
+
+### PostgreSQL
+
+参见 [PostgreSQL 服务](https://zeabur.com/templates/B20CX0) 的“还原备份”章节。
+
+### MySQL 和 MariaDB
+
+参见 [MySQL 服务](https://zeabur.com/templates/DGLGRG) 和 [MariaDB 服务](https://zeabur.com/zh-CN/templates/46YKAR) 的“还原备份”章节。
+
+### Redis
+
+可以使用 [Redis 的 `RESTORE` 指令](https://redis.io/commands/restore) 来还原备份。
+
+展开 Redis 服务“Command to connect to your Redis”的字符串，您会看到类似这种内容：
+
+```bash
+redis-cli -h <host> -p <port> -a <password>
+```
+
+将上面的 `<host>`、`<port>` 和 `<password>` 放入以下的指令当中即可：
+
+```bash
+cat /path/to/backup.rdb | redis-cli -h <host> -p <port> -a <password> -x RESTORE <key> 0
+```
+
+### MongoDB
+
+展开 MongoDB 服务“Command to connect to your MongoDB”的字符串，您会看到类似这种内容：
+
+```bash
+mongosh "<连接字符串>"
+```
+
+将 `<连接字符串>` 复制到终端机中，然后执行 `mongorestore` 命令来还原备份：
+
+```bash
+mongorestore "<连接字符串>" "<备份目录>"
+```
+
+## 硬盘内容
+
+如果您要还原 [持久存储空间](/data-management/volumes) 内的数据，您可以参考 [上传目录](/data-management/file-management) 的方式，将备份文件上传至目标目录并解压缩。
