@@ -18,7 +18,7 @@ Zeabur 为用户提供了一个直观的文件管理界面，让用户能够轻�
 
 在服务页面的 **服务状态** 标签中，点击 **文件** 区块即可打开文件管理界面。
 
-![file management](/deploy/file-management/file-management.png)
+![file management](/data-management/file-management/file-management.png)
 
 文件管理界面由五个区块组成：(1) 创建文件夹、(2) 创建文件、(3) 刷新、(4) 目录列表，以及 (5) 文件内容。其中，刷新功能可在文件更新后重新加载文件列表；目录列表显示服务的完整目录结构，用户可通过文件夹左侧的箭头展开或收起子目录；而文件内容区块则提供文件内容的查看与编辑功能。
 
@@ -26,11 +26,11 @@ Zeabur 为用户提供了一个直观的文件管理界面，让用户能够轻�
 
 创建文件夹时，点击“创建文件夹”按钮后，输入完整的文件夹路径，再按下确认键即可完成。如需取消操作，只要将路径保持空白并点击返回按钮即可。
 
-![create folder](/deploy/file-management/create-folder.png)
+![create folder](/data-management/file-management/create-folder.png)
 
 创建文件的步骤类似，点击“创建文件”按钮，输入完整的文件路径后按下确认键即可。同样地，若要取消创建，将路径保持空白并点击返回按钮即可。
 
-![create file](/deploy/file-management/create-file.png)
+![create file](/data-management/file-management/create-file.png)
 
 ## 在线编辑文件
 
@@ -42,15 +42,15 @@ Zeabur 为用户提供了一个直观的文件管理界面，让用户能够轻�
 
 用户可以直接在文件内容区块中进行编辑，完成后点击右上角的保存按钮即可保存更改。保存成功后会在右下角显示确认消息。
 
-![edit file](/deploy/file-management/edit-file.png)
+![edit file](/data-management/file-management/edit-file.png)
 
-编辑的文件内容会同步更新到 [Config Editor](/deploy/config-edit) 中，确保服务重启后仍能保持修改后的内容。如需将文件恢复至原始状态，可以在 Config Editor 中移除对应的项目。
+编辑的文件内容会同步更新到 [Config Editor](/data-management/config-edit) 中，确保服务重启后仍能保持修改后的内容。如需将文件恢复至原始状态，可以在 Config Editor 中移除对应的项目。
 
 ## 删除文件和文件夹
 
 将鼠标指针移至文件项目上，点击“删除”按钮即可删除文件。需要注意的是，目前系统在删除前不会显示确认提示，请谨慎操作。
 
-![delete file](/deploy/file-management/delete-file.png)
+![delete file](/data-management/file-management/delete-file.png)
 
 目前 Zeabur 不支持在界面删除整个文件夹，您可以使用 [命令执行](/deploy/command-execution) 功能配合 `rm` 命令来删除整个文件夹。以下是使用 `rm -rf` 删除整个 `/tmp/testdir` 文件夹的示例：
 
@@ -62,25 +62,25 @@ rm -rf /tmp/testdir
 
 要下载文件，只需将鼠标指针移至文件项目上，点击“下载”按钮即可。系统会在右下角显示下载进度，下载完成后可选择保存位置。
 
-![download file](/deploy/file-management/download-file.png)
+![download file](/data-management/file-management/download-file.png)
 
-![select downloaded file destination](/deploy/file-management/download-select-destination.png)
+![select downloaded file destination](/data-management/file-management/download-select-destination.png)
 
 ## 上传文件
 
 上传文件时，只需将文件拖拽到目标目录上即可。系统会以背景色标示目标上传位置，放开鼠标后即开始上传。目前系统仅支持单个文件上传。
 
-![upload file](/deploy/file-management/upload.png)
+![upload file](/data-management/file-management/upload.png)
 
 ### 上传目录
 
 如需上传整个目录，可先将目录压缩为 `tar` 文件：
 
-![compress directory as TAR file](/deploy/file-management/compress-as-tar.png)
+![compress directory as TAR file](/data-management/file-management/compress-as-tar.png)
 
 将压缩后的 `tar` 文件拖拽至 Zeabur 文件管理界面的 `/tmp` 目录：
 
-![upload TAR file to temporary path](/deploy/file-management/upload-tar-file.png)
+![upload TAR file to temporary path](/data-management/file-management/upload-tar-file.png)
 
 接着使用 [命令执行](/deploy/command-execution) 功能，输入以下命令来查看 `tar` 文件内容：
 
@@ -102,6 +102,6 @@ tar xvf /tmp/myfolder.tar -C /usr/share
 
 解压缩后的文件结构如下：
 
-![extracted folder structure](/deploy/file-management/extracted-folder-structure.png)
+![extracted folder structure](/data-management/file-management/extracted-folder-structure.png)
 
 完成后，可以删除 `/tmp` 目录中的 `tar` 文件来节省空间。

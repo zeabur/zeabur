@@ -18,7 +18,7 @@ Zeabur offers users an intuitive file management interface that simplifies the m
 
 In the **Overview** tab of the service page, click **Files** to access the file management interface.
 
-![file management](/deploy/file-management/file-management.png)
+![file management](/data-management/file-management/file-management.png)
 
 The file management interface consists of five main sections: (1) Create Folder, (2) Create File, (3) Refresh, (4) Directory List, and (5) File Content. The Refresh function reloads the file list after updates. The Directory List displays the complete directory structure, allowing users to expand or collapse subdirectories using the arrow beside folders. The File Content section enables file viewing and editing.
 
@@ -26,11 +26,11 @@ The file management interface consists of five main sections: (1) Create Folder,
 
 To create a folder, click the "Create Folder" button, enter the full folder path, and press the confirm button to complete the process. To cancel, leave the path blank and click the back button.
 
-![create folder](/deploy/file-management/create-folder.png)
+![create folder](/data-management/file-management/create-folder.png)
 
 Creating a file follows similar steps. Click the "Create File" button, enter the full file path, and press the confirm button. To cancel, leave the path blank and click the back button.
 
-![create file](/deploy/file-management/create-file.png)
+![create file](/data-management/file-management/create-file.png)
 
 ## File Editing
 
@@ -42,15 +42,15 @@ Select the file you want to edit from the directory list, and its content will a
 
 Users can edit directly in the file content section and click the **Save** button in the upper right corner to save changes. A confirmation message will appear in the lower right corner upon successful saving.
 
-![edit file](/deploy/file-management/edit-file.png)
+![edit file](/data-management/file-management/edit-file.png)
 
-The edited file content will also be placed in the [Config Editor](/deploy/config-edit), ensuring that changes are retained after service restarts. To revert a file to its original state, remove the corresponding item in the Config Editor.
+The edited file content will also be placed in the [Config Editor](/data-management/config-edit), ensuring that changes are retained after service restarts. To revert a file to its original state, remove the corresponding item in the Config Editor.
 
 ## Deleting Files and Folders
 
 Hover over a file item and click the "Delete" button to delete the file. Note that File Management currently does not show a confirmation prompt before deletion, so proceed with caution.
 
-![delete file](/deploy/file-management/delete-file.png)
+![delete file](/data-management/file-management/delete-file.png)
 
 Currently, File Management does not support deleting entire folders through the interface. You can run the `rm` command to delete entire folders using [Command Execution](/deploy/command-execution). Here is an example of using `rm -rf` to delete the entire `/tmp/testdir` folder:
 
@@ -62,25 +62,25 @@ rm -rf /tmp/testdir
 
 To download a file, hover over the file item and click the "Download" button. File Management will display the download progress in the lower right corner. After the download is complete, you can choose the save location.
 
-![download file](/deploy/file-management/download-file.png)
+![download file](/data-management/file-management/download-file.png)
 
-![select downloaded file destination](/deploy/file-management/download-select-destination.png)
+![select downloaded file destination](/data-management/file-management/download-select-destination.png)
 
 ## Uploading Files
 
 To upload a file, simply drag it to the target directory. File Management will highlight the target upload location, and the upload will begin once you release the mouse. Currently, only single file uploads are supported.
 
-![upload file](/deploy/file-management/upload.png)
+![upload file](/data-management/file-management/upload.png)
 
 ### Uploading Directories
 
 To upload an entire directory, first compress it into a `tar` file:
 
-![compress directory as TAR file](/deploy/file-management/compress-as-tar.png)
+![compress directory as TAR file](/data-management/file-management/compress-as-tar.png)
 
 Drag the compressed `tar` file to the `/tmp` directory in the Zeabur file management interface:
 
-![upload TAR file to temporary path](/deploy/file-management/upload-tar-file.png)
+![upload TAR file to temporary path](/data-management/file-management/upload-tar-file.png)
 
 Then run the following command with [Command Execution](/deploy/command-execution) to display the file hierarchy of the `tar` file:
 
@@ -102,6 +102,6 @@ tar xvf /tmp/myfolder.tar -C /usr/share
 
 The extracted folder structure is as follows:
 
-![extracted folder structure](/deploy/file-management/extracted-folder-structure.png)
+![extracted folder structure](/data-management/file-management/extracted-folder-structure.png)
 
 After completion, you can delete the `tar` file in the `/tmp` directory to save space.

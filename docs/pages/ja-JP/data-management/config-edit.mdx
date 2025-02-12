@@ -20,19 +20,19 @@ import { Callout } from 'nextra/components'
 
 上記のプロジェクト内で NGINX と Vaultwarden の Prebuilt Service をそれぞれ作成してください。
 
-![NGINX 服务の作成](/deploy/config-edit/create-nginx-service.en-US.png)
+![NGINX 服务の作成](/data-management/config-edit/create-nginx-service.en-US.png)
 
-![Vaultwarden サービスの作成](/deploy/config-edit/create-vultwarden-service.en-US.png)
+![Vaultwarden サービスの作成](/data-management/config-edit/create-vultwarden-service.en-US.png)
 
 ## ステップ3：Nginx サービスの設定ファイルの編集
 
 1. Services エリアで、nginx サービスの `Settings` タブのドロップダウンボタンをクリックし、`Configs` セクションをクリックして `Open Config Editor` ボタンを押し、設定ファイルエディタにアクセスします。
 
-![設定ファイルエディタを開く](/deploy/config-edit/open-config-editor.en-US.png)
+![設定ファイルエディタを開く](/data-management/config-edit/open-config-editor.en-US.png)
 
 2. 開いたエディタで `Add Config file` ボタンをクリックして新しい設定ファイルを追加します。ポップアップしたフォームの `Config Path` 入力ボックスに設定ファイルのパスと名前を入力します。ここでは `/etc/nginx/nginx.conf` を入力し、 `Save Config` ボタンをクリックします。
 
-![設定ファイルの追加](/deploy/config-edit/create-new-config.en-US.png)
+![設定ファイルの追加](/data-management/config-edit/create-new-config.en-US.png)
 
 <Callout>
     上記の `Config Path` には設定ファイルの絶対パスを入力する必要がありますので、具体的な状況に応じて設定してください。
@@ -85,14 +85,14 @@ http {
 
 4. `Save` ボタンをクリックして設定ファイルを保存します。
 
-![設定ファイルの保存](/deploy/config-edit/save-config.en-US.png)
+![設定ファイルの保存](/data-management/config-edit/save-config.en-US.png)
 
 ## ステップ4：サービスの再起動
 
 上述のステップで設定ファイルの編集が完了しましたので、次にサービスを再起動する必要があります。`Instructions` エリアを探し、`Restart` ボタンをクリックしてサービスの再起動を行い、設定ファイルを有効にします。
 
-![サービスの再起動](/deploy/config-edit/restart-service.en-US.png)
+![サービスの再起動](/data-management/config-edit/restart-service.en-US.png)
 
 [ドメインを NGINX サービスにバインドした後](/deploy/domain-binding)、ドメインを通じて Vaultwarden サービスにアクセスできるようになります。
 
-![Vaultwarden へのアクセス](/deploy/config-edit/vultwarden-service.en-US.png)
+![Vaultwarden へのアクセス](/data-management/config-edit/vultwarden-service.en-US.png)

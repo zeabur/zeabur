@@ -20,19 +20,19 @@ Create a Project in [Zeabur Dash](https://dash.zeabur.com/).
 
 Create your NGINX and Vaultwarden prebuilt services in the project you created in Step One.
 
-![Create NGINX Service](/deploy/config-edit/create-nginx-service.en-US.png)
+![Create NGINX Service](/data-management/config-edit/create-nginx-service.en-US.png)
 
-![Create Vaultwarden Service](/deploy/config-edit/create-vultwarden-service.en-US.png)
+![Create Vaultwarden Service](/data-management/config-edit/create-vultwarden-service.en-US.png)
 
 ## Step Three: Edit Nginx Service Configuration File
 
 1. Click on the `Settings` tab in the Services section for your NGINX service. Then, locate the `Configs` section in the expanded tab. Next, click the `Open Config Editor` button to access the configuration file editor.
 
-![Open Configuration File Editor](/deploy/config-edit/open-config-editor.en-US.png)
+![Open Configuration File Editor](/data-management/config-edit/open-config-editor.en-US.png)
 
 2. In the editor, we click on the `Add Config file` button to add a configuration file. In the sheet that appears, enter the filename and path for your configuration in the `Config Path` text box. In this example, we will use `/etc/nginx/nginx.conf`. Finally, click the `Save Config` button.
 
-![Add Configuration File](/deploy/config-edit/create-new-config.en-US.png)
+![Add Configuration File](/data-management/config-edit/create-new-config.en-US.png)
 
 <Callout>
     The `Config Path` above must be an absolute path. Customize it according to your requirements.
@@ -85,14 +85,14 @@ To allow others to access our internal Vaultwarden through our NGINX service, we
 
 4. Click the `Save` button to save your configuration file.
 
-![Save Configuration File](/deploy/config-edit/save-config.en-US.png)
+![Save Configuration File](/data-management/config-edit/save-config.en-US.png)
 
 ## Step Four: Restart the Service
 
 We have completed the configuration of NGINX in the previous steps. Now, we need to restart the service. Go to the `Instructions` section and click the `Restart` button to apply your configuration changes.
 
-![Restart Service](/deploy/config-edit/restart-service.en-US.png)
+![Restart Service](/data-management/config-edit/restart-service.en-US.png)
 
 Once you have [bound a domain name](/deploy/domain-binding) to your NGINX service, you can access the vaultwarden service using your domain name.
 
-![Access Vaultwarden](/deploy/config-edit/vultwarden-service.en-US.png)
+![Access Vaultwarden](/data-management/config-edit/vultwarden-service.en-US.png)

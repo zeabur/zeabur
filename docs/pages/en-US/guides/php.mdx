@@ -90,7 +90,7 @@ Both `build_command` and `start_command` are executed using a POSIX-compatible s
 
 ### Handling Complex Start Commands
 
-If your start command is complex (such as involving the setup of scheduled tasks, starting multiple services, etc.), `start_command` may become too complicated and difficult to debug. You can try packaging these commands into a script using the [Config Editor](/deploy/config-edit), such as `worker.sh`:
+If your start command is complex (such as involving the setup of scheduled tasks, starting multiple services, etc.), `start_command` may become too complicated and difficult to debug. You can try packaging these commands into a script using the [Config Editor](/data-management/config-edit), such as `worker.sh`:
 
 ```bash filename="worker.sh"
 #!/usr/bin/env bash
@@ -186,7 +186,7 @@ Or add the following in `zbpack.json`:
 
 ## Custom `php.ini` Settings
 
-Using Zeabur’s [configuration file editor](/deploy/config-edit), create a configuration file in the `/usr/local/etc/php/conf.d` directory with the `.ini` extension and include the PHP settings you want to override.
+Using Zeabur’s [configuration file editor](/data-management/config-edit), create a configuration file in the `/usr/local/etc/php/conf.d` directory with the `.ini` extension and include the PHP settings you want to override.
 
 For example, to set the maximum upload file size to 100MB, create a file `/usr/local/etc/php/conf.d/upload.ini` with the following content:
 
@@ -196,7 +196,7 @@ upload_max_filesize = 100M
 
 ## Custom NGINX Configuration
 
-Using Zeabur’s [configuration file editor](/deploy/config-edit), create a configuration file at `/etc/nginx/sites-enabled/default` to override the default NGINX settings in Zeabur. The editor will prefill the current NGINX configuration, which you can modify as needed.
+Using Zeabur’s [configuration file editor](/data-management/config-edit), create a configuration file at `/etc/nginx/sites-enabled/default` to override the default NGINX settings in Zeabur. The editor will prefill the current NGINX configuration, which you can modify as needed.
 
 For instance, to disable `gzip` compression, change `gzip_static on;` to `gzip_static off;` in the template.
 
