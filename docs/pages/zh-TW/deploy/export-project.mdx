@@ -1,0 +1,43 @@
+---
+title: 匯出專案
+ogImageTitle: 匯出專案
+ogImageSubtitle: 將專案匯出成可匯入到 Zeabur 的檔案
+---
+
+import { Callout } from 'nextra/components'
+
+# 匯出專案
+
+Zeabur 可以將專案的部署資訊，如 Docker 映像、Git 儲存庫、環境變數、硬碟掛載資訊等，匯出成一個 YAML 檔案，方便您匯入到其他專案來一鍵複製專案，或上架到 Zeabur 的 [模板目錄](https://zeabur.com/templates) 方便分享給大眾部署。
+
+<Callout>
+    注意「匯出專案」**不包含資料**。資料備份和還原相關的說明，請參考「資料管理」的〈備份服務〉和〈還原備份〉章節。
+</Callout>
+
+## 匯出步驟
+
+首先，點選專案側邊欄的「設定」，然後點選「一般設定」的「匯出」按鈕。
+
+![project settings](/deploy/export-project/project-settings.webp)
+
+然後，您會看到您專案的 [Template YAML](/template/template-in-code) 結構，您可以選擇直接「複製」，或按「匯出」輸出成 YAML 檔案。
+
+![export project to template](/deploy/export-project/export-project-to-template.webp)
+
+## 匯入到專案
+
+目前 Zeabur 只支援使用 [CLI](https://github.com/zeabur/cli) 將模板 YAML 匯入到專案中。
+
+首先，您應該先安裝好 [Node.js](https://nodejs.org/en/) 的工具鏈，然後使用 `npx` 啟動 Zeabur CLI：
+
+```bash
+npx zeabur@latest template deploy -f <匯出的 YAML 檔案路徑>
+```
+
+這個指令會提示您部署到哪個專案（或引導您建立新專案）。
+
+注意您可能會提醒需要登入，請按照提示登入您的 Zeabur 帳號。
+
+## 上架到模板目錄
+
+您會需要針對模板內容進行微調（如 `description`、`icon`、`readme` 等），請參考[〈從 YAML 建立模板〉](/template/template-in-code)的說明更新您的模板後使用 CLI 上架。
