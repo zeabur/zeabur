@@ -53,6 +53,24 @@ Zeabur 提供兩種方法來存取你的服務：
 
 ![綁定自訂網域完成](/networking/public/bound-custom-domain.webp)
 
+### 根網域 DNS 設定
+
+如果你想要使用根網域（`example.com`）而不是子網域（`www.example.com`），也就是 [Zone apex 記錄](https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-zone-apex/)，你可能需要對 Zeabur 提供的 DNS 記錄進行修改。
+
+如果你是 **Cloudflare** 的話，Cloudflare 已經內建 [CNAME Flattening](https://developers.cloudflare.com/dns/cname-flattening/) 功能，幫你自動把 CNAME 轉換成根網域可以使用的 A 記錄。因此，**你可以跳過這個章節**。
+
+如果你使用其他 DNS 服務商，且 Zeabur 提供給您的是 CNAME 記錄，你可能需要將 Zeabur 提供的 CNAME 記錄轉換成 A 記錄。
+
+1. Zeabur 在您綁定網域時，會給您一個 `CNAME`，指向比如說 `hkg1.clusters.zeabur.com` 的主機名稱。
+2. 接著，打開 [Google Admin Toolbox - Dig](https://toolbox.googleapps.com/apps/dig/#A/)，將這個主機名稱填進去。
+
+   ![Google Admin Toolbox - Dig](/networking/public/google-dig-tool.webp)
+   <br />
+
+3. 你會看到一個 `A` 記錄的 IP 位址。將這個 IP 位址填入您對應的 DNS 欄位即可。
+
+注意 Zeabur 有可能會更新 CNAME 指向的 A 記錄位址。如果你選擇這樣設定，若我們提醒你我們即將更新 IP 位址，或因故導致 IP 位址變化時，可能會需要你協助更新這個 DNS 記錄。
+
 ## 設定重新導向
 
 若要將你的網域重新導向到另一個 URL，可以使用「**重新導向網域**」功能。這會暫時（307）將你的網域重新導向到指定的目標網域。

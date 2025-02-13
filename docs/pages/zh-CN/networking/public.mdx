@@ -53,6 +53,24 @@ Zeabur 提供两种方法来存取你的服务：
 
 ![绑定自定义域名完成](/networking/public/bound-custom-domain.webp)
 
+### 根域名 DNS 设置
+
+如果您想使用根域名（`example.com`）而不是子域名（`www.example.com`），也就是所谓的 [Zone apex 记录](https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-zone-apex/)，您可能需要对 Zeabur 提供的 DNS 记录进行修改。
+
+如果您使用的是 **Cloudflare**，由于 Cloudflare 已内置 [CNAME Flattening](https://developers.cloudflare.com/dns/cname-flattening/) 功能，可以自动将 CNAME 转换为根域名可用的 A 记录。因此，**您可以跳过本节内容**。
+
+如果您使用其他 DNS 服务商，且 Zeabur 提供给您的是 CNAME 记录，您可能需要将 Zeabur 提供的 CNAME 记录转换为 A 记录。
+
+1. 当您绑定域名时，Zeabur 会给您一个 `CNAME`，指向类似 `hkg1.clusters.zeabur.com` 的主机名。
+2. 然后，打开 [Google Admin Toolbox - Dig](https://toolbox.googleapps.com/apps/dig/#A/)，将这个主机名填入。
+
+   ![Google Admin Toolbox - Dig](/networking/public/google-dig-tool.webp)
+   <br />
+
+3. 您会看到一个 `A` 记录的 IP 地址。将这个 IP 地址填入您相应的 DNS 字段即可。
+
+请注意，Zeabur 可能会更新 CNAME 指向的 A 记录地址。如果您选择这种设置方式，当我们通知即将更新 IP 地址，或因某些原因导致 IP 地址发生变化时，您可能需要协助更新这个 DNS 记录。
+
 ## 设置重定向
 
 若要将你的域名重定向到另一个 URL，可以使用“**重定向域名**”功能。这会暂时（307）将你的域名重定向到指定的目标域名。

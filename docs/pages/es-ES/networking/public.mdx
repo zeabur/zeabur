@@ -53,6 +53,24 @@ Después de configurar el registro DNS, puede tomar unos minutos para que los ca
 
 ![Dominio personalizado vinculado](/networking/public/bound-custom-domain.webp)
 
+### Configuración de DNS para Dominio Raíz
+
+Si deseas utilizar un dominio raíz (`ejemplo.com`) en lugar de un subdominio (`www.ejemplo.com`), también conocido como [registro apex de zona](https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-zone-apex/), es posible que necesites modificar los registros DNS proporcionados por Zeabur.
+
+Si estás usando **Cloudflare**, puedes **omitir esta sección** ya que Cloudflare tiene una funcionalidad incorporada de [Aplanamiento CNAME](https://developers.cloudflare.com/dns/cname-flattening/) que convierte automáticamente los registros CNAME en registros A que funcionan con dominios raíz.
+
+Si estás usando otros proveedores de DNS y Zeabur te proporciona un registro CNAME, es posible que necesites convertir el registro CNAME proporcionado por Zeabur en un registro A.
+
+1. Cuando vincules tu dominio, Zeabur te dará un `CNAME` que apunta a un nombre de host como `hkg1.clusters.zeabur.com`.
+2. Luego, abre [Google Admin Toolbox - Dig](https://toolbox.googleapps.com/apps/dig/#A/) e ingresa este nombre de host.
+
+   ![Google Admin Toolbox - Dig](/networking/public/google-dig-tool.webp)
+   <br />
+
+3. Verás una dirección IP para un registro `A`. Ingresa esta dirección IP en tu campo DNS correspondiente.
+
+Ten en cuenta que Zeabur puede actualizar la dirección del registro A al que apunta el CNAME. Si eliges este método de configuración, es posible que debas ayudar a actualizar este registro DNS cuando te notifiquemos sobre próximos cambios de dirección IP o si la dirección IP cambia por cualquier motivo.
+
 ## Configuración de redirecciones
 
 Para redirigir tu dominio a otra URL, usa la función "**Redirigir a otro dominio**". Esto redirigirá temporalmente (307) tu dominio al dominio de destino especificado.
