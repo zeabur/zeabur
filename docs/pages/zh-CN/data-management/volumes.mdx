@@ -1,0 +1,38 @@
+---
+title: 持久存储空间（硬盘）
+ogImageTitle: 持久存储空间
+ogImageSubtitle: 在 Zeabur 上持久存储您的数据
+---
+
+import { Callout } from 'nextra/components'
+
+# 持久存储空间
+
+在 Zeabur 上，您可以挂载硬盘（又称“持久存储空间”）来在服务中持久存储您的数据。通常 Zeabur 的服务在重新启动后，会将数据重置到容器默认值（也就是所谓的 <abbr title="Stateless">无状态</abbr>），但如果您需要持久存储数据（也就是让一个服务变成 <abbr title="Stateful">有状态</abbr> 的服务），您可以将要持久存储的目录挂载上硬盘，这样即使服务重新启动，数据也不会丢失。
+
+硬盘的价格信息可参考 [我们的价目表](/billing/pricing)。
+
+<Callout type="info">
+    如果你只是想上传配置文件，使用 [配置文件编辑器](/data-management/config-edit) 会更为方便，且不会产生额外费用。
+</Callout>
+
+## 挂载硬盘
+
+打开您想要挂载硬盘的服务页面，点击“硬盘”标签，您会看到一个“Mount Volumes”按钮。点击之后，您会看到两个字段：
+
+![mount volumes](/data-management/volumes/mount-volumes.webp)
+
+- **Volume ID** 是这个硬盘的专属代号，你可以用一个简单的名字（比如 `data`、`cache`、`photos`）来方便代表这个硬盘。除此之外，这个代号和实际挂载的结果无关。
+- **Mount Directory** 是硬盘要挂载的目录，简单来说就是“需要持久存储的文件夹”。假如服务中你想要持久存储 `/data` 这个目录，就在这里输入 `/data`。
+
+**注意挂载之后，这个目录的数据会全部清空**。如果您本来里面就有重要数据，请在挂载并重新启动服务前先行下载以免丢失，挂载后再将数据重新导入。
+
+## 取消挂载硬盘
+
+如果您想要停止计费某个持久存储空间的费用，请点击硬盘旁边的“删除”按钮。删除后就会停止这个空间的计费。注意删除后，这个目录的数据会 **全部清空** 且 **无法恢复**。
+
+![unmount volumes](/data-management/volumes/unmount-volumes.webp)
+
+## 在 Template YAML 中使用硬盘
+
+您可以在“服务规格”中使用 `volumes` 来挂载硬盘。相关信息可参考[《从 YAML 创建模板》](/template/template-in-code)一文。

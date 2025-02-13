@@ -86,7 +86,7 @@ ZBPACK_START_COMMAND="(php artisan reverb:start &); _startup"
 
 ### 複雑な起動コマンドの処理方法
 
-起動コマンドが複雑な場合（たとえば、スケジュールタスクの設定や複数のサービスの起動など）、`start_command` が複雑になり、デバッグが困難になる可能性があります。これらのコマンドを [Config Editor](/deploy/config-edit) を使用してスクリプトにまとめることをお勧めします。例えば `worker.sh` のように：
+起動コマンドが複雑な場合（たとえば、スケジュールタスクの設定や複数のサービスの起動など）、`start_command` が複雑になり、デバッグが困難になる可能性があります。これらのコマンドを [Config Editor](/data-management/config-edit) を使用してスクリプトにまとめることをお勧めします。例えば `worker.sh` のように：
 
 ```bash filename="worker.sh"
 #!/usr/bin/env bash
@@ -184,7 +184,7 @@ ZBPACK_PHP_VERSION=8.0
 
 ## `php.ini` 設定のカスタマイズ
 
-Zeabur の[設定ファイルエディタ](/deploy/config-edit)を使用して、`/usr/local/etc/php/conf.d` ディレクトリに `.ini` 拡張子を持つ設定ファイルを作成し、上書きしたい PHP 設定を直接記述します。
+Zeabur の[設定ファイルエディタ](/data-management/config-edit)を使用して、`/usr/local/etc/php/conf.d` ディレクトリに `.ini` 拡張子を持つ設定ファイルを作成し、上書きしたい PHP 設定を直接記述します。
 
 たとえば、アップロード可能な最大ファイルサイズを 100MB に設定したい場合は、`/usr/local/etc/php/conf.d/upload.ini` ファイルを作成し、以下の内容を記述します。
 
@@ -194,7 +194,7 @@ upload_max_filesize = 100M
 
 ## NGINX 設定のカスタマイズ
 
-Zeabur の[設定ファイルエディタ](/deploy/config-edit)を使用して、`/etc/nginx/sites-enabled/default` パスに設定ファイルを作成し、Zeabur のデフォルトの NGINX 設定を上書きします。作成後、現在の NGINX 設定が自動的に取り込まれるため、それを基に編集できます。
+Zeabur の[設定ファイルエディタ](/data-management/config-edit)を使用して、`/etc/nginx/sites-enabled/default` パスに設定ファイルを作成し、Zeabur のデフォルトの NGINX 設定を上書きします。作成後、現在の NGINX 設定が自動的に取り込まれるため、それを基に編集できます。
 
 たとえば、`gzip` 圧縮を無効にしたい場合は、テンプレートの `gzip_static on;` を `gzip_static off;` に変更します。
 
