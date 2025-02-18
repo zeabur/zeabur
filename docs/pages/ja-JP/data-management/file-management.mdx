@@ -1,109 +1,107 @@
 ---
-title: File Management
-ogImageTitle: File Management
-ogImageSubtitle: Manage Files Within Services on Zeabur
+title: ファイル管理
+ogImageTitle: ファイル管理
+ogImageSubtitle: Zeaburでサービス内のファイルを管理する
 ---
 
 import { Callout } from 'nextra/components'
 
-# File Management
+# ファイル管理
 
-<WorkingInProgress />
-
-Zeabur offers users an intuitive file management interface that simplifies the management of all files within their services. Users can upload, download, edit files online, and create or delete files and folders through this interface.
+Zeaburは、ユーザーがサービス内のすべてのファイルを簡単に管理できる直感的なファイル管理インターフェースを提供しています。このインターフェースを通じて、ユーザーはファイルのアップロード、ダウンロード、オンライン編集、およびファイルやフォルダの作成や削除などの操作を行うことができます。
 
 <Callout type="warning">
-  Some containers are too minimalistic and do not support components required for file management (such as cat), so this feature may not be available.
+  一部のコンテナは非常にミニマルで、ファイル管理に必要なコンポーネント（catなど）をサポートしていないため、この機能を使用できない場合があります。
 </Callout>
 
-## Opening File Management
+## ファイル管理を開く
 
-In the **Overview** tab of the service page, click **Files** to access the file management interface.
+サービスページの**サービスステータス**タブで、**ファイル**ブロックをクリックするとファイル管理インターフェースが開きます。
 
 ![file management](/data-management/file-management/file-management.png)
 
-The file management interface consists of five main sections: (1) Create Folder, (2) Create File, (3) Refresh, (4) Directory List, and (5) File Content. The Refresh function reloads the file list after updates. The Directory List displays the complete directory structure, allowing users to expand or collapse subdirectories using the arrow beside folders. The File Content section enables file viewing and editing.
+ファイル管理インターフェースは5つのブロックで構成されています：(1) フォルダの作成、(2) ファイルの作成、(3) 更新、(4) ディレクトリリスト、(5) ファイルコンテンツ。更新機能はファイルが更新された後にファイルリストを再読み込みすることができます。ディレクトリリストはサービスの完全なディレクトリ構造を表示し、フォルダの左側の矢印でサブディレクトリを展開または折りたたむことができます。ファイルコンテンツブロックではファイルの内容の表示と編集が可能です。
 
-## Creating Files and Folders
+## ファイルとフォルダの作成
 
-To create a folder, click the "Create Folder" button, enter the full folder path, and press the confirm button to complete the process. To cancel, leave the path blank and click the back button.
+フォルダを作成するには、「フォルダの作成」ボタンをクリックし、完全なフォルダパスを入力して、チェックマークをクリックします。操作をキャンセルする場合は、パスを空白のままにして戻るボタンをクリックします。
 
 ![create folder](/data-management/file-management/create-folder.png)
 
-Creating a file follows similar steps. Click the "Create File" button, enter the full file path, and press the confirm button. To cancel, leave the path blank and click the back button.
+ファイルの作成も同様で、「ファイルの作成」ボタンをクリックし、完全なファイルパスを入力してチェックマークをクリックします。同様に、作成をキャンセルする場合は、パスを空白のままにして戻るボタンをクリックします。
 
 ![create file](/data-management/file-management/create-file.png)
 
-## File Editing
+## オンラインでファイルを編集する
 
-Select the file you want to edit from the directory list, and its content will appear in the file content section on the right.
+ディレクトリリストから編集したいファイルを選択すると、ファイルの内容が右側のファイルコンテンツブロックに表示されます。
 
 <Callout type="info">
-  Currently, only text file editing is supported. Please download binary files (images, audio, compressed files) instead. If you open a binary file, you will see a string of uneditable garbled text.
+  現在はテキストファイルの編集のみをサポートしています。バイナリファイル（画像、音声、圧縮ファイル）はダウンロード機能を使用してダウンロードしてください。バイナリファイルを開くと、編集できない文字化けした文字列が表示されます。
 </Callout>
 
-Users can edit directly in the file content section and click the **Save** button in the upper right corner to save changes. A confirmation message will appear in the lower right corner upon successful saving.
+ユーザーはファイルコンテンツブロックで直接編集を行い、完了後に右上の保存ボタンをクリックして変更を保存できます。保存が成功すると、右下に確認メッセージが表示されます。
 
 ![edit file](/data-management/file-management/edit-file.png)
 
-The edited file content will also be placed in the [Config Editor](/data-management/config-edit), ensuring that changes are retained after service restarts. To revert a file to its original state, remove the corresponding item in the Config Editor.
+編集したファイルの内容は[Config Editor](/data-management/config-edit)に同期され、サービスが再起動した後も変更された内容が維持されます。ファイルを元の状態に戻すには、Config Editorで対応する項目を削除します。
 
-## Deleting Files and Folders
+## ファイルとフォルダの削除
 
-Hover over a file item and click the "Delete" button to delete the file. Note that File Management currently does not show a confirmation prompt before deletion, so proceed with caution.
+マウスポインタをファイル項目に合わせ、「削除」ボタンをクリックするとファイルを削除できます。現在、システムは削除前に確認プロンプトを表示しないため、慎重に操作してください。
 
 ![delete file](/data-management/file-management/delete-file.png)
 
-Currently, File Management does not support deleting entire folders through the interface. You can run the `rm` command to delete entire folders using [Command Execution](/deploy/command-execution). Here is an example of using `rm -rf` to delete the entire `/tmp/testdir` folder:
+現在、Zeaburはインターフェースでフォルダ全体を削除することをサポートしていません。[コマンド実行](/deploy/command-execution)機能と`rm`コマンドを組み合わせてフォルダ全体を削除できます。以下は`rm -rf`を使用して`/tmp/testdir`フォルダ全体を削除する例です：
 
 ```bash
 rm -rf /tmp/testdir
 ```
 
-## Downloading Files
+## ファイルのダウンロード
 
-To download a file, hover over the file item and click the "Download" button. File Management will display the download progress in the lower right corner. After the download is complete, you can choose the save location.
+ファイルをダウンロードするには、マウスポインタをファイル項目に合わせ、「ダウンロード」ボタンをクリックするだけです。システムは右下にダウンロードの進行状況を表示し、ダウンロードが完了すると保存場所を選択できます。
 
 ![download file](/data-management/file-management/download-file.png)
 
 ![select downloaded file destination](/data-management/file-management/download-select-destination.png)
 
-## Uploading Files
+## ファイルのアップロード
 
-To upload a file, simply drag it to the target directory. File Management will highlight the target upload location, and the upload will begin once you release the mouse. Currently, only single file uploads are supported.
+ファイルをアップロードするには、ファイルを目的のディレクトリにドラッグ＆ドロップするだけです。システムは背景色でアップロード先を示し、マウスを放すとアップロードが開始されます。現在、システムは単一ファイルのアップロードのみをサポートしています。
 
 ![upload file](/data-management/file-management/upload.png)
 
-### Uploading Directories
+### ディレクトリのアップロード
 
-To upload an entire directory, first compress it into a `tar` file:
+ディレクトリ全体をアップロードする必要がある場合は、まずディレクトリを`tar`ファイルに圧縮します：
 
 ![compress directory as TAR file](/data-management/file-management/compress-as-tar.png)
 
-Drag the compressed `tar` file to the `/tmp` directory in the Zeabur file management interface:
+圧縮した`tar`ファイルをZeaburファイル管理インターフェースの`/tmp`ディレクトリにドラッグ＆ドロップします：
 
 ![upload TAR file to temporary path](/data-management/file-management/upload-tar-file.png)
 
-Then run the following command with [Command Execution](/deploy/command-execution) to display the file hierarchy of the `tar` file:
+次に[コマンド実行](/deploy/command-execution)機能を使用し、以下のコマンドを入力して`tar`ファイルの内容を確認します：
 
 ```bash
-tar tvf <your uploaded tar file>
+tar tvf <アップロードしたtarファイル>
 ```
 
-After confirming the hierarchy is correct, use the following command to extract:
+ディレクトリ構造に問題がないことを確認したら、以下のコマンドで解凍します：
 
 ```bash
-tar xvf <your uploaded tar file> -C <your desired extraction directory>
+tar xvf <アップロードしたtarファイル> -C <解凍先のディレクトリ>
 ```
 
-For example:
+例：
 
 ```bash
 tar xvf /tmp/myfolder.tar -C /usr/share
 ```
 
-The extracted folder structure is as follows:
+解凍後のファイル構造は以下のようになります：
 
 ![extracted folder structure](/data-management/file-management/extracted-folder-structure.png)
 
-After completion, you can delete the `tar` file in the `/tmp` directory to save space.
+完了後、スペースを節約するために`/tmp`ディレクトリ内の`tar`ファイルを削除できます。
