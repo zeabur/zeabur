@@ -1,0 +1,38 @@
+---
+title: Volúmenes
+ogImageTitle: Volúmenes
+ogImageSubtitle: Almacena tus datos de forma persistente en Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Volúmenes
+
+En Zeabur, puedes montar Volúmenes para almacenar tus datos de forma persistente dentro de un servicio. Normalmente, los servicios en Zeabur reinician los datos a valores predeterminados al reiniciar (esto se conoce como <abbr title="Sin estado">sin estado</abbr>), pero si necesitas persistir datos (haciendo que un servicio sea <abbr title="Con estado">con estado</abbr>), puedes montar el directorio que necesita almacenamiento persistente en Volúmenes. De esta manera, incluso si el servicio se reinicia, los datos no se perderán.
+
+Para información sobre precios de Volúmenes, por favor consulta [nuestra página de precios](/billing/pricing).
+
+<Callout type="info">
+    Si solo quieres subir archivos de configuración, usar el [Editor de Configuración](/data-management/config-edit) es más conveniente y no incurre en costos adicionales.
+</Callout>
+
+## Montando Volúmenes
+
+Abre la página del servicio donde quieres montar Volúmenes, haz clic en la pestaña "Volúmenes", y verás un botón "Montar Volúmenes". Después de hacer clic, verás dos campos:
+
+![montar volúmenes](/data-management/volumes/mount-volumes.webp)
+
+- **ID del Volumen** es un identificador único para este Volumen. Puedes usar un nombre simple (como `datos`, `cache`, `fotos`) para representar fácilmente este Volumen. Este identificador no está relacionado con el resultado real del montaje.
+- **Directorio de Montaje** es el directorio donde se montará el Volumen, esencialmente la "carpeta que necesita almacenamiento persistente". Si quieres almacenar de forma persistente el directorio `/data` en el servicio, ingresa `/data` aquí.
+
+**Ten en cuenta que después de montar, los datos en este directorio se borrarán completamente**. Si ya tienes datos importantes dentro, por favor descárgalos antes de montar y reiniciar el servicio para evitar pérdidas, y luego vuelve a importar los datos después de montar.
+
+## Desmontando Volúmenes
+
+Si quieres dejar de facturar por un Volumen particular, haz clic en el botón "Eliminar" junto al Volumen. Eliminarlo detendrá la facturación de este espacio. Ten en cuenta que después de la eliminación, los datos en este directorio serán **completamente borrados** y **no se podrán recuperar**.
+
+![desmontar volúmenes](/data-management/volumes/unmount-volumes.webp)
+
+## Usando Volúmenes en YAML de Plantilla
+
+Puedes usar `volumes` en la "Especificación del Servicio" para montar Volúmenes. Para más información, por favor consulta el artículo, [Creando Plantillas desde YAML](/template/template-in-code).

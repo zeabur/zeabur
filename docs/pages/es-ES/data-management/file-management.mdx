@@ -1,109 +1,107 @@
 ---
-title: File Management
-ogImageTitle: File Management
-ogImageSubtitle: Manage Files Within Services on Zeabur
+title: Gestión de Archivos
+ogImageTitle: Gestión de Archivos
+ogImageSubtitle: Gestiona Archivos Dentro de los Servicios en Zeabur
 ---
 
 import { Callout } from 'nextra/components'
 
-# File Management
+# Gestión de Archivos
 
-<WorkingInProgress />
-
-Zeabur offers users an intuitive file management interface that simplifies the management of all files within their services. Users can upload, download, edit files online, and create or delete files and folders through this interface.
+Zeabur ofrece a los usuarios una interfaz intuitiva de gestión de archivos que simplifica la administración de todos los archivos dentro de sus servicios. Los usuarios pueden subir, descargar, editar archivos en línea, y crear o eliminar archivos y carpetas a través de esta interfaz.
 
 <Callout type="warning">
-  Some containers are too minimalistic and do not support components required for file management (such as cat), so this feature may not be available.
+  Algunos contenedores son demasiado minimalistas y no soportan componentes necesarios para la gestión de archivos (como cat), por lo que esta función puede no estar disponible.
 </Callout>
 
-## Opening File Management
+## Abriendo la Gestión de Archivos
 
-In the **Overview** tab of the service page, click **Files** to access the file management interface.
+En la pestaña **Resumen** de la página del servicio, haz clic en **Archivos** para acceder a la interfaz de gestión de archivos.
 
-![file management](/data-management/file-management/file-management.png)
+![gestión de archivos](/data-management/file-management/file-management.png)
 
-The file management interface consists of five main sections: (1) Create Folder, (2) Create File, (3) Refresh, (4) Directory List, and (5) File Content. The Refresh function reloads the file list after updates. The Directory List displays the complete directory structure, allowing users to expand or collapse subdirectories using the arrow beside folders. The File Content section enables file viewing and editing.
+La interfaz de gestión de archivos consta de cinco secciones principales: (1) Crear Carpeta, (2) Crear Archivo, (3) Actualizar, (4) Lista de Directorios, y (5) Contenido del Archivo. La función Actualizar recarga la lista de archivos después de las actualizaciones. La Lista de Directorios muestra la estructura completa del directorio, permitiendo a los usuarios expandir o colapsar subdirectorios usando la flecha junto a las carpetas. La sección de Contenido del Archivo permite ver y editar archivos.
 
-## Creating Files and Folders
+## Creando Archivos y Carpetas
 
-To create a folder, click the "Create Folder" button, enter the full folder path, and press the confirm button to complete the process. To cancel, leave the path blank and click the back button.
+Para crear una carpeta, haz clic en el botón "Crear Carpeta", ingresa la ruta completa de la carpeta y presiona el botón de confirmar para completar el proceso. Para cancelar, deja la ruta en blanco y haz clic en el botón de retroceso.
 
-![create folder](/data-management/file-management/create-folder.png)
+![crear carpeta](/data-management/file-management/create-folder.png)
 
-Creating a file follows similar steps. Click the "Create File" button, enter the full file path, and press the confirm button. To cancel, leave the path blank and click the back button.
+Crear un archivo sigue pasos similares. Haz clic en el botón "Crear Archivo", ingresa la ruta completa del archivo y presiona el botón de confirmar. Para cancelar, deja la ruta en blanco y haz clic en el botón de retroceso.
 
-![create file](/data-management/file-management/create-file.png)
+![crear archivo](/data-management/file-management/create-file.png)
 
-## File Editing
+## Edición de Archivos
 
-Select the file you want to edit from the directory list, and its content will appear in the file content section on the right.
+Selecciona el archivo que deseas editar desde la lista de directorios, y su contenido aparecerá en la sección de contenido del archivo a la derecha.
 
 <Callout type="info">
-  Currently, only text file editing is supported. Please download binary files (images, audio, compressed files) instead. If you open a binary file, you will see a string of uneditable garbled text.
+  Actualmente, solo se admite la edición de archivos de texto. Por favor, descarga los archivos binarios (imágenes, audio, archivos comprimidos) en su lugar. Si abres un archivo binario, verás una cadena de texto ilegible no editable.
 </Callout>
 
-Users can edit directly in the file content section and click the **Save** button in the upper right corner to save changes. A confirmation message will appear in the lower right corner upon successful saving.
+Los usuarios pueden editar directamente en la sección de contenido del archivo y hacer clic en el botón **Guardar** en la esquina superior derecha para guardar los cambios. Aparecerá un mensaje de confirmación en la esquina inferior derecha cuando se guarde exitosamente.
 
-![edit file](/data-management/file-management/edit-file.png)
+![editar archivo](/data-management/file-management/edit-file.png)
 
-The edited file content will also be placed in the [Config Editor](/data-management/config-edit), ensuring that changes are retained after service restarts. To revert a file to its original state, remove the corresponding item in the Config Editor.
+El contenido del archivo editado también se colocará en el [Editor de Configuración](/data-management/config-edit), asegurando que los cambios se mantengan después de reiniciar el servicio. Para revertir un archivo a su estado original, elimina el elemento correspondiente en el Editor de Configuración.
 
-## Deleting Files and Folders
+## Eliminando Archivos y Carpetas
 
-Hover over a file item and click the "Delete" button to delete the file. Note that File Management currently does not show a confirmation prompt before deletion, so proceed with caution.
+Pasa el cursor sobre un elemento de archivo y haz clic en el botón "Eliminar" para eliminar el archivo. Ten en cuenta que la Gestión de Archivos actualmente no muestra un mensaje de confirmación antes de la eliminación, así que procede con precaución.
 
-![delete file](/data-management/file-management/delete-file.png)
+![eliminar archivo](/data-management/file-management/delete-file.png)
 
-Currently, File Management does not support deleting entire folders through the interface. You can run the `rm` command to delete entire folders using [Command Execution](/deploy/command-execution). Here is an example of using `rm -rf` to delete the entire `/tmp/testdir` folder:
+Actualmente, la Gestión de Archivos no admite eliminar carpetas completas a través de la interfaz. Puedes ejecutar el comando `rm` para eliminar carpetas completas usando [Ejecución de Comandos](/deploy/command-execution). Aquí hay un ejemplo de usar `rm -rf` para eliminar toda la carpeta `/tmp/testdir`:
 
 ```bash
 rm -rf /tmp/testdir
 ```
 
-## Downloading Files
+## Descargando Archivos
 
-To download a file, hover over the file item and click the "Download" button. File Management will display the download progress in the lower right corner. After the download is complete, you can choose the save location.
+Para descargar un archivo, pasa el cursor sobre el elemento del archivo y haz clic en el botón "Descargar". La Gestión de Archivos mostrará el progreso de la descarga en la esquina inferior derecha. Después de que se complete la descarga, puedes elegir la ubicación de guardado.
 
-![download file](/data-management/file-management/download-file.png)
+![descargar archivo](/data-management/file-management/download-file.png)
 
-![select downloaded file destination](/data-management/file-management/download-select-destination.png)
+![seleccionar destino del archivo descargado](/data-management/file-management/download-select-destination.png)
 
-## Uploading Files
+## Subiendo Archivos
 
-To upload a file, simply drag it to the target directory. File Management will highlight the target upload location, and the upload will begin once you release the mouse. Currently, only single file uploads are supported.
+Para subir un archivo, simplemente arrástralo al directorio objetivo. La Gestión de Archivos resaltará la ubicación objetivo de la carga, y la subida comenzará una vez que sueltes el mouse. Actualmente, solo se admiten subidas de archivos individuales.
 
-![upload file](/data-management/file-management/upload.png)
+![subir archivo](/data-management/file-management/upload.png)
 
-### Uploading Directories
+### Subiendo Directorios
 
-To upload an entire directory, first compress it into a `tar` file:
+Para subir un directorio completo, primero comprímelo en un archivo `tar`:
 
-![compress directory as TAR file](/data-management/file-management/compress-as-tar.png)
+![comprimir directorio como archivo TAR](/data-management/file-management/compress-as-tar.png)
 
-Drag the compressed `tar` file to the `/tmp` directory in the Zeabur file management interface:
+Arrastra el archivo `tar` comprimido al directorio `/tmp` en la interfaz de gestión de archivos de Zeabur:
 
-![upload TAR file to temporary path](/data-management/file-management/upload-tar-file.png)
+![subir archivo TAR a ruta temporal](/data-management/file-management/upload-tar-file.png)
 
-Then run the following command with [Command Execution](/deploy/command-execution) to display the file hierarchy of the `tar` file:
-
-```bash
-tar tvf <your uploaded tar file>
-```
-
-After confirming the hierarchy is correct, use the following command to extract:
+Luego ejecuta el siguiente comando con [Ejecución de Comandos](/deploy/command-execution) para mostrar la jerarquía de archivos del archivo `tar`:
 
 ```bash
-tar xvf <your uploaded tar file> -C <your desired extraction directory>
+tar tvf <tu archivo tar subido>
 ```
 
-For example:
+Después de confirmar que la jerarquía es correcta, usa el siguiente comando para extraer:
+
+```bash
+tar xvf <tu archivo tar subido> -C <tu directorio de extracción deseado>
+```
+
+Por ejemplo:
 
 ```bash
 tar xvf /tmp/myfolder.tar -C /usr/share
 ```
 
-The extracted folder structure is as follows:
+La estructura de carpetas extraída es la siguiente:
 
-![extracted folder structure](/data-management/file-management/extracted-folder-structure.png)
+![estructura de carpetas extraída](/data-management/file-management/extracted-folder-structure.png)
 
-After completion, you can delete the `tar` file in the `/tmp` directory to save space.
+Después de completar, puedes eliminar el archivo `tar` en el directorio `/tmp` para ahorrar espacio.

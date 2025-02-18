@@ -1,46 +1,44 @@
 ---
-title: Editing Configuration Files
-ogImageTitle: Editing Configuration Files
-ogImageSubtitle: Editing Configuration Files
+title: Editor de Configuración
+ogImageTitle: Editor de Configuración
+ogImageSubtitle: Editando la Configuración de tu Servicio.
 ---
 
 import { Callout } from 'nextra/components'
 
-<WorkingInProgress />
+# Editor de Configuración
 
-# Editing Configuration Files
+Al ejecutar servicios, puedes personalizar varias configuraciones a través de archivos de configuración. Zeabur proporciona un editor de archivos de configuración que te permite especificar la ubicación de almacenamiento y el contenido del archivo de configuración a través del editor. El archivo de configuración se monta automáticamente cuando el servicio inicia.
 
-When running a service, you can customize it by using a configuration file. Zeabur provides a configuration file editor that allows you to specify the path and content of your configuration. The configuration file is automatically mounted upon service startup.
+Usaremos [NGINX](https://nginx.com/) para hacer proxy inverso del servicio interno [vaultwarden](https://github.com/dani-garcia/vaultwarden), para demostrar el proceso de usar el editor de archivos de configuración para cambiar el archivo de configuración de NGINX.
 
-We use [NGINX](https://nginx.com/) as a front proxy for [vaultwarden](https://github.com/dani-garcia/vaultwarden) to show how to edit NGINX custom configuration files using the configuration file editor.
+## Paso 1: Crear un Proyecto
 
-## Step One: Create a Project
+Crea un Proyecto en el [Panel de Control de Zeabur](https://dash.zeabur.com/).
 
-Create a Project in [Zeabur Dash](https://dash.zeabur.com/).
+## Paso 2: Crear Servicios
 
-## Step Two: Create Services
+Crea Servicios Preconfigurados tanto para NGINX como para Vaultwarden en el Proyecto anterior.
 
-Create your NGINX and Vaultwarden prebuilt services in the project you created in Step One.
+![Crear Servicio NGINX](/data-management/config-edit/create-nginx-service.en-US.png)
 
-![Create NGINX Service](/data-management/config-edit/create-nginx-service.en-US.png)
+![Crear Servicio Vaultwarden](/data-management/config-edit/create-vultwarden-service.en-US.png)
 
-![Create Vaultwarden Service](/data-management/config-edit/create-vultwarden-service.en-US.png)
+## Paso 3: Editar el Archivo de Configuración del Servicio NGINX
 
-## Step Three: Edit Nginx Service Configuration File
+1. En la sección de Servicios, haz clic en el botón desplegable en el bloque `Configuración` del servicio NGINX, encuentra la sección `Configuraciones`, y haz clic en el botón `Abrir Editor de Configuración` para entrar al editor de archivos de configuración.
 
-1. Click on the `Settings` tab in the Services section for your NGINX service. Then, locate the `Configs` section in the expanded tab. Next, click the `Open Config Editor` button to access the configuration file editor.
+![Abrir Editor de Configuración](/data-management/config-edit/open-config-editor.en-US.png)
 
-![Open Configuration File Editor](/data-management/config-edit/open-config-editor.en-US.png)
+2. En el editor abierto, haz clic en el botón `Agregar archivo de configuración` para añadir un nuevo archivo de configuración. En el cuadro de entrada `Ruta de Configuración` del formulario emergente, ingresa la ruta y nombre del archivo de configuración. Aquí, ingresamos `/etc/nginx/nginx.conf`, luego haz clic en el botón `Guardar Configuración`.
 
-2. In the editor, we click on the `Add Config file` button to add a configuration file. In the sheet that appears, enter the filename and path for your configuration in the `Config Path` text box. In this example, we will use `/etc/nginx/nginx.conf`. Finally, click the `Save Config` button.
-
-![Add Configuration File](/data-management/config-edit/create-new-config.en-US.png)
+![Agregar Archivo de Configuración](/data-management/config-edit/create-new-config.en-US.png)
 
 <Callout>
-    The `Config Path` above must be an absolute path. Customize it according to your requirements.
+    La `Ruta de Configuración` anterior debe ser la ruta absoluta del archivo de configuración. Por favor, ajusta según la situación real.
 </Callout>
 
-3. Edit the configuration file according to your requirements. In this case, we will add a `server` configuration to enable reverse-proxying for our vaultwarden service.
+3. Edita el contenido del archivo de configuración según sea necesario. Aquí, agregamos un bloque `server` para hacer proxy inverso al servicio Vaultwarden.
 
 ```nginx
 worker_processes  4;
@@ -57,7 +55,7 @@ http {
   access_log   /dev/stdout  main;
   sendfile     on;
   tcp_nopush   on;
-  server_names_hash_bucket_size 128; # this seems to be required for some vhosts
+  server_names_hash_bucket_size 128; # esto parece ser necesario para algunos vhosts
 
   map $http_upgrade $connection_upgrade {
     default upgrade;
@@ -83,18 +81,23 @@ http {
   }
 }
 ```
-To allow others to access our internal Vaultwarden through our NGINX service, we use the `proxy_pass vaultwarden.zeabur.internal` directive in NGINX. This instructs NGINX to proxy all requests from this location to Vaultwarden. We make use of the [Private Network](/deploy/private-networking) feature to access Vaultwarden with a fixed hostname within our private network.
 
-4. Click the `Save` button to save your configuration file.
+Para permitir que otros accedan a nuestro servicio interno Vaultwarden a través del servicio NGINX, usamos la directiva `proxy_pass http://vaultwarden.zeabur.internal:80;` en NGINX, indicando que NGINX debe enviar por proxy todas las solicitudes a esta ubicación a Vaultwarden. Usamos la función de [red privada](/deploy/private-networking) para acceder a Vaultwarden dentro de nuestra red privada usando un nombre de host fijo.
 
-![Save Configuration File](/data-management/config-edit/save-config.en-US.png)
+4. Haz clic en el botón `Guardar` para guardar la configuración.
 
-## Step Four: Restart the Service
+![Guardar Configuración](/data-management/config-edit/save-config.en-US.png)
 
-We have completed the configuration of NGINX in the previous steps. Now, we need to restart the service. Go to the `Instructions` section and click the `Restart` button to apply your configuration changes.
+## Paso 4: Reiniciar el Servicio
 
-![Restart Service](/data-management/config-edit/restart-service.en-US.png)
+En los pasos anteriores, hemos completado la edición del archivo de configuración. A continuación, necesitamos reiniciar el servicio. Encuentra la sección `Instrucciones` y haz clic en el botón `Reiniciar` para reiniciar el servicio para que el archivo de configuración surta efecto.
 
-Once you have [bound a domain name](/deploy/domain-binding) to your NGINX service, you can access the vaultwarden service using your domain name.
+![Reiniciar Servicio](/data-management/config-edit/restart-service.en-US.png)
 
-![Access Vaultwarden](/data-management/config-edit/vultwarden-service.en-US.png)
+[Después de vincular el dominio al servicio NGINX](/deploy/domain-binding), puedes acceder al servicio Vaultwarden a través del dominio.
+
+![Acceder a Vaultwarden](/data-management/config-edit/vultwarden-service.en-US.png)
+
+## Pre-especificar Archivos de Configuración en YAML de Plantilla
+
+Puedes usar `configs` en la "Especificación del Servicio" para pre-especificar los archivos de configuración para este servicio. Para más información, consulta el artículo [Crear Plantilla desde YAML](/template/template-in-code).
