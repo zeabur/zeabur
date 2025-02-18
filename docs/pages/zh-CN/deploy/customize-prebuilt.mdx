@@ -59,7 +59,7 @@ services:
 
 “Readonly”则代表“变量在 Prebuilt 创建后不能由用户修改”。以上图为例，`MARIADB_PASSWORD` 勾选了 Readonly，所以之后直接针对 `MARIADB_PASSWORD` 的修改都不会生效（不过修改 `MARIADB_ROOT_PASSWORD` 后，`MARIADB_PASSWORD` 的值依然会变化）。
 
-除了其他服务 Exposed 的变量以外，你也可以使用 Zeabur 预先定义好的特殊变量，比如使用 `${ZEABUR_WEB_URL}` 取回设置在 web port 的网址。
+除了其他服务 Exposed 的变量以外，你也可以使用 [Zeabur 预先定义好的特殊变量](/deploy/special-variables)，比如使用 `${ZEABUR_WEB_URL}` 取回设置在 web port 的网址。
 
 如果你在参考 Docker image 的文件，通常环境变量在 `docker run` 之后的 `--env`（或 `-e`）参数中，如下示例所示。
 
