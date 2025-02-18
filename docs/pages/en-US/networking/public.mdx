@@ -53,6 +53,24 @@ After configuring the DNS record, it may take a few minutes for the changes to p
 
 ![Bound custom domain](/networking/public/bound-custom-domain.webp)
 
+### Root Domain DNS Settings
+
+If you want to use a root domain (`example.com`) instead of a subdomain (`www.example.com`), also known as a [Zone apex record](https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-zone-apex/), you may need to modify the DNS records provided by Zeabur.
+
+If you're using **Cloudflare**, you can **skip this section** since Cloudflare has built-in [CNAME Flattening](https://developers.cloudflare.com/dns/cname-flattening/) functionality that automatically converts CNAME records to A records that work with root domains.
+
+If you're using other DNS providers and Zeabur provides you with a CNAME record, you may need to convert the CNAME record provided by Zeabur to an A record.
+
+1. When you bind your domain, Zeabur will give you a `CNAME` pointing to a hostname like `hkg1.clusters.zeabur.com`.
+2. Then, open [Google Admin Toolbox - Dig](https://toolbox.googleapps.com/apps/dig/#A/) and enter this hostname.
+
+   ![Google Admin Toolbox - Dig](/networking/public/google-dig-tool.webp)
+   <br />
+
+3. You'll see an IP address for an `A` record. Enter this IP address in your corresponding DNS field.
+
+Please note that Zeabur may update the A record address that the CNAME points to. If you choose this setup method, you may need to help update this DNS record when we notify you of upcoming IP address changes or if the IP address changes for any reason.
+
 ## Setting Up Redirections
 
 To redirect your domain to another URL, use the "**Redirect to another domain**" feature. This will temporarily (307) redirect your domain to the specified target domain.
