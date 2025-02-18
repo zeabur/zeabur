@@ -1,0 +1,43 @@
+---
+title: 导出项目
+ogImageTitle: 导出项目
+ogImageSubtitle: 将项目导出为可导入到 Zeabur 的文件
+---
+
+import { Callout } from 'nextra/components'
+
+# 导出项目
+
+Zeabur 可以将项目的部署信息，如 Docker 镜像、Git 仓库、环境变量、硬盘挂载信息等，导出为一个 YAML 文件，方便您导入到其他项目来一键复制项目，或上架到 Zeabur 的[模板目录](https://zeabur.com/templates)方便分享给大众部署。
+
+<Callout>
+    注意"导出项目"**不包含数据**。数据备份和还原相关的说明，请参考"数据管理"的[《备份服务》](/data-management/backup)和[《还原备份》](/data-management/restore)章节。
+</Callout>
+
+## 导出步骤
+
+首先，点击项目侧边栏的"设置"，然后点击"常规设置"的"导出"按钮。
+
+![project settings](/deploy/export-project/project-settings.webp)
+
+然后，您会看到您项目的 [Template YAML](/template/template-in-code) 结构，您可以选择直接"复制"，或按"导出"输出成 YAML 文件。
+
+![export project to template](/deploy/export-project/export-project-to-template.webp)
+
+## 导入到项目
+
+目前 Zeabur 只支持使用 [CLI](https://github.com/zeabur/cli) 将模板 YAML 导入到项目中。
+
+首先，您应该先安装好 [Node.js](https://nodejs.org/en/) 的工具链，然后使用 `npx` 启动 Zeabur CLI：
+
+```bash
+npx zeabur@latest template deploy -f <导出的 YAML 文件路径>
+```
+
+这个命令会提示您部署到哪个项目（或引导您创建新项目）。
+
+注意您可能会提醒需要登录，请按照提示登录您的 Zeabur 账号。
+
+## 上架到模板目录
+
+您需要针对模板内容进行微调（如 `description`、`icon`、`readme` 等），请参考[《从 YAML 创建模板》](/template/template-in-code)的说明更新您的模板后使用 CLI 上架。
