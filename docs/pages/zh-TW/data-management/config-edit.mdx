@@ -20,19 +20,19 @@ import { Callout } from 'nextra/components'
 
 在上述 Project 中分別建立 NGINX 和 Vaultwarden 的 Prebuilt Service。
 
-![建立 NGINX 服務](/deploy/config-edit/create-nginx-service.en-US.png)
+![建立 NGINX 服務](/data-management/config-edit/create-nginx-service.en-US.png)
 
-![建立 Vaultwarden 服務](/deploy/config-edit/create-vultwarden-service.en-US.png)
+![建立 Vaultwarden 服務](/data-management/config-edit/create-vultwarden-service.en-US.png)
 
 ## 步驟三：編輯 Nginx 服務設定檔
 
 1. 在 Services 區中，點選 NGINX 服務的 `Settings` 區塊的下拉按鈕，找到 `Configs` 部分後點選 `Open Config Editor` 按鈕，進入設定檔編輯器。
 
-![打開設定檔編輯器](/deploy/config-edit/open-config-editor.en-US.png)
+![打開設定檔編輯器](/data-management/config-edit/open-config-editor.en-US.png)
 
 2. 在打開的編輯器中，點選 `Add Config file` 按鈕新增一個設定檔。在彈出表單的 `Config Path` 輸入框打上設定檔的路徑和名稱，這裡我們輸入 `/etc/nginx/nginx.conf`，接著點選 `Save Config` 按鈕。
 
-![新增設定檔](/deploy/config-edit/create-new-config.en-US.png)
+![新增設定檔](/data-management/config-edit/create-new-config.en-US.png)
 
 <Callout>
     上方的 `Config Path` 需要輸入設定檔的絕對路徑，請根據實際情況調整。
@@ -85,14 +85,18 @@ http {
 
 4. 點選 `Save` 按鈕儲存設定。
 
-![儲存設定檔](/deploy/config-edit/save-config.en-US.png)
+![儲存設定檔](/data-management/config-edit/save-config.en-US.png)
 
 ## 步驟四：重新啟動服務
 
-在上述步驟中，我們已經完成了設定檔的編輯，接下來我們需要重新啟動服務。找到 `Instructions` 區塊，點選其中的 `Restart` 按鈕重新啟動服務，以使設定檔生效。
+在上述步驟中，我們已經完成了設定檔的編輯，接下來我們需要重新啟動服務。點選服務狀態的「重新啟動服務」按鈕重新啟動服務，以使設定檔生效。
 
-![重新啟動服務](/deploy/config-edit/restart-service.en-US.png)
+![重新啟動服務](/data-management/config-edit/restart-service.en-US.png)
 
 [將網域綁定到 NGINX 服務後](/deploy/domain-binding)，即可透過網域造訪 Vaultwarden 服務。
 
-![造訪 Vaultwarden](/deploy/config-edit/vultwarden-service.en-US.png)
+![造訪 Vaultwarden](/data-management/config-edit/vultwarden-service.en-US.png)
+
+## 在 Template YAML 中預先指定設定檔
+
+您可以在「服務規格」中使用 `configs` 來預先指定這個服務的設定檔。相關資訊可參考[〈從 YAML 建立模板〉](/template/template-in-code)一文。

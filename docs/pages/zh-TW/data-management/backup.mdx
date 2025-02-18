@@ -1,0 +1,53 @@
+---
+title: 備份服務
+ogImageTitle: 備份服務
+ogImageSubtitle: 在 Zeabur 上備份您的服務
+---
+
+import { Callout } from 'nextra/components'
+
+# 備份服務
+
+Zeabur 在 Dev Plan 以上的方案中，提供了異地備份的功能。對於資料庫服務，Zeabur 支援線上備份和自動備份，讓您的資料庫可以不停機備份；對於其他 <abbr title="Stateful">有狀態</abbr> 的服務，我們也提供暫停後離線異地備份的功能。
+
+## 離線異地備份
+
+<Callout>
+    如果您沒有掛載 [持久儲存空間](/data-management/volumes)，就不會顯示備份功能。「備份」也只會備份「持久儲存空間」內的資料，其餘服務中的檔案（如原始碼）不會跟著備份。
+</Callout>
+
+首先您需要先暫停服務。點選服務的「設定」→「暫停服務」，即可暫停服務運作。注意暫停不會造成資料遺失。
+
+接著，點選您服務的「備份」分頁，您會看到「備份」按鈕。
+
+![backup tab](/data-management/backup/backup-tab.webp)
+
+點下去後，Zeabur 會在背景自動備份，您可以稍待幾分鐘。備份完成後，您會看到下載按鈕，點選即可下載備份檔案。備份檔案的內容，就是您服務掛載的「持久儲存空間」所在資料夾的完整內容。
+
+![backup success](/data-management/backup/backup-success.webp)
+
+備份完成後，您可以到「服務狀態」點選「重新啟動服務」，讓您的服務恢復運作。
+
+## 線上異地備份
+
+Zeabur 支援不限於 PostgreSQL、MySQL、MariaDB、MongoDB 等資料庫的線上異地備份，不需要您暫停服務即可進行安全備份。另外「線上異地備份」的服務也會支援自動備份。
+
+![online backup](/data-management/backup/online-backup.webp)
+
+和〈離線異地備份〉相似，點選「備份」按鈕後，Zeabur 會在背景自動備份，您可以稍待幾分鐘。備份完成後，也會看到下載按鈕，點選即可下載備份檔案。
+
+備份檔案的內容，會是資料庫的標準傾印檔案（以 PostgreSQL、MySQL 來說，是 `.sql` 檔案；以 MongoDB 來說，是各種 `.bson` 檔案）。這些備份檔日後可以用資料庫內建的還原工具（如 `psql`、`mongoimport`）等工具來還原。
+
+### 自動備份
+
+Zeabur 也支援自動備份，目前支援每日固定時段備份。
+
+![auto backup](/data-management/backup/auto-backup.webp)
+
+打開「自動備份」後，您可以設定備份的 UTC 時段。通常來講，選擇您服務人潮最低的時段進行備份，會是比較好的。您可以參考旁邊的「At your local time」看看這個 UTC 時段是對應到您當地的幾點。
+
+## 備份保留時間
+
+Zeabur **只保留您備份 7 天時間**，超過這個時間的備份會自動刪除。
+
+如果您需要長時間儲存備份，請自行下載備份檔案後，儲存到其他地方。

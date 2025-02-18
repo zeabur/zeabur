@@ -1,0 +1,38 @@
+---
+title: 持久儲存空間（硬碟）
+ogImageTitle: 持久儲存空間
+ogImageSubtitle: 在 Zeabur 上持久儲存您的資料
+---
+
+import { Callout } from 'nextra/components'
+
+# 持久儲存空間
+
+在 Zeabur 上，您可以掛載硬碟（又稱「持久儲存空間」）來在服務中持久儲存您的資料。通常 Zeabur 的服務在重新啟動後，會將資料重設到容易預設值（也就是所謂的 <abbr title="Stateless">無狀態</abbr>），但如果您需要持久儲存資料（也就是讓一個服務變成 <abbr title="Stateful">有狀態</abbr> 的服務），您可以將要持久儲存的目錄掛載上硬碟，這樣即使服務重新啟動，資料也不會遺失。
+
+硬碟的價格資訊可參考 [我們的價目表](/billing/pricing)。
+
+<Callout type="info">
+    如果你只是想上傳設定檔，使用 [設定檔編輯器](/data-management/config-edit) 會更為方便，且不會產生額外費用。
+</Callout>
+
+## 掛載硬碟
+
+打開您想要掛載硬碟的服務頁面，點選「硬碟」分頁，您會看到一個「Mount Volumes」的按鈕。點選之後，您會看到兩個欄位：
+
+![mount volumes](/data-management/volumes/mount-volumes.webp)
+
+- **Volume ID** 是這個硬碟的專屬代號，你可以用一個簡單的名字（比如 `data`、`cache`、`photos`）來方便代表這個硬碟。除此之外，這個代號跟實際掛載的結果無關。
+- **Mount Directory** 是硬碟要掛載的目錄，簡單來說就是「需要持久儲存的資料夾」。假如服務中你想要持久儲存 `/data` 這個目錄，就在這裡輸入 `/data`。
+
+**注意掛載之後，這個目錄的資料會全部清空**。如果您本來裡面就有重要資料，請在掛載並重新啟動服務前先行下載以免遺失，掛載後再將資料重新匯入。
+
+## 取消掛載硬碟
+
+如果您想要停止計費某個持久儲存空間的費用，請點選硬碟旁邊的「刪除」按鈕。刪除後就會停止這個空間的計費。注意刪除後，這個目錄的資料會 **全部清空** 且 **無法恢復**。
+
+![unmount volumes](/data-management/volumes/unmount-volumes.webp)
+
+## 在 Template YAML 中使用硬碟
+
+您可以在「服務規格」中使用 `volumes` 來掛載硬碟。相關資訊可參考[〈從 YAML 建立模板〉](/template/template-in-code)一文。

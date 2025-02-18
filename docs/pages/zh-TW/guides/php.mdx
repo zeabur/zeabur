@@ -86,7 +86,7 @@ ZBPACK_START_COMMAND="(php artisan reverb:start &); _startup"
 
 ### 複雜啟動命令的處理方式
 
-如果你的啟動命令很複雜（比如涉及到 Cronjob 的設定、多個服務的啟動等等），`start_command` 可能會變成太為複雜且不容易除錯。可以試試看將這些指令用 [Config Editor](/deploy/config-edit) 打包在一個指令稿，比如 `worker.sh`：
+如果你的啟動命令很複雜（比如涉及到 Cronjob 的設定、多個服務的啟動等等），`start_command` 可能會變成太為複雜且不容易除錯。可以試試看將這些指令用 [Config Editor](/data-management/config-edit) 打包在一個指令稿，比如 `worker.sh`：
 
 ```bash filename="worker.sh"
 #!/usr/bin/env bash
@@ -183,7 +183,7 @@ ZBPACK_PHP_VERSION=8.0
 
 ## 自訂 `php.ini` 設定
 
-使用 Zeabur 的[設定檔編輯器](/deploy/config-edit)，建立一個路徑在 `/usr/local/etc/php/conf.d`、副檔名是 `ini` 的設定檔案，並且直接寫上想要覆蓋的 PHP 設定即可。
+使用 Zeabur 的[設定檔編輯器](/data-management/config-edit)，建立一個路徑在 `/usr/local/etc/php/conf.d`、副檔名是 `ini` 的設定檔案，並且直接寫上想要覆蓋的 PHP 設定即可。
 
 舉例來說，如果想要將最大上傳檔案大小設定為 100MB，可以建立一個檔案 `/usr/local/etc/php/conf.d/upload.ini`，內容如下：
 
@@ -193,7 +193,7 @@ upload_max_filesize = 100M
 
 ## 自訂 NGINX 設定
 
-使用 Zeabur 的[設定檔編輯器](/deploy/config-edit)，建立一個路徑是 `/etc/nginx/sites-enabled/default` 的設定檔案，覆蓋 Zeabur 預設的 NGINX 設定。建立後會自動帶入目前的 NGINX 設定，你可以在此基礎上進行修改。
+使用 Zeabur 的[設定檔編輯器](/data-management/config-edit)，建立一個路徑是 `/etc/nginx/sites-enabled/default` 的設定檔案，覆蓋 Zeabur 預設的 NGINX 設定。建立後會自動帶入目前的 NGINX 設定，你可以在此基礎上進行修改。
 
 舉例來說，假如你想要停用 `gzip` 壓縮，可以將範本的 `gzip_static on;` 改成 `gzip_static off;`。
 

@@ -1,0 +1,55 @@
+---
+title: Restaurar Copia de Seguridad
+ogImageTitle: Restaurar Copia de Seguridad
+ogImageSubtitle: Restaura tu Copia de Seguridad en Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Restaurar Copia de Seguridad
+
+Esta sección describe brevemente varios métodos para restaurar la copia de seguridad de tu servicio.
+
+## Base de Datos
+
+### PostgreSQL
+
+Consulta la sección "Restaurar Copia de Seguridad" en la [Página de Plantilla de Servicio PostgreSQL](https://zeabur.com/templates/B20CX0).
+
+### MySQL y MariaDB
+
+Consulta la sección "Restaurar Copia de Seguridad" en la [Página de Plantilla de Servicio MySQL](https://zeabur.com/templates/DGLGRG) y la [Página de Plantilla de Servicio MariaDB](https://zeabur.com/zh-TW/templates/46YKAR).
+
+### Redis
+
+Puedes usar el [comando `RESTORE` de Redis](https://redis.io/commands/restore) para restaurar una copia de seguridad.
+
+Expande la cadena "Comando para conectar a tu Redis" del servicio Redis, y verás algo como esto:
+
+```bash
+redis-cli -h <host> -p <port> -a <password>
+```
+
+Inserta el `<host>`, `<port>`, y `<password>` en el siguiente comando:
+
+```bash
+cat /path/to/backup.rdb | redis-cli -h <host> -p <port> -a <password> -x RESTORE <key> 0
+```
+
+### MongoDB
+
+Expande la cadena "Comando para conectar a tu MongoDB" del servicio MongoDB, y verás algo como esto:
+
+```bash
+mongosh "<cadena de conexión>"
+```
+
+Copia la `<cadena de conexión>` en la terminal y ejecuta el comando `mongorestore` para restaurar la copia de seguridad:
+
+```bash
+mongorestore "<cadena de conexión>" "<directorio de respaldo>"
+```
+
+## Volúmenes
+
+Si deseas restaurar datos dentro de [volúmenes](/data-management/volumes), puedes consultar el método de [Subir Directorio](/data-management/file-management) para subir los archivos de respaldo al directorio objetivo y descomprimirlos.

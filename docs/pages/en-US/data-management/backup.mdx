@@ -1,0 +1,51 @@
+---
+title: Backup
+ogImageTitle: Backup your Service
+ogImageSubtitle: Backup your Service in Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Backup your Service
+
+For Dev Plan and more advanced plans, Zeabur provides offsite backup functionality. For database services, Zeabur supports online backup and automatic backup, allowing your database to be backed up without downtime. For other stateful services, we also offer the ability to perform offline offsite backups after pausing.
+
+## Offline Offsite Backup
+
+If you have not mounted [volumes](/data-management/volumes), the backup feature will not be displayed. "Backup" will only back up the data within the volumes; other files in the service (such as source code) will not be backed up.
+
+First, you need to suspend the service. Click on "Settings" → "Suspend Service" for the service to suspend it. Note that suspension will not cause data loss.
+
+Next, click on the "Backup" tab of your service, and you will see the "Backup" button.
+
+![backup tab](/data-management/backup/backup-tab.webp)
+
+After clicking it, Zeabur will automatically back up your service in the background, and you can wait a few minutes. Once the backup is complete, you will see a download button, which you can click to download the backup file. The content of the backup file is the complete content of the folder where your service's volumes are mounted.
+
+![backup success](/data-management/backup/backup-success.webp)
+
+After the backup is complete, you can go to "Overview" and click "Restart Service" to resume your service.
+
+## Online Offsite Backup
+
+Zeabur supports online offsite backup for databases such as PostgreSQL, MySQL, MariaDB, MongoDB, etc., allowing secure backups without pausing your service. Additionally, the "Online Offsite Backup" service also supports automatic backup.
+
+![online backup](/data-management/backup/online-backup.webp)
+
+Similar to "Offline Offsite Backup," after clicking the "Backup" button, Zeabur will automatically back up in the background, and you can wait a few minutes. Once the backup is complete, you will also see a download button, which you can click to download the backup file.
+
+The content of the backup file will be a standard dump file of the database (for PostgreSQL, MySQL, it is a `.sql` file; for MongoDB, it is various `.bson` files). These backup files can be restored later using built-in database restoration tools (such as `psql` and `mongoimport`).
+
+### Automatic Backup
+
+Zeabur also supports automatic backups, currently offering daily backups at a set time.
+
+![auto backup](/data-management/backup/auto-backup.webp)
+
+After enabling "Automatic Backup," you can set the backup time in UTC. It's best to choose a time when your service experiences the least traffic. You can refer to the "At your local time" hint next to it to see what this UTC period corresponds to in your local time.
+
+## Backup Retention Time
+
+Zeabur **only retains your backups for 7 days**; backups older than this will be automatically deleted.
+
+If you need to store backups for a longer time, please download the backup files yourself and store them elsewhere.

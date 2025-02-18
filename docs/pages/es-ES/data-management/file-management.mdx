@@ -1,0 +1,107 @@
+---
+title: Gestión de Archivos
+ogImageTitle: Gestión de Archivos
+ogImageSubtitle: Gestiona Archivos Dentro de los Servicios en Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Gestión de Archivos
+
+Zeabur ofrece a los usuarios una interfaz intuitiva de gestión de archivos que simplifica la administración de todos los archivos dentro de sus servicios. Los usuarios pueden subir, descargar, editar archivos en línea, y crear o eliminar archivos y carpetas a través de esta interfaz.
+
+<Callout type="warning">
+  Algunos contenedores son demasiado minimalistas y no soportan componentes necesarios para la gestión de archivos (como cat), por lo que esta función puede no estar disponible.
+</Callout>
+
+## Abriendo la Gestión de Archivos
+
+En la pestaña **Resumen** de la página del servicio, haz clic en **Archivos** para acceder a la interfaz de gestión de archivos.
+
+![gestión de archivos](/data-management/file-management/file-management.png)
+
+La interfaz de gestión de archivos consta de cinco secciones principales: (1) Crear Carpeta, (2) Crear Archivo, (3) Actualizar, (4) Lista de Directorios, y (5) Contenido del Archivo. La función Actualizar recarga la lista de archivos después de las actualizaciones. La Lista de Directorios muestra la estructura completa del directorio, permitiendo a los usuarios expandir o colapsar subdirectorios usando la flecha junto a las carpetas. La sección de Contenido del Archivo permite ver y editar archivos.
+
+## Creando Archivos y Carpetas
+
+Para crear una carpeta, haz clic en el botón "Crear Carpeta", ingresa la ruta completa de la carpeta y presiona el botón de confirmar para completar el proceso. Para cancelar, deja la ruta en blanco y haz clic en el botón de retroceso.
+
+![crear carpeta](/data-management/file-management/create-folder.png)
+
+Crear un archivo sigue pasos similares. Haz clic en el botón "Crear Archivo", ingresa la ruta completa del archivo y presiona el botón de confirmar. Para cancelar, deja la ruta en blanco y haz clic en el botón de retroceso.
+
+![crear archivo](/data-management/file-management/create-file.png)
+
+## Edición de Archivos
+
+Selecciona el archivo que deseas editar desde la lista de directorios, y su contenido aparecerá en la sección de contenido del archivo a la derecha.
+
+<Callout type="info">
+  Actualmente, solo se admite la edición de archivos de texto. Por favor, descarga los archivos binarios (imágenes, audio, archivos comprimidos) en su lugar. Si abres un archivo binario, verás una cadena de texto ilegible no editable.
+</Callout>
+
+Los usuarios pueden editar directamente en la sección de contenido del archivo y hacer clic en el botón **Guardar** en la esquina superior derecha para guardar los cambios. Aparecerá un mensaje de confirmación en la esquina inferior derecha cuando se guarde exitosamente.
+
+![editar archivo](/data-management/file-management/edit-file.png)
+
+El contenido del archivo editado también se colocará en el [Editor de Configuración](/data-management/config-edit), asegurando que los cambios se mantengan después de reiniciar el servicio. Para revertir un archivo a su estado original, elimina el elemento correspondiente en el Editor de Configuración.
+
+## Eliminando Archivos y Carpetas
+
+Pasa el cursor sobre un elemento de archivo y haz clic en el botón "Eliminar" para eliminar el archivo. Ten en cuenta que la Gestión de Archivos actualmente no muestra un mensaje de confirmación antes de la eliminación, así que procede con precaución.
+
+![eliminar archivo](/data-management/file-management/delete-file.png)
+
+Actualmente, la Gestión de Archivos no admite eliminar carpetas completas a través de la interfaz. Puedes ejecutar el comando `rm` para eliminar carpetas completas usando [Ejecución de Comandos](/deploy/command-execution). Aquí hay un ejemplo de usar `rm -rf` para eliminar toda la carpeta `/tmp/testdir`:
+
+```bash
+rm -rf /tmp/testdir
+```
+
+## Descargando Archivos
+
+Para descargar un archivo, pasa el cursor sobre el elemento del archivo y haz clic en el botón "Descargar". La Gestión de Archivos mostrará el progreso de la descarga en la esquina inferior derecha. Después de que se complete la descarga, puedes elegir la ubicación de guardado.
+
+![descargar archivo](/data-management/file-management/download-file.png)
+
+![seleccionar destino del archivo descargado](/data-management/file-management/download-select-destination.png)
+
+## Subiendo Archivos
+
+Para subir un archivo, simplemente arrástralo al directorio objetivo. La Gestión de Archivos resaltará la ubicación objetivo de la carga, y la subida comenzará una vez que sueltes el mouse. Actualmente, solo se admiten subidas de archivos individuales.
+
+![subir archivo](/data-management/file-management/upload.png)
+
+### Subiendo Directorios
+
+Para subir un directorio completo, primero comprímelo en un archivo `tar`:
+
+![comprimir directorio como archivo TAR](/data-management/file-management/compress-as-tar.png)
+
+Arrastra el archivo `tar` comprimido al directorio `/tmp` en la interfaz de gestión de archivos de Zeabur:
+
+![subir archivo TAR a ruta temporal](/data-management/file-management/upload-tar-file.png)
+
+Luego ejecuta el siguiente comando con [Ejecución de Comandos](/deploy/command-execution) para mostrar la jerarquía de archivos del archivo `tar`:
+
+```bash
+tar tvf <tu archivo tar subido>
+```
+
+Después de confirmar que la jerarquía es correcta, usa el siguiente comando para extraer:
+
+```bash
+tar xvf <tu archivo tar subido> -C <tu directorio de extracción deseado>
+```
+
+Por ejemplo:
+
+```bash
+tar xvf /tmp/myfolder.tar -C /usr/share
+```
+
+La estructura de carpetas extraída es la siguiente:
+
+![estructura de carpetas extraída](/data-management/file-management/extracted-folder-structure.png)
+
+Después de completar, puedes eliminar el archivo `tar` en el directorio `/tmp` para ahorrar espacio.

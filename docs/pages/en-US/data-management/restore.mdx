@@ -1,0 +1,55 @@
+---
+title: Restore Backup
+ogImageTitle: Restore Backup
+ogImageSubtitle: Restore your Backup on Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Restore Backup
+
+This section briefly describes various methods for restoring the backup of your service.
+
+## Database
+
+### PostgreSQL
+
+Refer to the "Restore Backup" section on the [PostgreSQL Service Template Page](https://zeabur.com/templates/B20CX0).
+
+### MySQL and MariaDB
+
+Refer to the "Restore Backup" section on the [MySQL Service Template Page](https://zeabur.com/templates/DGLGRG) and the [MariaDB Service Template Page](https://zeabur.com/zh-TW/templates/46YKAR).
+
+### Redis
+
+You can use the [Redis `RESTORE` command](https://redis.io/commands/restore) to restore a backup.
+
+Expand the Redis service's "Command to connect to your Redis" string, and you will see something like this:
+
+```bash
+redis-cli -h <host> -p <port> -a <password>
+```
+
+Insert the `<host>`, `<port>`, and `<password>` into the following command:
+
+```bash
+cat /path/to/backup.rdb | redis-cli -h <host> -p <port> -a <password> -x RESTORE <key> 0
+```
+
+### MongoDB
+
+Expand the MongoDB service's "Command to connect to your MongoDB" string, and you will see something like this:
+
+```bash
+mongosh "<connection string>"
+```
+
+Copy the `<connection string>` into the terminal and execute the `mongorestore` command to restore the backup:
+
+```bash
+mongorestore "<connection string>" "<backup directory>"
+```
+
+## Volumes
+
+If you want to restore data within [volumes](/data-management/volumes), you can refer to the [Upload Directory](/data-management/file-management) method to upload the backup files to the target directory and decompress them.

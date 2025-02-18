@@ -1,0 +1,53 @@
+---
+title: 备份服务
+ogImageTitle: 备份服务
+ogImageSubtitle: 在 Zeabur 上备份您的服务
+---
+
+import { Callout } from 'nextra/components'
+
+# 备份服务
+
+Zeabur 在 Dev Plan 以上的方案中，提供了异地备份的功能。对于数据库服务，Zeabur 支持在线备份和自动备份，让您的数据库可以不停机备份；对于其他 <abbr title="Stateful">有状态</abbr> 的服务，我们也提供暂停后离线异地备份的功能。
+
+## 离线异地备份
+
+<Callout>
+    如果您没有挂载 [持久存储空间](/data-management/volumes)，就不会显示备份功能。“备份”也只会备份“持久存储空间”内的数据，其余服务中的文件（如源代码）不会跟着备份。
+</Callout>
+
+首先您需要先暂停服务。点击服务的“设置”→“暂停服务”，即可暂停服务运作。注意暂停不会造成数据丢失。
+
+接着，点击您服务的“备份”标签，您会看到“备份”按钮。
+
+![backup tab](/data-management/backup/backup-tab.webp)
+
+点击后，Zeabur 会在后台自动备份，您可以稍等几分钟。备份完成后，您会看到下载按钮，点击即可下载备份文件。备份文件的内容，就是您服务挂载的“持久存储空间”所在文件夹的完整内容。
+
+![backup success](/data-management/backup/backup-success.webp)
+
+备份完成后，您可以到“服务状态”点击“重新启动服务”，让您的服务恢复运作。
+
+## 在线异地备份
+
+Zeabur 支持不限于 PostgreSQL、MySQL、MariaDB、MongoDB 等数据库的在线异地备份，不需要您暂停服务即可进行安全备份。另外“在线异地备份”的服务也会支持自动备份。
+
+![online backup](/data-management/backup/online-backup.webp)
+
+和《离线异地备份》相似，点击“备份”按钮后，Zeabur 会在后台自动备份，您可以稍等几分钟。备份完成后，也会看到下载按钮，点击即可下载备份文件。
+
+备份文件的内容，会是数据库的标准导出文件（以 PostgreSQL、MySQL 来说，是 `.sql` 文件；以 MongoDB 来说，是各种 `.bson` 文件）。这些备份文件日后可以用数据库内建的还原工具（如 `psql`、`mongoimport`）等工具来还原。
+
+### 自动备份
+
+Zeabur 也支持自动备份，目前支持每日固定时段备份。
+
+![auto backup](/data-management/backup/auto-backup.webp)
+
+打开“自动备份”后，您可以设定备份的 UTC 时段。通常来说，选择您服务人流最低的时段进行备份，会是比较好的。您可以参考旁边的“At your local time”看看这个 UTC 时段是对应到您当地的几点。
+
+## 备份保留时间
+
+Zeabur **只保留您备份 7 天时间**，超过这个时间的备份会自动删除。
+
+如果您需要长时间存储备份，请自行下载备份文件后，存储到其他地方。

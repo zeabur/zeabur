@@ -1,0 +1,51 @@
+---
+title: Copia de Seguridad
+ogImageTitle: Copia de Seguridad de tu Servicio
+ogImageSubtitle: Copia de Seguridad de tu Servicio en Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Copia de Seguridad de tu Servicio
+
+Para el Plan Dev y planes más avanzados, Zeabur proporciona funcionalidad de copia de seguridad externa. Para servicios de base de datos, Zeabur admite copias de seguridad en línea y automáticas, permitiendo que tu base de datos sea respaldada sin tiempo de inactividad. Para otros servicios con estado, también ofrecemos la capacidad de realizar copias de seguridad externas fuera de línea después de pausar.
+
+## Copia de Seguridad Externa Fuera de Línea
+
+Si no has montado [volúmenes](/data-management/volumes), la función de copia de seguridad no se mostrará. "Copia de Seguridad" solo respaldará los datos dentro de los volúmenes; otros archivos en el servicio (como el código fuente) no serán respaldados.
+
+Primero, necesitas suspender el servicio. Haz clic en "Configuración" → "Suspender Servicio" para el servicio que deseas suspender. Ten en cuenta que la suspensión no causará pérdida de datos.
+
+Luego, haz clic en la pestaña "Copia de Seguridad" de tu servicio, y verás el botón "Copia de Seguridad".
+
+![pestaña de copia de seguridad](/data-management/backup/backup-tab.webp)
+
+Después de hacer clic, Zeabur automáticamente respaldará tu servicio en segundo plano, y puedes esperar unos minutos. Una vez que la copia de seguridad esté completa, verás un botón de descarga, que puedes hacer clic para descargar el archivo de respaldo. El contenido del archivo de respaldo es el contenido completo de la carpeta donde están montados los volúmenes de tu servicio.
+
+![copia de seguridad exitosa](/data-management/backup/backup-success.webp)
+
+Después de completar la copia de seguridad, puedes ir a "Resumen" y hacer clic en "Reiniciar Servicio" para reanudar tu servicio.
+
+## Copia de Seguridad Externa en Línea
+
+Zeabur admite copias de seguridad externas en línea para bases de datos como PostgreSQL, MySQL, MariaDB, MongoDB, etc., permitiendo copias de seguridad seguras sin pausar tu servicio. Además, el servicio de "Copia de Seguridad Externa en Línea" también admite copias de seguridad automáticas.
+
+![copia de seguridad en línea](/data-management/backup/online-backup.webp)
+
+Similar a la "Copia de Seguridad Externa Fuera de Línea", después de hacer clic en el botón "Copia de Seguridad", Zeabur realizará automáticamente la copia en segundo plano, y puedes esperar unos minutos. Una vez que la copia de seguridad esté completa, también verás un botón de descarga, que puedes hacer clic para descargar el archivo de respaldo.
+
+El contenido del archivo de respaldo será un archivo de volcado estándar de la base de datos (para PostgreSQL, MySQL, es un archivo `.sql`; para MongoDB, son varios archivos `.bson`). Estos archivos de respaldo pueden ser restaurados posteriormente usando herramientas de restauración de base de datos incorporadas (como `psql` y `mongoimport`).
+
+### Copia de Seguridad Automática
+
+Zeabur también admite copias de seguridad automáticas, actualmente ofreciendo copias de seguridad diarias en un horario establecido.
+
+![copia de seguridad automática](/data-management/backup/auto-backup.webp)
+
+Después de habilitar "Copia de Seguridad Automática", puedes establecer la hora de la copia de seguridad en UTC. Es mejor elegir un momento cuando tu servicio experimente el menor tráfico. Puedes consultar la sugerencia "En tu hora local" junto a ella para ver a qué corresponde este período UTC en tu hora local.
+
+## Tiempo de Retención de Copias de Seguridad
+
+Zeabur **solo retiene tus copias de seguridad durante 7 días**; las copias de seguridad más antiguas serán eliminadas automáticamente.
+
+Si necesitas almacenar copias de seguridad por más tiempo, por favor descarga los archivos de respaldo tú mismo y almacénalos en otro lugar.

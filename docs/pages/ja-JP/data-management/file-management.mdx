@@ -1,0 +1,107 @@
+---
+title: ファイル管理
+ogImageTitle: ファイル管理
+ogImageSubtitle: Zeaburでサービス内のファイルを管理する
+---
+
+import { Callout } from 'nextra/components'
+
+# ファイル管理
+
+Zeaburは、ユーザーがサービス内のすべてのファイルを簡単に管理できる直感的なファイル管理インターフェースを提供しています。このインターフェースを通じて、ユーザーはファイルのアップロード、ダウンロード、オンライン編集、およびファイルやフォルダの作成や削除などの操作を行うことができます。
+
+<Callout type="warning">
+  一部のコンテナは非常にミニマルで、ファイル管理に必要なコンポーネント（catなど）をサポートしていないため、この機能を使用できない場合があります。
+</Callout>
+
+## ファイル管理を開く
+
+サービスページの**サービスステータス**タブで、**ファイル**ブロックをクリックするとファイル管理インターフェースが開きます。
+
+![file management](/data-management/file-management/file-management.png)
+
+ファイル管理インターフェースは5つのブロックで構成されています：(1) フォルダの作成、(2) ファイルの作成、(3) 更新、(4) ディレクトリリスト、(5) ファイルコンテンツ。更新機能はファイルが更新された後にファイルリストを再読み込みすることができます。ディレクトリリストはサービスの完全なディレクトリ構造を表示し、フォルダの左側の矢印でサブディレクトリを展開または折りたたむことができます。ファイルコンテンツブロックではファイルの内容の表示と編集が可能です。
+
+## ファイルとフォルダの作成
+
+フォルダを作成するには、「フォルダの作成」ボタンをクリックし、完全なフォルダパスを入力して、チェックマークをクリックします。操作をキャンセルする場合は、パスを空白のままにして戻るボタンをクリックします。
+
+![create folder](/data-management/file-management/create-folder.png)
+
+ファイルの作成も同様で、「ファイルの作成」ボタンをクリックし、完全なファイルパスを入力してチェックマークをクリックします。同様に、作成をキャンセルする場合は、パスを空白のままにして戻るボタンをクリックします。
+
+![create file](/data-management/file-management/create-file.png)
+
+## オンラインでファイルを編集する
+
+ディレクトリリストから編集したいファイルを選択すると、ファイルの内容が右側のファイルコンテンツブロックに表示されます。
+
+<Callout type="info">
+  現在はテキストファイルの編集のみをサポートしています。バイナリファイル（画像、音声、圧縮ファイル）はダウンロード機能を使用してダウンロードしてください。バイナリファイルを開くと、編集できない文字化けした文字列が表示されます。
+</Callout>
+
+ユーザーはファイルコンテンツブロックで直接編集を行い、完了後に右上の保存ボタンをクリックして変更を保存できます。保存が成功すると、右下に確認メッセージが表示されます。
+
+![edit file](/data-management/file-management/edit-file.png)
+
+編集したファイルの内容は[Config Editor](/data-management/config-edit)に同期され、サービスが再起動した後も変更された内容が維持されます。ファイルを元の状態に戻すには、Config Editorで対応する項目を削除します。
+
+## ファイルとフォルダの削除
+
+マウスポインタをファイル項目に合わせ、「削除」ボタンをクリックするとファイルを削除できます。現在、システムは削除前に確認プロンプトを表示しないため、慎重に操作してください。
+
+![delete file](/data-management/file-management/delete-file.png)
+
+現在、Zeaburはインターフェースでフォルダ全体を削除することをサポートしていません。[コマンド実行](/deploy/command-execution)機能と`rm`コマンドを組み合わせてフォルダ全体を削除できます。以下は`rm -rf`を使用して`/tmp/testdir`フォルダ全体を削除する例です：
+
+```bash
+rm -rf /tmp/testdir
+```
+
+## ファイルのダウンロード
+
+ファイルをダウンロードするには、マウスポインタをファイル項目に合わせ、「ダウンロード」ボタンをクリックするだけです。システムは右下にダウンロードの進行状況を表示し、ダウンロードが完了すると保存場所を選択できます。
+
+![download file](/data-management/file-management/download-file.png)
+
+![select downloaded file destination](/data-management/file-management/download-select-destination.png)
+
+## ファイルのアップロード
+
+ファイルをアップロードするには、ファイルを目的のディレクトリにドラッグ＆ドロップするだけです。システムは背景色でアップロード先を示し、マウスを放すとアップロードが開始されます。現在、システムは単一ファイルのアップロードのみをサポートしています。
+
+![upload file](/data-management/file-management/upload.png)
+
+### ディレクトリのアップロード
+
+ディレクトリ全体をアップロードする必要がある場合は、まずディレクトリを`tar`ファイルに圧縮します：
+
+![compress directory as TAR file](/data-management/file-management/compress-as-tar.png)
+
+圧縮した`tar`ファイルをZeaburファイル管理インターフェースの`/tmp`ディレクトリにドラッグ＆ドロップします：
+
+![upload TAR file to temporary path](/data-management/file-management/upload-tar-file.png)
+
+次に[コマンド実行](/deploy/command-execution)機能を使用し、以下のコマンドを入力して`tar`ファイルの内容を確認します：
+
+```bash
+tar tvf <アップロードしたtarファイル>
+```
+
+ディレクトリ構造に問題がないことを確認したら、以下のコマンドで解凍します：
+
+```bash
+tar xvf <アップロードしたtarファイル> -C <解凍先のディレクトリ>
+```
+
+例：
+
+```bash
+tar xvf /tmp/myfolder.tar -C /usr/share
+```
+
+解凍後のファイル構造は以下のようになります：
+
+![extracted folder structure](/data-management/file-management/extracted-folder-structure.png)
+
+完了後、スペースを節約するために`/tmp`ディレクトリ内の`tar`ファイルを削除できます。

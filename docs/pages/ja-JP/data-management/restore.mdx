@@ -1,0 +1,55 @@
+---
+title: バックアップの復元
+ogImageTitle: バックアップの復元
+ogImageSubtitle: Zeaburで作成したバックアップを復元する
+---
+
+import { Callout } from 'nextra/components'
+
+# バックアップの復元
+
+ここでは、各種サービスのデータ復元方法について説明します。
+
+## データベース
+
+### PostgreSQL
+
+[PostgreSQL サービステンプレートページ](https://zeabur.com/templates/B20CX0)の「バックアップの復元」セクションをご参照ください。
+
+### MySQL と MariaDB
+
+[MySQL サービステンプレートページ](https://zeabur.com/templates/DGLGRG)と[MariaDB サービステンプレートページ](https://zeabur.com/zh-TW/templates/46YKAR)の「バックアップの復元」セクションをご参照ください。
+
+### Redis
+
+[Redisの`RESTORE`コマンド](https://redis.io/commands/restore)を使用してバックアップを復元できます。
+
+Redisサービスの「Command to connect to your Redis」の文字列を展開すると、以下のような内容が表示されます：
+
+```bash
+redis-cli -h <host> -p <port> -a <password>
+```
+
+上記の`<host>`、`<port>`、`<password>`を以下のコマンドに入力してください：
+
+```bash
+cat /path/to/backup.rdb | redis-cli -h <host> -p <port> -a <password> -x RESTORE <key> 0
+```
+
+### MongoDB
+
+MongoDBサービスの「Command to connect to your MongoDB」の文字列を展開すると、以下のような内容が表示されます：
+
+```bash
+mongosh "<接続文字列>"
+```
+
+`<接続文字列>`をターミナルにコピーし、`mongorestore`コマンドを実行してバックアップを復元します：
+
+```bash
+mongorestore "<接続文字列>" "<バックアップディレクトリ>"
+```
+
+## ディスクコンテンツ
+
+[永続ストレージ](/data-management/volumes)内のデータを復元する場合は、[ディレクトリのアップロード](/data-management/file-management)の方法を参照して、バックアップファイルを対象ディレクトリにアップロードして解凍してください。
