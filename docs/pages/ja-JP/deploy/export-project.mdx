@@ -1,0 +1,43 @@
+---
+title: プロジェクトのエクスポート
+ogImageTitle: プロジェクトのエクスポート
+ogImageSubtitle: Zeaburにインポート可能なファイルとしてプロジェクトをエクスポート
+---
+
+import { Callout } from 'nextra/components'
+
+# プロジェクトのエクスポート
+
+Zeaburでは、DockerイメージやGitリポジトリ、環境変数、ディスク マウント情報などのプロジェクトのデプロイ情報をYAMLファイルとしてエクスポートできます。これにより、他のプロジェクトへのワンクリックでのプロジェクトの複製や、Zeaburの[テンプレートディレクトリ](https://zeabur.com/templates)への公開が容易になります。
+
+<Callout>
+    「プロジェクトのエクスポート」には**データは含まれません**。データのバックアップと復元については、データ管理の[「バックアップサービス」](/data-management/backup)と[「バックアップの復元」](/data-management/restore)のセクションを参照してください。
+</Callout>
+
+## エクスポートの手順
+
+まず、プロジェクトのサイドバーで「設定」をクリックし、「一般設定」の「エクスポート」ボタンをクリックします。
+
+![project settings](/deploy/export-project/project-settings.webp)
+
+次に、プロジェクトの[Template YAML](/template/template-in-code)構造が表示されます。「コピー」を選択するか、「エクスポート」をクリックしてYAMLファイルとして出力できます。
+
+![export project to template](/deploy/export-project/export-project-to-template.webp)
+
+## プロジェクトへのインポート
+
+現在、Zeaburではテンプレートのインポートは[CLI](https://github.com/zeabur/cli)を使用してのみ可能です。
+
+まず、[Node.js](https://nodejs.org/en/)のツールチェーンをインストールし、`npx`を使用してZeabur CLIを起動します：
+
+```bash
+npx zeabur@latest template deploy -f <エクスポートしたYAMLファイルのパス>
+```
+
+このコマンドを実行すると、どのプロジェクトにデプロイするか（または新しいプロジェクトの作成）を選択するよう促されます。
+
+ログインが必要な場合は、指示に従ってZeaburアカウントにログインしてください。
+
+## テンプレートディレクトリへの公開
+
+テンプレートの内容（`description`、`icon`、`readme`など）を調整する必要があります。[「YAMLからテンプレートを作成」](/template/template-in-code)の説明を参照してテンプレートを更新し、CLIを使用して公開してください。

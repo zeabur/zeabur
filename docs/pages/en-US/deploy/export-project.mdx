@@ -1,0 +1,43 @@
+---
+title: Export Project
+ogImageTitle: Export Project
+ogImageSubtitle: Export the project into a file that can be imported into Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Export Project
+
+Zeabur can export deployment information of a project, such as Docker images, Git repositories, environment variables, volumes, etc., into a YAML file. This makes it easy for you to import into other projects for one-click project duplication or to publish to Zeabur's [Template Catalog](https://zeabur.com/templates) for easy sharing with Zeabur community.
+
+<Callout>
+    Note that "Export Project" **does not include data**. For information on data backup and restoration, please refer to the documentation, [Backup Service](/data-management/backup) and [Restore Backup](/data-management/restore)
+</Callout>
+
+## Export Steps
+
+First, click on "Settings" in the project sidebar, then click the "Export" button under "General".
+
+![project settings](/deploy/export-project/project-settings.webp)
+
+Then, you will see the [Template YAML](/template/template-in-code) structure of your project. You can choose to directly "Copy" or click "Export" to output it as a YAML file.
+
+![export project to template](/deploy/export-project/export-project-to-template.webp)
+
+## Import into Project
+
+Currently, Zeabur only supports importing the template YAML into a project using the [CLI](https://github.com/zeabur/cli).
+
+First, you should have the [Node.js](https://nodejs.org/en/) toolchain installed, then use `npx` to start the Zeabur CLI:
+
+```bash
+npx zeabur@latest template deploy -f <path to exported YAML file>
+```
+
+This command will prompt you to deploy to a specific project (or guide you to create a new project).
+
+Note that you may be prompted to log in, so please follow the instructions to log into your Zeabur account.
+
+## Publish to Template Catalog
+
+You will need to make adjustments to the template content (such as `description`, `icon`, `readme`, etc.). Please refer to the instructions on [Creating a Template from YAML](/template/template-in-code) to update your template and then use the CLI to publish it.

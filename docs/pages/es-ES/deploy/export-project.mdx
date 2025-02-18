@@ -1,0 +1,43 @@
+---
+title: Exportar Proyecto
+ogImageTitle: Exportar Proyecto
+ogImageSubtitle: Exporta el proyecto a un archivo que puede ser importado en Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Exportar Proyecto
+
+Zeabur puede exportar la información de despliegue de un proyecto, como imágenes Docker, repositorios Git, variables de entorno, volúmenes, etc., a un archivo YAML. Esto facilita la importación a otros proyectos para duplicar proyectos con un solo clic o publicar en el [Catálogo de Plantillas](https://zeabur.com/templates) de Zeabur para compartir fácilmente con la comunidad Zeabur.
+
+<Callout>
+    Ten en cuenta que "Exportar Proyecto" **no incluye datos**. Para información sobre respaldo y restauración de datos, consulta la documentación, [Servicio de Respaldo](/data-management/backup) y [Restaurar Respaldo](/data-management/restore)
+</Callout>
+
+## Pasos para Exportar
+
+Primero, haz clic en "Ajustes" en la barra lateral del proyecto, luego haz clic en el botón "Exportar" bajo "General".
+
+![ajustes del proyecto](/deploy/export-project/project-settings.webp)
+
+Luego, verás la estructura [YAML de la Plantilla](/template/template-in-code) de tu proyecto. Puedes elegir "Copiar" directamente o hacer clic en "Exportar" para guardarlo como un archivo YAML.
+
+![exportar proyecto a plantilla](/deploy/export-project/export-project-to-template.webp)
+
+## Importar al Proyecto
+
+Actualmente, Zeabur solo admite la importación del YAML de la plantilla a un proyecto usando la [CLI](https://github.com/zeabur/cli).
+
+Primero, debes tener instalado el conjunto de herramientas de [Node.js](https://nodejs.org/es/), luego usa `npx` para iniciar la CLI de Zeabur:
+
+```bash
+npx zeabur@latest template deploy -f <ruta al archivo YAML exportado>
+```
+
+Este comando te pedirá desplegar en un proyecto específico (o te guiará para crear un nuevo proyecto).
+
+Ten en cuenta que es posible que se te solicite iniciar sesión, así que sigue las instrucciones para acceder a tu cuenta de Zeabur.
+
+## Publicar en el Catálogo de Plantillas
+
+Necesitarás hacer ajustes al contenido de la plantilla (como `description`, `icon`, `readme`, etc.). Consulta las instrucciones en [Crear una Plantilla desde YAML](/template/template-in-code) para actualizar tu plantilla y luego usa la CLI para publicarla.
