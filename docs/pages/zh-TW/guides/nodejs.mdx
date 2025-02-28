@@ -168,6 +168,27 @@ ZBPACK_START_COMMAND=pnpm run start:api
 }
 ```
 
+## 靜態網站部署
+
+如果你的專案只需產生純前端網頁（不需要後端伺服器），可以直接用 NGINX、Caddy 這種網頁伺服器託管，你可以讓 Zeabur 使用更輕量的方式來部署，進而節省資源佔用和費用。
+
+1. 首先確認你的編譯指令會在哪個資料夾產生最終網頁檔案（常見的是 `dist`、`build` 或 `public` 資料夾）
+2. 接著新增這個環境變數，告訴 Zeabur 網頁檔案的位置：
+
+    ```env
+    ZBPACK_OUTPUT_DIR=dist
+    ```
+
+    也可以寫入設定到 `zbpack.json`：
+
+    ```json
+    {
+        "output_dir": "dist"
+    }
+    ```
+
+3. 這樣下次編譯完成後，Zeabur 就會使用省資源的 Caddy 託管你的網站了。
+
 ## 網頁爬取
 
 ### Playwright 支援
