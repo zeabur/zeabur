@@ -165,6 +165,27 @@ By default, Zeabur uses yarn to install dependencies for your project. If you wa
 }
 ```
 
+## Static Website Deployment
+
+If your project only needs to generate pure frontend web pages (without a backend server), it can be hosted directly using web servers like NGINX or Caddy. You can let Zeabur deploy it in a more lightweight way, thereby saving resource usage and costs.
+
+1. First, confirm which folder your build command generates the final web files in (commonly `dist`, `build`, or `public` folders)
+2. Then, add this environment variable to tell Zeabur where the web files are:
+
+    ```env
+    ZBPACK_OUTPUT_DIR=dist
+    ```
+
+    You can also write the configuration to `zbpack.json`:
+
+    ```json
+    {
+        "output_dir": "dist"
+    }
+    ```
+
+3. This way, after the next build completes, Zeabur will use the resource-efficient Caddy to host your website.
+
 ## Web Scraping
 
 ### Playwright Support

@@ -168,6 +168,27 @@ ZBPACK_START_COMMAND=pnpm run start:api
 }
 ```
 
+## 静态网站部署
+
+如果你的项目只需生成纯前端网页（不需要后端服务器），可以直接用 NGINX、Caddy 这种网页服务器托管，你可以让 Zeabur 使用更轻量的方式来部署，进而节省资源占用和费用。
+
+1. 首先确认你的编译指令会在哪个文件夹生成最终网页文件（常见的是 `dist`、`build` 或 `public` 文件夹）
+2. 接着添加这个环境变量，告诉 Zeabur 网页文件的位置：
+
+    ```env
+    ZBPACK_OUTPUT_DIR=dist
+    ```
+
+    也可以写入设置到 `zbpack.json`：
+
+    ```json
+    {
+        "output_dir": "dist"
+    }
+    ```
+
+3. 这样下次编译完成后，Zeabur 就会使用省资源的 Caddy 托管你的网站了。
+
 ## 网页爬取
 
 ### Playwright 支持

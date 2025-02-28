@@ -141,13 +141,13 @@ ZBPACK_BUILD_COMMAND=pnpm run build:api
 ZBPACK_START_COMMAND=pnpm run start:api
 ```
 
-## Configure Node.js Version and Package Manager Version
+## Configurar la Versión de Node.js y la Versión del Gestor de Paquetes
 
-### Node.js Version
+### Versión de Node.js
 
-By default, Zeabur uses the latest LTS version of Node.js to build your project.
+Por defecto, Zeabur utiliza la última versión LTS de Node.js para construir tu proyecto.
 
-If you want to use a different version, you can specify it in your `package.json`:
+Si deseas utilizar una versión diferente, puedes especificarla en tu `package.json`:
 
 ```json
 {
@@ -157,15 +157,36 @@ If you want to use a different version, you can specify it in your `package.json
 }
 ```
 
-### Package Manager Version
+### Versión del Gestor de Paquetes
 
-By default, Zeabur uses yarn to install dependencies for your project. If you want to use a different package manager, you can specify it in your `package.json`:
+Por defecto, Zeabur utiliza yarn para instalar las dependencias de tu proyecto. Si deseas utilizar un gestor de paquetes diferente, puedes especificarlo en tu `package.json`:
 
 ```json
 {
     "packageManager": "pnpm@8.0.0"
 }
 ```
+
+## Despliegue de sitios web estáticos
+
+Si tu proyecto solo necesita generar páginas web de frontend puro (sin necesidad de un servidor backend), puedes usar servidores web como NGINX o Caddy para el alojamiento. Esto permite que Zeabur utilice un método más ligero para el despliegue, ahorrando recursos y costos.
+
+1. Primero, confirma en qué carpeta tu comando de compilación genera los archivos web finales (comúnmente en carpetas como `dist`, `build` o `public`)
+2. Luego, añade esta variable de entorno para indicarle a Zeabur la ubicación de los archivos web:
+
+    ```env
+    ZBPACK_OUTPUT_DIR=dist
+    ```
+
+    También puedes escribir la configuración en `zbpack.json`:
+
+    ```json
+    {
+        "output_dir": "dist"
+    }
+    ```
+
+3. De esta manera, después de la próxima compilación, Zeabur utilizará Caddy, que consume menos recursos, para alojar tu sitio web.
 
 ## Raspado web
 
