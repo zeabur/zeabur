@@ -1,94 +1,43 @@
 ---
-title: Integrating with GitHub
-ogImageTitle: Integrating with GitHub
-ogImageSubtitle: Sign in with GitHub and deploy code from GitHub Repository
+title: GitHub Integration
+ogImageTitle: GitHub Integration
+ogImageSubtitle: Login with GitHub and deploy code directly from GitHub to Zeabur
 ---
 
 import { Callout } from 'nextra/components'
 
-## Integrate GitHub
+## GitHub Integration
 
-Zeabur offers the capability to integrate with GitHub, allowing you to link your GitHub account with your Zeabur account. This enables you to log in to Zeabur directly using GitHub and deploy code from GitHub to Zeabur seamlessly.
+Zeabur provides GitHub integration capabilities, allowing you to link your GitHub account with your Zeabur account. This enables you to log in to Zeabur using GitHub and deploy code directly from GitHub to Zeabur.
 
-By deploying code using GitHub, you can enable out-of-the-box CI/CD features for your services. In the future, whenever you push code to GitHub, Zeabur will automatically deploy the new code.
+Deploying code with GitHub enables out-of-the-box CI/CD functionality for your services, and simply pushing code to GitHub will trigger Zeabur to automatically deploy the new code.
 
-### Link GitHub Account
+### Linking Your GitHub Account
 
-If you registered your Zeabur account using an email, you need to link your GitHub account with your Zeabur account first. You can complete the linking in the [Dashboard > Settings > Integrations](https://dash.zeabur.com/account/general).
+If you registered your Zeabur account using an email address, you'll need to first link your GitHub account to your Zeabur account. You can complete this linking in the [Console > Settings > Integrations](https://dash.zeabur.com/account/general).
 
-![Link GitHub Account](/deploy/intergration/link-github.jpg)
+![Link GitHub Account](/deploy/github/link-github.webp)
 
-Please note that one GitHub account can only be linked to one Zeabur account. After linking, you can use the GitHub button on the Zeabur login page to log in.
+Please note that one GitHub account can only be linked to one Zeabur account. Once linked, you can use the GitHub button on the Zeabur login page to sign in.
 
-### Step 1: Create a service
+### Setting Up GitHub Apps
 
-Choose the service you want to deploy, click on `Create Service`, and you will see two options: `Git` and `Marketplace`. In this case, we choose `Git`.
+To make your personal or organizational repositories available for selection on Zeabur, install the Zeabur application on GitHub. This allows Zeabur to access your repositories. When creating a service, select the "GitHub" service type and click the "Configure GitHub" button. This action will direct you to the GitHub application installation page. Follow the prompts on the page to install the Zeabur App on your personal account or a specific organization.
 
-![Create Service](/deploy/intergration/add-service.png)
+![Install GitHub Apps](/deploy/github/install-github-app.webp)
 
-![Select Service](/deploy/intergration/select-service.png)
+If you are a **Member** or an **Outside Collaborator** of the current organization (not an Owner), you may not have sufficient permissions to link that organization. However, you can still read all repositories you have access to, and the `GitHub` authorization page will show that you have already configured that repository.
 
-### Step 2: Bind the Personal Repository
+After completing the authorization, you will see a search box. Enter the name of the repository you want to deploy (or the GitHub URL) to deploy it.
 
-At this point, we will see a search box and a `Configure GitHub` button. Click the button, and follow the prompts on the resulting page to authorize access to your Personal Repository.
+![Select Repository](/deploy/github/select-repo.webp)
 
-![Bind GitHub](/deploy/intergration/configure-github.png)
+## Removing GitHub Apps
 
-### Step 3: Select the Repository
+If you need to completely remove the Zeabur GitHub App, you can find "Zeabur" in GitHub's Settings > Integrations > Applications > Installed GitHub Apps, click "Configure", and then click "Uninstall" in the "Danger zone" of the popup page.
 
-After authorization, you will see a search box. Enter the name or keyword of the repository you want to deploy, click the search button, and select the repository.
+![Complete Removal](/deploy/github/remove-github-app.webp)
 
-![Select Repository](/deploy/intergration/select-repo.png)
+For organization accounts, you'll need to additionally select the organization you want to operate in from "Switch to another account" in the Settings.
 
-## Deploying GitHub Organization Repositories
-
-### Step 1: Create a service
-
-Same as [Step 1: Create a service](./github#step-1-create-a-service) in the previous section.
-
-### Step 2: Bind the Organization Repository
-
-At this point, we will see a search box and a `Configure GitHub` button. Click the button, and follow the prompts on the resulting page to authorize access to your Organization Repository. During the installation process, you can authorize all/part of the repositories according to your needs.
-
-![Bind GitHub Organization](/deploy/intergration/configure-org.png)
-
-### Step 3: Select the Repository
-
-<Callout>
-1. If you are a `Member` of the organization rather than an `Owner`, you may not have enough permissions to bind the organization, but you can still read all repositories to which you have permission and be shown that you have already configured the repository in the `GitHub` authorization page.
-2. If you are an `Outside Collaborator` of any of the organization's repositories, rather than an `Owner` or `Member`, you may not have enough permissions to bind the organization, but you can still read the repositories to which you have permission and be shown that you have already configured the repository in the `GitHub` authorization page.
-</Callout>
-
-After authorization, you will see a search box. Enter the name or keyword of the repository you want to deploy, click the search button, and select the repository.
-
-![Select Organization Repository](/deploy/intergration/select-org-repo.png)
-
-## Update
-
-### Repository changes
-
-For personal/organization repository changes, we will automatically refresh your code repository as you operate.
-
-### Organization member changes
-
-For changes in organization members, we will listen to the `GitHub Webhook` event in real-time to ensure that your repository access permissions are consistent with `GitHub`.
-
-## Uninstall
-
-### Personal Repository
-
-#### Full Uninstall
-
-If you need to completely uninstall `Zeabur`, you can find `Zeabur` in `GitHub`'s `Intergrations` - `Applications` - `Installed Gtihub Apps`, click on `Configure`, click on `Uninstall "Zeabur"` in the `Danger zone` page that pops up.
-
-![Full Uninstall](/deploy/intergration/uninstall-zeabur.png)
-
-#### Revoke Authorization
-
-If you need to revoke authorization to reauthorize `Zeabur` later, you can find `Zeabur` in `GitHub`'s `Intergrations` - `Applications` - `Authorized Gtihub Apps`, click on `Revoke`, and agree to the risk in the pop-up page.
-
-![Revoke Authorization](/deploy/intergration/revoke-zeabur.png)
-
-### Organization Repository
-
-Same as [Personal Repository](./github#personal-repository), additionally, you need to select the organization you want to operate on in `GitH`'s `Settings` - `Switch to another account`.
+![Switch to another account](/deploy/github/switch-settings-context.webp)
