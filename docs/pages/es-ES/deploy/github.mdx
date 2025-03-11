@@ -1,84 +1,43 @@
 ---
-title: Integrating with GitHub
-ogImageTitle: Integrating with GitHub
-ogImageSubtitle: Connect to GitHub Repository
+title: Integración con GitHub
+ogImageTitle: Integración con GitHub
+ogImageSubtitle: Inicia sesión con GitHub y despliega código directamente desde GitHub a Zeabur
 ---
 
 import { Callout } from 'nextra/components'
 
-<WorkingInProgress />
+## Integración con GitHub
 
-## Deploying GitHub Personal Repositories
+Zeabur proporciona capacidades de integración con GitHub, permitiéndote vincular tu cuenta de GitHub con tu cuenta de Zeabur. Esto te permite iniciar sesión en Zeabur usando GitHub y desplegar código directamente desde GitHub a Zeabur.
 
-### Step 1: Create a service
+Implementar código con GitHub habilita funcionalidad de CI/CD lista para usar en tus servicios, y simplemente al enviar código a GitHub activará que Zeabur despliegue automáticamente el nuevo código.
 
-Choose the service you want to deploy, click on `Create Service`, and you will see two options: `Git` and `Marketplace`. In this case, we choose `Git`.
+### Vinculando tu cuenta de GitHub
 
-![Create Service](/deploy/intergration/add-service.png)
+Si registraste tu cuenta de Zeabur utilizando una dirección de correo electrónico, primero necesitarás vincular tu cuenta de GitHub a tu cuenta de Zeabur. Puedes completar esta vinculación en [Consola > Configuración > Integraciones](https://dash.zeabur.com/account/general).
 
-![Select Service](/deploy/intergration/select-service.png)
+![Vincular cuenta de GitHub](/deploy/github/link-github.webp)
 
-### Step 2: Bind the Personal Repository
+Ten en cuenta que una cuenta de GitHub solo puede estar vinculada a una cuenta de Zeabur. Una vez vinculada, puedes usar el botón de GitHub en la página de inicio de sesión de Zeabur para iniciar sesión.
 
-At this point, we will see a search box and a `Configure GitHub` button. Click the button, and follow the prompts on the resulting page to authorize access to your Personal Repository.
+### Configuración de aplicaciones de GitHub
 
-![Bind GitHub](/deploy/intergration/configure-github.png)
+Para que tus repositorios personales u organizacionales estén disponibles para selección en Zeabur, instala la aplicación Zeabur en GitHub. Esto permite a Zeabur acceder a tus repositorios. Al crear un servicio, selecciona el tipo de servicio "GitHub" y haz clic en el botón "Configurar GitHub". Esta acción te dirigirá a la página de instalación de la aplicación GitHub. Sigue las indicaciones en la página para instalar la aplicación Zeabur en tu cuenta personal o en una organización específica.
 
-### Step 3: Select the Repository
+![Instalar aplicaciones de GitHub](/deploy/github/install-github-app.webp)
 
-After authorization, you will see a search box. Enter the name or keyword of the repository you want to deploy, click the search button, and select the repository.
+Si eres un **Miembro** o un **Colaborador Externo** de la organización actual (no un Propietario), es posible que no tengas permisos suficientes para vincular esa organización. Sin embargo, aún puedes leer todos los repositorios a los que tienes acceso, y la página de autorización de `GitHub` mostrará que ya has configurado ese repositorio.
 
-![Select Repository](/deploy/intergration/select-repo.png)
+Después de completar la autorización, verás un cuadro de búsqueda. Ingresa el nombre del repositorio que deseas desplegar (o la URL de GitHub) para desplegarlo.
 
-## Deploying GitHub Organization Repositories
+![Seleccionar Repositorio](/deploy/github/select-repo.webp)
 
-### Step 1: Create a service
+## Eliminación de aplicaciones de GitHub
 
-Same as [Step 1: Create a service](./github#step-1-create-a-service) in the previous section.
+Si necesitas eliminar completamente la aplicación GitHub de Zeabur, puedes encontrar "Zeabur" en Configuración > Integraciones > Aplicaciones > Aplicaciones GitHub instaladas de GitHub, hacer clic en "Configurar", y luego hacer clic en "Desinstalar" en la "Zona de peligro" de la página emergente.
 
-### Step 2: Bind the Organization Repository
+![Eliminación Completa](/deploy/github/remove-github-app.webp)
 
-At this point, we will see a search box and a `Configure GitHub` button. Click the button, and follow the prompts on the resulting page to authorize access to your Organization Repository. During the installation process, you can authorize all/part of the repositories according to your needs.
+Para cuentas de organización, necesitarás seleccionar adicionalmente la organización en la que deseas operar desde "Cambiar a otra cuenta" en la Configuración.
 
-![Bind GitHub Organization](/deploy/intergration/configure-org.png)
-
-### Step 3: Select the Repository
-
-<Callout>
-1. If you are a `Member` of the organization rather than an `Owner`, you may not have enough permissions to bind the organization, but you can still read all repositories to which you have permission and be shown that you have already configured the repository in the `GitHub` authorization page.
-2. If you are an `Outside Collaborator` of any of the organization's repositories, rather than an `Owner` or `Member`, you may not have enough permissions to bind the organization, but you can still read the repositories to which you have permission and be shown that you have already configured the repository in the `GitHub` authorization page.
-</Callout>
-
-After authorization, you will see a search box. Enter the name or keyword of the repository you want to deploy, click the search button, and select the repository.
-
-![Select Organization Repository](/deploy/intergration/select-org-repo.png)
-
-## Update
-
-### Repository changes
-
-For personal/organization repository changes, we will automatically refresh your code repository as you operate.
-
-### Organization member changes
-
-For changes in organization members, we will listen to the `GitHub Webhook` event in real-time to ensure that your repository access permissions are consistent with `GitHub`.
-
-## Uninstall
-
-### Personal Repository
-
-#### Full Uninstall
-
-If you need to completely uninstall `Zeabur`, you can find `Zeabur` in `GitHub`'s `Intergrations` - `Applications` - `Installed Gtihub Apps`, click on `Configure`, click on `Uninstall "Zeabur"` in the `Danger zone` page that pops up.
-
-![Full Uninstall](/deploy/intergration/uninstall-zeabur.png)
-
-#### Revoke Authorization
-
-If you need to revoke authorization to reauthorize `Zeabur` later, you can find `Zeabur` in `GitHub`'s `Intergrations` - `Applications` - `Authorized Gtihub Apps`, click on `Revoke`, and agree to the risk in the pop-up page.
-
-![Revoke Authorization](/deploy/intergration/revoke-zeabur.png)
-
-### Organization Repository
-
-Same as [Personal Repository](./github#personal-repository), additionally, you need to select the organization you want to operate on in `GitH`'s `Settings` - `Switch to another account`.
+![Cambiar a otra cuenta](/deploy/github/switch-settings-context.webp)
