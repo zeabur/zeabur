@@ -37,28 +37,6 @@ import { Callout } from 'nextra/components';
 
 若你遇到註冊失敗的情況，請到 [Discord 伺服器](https://zeabur.com/dc) 向我們回報。
 
-## 解除安裝
+## 維護伺服器
 
-首先您得先從 Zeabur 移除伺服器及在其上面部署的服務。
-
-![移除伺服器](/dedicated-server/remove-server.webp)
-
-「移除伺服器」的步驟 **不會移除 Zeabur 在您伺服器上設定的基礎設施**。Zeabur 的基礎設施主要是架設在 [K3s](https://k3s.io/) 之上，所以解除安裝的步驟 [遵照 K3s 的解除安裝步驟即可](https://docs.k3s.io/installation/uninstall)。
-
-```bash
-$ /usr/local/bin/k3s-uninstall.sh
-```
-
-## 空間清理
-
-如果您發現主機的磁碟空間不足，可以試試看清理 K3s 在您主機上拉回的 Docker image（通常會自動執行）。
-
-```bash
-# 檢查目前拉回了哪些 images（這行不用打）
-$ sudo k3s crictl images
-
-# 移除所有未在使用的 images
-$ sudo k3s crictl rmi --prune
-```
-
-有時候 K3s 針對每個容器記錄的 Logs 也會佔用不少空間，您可以試著到 [K3s 的 logs 目錄](https://docs.k3s.io/faq#where-are-the-k3s-logs) 清理這些 Logs。
+請參考我們的 [維護伺服器](./operate) 文件，了解如何維護您的專用伺服器。
