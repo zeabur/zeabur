@@ -1,0 +1,58 @@
+---
+title: Maintain Dedicated Server
+ogImageTitle: Maintain Dedicated Server
+ogImageSubtitle: Maintain your Dedicated Server
+---
+
+import { Callout } from 'nextra/components';
+
+# Maintain your Dedicated Server
+
+This article will introduce how to maintain your [dedicated server](../dedicated-server) registered with Zeabur.
+
+<Callout>
+    If you purchased a dedicated server from Zeabur, the operation and maintenance tasks are performed by us.
+    Please submit a ticket to let us know which project you want to maintain, and our staff will handle it for you.
+</Callout>
+
+## Space Cleanup
+
+If you find that the disk space on your host is insufficient, you can try cleaning up the Docker images pulled by K3s on your host (this is usually done automatically).
+
+```bash
+# Check which images have been pulled (no need to type this line)
+$ sudo k3s crictl images
+
+# Remove all unused images
+$ sudo k3s crictl rmi --prune
+```
+
+Sometimes, the logs recorded by K3s for each container can also take up a lot of space. You can try cleaning these logs in the [K3s logs directory](https://docs.k3s.io/faq#where-are-the-k3s-logs).
+
+## Changing DNS Nameservers
+
+By default, Zeabur's dedicated servers use [Cloudflare DNS](https://1.1.1.1/) as the DNS nameservers for the cluster (machines in mainland China use [Alibaba Cloud Public DNS](https://www.alidns.com/)).
+
+If you need to change the DNS nameservers used by the cluster (for example, to Tencent Cloud's [DNSPod Public DNS](https://www.dnspod.cn/products/publicdns)), you can edit `/etc/resolv.kubelet.conf` and change the `nameserver` to the DNS nameservers you want.
+
+```
+nameserver 119.29.29.29
+```
+
+Remember to restart the K3s service after making changes.
+
+```bash
+$ sudo systemctl restart k3s
+```
+
+## Uninstallation
+
+First, you need to remove the server and the services deployed on it from Zeabur.
+
+![Remove Server](/dedicated-server/remove-server.webp)
+
+The "Remove Server" step **will not remove the infrastructure set up by Zeabur on your server**. Zeabur's infrastructure is primarily built on [K3s](https://k3s.io/), so the uninstallation steps [follow the K3s uninstallation steps](https://docs.k3s.io/installation/uninstall).
+
+```bash
+$ /usr/local/bin/k3s-uninstall.sh
+```

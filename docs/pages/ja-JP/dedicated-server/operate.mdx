@@ -1,0 +1,58 @@
+---
+title: 専用サーバーのメンテナンス
+ogImageTitle: 専用サーバーのメンテナンス
+ogImageSubtitle: 専用サーバーのメンテナンス方法
+---
+
+import { Callout } from 'nextra/components';
+
+# 専用サーバーのメンテナンス
+
+この記事では、Zeaburに登録した[専用サーバー](../dedicated-server)のメンテナンス方法について説明します。
+
+<Callout>
+    Zeaburから専用サーバーを購入された場合、メンテナンス作業は当社が代行いたします。
+    メンテナンスが必要な項目についてはチケットを作成し、スタッフにご依頼ください。
+</Callout>
+
+## ディスク容量の確保
+
+ホストのディスク容量が不足している場合、K3sがホスト上にプルしたDockerイメージをクリーンアップすることができます（通常は自動的に実行されます）。
+
+```bash
+# 現在プルされているイメージを確認（実行不要）
+$ sudo k3s crictl images
+
+# 使用されていないイメージをすべて削除
+$ sudo k3s crictl rmi --prune
+```
+
+K3sが各コンテナに対して記録しているログも、かなりの容量を占めることがあります。[K3sのlogsディレクトリ](https://docs.k3s.io/faq#where-are-the-k3s-logs)でこれらのログを清掃することができます。
+
+## DNSネームサーバーの変更
+
+デフォルトでは、Zeabur専用サーバーはクラスターのDNSネームサーバーとして[Cloudflare DNS](https://1.1.1.1/)を使用します（中国本土地域のマシンは[Alibaba Cloud Public DNS](https://www.alidns.com/)を使用）。
+
+クラスターが使用するDNSネームサーバーを変更する必要がある場合（例えば、Tencentの[DNSPod Public DNS](https://www.dnspod.cn/products/publicdns)に変更する場合）、`/etc/resolv.kubelet.conf`を編集し、`nameserver`を希望するDNSネームサーバーに変更してください。
+
+```
+nameserver 119.29.29.29
+```
+
+変更後、K3sサービスを再起動することを忘れないでください。
+
+```bash
+$ sudo systemctl restart k3s
+```
+
+## アンインストール
+
+まず、Zeaburからサーバーとその上にデプロイされているサービスを削除する必要があります。
+
+![サーバーの削除](/dedicated-server/remove-server.webp)
+
+「サーバーの削除」の手順は、**Zeaburがサーバー上に設定したインフラストラクチャを削除するものではありません**。Zeaburのインフラストラクチャは主に[K3s](https://k3s.io/)上に構築されているため、アンインストールの手順は[K3sのアンインストール手順に従って](https://docs.k3s.io/installation/uninstall)行ってください。
+
+```bash
+$ /usr/local/bin/k3s-uninstall.sh
+```
