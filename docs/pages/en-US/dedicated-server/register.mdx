@@ -37,28 +37,6 @@ This article will explain how to register a [Dedicated Server](../dedicated-serv
 
 If you encounter registration failure, please report it to us on the [Discord server](https://zeabur.com/dc).
 
-## Uninstallation
+## Maintain your Dedicated Server
 
-First, you need to remove the server and the services deployed on it from Zeabur.
-
-![Remove Server](/dedicated-server/remove-server.webp)
-
-The steps for removing the server **will not remove the infrastructure set up by Zeabur on your server**. Zeabur's infrastructure is primarily built on [K3s](https://k3s.io/), so the uninstallation steps should [follow the K3s uninstallation instructions](https://docs.k3s.io/installation/uninstall).
-
-```bash
-$ /usr/local/bin/k3s-uninstall.sh
-```
-
-## Free Up Your Disk Space
-
-If you notice that the host's free space is low, you can clean up the Docker images pulled by K3s on your host. Note that this task is usually automated.
-
-```bash
-# Check which images are currently pulled (you don't need to type this line)
-$ sudo k3s crictl images
-
-# Remove all unused images
-$ sudo k3s crictl rmi --prune
-```
-
-Sometimes the logs from K3s for each container can also take up a significant amount of space. You can try clearing these logs in the [K3s logs directory](https://docs.k3s.io/faq#where-are-the-k3s-logs).
+Please refer to our [Maintain Server](./operate) document, to learn how to maintain your dedicated server.

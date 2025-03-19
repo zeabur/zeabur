@@ -1,0 +1,58 @@
+---
+title: Mantener Servidor Dedicado
+ogImageTitle: Mantener Servidor Dedicado
+ogImageSubtitle: Mantener tu Servidor Dedicado
+---
+
+import { Callout } from 'nextra/components';
+
+# Mantener tu Servidor Dedicado
+
+Este artículo te explicará cómo mantener tu [servidor dedicado](../dedicated-server) registrado con Zeabur.
+
+<Callout>
+    Si compraste un servidor dedicado de Zeabur, las tareas de operación y mantenimiento son realizadas por nosotros.
+    Por favor, envía un ticket para informarnos qué proyecto deseas mantener y nuestro personal se encargará de ello.
+</Callout>
+
+## Limpieza del Espacio
+
+Si encuentras que el espacio en disco de tu host es insuficiente, puedes intentar limpiar las imágenes Docker descargadas por K3s en tu host (esto generalmente se hace automáticamente).
+
+```bash
+# Verificar qué imágenes se han descargado (no necesitas escribir esta línea)
+$ sudo k3s crictl images
+
+# Eliminar todas las imágenes no utilizadas
+$ sudo k3s crictl rmi --prune
+```
+
+A veces, los registros guardados por K3s para cada contenedor también pueden ocupar mucho espacio. Puedes intentar limpiar estos registros en el [directorio de registros de K3s](https://docs.k3s.io/faq#where-are-the-k3s-logs).
+
+## Cambiar los Servidores DNS
+
+Por defecto, los servidores dedicados de Zeabur utilizan [Cloudflare DNS](https://1.1.1.1/) como servidores DNS para el clúster (las máquinas en China continental utilizan [DNS Público de Alibaba Cloud](https://www.alidns.com/)).
+
+Si necesitas cambiar los servidores DNS utilizados por el clúster (por ejemplo, al DNS Público de [DNSPod de Tencent Cloud](https://www.dnspod.cn/products/publicdns)), puedes editar `/etc/resolv.kubelet.conf` y cambiar el `nameserver` a los servidores DNS que desees.
+
+```
+nameserver 119.29.29.29
+```
+
+Recuerda reiniciar el servicio K3s después de hacer cambios.
+
+```bash
+$ sudo systemctl restart k3s
+```
+
+## Desinstalación
+
+Primero, necesitas eliminar el servidor y los servicios desplegados en él desde Zeabur.
+
+![Eliminar Servidor](/dedicated-server/remove-server.webp)
+
+El paso "Eliminar Servidor" **no eliminará la infraestructura configurada por Zeabur en tu servidor**. La infraestructura de Zeabur está construida principalmente sobre [K3s](https://k3s.io/), por lo que los pasos de desinstalación [siguen los pasos de desinstalación de K3s](https://docs.k3s.io/installation/uninstall).
+
+```bash
+$ /usr/local/bin/k3s-uninstall.sh
+```

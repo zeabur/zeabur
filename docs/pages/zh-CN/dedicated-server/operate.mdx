@@ -1,0 +1,58 @@
+---
+title: 维护独立服务器
+ogImageTitle: 维护独立服务器
+ogImageSubtitle: 维护您的独立服务器
+---
+
+import { Callout } from 'nextra/components';
+
+# 维护独立服务器
+
+本文将介绍如何维护您注册到 Zeabur 的 [独立服务器](../dedicated-server)。
+
+<Callout>
+    如果您是从 Zeabur 购买独立服务器的，维运的任务是由我们代为执行的。
+    请开工单告诉我们您想要维护的项目，让工作人员代为操作。
+</Callout>
+
+## 空间清理
+
+如果您发现主机的磁盘空间不足，可以试试清理 K3s 在您主机上拉回的 Docker image（通常会自动执行）。
+
+```bash
+# 检查目前拉回了哪些 images（这行不用打）
+$ sudo k3s crictl images
+
+# 移除所有未在使用的 images
+$ sudo k3s crictl rmi --prune
+```
+
+有时候 K3s 针对每个容器记录的 Logs 也会占用不少空间，您可以试着到 [K3s 的 logs 目录](https://docs.k3s.io/faq#where-are-the-k3s-logs) 清理这些 Logs。
+
+## 更改 DNS Nameservers
+
+默认 Zeabur 独立服务器会使用 [Cloudflare DNS](https://1.1.1.1/) 作为集群的 DNS Nameservers（中国大陆区域的机器，则是使用 [阿里云公共 DNS](https://www.alidns.com/)）。
+
+如果需要更改集群使用的 DNS Nameservers（比如改成腾讯云的 [DNSPod Public DNS](https://www.dnspod.cn/products/publicdns)），可以编辑 `/etc/resolv.kubelet.conf`，并将其中的 `nameserver` 改成您想要的 DNS Nameservers。
+
+```
+nameserver 119.29.29.29
+```
+
+更改完后记得重启 K3s 服务。
+
+```bash
+$ sudo systemctl restart k3s
+```
+
+## 卸载
+
+首先您得先从 Zeabur 移除服务器及在其上面部署的服务。
+
+![移除服务器](/dedicated-server/remove-server.webp)
+
+「移除服务器」的步骤 **不会移除 Zeabur 在您服务器上设置的基础设施**。Zeabur 的基础设施主要是架设在 [K3s](https://k3s.io/) 之上，所以卸载的步骤 [遵照 K3s 的卸载步骤即可](https://docs.k3s.io/installation/uninstall)。
+
+```bash
+$ /usr/local/bin/k3s-uninstall.sh
+```
