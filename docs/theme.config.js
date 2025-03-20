@@ -1,6 +1,6 @@
 //@ts-check
 
-import React from 'react';
+import React from 'react'
 import { useConfig } from 'nextra-theme-docs'
 import { useRouter } from 'nextra/hooks'
 import WorkingInProgress from './components/WorkingInProgress'
@@ -36,6 +36,23 @@ const config = {
     { locale: 'ja-JP', name: '日本語' },
     { locale: 'es-ES', name: 'Español' },
   ],
+
+  navbar: {
+    extraContent: (
+      <>
+        <a href="https://zeabur.com" target="_blank" className="nx-mr-4">
+          Homepage
+        </a>
+        <a
+          href="https://zeabur.com/projects"
+          target="_blank"
+          className="nx-mr-4"
+        >
+          Dashboard
+        </a>
+      </>
+    ),
+  },
   logo: (
     <>
       <img
@@ -54,7 +71,7 @@ const config = {
   ),
   head: () => {
     const r = useRouter()
-    const p = `${r.basePath}${r.pathname}`;
+    const p = `${r.basePath}${r.pathname}`
     const { frontMatter } = useConfig()
     const ogEndpoint = 'https://og.zeabur.com/api/og'
     const ogQueryString = `title=${frontMatter.ogImageTitle}&desc=${frontMatter.ogImageSubtitle}`
