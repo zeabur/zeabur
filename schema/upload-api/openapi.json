@@ -3,7 +3,7 @@
     "info": {
         "title": "Zeabur Upload API",
         "description": "API for handling file uploads and deployments in Zeabur",
-        "version": "2.0.0"
+        "version": "2.0.1"
     },
     "servers": [
         {
@@ -11,205 +11,15 @@
             "description": "Zeabur API Server"
         }
     ],
-    "paths": {
-        "/v2/upload": {
-            "post": {
-                "summary": "Create Upload Session",
-                "description": "Initiates a new upload session and returns a presigned URL for S3 upload",
-                "tags": [
-                    "Upload"
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/CreateUploadRequest"
-                            },
-                            "examples": {
-                                "default": {
-                                    "value": {
-                                        "content_hash": "REDACTED_BASE64_CONTENT_HASH=",
-                                        "content_hash_algorithm": "sha256",
-                                        "content_length": 29661129
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Upload session created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/CreateUploadResponse"
-                                },
-                                "examples": {
-                                    "default": {
-                                        "value": {
-                                            "presign_header": {
-                                                "Content-Type": "application/zip"
-                                            },
-                                            "presign_method": "PUT",
-                                            "presign_url": "https://zeabur-uploads.s3.ap-east-1.amazonaws.com/uploads-tmp/REDACTED_ID.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Checksum-Sha256=REDACTED_BASE64_CONTENT_HASH%3D&X-Amz-Credential=REDACTED_AWS_KEY%2F20250319%2Fap-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250319T085332Z&X-Amz-Expires=1800&X-Amz-Sdk-Checksum-Algorithm=SHA256&X-Amz-SignedHeaders=content-length%3Bcontent-type%3Bhost&X-Amz-Signature=REDACTED_SIGNATURE",
-                                            "upload_id": "REDACTED_ID"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponse"
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Server error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponse"
-                                }
-                            }
-                        }
-                    }
-                }
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+                "description": "Your Zeabur API token."
             }
         },
-        "/v2/upload/{upload_id}/prepare": {
-            "post": {
-                "summary": "Prepare Upload for Deployment",
-                "description": "Prepares an uploaded file for deployment, either as a new project or to an existing service",
-                "tags": [
-                    "Upload",
-                    "Deployment"
-                ],
-                "parameters": [
-                    {
-                        "name": "upload_id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "description": "ID of the upload to prepare",
-                        "example": "REDACTED_ID"
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "oneOf": [
-                                    {
-                                        "$ref": "#/components/schemas/NewProjectPrepareRequest"
-                                    },
-                                    {
-                                        "$ref": "#/components/schemas/ExistingServicePrepareRequest"
-                                    }
-                                ]
-                            },
-                            "examples": {
-                                "newProject": {
-                                    "value": {
-                                        "upload_type": "new_project"
-                                    }
-                                },
-                                "existingService": {
-                                    "value": {
-                                        "upload_type": "existing_service",
-                                        "service_id": "REDACTED_SERVICE_ID",
-                                        "environment_id": "REDACTED_ENV_ID"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Upload prepared successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "oneOf": [
-                                        {
-                                            "$ref": "#/components/schemas/NewProjectPrepareResponse"
-                                        },
-                                        {
-                                            "$ref": "#/components/schemas/ExistingServicePrepareResponse"
-                                        }
-                                    ]
-                                },
-                                "examples": {
-                                    "newProject": {
-                                        "value": {
-                                            "url": "https://zeabur.com/uploads/REDACTED_ID"
-                                        }
-                                    },
-                                    "existingService": {
-                                        "value": {
-                                            "url": "https://zeabur.com/projects/REDACTED_PROJECT_ID/services/REDACTED_SERVICE_ID/deployments/REDACTED_DEPLOYMENT_ID?envID=REDACTED_ENV_ID"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponse"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponse"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Resource not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponse"
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Server error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponse"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    },
-    "components": {
         "schemas": {
             "CreateUploadRequest": {
                 "type": "object",
@@ -342,6 +152,210 @@
                     "error": {
                         "type": "string",
                         "description": "Error message describing what went wrong"
+                    }
+                }
+            }
+        }
+    },
+    "paths": {
+        "/v2/upload": {
+            "post": {
+                "summary": "Create Upload Session",
+                "description": "Initiates a new upload session and returns a presigned URL for S3 upload",
+                "tags": [
+                    "Upload"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateUploadRequest"
+                            },
+                            "examples": {
+                                "default": {
+                                    "value": {
+                                        "content_hash": "REDACTED_BASE64_CONTENT_HASH=",
+                                        "content_hash_algorithm": "sha256",
+                                        "content_length": 29661129
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Upload session created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateUploadResponse"
+                                },
+                                "examples": {
+                                    "default": {
+                                        "value": {
+                                            "presign_header": {
+                                                "Content-Type": "application/zip"
+                                            },
+                                            "presign_method": "PUT",
+                                            "presign_url": "https://zeabur-uploads.s3.ap-east-1.amazonaws.com/uploads-tmp/REDACTED_ID.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Checksum-Sha256=REDACTED_BASE64_CONTENT_HASH%3D&X-Amz-Credential=REDACTED_AWS_KEY%2F20250319%2Fap-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250319T085332Z&X-Amz-Expires=1800&X-Amz-Sdk-Checksum-Algorithm=SHA256&X-Amz-SignedHeaders=content-length%3Bcontent-type%3Bhost&X-Amz-Signature=REDACTED_SIGNATURE",
+                                            "upload_id": "REDACTED_ID"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/upload/{upload_id}/prepare": {
+            "post": {
+                "summary": "Prepare Upload for Deployment",
+                "description": "Prepares an uploaded file for deployment, either as a new project or to an existing service",
+                "tags": [
+                    "Upload",
+                    "Deployment"
+                ],
+                "parameters": [
+                    {
+                        "name": "upload_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "ID of the upload to prepare",
+                        "example": "REDACTED_ID"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "oneOf": [
+                                    {
+                                        "$ref": "#/components/schemas/NewProjectPrepareRequest"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/ExistingServicePrepareRequest"
+                                    }
+                                ]
+                            },
+                            "examples": {
+                                "newProject": {
+                                    "value": {
+                                        "upload_type": "new_project"
+                                    }
+                                },
+                                "existingService": {
+                                    "value": {
+                                        "upload_type": "existing_service",
+                                        "service_id": "REDACTED_SERVICE_ID",
+                                        "environment_id": "REDACTED_ENV_ID"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    },
+                    {}
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Upload prepared successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/NewProjectPrepareResponse"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/ExistingServicePrepareResponse"
+                                        }
+                                    ]
+                                },
+                                "examples": {
+                                    "newProject": {
+                                        "value": {
+                                            "url": "https://zeabur.com/uploads/REDACTED_ID"
+                                        }
+                                    },
+                                    "existingService": {
+                                        "value": {
+                                            "url": "https://zeabur.com/projects/REDACTED_PROJECT_ID/services/REDACTED_SERVICE_ID/deployments/REDACTED_DEPLOYMENT_ID?envID=REDACTED_ENV_ID"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
