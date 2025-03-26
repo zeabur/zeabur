@@ -5,6 +5,10 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { LOCALE_COOKIE_NAME } from './i18n-config'
 
+// This code is basically the same as the { middleware } from 'nextra/locales'
+// see code in https://github.com/shuding/nextra/blob/main/packages/nextra/src/server/locales.ts
+// only changed the cookie name from 'NEXT_LOCALE' to 'zeabur.lng'
+
 const locales = JSON.parse(process.env.NEXTRA_LOCALES!) as string[]
 
 const defaultLocale = process.env.NEXTRA_DEFAULT_LOCALE!
