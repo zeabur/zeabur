@@ -4,4 +4,4 @@ export default {
 }
 
 export const LOCALE_LOCAL_STORAGE_KEY = 'zeabur.lng'
-export const LOCALE_COOKIE_NAME = 'NEXT_LOCALE'
+export const LOCALE_COOKIE_NAME = 'zeabur.lng'

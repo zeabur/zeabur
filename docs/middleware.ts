@@ -3,7 +3,7 @@ import Negotiator from 'negotiator'
 import { addBasePath } from 'next/dist/client/add-base-path'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { LOCALE_LOCAL_STORAGE_KEY, LOCALE_COOKIE_NAME } from './i18n-config'
+import { LOCALE_COOKIE_NAME } from './i18n-config'
 
 const locales = JSON.parse(process.env.NEXTRA_LOCALES!) as string[]
 
