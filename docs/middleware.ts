@@ -3,14 +3,13 @@ import Negotiator from 'negotiator'
 import { addBasePath } from 'next/dist/client/add-base-path'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { LOCALE_LOCAL_STORAGE_KEY, LOCALE_COOKIE_NAME } from './i18n-config'
 
 const locales = JSON.parse(process.env.NEXTRA_LOCALES!) as string[]
 
 const defaultLocale = process.env.NEXTRA_DEFAULT_LOCALE!
 
 const HAS_LOCALE_RE = new RegExp(`^\\/(${locales.join('|')})(\\/|$)`)
-
-const COOKIE_NAME = 'NEXT_LOCALE'
 
 function getHeadersLocale(request: NextRequest): string {
   const headers = Object.fromEntries(request.headers.entries())
@@ -27,7 +26,7 @@ export function middleware(request: NextRequest) {
 
   // Check if there is any supported locale in the pathname
   const pathnameHasLocale = HAS_LOCALE_RE.test(pathname)
-  const cookieLocale = request.cookies.get(COOKIE_NAME)?.value
+  const cookieLocale = request.cookies.get(LOCALE_COOKIE_NAME)?.value
 
   // Redirect if there is no locale
   if (!pathnameHasLocale) {
@@ -43,7 +42,7 @@ export function middleware(request: NextRequest) {
 
   if (requestLocale !== cookieLocale) {
     const response = NextResponse.next()
-    response.cookies.set(COOKIE_NAME, requestLocale!)
+    response.cookies.set(LOCALE_COOKIE_NAME, requestLocale!)
     return response
   }
 }
