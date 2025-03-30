@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useRouter } from 'nextra/hooks'
-import { LOCALE_LOCAL_STORAGE_KEY } from 'docs/i18n-config'
+import { LOCALE_LOCAL_STORAGE_KEY } from '../i18n-config'
 import './styles.css'
 
 export default function Nextra({ Component, pageProps }) {
