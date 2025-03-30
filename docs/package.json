@@ -12,21 +12,21 @@
   },
   "author": "Zeabur",
   "dependencies": {
-    "@formatjs/intl-localematcher": "^0.5.8",
+    "@formatjs/intl-localematcher": "^0.6.1",
     "negotiator": "^1.0.0",
-    "next": "^15.2.3",
-    "nextra": "^3.2.4",
-    "nextra-theme-docs": "^3.2.4",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "next": "^15.2.4",
+    "nextra": "^3.3.1",
+    "nextra-theme-docs": "^3.3.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "sharp": "^0.33.5",
     "source-map-support": "^0.5.21"
   },
   "devDependencies": {
-    "@types/node": "22.10.1",
-    "@types/react": "^19.0.1",
-    "@types/react-dom": "^19.0.1",
-    "prettier": "^3.4.2"
+    "@types/node": "22.13.14",
+    "@types/react": "^19.0.12",
+    "@types/react-dom": "^19.0.4",
+    "prettier": "^3.5.3"
   },
   "prettier": {
     "semi": false,
