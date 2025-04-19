@@ -1,0 +1,103 @@
+---
+title: MCP 連携
+ogImageTitle: MCP 連携
+ogImageSubtitle: Model Context Protocol との連携
+---
+
+# Zeabur MCP サーバー
+
+Zeaburは公式のModel Context Protocol (MCP) サーバーを提供しており、MCPをサポートするAIアプリケーションでZeaburプロジェクトを管理・デプロイすることができます。
+
+## MCPの紹介
+
+Model Context Protocol (MCP) は、アプリケーションが大規模言語モデル (LLM) にコンテキストを提供する方法を標準化するためのオープンプロトコルです。これはAIアプリケーションのための「USB-C コネクタ」のような役割を果たし、AIモデルが異なるデータソースやツールに簡単に接続できるようにします。
+
+ZeaburのMCPサーバーを使用すると、Zeaburコンソールに切り替えることなく、ClaudeやMCPをサポートする他のAIアシスタントで直接クラウドサービスを管理できます。
+
+## Zeabur MCPサーバーのインストール
+
+### 前提条件
+
+- MCPをサポートするAIアシスタント（Claude DesktopやCursorなど）
+- ZeaburアカウントとAPIトークン
+
+### セットアップ手順
+
+1. ZeaburのAPIトークンを取得する
+
+   [API Keyを使用してZeaburと連携する](./developer/use-api-key)を参照して、APIトークンを取得してください。
+
+2. AIアシスタントのMCP設定ファイルに以下を追加します：
+
+```json
+{
+  "mcpServers": {
+    "zeabur": {
+      "command": "npx",
+      "args": [
+        "zeabur-mcp@latest"
+      ],
+      "env": {
+        "ZEABUR_TOKEN": "sk-xxxxxx"  // 実際のAPIトークンに置き換えてください
+      }
+    }
+  }
+}
+```
+
+3. AIアシスタントを再起動すると、Zeabur MCPサーバーが自動的に起動して接続されます。
+
+## Zeabur MCPの使用方法
+
+Zeabur MCPサーバーが設定されると、MCPをサポートするAIアシスタントで以下の操作を実行できます：
+
+- 新しいZeaburプロジェクトの作成
+- Zeaburへのアプリケーションのデプロイ
+- サービスステータスの表示と管理
+- 環境変数の設定
+- ドメインのバインディング
+- デプロイログの表示
+- データベースコマンドの実行
+- その他のクラウドサービス管理機能
+
+## 例
+
+以下は、AIアシスタントを通じてZeabur MCPを使用する会話例です：
+
+**新しいプロジェクトの作成**：
+```
+Zeaburで新しいプロジェクトを作成してください
+```
+
+**アプリケーションのデプロイ**：
+```
+このNode.jsアプリケーションをZeaburプロジェクトにデプロイしてください
+```
+
+**ドメインのバインディング**：
+```
+Zeaburサービスにサブドメインをバインドするのを手伝ってください
+```
+
+**ログの表示**：
+```
+最近デプロイしたアプリケーションのログを表示してください
+```
+
+## よくある質問
+
+**Q: どのAIアシスタントでZeabur MCPを使用できますか？**
+
+A: Claude Desktopなど、Model Context Protocolをサポートする任意のAIアシスタントで使用できます。
+
+**Q: Zeabur MCPサーバーは料金が必要ですか？**
+
+A: Zeabur MCPサーバー自体は無料で使用できますが、Zeaburプラットフォーム上のリソース使用量はZeaburの料金体系に従って課金されます。
+
+**Q: 私のAPIトークンは安全ですか？**
+
+A: APIトークンはローカル設定ファイルにのみ保存され、Zeabur APIとの認証にのみ使用されます。セキュリティのため、トークンを含む設定ファイルを他の人と共有しないでください。
+
+## 追加リソース
+
+- [Model Context Protocolの公式ドキュメント](https://modelcontextprotocol.io/) 

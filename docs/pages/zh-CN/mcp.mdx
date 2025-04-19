@@ -1,0 +1,103 @@
+---
+title: MCP 集成
+ogImageTitle: MCP 集成
+ogImageSubtitle: 与 Model Context Protocol 集成
+---
+
+# Zeabur MCP 服务器
+
+Zeabur 提供了官方的 Model Context Protocol (MCP) 服务器，让您能够在支持 MCP 的 AI 应用程序中管理和部署您的 Zeabur 项目。
+
+## MCP 简介
+
+Model Context Protocol (MCP) 是一个开放协议，用于标准化应用程序如何向大型语言模型 (LLM) 提供上下文。这就像为 AI 应用提供了一个「USB-C 连接器」，让 AI 模型能够轻松连接到不同的数据源和工具。
+
+通过 Zeabur 的 MCP 服务器，您可以直接在 Claude 或其他支持 MCP 的 AI 助手中管理您的云服务，不需要切换到 Zeabur 控制台。
+
+## 安装 Zeabur MCP 服务器
+
+### 前置条件
+
+- 已安装支持 MCP 的 AI 助手（如 Claude Desktop 或 Cursor）
+- 已有 Zeabur 账号和 API Token
+
+### 设置步骤
+
+1. 获取您的 Zeabur API Token
+
+   请参考 [使用 API Key 与 Zeabur 集成](./developer/use-api-key) 获取您的 API Token。
+
+2. 在 AI 助手的 MCP 设置文件中添加以下内容：
+
+```json
+{
+  "mcpServers": {
+    "zeabur": {
+      "command": "npx",
+      "args": [
+        "zeabur-mcp@latest"
+      ],
+      "env": {
+        "ZEABUR_TOKEN": "sk-xxxxxx"  // 替换为您的实际 API Token
+      }
+    }
+  }
+}
+```
+
+3. 重新启动您的 AI 助手，Zeabur MCP 服务器将自动启动并连接。
+
+## 使用 Zeabur MCP
+
+一旦 Zeabur MCP 服务器设置完成，您可以在支持 MCP 的 AI 助手中执行以下操作：
+
+- 创建新的 Zeabur 项目
+- 部署应用程序到 Zeabur
+- 查看和管理服务状态
+- 设置环境变量
+- 绑定域名
+- 查看部署日志
+- 执行数据库命令
+- 更多云服务管理功能
+
+## 示例
+
+以下是一些您可以通过 AI 助手使用 Zeabur MCP 的示例对话：
+
+**创建新项目**:
+```
+请在 Zeabur 上帮我创建一个新项目
+```
+
+**部署应用**:
+```
+请将这个 Node.js 应用程序部署到我的 Zeabur 项目中
+```
+
+**绑定域名**:
+```
+帮我的 Zeabur 服务绑定一个子域名
+```
+
+**查看日志**:
+```
+显示我最近部署的应用程序日志
+```
+
+## 常见问题
+
+**Q: 我可以在哪些 AI 助手中使用 Zeabur MCP？**
+
+A: 任何支持 Model Context Protocol 的 AI 助手都可以使用，如 Claude Desktop。
+
+**Q: Zeabur MCP 服务器是否需要付费？**
+
+A: Zeabur MCP 服务器本身免费使用，但您在 Zeabur 平台上的资源使用仍然按照 Zeabur 的价格计费。
+
+**Q: 我的 API Token 安全吗？**
+
+A: 您的 API Token 仅存储在本地设置文件中，并且只会用于与 Zeabur API 进行身份验证。为了安全起见，请勿将含有 Token 的设置文件分享给其他人。
+
+## 更多资源
+
+- [Model Context Protocol 官方文档](https://modelcontextprotocol.io/) 

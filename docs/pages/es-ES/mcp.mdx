@@ -1,0 +1,103 @@
+---
+title: Integración MCP
+ogImageTitle: Integración MCP
+ogImageSubtitle: Integración con Model Context Protocol
+---
+
+# Servidor MCP de Zeabur
+
+Zeabur proporciona un servidor oficial de Model Context Protocol (MCP) que te permite gestionar y desplegar tus proyectos de Zeabur en aplicaciones de IA que soporten MCP.
+
+## Introducción a MCP
+
+Model Context Protocol (MCP) es un protocolo abierto diseñado para estandarizar cómo las aplicaciones proporcionan contexto a los modelos de lenguaje grandes (LLMs). Funciona como un "conector USB-C" para aplicaciones de IA, permitiendo que los modelos de IA se conecten fácilmente a diferentes fuentes de datos y herramientas.
+
+Con el servidor MCP de Zeabur, puedes gestionar directamente tus servicios en la nube en Claude u otros asistentes de IA que soporten MCP, sin necesidad de cambiar a la consola de Zeabur.
+
+## Instalación del Servidor MCP de Zeabur
+
+### Requisitos previos
+
+- Un asistente de IA que soporte MCP (como Claude Desktop o Cursor)
+- Una cuenta de Zeabur y un Token API
+
+### Pasos de configuración
+
+1. Obtén tu Token API de Zeabur
+
+   Consulta [Integración con Zeabur usando API Key](./developer/use-api-key) para obtener tu Token API.
+
+2. Añade lo siguiente al archivo de configuración MCP de tu asistente de IA:
+
+```json
+{
+  "mcpServers": {
+    "zeabur": {
+      "command": "npx",
+      "args": [
+        "zeabur-mcp@latest"
+      ],
+      "env": {
+        "ZEABUR_TOKEN": "sk-xxxxxx"  // Reemplaza con tu Token API real
+      }
+    }
+  }
+}
+```
+
+3. Reinicia tu asistente de IA, y el servidor MCP de Zeabur se iniciará y conectará automáticamente.
+
+## Uso de Zeabur MCP
+
+Una vez configurado el servidor MCP de Zeabur, puedes realizar las siguientes operaciones en asistentes de IA que soporten MCP:
+
+- Crear nuevos proyectos en Zeabur
+- Desplegar aplicaciones en Zeabur
+- Ver y gestionar el estado de los servicios
+- Configurar variables de entorno
+- Vincular dominios
+- Ver registros de despliegue
+- Ejecutar comandos de base de datos
+- Más funciones de gestión de servicios en la nube
+
+## Ejemplos
+
+Aquí hay algunos ejemplos de conversaciones para usar Zeabur MCP a través de un asistente de IA:
+
+**Crear un nuevo proyecto**:
+```
+Por favor, ayúdame a crear un nuevo proyecto en Zeabur
+```
+
+**Desplegar una aplicación**:
+```
+Despliega esta aplicación Node.js en mi proyecto de Zeabur
+```
+
+**Vincular un dominio**:
+```
+Ayúdame a vincular un subdominio a mi servicio de Zeabur
+```
+
+**Ver registros**:
+```
+Muéstrame los registros de mi aplicación recién desplegada
+```
+
+## Preguntas frecuentes
+
+**P: ¿Con qué asistentes de IA puedo usar Zeabur MCP?**
+
+R: Cualquier asistente de IA que soporte el Model Context Protocol, como Claude Desktop.
+
+**P: ¿El servidor MCP de Zeabur requiere pago?**
+
+R: El servidor MCP de Zeabur es gratuito, pero el uso de recursos en la plataforma Zeabur se factura según los precios de Zeabur.
+
+**P: ¿Es seguro mi Token API?**
+
+R: Tu Token API solo se almacena en tu archivo de configuración local y solo se utiliza para autenticarse con la API de Zeabur. Por seguridad, no compartas archivos de configuración que contengan tu Token con otras personas.
+
+## Recursos adicionales
+
+- [Documentación oficial de Model Context Protocol](https://modelcontextprotocol.io/) 
