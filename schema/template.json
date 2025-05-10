@@ -140,6 +140,25 @@
                         "# PostgreSQL\nPostgreSQL is a powerful, open source object-relational database system with over 35 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance."
                     ]
                 },
+                "resourceUsage": {
+                    "title": "Resource usage",
+                    "description": "The expected resource usage of this template. It is only for displaying and does not affect the actual resource usage.",
+                    "type": "object",
+                    "properties": {
+                        "cpu": {
+                            "title": "CPU",
+                            "description": "The expected average vCPU usage of this template.",
+                            "type": "number",
+                            "examples": [0.1, 0.3, 1]
+                        },
+                        "memory": {
+                            "title": "Memory",
+                            "description": "The expected average memory usage (in MiB) of this template.",
+                            "type": "number",
+                            "examples": [1024, 2048, 4096]
+                        }
+                    }
+                },
                 "services": {
                     "title": "Template services",
                     "description": "The services that will be created when the resource is created.",
