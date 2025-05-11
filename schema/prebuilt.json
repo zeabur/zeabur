@@ -71,6 +71,9 @@
 		},
 		"healthCheck": {
 			"$ref": "#/definitions/HealthCheck"
+		},
+		"portForwarding": {
+			"$ref": "#/definitions/PortForwarding"
 		}
 	},
 	"required": [
@@ -538,6 +541,25 @@
 			"required": [
 				"type",
 				"port"
+			]
+		},
+		"PortForwarding": {
+			"title": "Port Forwarding",
+			"description": "Declare the port forwarding for this service to access TCP ports from outside a Zeabur project.",
+			"type": "object",
+			"properties": {
+				"enabled": {
+					"title": "Enabled",
+					"description": "If true, we enable port forwarding for this service. By default, it is enabled.",
+					"type": "boolean"
+				}
+			},
+			"additionalProperties": false,
+			"default": {
+				"enabled": true
+			},
+			"required": [
+				"enabled"
 			]
 		}
 	}

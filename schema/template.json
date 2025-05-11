@@ -247,6 +247,9 @@
                                     },
                                     "healthCheck": {
                                         "$ref": "https://schema.zeabur.app/prebuilt.json#/definitions/HealthCheck"
+                                    },
+                                    "portForwarding": {
+                                        "$ref": "https://schema.zeabur.app/prebuilt.json#/definitions/PortForwarding"
                                     }
                                 },
                                 "required": [
