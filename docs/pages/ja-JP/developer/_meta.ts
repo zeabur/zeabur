@@ -1,4 +1,4 @@
 export default {
-    "use-api-key": "API Key を使用する",
-    "public-api": "パブリック API"
+  "use-api-key": "API キーの作成と使用", 
+  "public-api": "オープン API"
 }

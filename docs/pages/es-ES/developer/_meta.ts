@@ -1,4 +1,4 @@
 export default {
-  "use-api-key": "Usar Clave API",
+  "use-api-key": "Crear y Usar Claves de API",
   "public-api": "API Pública"
 }

@@ -1,4 +1,4 @@
 export default {
-  "use-api-key": "Use API Key",
+  "use-api-key": "Create and Use API Keys",
   "public-api": "Public API"
 }

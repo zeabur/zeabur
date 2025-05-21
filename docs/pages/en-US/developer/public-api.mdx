@@ -1,28 +1,21 @@
 ---
 title: Public API
-ogImageTitle: Public API - Zeabur
-ogImageSubtitle: Use Zeabur API to power your applications
+ogImageTitle: Public API
+ogImageSubtitle: Using Zeabur Public API
 ---
 
 import { Callout } from 'nextra/components';
 
-# Public API Reference
+# Public API
 
-Zeabur public API is built with GraphQL. It's the same API that powers our dashboard and CLI.
-
-## Endpoint
-
-You can access the Zeabur API via the following endpoint:
-
-```http
-https://api.zeabur.com/graphql
-```
+Zeabur's API is primarily built using GraphQL and serves as the foundation for a series of Zeabur products such as Zeabur Dashboard and Zeabur CLI. We provide a public API that allows you to control Zeabur through code.
+Additionally, Zeabur has placed some JSON schemas and OpenAPI specifications for non-GraphQL APIs in the [Schema Repository](https://schema.zeabur.app/).
 
 ## Authentication
 
-To get started with the Zeabur API, you need to create an account and generate an API key. You can create one by visiting the [Developer Panel](https://dash.zeabur.com/account/developer).
+You need to provide your [API key](./use-api-key) in the `Authorization` header to use the Zeabur API with your identity. For instructions on generating an API key, please read [this document](./use-api-key).
 
-You can also check [this documentation](./use-api-key) for more information on how to generate an API key.
+Here's an example of how to include it:
 
 ```bash
 curl --request POST \
@@ -32,41 +25,179 @@ curl --request POST \
   --data '{"query":"query { me { username } }"}'
 ```
 
-## Support
+## GraphQL API
 
-If you encounter any issues or have suggestions regarding the API, we encourage you to join our Discord server. There, you can directly interact with the engineers who are working on the API.
+You can visit our [Apollo Explorer](https://studio.apollographql.com/public/zeabur/variant/main/explorer) to view all available Zeabur API GraphQL methods, test them, and copy them as cURL commands.
 
-Join our Discord server [here](https://discord.gg/yrnVvTCM7g).
+If you prefer writing GraphQL in an IDE or need type hints, you can download the complete Zeabur API Schema from the Explorer under "Schema" → "SDL".
 
-## Schema
+If you find that the API you need is not in this Schema, please let us know through our [Discord](https://zeabur.com/dc).
 
-### Deploy Codes on Zeabur
+## Local Project Upload API
 
-You can deploy your code on Zeabur with the deploy API without linking a GitHub repository. You can use this API to deploy your code from your local machine or any other source.
+For information about the local project API, please refer to the [Upload API documentation](https://schema.zeabur.app/upload-api/index.html).
 
-To deploy codes on Zeabur, you will need a project ID, service ID, and environment ID. You can get these IDs from the dashboard or CLI or just create a new project and service through API.
+The process flow is as follows:
 
-Then you will need to zip your code and send it to the API.
+```mermaid
+sequenceDiagram
+  participant Client
+  participant ZeaburAPI
+  participant PresignURL
 
-```bash
-curl --request POST \
-  --url https://api.zeabur.com/projects/{PROJECT_ID}/services/{SERVICE_ID}/deploy \
-  --header 'Authorization: Bearer {YOUR_API_TOKEN}' \
-  --data '{"code": {YOUR_CODE_AS_ZIP_FILE}, "environment": {ENVIRONMENT_ID}}'
+  Client->>ZeaburAPI: Call the "Create Upload Stage" API
+  ZeaburAPI->>Client: Return Presign URL
+  Client->>PresignURL: Upload file using PUT method
+  Client->>ZeaburAPI: Call the "Prepare Upload Result" API
+  ZeaburAPI->>Client: Return project deployment URL
+  Client->>Client: Redirect to the project deployment URL
 ```
 
-### Retrieve Projects
+## Template Deployment API
 
-```bash
-curl --request POST \
-  --url https://api.zeabur.com/graphql \
-  --header 'Authorization: Bearer {YOUR_API_TOKEN}' \
-  --header 'Content-Type: application/json' \
-  --data '{"query":"query { projects { _id name } }"}'
+If you have a [template specification YAML file](https://schema.zeabur.app/template.json), you can use this GraphQL mutation to deploy it to a specified project:
+
+```graphql
+mutation DeployTemplate($rawSpecYaml: String, $projectId: ObjectID) {
+  deployTemplate(rawSpecYaml: $rawSpecYaml, projectID: $projectId) {
+    _id  # String!
+  }
+}
 ```
+
+This API is suitable for bulk deployments.
+
+## Container Operation API
+
+These APIs allow you to upload files to or download files from a specified Zeabur service, and also send commands to a specified Zeabur service.
+
+### Upload File
 
 <Callout>
-  The public API schema and documentation is still working in progress. We will update this page as soon as possible.
-
-  If you want to start to use the API now, you can connect us in [our Discord server](https://discord.gg/yrnVvTCM7g) for help.
+Currently, there is a 100MB file size limit for uploads.
 </Callout>
+
+```http
+POST https://api.zeabur.com/projects/project-id/services/service-id/files
+Content-Type: multipart/form-data
+Authorization: Bearer <YOUR_API_TOKEN>
+```
+
+- Payload (Form Content)
+    - file (Blob): File content
+    - path (string): File path
+    - environment (string): The environment ID, which can be obtained from the `envID` in the Dashboard URL
+- Response
+    - 200 OK
+    - 500 Internal Server Error, such as `{"code": "INTERNAL_SERVER_ERROR", "error": "failed to upload file"}`
+
+
+### Download File
+
+```http
+GET https://api.zeabur.com/projects/project-id/services/service-id/files?path=[PATH]&environment=[ENVIRONMENT]
+Authorization: Bearer <YOUR_API_TOKEN>
+```
+
+- Query
+    - path (string): File path
+    - environment (string): The environment ID, which can be obtained from the `envID` in the Dashboard URL
+- Response
+    - 200 OK, `application/octet-stream`
+    - 500 Internal Server Error, such as `{"code": "INTERNAL_SERVER_ERROR", "error": "failed to download file"}`
+
+### List Files
+
+Use the "Execute Single Command" API to run:
+
+```shell
+$ ls -A -a -F -1 /
+```
+
+### Delete Files
+
+Use the "Execute Single Command" API to run:
+
+```shell
+$ rm -r FILENAME
+```
+
+### Execute Single Command
+
+Use the GraphQL API to execute:
+
+```graphql
+mutation ExecuteCommand($serviceId: ObjectID!, $environmentId: ObjectID!, $command: [String!]!) {
+  executeCommand(serviceID: $serviceId, environmentID: $environmentId, command: $command) {
+    exitCode  # Int!
+    output    # String!
+  }
+}
+```
+
+### Use WebSocket to Access Service Terminal
+
+- WebSocket endpoint: `wss://api.zeabur.com/exec/<service-id>` 
+- Writing content to the WebSocket is the actual input
+- Resize Control Controls: `[RESIZE_CONTROL, COLS_LSB, COLS_MSB, ROWS_LSB, ROWS_MSB]` 
+  ```
+  const buffer = new Uint8Array([
+    RESIZE_CONTROL,
+    dims.cols & 0xFF,
+    dims.cols >> 8,
+    dims.rows & 0xFF,
+    dims.rows >> 8
+  ]);
+  ```
+
+### Retrieve Build Logs
+
+Use the GraphQL API to execute:
+
+```graphql
+query BuildLogs($projectId: ObjectID!, $deploymentId: ObjectID!, $timestampCursor: Time) {
+  buildLogs(projectID: $projectId, deploymentID: $deploymentId, timestampCursor: $timestampCursor) {
+    message    # String!
+    timestamp  # Time!
+  }
+}
+```
+
+### Retrieve Runtime Logs
+
+Use the GraphQL API to execute:
+
+```graphql
+query RuntimeLogs($projectId: ObjectID!, $serviceId: ObjectID!, $environmentId: ObjectID!, $timestampCursor: Time) {
+  runtimeLogs(projectID: $projectId, serviceID: $serviceId, environmentID: $environmentId, timestampCursor: $timestampCursor) {
+    message    # String!
+    timestamp  # Time!
+  }
+}
+```
+
+### Subscribe to Build Logs
+
+Use the GraphQL API to execute:
+
+```graphql
+subscription BuildLogReceived($projectId: ObjectID!, $deploymentId: ObjectID!) {
+  buildLogReceived(projectID: $projectId, deploymentID: $deploymentId) {
+    message    # String!
+    timestamp  # Time!
+  }
+}
+```
+
+### Subscribe to Runtime Logs
+
+Use the GraphQL API to execute:
+
+```graphql
+subscription RuntimeLogReceived($projectId: ObjectID!, $serviceId: ObjectID!, $environmentId: ObjectID!) {
+  runtimeLogReceived(projectID: $projectId, serviceID: $serviceId, environmentID: $environmentId) {
+    message    # String!
+    timestamp  # Time!
+  }
+}
+```

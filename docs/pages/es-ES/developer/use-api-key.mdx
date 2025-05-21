@@ -1,82 +1,43 @@
 ---
-title: Using API Key with Zeabur
-ogImageTitle: Using API Key
-ogImageSubtitle: Using API Key with Zeabur
+title: Crear y Usar Claves de API
+ogImageTitle: Crear y Usar Claves de API
+ogImageSubtitle: Crear y usar claves de API para interactuar con la API de Zeabur
 ---
 
-<WorkingInProgress />
+# Crear y Usar Claves de API
 
-# Introduction
+Necesitas una clave de API para interactuar con la [API Pública de Zeabur](./public-api).
 
-You can interact with our GraphQL API / REST API by sending HTTP requests in any language. Before using it, you need to create an API Key in the [Dashboard](https://dash.zeabur.com).
+## Creando una Clave de API
 
-# Creating API Key
+Abre [Panel de Control de Zeabur > Configuración > Claves de API](https://zeabur.com/account/api-keys) para ver todas las claves actualmente activas.
 
-In [Dashboard](https://dash.zeabur.com/), click on `Settings` in the dropdown menu on the right, then click on `Developer` in the sidebar on the left to see the developer options.
+![Panel de Desarrollador](/developer/api-key/developer.en-US.png)
 
-![Developer Panel](/developer/api-key/developer.en-US.png)
+Haz clic en "Generar nueva clave de API" para crear una nueva clave de API con la marca de tiempo actual.
 
-Find the `API Key` area, and click the `Generate New Token` button to generate an API Key.
+![Generar Clave de API](/developer/api-key/generate-api-key.en-US.png)
 
-![Generate API Key](/developer/api-key/generate-api-key.en-US.png)
+Haz clic en el botón del "ojo" para ver la clave de API.
 
-Click the `View` button to view the API Key.
+![Ver Clave de API](/developer/api-key/view-api-key.en-US.png)
 
-![View API Key](/developer/api-key/view-api-key.en-US.png)
+Haz clic en el botón de "copiar" para copiar la clave de API.
 
-Click the `Copy` button to copy the API Key.
+![Copiar Clave de API](/developer/api-key/copy-api-key.en-US.png)
 
-![Copy API Key](/developer/api-key/copy-api-key.en-US.png)
+## Revocar una Clave de API
 
-# Using API Key
+Abre [Panel de Control de Zeabur > Configuración > Claves de API](https://zeabur.com/account/api-keys) para ver todas las claves actualmente activas. Haz clic en el botón de "eliminar" para revocar inmediatamente la clave de API.
 
-## Authentication
+## Usando una Clave de API
 
-Zeabur API can optionally use the API Key for authentication. Ensure you have generated a valid API Key.
-
-All API requests should include your API Key in the `Authorization` HTTP header as shown below:
-
-```http
-Authorization: Bearer ZEABUR_API_KEY
-```
-
-# Sending a REST API Request
-
-You can use any HTTP client library or within your application to send requests. Here is an example:
-
-You can paste the following command into the terminal to run your first REST API request. Be sure to replace `$ZEABUR_API_KEY` with your API Key:
+Pasa `Bearer API_TOKEN` en el encabezado `Authorization` cuando llames a la API, como se muestra en el ejemplo a continuación:
 
 ```bash
-curl https://api.zeabur.com/api/v1/users/me \
-  -H "Authorization: Bearer $ZEABUR_API_KEY" \
-  -H "Content-Type: application/json" \
+curl --request POST \
+  --url https://api.zeabur.com/graphql \
+  --header 'Authorization: Bearer {TU_TOKEN_API}' \
+  --header 'Content-Type: application/json' \
+  --data '{"query":"query { me { username } }"}'
 ```
-
-This queries the current user's information. You should receive a response similar to the following:
-
-```json
-{
-    "_id": "64ffffffffffffffffff",
-    "name": "Zeabur Zebra",
-    "email": "zebra@zeabur.com",
-    "username": "zeabra",
-    "language": "en-US",
-    "githubID": 5000000,
-    "avatarUrl": "https://avatars.githubusercontent.com/u/5000000?v=4",
-    "createdAt": "2023-08-31T08:14:08.873Z",
-    "bannedAt": null,
-    "bannedReason": null,
-    "emailPreference": {
-        "buildFailed": true,
-        "deploymentCrashed": true
-    },
-    "agreedAt": "2023-08-31T08:14:17.028Z",
-    "referralCode": "zeabra",
-    "discordID": "7000000000000000000",
-    "customerID": "cus_xxxxxxxxxxxxxx"
-}
-```
-
-Now that you have successfully authenticated with the API Key, you can use the API Key to access other REST APIs.
-
-The access method for the GrapQL API is the same as above, but the request method is different. You can try the GraphQL API in the [GraphQL Playground](https://api.zeabur.com/graphql).
