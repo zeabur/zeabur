@@ -1,80 +1,43 @@
 ---
-title: APIキーの使用とZeaburとの統合
-ogImageTitle: APIキーの使用
-ogImageSubtitle: APIキーを用いてZeaburと統合
+title: API キーの作成と使用
+ogImageTitle: API キーの作成と使用
+ogImageSubtitle: Zeabur API を操作するための API キーの作成と使用
 ---
 
-# 紹介
+# API キーの作成
 
-あなたはどの言語を使用してもHTTPリクエストを送信して私たちのGraphQL API / REST APIと対話することができます。使用する前に、[Dashboard](https://dash.zeabur.com)でAPIキーを作成する必要があります。
+[Zeabur のオープン API](./public-api) とやり取りするには、API キーが必要です。
 
-# APIキーの作成
+## API キーの作成
 
-[Dashboard](https://dash.zeabur.com/)上で、右側のドロップダウンメニュー中の `Settings`をクリックし、次いで左側のサイドバー `Developer`をクリックすると、開発者のオプションが表示されます。
+[Zeabur Dashboard > 設定 > API キー](https://zeabur.com/account/api-keys)を開くと、現在有効なすべてのキーを確認できます。
 
-![Developer Panel](/developer/api-key/developer.en-US.png)
+![開発者パネル](/developer/api-key/developer.en-US.png)
 
-`API Key`の項目を見つけ、 `Generate New Token`ボタンをクリックするとAPIキーが生成されます。
+「新しい API キーを生成」をクリックすると、現在の時刻に基づいて新しい API キーが生成されます。
 
-![Generate API Key](/developer/api-key/generate-api-key.en-US.png)
+![API キーの生成](/developer/api-key/generate-api-key.en-US.png)
 
-`View`ボタンをクリックするとAPIキーを確認することができます。
+「目」ボタンをクリックすると、API キーを確認できます。
 
-![View API Key](/developer/api-key/view-api-key.en-US.png)
+![API キーの確認](/developer/api-key/view-api-key.en-US.png)
 
-`Copy`ボタンをクリックするとAPIキーをコピーすることができます。
+「コピー」ボタンをクリックすると、API キーをコピーできます。
 
-![Copy API Key](/developer/api-key/copy-api-key.en-US.png)
+![API キーのコピー](/developer/api-key/copy-api-key.en-US.png)
 
-# APIキーの使用
+## API キーの取り消し
 
-## 認証
+[Zeabur Dashboard > 設定 > API キー](https://zeabur.com/account/api-keys)を開くと、現在有効なすべてのキーを確認できます。「削除」ボタンをクリックすると、その API キーが直ちに取り消されます。
 
-Zeabur APIはAPIキーを使って身元を確認することができます。有効なAPIキーが生成されていることを確認してください。
+## API キーの使用
 
-すべてのAPIリクエストは `Authorization` HTTPヘッダーにあなたのAPIキーを含める必要があります。下記のようになります：
-
-```http
-Authorization: Bearer ZEABUR_API_KEY
-```
-
-# REST APIリクエストを発行する
-
-あなたは任意のHTTPクライアントライブラリやあなたのアプリケーション内でリクエストを発行することができます。以下に例を示します：
-
-以下のコマンドをターミナルに貼り付けて、最初のREST APIリクエストを行ってください。`$ZEABUR_API_KEY`をあなたのAPIキーに置き換えてください。
+API を呼び出す際に、`Authorization` ヘッダーに `Bearer API_TOKEN` を含めます。以下は例です：
 
 ```bash
-curl https://api.zeabur.com/api/v1/users/me \
-  -H "Authorization: Bearer $ZEABUR_API_KEY" \
-  -H "Content-Type: application/json" \
+curl --request POST \
+  --url https://api.zeabur.com/graphql \
+  --header 'Authorization: Bearer {YOUR_API_TOKEN}' \
+  --header 'Content-Type: application/json' \
+  --data '{"query":"query { me { username } }"}'
 ```
-
-ここでは現在のユーザーの情報を照会しています。あなたは以下のような応答を受け取るはずです：
-
-```json
-{
-    "_id": "64ffffffffffffffffff",
-    "name": "Zeabur Zebra",
-    "email": "zebra@zeabur.com",
-    "username": "zeabra",
-    "language": "ja-JP",
-    "githubID": 5000000,
-    "avatarUrl": "https://avatars.githubusercontent.com/u/5000000?v=4",
-    "createdAt": "2023-08-31T08:14:08.873Z",
-    "bannedAt": null,
-    "bannedReason": null,
-    "emailPreference": {
-        "buildFailed": true,
-        "deploymentCrashed": true
-    },
-    "agreedAt": "2023-08-31T08:14:17.028Z",
-    "referralCode": "zeabra",
-    "discordID": "7000000000000000000",
-    "customerID": "cus_xxxxxxxxxxxxxx"
-}
-```
-
-これであなたはAPIキーを用いて身元を確認することに成功しました。他のREST APIにアクセスするためにAPIキーを使用することができます。
-
-GrapQL APIへのアクセス方法は上記と同様で、リクエスト方法だけが異なります。あなたは [GraphQL Playground](https://api.zeabur.com/graphql)で Graphql APIを試すことができます。
