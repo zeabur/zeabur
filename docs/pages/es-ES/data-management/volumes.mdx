@@ -16,6 +16,11 @@ Para información sobre precios de Volúmenes, por favor consulta [nuestra pági
     Si solo quieres subir archivos de configuración, usar el [Editor de Configuración](/data-management/config-edit) es más conveniente y no incurre en costos adicionales.
 </Callout>
 
+## Aviso
+
+- De forma predeterminada, los servicios de Zeabur admiten reinicios sin tiempo de inactividad (“zero-downtime restart”), lo que significa que al reiniciar un servicio, el tráfico se cambia automáticamente a la nueva instancia y los usuarios no experimentan interrupciones.
+- Sin embargo, una vez que se habilitan los Volúmenes, el servicio **no puede admitir reinicios sin tiempo de inactividad**. Cada reinicio cerrará completamente el servicio antes de volver a iniciarlo, lo que provocará una breve interrupción.
+
 ## Montando Volúmenes
 
 Abre la página del servicio donde quieres montar Volúmenes, haz clic en la pestaña "Volúmenes", y verás un botón "Montar Volúmenes". Después de hacer clic, verás dos campos:
