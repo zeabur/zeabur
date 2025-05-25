@@ -1,81 +1,43 @@
 ---
-title: 使用 API Key 和 Zeabur 集成
-ogImageTitle: 使用 API Key
-ogImageSubtitle: 使用 API Key 和 Zeabur 集成
+title: 创建和使用 API 密钥
+ogImageTitle: 创建和使用 API 密钥
+ogImageSubtitle: 创建和使用 API 密钥来操作 Zeabur API
 ---
 
-# 介绍
+# 创建和使用 API 密钥
 
-您可以通过任何语言发送 HTTP 请求，与我们的 GraphQL API / REST API 进行交互。在使用之前，您需要在 [Dashboard](https://dash.zeabur.com) 中创建一个 API Key。
+您需要 API 密钥才能与 [Zeabur 的开放 API](./public-api) 互动。
 
-# 创建 API Key
+## 创建 API 密钥
 
-在 [Dashboard](https://dash.zeabur.com/) 中，点击右侧下拉菜单的 `Settings`，然后点击 左侧边栏 `Developer` , 即可看到开发者选项。
+打开 [Zeabur Dashboard > 设置 > API 密钥](https://zeabur.com/account/api-keys)，即可看到当前生效的所有密钥。
 
-![Developer Panel](/developer/api-key/developer.en-US.png)
+![开发者面板](/developer/api-key/developer.en-US.png)
 
-找到 `API Key` 区域，点击 `Generate New Token` 按钮即可生成一个 API Key。
+点击"生成新的 API 密钥"，就会以当前的时间生成一组新的 API 密钥。
 
-![Generate API Key](/developer/api-key/generate-api-key.en-US.png)
+![生成 API 密钥](/developer/api-key/generate-api-key.en-US.png)
 
-点击 `View` 按钮即可查看 API Key。
+点击"眼睛"按钮，即可查看 API 密钥。
 
-![View API Key](/developer/api-key/view-api-key.en-US.png)
+![查看 API 密钥](/developer/api-key/view-api-key.en-US.png)
 
-点击 `Copy` 按钮即可复制 API Key。
+点击"复制"按钮，即可复制 API 密钥。
 
-![Copy API Key](/developer/api-key/copy-api-key.en-US.png)
+![复制 API 密钥](/developer/api-key/copy-api-key.en-US.png)
 
-# 使用 API Key
+## 撤销 API 密钥
 
-## 验证
+打开 [Zeabur Dashboard > 设置 > API 密钥](https://zeabur.com/account/api-keys)，即可看到当前生效的所有密钥。点击"删除"按钮，就会直接撤销这个 API 密钥。
 
-Zeabur API 可以选择使用 API Key 进行身份验证。保证您已经生成了有效的 API Key。
+## 使用 API 密钥
 
-所有 API 请求都应在 `Authorization` HTTP 头部中包含您的 API Key ，如下所示：
-
-```http
-Authorization: Bearer ZEABUR_API_KEY
-```
-
-# 发出 REST API 请求
-
-您可以使用任何 HTTP 客户端库或者在您的应用中来发出请求。下面是示例：
-
-您可以将以下命令粘贴到终端中以运行您的第一个 REST API 请求。确保将 `$ZEABUR_API_KEY` 替换为您的 API Key：
+在您想调用 API 的 `Authorization` Header 中传入 `Bearer API_TOKEN`，示例如下：
 
 ```bash
-curl https://api.zeabur.com/api/v1/users/me \
-  -H "Authorization: Bearer $ZEABUR_API_KEY" \
-  -H "Content-Type: application/json" \
+curl --request POST \
+  --url https://api.zeabur.com/graphql \
+  --header 'Authorization: Bearer {YOUR_API_TOKEN}' \
+  --header 'Content-Type: application/json' \
+  --data '{"query":"query { me { username } }"}'
 ```
-
-此处查询当前用户的信息。您应该收到类似于以下内容的响应。
-
-```json
-{
-    "_id": "64ffffffffffffffffff",
-    "name": "Zeabur Zebra",
-    "email": "zebra@zeabur.com",
-    "username": "zeabra",
-    "language": "en-US",
-    "githubID": 5000000,
-    "avatarUrl": "https://avatars.githubusercontent.com/u/5000000?v=4",
-    "createdAt": "2023-08-31T08:14:08.873Z",
-    "bannedAt": null,
-    "bannedReason": null,
-    "emailPreference": {
-        "buildFailed": true,
-        "deploymentCrashed": true
-    },
-    "agreedAt": "2023-08-31T08:14:17.028Z",
-    "referralCode": "zeabra",
-    "discordID": "7000000000000000000",
-    "customerID": "cus_xxxxxxxxxxxxxx"
-}
-```
-
-现在您已经成功地使用 API Key 进行了身份验证，您可以使用 API Key 来访问其他 REST API 了。
-
-GrapQL API 的访问方式与上述相同，只是请求方式不同。您可以在 [GraphQL Playground](https://api.zeabur.com/graphql) 中尝试 GraphQL API。
-

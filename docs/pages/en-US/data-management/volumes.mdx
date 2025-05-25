@@ -16,6 +16,11 @@ For pricing information on Volumes, please refer to [our pricing page](/billing/
     If you only want to upload configuration files, using the [Config Editor](/data-management/config-edit) is more convenient and incurs no additional cost.
 </Callout>
 
+## Notice
+
+- By default, Zeabur services support zero-downtime restarts, meaning that when you restart a service, traffic is seamlessly switched to the new instance and users will not experience any interruption.
+- However, once Volumes are enabled, the service **cannot support zero-downtime restarts**. Each restart will first completely shut down the service before starting it again, resulting in a brief period of downtime.
+
 ## Mounting Volumes
 
 Open the service page where you want to mount Volumes, click on the "Volumes" tab, and you will see a "Mount Volumes" button. After clicking it, you will see two fields:

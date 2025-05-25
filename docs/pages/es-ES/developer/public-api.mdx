@@ -1,74 +1,203 @@
 ---
-title: Public API
-ogImageTitle: Public API - Zeabur
-ogImageSubtitle: Use Zeabur API to power your applications
+title: API Pública
+ogImageTitle: API Pública
+ogImageSubtitle: Usando la API Pública de Zeabur
 ---
 
 import { Callout } from 'nextra/components';
 
-<WorkingInProgress />
+# API Pública
 
-# Public API Reference
+La API de Zeabur está construida principalmente utilizando GraphQL y sirve como base para una serie de productos de Zeabur, como el Panel de Control de Zeabur y Zeabur CLI. Proporcionamos una API pública que te permite controlar Zeabur a través de código.
+Además, Zeabur ha colocado algunos esquemas JSON y especificaciones OpenAPI para APIs que no son GraphQL en el [Repositorio de Esquemas](https://schema.zeabur.app/).
 
-Zeabur public API is built with GraphQL. It's the same API that powers our dashboard and CLI.
+## Autenticación
 
-## Endpoint
+Necesitas proporcionar tu [clave de API](./use-api-key) en el encabezado `Authorization` para usar la API de Zeabur con tu identidad. Para instrucciones sobre cómo generar una clave de API, por favor lee [este documento](./use-api-key).
 
-You can access the Zeabur API via the following endpoint:
-
-```http
-https://api.zeabur.com/graphql
-```
-
-## Authentication
-
-To get started with the Zeabur API, you need to create an account and generate an API key. You can create one by visiting the [Developer Panel](https://dash.zeabur.com/account/developer).
-
-You can also check [this documentation](./use-api-key) for more information on how to generate an API key.
+Aquí hay un ejemplo de cómo incluirla:
 
 ```bash
 curl --request POST \
   --url https://api.zeabur.com/graphql \
-  --header 'Authorization: Bearer {YOUR_API_TOKEN}' \
+  --header 'Authorization: Bearer {TU_TOKEN_API}' \
   --header 'Content-Type: application/json' \
   --data '{"query":"query { me { username } }"}'
 ```
 
-## Support
+## API GraphQL
 
-If you encounter any issues or have suggestions regarding the API, we encourage you to join our Discord server. There, you can directly interact with the engineers who are working on the API.
+Puedes visitar nuestro [Explorador Apollo](https://studio.apollographql.com/public/zeabur/variant/main/explorer) para ver todos los métodos GraphQL disponibles de la API de Zeabur, probarlos y copiarlos como comandos cURL.
 
-Join our Discord server [here](https://discord.gg/yrnVvTCM7g).
+Si prefieres escribir GraphQL en un IDE o necesitas sugerencias de tipos, puedes descargar el Esquema completo de la API de Zeabur desde el Explorador en "Schema" → "SDL".
 
-## Schema
+Si encuentras que la API que necesitas no está en este Esquema, por favor háganoslo saber a través de nuestro [Discord](https://zeabur.com/dc).
 
-### Deploy Codes on Zeabur
+## API de Carga de Proyecto Local
 
-You can deploy your code on Zeabur with the deploy API without linking a GitHub repository. You can use this API to deploy your code from your local machine or any other source.
+Para información sobre la API de proyectos locales, consulta la [documentación de la API de Carga](https://schema.zeabur.app/upload-api/index.html).
 
-To deploy codes on Zeabur, you will need a project ID, service ID, and environment ID. You can get these IDs from the dashboard or CLI or just create a new project and service through API.
+El flujo del proceso es el siguiente:
 
-Then you will need to zip your code and send it to the API.
+```mermaid
+sequenceDiagram
+  participant Cliente
+  participant ZeaburAPI
+  participant URLPreasignada
 
-```bash
-curl --request POST \
-  --url https://api.zeabur.com/projects/{PROJECT_ID}/services/{SERVICE_ID}/deploy \
-  --header 'Authorization: Bearer {YOUR_API_TOKEN}' \
-  --data '{"code": {YOUR_CODE_AS_ZIP_FILE}, "environment": {ENVIRONMENT_ID}}'
+  Cliente->>ZeaburAPI: Llamar a la API "Crear Etapa de Carga"
+  ZeaburAPI->>Cliente: Devolver URL Preasignada
+  Cliente->>URLPreasignada: Cargar archivo usando método PUT
+  Cliente->>ZeaburAPI: Llamar a la API "Preparar Resultado de Carga"
+  ZeaburAPI->>Cliente: Devolver URL de despliegue del proyecto
+  Cliente->>Cliente: Redirigir a la URL de despliegue del proyecto
 ```
 
-### Retrieve Projects
+## API de Despliegue de Plantillas
 
-```bash
-curl --request POST \
-  --url https://api.zeabur.com/graphql \
-  --header 'Authorization: Bearer {YOUR_API_TOKEN}' \
-  --header 'Content-Type: application/json' \
-  --data '{"query":"query { projects { _id name } }"}'
+Si tienes un [archivo YAML de especificación de plantilla](https://schema.zeabur.app/template.json), puedes usar esta mutación GraphQL para desplegarlo en un proyecto específico:
+
+```graphql
+mutation DeployTemplate($rawSpecYaml: String, $projectId: ObjectID) {
+  deployTemplate(rawSpecYaml: $rawSpecYaml, projectID: $projectId) {
+    _id  # String!
+  }
+}
 ```
+
+Esta API es adecuada para despliegues masivos.
+
+## API de Operación de Contenedores
+
+Estas APIs te permiten cargar archivos a o descargar archivos desde un servicio específico de Zeabur, y también enviar comandos a un servicio específico de Zeabur.
+
+### Cargar Archivo
 
 <Callout>
-  The public API schema and documentation is still working in progress. We will update this page as soon as possible.
-
-  If you want to start to use the API now, you can connect us in [our Discord server](https://discord.gg/yrnVvTCM7g) for help.
+Actualmente, hay un límite de tamaño de archivo de 100MB para cargas.
 </Callout>
+
+```http
+POST https://api.zeabur.com/projects/project-id/services/service-id/files
+Content-Type: multipart/form-data
+Authorization: Bearer <TU_TOKEN_API>
+```
+
+- Payload (Contenido del Formulario)
+    - file (Blob): Contenido del archivo
+    - path (string): Ruta del archivo
+    - environment (string): El ID del entorno, que se puede obtener del `envID` en la URL del Panel de Control
+- Respuesta
+    - 200 OK
+    - 500 Error Interno del Servidor, como `{"code": "INTERNAL_SERVER_ERROR", "error": "failed to upload file"}`
+
+
+### Descargar Archivo
+
+```http
+GET https://api.zeabur.com/projects/project-id/services/service-id/files?path=[RUTA]&environment=[ENTORNO]
+Authorization: Bearer <TU_TOKEN_API>
+```
+
+- Consulta
+    - path (string): Ruta del archivo
+    - environment (string): El ID del entorno, que se puede obtener del `envID` en la URL del Panel de Control
+- Respuesta
+    - 200 OK, `application/octet-stream`
+    - 500 Error Interno del Servidor, como `{"code": "INTERNAL_SERVER_ERROR", "error": "failed to download file"}`
+
+### Listar Archivos
+
+Usa la API de "Ejecutar Comando Único" para ejecutar:
+
+```shell
+$ ls -A -a -F -1 /
+```
+
+### Eliminar Archivos
+
+Usa la API de "Ejecutar Comando Único" para ejecutar:
+
+```shell
+$ rm -r NOMBRE_ARCHIVO
+```
+
+### Ejecutar Comando Único
+
+Usa la API GraphQL para ejecutar:
+
+```graphql
+mutation ExecuteCommand($serviceId: ObjectID!, $environmentId: ObjectID!, $command: [String!]!) {
+  executeCommand(serviceID: $serviceId, environmentID: $environmentId, command: $command) {
+    exitCode  # Int!
+    output    # String!
+  }
+}
+```
+
+### Usar WebSocket para Acceder al Terminal del Servicio
+
+- Punto final de WebSocket: `wss://api.zeabur.com/exec/<service-id>` 
+- Escribir contenido en el WebSocket es la entrada real
+- Controles de Control de Redimensionamiento: `[RESIZE_CONTROL, COLS_LSB, COLS_MSB, ROWS_LSB, ROWS_MSB]` 
+  ```
+  const buffer = new Uint8Array([
+    RESIZE_CONTROL,
+    dims.cols & 0xFF,
+    dims.cols >> 8,
+    dims.rows & 0xFF,
+    dims.rows >> 8
+  ]);
+  ```
+
+### Recuperar Registros de Compilación
+
+Usa la API GraphQL para ejecutar:
+
+```graphql
+query BuildLogs($projectId: ObjectID!, $deploymentId: ObjectID!, $timestampCursor: Time) {
+  buildLogs(projectID: $projectId, deploymentID: $deploymentId, timestampCursor: $timestampCursor) {
+    message    # String!
+    timestamp  # Time!
+  }
+}
+```
+
+### Recuperar Registros de Tiempo de Ejecución
+
+Usa la API GraphQL para ejecutar:
+
+```graphql
+query RuntimeLogs($projectId: ObjectID!, $serviceId: ObjectID!, $environmentId: ObjectID!, $timestampCursor: Time) {
+  runtimeLogs(projectID: $projectId, serviceID: $serviceId, environmentID: $environmentId, timestampCursor: $timestampCursor) {
+    message    # String!
+    timestamp  # Time!
+  }
+}
+```
+
+### Suscribirse a Registros de Compilación
+
+Usa la API GraphQL para ejecutar:
+
+```graphql
+subscription BuildLogReceived($projectId: ObjectID!, $deploymentId: ObjectID!) {
+  buildLogReceived(projectID: $projectId, deploymentID: $deploymentId) {
+    message    # String!
+    timestamp  # Time!
+  }
+}
+```
+
+### Suscribirse a Registros de Tiempo de Ejecución
+
+Usa la API GraphQL para ejecutar:
+
+```graphql
+subscription RuntimeLogReceived($projectId: ObjectID!, $serviceId: ObjectID!, $environmentId: ObjectID!) {
+  runtimeLogReceived(projectID: $projectId, serviceID: $serviceId, environmentID: $environmentId) {
+    message    # String!
+    timestamp  # Time!
+  }
+}
+```
