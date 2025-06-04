@@ -203,58 +203,7 @@
                                 "enum": ["GIT", "PREBUILT", "PREBUILT_V2"]
                             },
                             "spec": {
-                                "title": "Service specification",
-                                "description": "The specification of the service.",
-                                "type": "object",
-                                "properties": {
-                                    "source": {
-                                        "title": "Source (Git Repo/Docker Image)",
-                                        "description": "The source of the service. It can be a Git(Hub) repository or a Docker image.",
-                                        "$ref": "https://schema.zeabur.app/prebuilt.json#/definitions/Source"
-                                    },
-                                    "ports": {
-                                        "title": "Ports",
-                                        "description": "The ports that will be exposed by the service.",
-                                        "$ref": "https://schema.zeabur.app/prebuilt.json#/definitions/Ports"
-                                    },
-                                    "volumes": {
-                                        "title": "Volumes",
-                                        "description": "The persistence volumes (storage) for the service.",
-                                        "$ref": "https://schema.zeabur.app/prebuilt.json#/definitions/Volumes"
-                                    },
-                                    "instructions": {
-                                        "title": "Connection instructions",
-                                        "description": "The instructions that will be showed to the user for knowing how to connect to the service.",
-                                        "$ref": "https://schema.zeabur.app/prebuilt.json#/definitions/ConnectionInstructions"
-                                    },
-                                    "env": {
-                                        "title": "Environment Variables",
-                                        "description": "The environment variables that will be set for the service or exposed in the project.",
-                                        "$ref": "https://schema.zeabur.app/prebuilt.json#/definitions/Envs"
-                                    },
-                                    "init": {
-                                        "title": "Initialization Rules",
-                                        "description": "The commands that will be executed when the service is initialized.",
-                                        "$ref": "https://schema.zeabur.app/prebuilt.json#/definitions/InitRules"
-                                    },
-                                    "configs": {
-                                        "title": "Configs",
-                                        "description": "The configurations that will be set or declared for the service.",
-                                        "$ref": "https://schema.zeabur.app/prebuilt.json#/definitions/Configs"
-                                    },
-                                    "gpu": {
-                                        "$ref": "https://schema.zeabur.app/prebuilt.json#/definitions/GPU"
-                                    },
-                                    "healthCheck": {
-                                        "$ref": "https://schema.zeabur.app/prebuilt.json#/definitions/HealthCheck"
-                                    },
-                                    "portForwarding": {
-                                        "$ref": "https://schema.zeabur.app/prebuilt.json#/definitions/PortForwarding"
-                                    }
-                                },
-                                "required": [
-                                    "source"
-                                ]
+                                "$ref": "https://schema.zeabur.app/prebuilt.json"
                             },
                             "domainKey": {
                                 "title": "Domain key",
@@ -327,9 +276,6 @@
                     },
                     "coverImage": {
                         "$ref": "#/properties/spec/properties/coverImage"
-                    },
-                    "variables": {
-                        "$ref": "#/properties/spec/properties/variables"
                     },
                     "readme": {
                         "$ref": "#/properties/spec/properties/readme"
