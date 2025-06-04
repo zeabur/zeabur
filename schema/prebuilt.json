@@ -42,7 +42,7 @@
 	"definitions": {
 		"Envs": {
 			"title": "Map of Environment Variables",
-			"description": "Declare the environment variables that are the required variables of a service (\"readonly\"), need users to fill in (\"required\", \"default\"), or declare the variables that allow other services to pick value (\"expose\"). The key is the variable name, while the value is the variable specification.",
+			"description": "Declare the environment variables of this service.",
 			"type": "object",
 			"propertyNames": {
 				"type": "string",
@@ -57,12 +57,6 @@
 			"description": "Declare the default value and flags of a variable.",
 			"type": "object",
 			"properties": {
-				"required": {
-					"title": "Required",
-					"description": "If true, we ask users to fill the values.",
-					"type": "boolean",
-					"default": false
-				},
 				"default": {
 					"title": "Default value",
 					"description": "The default value of this environment variable. If not set, it leaves empty.",
@@ -73,15 +67,8 @@
 					"description": "If true, the value will be exposed to the whole project and other projects can reference it with `${VARIABLE_NAME}`.",
 					"type": "boolean",
 					"default": false
-				},
-				"readonly": {
-					"title": "Modifiable",
-					"description": "If true, we will not allow users to modify the value once this service is created. Useful for computed values such as hostname.",
-					"type": "boolean",
-					"default": false
 				}
-			},
-			"additionalProperties": false
+			}
 		},
 		"Source": {
 			"title": "Source",
