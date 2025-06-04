@@ -74,16 +74,54 @@
 			"title": "Source",
 			"description": "The base image or source to start this service. Currently, it supports only from Docker image.",
 			"type": "object",
-			"oneOf": [
+			"anyOf": [
 				{
-					"description": "Use the prebuilt images from Docker Registry",
-					"$ref": "#/definitions/Prebuilt"
+					"oneOf": [
+						{
+							"$ref": "#/definitions/Prebuilt"
+						},
+						{
+							"$ref": "#/definitions/Git"
+						}
+					]
 				},
 				{
-					"description": "Build images from the given Git repository. Unsupported in Zeabur at this moment.",
-					"$ref": "#/definitions/Git"
+					"$ref": "#/definitions/ContainerConfiguration"
 				}
 			]
+		},
+		"ContainerConfiguration": {
+			"title": "Container configuration",
+			"description": "The configuration of the container that will be spawned for this service.",
+			"type": "object",
+			"properties": {
+				"command": {
+					"title": "Command",
+					"description": "The command to spawn this container. If not specified, the default command of the image will be used.",
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": []
+				},
+				"args": {
+					"title": "Arguments",
+					"description": "The arguments to Command to spawn this container. If not specified, the default arguments of the image will be used.",
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": []
+				},
+				"runAsUserID": {
+					"title": "Container user ID",
+					"description": "The user ID to run the container as. If runAsUserID is zero or null, we run it as the root user; otherwise, we run it as the specified user.",
+					"type": [
+						"integer",
+						"null"
+					]
+				}
+			}
 		},
 		"Prebuilt": {
 			"title": "Prebuilt source",
@@ -98,15 +136,6 @@
 				"command": {
 					"title": "Overridden command",
 					"description": "The command to spawn this container that will be used instead of the default one.",
-					"type": "array",
-					"items": {
-						"type": "string"
-					},
-					"default": []
-				},
-				"args": {
-					"title": "Overridden arguments",
-					"description": "The arguments to Command to spawn this container that will be used instead of the default one.",
 					"type": "array",
 					"items": {
 						"type": "string"
@@ -128,17 +157,8 @@
 						"string",
 						"null"
 					]
-				},
-				"runAsUserID": {
-					"title": "Container user ID",
-					"description": "The user ID to run the container as. If runAsUserID is zero or null, we run it as the root user; otherwise, we run it as the specified user.",
-					"type": [
-						"integer",
-						"null"
-					]
 				}
 			},
-			"additionalProperties": false,
 			"required": [
 				"image"
 			]
@@ -166,11 +186,6 @@
 					"description": "The branch of the repository to build from. If not specified, the default branch will be used.",
 					"type": "string"
 				},
-				"submoduleName": {
-					"title": "Submodule name",
-					"description": "Which submodule of this repository should be used as the source of this service. Check zbpack's documentation for more information. If not specified, the root directory will be used.",
-					"type": "string"
-				},
 				"watchPaths": {
 					"title": "Watch paths",
 					"description": "Control which file changes in the paths will trigger redeployment. The notation refers to the format of the Gitignore file. For example, * represents that all changes will trigger deployment, /frontEnd represents that all changes within the frontEnd folder will trigger deployment.",
@@ -185,7 +200,6 @@
 					"type": "string"
 				}
 			},
-			"additionalProperties": false,
 			"required": [
 				"source",
 				"repo"
