@@ -2,49 +2,9 @@
 	"$id": "https://schema.zeabur.app/prebuilt.json",
 	"$schema": "http://json-schema.org/draft-07/schema",
 	"title": "Service Specification (ServiceSpec)",
-	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.6.1-20250204.",
+	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.",
 	"type": "object",
 	"properties": {
-		"id": {
-			"title": "Service ID",
-			"description": "Useful for referencing this service in variables like `${SERVICE_HOST}`. When ID is not specified, we generate a ID from name.",
-			"$ref": "#/definitions/ID"
-		},
-		"name": {
-			"title": "Service name",
-			"description": "The name of this service.",
-			"type": "string",
-			"pattern": "^[a-zA-Z][ -~]*$"
-		},
-		"description": {
-			"title": "Service description",
-			"description": "A short description of this service for the service user.",
-			"type": "string"
-		},
-		"tags": {
-			"title": "Service Tags",
-			"description": "Tags for service to identification, only services with tags will be shown in the official prebuilt marketplace.",
-			"type": "array",
-			"items": {
-				"type": "string"
-			}
-		},
-		"templateURL": {
-		  "title": "Template URL",
-			"description": "The URL of the template that can be used to deploy this service.",
-			"type": "string"
-		},
-		"icon": {
-			"title": "Service Icon",
-			"description": "The icon of this service for users to identify. It shows at sidebar.",
-			"type": "string",
-			"format": "uri"
-		},
-		"docs": {
-			"title": "Documentation URL",
-			"description": "The documentation that thoroughly describes how to use this service.",
-			"type": "string"
-		},
 		"source": {
 			"$ref": "#/definitions/Source"
 		},
@@ -77,10 +37,8 @@
 		}
 	},
 	"required": [
-		"name",
 		"source"
 	],
-	"additionalProperties": false,
 	"definitions": {
 		"Envs": {
 			"title": "Map of Environment Variables",
@@ -171,17 +129,26 @@
 				"username": {
 					"title": "Registry username",
 					"description": "The username for the private registry. If not specified, the anonymous identity will be used.",
-					"type": ["string", "null"]
+					"type": [
+						"string",
+						"null"
+					]
 				},
 				"password": {
 					"title": "Registry password",
 					"description": "The password for the private registry. If not specified, the anonymous identity will be used.",
-					"type": ["string", "null"]
+					"type": [
+						"string",
+						"null"
+					]
 				},
 				"runAsUserID": {
 					"title": "Container user ID",
 					"description": "The user ID to run the container as. If runAsUserID is zero or null, we run it as the root user; otherwise, we run it as the specified user.",
-					"type": ["integer", "null"]
+					"type": [
+						"integer",
+						"null"
+					]
 				}
 			},
 			"additionalProperties": false,
@@ -473,12 +440,18 @@
 				"permission": {
 					"title": "File permission",
 					"description": "The permission of this file. It should be an octal number between 0o000 and 0o777. You must convert it to decimal. For example, 0o644 = 436, 0o755 = 493, etc. Refer to this article for what these permission flags mean: <https://docs.nersc.gov/filesystems/unix-file-permissions/#chmod>.",
-					"type": ["integer", "null"]
+					"type": [
+						"integer",
+						"null"
+					]
 				},
 				"envsubst": {
 					"title": "Substitute with environment variables",
 					"description": "If true, we will substitute the environment variables (${VARIABLES}) in the content template.",
-					"type": ["boolean", "null"]
+					"type": [
+						"boolean",
+						"null"
+					]
 				}
 			},
 			"additionalProperties": false,
@@ -525,7 +498,10 @@
 				"http": {
 					"title": "HTTP health check configuration",
 					"description": "The configuration for HTTP health check.",
-					"type": ["object", "null"],
+					"type": [
+						"object",
+						"null"
+					],
 					"properties": {
 						"path": {
 							"title": "HTTP path",
