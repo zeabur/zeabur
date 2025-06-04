@@ -4,7 +4,7 @@ export default {
   "watch-paths": "Watch Paths",
   "dockerfile": "Deploy with Dockerfile",
   "deploy-button": "Deploy Button",
-  "customize-prebuilt": "Custom Prebuilt",
+  "customize-prebuilt": "Custom Docker Image",
   "github": "Integrating with GitHub",
   "special-variables": "Special Variables",
   "deploy-in-cli": "Deploy in CLI",

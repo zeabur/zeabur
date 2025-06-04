@@ -1,24 +1,18 @@
 ---
-title: 自訂 Prebuilt
-ogImageTitle: 自訂 Prebuilt
-ogImageSubtitle: 將 Docker image 部署到 Zeabur 上
+title: 自訂 Docker 映像檔
+ogImageTitle: 自訂 Docker 映像檔
+ogImageSubtitle: 將 Docker 映像檔部署到 Zeabur
 ---
 
-import { Callout } from 'nextra/components'
+# 自訂 Docker 映像檔
 
-# 自訂 Prebuilt
+雖然 Zeabur 已經包含了許多由社群提供的模板，但您可能需要部署自己的 Docker 映像檔、設定持久儲存、設定啟動指令等等。為此需求，Zeabur 提供了可客製化的預建功能。
 
-雖然 Zeabur 已經涵蓋眾多由社群提供的 Prebuilt Images 和模板，但你可能會需要部署自己的 Docker 映像、設定持久化儲存、設定啟動命令等等。Zeabur 針對這個需求，提供了 Prebuilt 的自訂功能。
+## 開啟介面
 
-<Callout>
-  Prebuilt 主要是針對單個服務的部署，〈模板〉則涵蓋了一鍵部署多個服務 (Docker Compose) 的功能。
-</Callout>
+點選 "Add Service" → "Docker Images" 即可打開此頁面。
 
-## 打開介面
-
-點選「Add Service」→「Prebuilt Images」→「Customize」打開自訂 Prebuilt 的頁面。
-
-![打開自訂 Prebuilt 的頁面](/deploy/customize-prebuilt/open-customize-page.webp)
+![Open Docker customization page](/deploy/customize-prebuilt/open-customize-page.gif)
 
 ## 設定說明
 
@@ -49,15 +43,13 @@ services:
 
 ![環境變數的設定範例](/deploy/customize-prebuilt/environment-variable.webp)
 
-「Environment Variable」，顧名思義就是傳給服務的環境變數。不過除了單純的環境變數設定外，Zeabur 也允許你將環境變數傳給其他服務 (Expose)，甚至是設定「不能再次更改」(Readonly)，讓你有更大的環境變數設定彈性。
+「Environment Variable」，顧名思義就是傳給服務的環境變數。不過除了單純的環境變數設定外，Zeabur 也允許你將環境變數傳給其他服務 (Expose)，讓你有更大的環境變數設定彈性。
 
 「Key」是環境變數的鍵，只能由英文字母、數字和底線組成，如 `MARIADB_USER` 或 `DB_1_HOST` 都是可以接受的。
 
 「Value」則是環境變數的值，裡面可以使用 `${KEY}` 來在引用其他環境變數的 key。如上圖中 `MARIADB_PASSWORD` 直接引用了 `MARIADB_ROOT_PASSWORD`，所以 `MARIADB_PASSWORD` 的值就會等於 `123456`；同理，假如有個環境變數的值是 `password=${MARIADB_PASSWORD}`，展開之後的結果就是 `password=123456`。`${KEY}` 這種引用格式 **會在服務啟動時直接展開**，所以應用程式看到的會是已經展開完成的值，你不需要在應用層重新展開。
 
 「Expose」指把環境變數的鍵值同時套用到其他服務上。以上圖為例，`MARIADB_USERNAME` 和 `MARIADB_PASSWORD` 都有核取 Expose，所以同專案底下的其他服務都可以看到 `MARIADB_USERNAME`、`MARIADB_PASSWORD` 這兩個環境變數，當然也可以使用 `${KEY}` 引用它們。
-
-「Readonly」則代表「變數在 Prebuilt 建立後不能由使用者修改」。以上圖為例，`MARIADB_PASSWORD` 打勾了 Readonly，所以之後直接針對 `MARIADB_PASSWORD` 的修改都不會作用（不過修改 `MARIADB_ROOT_PASSWORD` 後，`MARIADB_PASSWORD` 的值依然會變化）。
 
 除了其他服務 Exposed 的變數以外，你也可以使用 [Zeabur 預先定義好的特殊變數](/deploy/special-variables)，比如使用 `${ZEABUR_WEB_URL}` 取回設定在 `web` port 的網址。
 
@@ -156,10 +148,8 @@ services:
 
 從 GUI 建立的 Start Command 預設的 Command 都是 `/bin/sh`。如果你的 Command 不是 `/bin/sh`，可使用 Edit TOML 功能直接修改，或與 [客服](/community/help) 討論更改方式。
 
-## 手動撰寫 Prebuilt TOML
+## 撰寫自己的模板 YAML
 
-雖然 GUI 已經提供了製作 Prebuilt 服務必要的眾多參數，但你或許想要加入自訂的 icon、配置服務連線指引 (Instruction)、設定更多更細的項目⋯⋯這時候你可以使用 **Edit TOML** 幫助你撰寫功能更完善（也更為複雜的）Prebuilt TOML 檔案。
+雖然 GUI 提供了許多用於建立您的 Docker 服務的必要參數，但您可能希望新增自訂圖示、連線說明或詳細設定。在這種情況下，[以程式碼撰寫您的模板](/deploy/template-in-code) 可能是更好的選擇。
 
-![Edit TOML 的打開方式](/deploy/customize-prebuilt/edit-toml.webp)
-
-每個欄位的說明可以參考 [Prebuilt TOML 的 JSON schema 文件](https://json-schema.app/view/%23?url=https%3A%2F%2Fschema.zeabur.app%2Fprebuilt.json)，TOML 的撰寫說明可以參閱這份 [TOML 格式文件](https://toml.io/en/v1.0.0)。如果有任何撰寫上的疑問，歡迎與 [客服](/community/help) 詢問。
+如果您對於撰寫自己的範本有任何問題，歡迎聯絡[客服](/community/help)。
