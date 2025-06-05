@@ -1,69 +1,59 @@
 ---
-title: Custom Prebuilt
-ogImageTitle: Custom Prebuilt
-ogImageSubtitle: Deploy Docker image to Zeabur
+title: カスタム Docker イメージ
+ogImageTitle: カスタム Docker イメージ
+ogImageSubtitle: Zeabur への Docker イメージのデプロイ
 ---
 
-import { Callout } from 'nextra/components'
+# カスタム Docker イメージ
 
-# Custom Prebuilt
+Zeabur にはすでにコミュニティ提供の多くのテンプレートが含まれていますが、独自の Docker イメージをデプロイしたり、永続ストレージを設定したり、起動コマンドを設定したりする必要があるかもしれません。このニーズに応えるため、Zeabur はカスタマイズ可能なプリビルド機能を提供しています。
 
-<WorkingInProgress />
+## インターフェースを開く
 
-While Zeabur already includes numerous Prebuilt Images and templates provided by the community, you might need to deploy your own Docker images, configure persistent storage, set start command, and more. For this need, Zeabur offers customizable Prebuilt functionality.
+「Add Service」→「Docker Images」をクリックすると、このページが開きます。
 
-<Callout>
-  Prebuilt is mainly for deploying a single service, whereas "templates" cover one-click deployment of multiple services (Docker Compose).
-</Callout>
+![Open Docker customization page](/deploy/customize-prebuilt/open-customize-page.gif)
 
-## Open Interface
+## 設定説明
 
-Click "Add Service" → "Prebuilt Images" → "Customize" to open the Prebuilt customization page.
+### イメージ
 
-![Open Prebuilt customization page](/deploy/customize-prebuilt/open-customize-page.webp)
+![Image 設定説明](/deploy/customize-prebuilt/select-image.webp)
 
-## Configuration Instructions
-
-### Image
-
-![Image Configuration Instructions](/deploy/customize-prebuilt/select-image.webp)
-
-"Image" is the Docker image to be pulled, typically the image tag following `docker pull` or `docker run`, such as
+「Image」はプルする Docker イメージです。通常、`docker pull` または `docker run` に続くイメージタグです。例えば：
 
 ```bash
-docker pull mariadb      # tag is "mariadb"
-docker run mariadb:lts   # tag is "mariadb:lts"
+docker pull mariadb      # タグは "mariadb"
+docker run mariadb:lts   # タグは "mariadb:lts"
 ```
 
-Or in Docker Compose
+または Docker Compose のこの部分です。
 
 ```yaml
 version: '3.9'
 services:
   db:
-    image: postgres      # tag is "postgres"
+    image: postgres      # タグは "postgres"
     # ...
 ```
 
-After setting up, you can proceed to configure environment variables, ports, etc.
+設定が完了したら、環境変数、ポートなどのプリビルド起動設定を続行できます。
 
-### Environment Variable
+### 環境変数
 
-![Environment Variable Configuration Example](/deploy/customize-prebuilt/environment-variable.webp)
+![環境変数の設定例](/deploy/customize-prebuilt/environment-variable.webp)
 
-"Environment Variable," as the name implies, is the environment variable passed to the service. In addition to basic environment variable settings, Zeabur also allows you to expose these variables to other services and set them as "readonly" (immutable).
+「Environment Variable」は、その名の通りサービスに渡される環境変数です。しかし、単純な環境変数の設定に加えて、Zeabur では環境変数を他のサービスに渡す（Expose する）ことも可能で、環境変数の設定に柔軟性を持たせることができます。
 
-"Key" is the environment variable key, allowing only letters, numbers, and underscores, such as `MARIADB_USER` or `DB_1_HOST`.
+「Key」は環境変数のキーで、英字、数字、アンダースコアのみで構成できます。例えば `MARIADB_USER` や `DB_1_HOST` は有効です。
 
-"Value" is the environment variable value, which can include `${KEY}` references to other variables. As shown above, `MARIADB_PASSWORD` references `MARIADB_ROOT_PASSWORD`, so its value equals `123456`. Likewise, if a variable value is `password=${MARIADB_PASSWORD}`, it expands to `password=123456`. This `${KEY}` format expands at service startup, so the application sees the expanded value.
+「Value」は環境変数の値です。ここでは `${KEY}` を使用して他の環境変数のキーを参照できます。上記の図では、`MARIADB_PASSWORD` は `MARIADB_ROOT_PASSWORD` を直接参照しているため、`MARIADB_PASSWORD` の値は `123456` となります。同様に、環境変数の値が `password=${MARIADB_PASSWORD}` の場合、展開後の結果は `password=123456` となります。この `${KEY}` の参照形式は、**サービス起動時に直接展開される**ため、アプリケーションが参照するのは既に展開された値であり、アプリケーション層で再度展開する必要はありません。
 
-"Expose" makes the variable available to other services. For instance, `MARIADB_USERNAME` and `MARIADB_PASSWORD` are exposed, making them accessible to other services in the same project.
+「Expose」は、環境変数のキーと値を同時に他のサービスにも適用することを指します。上記の図を例にすると、`MARIADB_USERNAME` と `MARIADB_PASSWORD` は両方とも Expose がチェックされているため、同じプロジェクト下の他のサービスは `MARIADB_USERNAME`、`MARIADB_PASSWORD` という2つの環境変数を参照でき、もちろん `${KEY}` でそれらを参照することもできます。
 
-"Readonly" means the variable cannot be modified after Prebuilt creation. For example, `MARIADB_PASSWORD` marked as readonly, so members cannot change its value. Note that its value still reflects to the current `MARIADB_ROOT_PASSWORD` value.
+他のサービスで Expose された変数以外に、[Zeabur が事前に定義している特殊変数](/deploy/special-variables)を使用することも可能です。例えば、`${ZEABUR_WEB_URL}` を使用して `web` ポートに設定された URL を取得できます。
 
-Aside from variables Exposed by other services, you can also use [Zeabur's predefined special variables](/deploy/special-variables), such as using `${ZEABUR_WEB_URL}` to retrieve the URL set on the `web` port.
-
-If you are write a Prebuilt according to a Docker image documentation, environment variables often follow `docker run` with `--env` (or `-e`), such as:
+Docker イメージのドキュメントを参照する場合、通常、環境変数は `docker run` の後の `--env` (または `-e`) パラメータで指定されています。以下の例を参照してください。
 
 ```bash
 docker run --detach --name some-mariadb --env MARIADB_USER=example-user --env MARIADB_PASSWORD=my_cool_secret --env MARIADB_DATABASE=example-database --env MARIADB_ROOT_PASSWORD=my-secret-pw  mariadb:latest
@@ -74,7 +64,7 @@ docker run --detach --name some-mariadb --env MARIADB_USER=example-user --env MA
 # MARIADB_ROOT_PASSWORD = my-secret-pw
 ```
 
-In Docker Compose:
+Docker Compose の場合は以下のようになります。
 
 ```yaml
 version: '3.9'
@@ -87,26 +77,26 @@ services:
       # DEBUG = true
 ```
 
-### Ports
+### ポート
 
-![Ports Configuration Example](/deploy/customize-prebuilt/ports.webp)
+![Ports の設定例](/deploy/customize-prebuilt/ports.webp)
 
-"Ports" function like firewall inbound rules, allowing only declared ports to be accessed by other services or the external network.
+「Ports」はファイアウォールのインバウンドルールに相当し、宣言されたポートのみが他のサービスや外部ネットワークから接続可能です。
 
-"Port Name" should consist only of letters and dashes. "Port" is the service listening port, such as `3306` for MariaDB or `8080`, `3000`, `80` for web services.
+「Port Name」は英字とハイフンのみで構成できます。「Port」にはサービスがリッスンするポート番号を記述します。例えば MariaDB は `3306` です。Web サービスはほとんどが `8080`, `3000`, `80`, ... です。
 
-"Port Type" can be `HTTP` or `TCP`. For external access, `HTTP` ports can be accessed with a domain (e.g., `my-service.zeabur.app`) that contains the automatic TLS certificate signing by Zeabur, while `TCP` ports can be accessed with an auto-assigned hostname and port (e.g., `reg.clusters.zeabur.com:12345`). For inter-service connections, you can access the port with [Private Networking](/deploy/private-networking), which reduces unnecessary traffic costs. To access this port in other services, use the declared port directly (`mariadb.zeabur.internal:3306`, `backend.zeabur.internal:8080`).
+「Port Type」は `HTTP` または `TCP` を選択できます。外部ネットワークの場合、`HTTP` はドメイン名 (例: `my-service.zeabur.app`) で直接接続でき、同時に Zeabur が自動的に TLS 証明書を署名します。`TCP` は Zeabur が自動的に割り当てる転送ホスト名とポートで接続できます (例: `reg.clusters.zeabur.com:12345`)。サービス間の接続の場合、[サービス内部ネットワーク](/deploy/private-networking)を使用してサービスに直接接続することで、不要なトラフィックコストを削減できます。この場合、ポートには宣言したポート番号をそのまま入力すれば良いです (すなわち `mariadb.zeabur.internal:3306`、`backend.zeabur.internal:8080`)。
 
-If you are write a Prebuilt according to a Docker image documentation, ports follow `docker run` with `-p`, such as:
+Docker イメージのドキュメントを参照する場合、通常、環境変数は `docker run` の後の `-p` パラメータで指定されています。以下の例を参照してください。
 
 ```bash
 docker run -p 3306 mariadb:latest
 
-# Port Name = <Custom>; Port = 3306; Port Type = TCP
-# TCP because MariaDB uses a custom TCP-based protocol.
+# Port Name = <カスタム>; Port = 3306; Port Type = TCP
+# TCP は MariaDB が TCP ベースのカスタムプロトコルを使用しているためです。
 ```
 
-In Docker Compose:
+Docker Compose の場合は以下のようになります。
 
 ```yaml
 version: '3.9'
@@ -116,29 +106,29 @@ services:
     restart: always
     ports:
       - 80:8080
-      # Port Name = <Custom>; Port = 8080; Port Type = HTTP
-      # HTTP because adminer is a PHP web interface for database management.
+      # Port Name = <カスタム>; Port = 8080; Port Type = HTTP
+      # HTTP は adminer がデータベースを管理する PHP Web インターフェースであるためです。
 ```
 
-### Volumes
+### ボリューム
 
-![Volumes Configuration Example](/deploy/customize-prebuilt/volumes.webp)
+![Volumes の設定例](/deploy/customize-prebuilt/volumes.webp)
 
-"Volumes" are paths for persistent storage.
+「Volumes」は永続ストレージ空間のマウントパスです。
 
-By default, Zeabur resets the service data to the image's default state upon each restart (stateless). To store data long-term in a container, you can configure persistent storage and mount it to the desired directory. This ensures that the mounted directory remains unchanged on restarts or updates, until you delete the service or modify the directory contents. The "Backup" feature also backs up this space. Refer to [Zeabur Pricing](https://zeabur.com/pricing) for persistent storage charges.
+デフォルトでは、Zeabur はサービスが再起動されるたびに、サービス内のデータをイメージのデフォルト状態にリセットします（これをステートレスと呼びます）。コンテナ内に長期的にデータを保存する必要がある場合は、永続ストレージ空間を構成し、長期的に保存したいディレクトリにマウントすることで、サービスが再起動または更新されても、マウントされたディレクトリは変更されません。ただし、サービスを削除したり、手動でディレクトリの内容を変更したりすると、その内容は変更されます。また、サービスの「Backup」機能もこの空間のデータをバックアップします。永続ストレージ空間の料金については、[Zeabur の Pricing ページ](https://zeabur.com/pricing)を参照してください。
 
-"Volume id" is the storage space identifier, consisting only of letters, numbers, and dashes. "Path" is the mount path, configured according to the Docker image's **Volume** settings.
+「Volume id」はストレージ空間の識別子で、英字、数字、ハイフンのみ入力できます。「Path」はストレージ空間のマウントパスです。Docker イメージの **Volume** 設定を参考に設定してください。
 
-In Docker image documentation, volumes follow `docker run` with `-v`, such as:
+Docker イメージのドキュメントを参照する場合、通常、環境変数は `docker run` の後の `-v` パラメータで指定されています。以下の例を参照してください。
 
 ```bash
 docker run -v your-storage:/var/lib/mysql mariadb:latest
 
-# Volume ID = <Custom>; Path = /var/lib/mysql
+# Volume ID = <カスタム>; Path = /var/lib/mysql
 ```
 
-In Docker Compose:
+Docker Compose の場合は以下のようになります。
 
 ```yaml
 version: '3.9'
@@ -147,21 +137,19 @@ services:
     image: mariadb
     volumes:
       - your-storage:/var/lib/mysql
-      # Volume ID = <Custom>; Path = /var/lib/mysql
+      # Volume ID = <カスタム>; Path = /var/lib/mysql
 ```
 
-### Start Command
+### 起動コマンド
 
-![Start Command Configuration Example](/deploy/customize-prebuilt/start-command.webp)
+![Start Command の設定例](/deploy/customize-prebuilt/start-command.webp)
 
-"Start Command" allows you to override the default Docker image entrypoint and arguments. This is an advanced setting and can be skipped if you are unsure what it is.
+「Start Command」を使用すると、Docker イメージがデフォルトで使用する Entrypoint とパラメータを変更できます。この部分はやや高度なので、意味がよくわからない場合はスキップしても構いません。
 
-When specifying from the GUI, the default entrypoint when setting this field is `/bin/sh`. If your image does not provide `/bin/sh`, use **Edit TOML** to change it or consult [support](/community/help) for assistant.
+GUI から作成された Start Command のデフォルトのコマンドはすべて `/bin/sh` です。コマンドが `/bin/sh` でない場合は、Edit TOML 機能で直接変更するか、[カスタマーサポート](/community/help)にご相談ください。
 
-## Manually Write Prebuilt TOML
+## 独自のテンプレート YAML を記述する
 
-Although the GUI offers many necessary parameters for creating Prebuilt services, you might want to add custom icons, connection instructions, or detailed settings. In this case, use **Edit TOML** for a more comprehensive (and complex) Prebuilt TOML file.
+GUI は Docker サービスを作成するための必要な多くのパラメータを提供していますが、カスタムアイコン、接続手順、詳細設定などを追加したい場合があるかもしれません。この場合、[コードでテンプレートを記述する](/deploy/template-in-code)方が良い選択肢となるでしょう。
 
-![Open Edit TOML](/deploy/customize-prebuilt/edit-toml.webp)
-
-Refer to the [Prebuilt TOML JSON schema](https://json-schema.app/view/%23?url=https%3A%2F%2Fschema.zeabur.app%2Fprebuilt.json) for each field explanation, and the [TOML documentation](https://toml.io/en/v1.0.0) for writing instructions. If you have any questions, feel free to contact [support](/community/help).
+独自のテンプレートの記述についてご不明な点がございましたら、お気軽に[カスタマーサポート](/community/help)にご連絡ください。
