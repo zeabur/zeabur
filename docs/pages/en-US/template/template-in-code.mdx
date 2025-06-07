@@ -244,13 +244,13 @@ spec:
     variables:
         - key: WORDPRESS_DOMAIN
 
-$ npx zeabur template deploy -f wp.yaml
+$ npx zeabur@latest template deploy -f wp.yaml
 ```
 
 First, the `zeabur` CLI will ask you which project you want to deploy to, then it will ask you to fill in the variables specified in the services' `variables`, and finally, it will deploy the template to the project you specified.
 
 ```
-$ npx zeabur template deploy -f wp.yaml
+$ npx zeabur@latest template deploy -f wp.yaml
 ? Select project  [Use arrows to move, type to filter]
   your-project
 > Create a new project
@@ -270,10 +270,10 @@ INFO	Template successfully deployed into project "aphylac" (https://dash.zeabur.
 
 ## Publishing Templates Using the `zeabur` CLI
 
-If testing is successful, you can use the `npx zeabur template create` command to publish the template for others to use. For example, using the `wp.yaml` from above:
+If testing is successful, you can use the `npx zeabur@latest template create` command to publish the template for others to use. For example, using the `wp.yaml` from above:
 
 ```
-$ npx zeabur template create -f wp.yaml
+$ npx zeabur@latest template create -f wp.yaml
 INFO	Template "WordPress" (https://zeabur.com/templates/71HORL) created
 ```
 
@@ -285,9 +285,9 @@ You can also add `.yaml` to the end of link to view the Template's Resource YAML
 
 ## Updating Templates Using the `zeabur` CLI
 
-If you need to modify the template's content, such as renaming the template or updating the Image version, you can update it after modifying the Resource YAML by using the `npx zeabur template update` command:
+If you need to modify the template's content, such as renaming the template or updating the Image version, you can update it after modifying the Resource YAML by using the `npx zeabur@latest template update` command:
 
 ```
-$ npx zeabur template update -c 71HORL -f wp.yaml
+$ npx zeabur@latest template update -c 71HORL -f wp.yaml
 INFO	Template updated.
 ```
