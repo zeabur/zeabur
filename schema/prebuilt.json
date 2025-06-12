@@ -2,49 +2,9 @@
 	"$id": "https://schema.zeabur.app/prebuilt.json",
 	"$schema": "http://json-schema.org/draft-07/schema",
 	"title": "Service Specification (ServiceSpec)",
-	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.\n\nThe version of this schema is v4.6.1-20250204.",
+	"description": "Service Specification describes the essential information for creating a service, for example, the Docker image of a service, the variables a service should be specified, the volumes for persistent storage, etc.",
 	"type": "object",
 	"properties": {
-		"id": {
-			"title": "Service ID",
-			"description": "Useful for referencing this service in variables like `${SERVICE_HOST}`. When ID is not specified, we generate a ID from name.",
-			"$ref": "#/definitions/ID"
-		},
-		"name": {
-			"title": "Service name",
-			"description": "The name of this service.",
-			"type": "string",
-			"pattern": "^[a-zA-Z][ -~]*$"
-		},
-		"description": {
-			"title": "Service description",
-			"description": "A short description of this service for the service user.",
-			"type": "string"
-		},
-		"tags": {
-			"title": "Service Tags",
-			"description": "Tags for service to identification, only services with tags will be shown in the official prebuilt marketplace.",
-			"type": "array",
-			"items": {
-				"type": "string"
-			}
-		},
-		"templateURL": {
-		  "title": "Template URL",
-			"description": "The URL of the template that can be used to deploy this service.",
-			"type": "string"
-		},
-		"icon": {
-			"title": "Service Icon",
-			"description": "The icon of this service for users to identify. It shows at sidebar.",
-			"type": "string",
-			"format": "uri"
-		},
-		"docs": {
-			"title": "Documentation URL",
-			"description": "The documentation that thoroughly describes how to use this service.",
-			"type": "string"
-		},
 		"source": {
 			"$ref": "#/definitions/Source"
 		},
@@ -77,14 +37,12 @@
 		}
 	},
 	"required": [
-		"name",
 		"source"
 	],
-	"additionalProperties": false,
 	"definitions": {
 		"Envs": {
 			"title": "Map of Environment Variables",
-			"description": "Declare the environment variables that are the required variables of a service (\"readonly\"), need users to fill in (\"required\", \"default\"), or declare the variables that allow other services to pick value (\"expose\"). The key is the variable name, while the value is the variable specification.",
+			"description": "Declare the environment variables of this service.",
 			"type": "object",
 			"propertyNames": {
 				"type": "string",
@@ -99,12 +57,6 @@
 			"description": "Declare the default value and flags of a variable.",
 			"type": "object",
 			"properties": {
-				"required": {
-					"title": "Required",
-					"description": "If true, we ask users to fill the values.",
-					"type": "boolean",
-					"default": false
-				},
 				"default": {
 					"title": "Default value",
 					"description": "The default value of this environment variable. If not set, it leaves empty.",
@@ -115,30 +67,61 @@
 					"description": "If true, the value will be exposed to the whole project and other projects can reference it with `${VARIABLE_NAME}`.",
 					"type": "boolean",
 					"default": false
-				},
-				"readonly": {
-					"title": "Modifiable",
-					"description": "If true, we will not allow users to modify the value once this service is created. Useful for computed values such as hostname.",
-					"type": "boolean",
-					"default": false
 				}
-			},
-			"additionalProperties": false
+			}
 		},
 		"Source": {
 			"title": "Source",
 			"description": "The base image or source to start this service. Currently, it supports only from Docker image.",
 			"type": "object",
-			"oneOf": [
+			"anyOf": [
 				{
-					"description": "Use the prebuilt images from Docker Registry",
-					"$ref": "#/definitions/Prebuilt"
+					"oneOf": [
+						{
+							"$ref": "#/definitions/Prebuilt"
+						},
+						{
+							"$ref": "#/definitions/Git"
+						}
+					]
 				},
 				{
-					"description": "Build images from the given Git repository. Unsupported in Zeabur at this moment.",
-					"$ref": "#/definitions/Git"
+					"$ref": "#/definitions/ContainerConfiguration"
 				}
 			]
+		},
+		"ContainerConfiguration": {
+			"title": "Container configuration",
+			"description": "The configuration of the container that will be spawned for this service.",
+			"type": "object",
+			"properties": {
+				"command": {
+					"title": "Command",
+					"description": "The command to spawn this container. If not specified, the default command of the image will be used.",
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": []
+				},
+				"args": {
+					"title": "Arguments",
+					"description": "The arguments to Command to spawn this container. If not specified, the default arguments of the image will be used.",
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": []
+				},
+				"runAsUserID": {
+					"title": "Container user ID",
+					"description": "The user ID to run the container as. If runAsUserID is zero or null, we run it as the root user; otherwise, we run it as the specified user.",
+					"type": [
+						"integer",
+						"null"
+					]
+				}
+			}
 		},
 		"Prebuilt": {
 			"title": "Prebuilt source",
@@ -159,32 +142,23 @@
 					},
 					"default": []
 				},
-				"args": {
-					"title": "Overridden arguments",
-					"description": "The arguments to Command to spawn this container that will be used instead of the default one.",
-					"type": "array",
-					"items": {
-						"type": "string"
-					},
-					"default": []
-				},
 				"username": {
 					"title": "Registry username",
 					"description": "The username for the private registry. If not specified, the anonymous identity will be used.",
-					"type": ["string", "null"]
+					"type": [
+						"string",
+						"null"
+					]
 				},
 				"password": {
 					"title": "Registry password",
 					"description": "The password for the private registry. If not specified, the anonymous identity will be used.",
-					"type": ["string", "null"]
-				},
-				"runAsUserID": {
-					"title": "Container user ID",
-					"description": "The user ID to run the container as. If runAsUserID is zero or null, we run it as the root user; otherwise, we run it as the specified user.",
-					"type": ["integer", "null"]
+					"type": [
+						"string",
+						"null"
+					]
 				}
 			},
-			"additionalProperties": false,
 			"required": [
 				"image"
 			]
@@ -212,11 +186,6 @@
 					"description": "The branch of the repository to build from. If not specified, the default branch will be used.",
 					"type": "string"
 				},
-				"submoduleName": {
-					"title": "Submodule name",
-					"description": "Which submodule of this repository should be used as the source of this service. Check zbpack's documentation for more information. If not specified, the root directory will be used.",
-					"type": "string"
-				},
 				"watchPaths": {
 					"title": "Watch paths",
 					"description": "Control which file changes in the paths will trigger redeployment. The notation refers to the format of the Gitignore file. For example, * represents that all changes will trigger deployment, /frontEnd represents that all changes within the frontEnd folder will trigger deployment.",
@@ -231,7 +200,6 @@
 					"type": "string"
 				}
 			},
-			"additionalProperties": false,
 			"required": [
 				"source",
 				"repo"
@@ -299,16 +267,6 @@
 			"description": "The connection instruction is a user-friendly line of text that allows users knowing to connect to this service from their services or local machines.",
 			"type": "object",
 			"properties": {
-				"type": {
-					"title": "Instruction type",
-					"description": "Is this instruction line a text, URL or password?",
-					"type": "string",
-					"enum": [
-						"TEXT",
-						"URL",
-						"PASSWORD"
-					]
-				},
 				"title": {
 					"title": "Instruction title",
 					"description": "The title of this instruction. It will be shown as the title of the instruction line.",
@@ -322,19 +280,9 @@
 					"description": "The content of this instruction. You can reference variables in this text with `${VARIABLE_NAME}`.",
 					"type": "string",
 					"minLength": 1
-				},
-				"category": {
-					"title": "Instruction category",
-					"description": "The category of this instruction. Useful for filtering and grouping in Instruction tab.",
-					"type": "string",
-					"examples": [
-						"Credentials"
-					]
 				}
 			},
-			"additionalProperties": false,
 			"required": [
-				"type",
 				"title",
 				"content"
 			]
@@ -473,12 +421,18 @@
 				"permission": {
 					"title": "File permission",
 					"description": "The permission of this file. It should be an octal number between 0o000 and 0o777. You must convert it to decimal. For example, 0o644 = 436, 0o755 = 493, etc. Refer to this article for what these permission flags mean: <https://docs.nersc.gov/filesystems/unix-file-permissions/#chmod>.",
-					"type": ["integer", "null"]
+					"type": [
+						"integer",
+						"null"
+					]
 				},
 				"envsubst": {
 					"title": "Substitute with environment variables",
 					"description": "If true, we will substitute the environment variables (${VARIABLES}) in the content template.",
-					"type": ["boolean", "null"]
+					"type": [
+						"boolean",
+						"null"
+					]
 				}
 			},
 			"additionalProperties": false,
@@ -525,7 +479,10 @@
 				"http": {
 					"title": "HTTP health check configuration",
 					"description": "The configuration for HTTP health check.",
-					"type": ["object", "null"],
+					"type": [
+						"object",
+						"null"
+					],
 					"properties": {
 						"path": {
 							"title": "HTTP path",
