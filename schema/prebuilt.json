@@ -267,16 +267,6 @@
 			"description": "The connection instruction is a user-friendly line of text that allows users knowing to connect to this service from their services or local machines.",
 			"type": "object",
 			"properties": {
-				"type": {
-					"title": "Instruction type",
-					"description": "Is this instruction line a text, URL or password?",
-					"type": "string",
-					"enum": [
-						"TEXT",
-						"URL",
-						"PASSWORD"
-					]
-				},
 				"title": {
 					"title": "Instruction title",
 					"description": "The title of this instruction. It will be shown as the title of the instruction line.",
@@ -290,19 +280,9 @@
 					"description": "The content of this instruction. You can reference variables in this text with `${VARIABLE_NAME}`.",
 					"type": "string",
 					"minLength": 1
-				},
-				"category": {
-					"title": "Instruction category",
-					"description": "The category of this instruction. Useful for filtering and grouping in Instruction tab.",
-					"type": "string",
-					"examples": [
-						"Credentials"
-					]
 				}
 			},
-			"additionalProperties": false,
 			"required": [
-				"type",
 				"title",
 				"content"
 			]
