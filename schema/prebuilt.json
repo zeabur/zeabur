@@ -198,6 +198,11 @@
 					"title": "Root directory",
 					"description": "The root directory of the service to deploy. For example, if you place your backend application in <repo>/backend, you should fill 'backend' here.",
 					"type": "string"
+				},
+				"dockerfile": {
+					"title": "Dockerfile",
+					"description": "The Dockerfile content to build the service. If not specified, we prepare a Dockerfile for you.",
+					"type": "string"
 				}
 			},
 			"required": [
