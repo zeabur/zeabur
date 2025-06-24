@@ -1,69 +1,59 @@
 ---
-title: Custom Prebuilt
-ogImageTitle: Custom Prebuilt
-ogImageSubtitle: Deploy Docker image to Zeabur
+title: Personalizar imagen Docker
+ogImageTitle: Personalizar imagen Docker
+ogImageSubtitle: Desplegar imagen Docker en Zeabur
 ---
 
-import { Callout } from 'nextra/components'
+# Imagen Docker personalizada
 
-# Custom Prebuilt
+Aunque Zeabur ya incluye numerosas plantillas proporcionadas por la comunidad, es posible que necesites desplegar tus propias imágenes Docker, configurar almacenamiento persistente, establecer el comando de inicio y más. Para esta necesidad, Zeabur ofrece la funcionalidad personalizable Prebuilt.
 
-<WorkingInProgress />
+## Abrir Interfaz
 
-While Zeabur already includes numerous Prebuilt Images and templates provided by the community, you might need to deploy your own Docker images, configure persistent storage, set start command, and more. For this need, Zeabur offers customizable Prebuilt functionality.
+Haz clic en "Añadir servicio" → "Imágenes Docker" para abrir esta página.
 
-<Callout>
-  Prebuilt is mainly for deploying a single service, whereas "templates" cover one-click deployment of multiple services (Docker Compose).
-</Callout>
+![Abrir página de personalización de Docker](/deploy/customize-prebuilt/open-customize-page.gif)
 
-## Open Interface
+## Instrucciones de configuración
 
-Click "Add Service" → "Prebuilt Images" → "Customize" to open the Prebuilt customization page.
+### Imagen
 
-![Open Prebuilt customization page](/deploy/customize-prebuilt/open-customize-page.webp)
+![Instrucciones de configuración de imagen](/deploy/customize-prebuilt/select-image.webp)
 
-## Configuration Instructions
-
-### Image
-
-![Image Configuration Instructions](/deploy/customize-prebuilt/select-image.webp)
-
-"Image" is the Docker image to be pulled, typically the image tag following `docker pull` or `docker run`, such as
+"Imagen" es la imagen Docker que se extraerá, típicamente la etiqueta de la imagen que sigue a `docker pull` o `docker run`, como por ejemplo
 
 ```bash
-docker pull mariadb      # tag is "mariadb"
-docker run mariadb:lts   # tag is "mariadb:lts"
+docker pull mariadb      # la etiqueta es "mariadb"
+docker run mariadb:lts   # la etiqueta es "mariadb:lts"
 ```
 
-Or in Docker Compose
+O en Docker Compose
 
 ```yaml
 version: '3.9'
 services:
   db:
-    image: postgres      # tag is "postgres"
+    image: postgres      # la etiqueta es "postgres"
     # ...
 ```
 
-After setting up, you can proceed to configure environment variables, ports, etc.
+Tras configurarla, puedes proceder a configurar variables de entorno, puertos, etc.
 
-### Environment Variable
+### Variable de entorno
 
-![Environment Variable Configuration Example](/deploy/customize-prebuilt/environment-variable.webp)
+![Ejemplo de configuración de variable de entorno](/deploy/customize-prebuilt/environment-variable.webp)
 
-"Environment Variable," as the name implies, is the environment variable passed to the service. In addition to basic environment variable settings, Zeabur also allows you to expose these variables to other services and set them as "readonly" (immutable).
+"Variable de entorno", como su nombre indica, es la variable de entorno que se pasa al servicio. Además de la configuración básica de variables de entorno, Zeabur también te permite exponer estas variables a otros servicios.
 
-"Key" is the environment variable key, allowing only letters, numbers, and underscores, such as `MARIADB_USER` or `DB_1_HOST`.
+"Clave" es la clave de la variable de entorno, que solo permite letras, números y guiones bajos, como `MARIADB_USER` o `DB_1_HOST`.
 
-"Value" is the environment variable value, which can include `${KEY}` references to other variables. As shown above, `MARIADB_PASSWORD` references `MARIADB_ROOT_PASSWORD`, so its value equals `123456`. Likewise, if a variable value is `password=${MARIADB_PASSWORD}`, it expands to `password=123456`. This `${KEY}` format expands at service startup, so the application sees the expanded value.
+"Valor" es el valor de la variable de entorno, que puede incluir referencias `${CLAVE}` a otras variables. Como se muestra arriba, `MARIADB_PASSWORD` hace referencia a `MARIADB_ROOT_PASSWORD`, por lo que su valor es igual a `123456`. De manera similar, si el valor de una variable es `password=${MARIADB_PASSWORD}`, se expande a `password=123456`. Este formato `${CLAVE}` se expande al inicio del servicio, por lo que la aplicación ve el valor expandido.
 
-"Expose" makes the variable available to other services. For instance, `MARIADB_USERNAME` and `MARIADB_PASSWORD` are exposed, making them accessible to other services in the same project.
+"Exponer" hace que la variable esté disponible para otros servicios. Por ejemplo, `MARIADB_USERNAME` y `MARIADB_PASSWORD` están expuestas, lo que las hace accesibles para otros servicios en el mismo proyecto.
 
-"Readonly" means the variable cannot be modified after Prebuilt creation. For example, `MARIADB_PASSWORD` marked as readonly, so members cannot change its value. Note that its value still reflects to the current `MARIADB_ROOT_PASSWORD` value.
+Además de las variables expuestas por otros servicios, también puedes usar [variables especiales predefinidas de Zeabur](/deploy/special-variables), como usar `${ZEABUR_WEB_URL}` para obtener la URL establecida en el puerto `web`.
 
-Aside from variables Exposed by other services, you can also use [Zeabur's predefined special variables](/deploy/special-variables), such as using `${ZEABUR_WEB_URL}` to retrieve the URL set on the `web` port.
-
-If you are write a Prebuilt according to a Docker image documentation, environment variables often follow `docker run` with `--env` (or `-e`), such as:
+Si estás escribiendo un Prebuilt según la documentación de una imagen Docker, las variables de entorno a menudo siguen a `docker run` con `--env` (o `-e`), como por ejemplo:
 
 ```bash
 docker run --detach --name some-mariadb --env MARIADB_USER=example-user --env MARIADB_PASSWORD=my_cool_secret --env MARIADB_DATABASE=example-database --env MARIADB_ROOT_PASSWORD=my-secret-pw  mariadb:latest
@@ -74,7 +64,7 @@ docker run --detach --name some-mariadb --env MARIADB_USER=example-user --env MA
 # MARIADB_ROOT_PASSWORD = my-secret-pw
 ```
 
-In Docker Compose:
+En Docker Compose:
 
 ```yaml
 version: '3.9'
@@ -83,30 +73,30 @@ services:
     image: adminer
     restart: always
     environment:
-      DEBUG: "true"   # (or) - DEBUG=true
+      DEBUG: "true"   # (o) - DEBUG=true
       # DEBUG = true
 ```
 
-### Ports
+### Puertos
 
-![Ports Configuration Example](/deploy/customize-prebuilt/ports.webp)
+![Ejemplo de configuración de puertos](/deploy/customize-prebuilt/ports.webp)
 
-"Ports" function like firewall inbound rules, allowing only declared ports to be accessed by other services or the external network.
+Los "Puertos" funcionan como reglas de entrada de cortafuegos, permitiendo que solo los puertos declarados sean accedidos por otros servicios o la red externa.
 
-"Port Name" should consist only of letters and dashes. "Port" is the service listening port, such as `3306` for MariaDB or `8080`, `3000`, `80` for web services.
+"Nombre del puerto" solo debe consistir en letras y guiones. "Puerto" es el puerto de escucha del servicio, como `3306` para MariaDB o `8080`, `3000`, `80` para servicios web.
 
-"Port Type" can be `HTTP` or `TCP`. For external access, `HTTP` ports can be accessed with a domain (e.g., `my-service.zeabur.app`) that contains the automatic TLS certificate signing by Zeabur, while `TCP` ports can be accessed with an auto-assigned hostname and port (e.g., `reg.clusters.zeabur.com:12345`). For inter-service connections, you can access the port with [Private Networking](/deploy/private-networking), which reduces unnecessary traffic costs. To access this port in other services, use the declared port directly (`mariadb.zeabur.internal:3306`, `backend.zeabur.internal:8080`).
+El "Tipo de puerto" puede ser `HTTP` o `TCP`. Para acceso externo, se puede acceder a los puertos `HTTP` con un dominio (ej. `my-service.zeabur.app`) que incluye la firma automática de certificados TLS por Zeabur, mientras que se puede acceder a los puertos `TCP` con un nombre de host y puerto asignados automáticamente (ej. `reg.clusters.zeabur.com:12345`). Para conexiones entre servicios, puedes acceder al puerto con [Red privada](/deploy/private-networking), lo que reduce costos de tráfico innecesarios. Para acceder a este puerto en otros servicios, usa el puerto declarado directamente (`mariadb.zeabur.internal:3306`, `backend.zeabur.internal:8080`).
 
-If you are write a Prebuilt according to a Docker image documentation, ports follow `docker run` with `-p`, such as:
+Si estás escribiendo un Prebuilt según la documentación de una imagen Docker, los puertos siguen a `docker run` con `-p`, como por ejemplo:
 
 ```bash
 docker run -p 3306 mariadb:latest
 
-# Port Name = <Custom>; Port = 3306; Port Type = TCP
-# TCP because MariaDB uses a custom TCP-based protocol.
+# Nombre del puerto = <Personalizado>; Puerto = 3306; Tipo de puerto = TCP
+# TCP porque MariaDB usa un protocolo personalizado basado en TCP.
 ```
 
-In Docker Compose:
+En Docker Compose:
 
 ```yaml
 version: '3.9'
@@ -116,29 +106,29 @@ services:
     restart: always
     ports:
       - 80:8080
-      # Port Name = <Custom>; Port = 8080; Port Type = HTTP
-      # HTTP because adminer is a PHP web interface for database management.
+      # Nombre del puerto = <Personalizado>; Puerto = 8080; Tipo de puerto = HTTP
+      # HTTP porque adminer es una interfaz web PHP para gestión de bases de datos.
 ```
 
-### Volumes
+### Volúmenes
 
-![Volumes Configuration Example](/deploy/customize-prebuilt/volumes.webp)
+![Ejemplo de configuración de volúmenes](/deploy/customize-prebuilt/volumes.webp)
 
-"Volumes" are paths for persistent storage.
+Los "Volúmenes" son rutas para almacenamiento persistente.
 
-By default, Zeabur resets the service data to the image's default state upon each restart (stateless). To store data long-term in a container, you can configure persistent storage and mount it to the desired directory. This ensures that the mounted directory remains unchanged on restarts or updates, until you delete the service or modify the directory contents. The "Backup" feature also backs up this space. Refer to [Zeabur Pricing](https://zeabur.com/pricing) for persistent storage charges.
+Por defecto, Zeabur restablece los datos del servicio al estado predeterminado de la imagen en cada reinicio (sin estado). Para almacenar datos a largo plazo en un contenedor, puedes configurar almacenamiento persistente y montarlo en el directorio deseado. Esto asegura que el directorio montado permanezca inalterado en reinicios o actualizaciones, hasta que elimines el servicio o modifiques el contenido del directorio. La función de "Copia de seguridad" también respalda este espacio. Consulta los [Precios de Zeabur](https://zeabur.com/pricing) para los cargos de almacenamiento persistente.
 
-"Volume id" is the storage space identifier, consisting only of letters, numbers, and dashes. "Path" is the mount path, configured according to the Docker image's **Volume** settings.
+"ID del volumen" es el identificador del espacio de almacenamiento, que solo consiste en letras, números y guiones. "Ruta" es la ruta de montaje, configurada según los ajustes de **Volume** de la imagen Docker.
 
-In Docker image documentation, volumes follow `docker run` with `-v`, such as:
+En la documentación de la imagen Docker, los volúmenes siguen a `docker run` con `-v`, como por ejemplo:
 
 ```bash
 docker run -v your-storage:/var/lib/mysql mariadb:latest
 
-# Volume ID = <Custom>; Path = /var/lib/mysql
+# ID del volumen = <Personalizado>; Ruta = /var/lib/mysql
 ```
 
-In Docker Compose:
+En Docker Compose:
 
 ```yaml
 version: '3.9'
@@ -147,21 +137,19 @@ services:
     image: mariadb
     volumes:
       - your-storage:/var/lib/mysql
-      # Volume ID = <Custom>; Path = /var/lib/mysql
+      # ID del volumen = <Personalizado>; Ruta = /var/lib/mysql
 ```
 
-### Start Command
+### Comando de inicio
 
-![Start Command Configuration Example](/deploy/customize-prebuilt/start-command.webp)
+![Ejemplo de configuración de comando de inicio](/deploy/customize-prebuilt/start-command.webp)
 
-"Start Command" allows you to override the default Docker image entrypoint and arguments. This is an advanced setting and can be skipped if you are unsure what it is.
+"Comando de inicio" te permite anular el punto de entrada y los argumentos predeterminados de la imagen Docker. Esta es una configuración avanzada y puede omitirse si no estás seguro de qué es.
 
-When specifying from the GUI, the default entrypoint when setting this field is `/bin/sh`. If your image does not provide `/bin/sh`, use **Edit TOML** to change it or consult [support](/community/help) for assistant.
+Al especificar desde la GUI, el punto de entrada predeterminado al configurar este campo es `/bin/sh`. Si tu imagen no proporciona `/bin/sh`, usa **Editar TOML** para cambiarlo o consulta [soporte](/community/help) para ayuda.
 
-## Manually Write Prebuilt TOML
+## Escribe manualmente tu plantilla
 
-Although the GUI offers many necessary parameters for creating Prebuilt services, you might want to add custom icons, connection instructions, or detailed settings. In this case, use **Edit TOML** for a more comprehensive (and complex) Prebuilt TOML file.
+Aunque la GUI ofrece muchos parámetros necesarios para crear tus servicios Docker, es posible que desees añadir iconos personalizados, instrucciones de conexión o configuraciones detalladas. En este caso, [escribir tu plantilla en código](/deploy/template-in-code) es una mejor opción.
 
-![Open Edit TOML](/deploy/customize-prebuilt/edit-toml.webp)
-
-Refer to the [Prebuilt TOML JSON schema](https://json-schema.app/view/%23?url=https%3A%2F%2Fschema.zeabur.app%2Fprebuilt.json) for each field explanation, and the [TOML documentation](https://toml.io/en/v1.0.0) for writing instructions. If you have any questions, feel free to contact [support](/community/help).
+Si tienes alguna pregunta sobre cómo escribir tu propia plantilla, no dudes en contactar con [soporte](/community/help).

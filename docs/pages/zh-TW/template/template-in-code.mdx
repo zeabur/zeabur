@@ -245,13 +245,13 @@ spec:
     variables:
         - key: WORDPRESS_DOMAIN
 
-$ npx zeabur template deploy -f wp.yaml
+$ npx zeabur@latest template deploy -f wp.yaml
 ```
 
 首先 `zeabur` CLI 會先詢問你要部署在哪個專案上，接著會根據服務的 `variables` 詢問你要填入哪些變數，最後會部署模板到你指定的專案上。
 
 ```
-$ npx zeabur template deploy -f wp.yaml
+$ npx zeabur@latest template deploy -f wp.yaml
 ? Select project  [Use arrows to move, type to filter]
   your-project
 > Create a new project
@@ -271,10 +271,10 @@ INFO	Template successfully deployed into project "aphylac" (https://dash.zeabur.
 
 ## 使用 `zeabur` CLI 上架模板
 
-假如測試上沒有問題，你可以使用 `npx zeabur template create` 命令將模板公開給其他人使用。同樣以上文的 `wp.yaml` 為例：
+假如測試上沒有問題，你可以使用 `npx zeabur@latest template create` 命令將模板公開給其他人使用。同樣以上文的 `wp.yaml` 為例：
 
 ```
-$ npx zeabur template create -f wp.yaml
+$ npx zeabur@latest template create -f wp.yaml
 INFO	Template "WordPress" (https://zeabur.com/templates/71HORL) created
 ```
 
@@ -286,9 +286,9 @@ INFO	Template "WordPress" (https://zeabur.com/templates/71HORL) created
 
 ## 使用 `zeabur` CLI 更新模板
 
-如果你需要修改模板的內容，比如改名、更新 Image 版本，你可以在修改完成 Resource YAML 後，使用 `npx zeabur template update` 命令更新：
+如果你需要修改模板的內容，比如改名、更新 Image 版本，你可以在修改完成 Resource YAML 後，使用 `npx zeabur@latest template update` 命令更新：
 
 ```
-$ npx zeabur template update -c 71HORL -f wp.yaml
+$ npx zeabur@latest template update -c 71HORL -f wp.yaml
 INFO	Template updated.
 ```
