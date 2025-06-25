@@ -164,16 +164,17 @@
 			]
 		},
 		"Git": {
-			"title": "Git source",
-			"description": "Build image from Git or GitHub.",
+			"title": "Git / Local source",
+			"description": "Build image from GitHub or Local.",
 			"type": "object",
 			"properties": {
 				"source": {
 					"title": "Repository type",
-					"description": "The provider of this repository. Currently, we support only GitHub.",
+					"description": "The provider of this repository. Currently, we support only GitHub. “Local” is only for internal use and is not available in the template.",
 					"type": "string",
 					"enum": [
-						"GITHUB"
+						"GITHUB",
+						"LOCAL"
 					]
 				},
 				"repo": {
@@ -206,8 +207,7 @@
 				}
 			},
 			"required": [
-				"source",
-				"repo"
+				"source"
 			]
 		},
 		"Ports": {
