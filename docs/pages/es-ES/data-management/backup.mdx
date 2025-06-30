@@ -8,7 +8,9 @@ import { Callout } from 'nextra/components'
 
 # Copia de Seguridad de tu Servicio
 
-Para el Plan Dev y planes más avanzados, Zeabur proporciona funcionalidad de copia de seguridad externa. Para servicios de base de datos, Zeabur admite copias de seguridad en línea y automáticas, permitiendo que tu base de datos sea respaldada sin tiempo de inactividad. Para otros servicios con estado, también ofrecemos la capacidad de realizar copias de seguridad externas fuera de línea después de pausar.
+Zeabur proporciona funcionalidad de <abbr title="Copia de seguridad almacenada separadamente de los datos de tu host">copia de seguridad externa (off-site backup)</abbr> en planes de pago como el Plan Dev. Tus copias de seguridad se almacenarán de forma segura y temporal en nuestro espacio de almacenamiento de Amazon S3, lo que no ocupará espacio en tu host existente y no estará sujeto a cargos adicionales.
+
+Para los servicios de base de datos, Zeabur admite copias de seguridad automáticas en línea, lo que permite realizar copias de seguridad de tu base de datos sin tiempo de inactividad. Para otros servicios <abbr title="Servicios con estado, con discos duros adjuntos">con estado (stateful)</abbr>, también proporcionamos funcionalidad de copia de seguridad externa (off-site backup) fuera de línea después de pausarlos.
 
 ## Copia de Seguridad Externa Fuera de Línea
 
@@ -44,8 +46,36 @@ Zeabur también admite copias de seguridad automáticas, actualmente ofreciendo 
 
 Después de habilitar "Copia de Seguridad Automática", puedes establecer la hora de la copia de seguridad en UTC. Es mejor elegir un momento cuando tu servicio experimente el menor tráfico. Puedes consultar la sugerencia "En tu hora local" junto a ella para ver a qué corresponde este período UTC en tu hora local.
 
-## Tiempo de Retención de Copias de Seguridad
+## Período de Retención de Copias de Seguridad y Método de Recuperación por API
 
-Zeabur **solo retiene tus copias de seguridad durante 7 días**; las copias de seguridad más antiguas serán eliminadas automáticamente.
+Zeabur **solo retiene tus copias de seguridad durante 7 días**. Las copias de seguridad que superen este período se eliminarán automáticamente. Si necesitas almacenar copias de seguridad por un período más largo, descarga los archivos de copia de seguridad tú mismo y almacénalos en otro lugar.
 
-Si necesitas almacenar copias de seguridad por más tiempo, por favor descarga los archivos de respaldo tú mismo y almacénalos en otro lugar.
+Actualmente, Zeabur aún no admite la realización de copias de seguridad en tu propio espacio de almacenamiento de Amazon S3, pero puedes escribir un programa para recuperar copias de seguridad llamando a la [API Pública de Zeabur](/developer/public-api) y almacenarlas en tu propio espacio de almacenamiento de tu elección:
+
+```graphql
+query Backups($environmentId: ObjectID!, $serviceId: ObjectID!) {
+  backups(environmentID: $environmentId, serviceID: $serviceId) {
+    createdAt
+    downloadURL
+    status
+  }
+}
+```
+
+Ejemplo de formato de retorno:
+
+```json
+{
+  "data": {
+    "backups": [
+      {
+        "createdAt": "2025-06-23T16:00:10.864Z",
+        "downloadURL": "https://backup.zeabur.com/XXXXXX",
+        "status": "SUCCESS"
+      }
+    ]
+  }
+}
+```
+
+Puedes utilizar el enlace de descarga del archivo de copia de seguridad (`downloadURL`) junto con la hora de la copia de seguridad (`createdAt`) para almacenar los archivos de copia de seguridad.
