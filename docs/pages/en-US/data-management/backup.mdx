@@ -8,7 +8,9 @@ import { Callout } from 'nextra/components'
 
 # Backup your Service
 
-For Dev Plan and more advanced plans, Zeabur provides offsite backup functionality. For database services, Zeabur supports online backup and automatic backup, allowing your database to be backed up without downtime. For other stateful services, we also offer the ability to perform offline offsite backups after pausing.
+Zeabur provides <abbr title="Backup stored separately from your host data">off-site backup</abbr> functionality for Dev Plan and above. Your backups will be securely and temporarily stored in our Amazon S3 storage space, which will not occupy space on your existing host and will not be subject to additional charges.
+
+For database services, Zeabur supports online and automatic backups, allowing your database to be backed up without downtime. For other <abbr title="Stateful, services with attached hard drives">stateful</abbr> services, we also provide offline off-site backup functionality after pausing.
 
 ## Offline Offsite Backup
 
@@ -44,8 +46,36 @@ Zeabur also supports automatic backups, currently offering daily backups at a se
 
 After enabling "Automatic Backup," you can set the backup time in UTC. It's best to choose a time when your service experiences the least traffic. You can refer to the "At your local time" hint next to it to see what this UTC period corresponds to in your local time.
 
-## Backup Retention Time
+## Backup Retention Period and API Retrieval Method
 
-Zeabur **only retains your backups for 7 days**; backups older than this will be automatically deleted.
+Zeabur **only retains your backups for 7 days**. Backups exceeding this period will be automatically deleted. If you need to store backups for a longer period, please download the backup files yourself and store them elsewhere.
 
-If you need to store backups for a longer time, please download the backup files yourself and store them elsewhere.
+Currently, Zeabur does not yet support backing up to your own Amazon S3 storage space, but you can write a program to retrieve backups by calling the [Zeabur Public API](/developer/public-api) and store them in your own storage space of your choice:
+
+```graphql
+query Backups($environmentId: ObjectID!, $serviceId: ObjectID!) {
+  backups(environmentID: $environmentId, serviceID: $serviceId) {
+    createdAt
+    downloadURL
+    status
+  }
+}
+```
+
+Example response:
+
+```json
+{
+  "data": {
+    "backups": [
+      {
+        "createdAt": "2025-06-23T16:00:10.864Z",
+        "downloadURL": "https://backup.zeabur.com/XXXXXX",
+        "status": "SUCCESS"
+      }
+    ]
+  }
+}
+```
+
+You can use the backup file download link (`downloadURL`) along with the backup time (`createdAt`) to store the backup files.

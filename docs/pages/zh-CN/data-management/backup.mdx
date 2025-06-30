@@ -8,7 +8,9 @@ import { Callout } from 'nextra/components'
 
 # 备份服务
 
-Zeabur 在 Dev Plan 以上的方案中，提供了异地备份的功能。对于数据库服务，Zeabur 支持在线备份和自动备份，让您的数据库可以不停机备份；对于其他 <abbr title="Stateful">有状态</abbr> 的服务，我们也提供暂停后离线异地备份的功能。
+Zeabur 在 Dev Plan 等付费方案中，提供了 <abbr title="与您主机数据分开存放的备份">异地备份</abbr> 的功能——您的备份会被安全、限时存储到我们位于 Amazon S3 的存储空间上，不会占用您现有主机的空间，并且不会额外收费。
+
+对于数据库服务，Zeabur 支持在线备份和自动备份，让您的数据库可以不停机备份；对于其他 <abbr title="Stateful，有挂载硬盘的服务">有状态</abbr> 的服务，我们也提供暂停后离线异地备份的功能。
 
 ## 离线异地备份
 
@@ -46,8 +48,36 @@ Zeabur 也支持自动备份，目前支持每日固定时段备份。
 
 打开“自动备份”后，您可以设定备份的 UTC 时段。通常来说，选择您服务人流最低的时段进行备份，会是比较好的。您可以参考旁边的“At your local time”看看这个 UTC 时段是对应到您当地的几点。
 
-## 备份保留时间
+## 备份保留时间和 API 获取方式
 
-Zeabur **只保留您备份 7 天时间**，超过这个时间的备份会自动删除。
+Zeabur **只保留您备份 7 天时间**，超过这个时间的备份会自动删除。如果您需要长时间存储备份，请自行下载备份文件后，存储到其他地方。
 
-如果您需要长时间存储备份，请自行下载备份文件后，存储到其他地方。
+目前 Zeabur 尚未支持备份到您自己的 Amazon S3 存储空间，但您可以编写一个程序，通过调用 [Zeabur 开放 API](/developer/public-api) 来获取备份并存储到您自己的任意存储空间：
+
+```graphql
+query Backups($environmentId: ObjectID!, $serviceId: ObjectID!) {
+  backups(environmentID: $environmentId, serviceID: $serviceId) {
+    createdAt
+    downloadURL
+    status
+  }
+}
+```
+
+返回格式示例：
+
+```json
+{
+  "data": {
+    "backups": [
+      {
+        "createdAt": "2025-06-23T16:00:10.864Z",
+        "downloadURL": "https://backup.zeabur.com/XXXXXX",
+        "status": "SUCCESS"
+      }
+    ]
+  }
+}
+```
+
+您可以将其中的备份文件下载链接 (`downloadURL`) 搭配备份时间 (`createdAt`) 来存储备份文件。
