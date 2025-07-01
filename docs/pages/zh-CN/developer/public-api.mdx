@@ -35,23 +35,100 @@ curl --request POST \
 
 ## 本地项目上传 API
 
-本地项目 API 的说明请参考 [Upload API 文档](https://schema.zeabur.app/upload-api/index.html)。
+虽然从 Git Repository 部署是主流方式，但有时您会需要直接部署一个预先打包好的应用程序。常见的情境包括：
 
-流程如下：
+- 您的 CI/CD 流程会产出一个构建好的制品 (artifact)，例如一个 .zip 文件。
+- 您想手动上传一个项目，但不想将其与 Git Repository 关联。
+
+Zeabur Upload API 因此提供了一个 API，让您可以直接上传 ZIP，而 Zeabur 会自动将 ZIP 解压缩并且部署到您的项目中。
+
+### 核心概念：使用预签名 URL (Pre-signed URL) 实现安全上传
+
+Zeabur Upload API 会签发给您一个预签名 URL (Pre-signed URL)，这个 URL 是一个临时性、安全的链接，它授予您一次性的权限，让您可以将文件直接上传到 Zeabur 的代码暂存空间。
+
+整个工作流程可以用以下序列图来表示：
 
 ```mermaid
 sequenceDiagram
-  participant Client
-  participant ZeaburAPI
-  participant PresignURL
+  participant Client as 客户端
+  participant ZeaburAPI as Zeabur API
+  participant PresignURL as 预签名 URL (S3)
 
-  Client->>ZeaburAPI: 调用"创建上传阶段"的 API
-  ZeaburAPI->>Client: 返回 Presign URL
+  Client->>ZeaburAPI: 调用「创建上传阶段」的 API
+  ZeaburAPI->>Client: 返回预签名 URL (Presign URL)
   Client->>PresignURL: 以 PUT 方式上传文件
-  Client->>ZeaburAPI: 调用"准备上传结果"的 API
+  Client->>ZeaburAPI: 调用「准备上传结果」的 API
   ZeaburAPI->>Client: 返回引导部署项目网址
-  Client->>Client: 重定向到部署项目网址
+  Client->>Client: 前往该网址查看部署状态
 ```
+
+### 上传流程
+
+在开始上传之前，您需要获取关于文件的两项信息：
+
+- `content_length`：文件的大小，单位为字节 (bytes)。
+- `content_hash`：文件内容的 SHA256 哈希值，并进行 Base64 编码。
+
+接着就可以创建上传阶段了。首先，您需要告知 Zeabur 您准备要上传一个文件。
+
+```http
+POST /v2/upload
+Content-Type: application/json
+
+{
+  "content_hash": "您计算出的 BASE64 编码 SHA256 哈希值",
+  "content_hash_algorithm": "sha256",
+  "content_length": 12345678
+}
+```
+
+如果成功 (201 Created)，Zeabur 会返回预签名 URL 的详细信息，以及一个用于追踪此上传阶段的 `upload_id`。
+
+```json
+{
+    "presign_header": { "Content-Type": "application/zip" },
+    "presign_method": "PUT",
+    "presign_url": "https://zeabur-uploads.s3.ap-east-1.amazonaws.com/...",
+    "upload_id": "一个唯一的 UPLOAD_ID"
+}
+```
+
+接着，使用上一步获取的信息来上传您的文件。请注意，这个请求是发送到 `presign_url`，而不是 Zeabur API。
+
+- Method: PUT (或上一步 presign_method 返回的方法)
+- URL: 上一步响应中的 presign_url。
+- Headers: 您必须包含 presign_header 中返回的标头 (例如 Content-Type: application/zip)。
+- Body: 您 zip 文件的原始二进制数据。
+
+当这个请求获得 200 OK 的响应时，代表您的文件已经安全地存储完毕。最后，您需要告诉 Zeabur 文件已经就绪，以及要如何处理它。使用稍早获取的 `upload_id` 调用 `POST /v2/upload/{upload_id}/prepare` 端点。
+
+```http
+POST /v2/upload/{upload_id}/prepare
+Content-Type: application/json
+Authorization: Bearer {YOUR_API_TOKEN}
+```
+
+根据您的目标，Request Body 有两种选择。如果您要上传到一个现有的项目中，您需要提供 `service_id` 和 `environment_id`。这个 type 会返回一个指向进行中部署的 `url`，您可以将用户重新导向到这个 URL，让用户可以查看部署状态。
+
+```json
+{
+  "upload_type": "existing_service",
+  "service_id": "您现有服务的 ID",
+  "environment_id": "您服务环境的 ID"
+}
+```
+
+如果您想要引导用户创建项目，则只需要传入 `new_project` 的 `upload_type` 即可。这个 type 会返回一个可以引导用户创建项目的 `url`，您可以将用户重新导向到这个 URL，让用户可以创建项目。
+
+```json
+{
+  "upload_type": "new_project"
+}
+```
+
+### 文档和 schema
+
+完整的文档和 OpenAPI schema 可以参考 [Upload API 文档](https://schema.zeabur.app/upload-api/index.html)。
 
 ## 模板部署 API
 

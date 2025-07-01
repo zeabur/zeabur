@@ -35,23 +35,100 @@ If you find that the API you need is not in this Schema, please let us know thro
 
 ## Local Project Upload API
 
-For information about the local project API, please refer to the [Upload API documentation](https://schema.zeabur.app/upload-api/index.html).
+While deploying from a Git Repository is the mainstream method, there are times when you need to directly deploy a pre-packaged application. Common scenarios include:
 
-The process flow is as follows:
+- Your CI/CD process produces a built artifact, such as a .zip file.
+- You want to manually upload a project but do not want to associate it with a Git Repository.
+
+The Zeabur Upload API provides an API that allows you to directly upload a ZIP file, which Zeabur will automatically extract and deploy to your project.
+
+### Core Concept: Secure Upload Using Pre-signed URL
+
+The Zeabur Upload API issues you a Pre-signed URL, which is a temporary, secure link granting you one-time permission to directly upload files to Zeabur's code staging area.
+
+The entire workflow can be represented by the following sequence diagram:
 
 ```mermaid
 sequenceDiagram
-  participant Client
-  participant ZeaburAPI
-  participant PresignURL
+  participant Client as Client
+  participant ZeaburAPI as Zeabur API
+  participant PresignURL as Pre-signed URL (S3)
 
   Client->>ZeaburAPI: Call the "Create Upload Stage" API
-  ZeaburAPI->>Client: Return Presign URL
+  ZeaburAPI->>Client: Return Pre-signed URL
   Client->>PresignURL: Upload file using PUT method
   Client->>ZeaburAPI: Call the "Prepare Upload Result" API
-  ZeaburAPI->>Client: Return project deployment URL
-  Client->>Client: Redirect to the project deployment URL
+  ZeaburAPI->>Client: Return URL to guide project deployment
+  Client->>Client: Visit the URL to check deployment status
 ```
+
+### Upload Process
+
+Before starting the upload, you need to obtain two pieces of information about the file:
+
+- `content_length`: The size of the file in bytes.
+- `content_hash`: The SHA256 hash of the file content, encoded in Base64.
+
+Then you can create an upload stage. First, you need to inform Zeabur that you are ready to upload a file.
+
+```http
+POST /v2/upload
+Content-Type: application/json
+
+{
+  "content_hash": "Your calculated BASE64 encoded SHA256 hash",
+  "content_hash_algorithm": "sha256",
+  "content_length": 12345678
+}
+```
+
+If successful (201 Created), Zeabur will return details of the Pre-signed URL and an `upload_id` to track this upload stage.
+
+```json
+{
+    "presign_header": { "Content-Type": "application/zip" },
+    "presign_method": "PUT",
+    "presign_url": "https://zeabur-uploads.s3.ap-east-1.amazonaws.com/...",
+    "upload_id": "A unique UPLOAD_ID"
+}
+```
+
+Next, use the information obtained in the previous step to upload your file. Note that this request is sent to the `presign_url`, not the Zeabur API.
+
+- Method: PUT (or the method returned by presign_method in the previous step)
+- URL: The `presign_url` from the previous response.
+- Headers: You must include the headers returned in `presign_header` (e.g., Content-Type: application/zip).
+- Body: The raw binary data of your zip file.
+
+When this request receives a 200 OK response, it means your file has been securely stored. Finally, you need to inform Zeabur that the file is ready and how to process it. Use the `upload_id` obtained earlier to call the `POST /v2/upload/{upload_id}/prepare` endpoint.
+
+```http
+POST /v2/upload/{upload_id}/prepare
+Content-Type: application/json
+Authorization: Bearer {YOUR_API_TOKEN}
+```
+
+Depending on your goal, there are two options for the Request Body. If you want to upload to an existing project, you need to provide `service_id` and `environment_id`. This type will return a `url` pointing to the ongoing deployment, which you can redirect users to so they can view the deployment status.
+
+```json
+{
+  "upload_type": "existing_service",
+  "service_id": "The ID of your existing service",
+  "environment_id": "The ID of your service environment"
+}
+```
+
+If you want to guide users to create a project, you only need to pass in `new_project` as the `upload_type`. This type will return a `url` that can guide users to create a project, which you can redirect them to.
+
+```json
+{
+  "upload_type": "new_project"
+}
+```
+
+### Documentation and Schema
+
+For complete documentation and the OpenAPI schema, refer to the [Upload API Documentation](https://schema.zeabur.app/upload-api/index.html).
 
 ## Template Deployment API
 

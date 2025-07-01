@@ -35,23 +35,100 @@ IDE で GraphQL を記述することを好む場合や、型のヒントが必�
 
 ## ローカルプロジェクトのアップロード API
 
-ローカルプロジェクト API の説明については、[Upload API ドキュメント](https://schema.zeabur.app/upload-api/index.html) を参照してください。
+Git Repository からのデプロイが主流な方法ですが、場合によっては、事前にパッケージ化されたアプリケーションを直接デプロイする必要があるかもしれません。一般的な状況としては以下が挙げられます：
 
-フローは以下の通りです：
+- CI/CD パイプラインが、.zip ファイルなどのビルド済みの成果物 (artifact) を生成する場合。
+- プロジェクトを手動でアップロードしたいが、それを Git Repository と関連付けたくない場合。
+
+そのため、Zeabur Upload API は、ZIP ファイルを直接アップロードできる API を提供しています。Zeabur は、アップロードされた ZIP を自動的に解凍し、あなたのプロジェクトにデプロイします。
+
+### コアコンセプト：プリサイン付き URL (Pre-signed URL) を使用した安全なアップロード
+
+Zeabur Upload API は、プリサイン付き URL (Pre-signed URL) を発行します。この URL は、一時的で安全なリンクであり、Zeabur のコードステージングスペースにファイルを直接アップロードするための一時的な権限を付与します。
+
+ワークフロー全体は、以下のシーケンス図で表すことができます：
 
 ```mermaid
 sequenceDiagram
-  participant Client
-  participant ZeaburAPI
-  participant PresignURL
+  participant Client as クライアント
+  participant ZeaburAPI as Zeabur API
+  participant PresignURL as プリサイン付き URL (S3)
 
-  Client->>ZeaburAPI: 「アップロードステージの作成」API を呼び出す
-  ZeaburAPI->>Client: Presign URL を返す
-  Client->>PresignURL: PUT 方式でファイルをアップロード
-  Client->>ZeaburAPI: 「アップロード結果の準備」API を呼び出す
-  ZeaburAPI->>Client: プロジェクトデプロイURL を返す
-  Client->>Client: プロジェクトデプロイURL にリダイレクト
+  Client->>ZeaburAPI: 「アップロードステージの作成」API を呼び出し
+  ZeaburAPI->>Client: プリサイン付き URL (Presign URL) を返す
+  Client->>PresignURL: PUT メソッドでファイルをアップロード
+  Client->>ZeaburAPI: 「アップロード結果の準備」API を呼び出し
+  ZeaburAPI->>Client: デプロイ誘導プロジェクト URL を返す
+  Client->>Client: その URL にアクセスしてデプロイステータスを確認
 ```
+
+### アップロードフロー
+
+アップロードを開始する前に、ファイルに関する以下の2つの情報を取得する必要があります：
+
+- `content_length`：ファイルのサイズ（単位：バイト）。
+- `content_hash`：ファイルコンテンツの SHA256 ハッシュ値を Base64 エンコードしたもの。
+
+次に、アップロードステージを作成できます。まず、Zeabur にファイルをアップロードする準備ができていることを通知する必要があります。
+
+```http
+POST /v2/upload
+Content-Type: application/json
+
+{
+  "content_hash": "あなたが計算した BASE64 エンコードされた SHA256 ハッシュ値",
+  "content_hash_algorithm": "sha256",
+  "content_length": 12345678
+}
+```
+
+成功した場合 (201 Created)、Zeabur はプリサイン付き URL の詳細と、このアップロードステージを追跡するための `upload_id` を返します。
+
+```json
+{
+    "presign_header": { "Content-Type": "application/zip" },
+    "presign_method": "PUT",
+    "presign_url": "https://zeabur-uploads.s3.ap-east-1.amazonaws.com/...",
+    "upload_id": "一意の UPLOAD_ID"
+}
+```
+
+次に、前のステップで取得した情報を使用してファイルをアップロードします。このリクエストは `presign_url` に送信されるものであり、Zeabur API ではないことに注意してください。
+
+- Method: PUT (または、前のステップの presign_method で返されたメソッド)
+- URL: 前のステップのレスポンスに含まれる presign_url。
+- Headers: presign_header で返されたヘッダー (`Content-Type: application/zip` など) を含める必要があります。
+- Body: ZIP ファイルの生のバイナリデータ。
+
+このリクエストが 200 OK のレスポンスを受け取ったら、ファイルは安全に保存されました。最後に、ファイルが準備できたことと、それをどのように処理するかを Zeabur に伝える必要があります。以前取得した `upload_id` を使用して、`POST /v2/upload/{upload_id}/prepare` エンドポイントを呼び出します。
+
+```http
+POST /v2/upload/{upload_id}/prepare
+Content-Type: application/json
+Authorization: Bearer {YOUR_API_TOKEN}
+```
+
+あなたの目的に応じて、Request Body には2つの選択肢があります。既存のプロジェクトにアップロードする場合、`service_id` と `environment_id` を提供する必要があります。このタイプは、進行中のデプロイへの `url` を返します。ユーザーをこの URL にリダイレクトすることで、デプロイステータスを確認させることができます。
+
+```json
+{
+  "upload_type": "existing_service",
+  "service_id": "あなたの既存サービスの ID",
+  "environment_id": "あなたのサービス環境の ID"
+}
+```
+
+プロジェクトの作成をユーザーに誘導したい場合は、`upload_type` に `new_project` を渡すだけです。このタイプは、ユーザーにプロジェクト作成を誘導できる `url` を返します。ユーザーをこの URL にリダイレクトすることで、ユーザーにプロジェクトを作成させることができます。
+
+```json
+{
+  "upload_type": "new_project"
+}
+```
+
+### ドキュメントとスキーマ
+
+完全なドキュメントと OpenAPI スキーマは、[Upload API ドキュメント](https://schema.zeabur.app/upload-api/index.html)を参照してください。
 
 ## テンプレートデプロイ API
 

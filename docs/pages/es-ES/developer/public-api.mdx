@@ -33,25 +33,102 @@ Si prefieres escribir GraphQL en un IDE o necesitas sugerencias de tipos, puedes
 
 Si encuentras que la API que necesitas no está en este Esquema, por favor háganoslo saber a través de nuestro [Discord](https://zeabur.com/dc).
 
-## API de Carga de Proyecto Local
+## API de Carga de Proyectos Locales
 
-Para información sobre la API de proyectos locales, consulta la [documentación de la API de Carga](https://schema.zeabur.app/upload-api/index.html).
+Aunque desplegar desde un Repositorio Git es el método principal, hay ocasiones en las que necesitas desplegar directamente una aplicación ya empaquetada. Los escenarios comunes incluyen:
 
-El flujo del proceso es el siguiente:
+- Tu proceso CI/CD produce un artefacto construido, como un archivo .zip.
+- Quieres subir un proyecto manualmente pero no deseas asociarlo con un Repositorio Git.
+
+La API de Carga de Zeabur proporciona una API que te permite subir directamente un archivo ZIP, el cual Zeabur extraerá y desplegará automáticamente en tu proyecto.
+
+### Concepto Principal: Carga Segura Usando una URL Pre-firmada
+
+La API de Carga de Zeabur te emite una URL Pre-firmada, que es un enlace temporal y seguro que te otorga permiso por una sola vez para subir archivos directamente al área de preparación de código de Zeabur.
+
+El flujo de trabajo completo se puede representar mediante el siguiente diagrama de secuencia:
 
 ```mermaid
 sequenceDiagram
-  participant Cliente
-  participant ZeaburAPI
-  participant URLPreasignada
+  participant Client as Cliente
+  participant ZeaburAPI as API de Zeabur
+  participant PresignURL as URL Pre-firmada (S3)
 
-  Cliente->>ZeaburAPI: Llamar a la API "Crear Etapa de Carga"
-  ZeaburAPI->>Cliente: Devolver URL Preasignada
-  Cliente->>URLPreasignada: Cargar archivo usando método PUT
-  Cliente->>ZeaburAPI: Llamar a la API "Preparar Resultado de Carga"
-  ZeaburAPI->>Cliente: Devolver URL de despliegue del proyecto
-  Cliente->>Cliente: Redirigir a la URL de despliegue del proyecto
+  Client->>ZeaburAPI: Llamar a la API "Create Upload Stage" (Crear Etapa de Carga)
+  ZeaburAPI->>Client: Devolver URL Pre-firmada
+  Client->>PresignURL: Subir archivo usando el método PUT
+  Client->>ZeaburAPI: Llamar a la API "Prepare Upload Result" (Preparar Resultado de Carga)
+  ZeaburAPI->>Client: Devolver URL para guiar el despliegue del proyecto
+  Client->>Client: Visitar la URL para verificar el estado del despliegue
 ```
+
+### Proceso de Carga
+
+Antes de iniciar la carga, necesitas obtener dos datos sobre el archivo:
+
+- `content_length`: El tamaño del archivo en bytes.
+- `content_hash`: El hash SHA256 del contenido del archivo, codificado en Base64.
+
+Luego puedes crear una etapa de carga. Primero, debes informar a Zeabur que estás listo para subir un archivo.
+
+```http
+POST /v2/upload
+Content-Type: application/json
+
+{
+  "content_hash": "Tu hash SHA256 calculado codificado en BASE64",
+  "content_hash_algorithm": "sha256",
+  "content_length": 12345678
+}
+```
+
+Si tiene éxito (201 Created), Zeabur devolverá los detalles de la URL Pre-firmada y un `upload_id` para rastrear esta etapa de carga.
+
+```json
+{
+    "presign_header": { "Content-Type": "application/zip" },
+    "presign_method": "PUT",
+    "presign_url": "https://zeabur-uploads.s3.ap-east-1.amazonaws.com/...",
+    "upload_id": "Un UPLOAD_ID único"
+}
+```
+
+A continuación, utiliza la información obtenida en el paso anterior para subir tu archivo. Ten en cuenta que esta solicitud se envía a la `presign_url`, no a la API de Zeabur.
+
+- Método: PUT (o el método devuelto por `presign_method` en el paso anterior)
+- URL: La `presign_url` de la respuesta anterior.
+- Cabeceras: Debes incluir las cabeceras devueltas en `presign_header` (por ejemplo, `Content-Type: application/zip`).
+- Cuerpo: Los datos binarios brutos de tu archivo zip.
+
+Cuando esta solicitud recibe una respuesta 200 OK, significa que tu archivo se ha almacenado de forma segura. Finalmente, debes informar a Zeabur que el archivo está listo y cómo procesarlo. Utiliza el `upload_id` obtenido anteriormente para llamar al endpoint `POST /v2/upload/{upload_id}/prepare`.
+
+```http
+POST /v2/upload/{upload_id}/prepare
+Content-Type: application/json
+Authorization: Bearer {TU_TOKEN_API}
+```
+
+Dependiendo de tu objetivo, hay dos opciones para el Cuerpo de la Solicitud. Si quieres subir a un proyecto existente, necesitas proporcionar `service_id` y `environment_id`. Este tipo devolverá una `url` que apunta al despliegue en curso, a la que puedes redirigir a los usuarios para que vean el estado del despliegue.
+
+```json
+{
+  "upload_type": "existing_service",
+  "service_id": "El ID de tu servicio existente",
+  "environment_id": "El ID del entorno de tu servicio"
+}
+```
+
+Si quieres guiar a los usuarios a crear un proyecto, solo necesitas pasar `new_project` como el `upload_type`. Este tipo devolverá una `url` que puede guiar a los usuarios a crear un proyecto, a la que puedes redirigirlos.
+
+```json
+{
+  "upload_type": "new_project"
+}
+```
+
+### Documentación y Esquema
+
+Para obtener la documentación completa y el esquema OpenAPI, consulta la [Documentación de la API de Carga](https://schema.zeabur.app/upload-api/index.html).
 
 ## API de Despliegue de Plantillas
 
