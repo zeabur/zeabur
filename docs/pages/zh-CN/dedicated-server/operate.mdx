@@ -74,13 +74,13 @@ sudo systemctl enable --now k3s
 - 关闭 containerd 服务：
 
 ```bash
-sudo systemctl stop containerd
+sudo systemctl disable --now containerd
 ```
 
 - 启动 containerd 服务：
 
 ```bash
-sudo systemctl start containerd
+sudo systemctl enable --now containerd
 ```
 
 > 注意：关闭这些服务会导致所有在该服务器上运行的容器与服务停止，请谨慎操作。
