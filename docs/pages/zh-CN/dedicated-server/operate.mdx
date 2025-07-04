@@ -60,13 +60,13 @@ ssh <用户名>@<服务器 IP>
 - 关闭 K3s 服务：
 
 ```bash
-sudo systemctl stop k3s
+sudo systemctl disable --now k3s
 ```
 
 - 启动 K3s 服务：
 
 ```bash
-sudo systemctl start k3s
+sudo systemctl enable --now k3s
 ```
 
 ### Containerd

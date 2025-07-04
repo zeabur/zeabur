@@ -60,13 +60,13 @@ ssh <username>@<server IP>
 - Stop the K3s service:
 
 ```bash
-sudo systemctl stop k3s
+sudo systemctl disable --now k3s
 ```
 
 - Start the K3s service:
 
 ```bash
-sudo systemctl start k3s
+sudo systemctl enable --now k3s
 ```
 
 ### Containerd
