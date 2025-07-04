@@ -45,6 +45,46 @@ Remember to restart the K3s service after making changes.
 $ sudo systemctl restart k3s
 ```
 
+## Starting and Stopping K3s and Containerd
+
+If you need to manually start or stop the K3s or containerd services, follow these steps:
+
+1. Connect to your dedicated server via SSH:
+
+```bash
+ssh <username>@<server IP>
+```
+
+### K3s
+
+- Stop the K3s service:
+
+```bash
+sudo systemctl stop k3s
+```
+
+- Start the K3s service:
+
+```bash
+sudo systemctl start k3s
+```
+
+### Containerd
+
+- Stop the containerd service:
+
+```bash
+sudo systemctl stop containerd
+```
+
+- Start the containerd service:
+
+```bash
+sudo systemctl start containerd
+```
+
+> Note: Stopping these services will cause all containers and services running on the server to stop. Please proceed with caution.
+
 ## Uninstallation
 
 First, you need to remove the server and the services deployed on it from Zeabur.
