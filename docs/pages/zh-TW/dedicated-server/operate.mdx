@@ -45,6 +45,46 @@ nameserver 119.29.29.29
 $ sudo systemctl restart k3s
 ```
 
+## 啟動與關閉 K3s 與 Containerd
+
+如果您需要手動啟動或關閉 K3s 或 containerd 服務，可以按照以下步驟操作：
+
+1. 透過 SSH 連線到您的專用伺服器：
+
+```bash
+ssh <使用者名稱>@<伺服器 IP>
+```
+
+### K3s
+
+- 關閉 K3s 服務：
+
+```bash
+sudo systemctl disable --now k3s
+```
+
+- 啟動 K3s 服務：
+
+```bash
+sudo systemctl enable --now k3s
+```
+
+### Containerd
+
+- 關閉 containerd 服務：
+
+```bash
+sudo systemctl disable --now containerd
+```
+
+- 啟動 containerd 服務：
+
+```bash
+sudo systemctl enable --now containerd
+```
+
+> 注意：關閉這些服務會導致所有在這台伺服器上運作的容器與服務停止，請謹慎操作。
+
 ## 解除安裝
 
 首先您得先從 Zeabur 移除伺服器及在其上面部署的服務。

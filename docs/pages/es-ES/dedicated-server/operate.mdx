@@ -45,6 +45,46 @@ Recuerda reiniciar el servicio K3s después de hacer cambios.
 $ sudo systemctl restart k3s
 ```
 
+## Iniciar y detener K3s y Containerd
+
+Si necesita iniciar o detener manualmente los servicios de K3s o containerd, siga estos pasos:
+
+1. Conéctese a su servidor dedicado mediante SSH:
+
+```bash
+ssh <nombre_de_usuario>@<IP_del_servidor>
+```
+
+### K3s
+
+- Detener el servicio K3s:
+
+```bash
+sudo systemctl disable --now k3s
+```
+
+- Iniciar el servicio K3s:
+
+```bash
+sudo systemctl enable --now k3s
+```
+
+### Containerd
+
+- Detener el servicio containerd:
+
+```bash
+sudo systemctl disable --now containerd
+```
+
+- Iniciar el servicio containerd:
+
+```bash
+sudo systemctl enable --now containerd
+```
+
+> Nota: Detener estos servicios hará que todos los contenedores y servicios que se estén ejecutando en el servidor se detengan. Proceda con precaución.
+
 ## Desinstalación
 
 Primero, necesitas eliminar el servidor y los servicios desplegados en él desde Zeabur.
