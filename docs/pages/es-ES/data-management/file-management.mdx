@@ -44,7 +44,9 @@ Los usuarios pueden editar directamente en la sección de contenido del archivo 
 
 ![editar archivo](/data-management/file-management/edit-file.png)
 
-El contenido del archivo editado también se colocará en el [Editor de Configuración](/data-management/config-edit), asegurando que los cambios se mantengan después de reiniciar el servicio. Para revertir un archivo a su estado original, elimina el elemento correspondiente en el Editor de Configuración.
+<Callout type="warning">
+  Si el archivo que modificó no está montado en ninguna ruta, volverá a su estado inicial después de que el servicio se reinicie. Si desea que el archivo modificado persista en el próximo despliegue, utilice el [Editor de Configuración](/data-management/config-edit) para realizar los cambios.
+</Callout>
 
 ## Eliminando Archivos y Carpetas
 

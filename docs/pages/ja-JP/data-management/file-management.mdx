@@ -44,7 +44,9 @@ Zeaburは、ユーザーがサービス内のすべてのファイルを簡単�
 
 ![edit file](/data-management/file-management/edit-file.png)
 
-編集したファイルの内容は[Config Editor](/data-management/config-edit)に同期され、サービスが再起動した後も変更された内容が維持されます。ファイルを元の状態に戻すには、Config Editorで対応する項目を削除します。
+<Callout type="warning">
+  変更したファイルがどのパスにもマウントされていない場合、サービスを再起動するとファイルは初期状態に戻ります。変更したファイルを次回のデプロイ時も保持したい場合は、[設定エディター](/data-management/config-edit) を使用して変更してください。
+</Callout>
 
 ## ファイルとフォルダの削除
 
