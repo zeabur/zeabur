@@ -44,7 +44,9 @@ Users can edit directly in the file content section and click the **Save** butto
 
 ![edit file](/data-management/file-management/edit-file.png)
 
-The edited file content will also be placed in the [Config Editor](/data-management/config-edit), ensuring that changes are retained after service restarts. To revert a file to its original state, remove the corresponding item in the Config Editor.
+<Callout type="warning">
+  If the file you changed is not mounted to any path, it will revert to its initial state after the service restarts. If you want the modified file to persist in the next deployment, please use the [Config Editor](/data-management/config-edit) to make changes.
+</Callout>
 
 ## Deleting Files and Folders
 

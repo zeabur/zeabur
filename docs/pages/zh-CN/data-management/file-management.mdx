@@ -44,7 +44,9 @@ Zeabur 为用户提供了一个直观的文件管理界面，让用户能够轻�
 
 ![edit file](/data-management/file-management/edit-file.png)
 
-编辑的文件内容会同步更新到 [Config Editor](/data-management/config-edit) 中，确保服务重新启动后仍能保持修改后的内容。如需将文件恢复至原始状态，可以在 Config Editor 中移除对应的项目。
+<Callout type="warning">
+  如果您更改的文件没有挂载到任何路径，重启服务后文件将恢复到初始状态。如果您希望修改的文件在下次部署时仍然存在，请使用 [Config Editor](/data-management/config-edit) 进行修改。
+</Callout>
 
 ## 删除文件和文件夹
 
