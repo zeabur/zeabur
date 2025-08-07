@@ -1,0 +1,60 @@
+---
+title: Copy Project
+ogImageTitle: Copy Project
+ogImageSubtitle: Copy your project to any region with one click on Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Copy Project
+
+Zeabur provides a **Project Copy feature** that allows you to easily copy projects to any region.
+
+You just need to go to the project settings page to find the **one-click project copy feature**. This feature will automatically copy your entire project to any region you choose, including project architecture, environment variables, and even your PV data. The entire process takes only a few minutes, greatly saving your time and effort.
+
+- **Projects without PV:** If your project doesn't have mounted PV, the copying process can even achieve **zero downtime**, with an experience as smooth as restarting a service.
+- **Projects with PV:** If your project has mounted PV, the copying time will depend on the data size. Our backend will automatically backup your PV data to S3 storage and restore it to the new project, ensuring your data is complete and safe.
+
+## Copy Content Description
+
+<Callout>
+    The project copy feature will completely copy your project, **including all data**. After copying, you need to rebind domains as it will not automatically inherit the domain settings of the original project.
+</Callout>
+
+When copying a project, the following content will be completely copied:
+- **Project Architecture**: All service configurations and relationships
+- **Service Type**: Docker images, Git repositories, etc.
+- **Environment Variables**: All configured environment variables
+- **PV Data**: All data in persistent storage space
+- **Network Settings**: Port configurations and network rules
+- **Resource Limits**: CPU and memory limit settings
+
+## Important Notes
+
+1. **Zero Downtime Copying**: Projects without PV can achieve zero downtime copying, while projects with PV have copying time depending on data size.
+
+2. **Data Integrity**: During the copying process, all data will be completely backed up and restored, ensuring data security.
+
+3. **Domain Rebinding**: Copied projects need to rebind domains and will not automatically inherit the domain settings of the original project.
+
+4. **Resource Consumption**: The copying process will temporarily consume additional storage space for data backup.
+
+## How to Use
+
+The project copy feature is located in your project settings.
+
+### 1. Go to project settings and find the "Copy Project" button
+
+![step 1.1](https://cdn.zeabur.com/clone-project/step-1.1.png)
+
+![step 1.2](https://cdn.zeabur.com/clone-project/step-1.2.png)
+
+### 2. Select target region
+
+![step 2.1](https://cdn.zeabur.com/clone-project/step-2.1.png)
+
+### 3. Wait a few minutes for copying
+
+![step 3.1](https://cdn.zeabur.com/clone-project/step-3.1.png)
+
+![step 3.2](https://cdn.zeabur.com/clone-project/step-3.2.png)
