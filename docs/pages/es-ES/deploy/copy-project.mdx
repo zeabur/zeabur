@@ -10,10 +10,10 @@ import { Callout } from 'nextra/components'
 
 Zeabur proporciona una **función de Copia de Proyecto** que te permite copiar fácilmente proyectos a cualquier región.
 
-Solo necesitas ir a la página de configuración del proyecto para encontrar la **función de copia de proyecto con un clic**. Esta función copiará automáticamente tu proyecto completo a cualquier región que elijas, incluyendo la arquitectura del proyecto, variables de entorno e incluso tus datos PV. Todo el proceso toma solo unos minutos, ahorrando enormemente tu tiempo y esfuerzo.
+Solo necesitas ir a la página de configuración del proyecto para encontrar la **función de copia de proyecto con un clic**. Esta función copiará automáticamente tu proyecto completo a cualquier región que elijas, incluyendo la arquitectura del proyecto, variables de entorno e incluso tus datos de disco. Todo el proceso toma solo unos minutos, ahorrando enormemente tu tiempo y esfuerzo.
 
-- **Proyectos sin PV:** Si tu proyecto no tiene PV montado, el proceso de copia puede incluso lograr **tiempo de inactividad cero**, con una experiencia tan fluida como reiniciar un servicio.
-- **Proyectos con PV:** Si tu proyecto tiene PV montado, el tiempo de copia dependerá del tamaño de los datos. Nuestro backend hará automáticamente respaldo de tus datos PV al almacenamiento S3 y los restaurará al nuevo proyecto, asegurando que tus datos estén completos y seguros.
+- **Proyectos sin disco:** Si tu proyecto no tiene disco montado, el proceso de copia puede incluso lograr **tiempo de inactividad cero**, con una experiencia tan fluida como reiniciar un servicio.
+- **Proyectos con disco:** Si tu proyecto tiene disco montado, el tiempo de copia dependerá del tamaño de los datos. Nuestro backend hará automáticamente respaldo de tus datos de disco al almacenamiento S3 y los restaurará al nuevo proyecto, asegurando que tus datos estén completos y seguros.
 
 ## Descripción del Contenido de Copia
 
@@ -25,13 +25,12 @@ Al copiar un proyecto, el siguiente contenido será copiado completamente:
 - **Arquitectura del Proyecto**: Todas las configuraciones de servicios y relaciones
 - **Tipo de Servicio**: Imágenes Docker, repositorios Git, etc.
 - **Variables de Entorno**: Todas las variables de entorno configuradas
-- **Datos PV**: Todos los datos en el espacio de almacenamiento persistente
+- **Datos disco**: Todos los datos en el espacio de almacenamiento persistente
 - **Configuraciones de Red**: Configuraciones de puerto y reglas de red
-- **Límites de Recursos**: Configuraciones de límites de CPU y memoria
 
 ## Notas Importantes
 
-1. **Copia con Tiempo de Inactividad Cero**: Los proyectos sin PV pueden lograr copia con tiempo de inactividad cero, mientras que los proyectos con PV tienen tiempo de copia dependiendo del tamaño de los datos.
+1. **Copia con Tiempo de Inactividad Cero**: Los proyectos sin disco pueden lograr copia con tiempo de inactividad cero, mientras que los proyectos con disco tienen tiempo de copia dependiendo del tamaño de los datos.
 
 2. **Integridad de Datos**: Durante el proceso de copia, todos los datos serán completamente respaldados y restaurados, asegurando la seguridad de los datos.
 

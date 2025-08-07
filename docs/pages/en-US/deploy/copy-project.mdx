@@ -10,10 +10,10 @@ import { Callout } from 'nextra/components'
 
 Zeabur provides a **Project Copy feature** that allows you to easily copy projects to any region.
 
-You just need to go to the project settings page to find the **one-click project copy feature**. This feature will automatically copy your entire project to any region you choose, including project architecture, environment variables, and even your PV data. The entire process takes only a few minutes, greatly saving your time and effort.
+You just need to go to the project settings page to find the **one-click project copy feature**. This feature will automatically copy your entire project to any region you choose, including project architecture, environment variables, and even your disk data. The entire process takes only a few minutes, greatly saving your time and effort.
 
-- **Projects without PV:** If your project doesn't have mounted PV, the copying process can even achieve **zero downtime**, with an experience as smooth as restarting a service.
-- **Projects with PV:** If your project has mounted PV, the copying time will depend on the data size. Our backend will automatically backup your PV data to S3 storage and restore it to the new project, ensuring your data is complete and safe.
+- **Projects without disk:** If your project doesn't have mounted disk storage, the copying process can even achieve **zero downtime**, with an experience as smooth as restarting a service.
+- **Projects with disk:** If your project has mounted disk storage, the copying time will depend on the data size. Our backend will automatically backup your disk data to S3 storage and restore it to the new project, ensuring your data is complete and safe.
 
 ## Copy Content Description
 
@@ -25,13 +25,12 @@ When copying a project, the following content will be completely copied:
 - **Project Architecture**: All service configurations and relationships
 - **Service Type**: Docker images, Git repositories, etc.
 - **Environment Variables**: All configured environment variables
-- **PV Data**: All data in persistent storage space
+- **Disk Data**: All data in disk storage
 - **Network Settings**: Port configurations and network rules
-- **Resource Limits**: CPU and memory limit settings
 
 ## Important Notes
 
-1. **Zero Downtime Copying**: Projects without PV can achieve zero downtime copying, while projects with PV have copying time depending on data size.
+1. **Zero Downtime Copying**: Projects without disk storage can achieve zero downtime copying, while projects with disk storage have copying time depending on data size.
 
 2. **Data Integrity**: During the copying process, all data will be completely backed up and restored, ensuring data security.
 
