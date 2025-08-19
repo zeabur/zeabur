@@ -3,8 +3,8 @@
   'use strict';
 
   const icons = {
-    light: '/logo.svg',
-    dark: '/logo-dark.svg'
+    light: '/docs/logo.svg',
+    dark: '/docs/logo-dark.svg'
   };
 
   function getTheme() {
