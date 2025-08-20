@@ -121,7 +121,7 @@ const config = {
         <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
 
         {/* Web manifest */}
-        <link href="/webmanifest" rel="manifest" />
+        <link href="/manifest.json" rel="manifest" />
 
         {/* Android Chrome icon */}
         <link href="/android-chrome-192x192.png" rel="mask-icon" />
