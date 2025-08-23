@@ -5,9 +5,7 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <meta charSet="utf-8" />
-        <link rel="icon" href="/icon?<generated>" />
-        <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
 
         <script
           async
@@ -16,14 +14,15 @@ export default function Document() {
         <script
           dangerouslySetInnerHTML={{
             __html: `
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-gtag('config', 'G-F0FE9EJZ4E');
-`,
+            gtag('config', 'G-F0FE9EJZ4E');
+            `,
           }}
         />
+
       </Head>
       <body>
         <Main />
