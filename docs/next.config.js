@@ -118,6 +118,16 @@ export default withNextra({
         destination: '/:locale/data-management/file-management',
         permanent: true,
       },
+      {
+        source: '/deploy/special-variables',
+        destination: '/deploy/variables',
+        permanent: true,
+      },
+      {
+        source: '/:locale/deploy/special-variables',
+        destination: '/:locale/deploy/variables',
+        permanent: true,
+      },
     ]);
   },
 })
