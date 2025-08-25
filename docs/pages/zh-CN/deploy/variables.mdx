@@ -60,3 +60,69 @@ AUTH_INFOR=${USERNAME}:${PASSWORD}
 ![变量引用](/environment/var-reference.png)
 
 这样，`USERNAME` 与 `PASSWORD` 的值就会自动组合注入到 `AUTH_INFOR` 中。
+
+## 特殊变量
+
+“特殊变量”是由 Zeabur 预先定义并可直接使用的环境变量。
+
+### 引用方式
+
+- 在 Zeabur 内的环境变量输入框中：使用 `${变量}` 格式插入特殊变量。
+- 在自己的应用程序中：与一般的环境变量引用方式相同（`process.env.VARIABLE`）。
+
+### 变量优先顺序
+
+服务间变量的展开优先顺序如下：
+
+- 当前服务定义的环境变量将首先被获取。
+- 如果未定义，则其他服务暴露（Expose）的环境变量将被获取。
+- 如果未定义，则特殊变量将被获取。
+
+### 变量
+
+#### 主机名/端口类
+
+- `${ZEABUR_[端口名称]_URL}`：某个端口对应的 URL。
+  - 例如 `https://test.zeabur.app`。
+  - 此 URL 是您在“域名”中设置的：
+
+    ![域名设置](/deploy/special-variables/domain-port-customization.png)
+
+  - 对于从 Git 存储库部署的服务，`端口名称` 总是 `web`。
+- `${ZEABUR_[端口名称]_DOMAIN}`：某个端口对应的域名。
+  - 例如 `test.zeabur.app`。
+  - 此 URL 是您在“域名”中设置的。
+  - 对于从 Git 存储库部署的服务，`端口名称` 总是 `web`。
+- `${CONTAINER_HOSTNAME}`: 当前服务在 Zeabur 项目中的主机名（hostname）。
+    - 通常我们会创建一个具有 Expose（向项目暴露）属性的环境变量（例如 `${MYSQL_HOST}`），
+      然后将 `${CONTAINER_HOSTNAME}` 的值填入此环境变量。
+    - 但是，如果您要在 Zeabur 内引用其他服务的主机名，我们更推荐使用 Zeabur 未来推出的 DNS 功能。
+- `${[端口名称]_PORT}`：在 Prebuilt 服务中定义的端口。
+    - 例如，如果您设置了 `database / 3306 / TCP`，那么 `DATABASE_PORT` 将是 `3306`。
+    - 仅在当前服务内可见。
+    - 对于从 Git 存储库部署的服务，值是 `8080`。您可以从 `${PORT}` 中读取这个端口值。
+
+#### Zeabur 信息类
+
+这些变量不常用，但如果您需要当前 Zeabur 服务/项目的唯一标识符，
+那么这些变量将非常有帮助。
+
+- `${ZEABUR_SERVICE_ID}`：服务 ID
+- `${ZEABUR_PROJECT_ID}`：项目 ID
+- `${ZEABUR_ENVIRONMENT_ID}`：服务环境 ID
+- `${ZEABUR_USER_ID}`：创建此项目的用户 ID
+
+#### Git 信息类
+
+这些变量仅会在 Git 服务的编译阶段出现。
+
+- `${ZEABUR_GIT_COMMIT_SHA}`：当前部署所属的 Git 提交 SHA 值。
+- `${ZEABUR_GIT_AUTHOR}`：当前部署所属的 Git 提交作者 ID。
+- `${ZEABUR_GIT_BRANCH}`：当前部署所属的 Git 分支名称。
+- `${ZEABUR_GIT_REPO_NAME}`：当前部署所属的 Git 版本库名称。
+- `${ZEABUR_GIT_REPO_OWNER}`：当前部署所属的 Git 版本库所有者 ID。
+- `${ZEABUR_GIT_COMMIT_MESSAGE}`：当前部署所属的 Git 提交消息。
+
+#### 工具类
+
+- `${PASSWORD}`：Zeabur 为每个服务生成的随机密码。

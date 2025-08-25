@@ -6,7 +6,6 @@ export default {
     "deploy-button": "デプロイボタン",
     "customize-prebuilt": "カスタム Docker イメージ",
     "github": "GitHub との統合",
-    "special-variables": "特殊変数",
     "deploy-in-cli": "CLI でデプロイ",
     "variables": "変数",
 }

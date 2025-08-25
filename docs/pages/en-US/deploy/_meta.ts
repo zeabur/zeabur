@@ -6,7 +6,6 @@ export default {
   "deploy-button": "Deploy Button",
   "customize-prebuilt": "Custom Docker Image",
   "github": "Integrating with GitHub",
-  "special-variables": "Special Variables",
   "deploy-in-cli": "Deploy in CLI",
   "variables": "Environment Variables",
 }
