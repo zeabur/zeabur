@@ -1,62 +1,115 @@
 ---
-title: Empezar
-ogImageTitle: Empezar
-ogImageSubtitle: Implementa tu servicio en Zeabur desde cero
+title: Primeros Pasos
+ogImageTitle: Primeros Pasos
+ogImageSubtitle: Implementando tus servicios en Zeabur desde cero
 ---
 
 import { Callout } from 'nextra/components'
 
-# Empezar
+# Primeros Pasos
 
-## Paso 1: Registrarse
+## Paso Uno: Crea una Cuenta
 
-Para empezar, necesitas **crear una cuenta** en Zeabur.
-Necesitarás una **cuenta de GitHub** para registrarte. Si no tienes una, puedes crear una [aquí](https://github.com/join).
+Necesitas crear una cuenta para empezar a implementar tus servicios en Zeabur.
 
-Ve a la [página de inicio de sesión](https://zeabur.com/login), verás un botón para registrarte con GitHub.
-Haz clic en el botón, y serás redirigido a la página de autorización de GitHub. Haz clic en el botón "Autorizar" para autorizar a Zeabur a acceder a tu cuenta de GitHub.
+Si eres nuevo en Zeabur, deberás registrarte usando tu correo electrónico (la primera opción). Introduce tu dirección de correo electrónico aquí y luego haz clic en "Continuar con el correo electrónico".
 
-![iniciar sesión](/start/sign-in.png)
+![Login](/start/login.webp)
 
-## Paso 2: Crear un Nuevo Proyecto
+Luego, recibirás un mensaje que dice "Enlace de inicio de sesión enviado".
 
-Un proyecto se presenta como un grupo de servicios. Puedes implementar múltiples servicios en un proyecto para que puedan comunicarse entre sí fácilmente.
+![Verification mail sent](/start/verification-mail-sent.webp)
 
-Después de la autorización, serás redirigido automáticamente al panel de control de Zeabur.
-Haz clic en el botón **Crear Proyecto** para crear un nuevo proyecto. También puedes escribir `CMD + k` para abrir un menú de acciones rápidas, donde puedes encontrar `Crear Proyecto` para continuar.
+Abre tu bandeja de entrada de correo electrónico (por ejemplo, Gmail, Outlook, Apple Mail) y verás un correo electrónico de Zeabur. Haz clic en el botón "Iniciar sesión" dentro del correo electrónico.
 
-Verás un modal a continuación para seleccionar la región de tu proyecto. Zeabur ahora admite 2 regiones, incluyendo las regiones `ap-east`, `us-west`, `eu-central`, `ap-northeast` en AWS. La región `asia-east` en GCP solo está disponible para usuarios del Plan Team.
-
-Elige la región donde deseas implementar tu servicio, y crearemos un proyecto para ti con un nombre aleatorio, que puedes modificar más tarde en la configuración del proyecto.
-
-![nuevo proyecto](/start/create-project.png)
+![Verification mail](/start/verification-mail.webp)
 
 <Callout>
-  Si es la primera vez que creas un proyecto en Zeabur, es posible que necesites seguir
-  las instrucciones para leer y aceptar nuestros términos de servicio para continuar.
+  Si el navegador desde el que inicias sesión no es el navegador predeterminado de tu sistema (es decir, si al abrir el enlace se inicia Safari en lugar de Chrome),
+  puedes hacer clic derecho en el botón "Iniciar sesión" para copiar el enlace y luego pegarlo en el navegador que desees usar.
 </Callout>
 
-## Paso 3: Implementar Servicios
+Una vez que aparezca esta interfaz de inicio de sesión, ¡significa que has iniciado sesión con éxito!
 
-Haz clic en el proyecto que acabas de crear, Zeabur abrirá una página de proyecto para ti.
+![Onboarding UI](/start/onboarding-ui.webp)
 
-![proyecto](/start/project.png)
+¡Recuerda que puedes cambiar el idioma de la interfaz en la esquina superior derecha! Actualmente admitimos chino tradicional, chino simplificado, inglés, japonés, español e indonesio.
 
-Para implementar un servicio, simplemente haz clic en el botón **Agregar Servicio**. Y verás un modal que te permite seleccionar el tipo de servicio.
+![Switch language](/start/switch-language.webp)
 
-![seleccionar tipo de servicio](/start/select-service-type.png)
+## Paso Dos: Crea un Proyecto
 
-Zeabur admite 3 tipos de servicios, incluyendo **Servicios de Git**, **Servicios Preconstruidos** y **Servicios Once**.
+En Zeabur, un Proyecto sirve como un único contenedor para todos los servicios relacionados que componen una aplicación real. Por ejemplo, si tu aplicación consta de un sitio web frontend, una API backend y una base de datos, todos deben mantenerse dentro del mismo Proyecto.
 
-- **Servicios de Git** te permite implementar tu código fuente desde GitHub. Zeabur construirá y implementará automáticamente tu código fuente por ti.
-  Debes configurar tu acceso a GitHub la primera vez para que Zeabur pueda acceder a tus repositorios.
+![Project structure](/start/project-structure.webp)
 
-- **Servicios Preconstruidos** te permite implementar un servicio desde un mercado preconstruido de servicios comunes (como una base de datos o una herramienta de código abierto), puedes ver el mercado de código abierto [aquí](https://github.com/zeabur/zeabur/tree/main/prebuilts).
+Para comenzar a crear un proyecto, haz clic en el botón **Crear proyecto** en el centro (o en la esquina superior derecha).
 
-- **Servicios Once** te permite implementar un servicio que compraste en [Once](https://once.com), como [Campfire](https://once.com/campfire).
+![Create new project](/start/create-new-project.webp)
 
-Simplemente elige el tipo de servicio que deseas, y puedes buscar el servicio que deseas implementar.
+Si es la primera vez que creas un proyecto, es probable que veas una ventana de "Verificación de cuenta".
 
-## Próximos Pasos
+![Account verification](/start/account-verification.webp)
 
-Después de implementar, puedes aprender sobre [vinculación de dominio](/es-ES/deploy/domain-binding) para exponer tu servicio con un certificado TLS configurado automáticamente, o aprender sobre [variables de entorno](/es-ES/deploy/variables) para entender cómo Zeabur puede inyectar automáticamente variables en tu programa.
+Puedes elegir:
+
+1. Verificar usando un número de teléfono. La mayoría de los países y regiones admiten este método. Si tu país o región no lo admite, o si necesitas vincular varias cuentas de Zeabur, además de [contactarnos](https://zeabur.com/dc), también puedes consultar las opciones segunda y tercera.
+2. Realizar un prepago de créditos de uso. Siempre y cuando no te hayas suscrito a un Plan Dev o a un servidor, y no estés involucrado en un abuso grave (por ejemplo, violar los Términos de Servicio iniciando ataques DoS de gran volumen), no deduciremos de tu saldo.
+3. Vincular una tarjeta de crédito. Similar al segundo punto, no iniciaremos ningún cargo a menos que realices operaciones de suscripción; es puramente para fines de verificación.
+
+Elige tu método preferido y luego haz clic en el botón "Verificar" en la sección correspondiente.
+
+Una vez completada la verificación, puedes volver a crear el proyecto y ver el proyecto creado con éxito.
+
+![Project page with add service](/start/project-page-with-add-service.webp)
+
+## Paso Tres: Implementar Servicios
+
+Zeabur puede implementar una amplia variedad de servicios, incluyendo bases de datos (PostgreSQL, MySQL, Redis), proyectos de código abierto (n8n, WordPress) o tus propias aplicaciones personalizadas (importadas desde GitHub o subidas desde una carpeta).
+
+![Project page with add service](/start/project-page-with-add-service.webp)
+
+- Si quieres implementar una base de datos, haz clic en "Bases de datos" para implementar directamente varias bases de datos comunes.
+  ![Database services](/start/database-services.webp)
+- Si quieres implementar un proyecto de código abierto, las "Plantillas" de Zeabur proporcionan muchos proyectos de código abierto comunes preconfigurados, que puedes implementar con un solo clic seleccionando "Plantillas".
+  ![Template services](/start/template-services.webp)
+- Si quieres implementar tu propia aplicación personalizada, puedes subir tu código haciendo clic en "GitHub" o "Proyecto local", o puedes hacer clic en "Cursor" para implementar directamente tu proyecto actual.
+- Si el proyecto de código abierto que quieres implementar no aparece en "Plantillas", también puedes configurarlo tú mismo usando una "Imagen Docker", lo cual es una operación avanzada.
+
+Tomando como ejemplo la implementación de GitHub, primero debes vincular tu cuenta a GitHub y esperar aproximadamente 1 minuto, luego buscar el repositorio que deseas implementar:
+
+![Search repository](/start/search-repository.webp)
+
+Después de hacer clic en el repositorio, Zeabur analizará automáticamente tu código y seleccionará el método de implementación más adecuado para ti.
+
+![Build plan](/start/build-plan.webp)
+
+Haz clic en "Implementar" para implementar el proyecto con un solo clic. Si es necesario, puedes ir a "Configuración" para ajustar las variables de entorno.
+
+![Build configuration](/start/build-configuration.webp)
+
+## Implementar Servicios usando IA
+
+El Asistente de IA de Zeabur te permite implementar rápidamente los servicios que necesitas usando lenguaje natural.
+
+![Zeabur Agent](/start/zeabur-agent.webp)
+
+Haz clic en "Agente" en la barra de navegación para acceder a la interfaz del Asistente de IA. Si encuentras algún problema de implementación, ¡también puedes pedirle ayuda!
+
+## Paso Cuatro: Lanza tu Sitio Web
+
+Para que tu sitio web sea accesible para otros, puedes vincular tu propio dominio en "Dominios":
+
+![Bind domain](/start/bind-domain.webp)
+
+Espera unos 30 segundos, luego podrás hacer clic en el dominio. Zeabur gestionará HTTPS y otras configuraciones por ti. Una vez que todo esté confirmado, podrás compartir tu sitio web.
+
+Si necesitas vincular tu propio dominio, puedes encontrar más información en la documentación de [Vinculación de Dominio](/deploy/domain-binding).
+
+## ¿Qué sigue?
+
+Si deseas iniciar sesión usando tu cuenta de Google o GitHub, puedes vincular tus cuentas de GitHub y Google en "Configuración" > "Integraciones".
+
+![Account integration](/start/account-integration.webp)
+
+A continuación, puedes seguir explorando la rica biblioteca de plantillas de Zeabur y varias características para diferentes propósitos (por ejemplo, Gestión de archivos, Registros). Si necesitas soporte técnico, el [servidor de Discord](https://zeabur.com/dc) de Zeabur tiene canales dedicados para ayudarte a resolver cualquier problema.
