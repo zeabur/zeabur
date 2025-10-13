@@ -22,18 +22,18 @@ ogImageSubtitle: 即使單一伺服器故障，也能讓您的服務維持高可
 flowchart LR
     DNS[Bunny DNS / Cloudflare]
     
-    subgraph R1[Region 1]
+    subgraph R1[區域 1]
         direction LR
-        Ingress1[Zeabur Ingress] --> Srv1([Service])
+        Ingress1[Zeabur 流量入口] --> Srv1([服務])
     end
 
-    subgraph R2[Region 2]
+    subgraph R2[區域 2]
         direction LR
-        Ingress2[Zeabur Ingress] --> Srv2([Service])
+        Ingress2[Zeabur 流量入口] --> Srv2([服務])
     end
 
-    DNS -- Smart Routing --> R1
-    DNS -- Smart Routing --> R2
+    DNS -- 智慧路由 --> R1
+    DNS -- 智慧路由 --> R2
 ```
 
 ## 設定服務副本
@@ -48,38 +48,38 @@ Zeabur 目前不支援自動水平擴縮。要建立冗餘實例，您必須手�
 
 ```mermaid
 flowchart LR
-    DNS[DNS Provider]
+    DNS[DNS 供應商]
     
-    subgraph Project
+    subgraph 專案
         direction LR
 
-        subgraph Service Group 1
+        subgraph 服務群組 1
             direction LR
-            Srv1([Service 1])
-            Srv1_2([Copied Service 1])
-            Caddy_S1([Caddy Proxy])
-            Ingress1[Zeabur Ingress]
+            Srv1([服務 1])
+            Srv1_2([服務 1 副本])
+            Caddy_S1([Caddy 代理])
+            Ingress1[Zeabur 流量入口]
 
             Ingress1 --> Caddy_S1
-            Caddy_S1 --reverse_proxy--> Srv1
-            Caddy_S1 --reverse_proxy--> Srv1_2
+            Caddy_S1 --反向代理--> Srv1
+            Caddy_S1 --反向代理--> Srv1_2
         end
 
-        subgraph Service Group 2
+        subgraph 服務群組 2
             direction LR
-            Srv2([Service 2])
-            Srv2_2([Copied Service 2])
-            Caddy_S2([Caddy Proxy])
-            Ingress2[Zeabur Ingress]
+            Srv2([服務 2])
+            Srv2_2([服務 2 副本])
+            Caddy_S2([Caddy 代理])
+            Ingress2[Zeabur 流量入口]
 
             Ingress2 --> Caddy_S2
-            Caddy_S2 --reverse_proxy--> Srv2
-            Caddy_S2 --reverse_proxy--> Srv2_2
+            Caddy_S2 --反向代理--> Srv2
+            Caddy_S2 --反向代理--> Srv2_2
         end
     end
 
-    DNS --Traffic--> Ingress1
-    DNS --Traffic--> Ingress2
+    DNS --流量--> Ingress1
+    DNS --流量--> Ingress2
 ```
 
 這種方法的一個最大優勢，是它與 Zeabur 的 ingress controller 無縫協作。您可以使用標準的 `X-Forwarded-For` 標頭取回用戶端的真實 IP 位址，而無需修改您的應用程式邏輯。
@@ -90,34 +90,34 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    ALB[Application Load Balancer]
+    ALB[應用程式負載平衡器]
     
-    subgraph Zeabur Project
+    subgraph Zeabur 專案
         direction LR
 
-        subgraph Service Group 1
+        subgraph 服務群組 1
             direction LR
-            Srv1([Service 1])
-            Srv1_2([Copied Service 1])
-            Ingress1[Zeabur Ingress]
+            Srv1([服務 1])
+            Srv1_2([服務 1 副本])
+            Ingress1[Zeabur 流量入口]
 
             Ingress1 -- host1.domain.com --> Srv1
             Ingress1 -- host2.domain.com --> Srv1_2
         end
 
-        subgraph Service Group 2
+        subgraph 服務群組 2
             direction LR
-            Srv2([Service 2])
-            Srv2_2([Copied Service 2])
-            Ingress2[Zeabur Ingress]
+            Srv2([服務 2])
+            Srv2_2([服務 2 副本])
+            Ingress2[Zeabur 流量入口]
 
             Ingress2 -- host3.domain.com --> Srv2
             Ingress2 -- host4.domain.com --> Srv2_2
         end
     end
 
-    ALB -- routes to host1, host2 --> Ingress1
-    ALB -- routes to host3, host4 --> Ingress2
+    ALB -- 路由到 host1, host2 --> Ingress1
+    ALB -- 路由到 host3, host4 --> Ingress2
 ```
 
 雖然這種方法可能看起來更簡單，因為您不需要管理內部 Caddy 服務，但它伴隨著幾個限制：
