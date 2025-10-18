@@ -291,3 +291,15 @@ INFO	Template "WordPress" (https://zeabur.com/templates/71HORL) created
 $ npx zeabur@latest template update -c 71HORL -f wp.yaml
 INFO	Template updated.
 ```
+
+## 使用 `zeabur` CLI 删除模板
+
+如果你有重复的模板或不再需要某个模板，可以使用 `npx zeabur@latest template delete` 命令删除它：
+
+```
+$ npx zeabur@latest template delete
+? Enter template code: 71HORL
+INFO	Template deleted successfully.
+```
+
+只需运行命令并在提示时输入模板代码。模板将从平台中永久删除。

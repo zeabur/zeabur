@@ -293,3 +293,15 @@ If you need to modify the template's content, such as renaming the template or u
 $ npx zeabur@latest template update -c 71HORL -f wp.yaml
 INFO	Template updated.
 ```
+
+## `zeabur` CLI を使用したテンプレートの削除
+
+重複するテンプレートがある場合や、もうテンプレートが必要ない場合は、`npx zeabur@latest template delete` コマンドを使用して削除できます：
+
+```
+$ npx zeabur@latest template delete
+? Enter template code: 71HORL
+INFO	Template deleted successfully.
+```
+
+コマンドを実行し、プロンプトが表示されたらテンプレートコードを入力してください。テンプレートはプラットフォームから完全に削除されます。
