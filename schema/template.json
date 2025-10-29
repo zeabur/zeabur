@@ -89,7 +89,8 @@
                                 "type": "string",
                                 "enum": [
                                     "STRING",
-                                    "DOMAIN"
+                                    "DOMAIN",
+                                    "PASSWORD"
                                 ]
                             },
                             "name": {
