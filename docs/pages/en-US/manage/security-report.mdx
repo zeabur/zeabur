@@ -1,0 +1,65 @@
+---
+title: Security Report
+ogImageTitle: Security Report
+ogImageSubtitle: AI-powered security analysis
+---
+
+import { Callout } from 'nextra/components'
+
+# Security Report
+
+Zeabur provides a built-in security report feature that uses AI analysis to detect potential security vulnerabilities in your applications.
+
+The security report feature employs AI-powered intelligent analysis to check for many common security vulnerabilities (such as industry standards like OWASP Top 10 and CWE Top 25), including Secret Key exposure, SQL injection, XSS attacks, and more. With just one click, you can complete a scan and generate a report within 5-10 minutes.
+
+## How to Generate a Security Report
+
+### Step 1: Navigate to Service Page
+
+Click on the service you want to check and select the **Security** tab.
+
+![Security Report Page](https://cdn.zeabur.com/security-report/security-report-list.png)
+
+### Step 2: Generate Report
+
+Click the **"Generate Report"** button, and the system will begin analyzing your code.
+
+<Callout type="info">
+Whether your code is deployed from GitHub or uploaded locally, you can use the security report feature.
+</Callout>
+
+### Step 3: View Report
+
+After waiting a few minutes, you can see the newly generated report in the list. Click on the report to view detailed content, including detected issues, risk levels, and their locations in the code.
+
+![Security Report Details Page](https://cdn.zeabur.com/security-report/security-report-detail.png)
+
+## How to Fix Security Issues
+
+You can **copy** or **download** the report content and paste it into your preferred AI development tools (like Cursor, Claude Code, etc.) to let AI help you fix the code.
+
+After making corrections, redeploy your code to resolve the security vulnerabilities.
+
+## Frequently Asked Questions
+
+### What vulnerabilities does the security report check?
+
+The security report feature checks for multiple common security vulnerabilities, including but not limited to:
+
+- OWASP Top 10 (such as SQL injection, XSS attacks, etc.)
+- CWE Top 25
+- Secret Key and sensitive information exposure
+- Insecure dependencies
+
+### How long does scanning take?
+
+Depending on code complexity and size, scanning typically takes 5-10 minutes.
+
+### Can I download the report?
+
+Yes. You can copy or download the report content for easy sharing with your team or pasting into AI development tools for fixing.
+
+### Are reports saved?
+
+Yes. All generated reports are saved in the list, and you can access historical records at any time.
+
