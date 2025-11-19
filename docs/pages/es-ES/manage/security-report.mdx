@@ -1,0 +1,65 @@
+---
+title: Informe de seguridad
+ogImageTitle: Informe de seguridad
+ogImageSubtitle: Análisis de seguridad impulsado por IA
+---
+
+import { Callout } from 'nextra/components'
+
+# Informe de seguridad
+
+Zeabur proporciona una función de informe de seguridad integrada que utiliza análisis de IA para detectar vulnerabilidades de seguridad potenciales en sus aplicaciones.
+
+La función de informe de seguridad emplea análisis inteligente impulsado por IA para verificar muchas vulnerabilidades de seguridad comunes (como los estándares de la industria OWASP Top 10 y CWE Top 25), incluida la exposición de claves secretas, inyección SQL, ataques XSS y más. Con solo un clic, puede completar un escaneo y generar un informe en 5-10 minutos.
+
+## Cómo generar un informe de seguridad
+
+### Paso 1: Navegar a la página del servicio
+
+Haga clic en el servicio que desea verificar y seleccione la pestaña **Seguridad**.
+
+![Página de informe de seguridad](https://cdn.zeabur.com/security-report/security-report-list.png)
+
+### Paso 2: Generar informe
+
+Haga clic en el botón **"Generar informe"** y el sistema comenzará a analizar su código.
+
+<Callout type="info">
+Ya sea que su código esté implementado desde GitHub o cargado localmente, puede usar la función de informe de seguridad.
+</Callout>
+
+### Paso 3: Ver informe
+
+Después de esperar unos minutos, puede ver el informe recién generado en la lista. Haga clic en el informe para ver el contenido detallado, incluidos los problemas detectados, los niveles de riesgo y sus ubicaciones en el código.
+
+![Página de detalles del informe de seguridad](https://cdn.zeabur.com/security-report/security-report-detail.png)
+
+## Cómo solucionar problemas de seguridad
+
+Puede **copiar** o **descargar** el contenido del informe y pegarlo en sus herramientas de desarrollo de IA preferidas (como Cursor, Claude Code, etc.) para que la IA le ayude a corregir el código.
+
+Después de hacer las correcciones, vuelva a implementar su código para resolver las vulnerabilidades de seguridad.
+
+## Preguntas frecuentes
+
+### ¿Qué vulnerabilidades verifica el informe de seguridad?
+
+La función de informe de seguridad verifica múltiples vulnerabilidades de seguridad comunes, que incluyen, entre otras:
+
+- OWASP Top 10 (como inyección SQL, ataques XSS, etc.)
+- CWE Top 25
+- Exposición de claves secretas e información confidencial
+- Dependencias inseguras
+
+### ¿Cuánto tiempo lleva el escaneo?
+
+Según la complejidad y el tamaño del código, el escaneo generalmente toma de 5 a 10 minutos.
+
+### ¿Puedo descargar el informe?
+
+Sí. Puede copiar o descargar el contenido del informe para compartirlo fácilmente con su equipo o pegarlo en herramientas de desarrollo de IA para su corrección.
+
+### ¿Se guardan los informes?
+
+Sí. Todos los informes generados se guardan en la lista y puede acceder a los registros históricos en cualquier momento.
+
