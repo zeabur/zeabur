@@ -1,0 +1,52 @@
+---
+title: Gemini Canvas から Chrome 拡張機能でデプロイする
+ogImageTitle: Gemini Canvas から Chrome 拡張機能でデプロイする
+ogImageSubtitle: Zeabur Chrome 拡張で Gemini のコードをワンクリック公開
+---
+
+# Gemini Canvas から Chrome 拡張機能でデプロイする
+
+ここでは Gemini Canvas で生成したコードを Zeabur Chrome 拡張機能に渡し、数クリックでサービスとして公開する手順を紹介します。
+
+## 事前準備
+
+- [Zeabur Chrome 拡張機能](https://chromewebstore.google.com/detail/zeabur/mdcaillllhdkbocjldfclmkcmilkjpem)をインストールする。
+- 同じブラウザで Gemini と Zeabur の両方にログインしておくと、Agent への遷移がスムーズです。
+
+## 1. Chrome 拡張機能をインストール
+
+Chrome ウェブストアから Zeabur 拡張機能を追加し、ツールバーにピン留めしておきます。
+
+![Zeabur Chrome 拡張機能をインストールする](/deploy/chrome-extension/gemini/gemini-step-1.png)
+
+## 2. Gemini を開き Canvas を有効化
+
+Gemini の Web 版で会話を開始し、右下の **Canvas** をオンにしてコードを右側パネルで表示できるようにします。
+
+![Gemini で Canvas を有効にする](/deploy/chrome-extension/gemini/gemini-step-2.png)
+
+## 3. Gemini に Web アプリを生成してもらう
+
+作りたいアプリのプロンプトを入力し、Canvas 内にデプロイしたいコードを生成させます。
+
+![Gemini にプロンプトを入力する](/deploy/chrome-extension/gemini/gemini-step-3.png)
+
+## 4. プレビューを「Code (original)」へ切り替える
+
+右側プレビューのドロップダウンから **Code (original)** を選び、Gemini が出力したソースコードを表示させます。
+
+![コードビューに切り替える](/deploy/chrome-extension/gemini/gemini-step-4.png)
+
+## 5. 「Deploy with Zeabur」ボタンを確認
+
+コードが表示されると、Canvas 右上に紫色の **Deploy with Zeabur** ボタンが現れ、拡張機能が利用可能になります。
+
+![Deploy with Zeabur ボタンが表示される](/deploy/chrome-extension/gemini/gemini-step-5.png)
+
+## 6. ボタンを押して Zeabur Agent で完了
+
+ボタンをクリックすると Zeabur Agent のタブが開き、Gemini のコードを取り込んだ上でプロジェクト情報の確認からデプロイ完了まで案内してくれます。
+
+![Zeabur Agent のインポート画面](/deploy/chrome-extension/gemini/gemini-step-6.png)
+![Agent でデプロイを完了する](/deploy/chrome-extension/gemini/gemini-step-7.png)
+

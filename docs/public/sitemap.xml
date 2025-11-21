@@ -1,381 +1,1308 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://zeabur.com/docs/billing/plans</loc>
+    <loc>https://zeabur.com/docs/en-US/advanced/builds</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/billing/plans</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/billing/pricing</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/billing/redeem</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/billing/referral</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/billing/reward</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/billing/sponsor</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/billing/subscription</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/community/help</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/community/verify</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/data-management/backup</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/data-management/config-edit</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/data-management/file-management</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/data-management/restore</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/data-management/volumes</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/dedicated-server/operate</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/dedicated-server/register</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/dedicated-server</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/command-execution</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/copy-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/create-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/customize-prebuilt</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/deploy-button</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/deploy-in-cli</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/deploy-with-chrome-extension/gemini</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/deploy-with-chrome-extension</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/deploy-with-raycast-extension</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/deploy-with-vscode-extension</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/dockerfile</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/export-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/github</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/root-directory</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/update-image-reference</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/variables</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/watch-paths</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/developer/public-api</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/developer/use-api-key</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/get-started</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/bun/elysiajs</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/bun/hono</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/bun</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/dart/flutter</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/deno/fresh</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/deno/typescript</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/dotnet</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/go</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/java/spring-boot</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/java</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/nodejs/astro</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/nodejs/express</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/nodejs/nestjs</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/nodejs/nextjs</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/nodejs/nue</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/nodejs/nuxt</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/nodejs/qwik</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/nodejs/remix</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/nodejs/svelte-kit</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/nodejs/umi</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/nodejs/vite</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/nodejs/waku</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/nodejs</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/php/laravel</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/php/symfony</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/php</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/python/django</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/python/flask</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/python/reflex</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/python</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/rust</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/static/hugo</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/static/mkdocs</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/static</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/guides/swift/vapor</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/legal/fair-use-guideline</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/legal/privacy</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/legal/terms</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/manage/budget</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/manage/invite</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/manage/metric</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/manage/security-report</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/mcp</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/networking/high-availability</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/networking/private</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/networking/public</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/template/fork-git-repo-from-template</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/template/template-in-code</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/advanced/builds</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/billing/plans</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/billing/pricing</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/billing/redeem</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/billing/referral</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/billing/reward</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/billing/sponsor</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/billing/subscription</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/community/help</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/community/verify</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/data-management/backup</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/data-management/config-edit</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/data-management/file-management</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/data-management/restore</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/data-management/volumes</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/dedicated-server/operate</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/dedicated-server/register</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/dedicated-server</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/deploy/command-execution</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/deploy/copy-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/deploy/customize-prebuilt</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/deploy/deploy-button</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/deploy/deploy-in-cli</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/deploy/deploy-with-chrome-extension/gemini</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/deploy/deploy-with-chrome-extension</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/deploy/deploy-with-raycast-extension</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/deploy/deploy-with-vscode-extension</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/deploy/dockerfile</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/deploy/export-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/deploy/github</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/deploy/root-directory</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/deploy/update-image-reference</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/deploy/variables</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/deploy/watch-paths</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/developer/public-api</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/developer/use-api-key</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/get-started</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/bun/elysiajs</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/bun/hono</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/bun</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/dart/flutter</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/deno/fresh</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/deno/typescript</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/dotnet</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/go</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/java/spring-boot</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/java</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/nodejs/astro</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/nodejs/express</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/nodejs/nestjs</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/nodejs/nextjs</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/nodejs/nue</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/nodejs/nuxt</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/nodejs/qwik</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/nodejs/remix</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/nodejs/svelte-kit</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/nodejs/umi</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/nodejs/vite</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/nodejs/waku</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/nodejs</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/php/laravel</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/php/symfony</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/php</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/python/django</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/python/flask</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/python/reflex</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/python</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/rust</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/static/hugo</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/static/mkdocs</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/static</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/guides/swift/vapor</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/legal/fair-use-guideline</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/legal/privacy</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/legal/terms</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/manage/budget</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/manage/invite</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/manage/metric</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/manage/security-report</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/mcp</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/networking/high-availability</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/networking/private</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/networking/public</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/template/fork-git-repo-from-template</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/template/template-in-code</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/advanced/builds</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/billing/plans</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/billing/pricing</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/billing/redeem</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/billing/referral</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/billing/reward</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/billing/sponsor</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/billing/subscription</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/community/help</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/community/verify</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/data-management/backup</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/data-management/config-edit</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/data-management/file-management</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/data-management/restore</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/data-management/volumes</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/dedicated-server/operate</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/dedicated-server/register</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/dedicated-server</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/deploy/command-execution</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/deploy/copy-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/deploy/create-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/deploy/customize-prebuilt</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/deploy/deploy-button</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/deploy/deploy-in-cli</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/deploy/deploy-with-chrome-extension/gemini</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/deploy/deploy-with-chrome-extension</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/deploy/deploy-with-raycast-extension</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/deploy/deploy-with-vscode-extension</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/deploy/dockerfile</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/deploy/export-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/deploy/github</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/deploy/root-directory</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/deploy/update-image-reference</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/deploy/variables</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/deploy/watch-paths</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/developer/public-api</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/developer/use-api-key</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/get-started</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/bun/elysiajs</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/bun/hono</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/bun</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/dart/flutter</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/deno/fresh</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/deno/typescript</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/dotnet</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/go</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/java/spring-boot</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/java</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/nodejs/astro</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/nodejs/express</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/nodejs/nestjs</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/nodejs/nextjs</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/nodejs/nue</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/nodejs/nuxt</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/nodejs/qwik</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/nodejs/remix</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/nodejs/svelte-kit</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/nodejs/umi</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/nodejs/vite</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/nodejs/waku</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/nodejs</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/php/laravel</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/php/symfony</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/php</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/python/django</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/python/flask</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/python/reflex</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/python</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/rust</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/static/hugo</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/static/mkdocs</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/static</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/guides/swift/vapor</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/legal/fair-use-guideline</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/legal/privacy</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/legal/terms</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/manage/budget</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/manage/invite</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/manage/metric</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/manage/security-report</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/mcp</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/networking/high-availability</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/networking/private</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/networking/public</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/template/fork-git-repo-from-template</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/template/template-in-code</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/advanced/builds</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/billing/plans</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/billing/plans</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/billing/pricing</loc>
-  </url>
-  <url>
     <loc>https://zeabur.com/docs/zh-CN/billing/pricing</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/billing/pricing</loc>
+    <loc>https://zeabur.com/docs/zh-CN/billing/redeem</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/billing/subscription</loc>
+    <loc>https://zeabur.com/docs/zh-CN/billing/referral</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/billing/reward</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/billing/sponsor</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/billing/subscription</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/billing/subscription</loc>
+    <loc>https://zeabur.com/docs/zh-CN/community/help</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/databases/mongodb</loc>
+    <loc>https://zeabur.com/docs/zh-CN/community/verify</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-CN/databases/mongodb</loc>
+    <loc>https://zeabur.com/docs/zh-CN/data-management/backup</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/databases/mongodb</loc>
+    <loc>https://zeabur.com/docs/zh-CN/data-management/config-edit</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/databases/mysql</loc>
+    <loc>https://zeabur.com/docs/zh-CN/data-management/file-management</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-CN/databases/mysql</loc>
+    <loc>https://zeabur.com/docs/zh-CN/data-management/restore</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/databases/mysql</loc>
+    <loc>https://zeabur.com/docs/zh-CN/data-management/volumes</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/databases/postgresql</loc>
+    <loc>https://zeabur.com/docs/zh-CN/dedicated-server/operate</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-CN/databases/postgresql</loc>
+    <loc>https://zeabur.com/docs/zh-CN/dedicated-server/register</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/databases/postgresql</loc>
+    <loc>https://zeabur.com/docs/zh-CN/dedicated-server</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/databases/redis</loc>
+    <loc>https://zeabur.com/docs/zh-CN/deploy/command-execution</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-CN/databases/redis</loc>
+    <loc>https://zeabur.com/docs/zh-CN/deploy/copy-project</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/databases/redis</loc>
+    <loc>https://zeabur.com/docs/zh-CN/deploy/create-project</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/deploy/dockerfile</loc>
+    <loc>https://zeabur.com/docs/zh-CN/deploy/customize-prebuilt</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/deploy/deploy-button</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/deploy/deploy-in-cli</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/deploy/deploy-with-chrome-extension/gemini</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/deploy/deploy-with-chrome-extension</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/deploy/deploy-with-raycast-extension</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/deploy/deploy-with-vscode-extension</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/deploy/dockerfile</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/deploy/dockerfile</loc>
+    <loc>https://zeabur.com/docs/zh-CN/deploy/export-project</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/deploy/domain-binding</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/zh-CN/deploy/domain-binding</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/zh-TW/deploy/domain-binding</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/deploy/root-directory</loc>
+    <loc>https://zeabur.com/docs/zh-CN/deploy/github</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/deploy/root-directory</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/deploy/root-directory</loc>
+    <loc>https://zeabur.com/docs/zh-CN/deploy/update-image-reference</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/deploy/watch-paths</loc>
+    <loc>https://zeabur.com/docs/zh-CN/deploy/variables</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/deploy/watch-paths</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/deploy/watch-paths</loc>
+    <loc>https://zeabur.com/docs/zh-CN/developer/public-api</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/environment/multi-env</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/zh-CN/environment/multi-env</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/zh-TW/environment/multi-env</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/environment/variables</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/zh-CN/environment/variables</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/zh-TW/environment/variables</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/get-started</loc>
+    <loc>https://zeabur.com/docs/zh-CN/developer/use-api-key</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/get-started</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/get-started</loc>
+    <loc>https://zeabur.com/docs/zh-CN/guides/bun/elysiajs</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/guides/deno/fresh</loc>
+    <loc>https://zeabur.com/docs/zh-CN/guides/bun/hono</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/guides/bun</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/guides/dart/flutter</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/guides/deno/fresh</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/guides/deno/fresh</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/guides/deno/typescript</loc>
-  </url>
-  <url>
     <loc>https://zeabur.com/docs/zh-CN/guides/deno/typescript</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/guides/deno/typescript</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/guides/go</loc>
+    <loc>https://zeabur.com/docs/zh-CN/guides/dotnet</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/guides/go</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/guides/go</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/guides/java/spring-boot</loc>
-  </url>
-  <url>
     <loc>https://zeabur.com/docs/zh-CN/guides/java/spring-boot</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/guides/java/spring-boot</loc>
+    <loc>https://zeabur.com/docs/zh-CN/guides/java</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/guides/nodejs/express</loc>
+    <loc>https://zeabur.com/docs/zh-CN/guides/nodejs/astro</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/guides/nodejs/express</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/guides/nodejs/express</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/guides/nodejs/nestjs</loc>
-  </url>
-  <url>
     <loc>https://zeabur.com/docs/zh-CN/guides/nodejs/nestjs</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/zh-TW/guides/nodejs/nestjs</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/guides/nodejs/nextjs</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/guides/nodejs/nextjs</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/guides/nodejs/nextjs</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/guides/nodejs/nuxt</loc>
+    <loc>https://zeabur.com/docs/zh-CN/guides/nodejs/nue</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/guides/nodejs/nuxt</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/guides/nodejs/nuxt</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/guides/nodejs/qwik</loc>
-  </url>
-  <url>
     <loc>https://zeabur.com/docs/zh-CN/guides/nodejs/qwik</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/zh-TW/guides/nodejs/qwik</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/guides/nodejs/remix</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/guides/nodejs/remix</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/guides/nodejs/remix</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/guides/nodejs/svelte-kit</loc>
-  </url>
-  <url>
     <loc>https://zeabur.com/docs/zh-CN/guides/nodejs/svelte-kit</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/zh-TW/guides/nodejs/svelte-kit</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/guides/nodejs/umi</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/guides/nodejs/umi</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/guides/nodejs/umi</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/guides/nodejs/vite</loc>
-  </url>
-  <url>
     <loc>https://zeabur.com/docs/zh-CN/guides/nodejs/vite</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/guides/nodejs/vite</loc>
+    <loc>https://zeabur.com/docs/zh-CN/guides/nodejs/waku</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/guides/php/laravel</loc>
+    <loc>https://zeabur.com/docs/zh-CN/guides/nodejs</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/guides/php/laravel</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/guides/php/laravel</loc>
+    <loc>https://zeabur.com/docs/zh-CN/guides/php/symfony</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/guides/python/django</loc>
+    <loc>https://zeabur.com/docs/zh-CN/guides/php</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/guides/python/django</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/guides/python/django</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/guides/python/flask</loc>
-  </url>
-  <url>
     <loc>https://zeabur.com/docs/zh-CN/guides/python/flask</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/guides/python/flask</loc>
+    <loc>https://zeabur.com/docs/zh-CN/guides/python/reflex</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/guides/rust</loc>
+    <loc>https://zeabur.com/docs/zh-CN/guides/python</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/guides/rust</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/guides/rust</loc>
+    <loc>https://zeabur.com/docs/zh-CN/guides/static/hugo</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/index</loc>
+    <loc>https://zeabur.com/docs/zh-CN/guides/static/mkdocs</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-CN/index</loc>
+    <loc>https://zeabur.com/docs/zh-CN/guides/static</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/index</loc>
+    <loc>https://zeabur.com/docs/zh-CN/guides/swift/vapor</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/legal/privacy</loc>
+    <loc>https://zeabur.com/docs/zh-CN</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/legal/fair-use-guideline</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/legal/privacy</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/legal/privacy</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/legal/terms</loc>
-  </url>
-  <url>
     <loc>https://zeabur.com/docs/zh-CN/legal/terms</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/legal/terms</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/manage/invite</loc>
+    <loc>https://zeabur.com/docs/zh-CN/manage/budget</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/manage/invite</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/manage/invite</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/manage/metric</loc>
-  </url>
-  <url>
     <loc>https://zeabur.com/docs/zh-CN/manage/metric</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/manage/security-report</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/mcp</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/networking/high-availability</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/networking/pre-icp-subdomain</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/networking/private</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/networking/public</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/template/fork-git-repo-from-template</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/template/template-in-code</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/advanced/builds</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/billing/plans</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/billing/pricing</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/billing/redeem</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/billing/referral</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/billing/reward</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/billing/sponsor</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/billing/subscription</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/community/help</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/community/verify</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/data-management/backup</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/data-management/config-edit</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/data-management/file-management</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/data-management/restore</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/data-management/volumes</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/dedicated-server/operate</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/dedicated-server/register</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/dedicated-server</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/command-execution</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/copy-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/create-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/customize-prebuilt</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/deploy-button</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/deploy-in-cli</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/deploy-with-chrome-extension/gemini</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/deploy-with-chrome-extension</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/deploy-with-raycast-extension</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/deploy-with-vscode-extension</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/dockerfile</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/export-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/github</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/root-directory</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/update-image-reference</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/variables</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/watch-paths</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/developer/public-api</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/developer/use-api-key</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/get-started</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/bun/elysiajs</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/bun/hono</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/bun</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/dart/flutter</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/deno/fresh</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/deno/typescript</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/dotnet</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/go</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/java/spring-boot</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/java</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/nodejs/astro</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/nodejs/express</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/nodejs/nestjs</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/nodejs/nextjs</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/nodejs/nue</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/nodejs/nuxt</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/nodejs/qwik</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/nodejs/remix</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/nodejs/svelte-kit</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/nodejs/umi</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/nodejs/vite</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/nodejs/waku</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/nodejs</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/php/laravel</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/php/symfony</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/php</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/python/django</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/python/flask</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/python/reflex</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/python</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/rust</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/static/hugo</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/static/mkdocs</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/static</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/guides/swift/vapor</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/legal/fair-use-guideline</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/legal/privacy</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/legal/terms</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/manage/budget</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/manage/invite</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-TW/manage/metric</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/marketplace/ghost</loc>
+    <loc>https://zeabur.com/docs/zh-TW/manage/security-report</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-CN/marketplace/ghost</loc>
+    <loc>https://zeabur.com/docs/zh-TW/mcp</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/marketplace/ghost</loc>
+    <loc>https://zeabur.com/docs/zh-TW/networking/high-availability</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/marketplace/halo</loc>
+    <loc>https://zeabur.com/docs/zh-TW/networking/private</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-CN/marketplace/halo</loc>
+    <loc>https://zeabur.com/docs/zh-TW/networking/public</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/marketplace/halo</loc>
+    <loc>https://zeabur.com/docs/zh-TW/template/fork-git-repo-from-template</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/marketplace/logto</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/zh-CN/marketplace/logto</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/zh-TW/marketplace/logto</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/marketplace/rsshub</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/zh-CN/marketplace/rsshub</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/zh-TW/marketplace/rsshub</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/marketplace/umami</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/zh-CN/marketplace/umami</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/zh-TW/marketplace/umami</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/marketplace/wordpress</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/zh-CN/marketplace/wordpress</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/zh-TW/marketplace/wordpress</loc>
+    <loc>https://zeabur.com/docs/zh-TW/template/template-in-code</loc>
   </url>
 </urlset>

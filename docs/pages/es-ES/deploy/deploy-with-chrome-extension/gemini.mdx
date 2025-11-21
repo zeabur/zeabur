@@ -1,0 +1,52 @@
+---
+title: Implementar proyectos de Gemini Canvas con la extensión de Chrome
+ogImageTitle: Implementar proyectos de Gemini Canvas con la extensión de Chrome
+ogImageSubtitle: Publica el código de Gemini en Zeabur con un solo clic
+---
+
+# Implementar proyectos de Gemini Canvas con la extensión de Chrome
+
+En esta guía aprenderás cómo enviar el código que genera Gemini Canvas directamente a Zeabur mediante la extensión de Chrome y completar el despliegue en minutos.
+
+## Antes de empezar
+
+- Instala la [extensión de Chrome de Zeabur](https://chromewebstore.google.com/detail/zeabur/mdcaillllhdkbocjldfclmkcmilkjpem).
+- Inicia sesión tanto en Gemini como en Zeabur en el mismo navegador para que el Agent pueda reutilizar la sesión.
+
+## 1. Instala la extensión de Chrome
+
+Abre la Chrome Web Store, añade la extensión de Zeabur y fíjala en la barra de herramientas para tenerla siempre a mano.
+
+![Instalar la extensión de Chrome de Zeabur](/deploy/chrome-extension/gemini/gemini-step-1.png)
+
+## 2. Abre Gemini web y activa Canvas
+
+En la versión web de Gemini inicia una conversación y habilita **Canvas** en la esquina inferior derecha para poder editar y previsualizar el código dentro de la misma página.
+
+![Activar Canvas en Gemini](/deploy/chrome-extension/gemini/gemini-step-2.png)
+
+## 3. Pide a Gemini que genere tu sitio
+
+Describe con un prompt el sitio o la app que quieres publicar y deja que Gemini genere el código dentro de Canvas; la extensión leerá ese resultado.
+
+![Pedir a Gemini que genere el proyecto](/deploy/chrome-extension/gemini/gemini-step-3.png)
+
+## 4. Cambia la vista a `Code (original)`
+
+En el panel derecho selecciona **Code (original)** para mostrar el código fuente que creó Gemini y permitir que la extensión lo capture.
+
+![Cambiar la vista al código](/deploy/chrome-extension/gemini/gemini-step-4.png)
+
+## 5. Busca el botón «Deploy with Zeabur»
+
+Cuando la vista de código esté activa aparecerá un botón morado **Deploy with Zeabur** en la esquina superior derecha del Canvas.
+
+![Botón Deploy with Zeabur](/deploy/chrome-extension/gemini/gemini-step-5.png)
+
+## 6. Haz clic y termina en Zeabur Agent
+
+Pulsa el botón para abrir Zeabur Agent en una nueva pestaña; el Agent importa el paquete generado por Gemini, te pide confirmar los detalles del proyecto y te guía hasta completar el despliegue.
+
+![Pantalla de importación en Zeabur Agent](/deploy/chrome-extension/gemini/gemini-step-6.png)
+![Completar el despliegue con el Agent](/deploy/chrome-extension/gemini/gemini-step-7.png)
+

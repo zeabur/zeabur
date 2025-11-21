@@ -1,0 +1,52 @@
+---
+title: 在 Gemini Canvas 使用 Chrome 插件部署
+ogImageTitle: 在 Gemini Canvas 使用 Chrome 插件部署
+ogImageSubtitle: 借助 Zeabur Chrome 插件一键部署 Gemini 代码
+---
+
+# 在 Gemini Canvas 使用 Chrome 插件部署
+
+本文通过图文示例说明如何把 Gemini Canvas 里生成的项目交给 Zeabur，让 Chrome 插件帮你一键完成部署。
+
+## 开始之前
+
+- 安装 [Zeabur Chrome 插件](https://chromewebstore.google.com/detail/zeabur/mdcaillllhdkbocjldfclmkcmilkjpem)。
+- 建议先在同一浏览器里登录 Gemini 与 Zeabur，方便跳转到 Zeabur Agent 时直接复用会话。
+
+## 1. 安装 Chrome 插件
+
+打开 Chrome 网上应用店安装 Zeabur 插件，并将它固定在工具栏以便随时使用。
+
+![安装 Zeabur Chrome 插件](/deploy/chrome-extension/gemini/gemini-step-1.png)
+
+## 2. 打开 Gemini 并启用 Canvas
+
+进入 Gemini 网页版，开始一段对话后在右下角启用 **Canvas**，这样便能在右侧面板预览与编辑代码。
+
+![在 Gemini 中启用 Canvas](/deploy/chrome-extension/gemini/gemini-step-2.png)
+
+## 3. 让 Gemini 生成网站
+
+输入需求 prompt，指示 Gemini 在 Canvas 中产出你想部署的网页或应用，稍后插件会读取这份代码。
+
+![让 Gemini 生成项目](/deploy/chrome-extension/gemini/gemini-step-3.png)
+
+## 4. 将预览切换为「Code（原始码）」
+
+在预览区的下拉选单中选择 **Code（原始码）**，让画面显示 Gemini 输出的源代码，插件才能正确取得内容。
+
+![切换到原始码视图](/deploy/chrome-extension/gemini/gemini-step-4.png)
+
+## 5. 看到「Deploy with Zeabur」按钮
+
+当原始码载入后，Canvas 右上角会出现紫色 **Deploy with Zeabur** 按钮，表示可以直接发送到 Zeabur。
+
+![出现 Deploy with Zeabur 按钮](/deploy/chrome-extension/gemini/gemini-step-5.png)
+
+## 6. 点击按钮并在 Zeabur Agent 完成部署
+
+点下按钮会自动打开 Zeabur Agent，新分页会带入 Gemini 的代码包，引导你确认项目、建立服务并完成部署。
+
+![Zeabur Agent 导入画面](/deploy/chrome-extension/gemini/gemini-step-6.png)
+![完成部署流程](/deploy/chrome-extension/gemini/gemini-step-7.png)
+
