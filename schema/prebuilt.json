@@ -35,8 +35,8 @@
 		"portForwarding": {
 			"$ref": "#/definitions/PortForwarding"
 		},
-		"experiments": {
-			"$ref": "#/definitions/Experiments"
+		"resources": {
+			"$ref": "#/definitions/Resources"
 		}
 	},
 	"required": [
@@ -527,30 +527,18 @@
 				"enabled"
 			]
 		},
-		"Experiments": {
-			"title": "Experiments",
-			"description": "Declare the experimental or custom features for this service.",
-			"type": "object",
-			"additionalProperties": true,
-			"properties": {
-				"sharedMemory": {
-					"$ref": "#/definitions/SharedMemory"
-				}
-			}
-		},
-		"SharedMemory": {
-			"title": "Shared memory",
-			"description": "Declare the shared memory for this service. Useful for database like PostgreSQL.",
+		"Resources": {
+			"title": "Resources",
+			"description": "The resource-related configuration for this service.",
 			"type": "object",
 			"properties": {
-				"size": {
-					"title": "Size",
+				"shmSize": {
+					"title": "Shared memory size",
 					"description": "The size of the shared memory in Kubernetes [quantity](https://kubernetes.io/docs/reference/kubernetes-api/common-definitions/quantity/).",
 					"type": "string",
 					"default": "64Mi"
 				}
-			},
-			"additionalProperties": false
+			}
 		}
 	}
 }
