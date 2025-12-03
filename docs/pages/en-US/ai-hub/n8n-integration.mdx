@@ -1,0 +1,73 @@
+---
+title: Using Zeabur AI Hub in n8n
+ogImageTitle: Using Zeabur AI Hub in n8n
+ogImageSubtitle: Integrate Zeabur AI Hub into n8n Workflows
+---
+
+import { Callout } from 'nextra/components'
+
+# Using Zeabur AI Hub in n8n
+
+n8n is a powerful workflow automation tool that supports integration with various AI models. This tutorial uses OpenAI models as an example to demonstrate how to use Zeabur AI Hub's API in n8n. The process is similar for other models.
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+1. Deployed n8n service on Zeabur (you can use the [n8n template](https://zeabur.com/templates/JP88UN) for quick deployment)
+2. Added credits to [Zeabur AI Hub](https://zeabur.com/ai-hub)
+3. Created an API key
+
+## Setting Up OpenAI Credentials
+
+### Step 1: Add Credentials
+
+1. Open your n8n interface
+2. Click "Credentials" in the top right corner
+3. Click "+ Add Credential"
+4. Search and select "OpenAI"
+
+![Add OpenAI Credential](https://cdn.zeabur.com/n8n-tutorial/1.%20add%20credential.png)
+
+### Step 2: Configure API Key and Base URL
+
+In the credential settings page:
+
+1. **API Key**: Paste the API key you created in AI Hub
+2. **Base URL**: Enter the Zeabur AI Hub endpoint
+
+```
+https://hnd1.aihub.zeabur.ai/v1
+```
+
+Or choose other regional endpoints based on your needs:
+- **HND1 - Tokyo, Japan**: `https://hnd1.aihub.zeabur.ai/v1`
+- **SFO1 - San Francisco, USA**: `https://sfo1.aihub.zeabur.ai/v1`
+
+3. Click "Save"
+
+![Configure API Key and Base URL](https://cdn.zeabur.com/n8n-tutorial/2.%20configure.png)
+
+### Step 3: Bind Credentials to Workflow Node and Disable Use Responses API
+
+1. Add a node that uses AI in your workflow (e.g., OpenAI Chat Model)
+2. In "Credential to connect with", select the credential you just created
+3. Find the "Use Responses API" option and turn it off
+
+<Callout type="warning">
+  When using Zeabur AI Hub, make sure to disable the "Use Responses API" feature, otherwise API calls may fail.
+</Callout>
+
+![Disable Use Responses API](https://cdn.zeabur.com/n8n-tutorial/3.%20turn%20off%20use%20responses%20api.png)
+
+### Step 4: Test Connection
+
+After configuration, run the workflow to verify the settings. If configured correctly, you should see a successful AI response.
+
+![Successful Call](https://cdn.zeabur.com/n8n-tutorial/4.%20success.png)
+
+If errors occur, check:
+- API key is correct (no extra spaces)
+- Base URL is correctly configured
+- "Use Responses API" is disabled
+- Zeabur AI Hub account has sufficient credits

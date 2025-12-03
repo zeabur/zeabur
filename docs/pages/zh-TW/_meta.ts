@@ -7,6 +7,7 @@ export default {
     title: 'Zeabur 模板目錄',
     href: 'https://zeabur.com/templates',
   },
+  'ai-hub': 'Zeabur AI Hub',
   'data-management': '資料管理',
   networking: '網路',
   guides: '教學',

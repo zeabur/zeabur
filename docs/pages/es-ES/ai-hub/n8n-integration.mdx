@@ -1,0 +1,73 @@
+---
+title: Usar Zeabur AI Hub en n8n
+ogImageTitle: Usar Zeabur AI Hub en n8n
+ogImageSubtitle: Integrar Zeabur AI Hub en flujos de trabajo de n8n
+---
+
+import { Callout } from 'nextra/components'
+
+# Usar Zeabur AI Hub en n8n
+
+n8n es una potente herramienta de automatización de flujos de trabajo que soporta la integración con varios modelos de IA. Este tutorial usa modelos de OpenAI como ejemplo para demostrar cómo usar la API de Zeabur AI Hub en n8n. El proceso es similar para otros modelos.
+
+## Requisitos previos
+
+Antes de comenzar, asegúrese de tener:
+
+1. Servicio n8n desplegado en Zeabur (puede usar la [plantilla de n8n](https://zeabur.com/templates/JP88UN) para un despliegue rápido)
+2. Créditos añadidos en [Zeabur AI Hub](https://zeabur.com/ai-hub)
+3. Una clave API creada
+
+## Configurar credenciales de OpenAI
+
+### Paso 1: Añadir credenciales
+
+1. Abra su interfaz de n8n
+2. Haga clic en "Credentials" (Credenciales) en la esquina superior derecha
+3. Haga clic en "+ Add Credential" (Añadir credencial)
+4. Busque y seleccione "OpenAI"
+
+![Añadir credencial de OpenAI](https://cdn.zeabur.com/n8n-tutorial/1.%20add%20credential.png)
+
+### Paso 2: Configurar API Key y Base URL
+
+En la página de configuración de credenciales:
+
+1. **API Key**: Pegue la clave API que creó en AI Hub
+2. **Base URL**: Ingrese el endpoint de Zeabur AI Hub
+
+```
+https://hnd1.aihub.zeabur.ai/v1
+```
+
+O elija otros endpoints regionales según sus necesidades:
+- **HND1 - Tokio, Japón**: `https://hnd1.aihub.zeabur.ai/v1`
+- **SFO1 - San Francisco, EE.UU.**: `https://sfo1.aihub.zeabur.ai/v1`
+
+3. Haga clic en "Save" (Guardar)
+
+![Configurar API Key y Base URL](https://cdn.zeabur.com/n8n-tutorial/2.%20configure.png)
+
+### Paso 3: Vincular credenciales al nodo del flujo de trabajo y desactivar Use Responses API
+
+1. Añada un nodo que use IA en su flujo de trabajo (por ejemplo, OpenAI Chat Model)
+2. En "Credential to connect with", seleccione la credencial que acaba de crear
+3. Encuentre la opción "Use Responses API" y desactívela
+
+<Callout type="warning">
+  Al usar Zeabur AI Hub, asegúrese de desactivar la función "Use Responses API", de lo contrario las llamadas a la API pueden fallar.
+</Callout>
+
+![Desactivar Use Responses API](https://cdn.zeabur.com/n8n-tutorial/3.%20turn%20off%20use%20responses%20api.png)
+
+### Paso 4: Probar conexión
+
+Después de la configuración, ejecute el flujo de trabajo para verificar los ajustes. Si está configurado correctamente, debería ver una respuesta exitosa de la IA.
+
+![Llamada exitosa](https://cdn.zeabur.com/n8n-tutorial/4.%20success.png)
+
+Si ocurren errores, verifique:
+- La clave API es correcta (sin espacios adicionales)
+- Base URL está configurado correctamente
+- "Use Responses API" está desactivado
+- La cuenta de Zeabur AI Hub tiene suficientes créditos

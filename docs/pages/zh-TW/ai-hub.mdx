@@ -1,0 +1,150 @@
+---
+title: Zeabur AI Hub
+ogImageTitle: Zeabur AI Hub
+ogImageSubtitle: 輕鬆整合多種 AI 模型到您的應用程式
+---
+
+import { Callout } from 'nextra/components'
+
+# Zeabur AI Hub
+
+Zeabur AI Hub 是一個統一的 AI 服務平台，讓您可以透過單一介面存取多種 AI 模型（如 OpenAI、Claude 等），並以透明的點數預付制按實際使用量計費。
+
+## 主要特色
+
+- **多模型支援**：存取 OpenAI、Anthropic Claude 等主流 AI 模型
+- **統一 API 金鑰管理**：透過單一 API 金鑰存取所有支援的模型
+- **透明計費**：按實際使用量計費，完整的使用歷史追蹤
+- **多區域端點**：選擇最適合的 API 端點以獲得最佳性能
+- **輕鬆整合**：相容 OpenAI API 格式，可快速整合到現有應用
+
+## 快速開始
+
+### 步驟一：儲值點數
+
+1. 登入 [Zeabur Dashboard](https://zeabur.com)
+2. 前往 **AI Hub** 頁面
+3. 在「餘額管理」區域，選擇要儲值的金額
+4. 完成付款後，點數會立即加入您的帳戶
+
+### 步驟二：建立 API 金鑰
+
+1. 在 AI Hub 頁面中，點擊「建立 API 金鑰」
+2. 為您的 API 金鑰命名（例如：「我的應用程式」）
+3. 複製產生的 API 金鑰並妥善保管
+
+<Callout type="warning">
+  API 金鑰只會在建立時顯示一次，請立即將它複製並儲存在安全的地方。如果遺失，您需要建立新的金鑰。
+</Callout>
+
+### 步驟三：使用 API
+
+使用 Zeabur AI Hub API 與使用 OpenAI API 的方式相同，只需要：
+
+1. 將 API Base URL 設定為 Zeabur AI Hub 的端點
+2. 使用您在 AI Hub 建立的 API 金鑰
+
+```bash
+curl https://hnd1.aihub.zeabur.ai/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_ZEABUR_API_KEY" \
+  -d '{
+    "model": "gpt-4",
+    "messages": [
+      {
+        "role": "user",
+        "content": "你好！"
+      }
+    ]
+  }'
+```
+
+## 支援的模型
+
+Zeabur AI Hub 支援多種主流 AI 模型：
+
+- **GPT** - OpenAI 的 GPT 系列模型
+- **Claude** - Anthropic 的 Claude 系列模型
+- **Grok** - xAI 的 Grok 系列模型
+
+<Callout>
+  模型列表會持續更新，請造訪 [Zeabur Models](https://zeabur.com/zh-TW/models) 查看最新支援的模型和定價。
+</Callout>
+
+## API 端點
+
+Zeabur AI Hub 提供多個區域的 API 端點：
+
+### HND1 - 東京，日本
+```
+https://hnd1.aihub.zeabur.ai/
+```
+
+### SFO1 - 舊金山，美國
+```
+https://sfo1.aihub.zeabur.ai/
+```
+
+選擇最接近您應用程式部署位置的端點以獲得最佳延遲表現。
+
+## 計費方式
+
+AI Hub 採用**點數預付制**：
+
+1. 先儲值點數到您的帳戶
+2. 每次 API 呼叫會根據使用的模型和 token 數量扣除相應點數
+3. 可在「使用歷史」中查看詳細的使用記錄和費用
+
+### 查看使用記錄
+
+在 AI Hub 頁面中：
+1. 前往「使用歷史」分頁
+2. 查看每次 API 呼叫的詳細資訊：
+   - 使用時間
+   - 模型名稱
+   - Token 使用量
+   - 消耗點數
+
+## 安全性最佳實踐
+
+- **妥善保管 API 金鑰**：不要將 API 金鑰提交到版本控制系統
+- **使用環境變數**：將 API 金鑰儲存在環境變數中
+- **定期輪換**：定期撤銷舊的 API 金鑰並建立新的
+- **監控使用量**：定期檢查使用歷史，留意異常的 API 呼叫
+
+## 整合範例
+
+Zeabur AI Hub 可以輕鬆整合到各種應用和工具中：
+
+- [在 n8n 中使用 Zeabur AI Hub](./n8n-integration)：自動化工作流程
+- [在 SillyTavern 中使用 Zeabur AI Hub](./sillytavern-integration)：角色扮演對話
+- 或任何支援 OpenAI API 格式的應用程式
+
+## 常見問題
+
+### 如何查看剩餘點數？
+
+在 AI Hub 頁面的「餘額管理」區域可以看到目前的剩餘點數。
+
+### 點數會過期嗎？
+
+目前 AI Hub 的點數不會過期。
+
+### 可以退款嗎？
+
+儲值的點數目前不支援退款，請依實際需求儲值。
+
+### 支援哪些程式語言？
+
+Zeabur AI Hub 使用標準的 OpenAI API 格式，支援所有主流程式語言：
+- Python (openai 套件)
+- JavaScript/TypeScript (openai 套件)
+- Java, Go, Ruby, PHP 等
+
+只需要將 API Base URL 和 API Key 設定為 Zeabur AI Hub 的即可。
+
+## 相關資源
+
+- [建立和使用 API 金鑰](../developer/use-api-key)
+- [n8n 整合教學](./n8n-integration)
+- [SillyTavern 整合教學](./sillytavern-integration)
