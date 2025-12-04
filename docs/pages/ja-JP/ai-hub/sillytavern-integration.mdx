@@ -1,0 +1,65 @@
+---
+title: SillyTavern で Zeabur AI Hub を使用する
+ogImageTitle: SillyTavern で Zeabur AI Hub を使用する
+ogImageSubtitle: Zeabur AI Hub を SillyTavern に統合する
+---
+
+import { Callout } from 'nextra/components'
+
+# SillyTavern で Zeabur AI Hub を使用する
+
+SillyTavern は、複数の AI モデルをサポートする強力な AI ロールプレイチャットインターフェースです。このチュートリアルでは、SillyTavern で Zeabur AI Hub を使用する方法を説明します。
+
+## 前提条件
+
+始める前に、以下を確認してください：
+
+1. SillyTavern をインストールまたはデプロイ済み（[Zeabur テンプレート](https://zeabur.com/templates/DX09NM)で簡単にデプロイできます）
+2. [Zeabur AI Hub](https://zeabur.com/ai-hub) でクレジットをチャージ済み
+3. API キーを作成済み
+
+## 設定手順
+
+### ステップ 1：API 接続を設定
+
+1. SillyTavern インターフェースを開く
+2. トップナビゲーションバーの **API Connections**（API 接続）アイコンをクリック（プラグのような形）
+3. **API** ドロップダウンで **Chat Completion (OpenAI)** を選択
+4. **Chat Completion Source** で **Custom (OpenAI-compatible)** を選択
+5. **Custom Endpoint (Base URL)** に Zeabur AI Hub のエンドポイントを入力：
+
+```
+https://hnd1.aihub.zeabur.ai/v1
+```
+
+地理的な場所に応じて、より低いレイテンシーを得るために他のリージョンエンドポイントを選択することもできます：
+- **HND1 - 東京、日本**：`https://hnd1.aihub.zeabur.ai/v1`
+- **SFO1 - サンフランシスコ、アメリカ**：`https://sfo1.aihub.zeabur.ai/v1`
+
+6. **Custom API key** に Zeabur AI Hub で作成した API キーを貼り付け
+7. **Connect**（接続）ボタンをクリック
+8. 正しく設定されていれば、接続インジケーターが**緑色**になり、「Valid」（有効）と表示されます
+9. **Model** ドロップダウンで使用したい AI モデルを選択
+
+![API Key を設定](https://cdn.zeabur.com/silly-tavern-tutorial/1.%20configure%20api%20key.png)
+
+よく使われるモデル：
+- `gpt-4`：最も強力、複雑な会話に適している
+- `gpt-4-turbo`：性能とコストのバランス
+- `gpt-3.5-turbo`：高速で経済的
+- `claude-3-5-sonnet`：Anthropic の高品質モデル
+
+<Callout>
+  モデルによって価格が異なります。各モデルの価格情報については [Zeabur Models](https://zeabur.com/ja-JP/models) をご確認ください。
+</Callout>
+
+接続に失敗した場合は、以下を確認してください：
+- API キーが正しいか（余分なスペースがないか）
+- API URL が正しいか
+- AI Hub アカウントに十分なクレジットがあるか
+
+### ステップ 2：チャットをテスト
+
+キャラクターを選択または作成し、チャットボックスにメッセージを入力してテストします。正しく設定されていれば、AI が正常に応答するはずです。
+
+![成功した呼び出し画面](https://cdn.zeabur.com/silly-tavern-tutorial/2.%20success.png)

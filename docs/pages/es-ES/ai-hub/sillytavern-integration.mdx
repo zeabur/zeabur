@@ -1,0 +1,65 @@
+---
+title: Usar Zeabur AI Hub en SillyTavern
+ogImageTitle: Usar Zeabur AI Hub en SillyTavern
+ogImageSubtitle: Integrar Zeabur AI Hub en SillyTavern
+---
+
+import { Callout } from 'nextra/components'
+
+# Usar Zeabur AI Hub en SillyTavern
+
+SillyTavern es una potente interfaz de chat de roleplay con IA que soporta múltiples modelos de IA. Este tutorial explica cómo usar Zeabur AI Hub en SillyTavern.
+
+## Requisitos previos
+
+Antes de comenzar, asegúrese de tener:
+
+1. SillyTavern instalado o desplegado (puede usar la [plantilla de Zeabur](https://zeabur.com/templates/DX09NM) para un despliegue rápido)
+2. Créditos añadidos en [Zeabur AI Hub](https://zeabur.com/ai-hub)
+3. Una clave API creada
+
+## Pasos de configuración
+
+### Paso 1: Configurar conexión API
+
+1. Abra la interfaz de SillyTavern
+2. Haga clic en el icono de **API Connections** (Conexiones API) en la barra de navegación superior (parece un enchufe)
+3. En el menú desplegable **API**, seleccione **Chat Completion (OpenAI)**
+4. En **Chat Completion Source**, seleccione **Custom (OpenAI-compatible)**
+5. En **Custom Endpoint (Base URL)**, ingrese el endpoint de Zeabur AI Hub:
+
+```
+https://hnd1.aihub.zeabur.ai/v1
+```
+
+Según su ubicación geográfica, también puede elegir otros endpoints regionales para mejor latencia:
+- **HND1 - Tokio, Japón**: `https://hnd1.aihub.zeabur.ai/v1`
+- **SFO1 - San Francisco, EE.UU.**: `https://sfo1.aihub.zeabur.ai/v1`
+
+6. En **Custom API key**, pegue la clave API que creó en Zeabur AI Hub
+7. Haga clic en el botón **Connect** (Conectar)
+8. Si está configurado correctamente, verá el indicador de conexión en **verde** y mostrará "Valid" (Válido)
+9. En el menú desplegable **Model**, seleccione el modelo de IA que desea usar
+
+![Configurar API Key](https://cdn.zeabur.com/silly-tavern-tutorial/1.%20configure%20api%20key.png)
+
+Los modelos populares incluyen:
+- `gpt-4`: El más potente, adecuado para conversaciones complejas
+- `gpt-4-turbo`: Equilibrio entre rendimiento y costo
+- `gpt-3.5-turbo`: Rápido y económico
+- `claude-3-5-sonnet`: Modelo de alta calidad de Anthropic
+
+<Callout>
+  Los diferentes modelos tienen diferentes precios. Recomendamos visitar [Zeabur Models](https://zeabur.com/es-ES/models) para consultar la información de precios de cada modelo.
+</Callout>
+
+Si la conexión falla, verifique:
+- La clave API es correcta (sin espacios adicionales)
+- La URL de API es correcta
+- Su cuenta de AI Hub tiene suficientes créditos
+
+### Paso 2: Probar chat
+
+Seleccione o cree un personaje (Character) e ingrese un mensaje en el cuadro de chat para probar. Si está configurado correctamente, debería ver una respuesta exitosa de la IA.
+
+![Llamada exitosa](https://cdn.zeabur.com/silly-tavern-tutorial/2.%20success.png)

@@ -1,0 +1,73 @@
+---
+title: 在 n8n 中使用 Zeabur AI Hub
+ogImageTitle: 在 n8n 中使用 Zeabur AI Hub
+ogImageSubtitle: 將 Zeabur AI Hub 整合到 n8n 工作流程
+---
+
+import { Callout } from 'nextra/components'
+
+# 在 n8n 中使用 Zeabur AI Hub
+
+n8n 是一個強大的工作流程自動化工具，支援與各種 AI 模型整合。本教學將以 OpenAI 模型為例，說明如何在 n8n 中使用 Zeabur AI Hub 的 API。其他模型的操作方式也大致相同。
+
+## 前置準備
+
+在開始之前，請確認您已經：
+
+1. 在 Zeabur 上部署了 n8n 服務（可使用 [n8n 模板](https://zeabur.com/templates/JP88UN) 快速部署）
+2. 在 [Zeabur AI Hub](https://zeabur.com/ai-hub) 儲值了點數
+3. 建立了 API 金鑰
+
+## 設定 OpenAI 憑證
+
+### 步驟一：新增憑證
+
+1. 開啟您的 n8n 介面
+2. 點擊右上角的「Credentials」（憑證）
+3. 點擊「+ Add Credential」（新增憑證）
+4. 搜尋並選擇「OpenAI」
+
+![新增 OpenAI 憑證](https://cdn.zeabur.com/n8n-tutorial/1.%20add%20credential.png)
+
+### 步驟二：設定 API Key 與 Base URL
+
+在憑證設定頁面中：
+
+1. **API Key**：貼上您在 AI Hub 建立的 API 金鑰
+2. **Base URL**：輸入 Zeabur AI Hub 的端點
+
+```
+https://hnd1.aihub.zeabur.ai/v1
+```
+
+或根據您的需求選擇其他區域端點：
+- **HND1 - 東京，日本**：`https://hnd1.aihub.zeabur.ai/v1`
+- **SFO1 - 舊金山，美國**：`https://sfo1.aihub.zeabur.ai/v1`
+
+3. 點擊「Save」（儲存）
+
+![設定 API Key 與 Base URL](https://cdn.zeabur.com/n8n-tutorial/2.%20configure.png)
+
+### 步驟三：在工作流程節點中綁定憑證並關閉 Use Responses API
+
+1. 在工作流程中新增需要使用 AI 的節點（例如 OpenAI Chat Model）
+2. 在「Credential to connect with」選擇剛才建立的憑證
+3. 找到「Use Responses API」選項並將其關閉
+
+<Callout type="warning">
+  使用 Zeabur AI Hub 時，請務必關閉「Use Responses API」功能，否則可能會導致呼叫失敗。
+</Callout>
+
+![關閉 Use Responses API](https://cdn.zeabur.com/n8n-tutorial/3.%20turn%20off%20use%20responses%20api.png)
+
+### 步驟四：測試連線
+
+設定完成後，執行工作流程來驗證設定是否正確。如果設定正確，您應該會看到 AI 成功回應。
+
+![成功呼叫畫面](https://cdn.zeabur.com/n8n-tutorial/4.%20success.png)
+
+如果出現錯誤，請檢查：
+- API 金鑰是否正確（沒有多餘的空格）
+- Base URL 是否正確設定
+- 「Use Responses API」是否已關閉
+- Zeabur AI Hub 帳戶是否有足夠的點數

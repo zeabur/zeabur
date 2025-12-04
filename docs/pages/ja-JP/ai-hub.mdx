@@ -1,0 +1,149 @@
+---
+title: Zeabur AI Hub
+ogImageTitle: Zeabur AI Hub
+ogImageSubtitle: 複数の AI モデルをアプリケーションに簡単に統合
+---
+
+import { Callout } from 'nextra/components'
+
+# Zeabur AI Hub
+
+Zeabur AI Hub は、単一のインターフェースを通じて複数の AI モデル（OpenAI、Claude など）にアクセスできる統合 AI サービスプラットフォームです。透明なクレジット前払い制で、実際の使用量に基づいて課金されます。
+
+## 主な特徴
+
+- **マルチモデルサポート**：OpenAI、Anthropic Claude などの主要な AI モデルにアクセス
+- **統一 API キー管理**：単一の API キーですべてのサポートされているモデルにアクセス
+- **透明な課金**：実際の使用量に基づく課金と、完全な使用履歴の追跡
+- **マルチリージョンエンドポイント**：最適なパフォーマンスを得るために最適な API エンドポイントを選択
+- **簡単な統合**：OpenAI API 形式と互換性があり、既存のアプリケーションに素早く統合可能
+
+## クイックスタート
+
+### ステップ 1：クレジットをチャージ
+
+1. [Zeabur Dashboard](https://zeabur.com/projects) にログイン
+2. **AI Hub** ページに移動
+3. 「残高管理」セクションで、チャージする金額を選択
+4. 支払い完了後、クレジットがすぐにアカウントに追加されます
+
+### ステップ 2：API キーを作成
+
+1. AI Hub ページで「API キーを作成」をクリック
+2. API キーに名前を付ける（例：「マイアプリケーション」）
+3. 生成された API キーをコピーして安全に保管
+
+<Callout type="warning">
+  API キーは作成時に一度だけ表示されます。すぐにコピーして安全な場所に保存してください。紛失した場合は、新しいキーを作成する必要があります。
+</Callout>
+
+### ステップ 3：API を使用
+
+Zeabur AI Hub API の使用方法は OpenAI API と同じです。必要なのは：
+
+1. API Base URL を Zeabur AI Hub のエンドポイントに設定
+2. AI Hub で作成した API キーを使用
+
+```bash
+curl https://hnd1.aihub.zeabur.ai/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_ZEABUR_API_KEY" \
+  -d '{
+    "model": "gpt-4",
+    "messages": [
+      {
+        "role": "user",
+        "content": "こんにちは！"
+      }
+    ]
+  }'
+```
+
+## サポートされているモデル
+
+Zeabur AI Hub は様々な主要 AI モデルをサポートしています：
+
+- **GPT** - OpenAI の GPT シリーズモデル
+- **Claude** - Anthropic の Claude シリーズモデル
+- **Grok** - xAI の Grok シリーズモデル
+
+<Callout>
+  モデルリストは継続的に更新されています。最新のサポートモデルと価格については [Zeabur Models](https://zeabur.com/ja-JP/models) をご覧ください。
+</Callout>
+
+## API エンドポイント
+
+Zeabur AI Hub は複数のリージョンに API エンドポイントを提供しています：
+
+### HND1 - 東京、日本
+```
+https://hnd1.aihub.zeabur.ai/
+```
+
+### SFO1 - サンフランシスコ、アメリカ
+```
+https://sfo1.aihub.zeabur.ai/
+```
+
+アプリケーションのデプロイ場所に最も近いエンドポイントを選択して、最適なレイテンシーを実現してください。
+
+## 課金方式
+
+AI Hub は**クレジット前払い制**を採用しています：
+
+1. まずアカウントにクレジットをチャージ
+2. 各 API 呼び出しは、使用したモデルとトークン数に応じて対応するクレジットが差し引かれます
+3. 「使用履歴」で詳細な使用記録と費用を確認できます
+
+### 使用記録の確認
+
+AI Hub ページで：
+1. 「使用履歴」タブに移動
+2. 各 API 呼び出しの詳細情報を確認：
+   - 使用時間
+   - モデル名
+   - トークン使用量
+   - 消費クレジット
+
+## セキュリティのベストプラクティス
+
+- **API キーを安全に保管**：API キーをバージョン管理システムにコミットしない
+- **環境変数を使用**：API キーを環境変数に保存
+- **定期的なローテーション**：定期的に古い API キーを取り消し、新しいものを作成
+- **使用量を監視**：定期的に使用履歴をチェックし、異常な API 呼び出しに注意
+
+## 統合例
+
+Zeabur AI Hub は様々なアプリケーションやツールに簡単に統合できます：
+
+- [n8n で Zeabur AI Hub を使用する](./ai-hub/n8n-integration)：ワークフロー自動化
+- [SillyTavern で Zeabur AI Hub を使用する](./ai-hub/sillytavern-integration)：ロールプレイチャット
+- または OpenAI API 形式をサポートする任意のアプリケーション
+
+## よくある質問
+
+### 残りのクレジットを確認するには？
+
+AI Hub ページの「残高管理」セクションで現在の残りクレジットを確認できます。
+
+### クレジットは期限切れになりますか？
+
+現在、AI Hub のクレジットは期限切れになりません。
+
+### 返金は可能ですか？
+
+チャージされたクレジットは現在返金不可です。実際のニーズに応じてチャージしてください。
+
+### どのプログラミング言語がサポートされていますか？
+
+Zeabur AI Hub は標準の OpenAI API 形式を使用しており、すべての主要なプログラミング言語をサポートしています：
+- Python (openai パッケージ)
+- JavaScript/TypeScript (openai パッケージ)
+- Java, Go, Ruby, PHP など
+
+API Base URL と API Key を Zeabur AI Hub の値に設定するだけです。
+
+## 関連リソース
+
+- [n8n 統合ガイド](./ai-hub/n8n-integration)
+- [SillyTavern 統合ガイド](./ai-hub/sillytavern-integration)

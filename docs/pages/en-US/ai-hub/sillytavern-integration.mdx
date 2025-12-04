@@ -1,0 +1,65 @@
+---
+title: Using Zeabur AI Hub in SillyTavern
+ogImageTitle: Using Zeabur AI Hub in SillyTavern
+ogImageSubtitle: Integrate Zeabur AI Hub into SillyTavern
+---
+
+import { Callout } from 'nextra/components'
+
+# Using Zeabur AI Hub in SillyTavern
+
+SillyTavern is a powerful AI roleplay chat interface that supports multiple AI models. This tutorial explains how to use Zeabur AI Hub in SillyTavern.
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+1. Installed or deployed SillyTavern (you can use the [Zeabur template](https://zeabur.com/templates/DX09NM) for quick deployment)
+2. Added credits to [Zeabur AI Hub](https://zeabur.com/ai-hub)
+3. Created an API key
+
+## Setup Steps
+
+### Step 1: Configure API Connection
+
+1. Open the SillyTavern interface
+2. Click the **API Connections** icon in the top navigation bar (looks like a plug)
+3. In the **API** dropdown, select **Chat Completion (OpenAI)**
+4. In **Chat Completion Source**, select **Custom (OpenAI-compatible)**
+5. In **Custom Endpoint (Base URL)**, enter the Zeabur AI Hub endpoint:
+
+```
+https://hnd1.aihub.zeabur.ai/v1
+```
+
+Based on your geographic location, you can also choose other regional endpoints for better latency:
+- **HND1 - Tokyo, Japan**: `https://hnd1.aihub.zeabur.ai/v1`
+- **SFO1 - San Francisco, USA**: `https://sfo1.aihub.zeabur.ai/v1`
+
+6. In **Custom API key**, paste the API key you created in Zeabur AI Hub
+7. Click the **Connect** button
+8. If configured correctly, you'll see the connection indicator turn **green** and display "Valid"
+9. In the **Model** dropdown, select the AI model you want to use
+
+![Configure API Key](https://cdn.zeabur.com/silly-tavern-tutorial/1.%20configure%20api%20key.png)
+
+Popular models include:
+- `gpt-4`: Most powerful, suitable for complex conversations
+- `gpt-4-turbo`: Balance of performance and cost
+- `gpt-3.5-turbo`: Fast and economical
+- `claude-3-5-sonnet`: High-quality model from Anthropic
+
+<Callout>
+  Different models have different pricing. We recommend visiting [Zeabur Models](https://zeabur.com/models) to check pricing information for each model.
+</Callout>
+
+If connection fails, check:
+- API key is correct (no extra spaces)
+- API URL is correct
+- Your AI Hub account has sufficient credits
+
+### Step 2: Test Chat
+
+Select or create a Character and enter a message in the chat box to test. If configured correctly, you should see a successful AI response.
+
+![Successful Call](https://cdn.zeabur.com/silly-tavern-tutorial/2.%20success.png)

@@ -1,0 +1,73 @@
+---
+title: n8n で Zeabur AI Hub を使用する
+ogImageTitle: n8n で Zeabur AI Hub を使用する
+ogImageSubtitle: Zeabur AI Hub を n8n ワークフローに統合する
+---
+
+import { Callout } from 'nextra/components'
+
+# n8n で Zeabur AI Hub を使用する
+
+n8n は、さまざまな AI モデルとの統合をサポートする強力なワークフロー自動化ツールです。このチュートリアルでは、OpenAI モデルを例として、n8n で Zeabur AI Hub の API を使用する方法を説明します。他のモデルの操作方法も概ね同様です。
+
+## 前提条件
+
+始める前に、以下を確認してください：
+
+1. Zeabur に n8n サービスをデプロイ済み（[n8n テンプレート](https://zeabur.com/templates/JP88UN)で簡単にデプロイできます）
+2. [Zeabur AI Hub](https://zeabur.com/ai-hub) でクレジットをチャージ済み
+3. API キーを作成済み
+
+## OpenAI 認証情報の設定
+
+### ステップ 1：認証情報を追加
+
+1. n8n インターフェースを開く
+2. 右上の「Credentials」（認証情報）をクリック
+3. 「+ Add Credential」（認証情報を追加）をクリック
+4. 「OpenAI」を検索して選択
+
+![OpenAI 認証情報を追加](https://cdn.zeabur.com/n8n-tutorial/1.%20add%20credential.png)
+
+### ステップ 2：API Key と Base URL を設定
+
+認証情報設定ページで：
+
+1. **API Key**：AI Hub で作成した API キーを貼り付け
+2. **Base URL**：Zeabur AI Hub のエンドポイントを入力
+
+```
+https://hnd1.aihub.zeabur.ai/v1
+```
+
+または、ニーズに応じて他のリージョンエンドポイントを選択：
+- **HND1 - 東京、日本**：`https://hnd1.aihub.zeabur.ai/v1`
+- **SFO1 - サンフランシスコ、アメリカ**：`https://sfo1.aihub.zeabur.ai/v1`
+
+3. 「Save」（保存）をクリック
+
+![API Key と Base URL を設定](https://cdn.zeabur.com/n8n-tutorial/2.%20configure.png)
+
+### ステップ 3：ワークフローノードに認証情報をバインドし、Use Responses API をオフにする
+
+1. ワークフローで AI を使用するノードを追加（例：OpenAI Chat Model）
+2. 「Credential to connect with」で先ほど作成した認証情報を選択
+3. 「Use Responses API」オプションを見つけてオフにする
+
+<Callout type="warning">
+  Zeabur AI Hub を使用する場合、「Use Responses API」機能を必ずオフにしてください。オンのままだと API 呼び出しが失敗する可能性があります。
+</Callout>
+
+![Use Responses API をオフにする](https://cdn.zeabur.com/n8n-tutorial/3.%20turn%20off%20use%20responses%20api.png)
+
+### ステップ 4：接続テスト
+
+設定完了後、ワークフローを実行して設定が正しいか確認します。正しく設定されていれば、AI が正常に応答するはずです。
+
+![成功した呼び出し画面](https://cdn.zeabur.com/n8n-tutorial/4.%20success.png)
+
+エラーが発生した場合は、以下を確認してください：
+- API キーが正しいか（余分なスペースがないか）
+- Base URL が正しく設定されているか
+- 「Use Responses API」がオフになっているか
+- Zeabur AI Hub アカウントに十分なクレジットがあるか

@@ -1,0 +1,149 @@
+---
+title: Zeabur AI Hub
+ogImageTitle: Zeabur AI Hub
+ogImageSubtitle: Easily integrate multiple AI models into your applications
+---
+
+import { Callout } from 'nextra/components'
+
+# Zeabur AI Hub
+
+Zeabur AI Hub is a unified AI service platform that allows you to access multiple AI models (such as OpenAI, Claude, etc.) through a single interface, with transparent pay-as-you-go pricing based on actual usage.
+
+## Key Features
+
+- **Multi-model Support**: Access mainstream AI models like OpenAI and Anthropic Claude
+- **Unified API Key Management**: Access all supported models with a single API key
+- **Transparent Billing**: Pay-as-you-go with complete usage history tracking
+- **Multi-region Endpoints**: Choose the most suitable API endpoint for optimal performance
+- **Easy Integration**: Compatible with OpenAI API format for quick integration into existing applications
+
+## Quick Start
+
+### Step 1: Add Credits
+
+1. Log in to [Zeabur Dashboard](https://zeabur.com/projects)
+2. Navigate to the **AI Hub** page
+3. In the "Balance Management" section, select the amount you want to add
+4. After completing the payment, credits will be immediately added to your account
+
+### Step 2: Create an API Key
+
+1. On the AI Hub page, click "Create API Key"
+2. Name your API key (e.g., "My Application")
+3. Copy the generated API key and store it securely
+
+<Callout type="warning">
+  The API key is only displayed once when created. Please copy and save it in a secure location immediately. If lost, you will need to create a new key.
+</Callout>
+
+### Step 3: Use the API
+
+Using the Zeabur AI Hub API is the same as using the OpenAI API. You just need to:
+
+1. Set the API Base URL to the Zeabur AI Hub endpoint
+2. Use the API key you created in AI Hub
+
+```bash
+curl https://hnd1.aihub.zeabur.ai/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_ZEABUR_API_KEY" \
+  -d '{
+    "model": "gpt-4",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello!"
+      }
+    ]
+  }'
+```
+
+## Supported Models
+
+Zeabur AI Hub supports various mainstream AI models:
+
+- **GPT** - OpenAI's GPT series models
+- **Claude** - Anthropic's Claude series models
+- **Grok** - xAI's Grok series models
+
+<Callout>
+  The model list is continuously updated. Please visit [Zeabur Models](https://zeabur.com/en-US/models) for the latest supported models and pricing.
+</Callout>
+
+## API Endpoints
+
+Zeabur AI Hub provides API endpoints in multiple regions:
+
+### HND1 - Tokyo, Japan
+```
+https://hnd1.aihub.zeabur.ai/
+```
+
+### SFO1 - San Francisco, USA
+```
+https://sfo1.aihub.zeabur.ai/
+```
+
+Choose the endpoint closest to your application deployment location for optimal latency.
+
+## Billing
+
+AI Hub uses a **prepaid credits system**:
+
+1. Add credits to your account first
+2. Each API call deducts the corresponding credits based on the model used and token count
+3. View detailed usage records and costs in "Usage History"
+
+### View Usage Records
+
+On the AI Hub page:
+1. Go to the "Usage History" tab
+2. View detailed information for each API call:
+   - Timestamp
+   - Model name
+   - Token usage
+   - Credits consumed
+
+## Security Best Practices
+
+- **Protect Your API Key**: Do not commit API keys to version control systems
+- **Use Environment Variables**: Store API keys in environment variables
+- **Regular Rotation**: Periodically revoke old API keys and create new ones
+- **Monitor Usage**: Regularly check usage history for unusual API calls
+
+## Integration Examples
+
+Zeabur AI Hub can be easily integrated into various applications and tools:
+
+- [Using Zeabur AI Hub in n8n](./ai-hub/n8n-integration): Workflow automation
+- [Using Zeabur AI Hub in SillyTavern](./ai-hub/sillytavern-integration): Role-playing conversations
+- Or any application that supports the OpenAI API format
+
+## FAQ
+
+### How do I check my remaining credits?
+
+You can see your current remaining credits in the "Balance Management" section of the AI Hub page.
+
+### Do credits expire?
+
+Currently, AI Hub credits do not expire.
+
+### Can I get a refund?
+
+Credits added to your account are currently non-refundable. Please add credits according to your actual needs.
+
+### What programming languages are supported?
+
+Zeabur AI Hub uses the standard OpenAI API format and supports all mainstream programming languages:
+- Python (openai package)
+- JavaScript/TypeScript (openai package)
+- Java, Go, Ruby, PHP, etc.
+
+You just need to set the API Base URL and API Key to Zeabur AI Hub's values.
+
+## Related Resources
+
+- [n8n Integration Guide](./ai-hub/n8n-integration)
+- [SillyTavern Integration Guide](./ai-hub/sillytavern-integration)

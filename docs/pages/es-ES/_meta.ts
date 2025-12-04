@@ -7,6 +7,7 @@ export default {
     title: 'Catálogo de Plantillas',
     href: 'https://zeabur.com/templates',
   },
+  'ai-hub': 'Zeabur AI Hub',
   'data-management': 'Gestión de Datos',
   networking: 'Redes',
   guides: 'Guías',
