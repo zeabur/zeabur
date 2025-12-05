@@ -34,6 +34,9 @@
 		},
 		"portForwarding": {
 			"$ref": "#/definitions/PortForwarding"
+		},
+		"resources": {
+			"$ref": "#/definitions/Resources"
 		}
 	},
 	"required": [
@@ -523,6 +526,19 @@
 			"required": [
 				"enabled"
 			]
+		},
+		"Resources": {
+			"title": "Resources",
+			"description": "The resource-related configuration for this service.",
+			"type": "object",
+			"properties": {
+				"shmSize": {
+					"title": "Shared memory size",
+					"description": "The size of the shared memory in Kubernetes [quantity](https://kubernetes.io/docs/reference/kubernetes-api/common-definitions/quantity/).",
+					"type": "string",
+					"default": "64Mi"
+				}
+			}
 		}
 	}
 }
