@@ -14,7 +14,7 @@
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.6.1",
     "negotiator": "^1.0.0",
-    "next": "^15.2.4",
+    "next": "^15.5.7",
     "nextra": "^3.3.1",
     "nextra-theme-docs": "^3.3.1",
     "react": "^19.1.0",
