@@ -4,6 +4,8 @@ ogImageTitle: Servidor Dedicado
 ogImageSubtitle: Despliega tus servicios en un servidor dedicado
 ---
 
+import { Callout } from 'nextra/components'
+
 # Servidor Dedicado
 
 Puedes usar Zeabur para desplegar fácilmente varios servicios en dos tipos diferentes de servidores: Clúster Compartido (Shared Cluster) y Servidor Dedicado (Dedicated Server). Estos dos tipos de recursos de computación son adecuados para diferentes escenarios de uso.
@@ -46,4 +48,30 @@ Si deseas comprar un servidor dedicado de Zeabur, puedes ir a "Mis Servidores" �
 
 ![Comprar Servidor Dedicado](/dedicated-server/purchase-machine-from-zeabur.webp)
 
-Ten en cuenta que los servidores dedicados comprados de Zeabur no proporcionarán SSH u otros métodos de conexión que no sean de Zeabur.
+## Conexión vía SSH
+
+Para los servidores dedicados comprados en Zeabur, puedes conectarte vía SSH siguiendo estos pasos:
+
+### Paso 1: Revelar la Contraseña SSH
+
+Navega a la página de información de tu servidor y haz clic en el campo de Contraseña SSH para revelarla.
+
+![Revelar Contraseña SSH](/dedicated-server/ssh-step-1.png)
+
+### Paso 2: Conectar Usando SSH
+
+Una vez que hayas revelado la contraseña, usa la Dirección IP, el Nombre de Usuario SSH y la Contraseña SSH que se muestran en la página de información del servidor para conectarte vía SSH.
+
+![Detalles de Conexión SSH](/dedicated-server/ssh-step-2.png)
+
+Puedes conectarte usando una terminal con el siguiente comando:
+
+```bash
+ssh <nombre-de-usuario>@<dirección-ip>
+```
+
+Luego ingresa la contraseña cuando se te solicite.
+
+<Callout type="warning">
+  Una vez que cambies la contraseña SSH, Zeabur ya no podrá proporcionar soporte técnico para este servidor. Por favor, procede con precaución.
+</Callout>

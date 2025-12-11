@@ -4,6 +4,8 @@ ogImageTitle: 専用サーバー
 ogImageSubtitle: 専用サーバーにサービスをデプロイする
 ---
 
+import { Callout } from 'nextra/components'
+
 # 専用サーバー
 
 Zeabur を使用して、さまざまなサービスを 2 種類のサーバーに簡単にデプロイできます：共有クラスター（Shared Cluster）と専用サーバー（Dedicated Server）。これら 2 種類のコンピューティングリソースは、異なる使用シナリオに適しています。
@@ -46,4 +48,30 @@ Zeabur から専用サーバーを購入したい場合は、「マイサーバ�
 
 ![専用サーバーの購入](/dedicated-server/purchase-machine-from-zeabur.webp)
 
-Zeabur から購入した専用サーバーでは、SSH やその他の Zeabur 以外の接続方法は提供されませんのでご注意ください。
+## SSH での接続
+
+Zeabur から購入した専用サーバーには、以下の手順で SSH 接続できます：
+
+### ステップ 1：SSH パスワードを表示する
+
+サーバー情報ページに移動し、SSH パスワードフィールドをクリックしてパスワードを表示します。
+
+![SSH パスワードを表示](/dedicated-server/ssh-step-1.png)
+
+### ステップ 2：SSH で接続する
+
+パスワードを表示したら、サーバー情報ページに表示されている IP アドレス、SSH ユーザー名、SSH パスワードを使用して SSH 接続します。
+
+![SSH 接続の詳細](/dedicated-server/ssh-step-2.png)
+
+ターミナルで以下のコマンドを使用して接続できます：
+
+```bash
+ssh <ユーザー名>@<IPアドレス>
+```
+
+プロンプトが表示されたらパスワードを入力してください。
+
+<Callout type="warning">
+  SSH パスワードを変更すると、Zeabur はこのサーバーに対する技術サポートを提供できなくなります。慎重に操作してください。
+</Callout>
