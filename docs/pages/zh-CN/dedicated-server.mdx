@@ -4,6 +4,8 @@ ogImageTitle: 独立服务器
 ogImageSubtitle: 在独立服务器上部署你的服务
 ---
 
+import { Callout } from 'nextra/components'
+
 # 独立服务器
 
 你可以使用 Zeabur 方便地将各种服务部署到两种不同类型的服务器上：共享集群（Shared Cluster）和独立服务器（Dedicated Server），两种类型的计算资源适合不同的使用情境。
@@ -46,4 +48,30 @@ ogImageSubtitle: 在独立服务器上部署你的服务
 
 ![购买独立服务器](/dedicated-server/purchase-machine-from-zeabur.webp)
 
-注意从 Zeabur 购买的独立服务器不会提供 SSH 或其他非 Zeabur 的连接方式。
+## 通过 SSH 连接
+
+对于从 Zeabur 购买的独立服务器，你可以按照以下步骤通过 SSH 连接：
+
+### 步骤一：显示 SSH 密码
+
+前往服务器信息页面，点击 SSH 密码字段以显示密码。
+
+![显示 SSH 密码](/dedicated-server/ssh-step-1.png)
+
+### 步骤二：使用 SSH 连接
+
+显示密码后，使用服务器信息页面上显示的 IP 地址、SSH 用户名和 SSH 密码通过 SSH 连接。
+
+![SSH 连接详情](/dedicated-server/ssh-step-2.png)
+
+你可以使用以下命令在终端中连接：
+
+```bash
+ssh <用户名>@<IP地址>
+```
+
+然后在提示时输入密码。
+
+<Callout type="warning">
+  一旦你更改了 SSH 密码，Zeabur 将无法再为此服务器提供技术支持。请谨慎操作。
+</Callout>
