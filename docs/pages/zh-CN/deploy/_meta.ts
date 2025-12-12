@@ -1,5 +1,6 @@
 export default {
   "create-project": "创建项目",
+  "create-service": "创建服务",
   "root-directory": "根目录",
   "watch-paths": "监控路径",
   "dockerfile": "Dockerfile 部署",

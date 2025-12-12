@@ -1,5 +1,6 @@
 export default {
   "create-project": "Create Project",
+  "create-service": "Create Service",
   "root-directory": "Root Directory",
   "watch-paths": "Watch Paths",
   "dockerfile": "Deploy with Dockerfile",
