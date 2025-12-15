@@ -1,5 +1,4 @@
 export default {
-  "create-project": "Crear Proyecto",
   "create-service": "Crear Servicio",
   "root-directory": "Directorio Raíz",
   "watch-paths": "Rutas de Vigilancia",
