@@ -17,5 +17,5 @@ export default {
   community: '社区',
   advanced: '高级',
   developer: '开发者',
-  "tutorials": "教程",
+  "tutorials": "导入指南",
 }

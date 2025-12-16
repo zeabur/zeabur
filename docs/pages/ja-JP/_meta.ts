@@ -17,5 +17,5 @@ export default {
   community: 'コミュニティ',
   advanced: '高度な内容',
   developer: '開発者',
-  tutorials: 'チュートリアル',
+  tutorials: 'インポートガイド',
 }
