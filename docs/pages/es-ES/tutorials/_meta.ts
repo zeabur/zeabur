@@ -1,7 +1,7 @@
 export default {
-    "replit": "Importar Replit",
-    "lovable": "Importar Lovable",
-    "bolt": "Importar Bolt",
-    "emergent": "Importar Emergent",
-    "aistudio": "Importar Google AI Studio",
+    "replit": "Importar desde Replit",
+    "lovable": "Importar desde Lovable",
+    "bolt": "Importar desde Bolt",
+    "emergent": "Importar desde Emergent",
+    "aistudio": "Importar desde Google AI Studio",
 }
