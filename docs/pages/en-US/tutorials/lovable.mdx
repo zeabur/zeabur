@@ -36,9 +36,7 @@ This plan moves you from a "no-code" environment to a "pro-code" environment whi
 - **Editor:** Cursor / Windsurf / Antigravity
 - **Host:** Zeabur
 
----
-
-### **Step 1: Sync Lovable to GitHub**
+## Step 1: Sync Lovable to GitHub
 
 Instead of a manual export, Lovable has a direct 2-way sync integration that creates the repository for you.
 
@@ -47,45 +45,32 @@ Instead of a manual export, Lovable has a direct 2-way sync integration that cre
     - Look at the top-right header (to the left of the "Upgrade" and "Publish" buttons).
     - Click the **GitHub icon** (the cat silhouette).
     
-![Sync Project with Lovable](https://cdn.zeabur.com/lovable%20migration/sync%20project%20with%20lovable.png)
+    ![Sync Project with Lovable](https://cdn.zeabur.com/lovable%20migration/sync%20project%20with%20lovable.png)
     
 2. **Initiate the Connection:**
     - A dropdown will appear with the title "GitHub".
     - Click the black button labeled **"Connect GitHub"**.
     
-    ![click connect github.png](https://cdn.zeabur.com/lovable%20migration/click%20connect%20github.png)
+    ![Click connect github](https://cdn.zeabur.com/lovable%20migration/click%20connect%20github.png)
     
 3. **Link the Project:**
     - A settings modal will open titled "Project Settings" or "Integrations".
     - Under the "Project" section (where it says *Not connected*), click the **"Connect Project"** button.
     - *Note: If you haven't logged into GitHub through Lovable before, it may ask you to authorize your account first.*
         
-        ![connect project with github.png](https://cdn.zeabur.com/lovable%20migration/connect%20project%20with%20github.png)
+    ![Connect project with github](https://cdn.zeabur.com/lovable%20migration/connect%20project%20with%20github.png)
         
 4. **Get Your Repository URL:**
     - Once the sync is finished, a green notification will appear in the bottom right: *"A GitHub Repository is now under your account..."*
     - A modal titled **"Clone"** will appear in the center of the screen.
     - **Copy the URL** shown in the box (it will look like `https://github.com/yourusername/project-name.git`).
     
-    ![successfully create a new github repo.png](https://cdn.zeabur.com/lovable%20migration/successfully%20create%20a%20new%20github%20repo.png)
+    ![Successfully create a new github repo](https://cdn.zeabur.com/lovable%20migration/successfully%20create%20a%20new%20github%20repo.png)
     
 
 **You are now done with Lovable.** You have the URL needed to bring the code into Cursor.
 
----
-
-### **Next Step (Step 2 Preview)**
-
-When you open **Cursor**, use the URL you just copied:
-
-1. Open Cursor.
-2. Press `Cmd + Shift + P` (or `Ctrl + Shift + P`).
-3. Type `Git: Clone`.
-4. Paste the URL you copied from the Lovable "Clone" modal.
-
----
-
-### **Step 2: Setup Local Development in Cursor**
+## Step 2: Setup Local Development in Cursor
 
 Now you will bring the code to your local computer to edit it with Cursor.
 
@@ -113,8 +98,6 @@ Now you will bring the code to your local computer to edit it with Cursor.
         ```
         
     - Click the `localhost` link in the terminal to view your app.
-
----
 
 ## Step 3: Set Up Local Environment (Cursor)
 
@@ -155,9 +138,7 @@ Run the development server to ensure the app works outside the Bolt sandbox.
     ```
     
 
----
-
-### Step 4: Open in a Local Editor and Install the Zeabur Extension
+## Step 4: Open in a Local Editor and Install the Zeabur Extension
 
 Unzip the file and open the project folder in a local code editor like VS Code or Cursor. To make deployment incredibly simple, you'll use the Zeabur extension.
 
@@ -166,7 +147,7 @@ Unzip the file and open the project folder in a local code editor like VS Code o
 
 ![Download Zeabur Extensions.png](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
 
-### Step 5: Deploy with a Single Click
+## Step 5: Deploy with a Single Click
 
 Now for the magic. With the extension installed, deploying your project is just a few clicks away.
 
@@ -177,7 +158,7 @@ Your editor will then ask for permission to open a link in your browser. Click *
 
 ![Click Deploy and Open .png](https://cdn.zeabur.com/replit%20migration%20/Click%20Deploy%20and%20Open%20.png)
 
-### Step 6: Let the Zeabur AI Agent Handle the Rest
+## Step 6: Let the Zeabur AI Agent Handle the Rest
 
 Once you're redirected to Zeabur, the platform's AI agent takes over. It analyzes your code to understand the project's structure, dependencies, and build requirements.
 
@@ -209,3 +190,7 @@ Currently, you have successfully deployed the **Frontend** (the visual interface
 We have a dedicated guide to walk you through getting your Supabase keys and adding them to Zeabur:
 
 **👉 [Click here to read our guide on connecting Supabase with Zeabur]()**
+
+---
+
+That's it! You've successfully moved your project from a prototype on Lovable.dev to a live, production-ready application on Zeabur without writing a single line of configuration. This seamless workflow lets you focus on what matters most: building great software.

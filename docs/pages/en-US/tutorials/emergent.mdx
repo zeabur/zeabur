@@ -10,7 +10,7 @@ This guide is the easiest way to take the code you've built in cloud IDEs like E
 
 ### Overview
 
-**Emergent** are amazing for prototyping and getting code running quickly in the browser. However, when you are ready to share your app with the world without "sleeping" instances or bandwidth limits, you need professional hosting.
+[**Emergent**](https://emergent.sh) are amazing for prototyping and getting code running quickly in the browser. However, when you are ready to share your app with the world without "sleeping" instances or bandwidth limits, you need professional hosting.
 
 We strongly recommend **Zeabur** because it simplifies the transition from prototype to production. Using the Zeabur extension for your local editor, you can deploy your app without needing complex configuration files.
 
@@ -47,12 +47,12 @@ If your project has been inactive, you might see a message saying "Agent went to
 2. **Access the Code Viewer:**
 Look for the **"Code"** button (usually near the top right of the project interface).
     
-    ![Emergent Vscode.png](attachment:32dca4c4-8789-4527-a2c3-8642d58daff6:Emergent_Vscode.png)
+    ![Emergent Vscode](https://cdn.zeabur.com/emergent%20/Emergent%20Vscode.png)
     
 3. **Get Credentials:**
 When you click "Code", a popup will appear with two things:
     
-    ![Click Vscode Link.png](attachment:4642ba13-e99c-4faf-9d0d-ef08be53bc6a:Click_Vscode_Link.png)
+    ![Click Vscode Link](https://cdn.zeabur.com/emergent%20/Click%20Vscode%20Link.png)
     
     - A **Link** to a VS Code environment.
     - A **Password**.
@@ -131,7 +131,7 @@ Unzip the file and open the project folder in a local code editor like VS Code o
 1. Go to the Extensions Marketplace in your editor.
 2. Search for "Zeabur" and click **Install**.
     
-    ![image.png](attachment:e61336b8-fb51-41aa-8fc9-08b85a172c4e:image.png)
+![Download Zeabur Extensions.png](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
     
 
 ## Step 4: Deploy with a Single Click
@@ -143,7 +143,7 @@ Now for the magic. With the extension installed, deploying your project is just 
 
 Your editor will then ask for permission to open a link in your browser. Click **"Open"**.
 
-![image.png](attachment:bcd11942-f122-49ca-8521-b6a793128e53:image.png)
+![Click Deploy and Open .png](https://cdn.zeabur.com/replit%20migration%20/Click%20Deploy%20and%20Open%20.png)
 
 ## Step 5: Let the Zeabur AI Agent Handle the Rest
 
@@ -157,7 +157,7 @@ The Zeabur agent will:
 
 You'll be prompted to select a project and a deployment region. After that, Zeabur handles everything else.
 
-![image.png](attachment:18228718-2f71-46db-8e80-4fdaecae4ca0:image.png)
+![Zeabur Agent Handle the rest.png](https://cdn.zeabur.com/replit%20migration%20/Zeabur%20Agent%20Handle%20the%20rest.png)
 
 You can watch in real-time as your service builds and becomes fully operational. Zeabur even provides you with a live domain as soon as the deployment is successful.
 
@@ -167,6 +167,16 @@ You can watch in real-time as your service builds and becomes fully operational.
 2. Navigate to the **Networking** tab.
 3. Click **Generate Domain** (to get a `.zeabur.app` domain) or **Custom Domain** to connect your own.
 4. Visit the URL. Your Emergent application is now a fully deployed production app.
+
+## Step 7: Connect a Database (Supabase)
+
+If your Emergent app allows users to log in, create accounts, or save data, it requires a database (usually **Supabase**).
+
+Currently, you have successfully deployed the **Frontend** (the visual interface). To make the data and authentication features work, you need to connect the backend by adding your API keys to Zeabur's **Variable** settings.
+
+We have a dedicated guide to walk you through getting your Supabase keys and adding them to Zeabur:
+
+**👉 [Click here to read our guide on connecting Supabase with Zeabur]()**
 
 ---
 That's it! You've successfully moved your project from a prototype on Emergent to a live, production-ready application on Zeabur without writing a single line of configuration. This seamless workflow lets you focus on what matters most: building great software.

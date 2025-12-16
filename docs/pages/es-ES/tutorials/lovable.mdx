@@ -1,0 +1,175 @@
+---
+title: Importar Lovable
+ogImageTitle: Importar Lovable
+ogImageSubtitle: Importa tus proyectos de Lovable
+---
+
+## Cómo implementar tu proyecto Lovable.dev en la web con Zeabur
+
+Esta guía es la forma más fácil de tomar el código generado por **Lovable.dev** y convertirlo en un sitio web real y en vivo que puedas compartir con amigos o clientes.
+
+### Descripción general
+
+**Lovable.dev** es excelente para crear el diseño y las características de tu aplicación, pero para ponerlo en línea, necesitas "alojamiento". Recomendamos encarecidamente **Zeabur** porque se encarga del trabajo técnico pesado por ti. Toma tu código y lo coloca en una URL activa en solo unos pocos clics.
+
+**El flujo de trabajo:**
+- **Crear:** Genera tu aplicación en **Lovable.dev**.
+- **Perfeccionar:** Guarda el código en tu ordenador y verifica con **Cursor**.
+- **Implementar:** Alójalo en vivo en **Zeabur**.
+
+> 📝 Nota importante: Esta guía se centra en poner tu sitio web en línea (el Frontend). Si tu aplicación necesita guardar datos de usuarios o inicios de sesión, eso requiere una base de datos. ¡Cubriremos cómo agregar una base de datos en un tutorial de seguimiento separado!
+>
+
+### Requisitos previos
+- Una cuenta de GitHub.
+- [Cursor](https://cursor.sh/) instalado en tu ordenador.
+- Una cuenta de [Zeabur](https://zeabur.com/).
+- Node.js instalado localmente (versión 18+ recomendada).
+
+### **Descripción general de la migración**
+Este plan te lleva de un entorno "sin código" a un entorno "pro-código" mientras conservas la asistencia de IA que te encanta.
+
+- **Fuente:** Lovable (React + Vite + Tailwind).
+- **Editor:** Cursor / Windsurf / Antigravity
+- **Host:** Zeabur
+
+## Paso 1: Sincronizar Lovable con GitHub
+
+En lugar de una exportación manual, Lovable tiene una integración de sincronización bidireccional directa que crea el repositorio por ti.
+1. **Ubica la integración de GitHub:**
+    - Abre tu proyecto en el editor Lovable.
+    - Mira el encabezado superior derecho (a la izquierda de los botones "Upgrade" y "Publish").
+    - Haz clic en el **icono de GitHub** (la silueta del gato).
+    ![Sincronizar proyecto con Lovable](https://cdn.zeabur.com/lovable%20migration/sync%20project%20with%20lovable.png)
+2. **Inicia la conexión:**
+    - Aparecerá un menú desplegable con el título "GitHub".
+    - Haz clic en el botón negro etiquetado como **"Connect GitHub"**.
+    ![Haz clic en conectar github](https://cdn.zeabur.com/lovable%20migration/click%20connect%20github.png)
+3. **Vincula el proyecto:**
+    - Se abrirá una ventana modal de configuración titulada "Project Settings" o "Integrations".
+    - En la sección "Project" (donde dice _Not connected_), haz clic en el botón **"Connect Project"**.
+    - _Nota: Si no has iniciado sesión en GitHub a través de Lovable antes, es posible que te pida que autorices tu cuenta primero._
+    ![Conectar proyecto con github](https://cdn.zeabur.com/lovable%20migration/connect%20project%20with%20github.png)
+4. **Obtén la URL de tu repositorio:**
+    - Una vez finalizada la sincronización, aparecerá una notificación verde en la esquina inferior derecha: _"A GitHub Repository is now under your account..."_
+    - Una ventana modal titulada **"Clone"** aparecerá en el centro de la pantalla.
+    - **Copia la URL** que se muestra en el cuadro (se verá como `https://github.com/yourusername/project-name.git`).
+    ![Crear exitosamente un nuevo repositorio github](https://cdn.zeabur.com/lovable%20migration/successfully%20create%20a%20new%20github%20repo.png)
+
+**Ya has terminado con Lovable.** Tienes la URL necesaria para llevar el código a Cursor.
+
+## Paso 2: Configurar el desarrollo local en Cursor
+
+Ahora llevarás el código a tu ordenador local para editarlo con Cursor.
+1. **Instala Cursor:** Descárgalo e instálalo desde [cursor.com](https://cursor.com/).
+2. **Clona tu repositorio:**
+    - Abre Cursor.
+    - Presiona `Cmd + Shift + P` (Mac) o `Ctrl + Shift + P` (Windows) para abrir la paleta de comandos.
+    - Escribe `Git: Clone` y selecciónalo.
+    - Pega la URL de tu repositorio de GitHub (p. ej., `https://github.com/yourname/my-lovable-app`) y selecciona una carpeta en tu ordenador para guardarlo.
+3. **Instala dependencias:**
+    - Abre la terminal en Cursor (`Ctrl + ~` o `Terminal > New Terminal`).
+    - Escribe el siguiente comando para instalar las librerías que usó Lovable:
+
+        ```bash
+        npm install
+        ```
+4. **Inicia el servidor local:**
+    - Ejecuta la aplicación localmente para asegurarte de que funciona:
+
+        ```bash
+        npm run dev
+        ```
+
+    - Haz clic en el enlace `localhost` en la terminal para ver tu aplicación.
+
+## Paso 3: Configurar el entorno local (Cursor)
+
+Ahora que el código está en GitHub, lo configurarás localmente para verificar las dependencias y hacer ajustes de producción.
+1. **Clona el repositorio:**
+
+    Abre Cursor, abre la Paleta de comandos (`Cmd+Shift+P` o `Ctrl+Shift+P`), y escribe `> Git: Clone`. Pega la URL de tu nuevo repositorio.
+
+    _Alternativamente, a través de terminal:_
+
+    ```bash
+    git clone <https://github.com/your-username/your-repo-name.git>
+    cd your-repo-name
+    ```
+2. **Instala dependencias:**
+
+    Los proyectos Bolt generalmente detectan el gestor de paquetes automáticamente. Busca un archivo de bloqueo (`pnpm-lock.yaml`, `package-lock.json`, o `yarn.lock`).
+
+    ```bash
+    # Si usas npm
+    npm install
+    # Si usas pnpm (común en Bolt)
+    pnpm install
+    ```
+3. **Configuración del entorno:**
+    - Ubica el archivo `.env.example` (si existe) y duplícalo para crear un archivo `.env`.
+    - **Importante:** Si tu aplicación Bolt usaba claves de API (OpenAI, Supabase, etc.), debes agregar manualmente estas claves a tu archivo local `.env`. Bolt no exporta tus secretos a GitHub por razones de seguridad.
+4. **Prueba local:**
+
+    Ejecuta el servidor de desarrollo para asegurarte de que la aplicación funciona fuera del sandbox de Bolt.
+
+    ```bash
+    npm run dev
+    ```
+    
+## Paso 4: Abrir en un editor local e instalar la extensión Zeabur
+
+Descomprime el archivo y abre la carpeta del proyecto en un editor de código local como VS Code o Cursor. Para que la implementación sea increíblemente simple, usarás la extensión Zeabur.
+
+1. Ve al Marketplace de extensiones en tu editor.
+2. Busca "Zeabur" y haz clic en **Install**.
+
+![Descargar extensiones Zeabur.png](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
+
+## Paso 5: Implementar con un solo clic
+
+Ahora viene la magia. Con la extensión instalada, implementar tu proyecto es solo cuestión de unos pocos clics.
+
+1. Haz clic en el nuevo icono de Zeabur en la barra de actividades de la izquierda.
+2. Haz clic en el botón **"Deploy"**.
+
+Tu editor te pedirá permiso para abrir un enlace en tu navegador. Haz clic en **"Open"**.
+
+![Haz clic en Deploy y Open .png](https://cdn.zeabur.com/replit%20migration%20/Click%20Deploy%20and%20Open%20.png)
+
+## Paso 6: Deja que el agente de IA de Zeabur haga el resto
+
+Una vez que se te redirija a Zeabur, el agente de IA de la plataforma toma el control. Analiza tu código para entender la estructura del proyecto, las dependencias y los requisitos de compilación.
+
+El agente de Zeabur hará lo siguiente:
+
+- Reconocer que tienes una aplicación full-stack (p. ej., un frontend React y un backend Express).
+- Configurar automáticamente los comandos de compilación e inicio.
+- Provisionar todos los servicios necesarios.
+
+![Agente Zeabur maneja el resto.png](https://cdn.zeabur.com/replit%20migration%20/Zeabur%20Agent%20Handle%20the%20rest.png)
+
+Se te pedirá que selecciones un proyecto y una región de implementación. Después de eso, Zeabur se encarga de todo lo demás.
+
+Puedes ver en tiempo real cómo se compila tu servicio y se vuelve completamente operativo. Zeabur incluso te proporciona un dominio en vivo tan pronto como la implementación sea exitosa.
+
+## Paso 7: Dominio y redes
+
+1. Haz clic en tu servicio en Zeabur.
+2. Navega a la pestaña **Networking**.
+3. Haz clic en **Generate Domain** (para obtener un dominio `.zeabur.app`) o **Custom Domain** para conectar el tuyo.
+4. Visita la URL. Tu aplicación Bolt.new es ahora una aplicación de producción completamente implementada.
+
+## Paso 8: Conectar una base de datos (Supabase)
+
+Si tu aplicación Lovable permite que los usuarios inicien sesión, creen cuentas o guarden datos, requiere una base de datos (generalmente **Supabase**).
+
+Actualmente, has implementado exitosamente el **Frontend** (la interfaz visual). Para que las características de datos y autenticación funcionen, debes conectar el backend agregando tus claves de API a la configuración **Variable** de Zeabur.
+
+Tenemos una guía dedicada para guiarte a través de la obtención de tus claves de Supabase y agregarlas a Zeabur:
+**👉 [Haz clic aquí para leer nuestra guía sobre cómo conectar Supabase con Zeabur]()**
+
+---
+
+¡Eso es todo! Has movido exitosamente tu proyecto de un prototipo en Lovable.dev a una aplicación lista para producción y en vivo en Zeabur sin escribir una sola línea de configuración. Este flujo de trabajo perfecto te permite concentrarte en lo que más importa: crear excelente software.
+

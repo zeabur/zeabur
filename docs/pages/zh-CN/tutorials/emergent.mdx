@@ -1,0 +1,178 @@
+---
+title: 导入 Emergent
+ogImageTitle: 导入 Emergent
+ogImageSubtitle: 导入你的 Emergent 项目
+---
+
+## 如何从 Emergent 迁移到 Zeabur
+
+本指南是获取你在 Emergent 等云 IDE 中构建的代码并将其转换为 24/7 在线生产就绪应用的最简单方法。
+
+### 概述
+
+[**Emergent**](https://emergent.sh) 非常适合原型制作和在浏览器中快速运行代码。但是，当你准备好在没有"睡眠"实例或带宽限制的情况下与世界分享你的应用时，你需要专业托管。
+
+我们强烈推荐 **Zeabur**，因为它简化了从原型到生产的转变。使用本地编辑器的 Zeabur 扩展，你可以在不需要复杂配置文件的情况下部署应用。
+
+**工作流程：**
+
+- **导出：** 从 Emergent 下载你的代码库。
+- **设置：** 在 **VS Code** 或 **Cursor** 中本地打开项目。
+- **部署：** 使用 **Zeabur 扩展** 一键将应用上线。
+
+> 📝 重要说明：本指南涵盖完整堆栈。我们首先部署应用代码，在第 6 步，我们将特别介绍如何为需要保存用户数据的应用配置和连接 MongoDB 数据库。
+
+### 前置条件
+
+- 访问你的 Emergent 项目。
+- 在计算机上安装了 [VS Code](https://code.visualstudio.com/) 或 [Cursor](https://cursor.sh/)。
+- 一个 [Zeabur](https://zeabur.com/) 账户。
+- 本地安装了 Node.js（推荐 18+ 版本）。
+
+### 迁移概述
+
+本计划将你从基于浏览器的沙箱迁移到托管在可扩展云上的专业本地开发环境。
+
+- **来源：** Emergent（Node.js、Python 或 Go）。
+- **编辑器：** VS Code / Cursor。
+- **主机：** Zeabur。
+
+## 第 1 步：导出你的代码库
+
+### 选项 1：直接下载方法（最适合简单导出）
+
+1. **唤醒你的代理：**
+如果你的项目一直处于非活跃状态，你可能会看到"代理已进入睡眠状态"的消息。点击你的项目将其唤醒。
+
+2. **访问代码查看器：**
+查找 **"Code"** 按钮（通常在项目界面的右上方附近）。
+    ![Emergent Vscode](https://cdn.zeabur.com/emergent%20/Emergent%20Vscode.png)
+
+3. **获取凭证：**
+当你点击"Code"时，会出现一个弹出窗口，其中有两项内容：
+    ![点击 Vscode 链接](https://cdn.zeabur.com/emergent%20/Click%20Vscode%20Link.png)
+    - 一个指向 VS Code 环境的**链接**。
+    - 一个**密码**。
+    **先复制密码**，然后点击链接在新标签页中打开。
+
+4. **解锁编辑器：**
+将你复制的密码粘贴到提示中并按 Enter。你现在将看到浏览器中的完整 VS Code 界面。
+
+5. **下载文件夹：**
+    - 在左侧边栏（文件浏览器）中，你将看到你的项目文件夹（通常是 `frontend`、`backend` 或只是项目根目录）。
+    - **右键单击** 你想保留的文件夹。
+    - 选择 **下载**。
+    - 这会将文件夹以 `.zip` 文件形式保存到你的计算机。
+
+---
+
+### 选项 2：GitHub 同步方法（最适合迁移，但需要升级）
+
+如果你计划迁移到 Zeabur 或其他主机，直接推送到 GitHub 通常比下载 zip 文件更简洁。
+
+1. **连接 GitHub：**
+在 Emergent 的主聊天/仪表板界面中，查找你的个人资料设置中的 **GitHub 图标** 或"连接 GitHub"按钮。
+
+2. **授权：**
+按照提示授权 Emergent 访问你的 GitHub 账户。
+
+3. **推送代码：**
+在聊天界面中，输入如下命令：
+    > "将此代码推送到名为 my-app-export 的新 GitHub 仓库"
+    >
+
+4. **验证：**
+转到你的 GitHub 账户以确认仓库已创建。然后你可以使用 `git clone` 在本地克隆此仓库。
+
+## 第 2 步：设置本地环境（Cursor）
+
+现在代码已在 GitHub 上，你将在本地设置它以验证依赖项并进行生产调整。
+
+1. **克隆仓库：**
+打开 Cursor，打开命令面板（`Cmd+Shift+P` 或 `Ctrl+Shift+P`），然后输入 `> Git: Clone`。粘贴你的新仓库 URL。
+
+    _或者，通过终端：_
+    ```bash
+    git clone <https://github.com/your-username/your-repo-name.git>
+    cd your-repo-name
+    ```
+
+2. **安装依赖项：**
+Bolt 项目通常会自动检测包管理器。检查锁文件（`pnpm-lock.yaml`、`package-lock.json` 或 `yarn.lock`）。
+
+    ```bash
+    # 如果使用 npm
+    npm install
+    # 如果使用 pnpm（在 Bolt 中常见）
+    pnpm install
+    ```
+
+3. **环境设置：**
+    - 找到 `.env.example` 文件（如果存在），并复制它以创建 `.env` 文件。
+    - **重要：** 如果你的 Bolt 应用使用了 API 密钥（OpenAI、Supabase 等），你必须手动将这些密钥添加到本地的 `.env` 文件中。Bolt 出于安全考虑，不会将你的密钥导出到 GitHub。
+
+4. **本地测试：**
+运行开发服务器以确保应用在 Bolt 沙箱外工作。
+
+    ```bash
+    npm run dev
+    ```
+
+---
+
+## 第 3 步：在本地编辑器中打开并安装 Zeabur 扩展
+
+解压文件并在本地代码编辑器（如 VS Code 或 Cursor）中打开项目文件夹。为了使部署非常简单，你将使用 Zeabur 扩展。
+
+1. 转到编辑器中的扩展市场。
+2. 搜索"Zeabur"并点击 **安装**。
+![下载 Zeabur 扩展.png](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
+
+## 第 4 步：一键部署
+
+现在是魔法时刻。安装扩展后，部署你的项目只需点击几次。
+
+1. 点击左侧活动栏中的新 Zeabur 图标。
+2. 点击 **"部署"** 按钮。
+
+你的编辑器将要求权限在浏览器中打开链接。点击 **"打开"**。
+
+![点击部署和打开.png](https://cdn.zeabur.com/replit%20migration%20/Click%20Deploy%20and%20Open%20.png)
+
+## 第 5 步：让 Zeabur AI 代理处理其余的
+
+重定向到 Zeabur 后，平台的 AI 代理接管。它分析你的代码以理解项目的结构、依赖项和构建要求。
+
+Zeabur 代理将：
+
+- 识别你有一个全栈应用（例如 React 前端和 Express 后端）。
+- 自动配置构建和启动命令。
+- 配置所有必要的服务。
+
+你将被提示选择一个项目和一个部署区域。之后，Zeabur 处理其余的一切。
+
+![Zeabur 代理处理其余的.png](https://cdn.zeabur.com/replit%20migration%20/Zeabur%20Agent%20Handle%20the%20rest.png)
+
+你可以实时观看你的服务构建并变得完全可运行。Zeabur 甚至在部署成功后立即为你提供一个实时域名。
+
+## 第 6 步：域名和网络
+
+1. 在 Zeabur 中点击你的服务。
+2. 导航到 **网络** 选项卡。
+3. 点击 **生成域名**（获取 `.zeabur.app` 域名）或 **自定义域名**（连接你自己的域名）。
+4. 访问该 URL。你的 Emergent 应用现在是一个完全部署的生产就绪应用。
+
+## 第 7 步：连接数据库（Supabase）
+
+如果你的 Emergent 应用允许用户登录、创建账户或保存数据，它需要一个数据库（通常是 **Supabase**）。
+
+目前，你已成功部署了 **前端**（可视化界面）。要使数据和身份验证功能工作，你需要通过将 API 密钥添加到 Zeabur 的 **Variable** 设置来连接后端。
+
+我们有一份专门的指南来帮助你获取 Supabase 密钥并将其添加到 Zeabur：
+
+**👉 [点击此处阅读我们关于将 Supabase 与 Zeabur 连接的指南]()**
+
+---
+
+就是这样！你已成功将项目从 Emergent 上的原型迁移到 Zeabur 上的实时、生产就绪应用，无需编写任何一行配置代码。这种无缝工作流让你可以专注于最重要的事情：构建优秀的软件。
+

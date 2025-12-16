@@ -1,0 +1,117 @@
+---
+title: Importar Replit
+ogImageTitle: Replit a Zeabur
+ogImageSubtitle: Migra tus proyectos de Replit a Zeabur
+---
+
+## Cómo desplegar tu proyecto de Replit en la web con Zeabur
+
+Esta guía es la forma más fácil de tomar el código generado por **Replit** y convertirlo en un sitio web real y en directo que puedas compartir con amigos o clientes.
+
+### Descripción general
+
+**Replit** es excelente para crear el diseño y las características de tu aplicación, pero para ponerla en línea, necesitas "alojamiento". Te recomendamos encarecidamente **Zeabur** porque se encarga del trabajo técnico pesado por ti. Toma tu código y lo coloca en una URL en directo en solo unos pocos clics.
+
+**El flujo de trabajo:**
+
+- **Crear:** Genera tu aplicación en **Replit**.
+- **Refinar:** Guarda el código en tu ordenador y verifica con **Cursor**.
+- **Desplegar:** Alójalo en directo en **Zeabur**.
+
+> 📝 Nota importante: Esta guía se centra en poner tu sitio web en línea (el Frontend). Si tu aplicación necesita guardar datos de usuarios o inicios de sesión, eso requiere una base de datos. ¡Cubriremos cómo añadir una base de datos en un tutorial separado de seguimiento!
+>
+
+### Requisitos previos
+
+- Una cuenta de GitHub.
+- [Cursor](https://cursor.sh/) instalado en tu ordenador.
+- Una cuenta de [Zeabur](https://zeabur.com/).
+- Node.js instalado localmente (se recomienda versión 18+).
+
+## Paso 1: Finaliza y exporta tu proyecto desde Replit
+
+Primero, termina de construir tu aplicación en el entorno de Replit. Una vez que tu código esté listo, necesitas descargarlo en tu máquina local.
+
+1. En tu proyecto de Replit, haz clic en el menú de tres puntos (⋮) junto a la sección "Files".
+2. En el menú desplegable, selecciona **"Download as zip"**.
+
+![Paso tres puntos 1 paso 2](https://cdn.zeabur.com/replit%20migration%20/Three%20Dots%20step%201%20step%202.png)
+
+Tu proyecto completo se guardará como un único archivo zip en tu carpeta de descargas.
+
+## Paso 2: Abre en un editor local e instala la extensión de Zeabur
+
+Descomprime el archivo y abre la carpeta del proyecto en un editor de código local como VS Code o Cursor. Para hacer el despliegue increíblemente simple, utilizarás la extensión de Zeabur.
+
+1. Ve al Marketplace de extensiones en tu editor.
+2. Busca "Zeabur" y haz clic en **Instalar**.
+
+![Descargar extensiones de Zeabur](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
+
+## Paso 3: Descomprime y abre el proyecto
+
+Debes extraer el archivo zip antes de abrirlo en Cursor, o el despliegue fallará.
+
+**Para usuarios de Mac:**
+
+1. Abre **Finder** y ve a tu carpeta de **Descargas**.
+2. **Haz doble clic** en el archivo zip que descargaste de Replit. Esto creará una nueva carpeta con el nombre de tu proyecto.
+3. Abre **Cursor**.
+4. En la barra de menú superior, haz clic en **Archivo** > **Abrir...** (o presiona `Cmd + O`).
+5. Selecciona la **nueva carpeta descomprimida** (no el archivo zip en sí) y haz clic en **Abrir**.
+
+**Para usuarios de Windows:**
+
+1. Abre el **Explorador de archivos** y ve a tu carpeta de **Descargas**.
+2. **Haz clic derecho** en el archivo zip y selecciona **"Extraer todo..."**.
+3. Haz clic en **Extraer**. (No simplemente hagas doble clic en el zip para mirar dentro; _debes_ extraerlo).
+4. Abre **Cursor**.
+5. En la barra de menú superior, haz clic en **Archivo** > **Abrir carpeta...** (o presiona `Ctrl + K` y luego `Ctrl + O`).
+6. Selecciona la **carpeta recién extraída** y haz clic en **Seleccionar carpeta**.
+
+## Paso 4: Despliegue con un solo clic
+
+Ahora que tu carpeta de proyecto está abierta en Cursor:
+
+1. Haz clic en el nuevo **icono de Zeabur** (generalmente un logo "Z") en la barra de actividades a la izquierda.
+2. Haz clic en el botón **"Desplegar"**.
+3. Tu editor te pedirá permiso para abrir un enlace en tu navegador. Haz clic en **"Abrir"**.
+
+![Haz clic en Desplegar y Abrir](https://cdn.zeabur.com/replit%20migration%20/Click%20Deploy%20and%20Open%20.png)
+
+## Paso 5: Deja que el agente de IA de Zeabur se encargue del resto
+
+Una vez que se te redirija a Zeabur, el agente de IA de la plataforma se hace cargo. Analiza tu código para entender la estructura del proyecto, las dependencias y los requisitos de compilación.
+
+El agente de Zeabur:
+
+- Reconocerá que tienes una aplicación full-stack (por ejemplo, un frontend React y un backend Express).
+- Configurará automáticamente los comandos de compilación e inicio.
+- Aprovisionará todos los servicios necesarios.
+
+![El agente de Zeabur se encarga del resto](https://cdn.zeabur.com/replit%20migration%20/Zeabur%20Agent%20Handle%20the%20rest.png)
+
+Se te pedirá que selecciones un proyecto y una región de despliegue. Después de eso, Zeabur se encarga de todo lo demás.
+
+Puedes ver en tiempo real cómo tu servicio se construye y se vuelve completamente operativo. Zeabur incluso te proporciona un dominio en directo tan pronto como el despliegue sea exitoso.
+
+## Paso 6: Dominio y redes
+
+1. Haz clic en tu servicio en Zeabur.
+2. Ve a la pestaña **Networking**.
+3. Haz clic en **Generar dominio** (para obtener un dominio `.zeabur.app`) o **Dominio personalizado** para conectar el tuyo propio.
+4. Visita la URL. Tu aplicación de Replit es ahora una aplicación de producción completamente desplegada.
+
+## Paso 7: Conecta una base de datos (PostgreSQL preferido)
+
+Si tu aplicación de Replit permite que los usuarios inicien sesión, creen cuentas o guarden datos, requiere una base de datos. La documentación de Replit recomienda **PostgreSQL** como mejor práctica.
+
+Actualmente, has desplegado exitosamente el **Frontend** (la interfaz visual). Para habilitar datos y autenticación, conectarás una base de datos PostgreSQL y añadirás los detalles de conexión como **Variables** de Zeabur.
+
+Publicaremos un tutorial de seguimiento dedicado que muestre cómo crear una base de datos PostgreSQL en Zeabur e integrarla con tu aplicación. Si necesitas una opción alojada ahora, también puedes usar Supabase (PostgreSQL bajo el capó).
+
+**👉 Sigue la próxima guía para crear y conectar PostgreSQL en Zeabur (próximamente).**
+
+---
+
+¡Eso es todo! Has movido exitosamente tu proyecto de un prototipo en Replit a una aplicación en directo y lista para producción en Zeabur sin escribir una sola línea de configuración. Este flujo de trabajo perfecto te permite enfocarte en lo que más importa: construir excelente software.

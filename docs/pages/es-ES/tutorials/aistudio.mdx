@@ -1,0 +1,159 @@
+---
+title: Importar Google AI Studio
+ogImageTitle: Importar Google AI Studio
+ogImageSubtitle: Importa tus proyectos de Google AI Studio
+---
+
+## Cómo exportar tu proyecto de Google AI Studio a GitHub
+
+Esta guía es la forma más sencilla de tomar el código generado por **Google AI Studio (Gemini)** y convertirlo en un proyecto permanente que puedas guardar, editar y compartir con el mundo.
+
+### Descripción general
+
+[**Google AI Studio**](https://aistudio.google.com/) es increíble para "Vibe Coding"—pedir a Gemini que construya una aplicación React, un juego o una herramienta en segundos. Sin embargo, AI Studio es un entorno aislado; para ser propietario de tu código y construir sobre él, necesitas trasladarlo a **GitHub**.
+
+**El flujo de trabajo:**
+
+- **Crear:** Genera tu aplicación en **AI Studio (Modo Build)**.
+- **Exportar:** Envía el código directamente a **GitHub** con un clic.
+- **Refinar:** Clónalo en tu computadora (VS Code/Cursor) para desarrollar más.
+
+> 📝 Nota importante: Esta guía se enfoca en el modo "Build" (creación de aplicaciones/sitios web completos). Si tu aplicación utiliza claves API (como la API de Gemini), recuerda que por razones de seguridad, nunca debes confirmar estas claves directamente en GitHub. Abordaremos cómo manejar esto en el paso de Configuración local.
+
+### Requisitos previos
+
+- Una cuenta de [Google AI Studio](https://aistudio.google.com/).
+- Una cuenta de GitHub.
+- [VS Code](https://code.visualstudio.com/) o [Cursor](https://cursor.sh/) instalados en tu computadora.
+- Node.js instalado localmente (se recomienda la versión 18+).
+
+### **Descripción general de la migración**
+
+Este plan te lleva de una generación de IA temporal a un entorno de desarrollo profesional.
+
+- **Origen:** Google AI Studio (Gemini 2.0 Flash/Pro).
+- **Puente:** Integración de AI Studio con GitHub.
+- **Destino:** Tu repositorio de GitHub.
+
+## Paso 1: Crea tu aplicación en AI Studio
+
+Antes de poder exportar, necesitas un proyecto. Usaremos la función **Build** (a veces llamada "Vibe Coding") para generar una aplicación completa.
+
+1. **Entra en modo Build:**
+    - Ve a Google AI Studio.
+    - Haz clic en **Crear nuevo** y selecciona **Aplicación** (o asegúrate de que el interruptor en la parte superior esté configurado en "Build" en lugar de "Prompt").
+
+2. **Solicita al IA:**
+    - Escribe tu solicitud (p. ej., _"Crea un temporizador Pomodoro con estética cyberpunk usando React y Tailwind"_).
+    - Espera a que se cargue la vista previa en el lado derecho.
+
+3. **Refina (Opcional):**
+    - Chatea con Gemini para ajustar el diseño (p. ej., _"Haz que el botón de inicio sea verde"_).
+    - Una vez que estés satisfecho con la vista previa, estará listo para exportar.
+
+## Paso 2: Envía código a GitHub
+
+Ahora que tu código está listo, lo trasladarás desde el entorno aislado de Google a tu propio sistema de control de versiones.
+
+1. **Ubica la integración de GitHub:**
+    - Busca la barra de encabezado encima del panel de código/vista previa.
+    - Haz clic en el **icono de GitHub** (silueta de gato).
+    ![Icono de github de AI Studio](https://cdn.zeabur.com/AI%20Studio%20Migration/AI%20Studio%20github%20icon.png)
+
+2. **Autoriza (Solo la primera vez):**
+    - Si no te has conectado antes, una ventana emergente pedirá permiso.
+    - Haz clic en **Conectar cuenta** y autoriza a Google AI Studio para crear repositorios en tu nombre.
+    ![Inicia sesión en Github (Si no lo hiciste antes)](https://cdn.zeabur.com/AI%20Studio%20Migration/Sign%20In%20Github%20%28If%20you%20didn%27t%20done%20it%20before%29.png)
+
+3. **Configura el repositorio:**
+    - **Nombre del repositorio:** Introduce un nombre limpio (p. ej., `cyberpunk-pomodoro`). _Nota: No se permiten espacios._
+    - **Descripción:** (Opcional) "Generado por Gemini".
+    - **Visibilidad:** Elige **Público** (visible para todos) o **Privado** (solo visible para ti).
+    ![Rellena el nombre y la descripción del repositorio](https://cdn.zeabur.com/AI%20Studio%20Migration/fill%20in%20the%20repo%20name%20and%20description.png)
+    - Haz clic en **Enviar**.
+    ![Haz clic en Preparar y confirmar](https://cdn.zeabur.com/AI%20Studio%20Migration/Click%20Stage%20and%20commit%20.png)
+
+4. **Verifica:**
+    - Espera el mensaje de éxito: _"Enviado exitosamente a GitHub"_.
+    - Haz clic en el enlace proporcionado en el mensaje para abrir tu nuevo repositorio en GitHub.
+
+## Paso 3: Configura el entorno local (Cursor)
+
+Ahora que el código está en GitHub, lo configurarás localmente para verificar las dependencias y realizar ajustes de producción.
+
+1. **Clona el repositorio:**
+Abre Cursor, abre la paleta de comandos (`Cmd+Shift+P` o `Ctrl+Shift+P`), y escribe `> Git: Clone`. Pega la URL de tu nuevo repositorio.
+
+    _Alternativamente, a través de la terminal:_
+    ```bash
+    git clone <https://github.com/your-username/your-repo-name.git>
+    cd your-repo-name
+    ```
+
+2. **Instala las dependencias:**
+Los proyectos de Bolt generalmente detectan el gestor de paquetes automáticamente. Verifica si hay un archivo de bloqueo (`pnpm-lock.yaml`, `package-lock.json`, o `yarn.lock`).
+
+    ```bash
+    # Si usas npm
+    npm install
+    # Si usas pnpm (común en Bolt)
+    pnpm install
+    ```
+
+3. **Configuración del entorno:**
+    - Busca el archivo `.env.example` (si existe) y duplicalo para crear un archivo `.env`.
+    - **Importante:** Si tu aplicación de Bolt usó claves API (OpenAI, Supabase, etc.), debes agregar manualmente estas claves a tu archivo `.env` local. Bolt no exporta tus secretos a GitHub por razones de seguridad.
+
+4. **Prueba local:**
+Ejecuta el servidor de desarrollo para asegurar que la aplicación funciona fuera del entorno aislado de Bolt.
+
+    ```bash
+    npm run dev
+    ```
+
+## Paso 4: Abre en un editor local e instala la extensión Zeabur
+
+Descomprime el archivo y abre la carpeta del proyecto en un editor de código local como VS Code o Cursor. Para que el despliegue sea increíblemente simple, usarás la extensión Zeabur.
+
+1. Ve al Marketplace de extensiones en tu editor.
+2. Busca "Zeabur" y haz clic en **Instalar**.
+![Descargar extensiones de Zeabur.png](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
+
+## Paso 5: Implementa con un solo clic
+
+Ahora viene la magia. Con la extensión instalada, desplegar tu proyecto está a solo unos pocos clics.
+
+1. Haz clic en el nuevo icono de Zeabur en la barra de actividades de la izquierda.
+2. Haz clic en el botón **"Implementar"**.
+
+Tu editor te pedirá permiso para abrir un enlace en tu navegador. Haz clic en **"Abrir"**.
+
+![Haz clic en Implementar y Abrir .png](https://cdn.zeabur.com/replit%20migration%20/Click%20Deploy%20and%20Open%20.png)
+
+## Paso 6: Deja que el agente de IA de Zeabur haga el resto
+
+Una vez que se te redirige a Zeabur, el agente de IA de la plataforma toma el control. Analiza tu código para entender la estructura del proyecto, dependencias y requisitos de compilación.
+
+El agente de Zeabur hará:
+
+- Reconocer que tienes una aplicación de pila completa (p. ej., un frontend React y un backend Express).
+- Configurar automáticamente los comandos de compilación e inicio.
+- Provisionar todos los servicios necesarios.
+
+![El agente de Zeabur maneja el resto.png](https://cdn.zeabur.com/replit%20migration%20/Zeabur%20Agent%20Handle%20the%20rest.png)
+
+Se te pedirá que selecciones un proyecto y una región de despliegue. Después de eso, Zeabur maneja todo lo demás.
+
+Puedes ver en tiempo real cómo tu servicio se construye y se vuelve completamente operativo. Zeabur incluso te proporciona un dominio activo tan pronto como el despliegue es exitoso.
+
+## Paso 7: Dominio y red
+
+1. Haz clic en tu servicio en Zeabur.
+2. Ve a la pestaña **Red**.
+3. Haz clic en **Generar dominio** (para obtener un dominio `.zeabur.app`) o **Dominio personalizado** para conectar el tuyo.
+4. Visita la URL. Tu aplicación de Google AI Studio ahora es una aplicación de producción completamente desplegada.
+
+---
+
+¡Eso es todo! Has movido exitosamente tu proyecto de un prototipo en Google AI Studio a una aplicación lista para producción en Zeabur sin escribir una sola línea de configuración. Este flujo de trabajo perfecto te permite enfocarte en lo que más importa: construir un gran software.
+

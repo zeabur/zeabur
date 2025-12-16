@@ -1,0 +1,191 @@
+---
+title: 导入 Lovable
+ogImageTitle: 导入 Lovable
+ogImageSubtitle: 导入您的 Lovable 项目
+---
+
+## 如何使用 Zeabur 将 Lovable.dev 项目部署到网络
+
+本指南是将 **Lovable.dev** 生成的代码转变为真实的、实时的网站的最简单方法，您可以与朋友或客户分享。
+
+### 概述
+
+**Lovable.dev** 非常适合创建应用的设计和功能，但要将其放在线上，您需要"托管"。我们强烈推荐 **Zeabur**，因为它为您处理技术难题。它只需点击几下就能将您的代码放在实时 URL 上。
+
+**工作流程:**
+
+- **创建:** 在 **Lovable.dev** 中生成您的应用。
+- **改进:** 将代码保存到您的计算机，并使用 **Cursor** 进行检查。
+- **部署:** 在 **Zeabur** 上实时托管。
+
+> 📝 重要提示: 本指南重点介绍如何将您的网站上线（前端）。如果您的应用需要保存用户数据或登录信息，这需要数据库。我们将在单独的后续教程中介绍如何添加数据库！
+>
+
+### 前置条件
+
+- GitHub 账户。
+- 您的计算机上已安装 [Cursor](https://cursor.sh/)。
+- [Zeabur](https://zeabur.com/) 账户。
+- 本地安装的 Node.js（建议版本 18+）。
+
+### **迁移概览**
+
+此计划将您从"无代码"环境转移到"专业代码"环境，同时保留您喜爱的 AI 助手功能。
+
+- **来源:** Lovable（React + Vite + Tailwind）。
+- **编辑器:** Cursor / Windsurf / Antigravity
+- **主机:** Zeabur
+
+## 步骤 1: 将 Lovable 与 GitHub 同步
+
+Lovable 不是手动导出，而是具有直接的双向同步集成，为您创建存储库。
+
+1. **找到 GitHub 集成:**
+    - 在 Lovable 编辑器中打开您的项目。
+    - 查看右上角的标题（在"升级"和"发布"按钮的左边）。
+    - 单击 **GitHub 图标**（猫的轮廓）。
+    
+    ![使用 Lovable 同步项目](https://cdn.zeabur.com/lovable%20migration/sync%20project%20with%20lovable.png)
+    
+2. **启动连接:**
+    - 将显示一个标题为"GitHub"的下拉菜单。
+    - 单击标记为 **"Connect GitHub"** 的黑色按钮。
+    
+    ![单击连接 github](https://cdn.zeabur.com/lovable%20migration/click%20connect%20github.png)
+    
+3. **链接项目:**
+    - 将打开一个标题为"Project Settings"或"Integrations"的设置模态框。
+    - 在"Project"部分（显示 _Not connected_ 的位置）下，单击 **"Connect Project"** 按钮。
+    - _注意: 如果您以前未通过 Lovable 登录过 GitHub，可能会要求您先授权您的账户。_
+    
+    ![使用 github 连接项目](https://cdn.zeabur.com/lovable%20migration/connect%20project%20with%20github.png)
+    
+4. **获取您的存储库 URL:**
+    - 同步完成后，右下角会显示绿色通知: _"A GitHub Repository is now under your account..."_
+    - 一个标题为 **"Clone"** 的模态框将显示在屏幕中央。
+    - **复制** 框中显示的 URL（看起来像 `https://github.com/yourusername/project-name.git`）。
+    
+    ![成功创建新的 github 存储库](https://cdn.zeabur.com/lovable%20migration/successfully%20create%20a%20new%20github%20repo.png)
+    
+
+**您已经完成了 Lovable。** 您已获得将代码导入 Cursor 所需的 URL。
+
+## 步骤 2: 在 Cursor 中设置本地开发
+
+现在您将代码带到本地计算机，以使用 Cursor 编辑它。
+
+1. **安装 Cursor:** 从 [cursor.com](https://cursor.com/) 下载并安装。
+2. **克隆您的存储库:**
+    - 打开 Cursor。
+    - 按 `Cmd + Shift + P`（Mac）或 `Ctrl + Shift + P`（Windows）打开命令调板。
+    - 键入 `Git: Clone` 并选择它。
+    - 粘贴您的 GitHub 存储库 URL（例如 `https://github.com/yourname/my-lovable-app`），并在您的计算机上选择一个文件夹来保存它。
+3. **安装依赖:**
+    - 在 Cursor 中打开终端（`Ctrl + ~` 或 `Terminal > New Terminal`）。
+    - 键入以下命令以安装 Lovable 使用的库:
+        
+        ```bash
+        npm install
+        ```
+        
+4. **启动本地服务器:**
+    - 在本地运行应用以确保其有效:
+        
+        ```bash
+        npm run dev
+        ```
+        
+    - 单击终端中的 `localhost` 链接以查看您的应用。
+
+## 步骤 3: 设置本地环境（Cursor）
+
+现在代码在 GitHub 上，您将在本地设置它以验证依赖项并进行生产调整。
+
+1. **克隆存储库:**
+打开 Cursor，打开命令调板（`Cmd+Shift+P` 或 `Ctrl+Shift+P`），并输入 `> Git: Clone`。粘贴您的新存储库 URL。
+    
+    _或者，通过终端:_
+    
+    ```bash
+    git clone <https://github.com/your-username/your-repo-name.git>
+    cd your-repo-name
+    ```
+    
+2. **安装依赖:**
+Bolt 项目通常自动检测包管理器。检查是否存在锁文件（`pnpm-lock.yaml`、`package-lock.json` 或 `yarn.lock`）。
+    
+    ```bash
+    # 如果使用 npm
+    npm install
+    
+    # 如果使用 pnpm（在 Bolt 中常见）
+    pnpm install
+    ```
+    
+3. **环境设置:**
+    - 找到 `.env.example` 文件（如果存在），并复制它以创建 `.env` 文件。
+    - **重要:** 如果您的 Bolt 应用使用了 API 密钥（OpenAI、Supabase 等），您必须手动将这些密钥添加到本地 `.env` 文件中。Bolt 出于安全原因不会将您的秘密导出到 GitHub。
+4. **本地测试:**
+运行开发服务器以确保应用在 Bolt 沙箱之外运行。
+    
+    ```bash
+    npm run dev
+    ```
+    
+
+## 步骤 4: 在本地编辑器中打开并安装 Zeabur 扩展
+
+解压文件并在本地代码编辑器（如 VS Code 或 Cursor）中打开项目文件夹。为了使部署异常简单，您将使用 Zeabur 扩展。
+
+1. 转到编辑器中的"扩展市场"。
+2. 搜索"Zeabur"并单击 **安装**。
+
+![下载 Zeabur 扩展.png](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
+
+## 步骤 5: 一键部署
+
+现在是魔法时刻。安装扩展后，部署您的项目只需点击几下。
+
+1. 单击左侧活动栏上的新 Zeabur 图标。
+2. 单击 **"Deploy"** 按钮。
+
+您的编辑器将要求允许在您的浏览器中打开链接。单击 **"Open"**。
+
+![单击部署并打开.png](https://cdn.zeabur.com/replit%20migration%20/Click%20Deploy%20and%20Open%20.png)
+
+## 步骤 6: 让 Zeabur AI 代理处理其余的
+
+一旦您被重定向到 Zeabur，该平台的 AI 代理将接管。它分析您的代码以了解项目的结构、依赖关系和构建要求。
+
+Zeabur 代理将:
+
+- 识别您拥有完整堆栈应用（例如 React 前端和 Express 后端）。
+- 自动配置构建和启动命令。
+- 预配所有必要的服务。
+
+![Zeabur 代理处理其余的.png](https://cdn.zeabur.com/replit%20migration%20/Zeabur%20Agent%20Handle%20the%20rest.png)
+
+系统将提示您选择项目和部署区域。之后，Zeabur 处理所有其他事情。
+
+您可以实时观看您的服务构建并完全运行。Zeabur 甚至在部署成功后立即为您提供实时域。
+
+## 步骤 7: 域和网络
+
+1. 在 Zeabur 中单击您的服务。
+2. 导航到 **Networking** 选项卡。
+3. 单击 **Generate Domain**（获取 `.zeabur.app` 域）或 **Custom Domain** 连接您自己的域。
+4. 访问该 URL。您的 Bolt.new 应用现在是一个完全部署的生产应用。
+
+## 步骤 8: 连接数据库（Supabase）
+
+如果您的 Lovable 应用允许用户登录、创建账户或保存数据，则需要数据库（通常是 **Supabase**）。
+
+目前，您已成功部署了 **前端**（视觉界面）。要使数据和身份验证功能工作，您需要通过将 API 密钥添加到 Zeabur 的 **Variable** 设置来连接后端。
+
+我们有专门的指南来指导您获取 Supabase 密钥并将其添加到 Zeabur:
+
+**👉 [单击此处阅读我们关于使用 Zeabur 连接 Supabase 的指南]()**
+
+---
+
+就是这样！您已成功将项目从 Lovable.dev 上的原型转移到 Zeabur 上的实时、生产就绪的应用，而无需编写单行配置代码。这种无缝工作流使您能够专注于最重要的事情：构建伟大的软件。

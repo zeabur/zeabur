@@ -146,18 +146,9 @@ You can watch in real-time as your service builds and becomes fully operational.
 3. Click **Generate Domain** (to get a `.zeabur.app` domain) or **Custom Domain** to connect your own.
 4. Visit the URL. Your Bolt.new application is now a fully deployed production app.
 
-## Troubleshooting
-
-| Issue | Cause | Solution |
-| --- | --- | --- |
-| **"Table not found"** | The app is connected to the database, but the schema hasn't been applied. | Run migration commands (Step 3.3) locally against the production database URL. |
-| **Data disappears after deploy** | The app is still using SQLite (`file.db`). | Ensure you switched the connection string to the PostgreSQL URL provided by Zeabur. |
-| **Build Fails (TypeScript)** | Bolt often ignores TS errors, but production builds are strict. | In Cursor, run `npm run build` locally to see errors. You may need to set `"noEmit": true` or `"skipLibCheck": true` in `tsconfig.json` for a quick fix. |
-| **Missing API Keys** | Features utilizing AI or 3rd party APIs are broken. | Check the **Variables** tab in Zeabur and ensure all keys from your local `.env` are present. |
-
 ## Step 6: Connect a Database (Supabase)
 
-If your Lovable app allows users to log in, create accounts, or save data, it requires a database (usually **Supabase**).
+If your Bolt.new app allows users to log in, create accounts, or save data, it requires a database (usually **Supabase**).
 
 Currently, you have successfully deployed the **Frontend** (the visual interface). To make the data and authentication features work, you need to connect the backend by adding your API keys to Zeabur's **Variable** settings.
 

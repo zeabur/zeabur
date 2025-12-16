@@ -17,5 +17,5 @@ export default {
   community: 'Comunidad',
   advanced: 'Avanzado',
   developer: 'Desarrollador',
-  tutorials: 'Tutorials',
+  tutorials: 'Tutoriales',
 }
