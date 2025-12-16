@@ -58,66 +58,51 @@ En lugar de una exportación manual, Lovable tiene una integración de sincroniz
 
 **Ya has terminado con Lovable.** Tienes la URL necesaria para llevar el código a Cursor.
 
-## Paso 2: Configurar el desarrollo local en Cursor
+## Paso 2: Configurar el entorno local (Cursor)
 
-Ahora llevarás el código a tu ordenador local para editarlo con Cursor.
-1. **Instala Cursor:** Descárgalo e instálalo desde [cursor.com](https://cursor.com/).
+Ahora llevarás el código a tu ordenador local para editarlo con Cursor y configurar el entorno de desarrollo.
+
+1. **Instala Cursor:**
+   - Descárgalo e instálalo desde [cursor.com](https://cursor.com/).
+
 2. **Clona tu repositorio:**
-    - Abre Cursor.
-    - Presiona `Cmd + Shift + P` (Mac) o `Ctrl + Shift + P` (Windows) para abrir la paleta de comandos.
-    - Escribe `Git: Clone` y selecciónalo.
-    - Pega la URL de tu repositorio de GitHub (p. ej., `https://github.com/yourname/my-lovable-app`) y selecciona una carpeta en tu ordenador para guardarlo.
+   - Abre Cursor.
+   - Presiona `Cmd + Shift + P` (Mac) o `Ctrl + Shift + P` (Windows) para abrir la paleta de comandos.
+   - Escribe `Git: Clone` y selecciónalo.
+   - Pega la URL de tu repositorio de GitHub (p. ej., `https://github.com/yourname/my-lovable-app`) y selecciona una carpeta en tu ordenador para guardarlo.
+
+   _Alternativamente, a través de terminal:_
+
+   ```bash
+   git clone https://github.com/your-username/your-repo-name.git
+   cd your-repo-name
+   ```
+
 3. **Instala dependencias:**
-    - Abre la terminal en Cursor (`Ctrl + ~` o `Terminal > New Terminal`).
-    - Escribe el siguiente comando para instalar las librerías que usó Lovable:
+   - Abre la terminal en Cursor (`Ctrl + ~` o `Terminal > New Terminal`).
+   - Los proyectos Lovable generalmente detectan el gestor de paquetes automáticamente. Busca un archivo de bloqueo (`pnpm-lock.yaml`, `package-lock.json`, o `yarn.lock`).
 
-        ```bash
-        npm install
-        ```
-4. **Inicia el servidor local:**
-    - Ejecuta la aplicación localmente para asegurarte de que funciona:
+   ```bash
+   # Si usas npm
+   npm install
+   # Si usas pnpm (común en Lovable)
+   pnpm install
+   ```
 
-        ```bash
-        npm run dev
-        ```
+4. **Configuración del entorno:**
+   - Ubica el archivo `.env.example` (si existe) y duplícalo para crear un archivo `.env`.
+   - **Importante:** Si tu aplicación Lovable usaba claves de API (OpenAI, Supabase, etc.), debes agregar manualmente estas claves a tu archivo local `.env`. Lovable no exporta tus secretos a GitHub por razones de seguridad.
 
-    - Haz clic en el enlace `localhost` en la terminal para ver tu aplicación.
+5. **Inicia el servidor local:**
+   - Ejecuta la aplicación localmente para asegurarte de que funciona:
 
-## Paso 3: Configurar el entorno local (Cursor)
+   ```bash
+   npm run dev
+   ```
 
-Ahora que el código está en GitHub, lo configurarás localmente para verificar las dependencias y hacer ajustes de producción.
-1. **Clona el repositorio:**
+   - Haz clic en el enlace `localhost` en la terminal para ver tu aplicación.
 
-    Abre Cursor, abre la Paleta de comandos (`Cmd+Shift+P` o `Ctrl+Shift+P`), y escribe `> Git: Clone`. Pega la URL de tu nuevo repositorio.
-
-    _Alternativamente, a través de terminal:_
-
-    ```bash
-    git clone <https://github.com/your-username/your-repo-name.git>
-    cd your-repo-name
-    ```
-2. **Instala dependencias:**
-
-    Los proyectos Lovable generalmente detectan el gestor de paquetes automáticamente. Busca un archivo de bloqueo (`pnpm-lock.yaml`, `package-lock.json`, o `yarn.lock`).
-
-    ```bash
-    # Si usas npm
-    npm install
-    # Si usas pnpm (común en Lovable)
-    pnpm install
-    ```
-3. **Configuración del entorno:**
-    - Ubica el archivo `.env.example` (si existe) y duplícalo para crear un archivo `.env`.
-    - **Importante:** Si tu aplicación Lovable usaba claves de API (OpenAI, Supabase, etc.), debes agregar manualmente estas claves a tu archivo local `.env`. Lovable no exporta tus secretos a GitHub por razones de seguridad.
-4. **Prueba local:**
-
-    Ejecuta el servidor de desarrollo para asegurarte de que la aplicación funciona fuera del sandbox de Lovable.
-
-    ```bash
-    npm run dev
-    ```
-    
-## Paso 4: Abrir en un editor local e instalar la extensión Zeabur
+## Paso 3: Abrir en un editor local e instalar la extensión Zeabur
 
 Descomprime el archivo y abre la carpeta del proyecto en un editor de código local como VS Code o Cursor. Para que la implementación sea increíblemente simple, usarás la extensión Zeabur.
 
@@ -126,7 +111,7 @@ Descomprime el archivo y abre la carpeta del proyecto en un editor de código lo
 
 ![Descargar extensiones Zeabur.png](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
 
-## Paso 5: Implementar con un solo clic
+## Paso 4: Implementar con un solo clic
 
 Ahora viene la magia. Con la extensión instalada, implementar tu proyecto es solo cuestión de unos pocos clics.
 
@@ -137,7 +122,7 @@ Tu editor te pedirá permiso para abrir un enlace en tu navegador. Haz clic en *
 
 ![Haz clic en Deploy y Open .png](https://cdn.zeabur.com/replit%20migration%20/Click%20Deploy%20and%20Open%20.png)
 
-## Paso 6: Deja que el agente de IA de Zeabur haga el resto
+## Paso 5: Deja que el agente de IA de Zeabur haga el resto
 
 Una vez que se te redirija a Zeabur, el agente de IA de la plataforma toma el control. Analiza tu código para entender la estructura del proyecto, las dependencias y los requisitos de compilación.
 
@@ -153,14 +138,14 @@ Se te pedirá que selecciones un proyecto y una región de implementación. Desp
 
 Puedes ver en tiempo real cómo se compila tu servicio y se vuelve completamente operativo. Zeabur incluso te proporciona un dominio en vivo tan pronto como la implementación sea exitosa.
 
-## Paso 7: Dominio y redes
+## Paso 6: Dominio y redes
 
 1. Haz clic en tu servicio en Zeabur.
 2. Navega a la pestaña **Networking**.
 3. Haz clic en **Generate Domain** (para obtener un dominio `.zeabur.app`) o **Custom Domain** para conectar el tuyo.
 4. Visita la URL. Tu aplicación Lovable es ahora una aplicación de producción completamente implementada.
 
-## Paso 8: Conectar una base de datos (Supabase)
+## Paso 7: Conectar una base de datos (Supabase)
 
 Si tu aplicación Lovable permite que los usuarios inicien sesión, creen cuentas o guarden datos, requiere una base de datos (generalmente **Supabase**).
 
