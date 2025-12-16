@@ -1,0 +1,177 @@
+---
+title: 匯入 Emergent
+ogImageTitle: 匯入 Emergent
+ogImageSubtitle: 匯入你的 Emergent 專案
+---
+
+## 如何從 Emergent 遷移到 Zeabur
+
+本指南是獲取你在 Emergent 等雲 IDE 中構建的程式碼並將其轉換為 24/7 在線生產就緒應用的最簡單方法。
+
+### 概述
+
+[**Emergent**](https://emergent.sh) 非常適合原型製作和在瀏覽器中快速執行程式碼。但是，當你準備好在沒有"睡眠"實例或帶寬限制的情況下與世界分享你的應用時，你需要專業託管。
+
+我們強烈推薦 **Zeabur**，因為它簡化了從原型到生產的轉變。使用本機編輯器的 Zeabur 擴充功能，你可以在不需要複雜設定檔案的情況下部署應用。
+
+**工作流程：**
+
+- **匯出：** 從 Emergent 下載你的程式碼庫。
+- **設定：** 在 **VS Code** 或 **Cursor** 中本機打開專案。
+- **部署：** 使用 **Zeabur 擴充功能** 一鍵將應用上線。
+
+> 📝 重要說明：本指南涵蓋完整堆棧。我們首先部署應用程式碼，在第 6 步，我們將特別介紹如何為需要保存使用者資料的應用配置和連接 MongoDB 資料庫。
+
+### 前置條件
+
+- 存取你的 Emergent 專案。
+- 在電腦上安裝了 [VS Code](https://code.visualstudio.com/) 或 [Cursor](https://cursor.sh/)。
+- 一個 [Zeabur](https://zeabur.com/) 帳戶。
+- 本機安裝了 Node.js（建議 18+ 版本）。
+
+### 遷移概述
+
+本計劃將你從基於瀏覽器的沙盒遷移到託管在可擴展雲上的專業本機開發環境。
+
+- **來源：** Emergent（Node.js、Python 或 Go）。
+- **編輯器：** VS Code / Cursor。
+- **主機：** Zeabur。
+
+## 第 1 步：匯出你的程式碼庫
+
+### 選項 1：直接下載方法（最適合簡單匯出）
+
+1. **喚醒你的代理：**
+如果你的專案一直處於非活躍狀態，你可能會看到"代理已進入睡眠狀態"的訊息。點擊你的專案將其喚醒。
+
+2. **存取程式碼檢視器：**
+查找 **"Code"** 按鈕（通常在專案介面的右上方附近）。
+    ![Emergent Vscode](https://cdn.zeabur.com/emergent%20/Emergent%20Vscode.png)
+
+3. **取得認證：**
+當你點擊"Code"時，會出現一個彈出視窗，其中有兩項內容：
+    ![點擊 Vscode 連結](https://cdn.zeabur.com/emergent%20/Click%20Vscode%20Link.png)
+    - 一個指向 VS Code 環境的**連結**。
+    - 一個**密碼**。
+    **先複製密碼**，然後點擊連結在新索引標籤中打開。
+
+4. **解鎖編輯器：**
+將你複製的密碼貼到提示中並按 Enter。你現在將看到瀏覽器中的完整 VS Code 介面。
+
+5. **下載資料夾：**
+    - 在左側邊欄（檔案瀏覽器）中，你將看到你的專案資料夾（通常是 `frontend`、`backend` 或只是專案根目錄）。
+    - **右鍵點擊** 你想保留的資料夾。
+    - 選擇 **下載**。
+    - 這會將資料夾以 `.zip` 檔案形式保存到你的電腦。
+
+---
+
+### 選項 2：GitHub 同步方法（最適合遷移，但需要升級）
+
+如果你計劃遷移到 Zeabur 或其他主機，直接推送到 GitHub 通常比下載 zip 檔案更簡潔。
+
+1. **連接 GitHub：**
+在 Emergent 的主聊天/儀表板介面中，查找你的個人資料設定中的 **GitHub 圖示** 或"連接 GitHub"按鈕。
+
+2. **授權：**
+按照提示授權 Emergent 存取你的 GitHub 帳戶。
+
+3. **推送程式碼：**
+在聊天介面中，輸入如下命令：
+    > "將此程式碼推送到名為 my-app-export 的新 GitHub 儲存庫"
+    >
+
+4. **驗證：**
+轉到你的 GitHub 帳戶以確認儲存庫已建立。然後你可以使用 `git clone` 在本機複製此儲存庫。
+
+## 第 2 步：設定本機環境（Cursor）
+
+現在程式碼已在 GitHub 上，你將在本機設定它以驗證依賴項並進行生產調整。
+
+1. **複製儲存庫：**
+打開 Cursor，打開命令調板（`Cmd+Shift+P` 或 `Ctrl+Shift+P`），然後輸入 `> Git: Clone`。貼上你的新儲存庫 URL。
+
+    _或者，通過終端：_
+    ```bash
+    git clone <https://github.com/your-username/your-repo-name.git>
+    cd your-repo-name
+    ```
+
+2. **安裝依賴項：**
+Emergent 專案通常會自動偵測套件管理器。檢查鎖定檔案（`pnpm-lock.yaml`、`package-lock.json` 或 `yarn.lock`）。
+
+    ```bash
+    # 如果使用 npm
+    npm install
+    # 如果使用 pnpm（在 Emergent 中常見）
+    pnpm install
+    ```
+
+3. **環境設定：**
+    - 找到 `.env.example` 檔案（如果存在），並複製它以建立 `.env` 檔案。
+    - **重要：** 如果你的 Emergent 應用使用了 API 金鑰（OpenAI、Supabase 等），你必須手動將這些金鑰新增到本機的 `.env` 檔案中。Emergent 出於安全考慮，不會將你的金鑰匯出到 GitHub。
+
+4. **本機測試：**
+執行開發伺服器以確保應用在 Emergent 沙盒外運作。
+
+    ```bash
+    npm run dev
+    ```
+
+---
+
+## 第 3 步：在本機編輯器中打開並安裝 Zeabur 擴充功能
+
+解壓縮檔案並在本機程式碼編輯器（如 VS Code 或 Cursor）中打開專案資料夾。為了使部署非常簡單，你將使用 Zeabur 擴充功能。
+
+1. 轉到編輯器中的擴充功能市集。
+2. 搜尋"Zeabur"並點擊 **安裝**。
+![下載 Zeabur 擴充功能.png](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
+
+## 第 4 步：一鍵部署
+
+現在是魔法時刻。安裝擴充功能後，部署你的專案只需點擊幾次。
+
+1. 點擊左側活動列中的新 Zeabur 圖示。
+2. 點擊 **"部署"** 按鈕。
+
+你的編輯器將要求權限在瀏覽器中打開連結。點擊 **"打開"**。
+
+![點擊部署和打開.png](https://cdn.zeabur.com/replit%20migration%20/Click%20Deploy%20and%20Open%20.png)
+
+## 第 5 步：讓 Zeabur AI 代理處理其餘的
+
+重定向到 Zeabur 後，平台的 AI 代理接管。它分析你的程式碼以理解專案的結構、依賴項和構建要求。
+
+Zeabur 代理將：
+
+- 識別你有一個全棧應用（例如 React 前端和 Express 後端）。
+- 自動設定構建和啟動命令。
+- 配置所有必要的服務。
+
+你將被提示選擇一個專案和一個部署區域。之後，Zeabur 處理其餘的一切。
+
+![Zeabur 代理處理其餘的.png](https://cdn.zeabur.com/new%20agent.png)
+
+你可以即時觀看你的服務構建並變得完全可運作。Zeabur 甚至在部署成功後立即為你提供一個即時網域。
+
+## 第 6 步：網域和網路
+
+1. 在 Zeabur 中點擊你的服務。
+2. 導航到 **網路** 索引標籤。
+3. 點擊 **產生網域**（取得 `.zeabur.app` 網域）或 **自訂網域**（連接你自己的網域）。
+4. 造訪該 URL。你的 Emergent 應用現在是一個完全部署的生產就緒應用。
+
+## 第 7 步：連接資料庫（Supabase）
+
+如果你的 Emergent 應用允許使用者登入、建立帳戶或保存資料，它需要一個資料庫（通常是 **Supabase**）。
+
+目前，你已成功部署了 **前端**（可視化介面）。要使資料和身份驗證功能運作，你需要通過將 API 金鑰新增到 Zeabur 的 **Variable** 設定來連接後端。
+
+我們有一份專門的指南來幫助你取得 Supabase 金鑰並將其新增到 Zeabur：
+
+**👉 按照即將發布的指南在 Zeabur 上建立和連線 supabase(即將推出)。**
+
+---
+
+就是這樣！你已成功將專案從 Emergent 上的原型遷移到 Zeabur 上的即時、生產就緒應用，無需編寫任何一行設定程式碼。這種無縫工作流讓你可以專注於最重要的事情：構建優秀的軟體。

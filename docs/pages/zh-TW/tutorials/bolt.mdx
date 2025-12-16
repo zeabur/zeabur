@@ -1,0 +1,152 @@
+---
+title: 匯入 Bolt
+ogImageTitle: 匯入 Bolt
+ogImageSubtitle: 匯入你的 Bolt 專案
+---
+
+## 如何使用 Zeabur 將 Bolt.new 專案部署到網絡
+
+本指南是獲取 Bolt.new 產生的程式碼並將其轉換為真實、在線網站的最簡單方法，你可以與朋友或客戶分享。
+
+### 概述
+
+[**Bolt.new**](http://Bolt.new) 非常適合建立應用的設計和功能，但要將其放在線上，你需要"託管"。我們強烈推薦 **Zeabur**，因為它為你處理了技術重任。它獲取你的程式碼並在短短幾次點擊內將其放在實時 URL 上。
+
+**工作流程：**
+
+- **建立：** 在 **Bolt.new** 中產生你的應用。
+- **改進：** 將程式碼保存到你的電腦並使用 **Cursor** 進行檢查。
+- **部署：** 在 **Zeabur** 上實時託管。
+
+> 📝 重要說明：本指南重點關注將你的網站上線（前端）。如果你的應用需要保存使用者資料或登入，這需要一個資料庫。我們將在一個單獨的後續教學中介紹如何新增資料庫！
+
+### 前置條件
+
+- GitHub 帳戶。
+- 在電腦上安裝了 [Cursor](https://cursor.sh/)。
+- 一個 [Zeabur](https://zeabur.com/) 帳戶。
+- 本機安裝了 Node.js（建議 18+ 版本）。
+
+### **遷移概述**
+
+本計劃在保留你喜愛的 AI 助手的同時，將你從"無程式碼"環境遷移到"專業程式碼"環境。
+
+- **來源：** Bolt.new（React + Vite + Tailwind）。
+- **編輯器：** Cursor / Windsurf / Antigravity
+- **主機：** Zeabur
+
+---
+
+## 第 1 步：從 Bolt.new 匯出程式碼到 GitHub
+
+在你可以部署之前，你必須將程式碼從 Bolt 沙盒移動到版本控制系統。
+
+1. **打開部署面板：** 在你的 Bolt.new 專案中，查找右上方標題中的 **Deploy** 或 **Publish** 按鈕，點擊旁邊的 **Github** 按鈕。
+    ![bolt.new github part 1.png](https://cdn.zeabur.com/bolt.new%20migration/bolt.new%20github%20part%201.png)
+
+2. **連接到 GitHub：**
+    - 選擇 **"連接到 GitHub"**。
+    - 如果出現提示，授權 Bolt 存取你的 GitHub 帳戶。
+    ![Bolt.new github part 2.png](https://cdn.zeabur.com/bolt.new%20migration/Bolt.new%20github%20part%202%20.png)
+
+3. **建立儲存庫：**
+    - 在強制回應中，輸入儲存庫名稱（例如 `my-bolt-app`）。
+    - 選擇可見性（公開或私有）。
+    - 點擊 **建立儲存庫**。
+    ![bolt.new github part 3.png](https://cdn.zeabur.com/bolt.new%20migration/bolt.new%20github%20part%203.png)
+
+4. **驗證：** 等待確認訊息。訪問你的 GitHub 個人資料以確保儲存庫已建立並填充了程式碼。
+
+---
+
+## 第 2 步：設定本機環境（Cursor）
+
+現在程式碼已在 GitHub 上，你將在本機設定它以驗證依賴項並進行生產調整。
+
+1. **複製儲存庫：**
+打開 Cursor，打開命令調板（`Cmd+Shift+P` 或 `Ctrl+Shift+P`），然後輸入 `> Git: Clone`。貼上你的新儲存庫 URL。
+
+    _或者，通過終端：_
+    ```bash
+    git clone <https://github.com/your-username/your-repo-name.git>
+    cd your-repo-name
+    ```
+
+2. **安裝依賴項：**
+Bolt 專案通常會自動偵測套件管理器。檢查鎖定檔案（`pnpm-lock.yaml`、`package-lock.json` 或 `yarn.lock`）。
+
+    ```bash
+    # 如果使用 npm
+    npm install
+    # 如果使用 pnpm（在 Bolt 中常見）
+    pnpm install
+    ```
+
+3. **環境設定：**
+    - 找到 `.env.example` 檔案（如果存在），並複製它以建立 `.env` 檔案。
+    - **重要：** 如果你的 Bolt 應用使用了 API 金鑰（OpenAI、Supabase 等），你必須手動將這些金鑰新增到本機的 `.env` 檔案中。Bolt 出於安全考慮，不會將你的金鑰匯出到 GitHub。
+
+4. **本機測試：**
+執行開發伺服器以確保應用在 Bolt 沙盒外運作。
+
+    ```bash
+    npm run dev
+    ```
+
+---
+
+### 第 3 步：在本機編輯器中打開並安裝 Zeabur 擴充功能
+
+解壓縮檔案並在本機程式碼編輯器（如 VS Code 或 Cursor）中打開專案資料夾。為了使部署非常簡單，你將使用 Zeabur 擴充功能。
+
+1. 轉到編輯器中的擴充功能市集。
+2. 搜尋"Zeabur"並點擊 **安裝**。
+![下載 Zeabur 擴充功能.png](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
+
+### 第 4 步：一鍵部署
+
+現在是魔法時刻。安裝擴充功能後，部署你的專案只需點擊幾次。
+
+1. 點擊左側活動列中的新 Zeabur 圖示。
+2. 點擊 **"部署"** 按鈕。
+
+你的編輯器將要求權限在瀏覽器中打開連結。點擊 **"打開"**。
+
+![點擊部署和打開.png](https://cdn.zeabur.com/replit%20migration%20/Click%20Deploy%20and%20Open%20.png)
+
+### 第 5 步：讓 Zeabur AI 代理處理其餘的
+
+重定向到 Zeabur 後，平台的 AI 代理接管。它分析你的程式碼以理解專案的結構、依賴項和構建要求。
+
+Zeabur 代理將：
+
+- 識別你有一個全棧應用（例如 React 前端和 Express 後端）。
+- 自動設定構建和啟動命令。
+- 配置所有必要的服務。
+
+![Zeabur 代理處理其餘的](https://cdn.zeabur.com/new%20agent.png)
+
+你將被提示選擇一個專案和一個部署區域。之後，Zeabur 處理其餘的一切。
+
+你可以即時觀看你的服務構建並變得完全可運作。Zeabur 甚至在部署成功後立即為你提供一個即時網域。
+
+## 第 6 步：網域和網路
+
+1. 在 Zeabur 中點擊你的服務。
+2. 導航到 **網路** 索引標籤。
+3. 點擊 **產生網域**（取得 `.zeabur.app` 網域）或 **自訂網域**（連接你自己的網域）。
+4. 造訪該 URL。你的 Bolt.new 應用現在是一個完全部署的生產就緒應用。
+
+## 第 7 步：連接資料庫（Supabase）
+
+如果你的 Bolt.new 應用允許使用者登入、建立帳戶或保存資料，它需要一個資料庫（通常是 **Supabase**）。
+
+目前，你已成功部署了 **前端**（可視化介面）。要使資料和身份驗證功能運作，你需要通過將 API 金鑰新增到 Zeabur 的 **Variable** 設定來連接後端。
+
+我們有一份專門的指南來幫助你取得 Supabase 金鑰並將其新增到 Zeabur：
+
+**👉 按照即將發布的指南在 Zeabur 上建立和連線 supabase(即將推出)。**
+
+---
+
+就是這樣！你已成功將專案從 Bolt.new 上的原型遷移到 Zeabur 上的即時、生產就緒應用，無需編寫任何一行設定程式碼。這種無縫工作流讓你可以專注於最重要的事情：構建優秀的軟體。

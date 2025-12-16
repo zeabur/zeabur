@@ -1,0 +1,153 @@
+---
+title: Importar Bolt
+ogImageTitle: Importar Bolt
+ogImageSubtitle: Importa tus proyectos de Bolt
+---
+
+## Cómo desplegar tu proyecto Bolt.new en la web con Zeabur
+
+Esta guía es la forma más sencilla de tomar el código generado por Bolt.new y convertirlo en un sitio web real y en vivo que puedas compartir con amigos o clientes.
+
+### Descripción general
+
+[**Bolt.new**](http://Bolt.new) es increíble para crear el diseño y las características de tu aplicación, pero para ponerla en línea, necesitas "hosting". Recomendamos encarecidamente **Zeabur** porque maneja el trabajo técnico pesado por ti. Toma tu código y lo pone en una URL en vivo en solo unos pocos clics.
+
+**El flujo de trabajo:**
+
+- **Crear:** Genera tu aplicación en **Bolt.new**.
+- **Refinar:** Guarda el código en tu computadora y verifica con **Cursor**.
+- **Desplegar:** Alójalo en vivo en **Zeabur**.
+
+> 📝 Nota importante: Esta guía se enfoca en poner tu sitio web en línea (Frontend). Si tu aplicación necesita guardar datos de usuarios o inicios de sesión, eso requiere una base de datos. ¡Abordaremos cómo agregar una base de datos en un tutorial de seguimiento separado!
+
+### Requisitos previos
+
+- Una cuenta de GitHub.
+- [Cursor](https://cursor.sh/) instalado en tu computadora.
+- Una cuenta de [Zeabur](https://zeabur.com/).
+- Node.js instalado localmente (se recomienda la versión 18+).
+
+### **Descripción general de la migración**
+
+Este plan te lleva de un entorno "sin código" a un entorno "pro-código" mientras conservas la asistencia de IA que amas.
+
+- **Origen:** Bolt.new (React + Vite + Tailwind).
+- **Editor:** Cursor / Windsurf / Antigravity
+- **Host:** Zeabur
+
+---
+
+## Paso 1: Exporta código de Bolt.new a GitHub
+
+Antes de poder desplegar, debes mover tu código desde la caja de arena de Bolt a un sistema de control de versiones.
+
+1. **Abre el panel de despliegue:** dentro de tu proyecto Bolt.new, busca el botón **Deploy** o **Publish** en el encabezado superior derecho, luego haz clic en el botón **GitHub**.
+    ![bolt.new github parte 1.png](https://cdn.zeabur.com/bolt.new%20migration/bolt.new%20github%20part%201.png)
+
+2. **Conecta con GitHub:**
+    - Selecciona **"Conectar con GitHub"**.
+    - Autoriza a Bolt para acceder a tu cuenta de GitHub si se te solicita.
+    ![Bolt.new github parte 2.png](https://cdn.zeabur.com/bolt.new%20migration/Bolt.new%20github%20part%202%20.png)
+
+3. **Crea repositorio:**
+    - En el modal, ingresa un nombre de repositorio (p. ej., `my-bolt-app`).
+    - Elige visibilidad (Público o Privado).
+    - Haz clic en **Crear repositorio**.
+    ![bolt.new github parte 3.png](https://cdn.zeabur.com/bolt.new%20migration/bolt.new%20github%20part%203.png)
+
+4. **Verifica:** Espera el mensaje de confirmación. Visita tu perfil de GitHub para asegurar que el repositorio ha sido creado y poblado con código.
+
+---
+
+## Paso 2: Configura el entorno local (Cursor)
+
+Ahora que el código está en GitHub, lo configurarás localmente para verificar las dependencias y realizar ajustes de producción.
+
+1. **Clona el repositorio:**
+Abre Cursor, abre la paleta de comandos (`Cmd+Shift+P` o `Ctrl+Shift+P`), y escribe `> Git: Clone`. Pega la URL de tu nuevo repositorio.
+
+    _Alternativamente, a través de la terminal:_
+    ```bash
+    git clone <https://github.com/your-username/your-repo-name.git>
+    cd your-repo-name
+    ```
+
+2. **Instala las dependencias:**
+Los proyectos de Bolt generalmente detectan el gestor de paquetes automáticamente. Verifica si hay un archivo de bloqueo (`pnpm-lock.yaml`, `package-lock.json`, o `yarn.lock`).
+
+    ```bash
+    # Si usas npm
+    npm install
+    # Si usas pnpm (común en Bolt)
+    pnpm install
+    ```
+
+3. **Configuración del entorno:**
+    - Busca el archivo `.env.example` (si existe) y duplícalo para crear un archivo `.env`.
+    - **Importante:** Si tu aplicación de Bolt usó claves API (OpenAI, Supabase, etc.), debes agregar manualmente estas claves a tu archivo `.env` local. Bolt no exporta tus secretos a GitHub por razones de seguridad.
+
+4. **Prueba local:**
+Ejecuta el servidor de desarrollo para asegurar que la aplicación funciona fuera de la caja de arena de Bolt.
+
+    ```bash
+    npm run dev
+    ```
+
+---
+
+### Paso 3: Abre en un editor local e instala la extensión Zeabur
+
+Abre la carpeta del proyecto clonado en tu editor de código local (por ejemplo, abre la carpeta del repositorio en VS Code o Cursor). Para hacer el despliegue increíblemente simple, usarás la extensión Zeabur.
+
+1. Ve al Marketplace de extensiones en tu editor.
+2. Busca "Zeabur" y haz clic en **Instalar**.
+![Instalar extensión de Zeabur.png](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
+
+### Paso 4: Implementa con un solo clic
+
+Ahora viene la magia. Con la extensión instalada, desplegar tu proyecto está a solo unos pocos clics.
+
+1. Haz clic en el nuevo icono de Zeabur en la barra de actividades de la izquierda.
+2. Haz clic en el botón **"Implementar"**.
+
+Tu editor te pedirá permiso para abrir un enlace en tu navegador. Haz clic en **"Abrir"**.
+
+![Haz clic en Implementar y Abrir.png](https://cdn.zeabur.com/replit%20migration%20/Click%20Deploy%20and%20Open%20.png)
+
+### Paso 5: Deja que el agente de IA de Zeabur haga el resto
+
+Una vez que se te redirige a Zeabur, el agente de IA de la plataforma toma el control. Analiza tu código para entender la estructura del proyecto, dependencias y requisitos de compilación.
+
+El agente de Zeabur hará:
+
+- Reconocer que tienes una aplicación de pila completa (p. ej., un frontend React y un backend Express).
+- Configurar automáticamente los comandos de compilación e inicio.
+- Provisionar todos los servicios necesarios.
+
+![El agente de Zeabur maneja el resto](https://cdn.zeabur.com/new%20agent.png)
+
+Se te pedirá que selecciones un proyecto y una región de despliegue. Después de eso, Zeabur maneja todo lo demás.
+
+Puedes ver en tiempo real cómo tu servicio se construye y se vuelve completamente operativo. Zeabur incluso te proporciona un dominio activo tan pronto como el despliegue es exitoso.
+
+## Paso 6: Dominio y red
+
+1. Haz clic en tu servicio en Zeabur.
+2. Ve a la pestaña **Red**.
+3. Haz clic en **Generar dominio** (para obtener un dominio `.zeabur.app`) o **Dominio personalizado** para conectar el tuyo.
+4. Visita la URL. Tu aplicación Bolt.new ahora es una aplicación de producción completamente desplegada.
+
+## Paso 7: Conecta una base de datos (Supabase)
+
+Si tu aplicación Bolt.new permite que los usuarios inicien sesión, creen cuentas o guarden datos, requiere una base de datos (generalmente **Supabase**).
+
+Actualmente, has desplegado exitosamente el **Frontend** (la interfaz visual). Para que funcionen las características de datos y autenticación, necesitas conectar el backend agregando tus claves API a la configuración de **Variables** de Zeabur.
+
+Tenemos una guía dedicada para ayudarte a obtener tus claves de Supabase y agregarlas a Zeabur:
+
+**👉 Sigue la próxima guía para crear y conectar Supabase en Zeabur (próximamente).**
+
+---
+
+¡Eso es todo! Has movido exitosamente tu proyecto de un prototipo en Bolt.new a una aplicación lista para producción en vivo en Zeabur sin escribir una sola línea de configuración. Este flujo de trabajo perfecto te permite enfocarte en lo que más importa: construir un gran software.
+

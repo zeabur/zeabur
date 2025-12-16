@@ -1,0 +1,142 @@
+---
+title: 匯入 Replit
+ogImageTitle: Replit 到 Zeabur
+ogImageSubtitle: 將您的 Replit 專案遷移到 Zeabur
+---
+
+## 如何使用 Zeabur 將 Replit 專案部署到網路
+
+本指南是最簡單的方法，可以採用 **Replit** 生成的程式碼並將其轉換為可與朋友或客戶分享的真實即時網站。
+
+### 概述
+
+**Replit** 非常適合建立應用程式的設計和功能，但要將其放在線上，您需要「託管」。我們強烈推薦 **Zeabur**，因為它為您處理技術方面的繁重工作。它採用您的程式碼，只需點擊幾下即可將其放在即時 URL 上。
+
+**工作流程:**
+
+- **建立:** 在 **Replit** 中產生您的應用程式。
+- **改進:** 將程式碼保存到您的電腦並使用 **Cursor** 檢查。
+- **部署:** 在 **Zeabur** 上即時託管。
+
+> 📝 重要提示: 本指南重點介紹如何將您的網站放在線上(前端)。如果您的應用程式需要保存使用者資料或登入資訊，這需要資料庫。我們將在後續的獨立教學中介紹如何新增資料庫!
+>
+
+### 前置要求
+
+- GitHub 帳戶。
+- [Cursor](https://cursor.sh/) 安裝在您的電腦上。
+- [Zeabur](https://zeabur.com/) 帳戶。
+- 本機安裝 Node.js(建議版本 18+)。
+
+## 步驟 1: 從 Replit 完成並匯出您的專案
+
+首先，在 Replit 環境中完成應用程式的建構。程式碼準備好後，需要將其下載到本機電腦。
+
+1. 在您的 Replit 專案中，按一下「Files」部分旁邊的三點選單(⋮)。
+2. 從下拉式選單中，選擇 **「Download as zip」**。
+
+![三點步驟 1 步驟 2](https://cdn.zeabur.com/replit%20migration%20/Three%20Dots%20step%201%20step%202.png)
+
+您的整個專案將作為單一個 zip 檔案保存在下載資料夾中。
+
+## 步驟 2: 設定本機環境（Cursor）
+
+在 Cursor 中開啟之前，必須提取 zip 檔案，否則部署將失敗。
+
+1. **解壓縮並開啟專案:**
+
+   **對於 Mac 使用者:**
+   
+   1. 開啟 **Finder** 並瀏覽至 **Downloads** 資料夾。
+   2. **雙按** 您從 Replit 下載的 zip 檔案。這將建立一個以您的專案名稱命名的新資料夾。
+   3. 開啟 **Cursor**。
+   4. 在頂部選單列中，按一下 **File** > **Open...** (或按 `Cmd + O`)。
+   5. 選擇 **新解壓的資料夾** (不是 zip 檔案本身) 並按一下 **Open**。
+   
+   **對於 Windows 使用者:**
+   
+   1. 開啟 **檔案總管** 並轉到 **Downloads** 資料夾。
+   2. **按右鍵** zip 檔案並選擇 **「Extract All...」**。
+   3. 按一下 **Extract**。(不要只是雙按 zip 來查看內部;您 _必須_ 提取它)。
+   4. 開啟 **Cursor**。
+   5. 在頂部選單列中，按一下 **File** > **Open Folder...** (或按 `Ctrl + K` 然後 `Ctrl + O`)。
+   6. 選擇 **新提取的資料夾** 並按一下 **Select Folder**。
+
+2. **安裝相依性:**
+   Replit 專案通常自動偵測包管理員。檢查是否存在鎖定檔案（`pnpm-lock.yaml`、`package-lock.json` 或 `yarn.lock`）。
+   
+   ```bash
+   # 如果使用 npm
+   npm install
+   
+   # 如果使用 pnpm
+   pnpm install
+   
+   ```
+   
+3. **環境設定:**
+   - 找到 `.env.example` 檔案（如果存在），並複製它以建立 `.env` 檔案。
+   - **重要:** 如果您的 Replit 應用使用了 API 金鑰（OpenAI、Supabase 等），您必須手動將這些金鑰新增到本機 `.env` 檔案中。Replit 出於安全原因不會匯出您的秘密。
+   
+4. **本機測試:**
+   執行開發伺服器以確保應用在本機正常運作。
+   
+   ```bash
+   npm run dev
+   ```
+
+## 步驟 3: 在本機編輯器中開啟並安裝 Zeabur 擴充功能
+
+為了使部署變得非常簡單，您將使用 Zeabur 擴充功能。
+
+1. 轉到編輯器中的擴充功能市集。
+2. 搜尋「Zeabur」並按一下 **安裝**。
+
+![下載 Zeabur 擴充功能](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
+
+## 步驟 4: 一鍵部署
+
+現在您的專案資料夾在 Cursor 中開啟:
+
+1. 按一下左側活動列中的新 **Zeabur 圖示** (通常是「Z」標誌)。
+2. 按一下 **「Deploy」** 按鈕。
+3. 編輯器會要求您允許在瀏覽器中開啟連結。按一下 **「Open」**。
+
+![按一下部署和開啟](https://cdn.zeabur.com/replit%20migration%20/Click%20Deploy%20and%20Open%20.png)
+
+## 步驟 5: 讓 Zeabur AI 代理程式處理其餘部分
+
+重新導向到 Zeabur 後，平台的 AI 代理程式接管。它分析您的程式碼以瞭解專案的結構、相依性和組建需求。
+
+Zeabur 代理程式將:
+
+- 識別您擁有全堆疊應用程式(例如 React 前端和 Express 後端)。
+- 自動設定組建和啟動命令。
+- 配置所有必要的服務。
+
+![Zeabur 代理程式處理其餘部分](https://cdn.zeabur.com/new%20agent.png)
+
+系統會提示您選擇專案和部署區域。之後，Zeabur 會處理其他所有工作。
+
+您可以即時觀看服務組建和完全運行。Zeabur 甚至在部署成功後立即為您提供即時網域。
+
+## 步驟 6: 網域和網路
+
+1. 按一下 Zeabur 中的您的服務。
+2. 瀏覽至 **Networking** 索引標籤。
+3. 按一下 **Generate Domain** (取得 `.zeabur.app` 網域) 或 **Custom Domain** 連線您自己的。
+4. 造訪 URL。您的 Replit 應用程式現在是一個完全部署的生產應用程式。
+
+## 步驟 7: 連線資料庫(首選 PostgreSQL)
+
+如果您的 Replit 應用程式允許使用者登入、建立帳戶或保存資料，則需要資料庫。Replit 的文件推薦 **PostgreSQL** 作為最佳做法。
+
+目前，您已成功部署了 **前端**(視覺介面)。要啟用資料和驗證，您需要連線 PostgreSQL 資料庫並將連線詳細資訊新增為 Zeabur **變數**。
+
+我們將發布一個專門的後續教學，展示如何在 Zeabur 上建立 PostgreSQL 資料庫並將其連線到您的應用程式。如果您現在需要託管選項，也可以使用 Supabase (背後是 PostgreSQL)。
+
+**👉 按照即將發布的指南在 Zeabur 上建立和連線 PostgreSQL(即將推出)。**
+
+---
+
+就這樣了! 您已成功將專案從 Replit 上的原型轉移到 Zeabur 上的即時、生產就緒應用程式，而無需撰寫任何設定程式碼。這個無縫的工作流程讓您可以專注於最重要的事情: 建構出色的軟體。

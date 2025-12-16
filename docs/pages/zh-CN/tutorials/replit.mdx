@@ -1,0 +1,142 @@
+---
+title: 导入 Replit
+ogImageTitle: Replit 到 Zeabur
+ogImageSubtitle: 将您的 Replit 项目迁移到 Zeabur
+---
+
+## 如何使用 Zeabur 将 Replit 项目部署到网络
+
+本指南是最简单的方法，可以采用 **Replit** 生成的代码并将其转换为可与朋友或客户分享的真实在线网站。
+
+### 概述
+
+**Replit** 非常适合创建应用的设计和功能，但要将其放在线上，您需要"托管"。我们强烈推荐 **Zeabur**，因为它为您处理技术方面的繁重工作。它采用您的代码，只需点击几下即可将其放在实时 URL 上。
+
+**工作流程:**
+
+- **创建:** 在 **Replit** 中生成您的应用。
+- **完善:** 将代码保存到您的计算机并使用 **Cursor** 检查。
+- **部署:** 在 **Zeabur** 上实时托管。
+
+> 📝 重要提示: 本指南重点介绍如何将您的网站放在线上(前端)。如果您的应用需要保存用户数据或登录信息，这需要数据库。我们将在后续的独立教程中介绍如何添加数据库!
+>
+
+### 前置条件
+
+- GitHub 账户。
+- [Cursor](https://cursor.sh/) 安装在您的计算机上。
+- [Zeabur](https://zeabur.com/) 账户。
+- 本地安装 Node.js(推荐版本 18+)。
+
+## 第 1 步: 从 Replit 完成并导出您的项目
+
+首先，在 Replit 环境中完成应用的构建。代码准备好后，需要将其下载到本地计算机。
+
+1. 在您的 Replit 项目中，单击"Files"部分旁边的三点菜单(⋮)。
+2. 从下拉菜单中，选择 **"Download as zip"**。
+
+![三点步骤 1 步骤 2](https://cdn.zeabur.com/replit%20migration%20/Three%20Dots%20step%201%20step%202.png)
+
+您的整个项目将作为单个 zip 文件保存在下载文件夹中。
+
+## 第 2 步: 设置本地环境（Cursor）
+
+在 Cursor 中打开之前，必须提取 zip 文件，否则部署将失败。
+
+1. **解压并打开项目:**
+
+   **对于 Mac 用户:**
+   
+   1. 打开 **Finder** 并导航到 **Downloads** 文件夹。
+   2. **双击** 您从 Replit 下载的 zip 文件。这将创建一个以您的项目名称命名的新文件夹。
+   3. 打开 **Cursor**。
+   4. 在顶部菜单栏中，单击 **File** > **Open...** (或按 `Cmd + O`)。
+   5. 选择 **新解压的文件夹** (不是 zip 文件本身) 并单击 **Open**。
+   
+   **对于 Windows 用户:**
+   
+   1. 打开 **文件浏览器** 并转到 **Downloads** 文件夹。
+   2. **右键单击** zip 文件并选择 **"Extract All..."**。
+   3. 单击 **Extract**。(不要只是双击 zip 来查看内部;您 _必须_ 提取它)。
+   4. 打开 **Cursor**。
+   5. 在顶部菜单栏中，单击 **File** > **Open Folder...** (或按 `Ctrl + K` 然后 `Ctrl + O`)。
+   6. 选择 **新提取的文件夹** 并单击 **Select Folder**。
+
+2. **安装依赖:**
+   Replit 项目通常自动检测包管理器。检查是否存在锁文件（`pnpm-lock.yaml`、`package-lock.json` 或 `yarn.lock`）。
+   
+   ```bash
+   # 如果使用 npm
+   npm install
+   
+   # 如果使用 pnpm
+   pnpm install
+   
+   ```
+   
+3. **环境设置:**
+   - 找到 `.env.example` 文件（如果存在），并复制它以创建 `.env` 文件。
+   - **重要:** 如果您的 Replit 应用使用了 API 密钥（OpenAI、Supabase 等），您必须手动将这些密钥添加到本地 `.env` 文件中。Replit 出于安全原因不会导出您的秘密。
+   
+4. **本地测试:**
+   运行开发服务器以确保应用在本地正常工作。
+   
+   ```bash
+   npm run dev
+   ```
+
+## 第 3 步: 在本地编辑器中打开并安装 Zeabur 扩展
+
+为了使部署变得非常简单，您将使用 Zeabur 扩展。
+
+1. 转到编辑器中的扩展市场。
+2. 搜索"Zeabur"并单击 **安装**。
+
+![下载 Zeabur 扩展](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
+
+## 第 4 步: 一键部署
+
+现在您的项目文件夹在 Cursor 中打开:
+
+1. 单击左侧活动栏中的新 **Zeabur 图标** (通常是"Z"徽标)。
+2. 单击 **"Deploy"** 按钮。
+3. 编辑器会要求您允许在浏览器中打开链接。单击 **"Open"**。
+
+![单击部署和打开](https://cdn.zeabur.com/replit%20migration%20/Click%20Deploy%20and%20Open%20.png)
+
+## 第 5 步: 让 Zeabur AI 代理处理其余部分
+
+重定向到 Zeabur 后，平台的 AI 代理接管。它分析您的代码以了解项目的结构、依赖关系和构建要求。
+
+Zeabur 代理将:
+
+- 识别您拥有全栈应用程序(例如 React 前端和 Express 后端)。
+- 自动配置构建和启动命令。
+- 配置所有必要的服务。
+
+![Zeabur 代理处理其余部分](https://cdn.zeabur.com/new%20agent.png)
+
+系统会提示您选择项目和部署区域。之后，Zeabur 会处理其他所有工作。
+
+您可以实时观看服务构建和完全运行。Zeabur 甚至在部署成功后立即为您提供实时域名。
+
+## 第 6 步: 域名和网络
+
+1. 单击 Zeabur 中的您的服务。
+2. 导航到 **Networking** 选项卡。
+3. 单击 **Generate Domain** (获取 `.zeabur.app` 域名) 或 **Custom Domain** 连接您自己的。
+4. 访问 URL。您的 Replit 应用程序现在是一个完全部署的生产应用。
+
+## 第 7 步: 连接数据库(首选 PostgreSQL)
+
+如果您的 Replit 应用允许用户登录、创建账户或保存数据，则需要数据库。Replit 的文档推荐 **PostgreSQL** 作为最佳实践。
+
+目前，您已成功部署了 **前端**(视觉界面)。要启用数据和身份验证，您需要连接 PostgreSQL 数据库并将连接详情添加为 Zeabur **变量**。
+
+我们将发布一个专门的后续教程，展示如何在 Zeabur 上创建 PostgreSQL 数据库并将其连接到您的应用。如果您现在需要托管选项，也可以使用 Supabase (背后是 PostgreSQL)。
+
+**👉 按照即将发布的指南在 Zeabur 上创建和连接 PostgreSQL(即将推出)。**
+
+---
+
+就这样了! 您已成功将项目从 Replit 上的原型转移到 Zeabur 上的实时、生产就绪应用程序，而无需编写任何配置代码。这个无缝的工作流程让您可以专注于最重要的事情: 构建出色的软件。

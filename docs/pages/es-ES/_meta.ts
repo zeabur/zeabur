@@ -17,4 +17,5 @@ export default {
   community: 'Comunidad',
   advanced: 'Avanzado',
   developer: 'Desarrollador',
+  tutorials: 'Guías de Importación',
 }

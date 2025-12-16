@@ -11,10 +11,12 @@ export default {
   'data-management': 'Data Management',
   networking: 'Networking',
   guides: 'Guides',
+  
   manage: 'Project Manage',
   legal: 'Legal and Policies',
   billing: 'Payments and Billing',
   community: 'Community',
   advanced: 'Advanced',
   developer: 'Developer',
+  tutorials: 'Import Guides',
 }

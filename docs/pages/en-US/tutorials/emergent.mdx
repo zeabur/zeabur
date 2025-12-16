@@ -1,0 +1,182 @@
+---
+title: Import Emergent
+ogImageTitle: Import Emergent
+ogImageSubtitle: Import your Emergent projects 
+---
+
+## How to Migrate from Emergent to Zeabur
+
+This guide is the easiest way to take the code you've built in cloud IDEs like Emergent and turn it into a production-ready application that stays online 24/7.
+
+### Overview
+
+[**Emergent**](https://emergent.sh) are amazing for prototyping and getting code running quickly in the browser. However, when you are ready to share your app with the world without "sleeping" instances or bandwidth limits, you need professional hosting.
+
+We strongly recommend **Zeabur** because it simplifies the transition from prototype to production. Using the Zeabur extension for your local editor, you can deploy your app without needing complex configuration files.
+
+**The Workflow:**
+
+- **Export:** Download your codebase from Emergent.
+- **Setup:** Open the project locally in **VS Code** or **Cursor**.
+- **Deploy:** Use the **Zeabur Extension** to push your app live in one click.
+
+> 📝 Important Note: This guide covers the full stack. We will first deploy your application code, and in Step 6, we will specifically cover how to provision and connect a MongoDB database for apps that need to save user data.
+> 
+
+### Prerequisites
+
+- Access to your Emergent project.
+- [VS Code](https://code.visualstudio.com/) or [Cursor](https://cursor.sh/) installed on your computer.
+- A [Zeabur](https://zeabur.com/) account.
+- Node.js installed locally (Version 18+ recommended).
+
+### Migration Overview
+
+This plan moves you from a browser-based sandbox to a professional local development environment hosted on a scalable cloud.
+
+- **Source:** Emergent (Node.js, Python, or Go).
+- **Editor:** VS Code / Cursor.
+- **Host:** Zeabur.
+
+## Step 1: Export Your Codebase
+
+### Option 1: The Direct Download Method (Best for simple export)
+
+1. **Wake Up Your Agent:**
+If your project has been inactive, you might see a message saying "Agent went to sleep." Click on your project to wake it up.
+2. **Access the Code Viewer:**
+Look for the **"Code"** button (usually near the top right of the project interface).
+    
+    ![Emergent Vscode](https://cdn.zeabur.com/emergent%20/Emergent%20Vscode.png)
+    
+3. **Get Credentials:**
+When you click "Code", a popup will appear with two things:
+    
+    ![Click Vscode Link](https://cdn.zeabur.com/emergent%20/Click%20Vscode%20Link.png)
+    
+    - A **Link** to a VS Code environment.
+    - A **Password**.
+    **Copy the password first**, then click the link to open it in a new tab.
+4. **Unlock the Editor:**
+Paste the password you copied into the prompt and hit Enter. You will now see a full VS Code interface in your browser.
+5. **Download Folders:**
+    - On the left sidebar (File Explorer), you will see your project folders (usually `frontend`, `backend`, or just the project root).
+    - **Right-click** on the folder you want to keep.
+    - Select **Download**.
+    - This will save the folder as a `.zip` file to your computer.
+
+---
+
+### Option 2: The GitHub Sync Method (Best for migration, but have to upgrade)
+
+If you plan to move to Zeabur or another host, pushing directly to GitHub is often cleaner than downloading a zip file.
+
+1. **Connect GitHub:**
+In the main Emergent chat/dashboard interface, look for the **GitHub icon** or a "Connect GitHub" button in your profile settings.
+2. **Authorize:**
+Follow the prompts to authorize Emergent to access your GitHub account.
+3. **Push Code:**
+In the chat interface, type a command like:
+    
+    > "Push this code to a new GitHub repository named my-app-export"
+    > 
+4. **Verify:**
+Go to your GitHub account to confirm the repository has been created. You can then clone this repository locally using `git clone`.
+
+## Step 2: Set Up Local Environment (Cursor)
+
+Now that the code is on GitHub, you will set it up locally to verify dependencies and make production adjustments.
+
+1. **Clone the Repository:**
+Open Cursor, open the Command Palette (`Cmd+Shift+P` or `Ctrl+Shift+P`), and type `> Git: Clone`. Paste your new repository URL.
+    
+    *Alternatively, via terminal:*
+    
+    ```bash
+    git clone <https://github.com/your-username/your-repo-name.git>
+    cd your-repo-name
+    
+    ```
+    
+2. **Install Dependencies:**
+Projects usually detect the package manager automatically. Check for a lock file (`pnpm-lock.yaml`, `package-lock.json`, or `yarn.lock`).
+    
+    ```bash
+    # If using npm
+    npm install
+    
+    # If using pnpm
+    pnpm install
+    
+    ```
+    
+3. **Environment Setup:**
+    - Locate the `.env.example` file (if it exists) and duplicate it to create a `.env` file.
+    - **Important:** If your app used API keys (OpenAI, Supabase, etc.), you must manually add these keys to your local `.env` file. These secrets are not exported to GitHub for security reasons.
+4. **Local Test:**
+Run the development server to ensure the app works locally.
+    
+    ```bash
+    npm run dev
+    
+    ```
+    
+
+---
+
+## Step 3: Open in a Local Editor and Install the Zeabur Extension
+
+Unzip the file and open the project folder in a local code editor like VS Code or Cursor. To make deployment incredibly simple, you'll use the Zeabur extension.
+
+1. Go to the Extensions Marketplace in your editor.
+2. Search for "Zeabur" and click **Install**.
+    
+![Download Zeabur Extensions.png](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
+    
+
+## Step 4: Deploy with a Single Click
+
+Now for the magic. With the extension installed, deploying your project is just a few clicks away.
+
+1. Click on the new Zeabur icon in the activity bar on the left.
+2. Click the **"Deploy"** button.
+
+Your editor will then ask for permission to open a link in your browser. Click **"Open"**.
+
+![Click Deploy and Open .png](https://cdn.zeabur.com/replit%20migration%20/Click%20Deploy%20and%20Open%20.png)
+
+## Step 5: Let the Zeabur AI Agent Handle the Rest
+
+Once you're redirected to Zeabur, the platform's AI agent takes over. It analyzes your code to understand the project's structure, dependencies, and build requirements.
+
+The Zeabur agent will:
+
+- Recognize that you have a full-stack application (e.g., a React frontend and an Express backend).
+- Automatically configure the build and start commands.
+- Provision all necessary services.
+
+You'll be prompted to select a project and a deployment region. After that, Zeabur handles everything else.
+
+![Zeabur Agent Handle the rest.png](https://cdn.zeabur.com/new%20agent.png)
+
+You can watch in real-time as your service builds and becomes fully operational. Zeabur even provides you with a live domain as soon as the deployment is successful.
+
+## Step 6: Domain & Networking
+
+1. Click on your Service in Zeabur.
+2. Navigate to the **Networking** tab.
+3. Click **Generate Domain** (to get a `.zeabur.app` domain) or **Custom Domain** to connect your own.
+4. Visit the URL. Your Emergent application is now a fully deployed production app.
+
+## Step 7: Connect a Database (Supabase)
+
+If your Emergent app allows users to log in, create accounts, or save data, it requires a database (usually **Supabase**).
+
+Currently, you have successfully deployed the **Frontend** (the visual interface). To make the data and authentication features work, you need to connect the backend by adding your API keys to Zeabur's **Variable** settings.
+
+We have a dedicated guide to walk you through getting your Supabase keys and adding them to Zeabur:
+
+**👉 Follow the upcoming guide to create and connect Supabase on Zeabur (coming soon).**
+
+---
+That's it! You've successfully moved your project from a prototype on Emergent to a live, production-ready application on Zeabur without writing a single line of configuration. This seamless workflow lets you focus on what matters most: building great software.
