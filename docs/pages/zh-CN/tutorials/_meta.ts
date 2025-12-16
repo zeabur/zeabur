@@ -1,6 +1,6 @@
 export default {
-    "replit": "导入 Replit",
-    "lovable": "导入 Lovable",
-    "bolt": "导入 Bolt",
-    "emergent": "导入 Emergent"
+    "replit": "从 Replit 导入",
+    "lovable": "从 Lovable 导入",
+    "bolt": "从 Bolt 导入",
+    "emergent": "从 Emergent 导入"
 }

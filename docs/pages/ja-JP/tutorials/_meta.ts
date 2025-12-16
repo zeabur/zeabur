@@ -3,5 +3,5 @@ export default {
     "lovable": "Lovable をインポート",
     "bolt": "Bolt をインポート",
     "emergent": "Emergent をインポート",
-    "aistudio": ""
+    "aistudio": "AI Studio をインポート"
 }
