@@ -98,20 +98,20 @@ Ahora que el código está en GitHub, lo configurarás localmente para verificar
     ```
 2. **Instala dependencias:**
 
-    Los proyectos Bolt generalmente detectan el gestor de paquetes automáticamente. Busca un archivo de bloqueo (`pnpm-lock.yaml`, `package-lock.json`, o `yarn.lock`).
+    Los proyectos Lovable generalmente detectan el gestor de paquetes automáticamente. Busca un archivo de bloqueo (`pnpm-lock.yaml`, `package-lock.json`, o `yarn.lock`).
 
     ```bash
     # Si usas npm
     npm install
-    # Si usas pnpm (común en Bolt)
+    # Si usas pnpm (común en Lovable)
     pnpm install
     ```
 3. **Configuración del entorno:**
     - Ubica el archivo `.env.example` (si existe) y duplícalo para crear un archivo `.env`.
-    - **Importante:** Si tu aplicación Bolt usaba claves de API (OpenAI, Supabase, etc.), debes agregar manualmente estas claves a tu archivo local `.env`. Bolt no exporta tus secretos a GitHub por razones de seguridad.
+    - **Importante:** Si tu aplicación Lovable usaba claves de API (OpenAI, Supabase, etc.), debes agregar manualmente estas claves a tu archivo local `.env`. Lovable no exporta tus secretos a GitHub por razones de seguridad.
 4. **Prueba local:**
 
-    Ejecuta el servidor de desarrollo para asegurarte de que la aplicación funciona fuera del sandbox de Bolt.
+    Ejecuta el servidor de desarrollo para asegurarte de que la aplicación funciona fuera del sandbox de Lovable.
 
     ```bash
     npm run dev
@@ -158,7 +158,7 @@ Puedes ver en tiempo real cómo se compila tu servicio y se vuelve completamente
 1. Haz clic en tu servicio en Zeabur.
 2. Navega a la pestaña **Networking**.
 3. Haz clic en **Generate Domain** (para obtener un dominio `.zeabur.app`) o **Custom Domain** para conectar el tuyo.
-4. Visita la URL. Tu aplicación Bolt.new es ahora una aplicación de producción completamente implementada.
+4. Visita la URL. Tu aplicación Lovable es ahora una aplicación de producción completamente implementada.
 
 ## Paso 8: Conectar una base de datos (Supabase)
 

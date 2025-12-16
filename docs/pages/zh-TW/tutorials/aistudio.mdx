@@ -91,21 +91,21 @@ ogImageSubtitle: 匯入你的 Google AI Studio 專案
     ```
 
 2. **安裝依賴項：**
-Bolt 專案通常會自動偵測套件管理器。檢查鎖定檔案（`pnpm-lock.yaml`、`package-lock.json` 或 `yarn.lock`）。
+AI Studio 專案通常會自動偵測套件管理器。檢查鎖定檔案（`pnpm-lock.yaml`、`package-lock.json` 或 `yarn.lock`）。
 
     ```bash
     # 如果使用 npm
     npm install
-    # 如果使用 pnpm（在 Bolt 中常見）
+    # 如果使用 pnpm（在 AI Studio 中常見）
     pnpm install
     ```
 
 3. **環境設定：**
     - 找到 `.env.example` 檔案（如果存在），並複製它以建立 `.env` 檔案。
-    - **重要：** 如果你的 Bolt 應用使用了 API 金鑰（OpenAI、Supabase 等），你必須手動將這些金鑰新增到本機的 `.env` 檔案中。Bolt 出於安全考慮，不會將你的金鑰匯出到 GitHub。
+    - **重要：** 如果你的 AI Studio 應用使用了 API 金鑰（Gemini API 等），你必須手動將這些金鑰新增到本機的 `.env` 檔案中。AI Studio 出於安全考慮，不會將你的金鑰匯出到 GitHub。
 
 4. **本機測試：**
-執行開發伺服器以確保應用在 Bolt 沙盒外運作。
+執行開發伺服器以確保應用在 AI Studio 沙盒外運作。
 
     ```bash
     npm run dev

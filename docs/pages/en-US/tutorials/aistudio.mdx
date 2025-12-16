@@ -100,22 +100,22 @@ Open Cursor, open the Command Palette (`Cmd+Shift+P` or `Ctrl+Shift+P`), and typ
     ```
     
 2. **Install Dependencies:**
-Bolt projects usually detect the package manager automatically. Check for a lock file (`pnpm-lock.yaml`, `package-lock.json`, or `yarn.lock`).
+AI Studio projects usually detect the package manager automatically. Check for a lock file (`pnpm-lock.yaml`, `package-lock.json`, or `yarn.lock`).
     
     ```bash
     # If using npm
     npm install
     
-    # If using pnpm (common in Bolt)
+    # If using pnpm
     pnpm install
     
     ```
     
 3. **Environment Setup:**
     - Locate the `.env.example` file (if it exists) and duplicate it to create a `.env` file.
-    - **Important:** If your Bolt app used API keys (OpenAI, Supabase, etc.), you must manually add these keys to your local `.env` file. Bolt does not export your secrets to GitHub for security reasons.
+    - **Important:** If your AI Studio app used API keys (Gemini API, etc.), you must manually add these keys to your local `.env` file. AI Studio does not export your secrets to GitHub for security reasons.
 4. **Local Test:**
-Run the development server to ensure the app works outside the Bolt sandbox.
+Run the development server to ensure the app works outside the AI Studio sandbox.
     
     ```bash
     npm run dev
@@ -123,16 +123,7 @@ Run the development server to ensure the app works outside the Bolt sandbox.
     ```
     
 
-## Step 4: Open in a Local Editor and Install the Zeabur Extension
-
-Unzip the file and open the project folder in a local code editor like VS Code or Cursor. To make deployment incredibly simple, you'll use the Zeabur extension.
-
-1. Go to the Extensions Marketplace in your editor.
-2. Search for "Zeabur" and click **Install**.
-
-![Download Zeabur Extensions.png](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
-
-## Step 5: Deploy with a Single Click
+## Step 4: Deploy with a Single Click
 
 Now for the magic. With the extension installed, deploying your project is just a few clicks away.
 

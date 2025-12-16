@@ -91,21 +91,21 @@ Cursorを開き、コマンドパレット（`Cmd+Shift+P`または`Ctrl+Shift+P
     ```
 
 2. **依存関係をインストール:**
-Boltプロジェクトは通常、パッケージマネージャーを自動的に検出します。ロックファイル（`pnpm-lock.yaml`、`package-lock.json`、または`yarn.lock`）を確認します。
+AI Studioプロジェクトは通常、パッケージマネージャーを自動的に検出します。ロックファイル（`pnpm-lock.yaml`、`package-lock.json`、または`yarn.lock`）を確認します。
 
     ```bash
     # npmを使用している場合
     npm install
-    # pnpmを使用している場合（Boltで一般的）
+    # pnpmを使用している場合（AI Studioで一般的）
     pnpm install
     ```
 
 3. **環境設定:**
     - `.env.example`ファイルを探し（存在する場合）、複製して`.env`ファイルを作成します。
-    - **重要:** BoltアプリがAPIキー（OpenAI、Supabaseなど）を使用した場合、これらのキーをローカルの`.env`ファイルに手動で追加する必要があります。Boltはセキュリティ上の理由から、秘密情報をGitHubにエクスポートしません。
+    - **重要:** AI StudioアプリがAPIキー（OpenAI、Supabaseなど）を使用した場合、これらのキーをローカルの`.env`ファイルに手動で追加する必要があります。AI Studioはセキュリティ上の理由から、秘密情報をGitHubにエクスポートしません。
 
 4. **ローカルテスト:**
-Boltサンドボックス外でアプリが機能することを確認するために、開発サーバーを実行します。
+AI Studioサンドボックス外でアプリが機能することを確認するために、開発サーバーを実行します。
 
     ```bash
     npm run dev

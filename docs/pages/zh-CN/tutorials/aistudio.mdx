@@ -91,21 +91,21 @@ ogImageSubtitle: 导入你的 Google AI Studio 项目
     ```
 
 2. **安装依赖项：**
-Bolt 项目通常会自动检测包管理器。检查锁文件（`pnpm-lock.yaml`、`package-lock.json` 或 `yarn.lock`）。
+项目通常会自动检测包管理器。检查锁文件（`pnpm-lock.yaml`、`package-lock.json` 或 `yarn.lock`）。
 
     ```bash
     # 如果使用 npm
     npm install
-    # 如果使用 pnpm（在 Bolt 中常见）
+    # 如果使用 pnpm（在 AI Studio 中常见）
     pnpm install
     ```
 
 3. **环境设置：**
     - 找到 `.env.example` 文件（如果存在），并复制它以创建 `.env` 文件。
-    - **重要：** 如果你的 Bolt 应用使用了 API 密钥（OpenAI、Supabase 等），你必须手动将这些密钥添加到本地的 `.env` 文件中。Bolt 出于安全考虑，不会将你的密钥导出到 GitHub。
+    - **重要：** 如果你的应用使用了 API 密钥（OpenAI、Supabase 等），你必须手动将这些密钥添加到本地的 `.env` 文件中。出于安全考虑，这些密钥不会被导出到 GitHub。
 
 4. **本地测试：**
-运行开发服务器以确保应用在 Bolt 沙箱外工作。
+运行开发服务器以确保应用在本地正常工作。
 
     ```bash
     npm run dev

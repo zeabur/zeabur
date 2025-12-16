@@ -99,22 +99,22 @@ Open Cursor, open the Command Palette (`Cmd+Shift+P` or `Ctrl+Shift+P`), and typ
     ```
     
 2. **Install Dependencies:**
-Bolt projects usually detect the package manager automatically. Check for a lock file (`pnpm-lock.yaml`, `package-lock.json`, or `yarn.lock`).
+Projects usually detect the package manager automatically. Check for a lock file (`pnpm-lock.yaml`, `package-lock.json`, or `yarn.lock`).
     
     ```bash
     # If using npm
     npm install
     
-    # If using pnpm (common in Bolt)
+    # If using pnpm
     pnpm install
     
     ```
     
 3. **Environment Setup:**
     - Locate the `.env.example` file (if it exists) and duplicate it to create a `.env` file.
-    - **Important:** If your Bolt app used API keys (OpenAI, Supabase, etc.), you must manually add these keys to your local `.env` file. Bolt does not export your secrets to GitHub for security reasons.
+    - **Important:** If your app used API keys (OpenAI, Supabase, etc.), you must manually add these keys to your local `.env` file. These secrets are not exported to GitHub for security reasons.
 4. **Local Test:**
-Run the development server to ensure the app works outside the Bolt sandbox.
+Run the development server to ensure the app works locally.
     
     ```bash
     npm run dev

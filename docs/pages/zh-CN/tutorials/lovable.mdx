@@ -97,52 +97,30 @@ Lovable 不是手动导出，而是具有直接的双向同步集成，为您创
         
     - 单击终端中的 `localhost` 链接以查看您的应用。
 
-## 步骤 3: 设置本地环境（Cursor）
+## 步骤 3: 验证依赖项和环境
 
-现在代码在 GitHub 上，您将在本地设置它以验证依赖项并进行生产调整。
-
-1. **克隆存储库:**
-打开 Cursor，打开命令调板（`Cmd+Shift+P` 或 `Ctrl+Shift+P`），并输入 `> Git: Clone`。粘贴您的新存储库 URL。
-    
-    _或者，通过终端:_
-    
-    ```bash
-    git clone <https://github.com/your-username/your-repo-name.git>
-    cd your-repo-name
-    ```
-    
-2. **安装依赖:**
-Bolt 项目通常自动检测包管理器。检查是否存在锁文件（`pnpm-lock.yaml`、`package-lock.json` 或 `yarn.lock`）。
+1. **安装依赖:**
+Lovable 项目通常自动检测包管理器。检查是否存在锁文件（`pnpm-lock.yaml`、`package-lock.json` 或 `yarn.lock`）。
     
     ```bash
     # 如果使用 npm
     npm install
     
-    # 如果使用 pnpm（在 Bolt 中常见）
+    # 如果使用 pnpm
     pnpm install
     ```
     
-3. **环境设置:**
+2. **环境设置:**
     - 找到 `.env.example` 文件（如果存在），并复制它以创建 `.env` 文件。
-    - **重要:** 如果您的 Bolt 应用使用了 API 密钥（OpenAI、Supabase 等），您必须手动将这些密钥添加到本地 `.env` 文件中。Bolt 出于安全原因不会将您的秘密导出到 GitHub。
-4. **本地测试:**
-运行开发服务器以确保应用在 Bolt 沙箱之外运行。
+    - **重要:** 如果您的 Lovable 应用使用了 API 密钥（OpenAI、Supabase 等），您必须手动将这些密钥添加到本地 `.env` 文件中。Lovable 出于安全原因不会将您的秘密导出到 GitHub。
+3. **本地测试:**
+运行开发服务器以确保应用在本地正常工作。
     
     ```bash
     npm run dev
     ```
-    
 
-## 步骤 4: 在本地编辑器中打开并安装 Zeabur 扩展
-
-解压文件并在本地代码编辑器（如 VS Code 或 Cursor）中打开项目文件夹。为了使部署异常简单，您将使用 Zeabur 扩展。
-
-1. 转到编辑器中的"扩展市场"。
-2. 搜索"Zeabur"并单击 **安装**。
-
-![下载 Zeabur 扩展.png](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
-
-## 步骤 5: 一键部署
+## 步骤 4: 一键部署
 
 现在是魔法时刻。安装扩展后，部署您的项目只需点击几下。
 
@@ -174,7 +152,7 @@ Zeabur 代理将:
 1. 在 Zeabur 中单击您的服务。
 2. 导航到 **Networking** 选项卡。
 3. 单击 **Generate Domain**（获取 `.zeabur.app` 域）或 **Custom Domain** 连接您自己的域。
-4. 访问该 URL。您的 Bolt.new 应用现在是一个完全部署的生产应用。
+4. 访问该 URL。您的 Lovable 应用现在是一个完全部署的生产应用。
 
 ## 步骤 8: 连接数据库（Supabase）
 

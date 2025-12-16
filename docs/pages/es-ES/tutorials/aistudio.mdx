@@ -91,21 +91,21 @@ Abre Cursor, abre la paleta de comandos (`Cmd+Shift+P` o `Ctrl+Shift+P`), y escr
     ```
 
 2. **Instala las dependencias:**
-Los proyectos de Bolt generalmente detectan el gestor de paquetes automáticamente. Verifica si hay un archivo de bloqueo (`pnpm-lock.yaml`, `package-lock.json`, o `yarn.lock`).
+Los proyectos de AI Studio generalmente detectan el gestor de paquetes automáticamente. Verifica si hay un archivo de bloqueo (`pnpm-lock.yaml`, `package-lock.json`, o `yarn.lock`).
 
     ```bash
     # Si usas npm
     npm install
-    # Si usas pnpm (común en Bolt)
+    # Si usas pnpm
     pnpm install
     ```
 
 3. **Configuración del entorno:**
     - Busca el archivo `.env.example` (si existe) y duplicalo para crear un archivo `.env`.
-    - **Importante:** Si tu aplicación de Bolt usó claves API (OpenAI, Supabase, etc.), debes agregar manualmente estas claves a tu archivo `.env` local. Bolt no exporta tus secretos a GitHub por razones de seguridad.
+    - **Importante:** Si tu aplicación usó claves API (Gemini, Supabase, etc.), debes agregar manualmente estas claves a tu archivo `.env` local. AI Studio no exporta tus secretos a GitHub por razones de seguridad.
 
 4. **Prueba local:**
-Ejecuta el servidor de desarrollo para asegurar que la aplicación funciona fuera del entorno aislado de Bolt.
+Ejecuta el servidor de desarrollo para asegurar que la aplicación funciona correctamente.
 
     ```bash
     npm run dev
