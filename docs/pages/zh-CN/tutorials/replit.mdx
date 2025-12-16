@@ -39,35 +39,60 @@ ogImageSubtitle: 将您的 Replit 项目迁移到 Zeabur
 
 您的整个项目将作为单个 zip 文件保存在下载文件夹中。
 
-## 第 2 步: 在本地编辑器中打开并安装 Zeabur 扩展
+## 第 2 步: 设置本地环境（Cursor）
 
-解压文件并在 VS Code 或 Cursor 等本地代码编辑器中打开项目文件夹。为了使部署变得非常简单，您将使用 Zeabur 扩展。
+在 Cursor 中打开之前，必须提取 zip 文件，否则部署将失败。
+
+1. **解压并打开项目:**
+
+   **对于 Mac 用户:**
+   
+   1. 打开 **Finder** 并导航到 **Downloads** 文件夹。
+   2. **双击** 您从 Replit 下载的 zip 文件。这将创建一个以您的项目名称命名的新文件夹。
+   3. 打开 **Cursor**。
+   4. 在顶部菜单栏中，单击 **File** > **Open...** (或按 `Cmd + O`)。
+   5. 选择 **新解压的文件夹** (不是 zip 文件本身) 并单击 **Open**。
+   
+   **对于 Windows 用户:**
+   
+   1. 打开 **文件浏览器** 并转到 **Downloads** 文件夹。
+   2. **右键单击** zip 文件并选择 **"Extract All..."**。
+   3. 单击 **Extract**。(不要只是双击 zip 来查看内部;您 _必须_ 提取它)。
+   4. 打开 **Cursor**。
+   5. 在顶部菜单栏中，单击 **File** > **Open Folder...** (或按 `Ctrl + K` 然后 `Ctrl + O`)。
+   6. 选择 **新提取的文件夹** 并单击 **Select Folder**。
+
+2. **安装依赖:**
+   Replit 项目通常自动检测包管理器。检查是否存在锁文件（`pnpm-lock.yaml`、`package-lock.json` 或 `yarn.lock`）。
+   
+   ```bash
+   # 如果使用 npm
+   npm install
+   
+   # 如果使用 pnpm
+   pnpm install
+   
+   ```
+   
+3. **环境设置:**
+   - 找到 `.env.example` 文件（如果存在），并复制它以创建 `.env` 文件。
+   - **重要:** 如果您的 Replit 应用使用了 API 密钥（OpenAI、Supabase 等），您必须手动将这些密钥添加到本地 `.env` 文件中。Replit 出于安全原因不会导出您的秘密。
+   
+4. **本地测试:**
+   运行开发服务器以确保应用在本地正常工作。
+   
+   ```bash
+   npm run dev
+   ```
+
+## 第 3 步: 在本地编辑器中打开并安装 Zeabur 扩展
+
+为了使部署变得非常简单，您将使用 Zeabur 扩展。
 
 1. 转到编辑器中的扩展市场。
 2. 搜索"Zeabur"并单击 **安装**。
 
 ![下载 Zeabur 扩展](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
-
-## 第 3 步: 解压并打开项目
-
-在 Cursor 中打开之前，必须提取 zip 文件，否则部署将失败。
-
-**对于 Mac 用户:**
-
-1. 打开 **Finder** 并导航到 **Downloads** 文件夹。
-2. **双击** 您从 Replit 下载的 zip 文件。这将创建一个以您的项目名称命名的新文件夹。
-3. 打开 **Cursor**。
-4. 在顶部菜单栏中，单击 **File** > **Open...** (或按 `Cmd + O`)。
-5. 选择 **新解压的文件夹** (不是 zip 文件本身) 并单击 **Open**。
-
-**对于 Windows 用户:**
-
-1. 打开 **文件浏览器** 并转到 **Downloads** 文件夹。
-2. **右键单击** zip 文件并选择 **"Extract All..."**。
-3. 单击 **Extract**。(不要只是双击 zip 来查看内部;您 _必须_ 提取它)。
-4. 打开 **Cursor**。
-5. 在顶部菜单栏中，单击 **File** > **Open Folder...** (或按 `Ctrl + K` 然后 `Ctrl + O`)。
-6. 选择 **新提取的文件夹** 并单击 **Select Folder**。
 
 ## 第 4 步: 一键部署
 

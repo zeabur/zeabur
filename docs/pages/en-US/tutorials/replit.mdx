@@ -40,35 +40,60 @@ First, finish building your application in the Replit environment. Once your cod
 Your entire project will be saved as a single zip file in your downloads folder.
 
 
-## Step 2: Open in a Local Editor and Install the Zeabur Extension
+## Step 2: Set Up Local Environment (Cursor)
 
-Unzip the file and open the project folder in a local code editor like VS Code or Cursor. To make deployment incredibly simple, you'll use the Zeabur extension.
+You must extract the zip file before opening it in Cursor, or the deployment will fail.
+
+1. **Unzip and Open the Project:**
+
+   **For Mac Users:**
+   
+   1. Open **Finder** and navigate to your **Downloads** folder.
+   2. **Double-click** the zip file you downloaded from Replit. This will create a new folder with your project name.
+   3. Open **Cursor**.
+   4. In the top menu bar, click **File** > **Open...** (or press `Cmd + O`).
+   5. Select the **new unzipped folder** (not the zip file itself) and click **Open**.
+   
+   **For Windows Users:**
+   
+   1. Open **File Explorer** and go to your **Downloads** folder.
+   2. **Right-click** the zip file and select **"Extract All..."**.
+   3. Click **Extract**. (Do not just double-click the zip to look inside; you *must* extract it).
+   4. Open **Cursor**.
+   5. In the top menu bar, click **File** > **Open Folder...** (or press `Ctrl + K` then `Ctrl + O`).
+   6. Select the **newly extracted folder** and click **Select Folder**.
+
+2. **Install Dependencies:**
+   Replit projects usually detect the package manager automatically. Check for a lock file (`pnpm-lock.yaml`, `package-lock.json`, or `yarn.lock`).
+   
+   ```bash
+   # If using npm
+   npm install
+   
+   # If using pnpm
+   pnpm install
+   
+   ```
+   
+3. **Environment Setup:**
+   - Locate the `.env.example` file (if it exists) and duplicate it to create a `.env` file.
+   - **Important:** If your Replit app used API keys (OpenAI, Supabase, etc.), you must manually add these keys to your local `.env` file. Replit does not export your secrets for security reasons.
+   
+4. **Local Test:**
+   Run the development server to ensure the app works locally.
+   
+   ```bash
+   npm run dev
+   ```
+
+## Step 3: Open in a Local Editor and Install the Zeabur Extension
+
+To make deployment incredibly simple, you'll use the Zeabur extension.
 
 1. Go to the Extensions Marketplace in your editor.
 2. Search for "Zeabur" and click **Install**.
 
 ![Download Zeabur Extensions](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
-
-## Step 3: Unzip and Open the Project
-
-You must extract the zip file before opening it in Cursor, or the deployment will fail.
-
-**For Mac Users:**
-
-1. Open **Finder** and navigate to your **Downloads** folder.
-2. **Double-click** the zip file you downloaded from Replit. This will create a new folder with your project name.
-3. Open **Cursor**.
-4. In the top menu bar, click **File** > **Open...** (or press `Cmd + O`).
-5. Select the **new unzipped folder** (not the zip file itself) and click **Open**.
-
-**For Windows Users:**
-
-1. Open **File Explorer** and go to your **Downloads** folder.
-2. **Right-click** the zip file and select **"Extract All..."**.
-3. Click **Extract**. (Do not just double-click the zip to look inside; you *must* extract it).
-4. Open **Cursor**.
-5. In the top menu bar, click **File** > **Open Folder...** (or press `Ctrl + K` then `Ctrl + O`).
-6. Select the **newly extracted folder** and click **Select Folder**.
 
 ## Step 4: Deploy with a Single Click
 

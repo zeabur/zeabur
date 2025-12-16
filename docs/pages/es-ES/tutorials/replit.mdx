@@ -39,35 +39,60 @@ Primero, termina de construir tu aplicación en el entorno de Replit. Una vez qu
 
 Tu proyecto completo se guardará como un único archivo zip en tu carpeta de descargas.
 
-## Paso 2: Abre en un editor local e instala la extensión de Zeabur
+## Paso 2: Configura el entorno local (Cursor)
 
-Descomprime el archivo y abre la carpeta del proyecto en un editor de código local como VS Code o Cursor. Para hacer el despliegue increíblemente simple, utilizarás la extensión de Zeabur.
+Debes extraer el archivo zip antes de abrirlo en Cursor, o el despliegue fallará.
+
+1. **Descomprime y abre el proyecto:**
+
+   **Para usuarios de Mac:**
+   
+   1. Abre **Finder** y ve a tu carpeta de **Descargas**.
+   2. **Haz doble clic** en el archivo zip que descargaste de Replit. Esto creará una nueva carpeta con el nombre de tu proyecto.
+   3. Abre **Cursor**.
+   4. En la barra de menú superior, haz clic en **Archivo** > **Abrir...** (o presiona `Cmd + O`).
+   5. Selecciona la **nueva carpeta descomprimida** (no el archivo zip en sí) y haz clic en **Abrir**.
+   
+   **Para usuarios de Windows:**
+   
+   1. Abre el **Explorador de archivos** y ve a tu carpeta de **Descargas**.
+   2. **Haz clic derecho** en el archivo zip y selecciona **"Extraer todo..."**.
+   3. Haz clic en **Extraer**. (No simplemente hagas doble clic en el zip para mirar dentro; _debes_ extraerlo).
+   4. Abre **Cursor**.
+   5. En la barra de menú superior, haz clic en **Archivo** > **Abrir carpeta...** (o presiona `Ctrl + K` y luego `Ctrl + O`).
+   6. Selecciona la **carpeta recién extraída** y haz clic en **Seleccionar carpeta**.
+
+2. **Instala las dependencias:**
+   Los proyectos de Replit generalmente detectan el gestor de paquetes automáticamente. Verifica si hay un archivo de bloqueo (`pnpm-lock.yaml`, `package-lock.json`, o `yarn.lock`).
+   
+   ```bash
+   # Si usas npm
+   npm install
+   
+   # Si usas pnpm
+   pnpm install
+   
+   ```
+   
+3. **Configuración del entorno:**
+   - Busca el archivo `.env.example` (si existe) y duplícalo para crear un archivo `.env`.
+   - **Importante:** Si tu aplicación de Replit usó claves API (OpenAI, Supabase, etc.), debes agregar manualmente estas claves a tu archivo local `.env`. Replit no exporta tus secretos por razones de seguridad.
+   
+4. **Prueba local:**
+   Ejecuta el servidor de desarrollo para asegurar que la aplicación funciona localmente.
+   
+   ```bash
+   npm run dev
+   ```
+
+## Paso 3: Abre en un editor local e instala la extensión de Zeabur
+
+Para hacer el despliegue increíblemente simple, utilizarás la extensión de Zeabur.
 
 1. Ve al Marketplace de extensiones en tu editor.
 2. Busca "Zeabur" y haz clic en **Instalar**.
 
 ![Descargar extensiones de Zeabur](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
-
-## Paso 3: Descomprime y abre el proyecto
-
-Debes extraer el archivo zip antes de abrirlo en Cursor, o el despliegue fallará.
-
-**Para usuarios de Mac:**
-
-1. Abre **Finder** y ve a tu carpeta de **Descargas**.
-2. **Haz doble clic** en el archivo zip que descargaste de Replit. Esto creará una nueva carpeta con el nombre de tu proyecto.
-3. Abre **Cursor**.
-4. En la barra de menú superior, haz clic en **Archivo** > **Abrir...** (o presiona `Cmd + O`).
-5. Selecciona la **nueva carpeta descomprimida** (no el archivo zip en sí) y haz clic en **Abrir**.
-
-**Para usuarios de Windows:**
-
-1. Abre el **Explorador de archivos** y ve a tu carpeta de **Descargas**.
-2. **Haz clic derecho** en el archivo zip y selecciona **"Extraer todo..."**.
-3. Haz clic en **Extraer**. (No simplemente hagas doble clic en el zip para mirar dentro; _debes_ extraerlo).
-4. Abre **Cursor**.
-5. En la barra de menú superior, haz clic en **Archivo** > **Abrir carpeta...** (o presiona `Ctrl + K` y luego `Ctrl + O`).
-6. Selecciona la **carpeta recién extraída** y haz clic en **Seleccionar carpeta**.
 
 ## Paso 4: Despliegue con un solo clic
 
