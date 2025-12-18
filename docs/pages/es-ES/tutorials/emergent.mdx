@@ -168,7 +168,7 @@ Si tu aplicación de Emergent necesita persistir datos de usuarios, aprovisiona 
 
 1. Despliega MongoDB en Zeabur usando la plantilla de MongoDB:
    **👉 [Plantilla de MongoDB](https://zeabur.com/templates/KXL04P)**
-2. En la página del servicio de MongoDB, abre la pestaña **Instruction** / **Connections** y copia el string de conexión (URI).
+2. En la página del servicio de MongoDB, abre la pestaña **Connections** y copia el string de conexión (URI) haciendo clic en el ícono de ojo en la pestaña Connections.
 3. Configura la variable de entorno de tu app (comúnmente `MONGO_URI`) con ese URI:
    - **Desarrollo local**: usa el string de conexión **Public**.
    - **Apps desplegadas en Zeabur**: usa el string de conexión **Internal/Private** (más rápido y evita usar el ancho de banda público).

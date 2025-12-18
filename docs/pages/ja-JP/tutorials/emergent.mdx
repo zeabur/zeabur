@@ -168,7 +168,7 @@ Emergentアプリでユーザーデータを保存する必要がある場合は
 
 1. MongoDBテンプレートを使ってZeaburにMongoDBをデプロイします：
    **👉 [MongoDBテンプレート](https://zeabur.com/templates/KXL04P)**
-2. MongoDBサービス画面の **Instruction** / **Connections** タブから接続文字列（URI）をコピーします。
+2. MongoDBサービス画面の **Connections** タブから接続文字列（URI）をコピーします。
 3. アプリの環境変数（一般的に `MONGO_URI`）にそのURIを設定します：
    - **ローカル開発**：**Public** の接続文字列を使用
    - **Zeabur上にデプロイしたアプリ**：**Internal/Private** の接続文字列を使用（高速で、パブリック帯域を消費しません）
