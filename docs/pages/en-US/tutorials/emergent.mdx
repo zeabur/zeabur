@@ -20,7 +20,7 @@ We strongly recommend **Zeabur** because it simplifies the transition from proto
 - **Setup:** Open the project locally in **VS Code** or **Cursor**.
 - **Deploy:** Use the **Zeabur Extension** to push your app live in one click.
 
-> 📝 Important Note: This guide covers the full stack. We will first deploy your application code, and in Step 6, we will specifically cover how to provision and connect a MongoDB database for apps that need to save user data.
+> 📝 Important Note: This guide covers the full stack. We will first deploy your application code, and in Step 7, we will specifically cover how to provision and connect a MongoDB database for apps that need to save user data.
 > 
 
 ### Prerequisites
@@ -168,15 +168,16 @@ You can watch in real-time as your service builds and becomes fully operational.
 3. Click **Generate Domain** (to get a `.zeabur.app` domain) or **Custom Domain** to connect your own.
 4. Visit the URL. Your Emergent application is now a fully deployed production app.
 
-## Step 7: Connect a Database (Supabase)
+## Step 7: Connect a Database (MongoDB)
 
-If your Emergent app allows users to log in, create accounts, or save data, it requires a database (usually **Supabase**).
+If your Emergent app needs to persist user data, provision a MongoDB service and connect it to your app.
 
-Currently, you have successfully deployed the **Frontend** (the visual interface). To make the data and authentication features work, you need to connect the backend by adding your API keys to Zeabur's **Variable** settings.
-
-We have a dedicated guide to walk you through getting your Supabase keys and adding them to Zeabur:
-
-**👉 Follow the [step-by-step guide to create and connect Supabase on Zeabur](https://zeabur.com/templates/SUPABS).**
+1. Deploy MongoDB on Zeabur using the MongoDB template:
+   **👉 [MongoDB template](https://zeabur.com/templates/KXL04P)**
+2. In the MongoDB service page, open the **Instruction** / **Connections** tab and copy the connection string (URI).
+3. Set your app environment variable (commonly `MONGO_URI`) to that URI:
+   - **Local development**: use the **Public** connection string.
+   - **Apps deployed on Zeabur**: use the **Internal/Private** connection string (faster and avoids public bandwidth).
 
 ---
 That's it! You've successfully moved your project from a prototype on Emergent to a live, production-ready application on Zeabur without writing a single line of configuration. This seamless workflow lets you focus on what matters most: building great software.
