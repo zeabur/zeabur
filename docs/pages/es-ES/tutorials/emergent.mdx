@@ -20,7 +20,7 @@ Recomendamos encarecidamente **Zeabur** porque simplifica la transición de prot
 - **Configurar:** Abre el proyecto localmente en **VS Code** o **Cursor**.
 - **Desplegar:** Usa la **Extensión Zeabur** para poner tu aplicación en vivo con un clic.
 
-> 📝 Nota importante: Esta guía cubre la pila completa. Primero desplegaremos tu código de aplicación, y en el Paso 6, cubriremos específicamente cómo provisionar y conectar una base de datos MongoDB para aplicaciones que necesitan guardar datos de usuarios.
+> 📝 Nota importante: Esta guía cubre la pila completa. Primero desplegaremos tu código de aplicación, y en el Paso 7, cubriremos específicamente cómo provisionar y conectar una base de datos MongoDB para aplicaciones que necesitan guardar datos de usuarios.
 
 ### Requisitos previos
 
@@ -162,15 +162,16 @@ Puedes ver en tiempo real cómo tu servicio se construye y se vuelve completamen
 3. Haz clic en **Generar dominio** (para obtener un dominio `.zeabur.app`) o **Dominio personalizado** para conectar el tuyo.
 4. Visita la URL. Tu aplicación de Emergent ahora es una aplicación de producción completamente desplegada.
 
-## Paso 7: Conecta una base de datos (Supabase)
+## Paso 7: Conecta una base de datos (MongoDB)
 
-Si tu aplicación de Emergent permite que los usuarios inicien sesión, creen cuentas o guarden datos, requiere una base de datos (generalmente **Supabase**).
+Si tu aplicación de Emergent necesita persistir datos de usuarios, aprovisiona un servicio de MongoDB y conéctalo a tu app.
 
-Actualmente, has desplegado exitosamente el **Frontend** (la interfaz visual). Para que funcionen las características de datos y autenticación, necesitas conectar el backend agregando tus claves API a la configuración de **Variables** de Zeabur.
-
-Tenemos una guía dedicada para ayudarte a obtener tus claves de Supabase y agregarlas a Zeabur:
-
-**👉 Sigue la próxima guía para crear y conectar Supabase en Zeabur (próximamente).**
+1. Despliega MongoDB en Zeabur usando la plantilla de MongoDB:
+   **👉 [Plantilla de MongoDB](https://zeabur.com/templates/KXL04P)**
+2. En la página del servicio de MongoDB, abre la pestaña **Connections** y copia el string de conexión (URI) haciendo clic en el ícono de ojo en la pestaña Connections.
+3. Configura la variable de entorno de tu app (comúnmente `MONGO_URI`) con ese URI:
+   - **Desarrollo local**: usa el string de conexión **Public**.
+   - **Apps desplegadas en Zeabur**: usa el string de conexión **Internal/Private** (más rápido y evita usar el ancho de banda público).
 
 ---
 

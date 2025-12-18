@@ -20,7 +20,7 @@ ogImageSubtitle: 导入你的 Emergent 项目
 - **设置：** 在 **VS Code** 或 **Cursor** 中本地打开项目。
 - **部署：** 使用 **Zeabur 扩展** 一键将应用上线。
 
-> 📝 重要说明：本指南涵盖完整堆栈。我们首先部署应用代码，在第 6 步，我们将特别介绍如何为需要保存用户数据的应用配置和连接 MongoDB 数据库。
+> 📝 重要说明：本指南涵盖完整堆栈。我们首先部署应用代码，在第 7 步，我们将特别介绍如何为需要保存用户数据的应用配置和连接 MongoDB 数据库。
 
 ### 前置条件
 
@@ -162,15 +162,16 @@ Zeabur 代理将：
 3. 点击 **生成域名**（获取 `.zeabur.app` 域名）或 **自定义域名**（连接你自己的域名）。
 4. 访问该 URL。你的 Emergent 应用现在是一个完全部署的生产就绪应用。
 
-## 第 7 步：连接数据库（Supabase）
+## 第 7 步：连接数据库（MongoDB）
 
-如果你的 Emergent 应用允许用户登录、创建账户或保存数据，它需要一个数据库（通常是 **Supabase**）。
+如果你的 Emergent 应用需要持久化用户数据，请先创建 MongoDB 服务并将其连接到你的应用。
 
-目前，你已成功部署了 **前端**（可视化界面）。要使数据和身份验证功能工作，你需要通过将 API 密钥添加到 Zeabur 的 **Variable** 设置来连接后端。
-
-我们有一份专门的指南来帮助你获取 Supabase 密钥并将其添加到 Zeabur：
-
-**👉 按照即将发布的指南在 Zeabur 上创建和连接 Supabase (即将推出)。**
+1. 使用 MongoDB 模板在 Zeabur 上部署 MongoDB：
+   **👉 [MongoDB 模板](https://zeabur.com/templates/KXL04P)**
+2. 在 MongoDB 服务页面打开 **Instruction** / **Connections** 标签页并复制连接字符串（URI）。
+3. 将该 URI 设置到应用的环境变量中（常见为 `MONGO_URI`）：
+   - **本地开发**：使用 **Public** 连接字符串
+   - **部署在 Zeabur 的应用**：使用 **Internal/Private** 连接字符串（更快且不计入公网带宽）
 
 ---
 
