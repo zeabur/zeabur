@@ -1,0 +1,44 @@
+---
+title: 導入指南
+ogImageTitle: 導入指南
+ogImageSubtitle: 幾分鐘內將 AI 生成專案搬到 Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# 導入指南
+
+你是否在 AI 應用產生器或雲端 IDE 裡完成了專案？這些指南會帶你 **匯出程式碼**、**在本機執行**，並以最少設定 **部署到 Zeabur**，讓你的應用 24/7 線上並擁有可分享的真實 URL。
+
+## 選擇你的起點
+
+- [從 Replit 導入](./tutorials/replit)
+- [從 Lovable 導入](./tutorials/lovable)
+- [從 Bolt 導入](./tutorials/bolt)
+- [從 Emergent 導入](./tutorials/emergent)
+- [從 AI Studio 導入](./tutorials/aistudio)
+
+## 你將獲得
+
+- 一個可用的 `*.zeabur.app` 網址（也可綁定自訂網域）
+- 為應用正確設定環境變數（例如資料庫連線字串）
+- 在同一專案中依需求加上託管服務（資料庫、儲存等）
+
+## 通用流程（所有指南）
+
+1. 匯出 / 下載你的專案原始碼。
+2. 用 VS Code 或 Cursor 在本機開啟並確認可正常執行。
+3. 部署到 Zeabur（Deploy Button、編輯器擴充套件或 Git）。
+4. 加入所需服務（例如資料庫），並透過環境變數完成串接。
+
+<Callout type="info">
+  若你的應用需要資料持久化，建議在 Zeabur 部署資料庫，且在已部署的應用中優先使用 **Internal/Private** 連線字串（更快且避免使用公網頻寬）。
+</Callout>
+
+## 開始前準備
+
+- Zeabur 帳號
+- 本機編輯器（VS Code 或 Cursor）
+- 你的技術棧所需的本機執行環境（各指南會列出具體前置條件）
+
+
