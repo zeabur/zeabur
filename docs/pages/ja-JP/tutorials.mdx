@@ -1,0 +1,44 @@
+---
+title: インポートガイド
+ogImageTitle: インポートガイド
+ogImageSubtitle: AI 生成プロジェクトを数分で Zeabur に移行
+---
+
+import { Callout } from 'nextra/components'
+
+# インポートガイド
+
+AI ビルダーやクラウド IDE で作ったプロジェクトをお持ちですか？これらのガイドでは **コードのエクスポート**、**ローカルでの実行**、**Zeabur へのデプロイ** を最小限の設定で行い、アプリを 24/7 オンラインで公開できる実 URL にします。
+
+## 出発点を選ぶ
+
+- [Replit をインポート](./tutorials/replit)
+- [Lovable をインポート](./tutorials/lovable)
+- [Bolt をインポート](./tutorials/bolt)
+- [Emergent をインポート](./tutorials/emergent)
+- [Google AI Studio をインポート](./tutorials/aistudio)
+
+## できるようになること
+
+- 公開 URL `*.zeabur.app`（必要に応じてカスタムドメインも追加可能）
+- アプリに必要な環境変数の設定（例：DB の接続文字列）
+- 同一プロジェクト内でのマネージドサービス追加（DB、ストレージなど）
+
+## 共通の流れ（すべてのガイド）
+
+1. プロジェクトのソースコードをエクスポート／ダウンロードする
+2. VS Code または Cursor でローカル実行し、動作確認する
+3. Zeabur にデプロイする（Deploy Button／エディタ拡張／Git）
+4. 必要なサービス（例：データベース）を追加し、環境変数で接続する
+
+<Callout type="info">
+  永続化が必要な場合は、Zeabur 上にデータベースをデプロイし、デプロイ済みアプリでは **Internal/Private** の接続文字列を優先してください（高速で、パブリック帯域の消費を避けられます）。
+</Callout>
+
+## 事前準備
+
+- Zeabur アカウント
+- ローカルエディタ（VS Code または Cursor）
+- スタックに応じたローカル実行環境（各ガイドで前提条件を案内しています）
+
+

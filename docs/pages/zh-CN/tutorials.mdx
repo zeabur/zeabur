@@ -1,0 +1,44 @@
+---
+title: 导入指南
+ogImageTitle: 导入指南
+ogImageSubtitle: 几分钟内把 AI 生成项目迁移到 Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# 导入指南
+
+你是否在 AI 应用构建器或云端 IDE 里完成了一个项目？这些指南将帮助你 **导出代码**、**在本地运行** 并 **部署到 Zeabur**，几乎无需复杂配置，让你的应用 24/7 在线并拥有真实可访问的 URL。
+
+## 选择你的起点
+
+- [从 Replit 导入](./tutorials/replit)
+- [从 Lovable 导入](./tutorials/lovable)
+- [从 Bolt 导入](./tutorials/bolt)
+- [从 Emergent 导入](./tutorials/emergent)
+- [从 Google AI Studio 导入](./tutorials/aistudio)
+
+## 你将获得
+
+- 一个可用的 `*.zeabur.app` 访问地址（也可以绑定自定义域名）
+- 为应用正确配置环境变量（例如数据库连接字符串）
+- 在同一项目中按需添加托管服务（数据库、存储等）
+
+## 通用流程（所有指南）
+
+1. 导出 / 下载项目源代码。
+2. 使用 VS Code 或 Cursor 在本地打开并确认可以运行。
+3. 部署到 Zeabur（Deploy Button、编辑器扩展或 Git）。
+4. 添加所需服务（如数据库），并通过环境变量完成连接。
+
+<Callout type="info">
+  如果应用需要持久化数据，建议在 Zeabur 上部署数据库，并在已部署的应用中优先使用 **Internal/Private** 连接字符串（更快且避免消耗公网带宽）。
+</Callout>
+
+## 开始前准备
+
+- Zeabur 账号
+- 本地编辑器（VS Code 或 Cursor）
+- 你的技术栈所需的本地运行环境（每篇指南都会列出具体前置条件）
+
+

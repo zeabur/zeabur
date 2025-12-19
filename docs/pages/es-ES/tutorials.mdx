@@ -1,0 +1,44 @@
+---
+title: Guías de Importación
+ogImageTitle: Guías de Importación
+ogImageSubtitle: Lleva tus proyectos generados con IA a Zeabur en minutos
+---
+
+import { Callout } from 'nextra/components'
+
+# Guías de Importación
+
+¿Construiste algo en un creador con IA o en un cloud IDE? Estas guías te ayudan a **exportar el código**, **ejecutarlo localmente** y **desplegarlo en Zeabur** con mínima configuración, para que tu app permanezca en línea 24/7 con una URL real.
+
+## Elige tu punto de partida
+
+- [Importar desde Replit](./tutorials/replit)
+- [Importar desde Lovable](./tutorials/lovable)
+- [Importar desde Bolt](./tutorials/bolt)
+- [Importar desde Emergent](./tutorials/emergent)
+- [Importar desde Google AI Studio](./tutorials/aistudio)
+
+## Qué obtendrás
+
+- Una URL activa `*.zeabur.app` (y puedes añadir un dominio personalizado)
+- Variables de entorno correctas para tu app (por ejemplo, strings de conexión a bases de datos)
+- Servicios administrados opcionales (bases de datos, almacenamiento, etc.) en el mismo proyecto
+
+## Flujo común (todas las guías)
+
+1. Exporta / descarga el código fuente de tu proyecto.
+2. Ábrelo localmente en VS Code o Cursor y verifica que funciona.
+3. Despliega en Zeabur (con Deploy Button, una extensión del editor o Git).
+4. Añade los servicios necesarios (como una base de datos) y conéctalos usando variables de entorno.
+
+<Callout type="info">
+  Si tu app necesita persistencia, despliega la base de datos en Zeabur y prioriza los strings de conexión **Internal/Private** para apps desplegadas (más rápido y evita usar el ancho de banda público).
+</Callout>
+
+## Antes de empezar
+
+- Una cuenta de Zeabur
+- Un editor local (VS Code o Cursor)
+- Herramientas locales de ejecución para tu stack (cada guía lista los prerrequisitos específicos)
+
+

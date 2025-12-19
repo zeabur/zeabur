@@ -1,0 +1,43 @@
+---
+title: Import Guides
+ogImageTitle: Import Guides
+ogImageSubtitle: Move your AI-generated projects to Zeabur in minutes
+---
+
+import { Callout } from 'nextra/components'
+
+# Import Guides
+
+Built something in an AI builder or a cloud IDE? These guides help you **export the code**, **run it locally**, and **deploy it to Zeabur** with minimal configuration—so your app stays online 24/7 with a real URL.
+
+## Pick your starting point
+
+- [Import from Replit](./tutorials/replit)
+- [Import from Lovable](./tutorials/lovable)
+- [Import from Bolt](./tutorials/bolt)
+- [Import from Emergent](./tutorials/emergent)
+- [Import from Google AI Studio](./tutorials/aistudio)
+
+## What you’ll get
+
+- A live `*.zeabur.app` URL (and you can add a custom domain)
+- Proper environment variables for your app (for example, database connection strings)
+- Optional managed services (databases, storage, etc.) in the same project
+
+## Common workflow (all guides)
+
+1. Export / download your project source code.
+2. Open it locally in VS Code or Cursor and verify it runs.
+3. Deploy to Zeabur (via Deploy Button, an editor extension, or Git).
+4. Add required services (like a database) and wire them up using environment variables.
+
+<Callout type="info">
+  If your app needs persistence, deploy the database on Zeabur and prefer **Internal/Private** connection strings for deployed apps (faster and avoids public bandwidth).
+</Callout>
+
+## Before you start
+
+- A Zeabur account
+- A local editor (VS Code or Cursor)
+- Local runtime tooling for your stack (each guide lists the specific prerequisites)
+
