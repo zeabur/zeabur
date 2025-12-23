@@ -1,0 +1,96 @@
+---
+title: 導入 GitHub
+ogImageTitle: 導入 GitHub
+ogImageSubtitle: 導入您的 GitHub 專案
+---
+
+## 如何使用 Zeabur 部署 GitHub 儲存庫
+
+本指南是將位於 **GitHub** 上的專案轉換為可分享給使用者的真實、即時網站或 API 的最簡單方法。
+
+### 概述
+
+GitHub 是您程式碼的存放地，但要將其上線，您需要「託管」。我們推薦 **Zeabur**，因為它為您處理技術重活。它會分析您的儲存庫、建構它、執行它，並在幾次點擊中為您提供一個可分享的 URL。
+
+**工作流程：**
+
+- **準備：** 確保您的儲存庫可以在本機執行並具有正確的設定（連接埠、環境變數）。
+- **部署：** 將其部署到 **Zeabur**（透過 Cursor / VS Code 中的 Zeabur 擴充功能最快）。
+- **上線：** 產生網域並（可選）新增資料庫或其他服務。
+
+> 📝 重要提示：如果您的應用程式使用密鑰（API 密鑰、資料庫 URL 等），請不要將它們提交到 GitHub。將它們放在本機 `.env` 檔案中用於開發，並在部署後將其新增為 Zeabur **變數**。
+> 
+
+### 先決條件
+
+- GitHub 帳戶（以及您要部署的儲存庫的存取權限）。
+- 在您的電腦上安裝 [Cursor](https://cursor.sh/) 或 VS Code。
+- [Zeabur](https://zeabur.com/) 帳戶。
+- 本機安裝 Node.js（推薦版本 18+）**或**您的專案所需的執行階段（Python/Go 等）。
+
+### **遷移概述**
+
+此計劃以最少的設定將您從「儲存庫中的程式碼」移動到「已部署的服務」。
+
+- **來源：** GitHub 儲存庫
+- **編輯器：** Cursor / VS Code
+- **主機：** Zeabur
+
+---
+
+### 步驟 1：建立新專案
+
+從 Zeabur 主儀表板：
+
+1. 點擊右上角的紫色 **New Project** 按鈕。
+2. 如果提示，選擇您首選的區域（例如，在您的設定中看到的 AWS Taipei），或者它將預設使用您的標準區域。
+
+![導入到 GitHub 第 1 部分](/tutorial/github/import_to_github_part_1.png)
+
+### 步驟 2：選擇部署來源
+
+建立專案環境後，將出現一個模態框，詢問「您想要部署什麼？」。
+
+1. 點擊 **GitHub**（從 GitHub 儲存庫部署）。
+    - *注意：* 由於您的程式碼已經推送到 GitHub，這是正確的路徑。
+
+![從 GitHub 導入 第 2 部分](/tutorial/github/import_from_github_part2.png)
+
+### 步驟 3：連接並選擇儲存庫
+
+1. **搜尋：** 在搜尋欄中，輸入您建立的儲存庫名稱（例如，`cnynewyrdishes` 或您為儲存庫命名的任何名稱）。
+2. **選擇：** 從清單中點擊特定儲存庫。
+    - *提示：* 如果您在清單中看不到您的儲存庫，請點擊 **Configure GitHub** 按鈕，以確保 Zeabur 有權存取您 GitHub 帳戶中的該特定儲存庫。
+
+![搜尋 GitHub 儲存庫 第 3 部分](/tutorial/github/Search_Github_Repo_part_3.png)
+
+### 步驟 4：審查建構設定
+
+Zeabur 將自動分析您的程式碼以確定語言和框架（例如，在您的螢幕截圖中，它偵測到 `Node.js` 和 `Vite`）。
+
+1. 審查 **建構計劃預覽**。
+2. 確保 **安裝命令**（例如，`yarn install`）和 **建構命令**（例如，`yarn build`）對您的專案看起來正確。
+3. 點擊右下角的紫色 **Deploy** 按鈕。
+
+![它將建立建構計劃並點擊部署 第 4 部分](/tutorial/github/it_will_create_build_plan_and_clicked_deploy_part_4.png)
+
+### 步驟 5：等待部署
+
+Zeabur 現在將拉取您的程式碼、安裝相依項目並建構專案。
+
+1. 您將看到狀態從「Building」變為 **Running**。
+2. 一旦指示燈變為綠色（如最終螢幕截圖所示），您的服務就處於活動狀態。
+
+![成功部署 第 5 部分](/tutorial/github/successfully_deployed_part_5.png)
+
+### 步驟 6：公開您的網站（新增網域）
+
+現在，您的應用程式正在執行，但尚未對公眾開放。您需要產生一個 URL。
+
+1. 在服務概覽頁面（最後一張螢幕截圖）上，尋找 **Add Domain** 按鈕或標籤頁。
+2. 點擊 **Add Domain**。
+3. 您可以：
+    - **產生 zeabur.app 網域：** 這為您提供一個免費 URL（例如，`cnynewyrdishes.zeabur.app`）。
+    - **自訂網域：** 如果您擁有自己的網域，請連接您自己的網域。
+4. 新增後，點擊連結造訪您的即時網站！
+

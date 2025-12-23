@@ -1,0 +1,95 @@
+---
+title: Import GitHub
+ogImageTitle: Import GitHub
+ogImageSubtitle: Import your GitHub projects
+---
+
+## How to Deploy a GitHub Repository with Zeabur
+
+This guide is the easiest way to take a project that lives on **GitHub** and turn it into a real, live website or API that you can share with users.
+
+### Overview
+
+GitHub is where your code lives, but to put it online you need "hosting." We recommend **Zeabur** because it handles the technical heavy lifting for you. It analyzes your repo, builds it, runs it, and gives you a shareable URL in just a few clicks.
+
+**The Workflow:**
+
+- **Prepare:** Make sure your repo runs locally and has the right config (ports, env vars).
+- **Deploy:** Deploy it to **Zeabur** (fastest via the Zeabur extension in Cursor / VS Code).
+- **Go live:** Generate a domain and (optionally) add a database or other services.
+
+> 📝 Important Note: If your app uses secrets (API keys, database URLs, etc.), do not commit them to GitHub. Put them in a local `.env` file for development and add them as Zeabur **Variables** after deployment.
+> 
+
+### Prerequisites
+
+- A GitHub account (and access to the repository you want to deploy).
+- [Cursor](https://cursor.sh/) or VS Code installed on your computer.
+- A [Zeabur](https://zeabur.com/) account.
+- Node.js installed locally (Version 18+ recommended) **or** the runtime your project needs (Python/Go/etc.).
+
+### **Migration Overview**
+
+This plan moves you from "code in a repo" to "a deployed service" with minimal setup.
+
+- **Source:** GitHub Repository
+- **Editor:** Cursor / VS Code
+- **Host:** Zeabur
+
+---
+
+### Step 1: Create a New Project
+
+From the main Zeabur dashboard:
+
+1. Click the purple **New Project** button in the top right corner.
+2. Select your preferred region (e.g., AWS Taipei, as seen in your settings) if prompted, or it will default to your standard region.
+
+![Import to GitHub Part 1](/tutorial/github/import_to_github_part_1.png)
+
+### Step 2: Select Deployment Source
+
+Once the project environment is created, a modal will appear asking "What do you want to deploy?".
+
+1. Click on **GitHub** (Deploy from GitHub repo).
+    - *Note:* Since your code is already pushed to GitHub, this is the correct path.
+
+![Import from GitHub Part 2](/tutorial/github/import_from_github_part2.png)
+
+### Step 3: Connect and Select Repository
+
+1. **Search:** In the search bar, type the name of the repository you created (e.g., `cnynewyrdishes` or whatever you named your repo).
+2. **Select:** Click on the specific repository from the list.
+    - *Tip:* If you do not see your repository listed, click the **Configure GitHub** button to ensure Zeabur has permission to access that specific repository in your GitHub account.
+
+![Search The Github Repo Part 3](/tutorial/github/Search_Github_Repo_part_3.png)
+
+### Step 4: Review Build Configuration
+
+Zeabur will automatically analyze your code to determine the language and framework (e.g., in your screenshot, it detected `Node.js` and `Vite`).
+
+1. Review the **Build Plan Preview**.
+2. Ensure the **Install Command** (e.g., `yarn install`) and **Build Command** (e.g., `yarn build`) look correct for your project.
+3. Click the purple **Deploy** button at the bottom right.
+
+![It will create build plan and clicked deploy Part 4](/tutorial/github/it_will_create_build_plan_and_clicked_deploy_part_4.png)
+
+### Step 5: Wait for Deployment
+
+Zeabur will now pull your code, install dependencies, and build the project.
+
+1. You will see the status change from "Building" to **Running**.
+2. Once the indicator light turns green (as seen in the final screenshot), your service is active.
+
+![Successfully deployed Part 5](/tutorial/github/successfully_deployed_part_5.png)
+
+### Step 6: Expose Your Website (Add Domain)
+
+Right now, your app is running, but it isn't accessible to the public yet. You need to generate a URL.
+
+1. On the service overview page (the last screenshot), look for the **Add Domain** button or tab.
+2. Click **Add Domain**.
+3. You can either:
+    - **Generate a zeabur.app domain:** This gives you a free URL (e.g., `cnynewyrdishes.zeabur.app`).
+    - **Custom Domain:** Connect your own domain if you own one.
+4. Once added, click the link to visit your live site!
