@@ -1,4 +1,5 @@
 export default {
+    "v0": "從 v0 導入",
     "replit": "從 Replit 導入",
     "lovable": "從 Lovable 導入",
     "bolt": "從 Bolt 導入",
