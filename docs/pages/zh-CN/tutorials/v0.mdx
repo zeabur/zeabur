@@ -1,0 +1,138 @@
+---
+title: 从 v0 导入
+ogImageTitle: v0 到 Zeabur
+ogImageSubtitle: 将您的 v0 项目迁移到 Zeabur
+---
+
+## 如何使用 Zeabur 将您的 v0 项目部署到网络
+
+本指南是将 **v0** 生成的代码转换为真实的、实时的网站并与朋友或客户分享的最简单方法。
+
+### 概述
+
+**v0** 非常适合创建应用程序的设计和功能，但要将其上线，您需要“托管”。我们强烈推荐 **Zeabur**，因为它为您处理繁重的技术工作。通过几次点击，它就能获取您的代码并将其放在一个实时 URL 上。
+
+**工作流程：**
+
+- **创建 (Create)：** 在 **v0** 中生成您的应用程序。
+- **完善 (Refine)：** 将代码保存到您的计算机并使用 **Cursor** 进行检查。
+- **部署 (Deploy)：** 在 **Zeabur** 上实时托管。
+
+> 📝 重要提示：本指南重点介绍将您的网站上线（前端）。如果您的应用程序需要保存用户数据或登录信息，则需要数据库。我们将在另外的后续教程中介绍如何添加数据库！
+
+### 先决条件
+
+- GitHub 帐户。
+- 计算机上安装了 [Cursor](https://cursor.sh/)。
+- [Zeabur](https://zeabur.com/) 帐户。
+- 本地安装了 Node.js（推荐版本 18+）。
+
+## 第 1 步：将 v0 同步到 GitHub
+
+v0 具有直接集成功能，可以为您创建 GitHub 存储库，而无需手动复制代码。
+
+1. **找到 GitHub 集成：**
+   - 在 v0 编辑器中打开您的项目。
+   - 查看右上角的标题栏。
+   ![前往 GitHub](https://cdn.zeabur.com/v0%20migration/v0%20github%20part%201.png)
+   - 点击 **"Add to Codebase"** 或 **GitHub 图标** 按钮。
+
+2. **连接到 GitHub：**
+   - 将出现一个菜单。选择 **"Connect to GitHub"**。
+   - 如果您之前没有连接过，请按照授权提示进行操作。
+
+3. **创建存储库：**
+   - 选择 **"Create New Repository"**。
+   - 输入您的项目名称（例如 `my-v0-app`）。
+   - 点击 **"Create"**。
+   - 完成后，您将看到一条成功消息，其中包含指向新 GitHub 存储库的链接。**复制此 URL。**
+    ![连接到 GitHub](https://cdn.zeabur.com/v0%20migration/v0%20github%20part%202.png)
+
+4. **推送到 GitHub：**
+   - 确保您要使用的分支（通常是 `main`）被选为活动分支。
+    ![设置活动分支](https://cdn.zeabur.com/v0%20migration/v0%20github%20part%203%20.png)
+   - 点击 **"Push to GitHub"** 将您的代码推送到 GitHub。
+
+## 第 2 步：设置本地环境 (Cursor)
+
+现在，您将从 GitHub 将代码带到本地计算机，以验证依赖项并进行生产调整。
+
+1. **克隆存储库：**
+   - 打开 **Cursor**。
+   - 按 `Cmd + Shift + P` (Mac) 或 `Ctrl + Shift + P` (Windows) 打开命令面板。
+   - 输入 `Git: Clone` 并选择它。
+   - 粘贴您刚刚复制的 GitHub URL，并选择计算机上的一个文件夹来保存它。
+
+2. **安装依赖项：**
+   - 在 Cursor 中打开终端 (`Ctrl + ~`)。
+   - 运行安装命令（v0 项目通常使用 `npm`）：
+
+   ```bash
+   npm install
+   ```
+
+3. **环境设置：**
+   - 找到 `.env.example` 文件（如果存在）并将其复制以创建一个 `.env` 文件。
+   - **重要：** 如果您的 v0 应用程序使用了 API 密钥（OpenAI、Supabase 等），您必须手动将这些密钥添加到您的本地 `.env` 文件中。出于安全原因，v0 不会将您的机密导出到 GitHub。
+
+4. **本地测试：**
+   - 运行开发服务器以确保应用程序在本地正常工作。
+
+   ```bash
+   npm run dev
+   ```
+
+## 第 3 步：在本地编辑器中打开并安装 Zeabur 扩展
+
+为了使部署变得极其简单，您将使用 Zeabur 扩展。
+
+1. 转到编辑器中的扩展市场。
+2. 搜索 "Zeabur" 并点击 **安装**。
+
+![下载 Zeabur 扩展](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
+
+## 第 4 步：一键部署
+
+现在您的项目文件夹已在 Cursor 中打开：
+
+1. 点击左侧活动栏中新的 **Zeabur 图标**（通常是一个 "Z" 徽标）。
+2. 点击 **"Deploy"** 按钮。
+3. 您的编辑器将请求在浏览器中打开链接的权限。点击 **"Open"**。
+
+![点击部署并打开](https://cdn.zeabur.com/replit%20migration%20/Click%20Deploy%20and%20Open%20.png)
+
+## 第 5 步：让 Zeabur AI 代理处理剩下的事情
+
+一旦您被重定向到 Zeabur，平台的 AI 代理就会接管。它会分析您的代码以了解项目的结构、依赖项和构建要求。
+
+Zeabur 代理将：
+
+- 识别出您有一个全栈应用程序（例如 Next.js）。
+- 自动配置构建和启动命令。
+- 预配所有必要的服务。
+
+![Zeabur 代理处理其余部分](https://cdn.zeabur.com/new%20agent.png)
+
+系统将提示您选择项目和部署区域。之后，Zeabur 会处理其他所有事情。
+
+您可以实时观看服务的构建并使其完全运行。部署成功后，Zeabur 甚至会为您提供一个实时域名。
+
+## 第 6 步：域名和网络
+
+1. 在 Zeabur 中点击您的服务。
+2. 导航到 **Networking**（网络）选项卡。
+3. 点击 **Generate Domain**（生成域名）以获取 `.zeabur.app` 域名，或点击 **Custom Domain**（自定义域名）以连接您自己的域名。
+4. 访问该 URL。您的 v0 应用程序现在是一个已完全部署的生产应用程序。
+
+## 第 7 步：连接数据库（首选 Supabase）
+
+如果您的 v0 应用程序允许用户登录、创建帐户或保存数据，则它需要数据库。
+目前，您已成功部署 **前端**（视觉界面）。为了启用数据和身份验证，您将连接 Supabase 数据库并将连接详细信息添加为 Zeabur **变量**。
+
+我们将发布专门的后续教程，展示如何在 Zeabur 上创建 Supabase 数据库并将其连接到您的应用程序。如果您现在需要托管选项，也可以使用 Supabase。
+
+**👉 按照 [此指南](https://zeabur.com/templates/SUPABS) 在 Zeabur 上创建并连接 Supabase。**
+
+---
+
+就是这样！您已成功将项目从 v0 上的原型迁移到 Zeabur 上的实时生产应用程序，而无需编写一行配置代码。这种无缝的工作流程让您可以专注于最重要的事情：构建出色的软件。

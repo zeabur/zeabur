@@ -1,0 +1,138 @@
+---
+title: Importar desde v0
+ogImageTitle: v0 a Zeabur
+ogImageSubtitle: Migra tus proyectos de v0 a Zeabur
+---
+
+## Cómo desplegar tu proyecto v0 en la web con Zeabur
+
+Esta guía es la forma más fácil de tomar el código generado por **v0** y convertirlo en un sitio web real y en vivo que puedes compartir con amigos o clientes.
+
+### Descripción general
+
+**v0** es increíble para crear el diseño y las características de tu aplicación, pero para ponerlo en línea, necesitas "hosting". Recomendamos encarecidamente **Zeabur** porque se encarga del trabajo técnico pesado por ti. Toma tu código y lo pone en una URL en vivo en solo unos pocos clics.
+
+**El Flujo de Trabajo:**
+
+- **Crear:** Genera tu aplicación en **v0**.
+- **Refinar:** Guarda el código en tu computadora y revísalo con **Cursor**.
+- **Desplegar:** Alójalo en vivo en **Zeabur**.
+
+> 📝 Nota Importante: Esta guía se centra en poner tu sitio web en línea (el Frontend). Si tu aplicación necesita guardar datos de usuarios o inicios de sesión, eso requiere una Base de Datos. ¡Cubriremos cómo agregar una base de datos en un tutorial separado!
+
+### Prerrequisitos
+
+- Una cuenta de GitHub.
+- [Cursor](https://cursor.sh/) instalado en tu computadora.
+- Una cuenta de [Zeabur](https://zeabur.com/).
+- Node.js instalado localmente (Versión 18+ recomendada).
+
+## Paso 1: Sincronizar v0 con GitHub
+
+En lugar de copiar el código manualmente, v0 tiene una integración directa que crea un repositorio de GitHub por ti.
+
+1. **Localizar la integración de GitHub:**
+   - Abre tu proyecto en el editor v0.
+   - Mira en el encabezado superior derecho.
+   ![Ir a GitHub](https://cdn.zeabur.com/v0%20migration/v0%20github%20part%201.png)
+   - Haz clic en el botón **"Add to Codebase"** o el icono de **GitHub**.
+
+2. **Conectar a GitHub:**
+   - Aparecerá un menú. Selecciona **"Connect to GitHub"**.
+   - Sigue las instrucciones de autorización si no te has conectado antes.
+
+3. **Crear el Repositorio:**
+   - Elige **"Create New Repository"**.
+   - Ingresa un nombre para tu proyecto (por ejemplo, `mi-app-v0`).
+   - Haz clic en **"Create"**.
+   - Una vez finalizado, verás un mensaje de éxito con un enlace a tu nuevo repositorio de GitHub. **Copia esta URL.**
+    ![Conectar a GitHub](https://cdn.zeabur.com/v0%20migration/v0%20github%20part%202.png)
+
+4. **Empujar a GitHub:**
+   - Asegúrate de que la rama con la que quieres trabajar (generalmente `main`) esté seleccionada como la rama activa.
+    ![Establecer Rama Activa](https://cdn.zeabur.com/v0%20migration/v0%20github%20part%203%20.png)
+   - Haz clic en **"Push to GitHub"** para enviar tu código a GitHub.
+
+## Paso 2: Configurar el Entorno Local (Cursor)
+
+Ahora traerás el código de GitHub a tu computadora local para verificar las dependencias y hacer ajustes de producción.
+
+1. **Clonar el Repositorio:**
+   - Abre **Cursor**.
+   - Presiona `Cmd + Shift + P` (Mac) o `Ctrl + Shift + P` (Windows) para abrir la Paleta de Comandos.
+   - Escribe `Git: Clone` y selecciónalo.
+   - Pega la URL de GitHub que acabas de copiar y elige una carpeta en tu computadora para guardarlo.
+
+2. **Instalar Dependencias:**
+   - Abre la terminal en Cursor (`Ctrl + ~`).
+   - Ejecuta el comando de instalación (los proyectos v0 suelen usar `npm`):
+
+   ```bash
+   npm install
+   ```
+
+3. **Configuración del Entorno:**
+   - Localiza el archivo `.env.example` (si existe) y duplícalo para crear un archivo `.env`.
+   - **Importante:** Si tu aplicación v0 usaba claves API (OpenAI, Supabase, etc.), debes agregar manualmente estas claves a tu archivo `.env` local. v0 no exporta tus secretos a GitHub por razones de seguridad.
+
+4. **Prueba Local:**
+   - Ejecuta el servidor de desarrollo para asegurarte de que la aplicación funciona localmente.
+
+   ```bash
+   npm run dev
+   ```
+
+## Paso 3: Abrir en un Editor Local e Instalar la Extensión de Zeabur
+
+Para hacer el despliegue increíblemente simple, usarás la extensión de Zeabur.
+
+1. Ve al Mercado de Extensiones en tu editor.
+2. Busca "Zeabur" y haz clic en **Instalar**.
+
+![Descargar Extensiones Zeabur](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
+
+## Paso 4: Desplegar con un Solo Clic
+
+Ahora que la carpeta de tu proyecto está abierta en Cursor:
+
+1. Haz clic en el nuevo **icono de Zeabur** (generalmente un logo "Z") en la barra de actividad en el extremo izquierdo.
+2. Haz clic en el botón **"Deploy"**.
+3. Tu editor pedirá permiso para abrir un enlace en tu navegador. Haz clic en **"Open"**.
+
+![Clic en Desplegar y Abrir](https://cdn.zeabur.com/replit%20migration%20/Click%20Deploy%20and%20Open%20.png)
+
+## Paso 5: Dejar que el Agente AI de Zeabur se encargue del resto
+
+Una vez que seas redirigido a Zeabur, el agente de IA de la plataforma se hace cargo. Analiza tu código para comprender la estructura del proyecto, las dependencias y los requisitos de construcción.
+
+El agente de Zeabur:
+
+- Reconocerá que tienes una aplicación full-stack (por ejemplo, Next.js).
+- Configurará automáticamente los comandos de construcción e inicio.
+- Aprovisionará todos los servicios necesarios.
+
+![Agente Zeabur se encarga del resto](https://cdn.zeabur.com/new%20agent.png)
+
+Se te pedirá que selecciones un proyecto y una región de despliegue. Después de eso, Zeabur se encarga de todo lo demás.
+
+Puedes ver en tiempo real cómo se construye tu servicio y se vuelve completamente operativo. Zeabur incluso te proporciona un dominio en vivo tan pronto como el despliegue sea exitoso.
+
+## Paso 6: Dominio y Redes
+
+1. Haz clic en tu Servicio en Zeabur.
+2. Navega a la pestaña **Networking** (Redes).
+3. Haz clic en **Generate Domain** (para obtener un dominio `.zeabur.app`) o **Custom Domain** para conectar el tuyo propio.
+4. Visita la URL. Tu aplicación v0 es ahora una aplicación de producción completamente desplegada.
+
+## Paso 7: Conectar una Base de Datos (Supabase preferido)
+
+Si tu aplicación v0 permite a los usuarios iniciar sesión, crear cuentas o guardar datos, requiere una base de datos.
+Actualmente, has desplegado con éxito el **Frontend** (la interfaz visual). Para habilitar los datos y la autenticación, conectarás una base de datos Supabase y agregarás los detalles de conexión como **Variables** de Zeabur.
+
+Publicaremos un tutorial dedicado mostrando cómo crear una base de datos Supabase en Zeabur y conectarla a tu aplicación. Si necesitas una opción alojada ahora, también puedes usar Supabase.
+
+**👉 Sigue [esta guía](https://zeabur.com/templates/SUPABS) para crear y conectar Supabase en Zeabur.**
+
+---
+
+¡Eso es todo! Has movido con éxito tu proyecto de un prototipo en v0 a una aplicación de producción en vivo en Zeabur sin escribir una sola línea de configuración. Este flujo de trabajo fluido te permite concentrarte en lo que más importa: construir un gran software.
