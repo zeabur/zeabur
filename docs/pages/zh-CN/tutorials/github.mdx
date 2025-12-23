@@ -1,0 +1,96 @@
+---
+title: 导入 GitHub
+ogImageTitle: 导入 GitHub
+ogImageSubtitle: 导入您的 GitHub 项目
+---
+
+## 如何使用 Zeabur 部署 GitHub 仓库
+
+本指南是将位于 **GitHub** 上的项目转换为可分享给用户的真实、实时网站或 API 的最简单方法。
+
+### 概述
+
+GitHub 是您代码的存放地，但要将其上线，您需要"托管"。我们推荐 **Zeabur**，因为它为您处理技术重活。它会分析您的仓库、构建它、运行它，并在几次点击中为您提供一个可分享的 URL。
+
+**工作流程：**
+
+- **准备：** 确保您的仓库可以在本地运行并具有正确的配置（端口、环境变量）。
+- **部署：** 将其部署到 **Zeabur**（通过 Cursor / VS Code 中的 Zeabur 扩展最快）。
+- **上线：** 生成域名并（可选）添加数据库或其他服务。
+
+> 📝 重要提示：如果您的应用使用密钥（API 密钥、数据库 URL 等），请不要将它们提交到 GitHub。将它们放在本地 `.env` 文件中用于开发，并在部署后将其添加为 Zeabur **变量**。
+> 
+
+### 先决条件
+
+- GitHub 账户（以及您要部署的仓库的访问权限）。
+- 在您的计算机上安装 [Cursor](https://cursor.sh/) 或 VS Code。
+- [Zeabur](https://zeabur.com/) 账户。
+- 本地安装 Node.js（推荐版本 18+）**或**您的项目所需的运行时（Python/Go 等）。
+
+### **迁移概述**
+
+此计划以最少的设置将您从"仓库中的代码"移动到"已部署的服务"。
+
+- **来源：** GitHub 仓库
+- **编辑器：** Cursor / VS Code
+- **主机：** Zeabur
+
+---
+
+### 步骤 1：创建新项目
+
+从 Zeabur 主仪表板：
+
+1. 点击右上角的紫色 **New Project** 按钮。
+2. 如果提示，选择您首选的区域（例如，在您的设置中看到的 AWS Taipei），或者它将默认使用您的标准区域。
+
+![导入到 GitHub 第 1 部分](/tutorial/github/import_to_github_part_1.png)
+
+### 步骤 2：选择部署源
+
+创建项目环境后，将出现一个模态框，询问"您想要部署什么？"。
+
+1. 点击 **GitHub**（从 GitHub 仓库部署）。
+    - *注意：* 由于您的代码已经推送到 GitHub，这是正确的路径。
+
+![从 GitHub 导入 第 2 部分](/tutorial/github/import_from_github_part2.png)
+
+### 步骤 3：连接并选择仓库
+
+1. **搜索：** 在搜索栏中，输入您创建的仓库名称（例如，`cnynewyrdishes` 或您为仓库命名的任何名称）。
+2. **选择：** 从列表中点击特定仓库。
+    - *提示：* 如果您在列表中看不到您的仓库，请点击 **Configure GitHub** 按钮，以确保 Zeabur 有权访问您 GitHub 账户中的该特定仓库。
+
+![搜索 GitHub 仓库 第 3 部分](/tutorial/github/Search_Github_Repo_part_3.png)
+
+### 步骤 4：审查构建配置
+
+Zeabur 将自动分析您的代码以确定语言和框架（例如，在您的屏幕截图中，它检测到 `Node.js` 和 `Vite`）。
+
+1. 审查 **构建计划预览**。
+2. 确保 **安装命令**（例如，`yarn install`）和 **构建命令**（例如，`yarn build`）对您的项目看起来正确。
+3. 点击右下角的紫色 **Deploy** 按钮。
+
+![它将创建构建计划并点击部署 第 4 部分](/tutorial/github/it_will_create_build_plan_and_clicked_deploy_part_4.png)
+
+### 步骤 5：等待部署
+
+Zeabur 现在将拉取您的代码、安装依赖项并构建项目。
+
+1. 您将看到状态从"Building"变为 **Running**。
+2. 一旦指示灯变为绿色（如最终屏幕截图所示），您的服务就处于活动状态。
+
+![成功部署 第 5 部分](/tutorial/github/successfully_deployed_part_5.png)
+
+### 步骤 6：公开您的网站（添加域名）
+
+现在，您的应用正在运行，但尚未对公众开放。您需要生成一个 URL。
+
+1. 在服务概览页面（最后一张屏幕截图）上，查找 **Add Domain** 按钮或选项卡。
+2. 点击 **Add Domain**。
+3. 您可以：
+    - **生成 zeabur.app 域名：** 这为您提供一个免费 URL（例如，`cnynewyrdishes.zeabur.app`）。
+    - **自定义域名：** 如果您拥有自己的域名，请连接您自己的域名。
+4. 添加后，点击链接访问您的实时网站！
+

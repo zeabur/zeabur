@@ -5,5 +5,5 @@ export default {
     "bolt": "Import from Bolt",
     "emergent": "Import from Emergent",
     "aistudio": "Import from Google AI Studio",
-
+    "github": "Import from GitHub",
 }
