@@ -1,0 +1,96 @@
+---
+title: Importar GitHub
+ogImageTitle: Importar GitHub
+ogImageSubtitle: Importa tus proyectos de GitHub
+---
+
+## Cómo desplegar un repositorio de GitHub con Zeabur
+
+Esta guía es la forma más fácil de tomar un proyecto que vive en **GitHub** y convertirlo en un sitio web o API real y en directo que puedas compartir con usuarios.
+
+### Descripción general
+
+GitHub es donde vive tu código, pero para ponerlo en línea necesitas "alojamiento". Recomendamos **Zeabur** porque se encarga del trabajo técnico pesado por ti. Analiza tu repositorio, lo construye, lo ejecuta y te da una URL compartible en solo unos pocos clics.
+
+**El flujo de trabajo:**
+
+- **Preparar:** Asegúrate de que tu repositorio se ejecute localmente y tenga la configuración correcta (puertos, variables de entorno).
+- **Desplegar:** Despliégalo en **Zeabur** (más rápido mediante la extensión de Zeabur en Cursor / VS Code).
+- **Poner en línea:** Genera un dominio y (opcionalmente) añade una base de datos u otros servicios.
+
+> 📝 Nota importante: Si tu aplicación usa secretos (claves API, URLs de base de datos, etc.), no los subas a GitHub. Ponlos en un archivo local `.env` para desarrollo y añádelos como **Variables** de Zeabur después del despliegue.
+> 
+
+### Requisitos previos
+
+- Una cuenta de GitHub (y acceso al repositorio que quieres desplegar).
+- [Cursor](https://cursor.sh/) o VS Code instalado en tu ordenador.
+- Una cuenta de [Zeabur](https://zeabur.com/).
+- Node.js instalado localmente (se recomienda versión 18+) **o** el runtime que tu proyecto necesita (Python/Go/etc.).
+
+### **Descripción general de la migración**
+
+Este plan te mueve de "código en un repositorio" a "un servicio desplegado" con configuración mínima.
+
+- **Fuente:** Repositorio de GitHub
+- **Editor:** Cursor / VS Code
+- **Host:** Zeabur
+
+---
+
+### Paso 1: Crear un nuevo proyecto
+
+Desde el panel principal de Zeabur:
+
+1. Haz clic en el botón morado **New Project** en la esquina superior derecha.
+2. Selecciona tu región preferida (por ejemplo, AWS Taipei, como se ve en tus configuraciones) si se solicita, o se utilizará tu región estándar por defecto.
+
+![Importar a GitHub Parte 1](/tutorial/github/import_to_github_part_1.png)
+
+### Paso 2: Seleccionar fuente de despliegue
+
+Una vez que se crea el entorno del proyecto, aparecerá un modal preguntando "¿Qué quieres desplegar?".
+
+1. Haz clic en **GitHub** (Desplegar desde repositorio de GitHub).
+    - *Nota:* Como tu código ya está subido a GitHub, este es el camino correcto.
+
+![Importar desde GitHub Parte 2](/tutorial/github/import_from_github_part2.png)
+
+### Paso 3: Conectar y seleccionar repositorio
+
+1. **Buscar:** En la barra de búsqueda, escribe el nombre del repositorio que creaste (por ejemplo, `cnynewyrdishes` o como hayas nombrado tu repositorio).
+2. **Seleccionar:** Haz clic en el repositorio específico de la lista.
+    - *Consejo:* Si no ves tu repositorio en la lista, haz clic en el botón **Configure GitHub** para asegurarte de que Zeabur tenga permiso para acceder a ese repositorio específico en tu cuenta de GitHub.
+
+![Buscar el repositorio de GitHub Parte 3](/tutorial/github/Search_Github_Repo_part_3.png)
+
+### Paso 4: Revisar configuración de compilación
+
+Zeabur analizará automáticamente tu código para determinar el lenguaje y el framework (por ejemplo, en tu captura de pantalla, detectó `Node.js` y `Vite`).
+
+1. Revisa la **Vista previa del plan de compilación**.
+2. Asegúrate de que el **Comando de instalación** (por ejemplo, `yarn install`) y el **Comando de compilación** (por ejemplo, `yarn build`) se vean correctos para tu proyecto.
+3. Haz clic en el botón morado **Deploy** en la esquina inferior derecha.
+
+![Creará un plan de compilación y hará clic en desplegar Parte 4](/tutorial/github/it_will_create_build_plan_and_clicked_deploy_part_4.png)
+
+### Paso 5: Esperar el despliegue
+
+Zeabur ahora descargará tu código, instalará las dependencias y construirá el proyecto.
+
+1. Verás que el estado cambia de "Building" a **Running**.
+2. Una vez que el indicador se vuelva verde (como se ve en la captura de pantalla final), tu servicio está activo.
+
+![Desplegado exitosamente Parte 5](/tutorial/github/successfully_deployed_part_5.png)
+
+### Paso 6: Exponer tu sitio web (Añadir dominio)
+
+Ahora mismo, tu aplicación está en ejecución, pero aún no es accesible para el público. Necesitas generar una URL.
+
+1. En la página de resumen del servicio (la última captura de pantalla), busca el botón o pestaña **Add Domain**.
+2. Haz clic en **Add Domain**.
+3. Puedes:
+    - **Generar un dominio zeabur.app:** Esto te da una URL gratuita (por ejemplo, `cnynewyrdishes.zeabur.app`).
+    - **Dominio personalizado:** Conecta tu propio dominio si tienes uno.
+4. Una vez añadido, ¡haz clic en el enlace para visitar tu sitio en directo!
+

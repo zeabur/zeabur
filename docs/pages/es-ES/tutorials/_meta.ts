@@ -4,4 +4,5 @@ export default {
     "bolt": "Importar desde Bolt",
     "emergent": "Importar desde Emergent",
     "aistudio": "Importar desde Google AI Studio",
+    "github": "Importar desde GitHub",
 }
