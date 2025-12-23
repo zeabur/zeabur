@@ -5,6 +5,7 @@ import { useConfig } from 'nextra-theme-docs'
 import { useRouter } from 'nextra/hooks'
 import WorkingInProgress from './components/WorkingInProgress'
 import CreateProject from './components/CreateProject'
+import LastUpdated from './components/LastUpdated'
 import LogoBlack from './public/logo_b.svg'
 import LogoWhite from './public/logo_w.svg'
 
@@ -18,6 +19,7 @@ function base64Encode(str) {
  * @type {import('nextra-theme-docs').DocsThemeConfig}
  */
 const config = {
+  gitTimestamp: LastUpdated,
   project: {
     link: 'https://github.com/zeabur',
   },
