@@ -13,6 +13,7 @@
   "author": "Zeabur",
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.6.2",
+    "@napi-rs/simple-git": "^0.1.22",
     "negotiator": "^1.0.0",
     "next": "^15.5.9",
     "nextra": "^3.3.1",

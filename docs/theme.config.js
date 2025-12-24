@@ -19,7 +19,7 @@ function base64Encode(str) {
  * @type {import('nextra-theme-docs').DocsThemeConfig}
  */
 const config = {
-  gitTimestamp: LastUpdated,
+  gitTimestamp: ({timestamp}) => timestamp ? <LastUpdated timestamp={timestamp} /> : null,
   project: {
     link: 'https://github.com/zeabur',
   },
