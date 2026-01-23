@@ -1,0 +1,381 @@
+---
+title: Webhook 設定
+ogImageTitle: Z-Send Webhook 設定
+ogImageSubtitle: リアルタイムでメールステータス通知を受信
+---
+
+# Webhook 設定
+
+Webhook を使用すると、配信、バウンス、苦情などのイベントを含む、リアルタイムのメールステータス更新を受信できます。
+
+## Webhook とは
+
+メールのステータスが変更されると、Z-Send は設定された URL にイベントの詳細を含む HTTP POST リクエストを送信します。
+
+## Webhook の作成
+
+import { Callout, Steps } from 'nextra/components'
+
+<Steps>
+
+### コンソールにログイン
+
+Zeabur コンソールの Z-Send 管理ページにアクセスします。
+
+### Webhook を作成
+
+1. 「Webhook 管理」に移動
+2. 「Webhook を作成」をクリック
+3. Webhook URL を入力（例：`https://yourapp.com/webhooks/zsend`）
+4. 受信するイベントタイプを選択
+5. 「保存」をクリック
+
+### 署名シークレットを取得
+
+作成後、システムはリクエストの送信元を確認するための署名シークレットを生成します。**安全に保存してください - 一度だけ表示されます！**
+
+### Webhook を検証
+
+「検証」ボタンをクリックすると、システムは URL にテストリクエストを送信して、正常に受信できることを確認します。
+
+</Steps>
+
+## イベントタイプ
+
+Z-Send は以下のイベントタイプをサポートしています：
+
+| イベントタイプ | 説明 |
+|------------|------|
+| `send` | メールサーバーに送信されました |
+| `delivery` | 受信者に正常に配信されました |
+| `bounce` | メールがバウンスされました（ハードバウンスまたはソフトバウンス） |
+| `complaint` | 受信者がスパムとしてマークしました |
+| `reject` | メール送信が拒否されました（未検証ドメイン、コンテンツ違反など） |
+
+## Webhook リクエスト形式
+
+### リクエストヘッダー
+
+```http
+POST /your-webhook-endpoint HTTP/1.1
+Host: yourapp.com
+Content-Type: application/json
+X-ZSend-Event: delivery
+X-ZSend-Timestamp: 1768812348
+X-ZSend-Signature: sha256=dc36b914ecdb7bb6f4ba8714b6ccb04d46e85af5cd1bc52744e0208964f5fb34
+User-Agent: ZSend-Webhook/1.0
+```
+
+| ヘッダー | 説明 |
+|--------|------|
+| `X-ZSend-Event` | イベントタイプ |
+| `X-ZSend-Timestamp` | Unix タイムスタンプ |
+| `X-ZSend-Signature` | HMAC-SHA256 署名 |
+
+### リクエストボディ
+
+#### 配信イベント (delivery)
+
+```json
+{
+  "event": "delivery",
+  "timestamp": "2026-01-19T08:45:48Z",
+  "email": {
+    "id": "696def36de644b22ae711500",
+    "message_id": "0111019bd56e71c1-8ccdb66d-5d71-433f-9a9a-0766822f8955-000000",
+    "from": "hello@yourdomain.com",
+    "to": ["user@example.com"],
+    "subject": "Z-Send へようこそ",
+    "sent_at": "2026-01-19T08:45:42Z"
+  },
+  "data": {
+    "processing_time_millis": 5116,
+    "recipients": ["user@example.com"],
+    "smtp_response": "250 OK"
+  }
+}
+```
+
+#### バウンスイベント (bounce)
+
+```json
+{
+  "event": "bounce",
+  "timestamp": "2026-01-19T08:45:50Z",
+  "email": {
+    "id": "696def36de644b22ae711501",
+    "message_id": "0111019bd56e71c1-8ccdb66d-5d71-433f-9a9a-0766822f8955-000001",
+    "from": "hello@yourdomain.com",
+    "to": ["invalid@example.com"],
+    "subject": "テストメール"
+  },
+  "data": {
+    "bounce_type": "Permanent",  // ハードバウンス
+    "bounce_subtype": "General",
+    "bounced_recipients": [
+      {
+        "email_address": "invalid@example.com",
+        "status": "5.1.1",
+        "diagnostic_code": "smtp; 550 5.1.1 user unknown"
+      }
+    ]
+  }
+}
+```
+
+#### 苦情イベント (complaint)
+
+```json
+{
+  "event": "complaint",
+  "timestamp": "2026-01-19T09:00:00Z",
+  "email": {
+    "id": "696def36de644b22ae711502",
+    "message_id": "0111019bd56e71c1-8ccdb66d-5d71-433f-9a9a-0766822f8955-000002",
+    "from": "newsletter@yourdomain.com",
+    "to": ["user@example.com"],
+    "subject": "週刊ニュースレター"
+  },
+  "data": {
+    "complaint_feedback_type": "abuse",
+    "complained_recipients": ["user@example.com"]
+  }
+}
+```
+
+## 署名検証
+
+リクエストが Z-Send から送信されたことを確認するには、`X-ZSend-Signature` を検証する必要があります。
+
+### 検証手順
+
+1. リクエストヘッダーから `X-ZSend-Timestamp` と `X-ZSend-Signature` を取得
+2. 生のリクエストボディを読み取る
+3. 署名メッセージを構築：`{timestamp}.{body}`
+4. HMAC-SHA256 とシークレットを使用して署名を計算
+5. 結果を `X-ZSend-Signature` と比較（形式：`sha256=xxx`）
+
+### Node.js の例
+
+```javascript
+const crypto = require('crypto');
+const express = require('express');
+
+const app = express();
+
+// 元のリクエストボディを保持するために生のボディを使用（express.json() の前に配置）
+app.post('/webhooks/zsend', 
+  express.raw({ type: 'application/json' }),
+  (req, res) => {
+    const secret = process.env.ZSEND_WEBHOOK_SECRET;
+    const signature = req.headers['x-zsend-signature'];
+    const timestamp = req.headers['x-zsend-timestamp'];
+    const body = req.body.toString('utf8'); // 生のリクエストボディ
+    
+    // 署名メッセージを構築
+    const message = `${timestamp}.${body}`;
+    
+    // HMAC-SHA256 を計算
+    const hmac = crypto.createHmac('sha256', secret);
+    hmac.update(message);
+    const expectedSignature = 'sha256=' + hmac.digest('hex');
+    
+    // タイミングセーフな比較
+    const isValid = crypto.timingSafeEqual(
+      Buffer.from(signature),
+      Buffer.from(expectedSignature)
+    );
+    
+    if (!isValid) {
+      return res.status(401).json({ error: 'Invalid signature' });
+    }
+    
+    // JSON を解析してイベントを処理
+    const payload = JSON.parse(body);
+    const { event, email, data } = payload;
+    
+    console.log(`Received ${event} event for email ${email.id}`);
+    
+    // 200 を返して正常受信を示す
+    res.status(200).json({ received: true });
+  }
+);
+```
+
+### Python の例
+
+```python
+import hmac
+import hashlib
+
+def verify_webhook_signature(request, secret):
+    signature = request.headers.get('X-ZSend-Signature')
+    timestamp = request.headers.get('X-ZSend-Timestamp')
+    body = request.get_data(as_text=True)
+    
+    # 署名メッセージを構築
+    message = f"{timestamp}.{body}"
+    
+    # HMAC-SHA256 を計算
+    expected_signature = 'sha256=' + hmac.new(
+        secret.encode('utf-8'),
+        message.encode('utf-8'),
+        hashlib.sha256
+    ).hexdigest()
+    
+    # タイミングセーフな比較
+    return hmac.compare_digest(signature, expected_signature)
+
+# Flask の例
+@app.route('/webhooks/zsend', methods=['POST'])
+def handle_webhook():
+    secret = os.environ.get('ZSEND_WEBHOOK_SECRET')
+    
+    if not verify_webhook_signature(request, secret):
+        return jsonify({'error': 'Invalid signature'}), 401
+    
+    data = request.get_json()
+    event_type = data['event']
+    email_id = data['email']['id']
+    
+    print(f"Received {event_type} event for email {email_id}")
+    
+    return jsonify({'received': True}), 200
+```
+
+### Go の例
+
+```go
+package main
+
+import (
+	"crypto/hmac"
+	"crypto/sha256"
+	"crypto/subtle"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	"io"
+	"net/http"
+	"os"
+)
+
+// WebhookPayload は webhook ペイロード構造を表します
+type WebhookPayload struct {
+	Event     string `json:"event"`
+	Timestamp string `json:"timestamp"`
+	Email     struct {
+		ID        string   `json:"id"`
+		MessageID string   `json:"message_id"`
+		From      string   `json:"from"`
+		To        []string `json:"to"`
+		Subject   string   `json:"subject"`
+		SentAt    string   `json:"sent_at"`
+	} `json:"email"`
+	Data interface{} `json:"data"`
+}
+
+func verifyWebhookSignature(body []byte, signature, timestamp, secret string) bool {
+	// 署名メッセージを構築
+	message := fmt.Sprintf("%s.%s", timestamp, body)
+	
+	// HMAC-SHA256 を計算
+	h := hmac.New(sha256.New, []byte(secret))
+	h.Write([]byte(message))
+	expectedSignature := "sha256=" + hex.EncodeToString(h.Sum(nil))
+	
+	// タイミングセーフな比較
+	return subtle.ConstantTimeCompare([]byte(signature), []byte(expectedSignature)) == 1
+}
+
+func handleWebhook(w http.ResponseWriter, r *http.Request) {
+	secret := os.Getenv("ZSEND_WEBHOOK_SECRET")
+	
+	// 生のリクエストボディを読み取る
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, "Failed to read body", http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+	
+	// リクエストヘッダーを取得
+	signature := r.Header.Get("X-ZSend-Signature")
+	timestamp := r.Header.Get("X-ZSend-Timestamp")
+	
+	// 署名を検証
+	if !verifyWebhookSignature(body, signature, timestamp, secret) {
+		http.Error(w, `{"error":"Invalid signature"}`, http.StatusUnauthorized)
+		return
+	}
+	
+	// JSON を解析
+	var payload WebhookPayload
+	if err := json.Unmarshal(body, &payload); err != nil {
+		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		return
+	}
+	
+	// イベントを処理
+	fmt.Printf("Received %s event for email %s\n", payload.Event, payload.Email.ID)
+	
+	// 200 を返して正常受信を示す
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]bool{"received": true})
+}
+
+func main() {
+	http.HandleFunc("/webhooks/zsend", handleWebhook)
+	http.ListenAndServe(":3000", nil)
+}
+```
+
+## リトライメカニズム
+
+Webhook エンドポイントが以下の場合：
+- 2xx 以外のステータスコードを返す
+- タイムアウト（10秒）
+- ネットワークエラー
+
+Z-Send は指数バックオフを使用して最大 **3回** 自動的にリトライします：
+
+- 1回目のリトライ：1秒後
+- 2回目のリトライ：2秒後
+- 3回目のリトライ：4秒後
+
+<Callout type="warning">
+  3回のリトライ失敗後、Webhook イベントは破棄されます。エンドポイントが迅速に応答できることを確認してください。
+</Callout>
+
+## ベストプラクティス
+
+### 1. 迅速な応答
+
+Webhook ハンドラーは迅速に 200 レスポンスを返し、その後非同期でイベントを処理する必要があります。
+
+### 2. 冪等処理
+
+同じイベントが複数回送信される可能性があるため、処理ロジックは冪等である必要があります。
+
+### 3. 監視とアラート
+
+Webhook の健全性を追跡するための監視を設定します。
+
+### 4. Webhook のテスト
+
+本番環境にデプロイする前に、テストツールを使用して Webhook を検証します：
+
+```bash
+# ngrok を使用してローカルサーバーを公開
+ngrok http 3000
+
+# Z-Send コンソールで ngrok URL を設定
+# https://abc123.ngrok.io/webhooks/zsend
+
+# テストメールを送信して Webhook イベントを観察
+```
+
+<Callout type="info">
+  Z-Send コンソールで Webhook ログを表示して、送信ステータスとレスポンスの詳細を理解することをお勧めします。
+</Callout>

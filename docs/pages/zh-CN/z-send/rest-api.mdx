@@ -1,0 +1,612 @@
+---
+title: REST API 参考
+ogImageTitle: Z-Send REST API 参考
+ogImageSubtitle: 完整的 API 端点文档
+---
+
+# REST API 参考
+
+Z-Send 提供完整的 REST API，让您轻松集成邮件发送功能到您的应用中。
+
+## 认证
+
+所有 API 请求都需要在 HTTP 头中包含 API 密钥（Bearer Token 格式）：
+
+```http
+Authorization: Bearer zs_your_api_key_here
+```
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  API 密钥可以在 Zeabur 控制台的 Z-Send 管理页面创建和管理。
+</Callout>
+
+## 基础 URL
+
+```
+https://api.zeabur.com/api/v1/zsend
+```
+
+## 邮件发送
+
+### 发送单封邮件
+
+立即发送一封邮件。
+
+```http
+POST /emails
+```
+
+#### 请求体
+
+```json
+{
+  "from": "sender@yourdomain.com",
+  "to": ["recipient@example.com"],
+  "cc": ["cc@example.com"],           // 可选
+  "bcc": ["bcc@example.com"],         // 可选
+  "reply_to": ["reply@yourdomain.com"], // 可选
+  "subject": "邮件主题",
+  "html": "<h1>HTML 内容</h1>",
+  "text": "纯文本内容",
+  "attachments": [                    // 可选
+    {
+      "filename": "document.pdf",
+      "content": "base64_encoded_content",
+      "content_type": "application/pdf"
+    }
+  ],
+  "headers": {                        // 可选
+    "X-Custom-Header": "value"
+  },
+  "tags": {                           // 可选
+    "campaign": "newsletter",
+    "user_id": "12345"
+  }
+}
+```
+
+#### 字段说明
+
+| 字段 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| `from` | string | 是 | 发件人邮箱地址，域名必须已验证 |
+| `to` | array | 是 | 收件人邮箱地址列表 |
+| `cc` | array | 否 | 抄送邮箱地址列表 |
+| `bcc` | array | 否 | 密送邮箱地址列表 |
+| `reply_to` | array | 否 | 回复地址列表 |
+| `subject` | string | 是 | 邮件主题（最大 998 字符） |
+| `html` | string | 否* | HTML 格式邮件内容（最大 5 MB） |
+| `text` | string | 否* | 纯文本邮件内容（最大 5 MB） |
+| `attachments` | array | 否 | 附件列表（最多 10 个，单个最大 10 MB） |
+| `headers` | object | 否 | 自定义邮件头（最多 50 个） |
+| `tags` | object | 否 | 自定义标签，用于分类和追踪 |
+
+<Callout type="warning">
+  `html` 和 `text` 至少需要提供一个。如果同时提供，邮件客户端会优先显示 HTML 版本，不支持 HTML 的客户端则显示纯文本版本。总收件人数（to + cc + bcc）不能超过 50 人。
+</Callout>
+
+#### 响应
+
+```json
+{
+  "id": "696de2c84210d814d66ee052",
+  "message_id": "",
+  "status": "pending"
+}
+```
+
+#### 示例
+
+```bash
+curl -X POST https://api.zeabur.com/api/v1/zsend/emails \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "from": "hello@yourdomain.com",
+    "to": ["user@example.com"],
+    "subject": "欢迎使用 Z-Send",
+    "html": "<h1>欢迎！</h1><p>感谢您使用 Z-Send。</p>"
+  }'
+```
+
+### 发送带附件的邮件
+
+附件内容需要使用 Base64 编码：
+
+```javascript
+// JavaScript 示例
+const fs = require('fs');
+
+const fileContent = fs.readFileSync('document.pdf');
+const base64Content = fileContent.toString('base64');
+
+const response = await fetch('https://api.zeabur.com/api/v1/zsend/emails', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+  },
+  body: JSON.stringify({
+    from: 'hello@yourdomain.com',
+    to: ['user@example.com'],
+    subject: '附件测试',
+    html: '<p>请查看附件</p>',
+    attachments: [{
+      filename: 'document.pdf',
+      content: base64Content,
+      content_type: 'application/pdf'
+    }]
+  })
+});
+```
+
+---
+
+## 定时发送
+
+### 定时发送邮件
+
+安排在指定时间发送邮件。
+
+```http
+POST /emails/schedule
+```
+
+#### 请求体
+
+与发送单封邮件相同，额外增加：
+
+```json
+{
+  // ... 其他字段同 /emails
+  "scheduled_at": "2026-01-25T10:00:00Z"  // ISO 8601 格式
+}
+```
+
+#### 响应
+
+```json
+{
+  "id": "696de2c84210d814d66ee053",
+  "status": "enqueued"
+}
+```
+
+### 查询定时邮件列表
+
+```http
+GET /emails/scheduled
+```
+
+#### 查询参数
+
+| 参数 | 类型 | 说明 |
+|------|------|------|
+| `page` | number | 页码（默认 1） |
+| `limit` | number | 每页数量（默认 20，最大 100） |
+| `status` | string | 筛选状态：`scheduled`、`sent`、`cancelled` |
+
+#### 响应
+
+```json
+{
+  "scheduled_emails": [
+    {
+      "id": "696de2c84210d814d66ee053",
+      "from": "hello@yourdomain.com",
+      "to": ["user@example.com"],
+      "subject": "定时邮件",
+      "scheduled_at": "2026-01-25T10:00:00Z",
+      "status": "enqueued",
+      "created_at": "2026-01-20T08:00:00Z",
+      "attempts": 0
+    }
+  ],
+  "total_count": 1
+}
+```
+
+### 查询定时邮件详情
+
+```http
+GET /emails/scheduled/:id
+```
+
+### 取消定时邮件
+
+```http
+DELETE /emails/scheduled/:id
+```
+
+#### 响应
+
+```json
+{
+  "success": true,
+  "message": "Scheduled email cancelled"
+}
+```
+
+---
+
+## 批量发送
+
+### 发送批量邮件
+
+一次性发送大量邮件，每封邮件可以有不同的收件人和内容。
+
+```http
+POST /emails/batch
+```
+
+#### 请求体
+
+```json
+{
+  "emails": [
+    {
+      "from": "hello@yourdomain.com",
+      "to": ["user1@example.com"],
+      "subject": "个性化邮件 1",
+      "html": "<p>你好，用户1！</p>"
+    },
+    {
+      "from": "hello@yourdomain.com",
+      "to": ["user2@example.com"],
+      "subject": "个性化邮件 2",
+      "html": "<p>你好，用户2！</p>"
+    }
+    // ... 最多 100 封
+  ]
+}
+```
+
+<Callout type="info">
+  单次批量发送最多支持 100 封邮件。每封邮件的字段与单封邮件发送相同。
+</Callout>
+
+#### 响应
+
+```json
+{
+  "job_id": "696de2c84210d814d66ee054",
+  "status": "pending",
+  "total_count": 2
+}
+```
+
+#### 字段说明
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| `job_id` | string | 批量任务 ID，用于后续查询任务状态和详情 |
+| `status` | string | 任务初始状态（通常为 `pending`） |
+| `total_count` | number | 批量任务中的邮件总数 |
+
+<Callout type="info">
+  `job_id` 是批量任务的唯一标识，与单封邮件的 `id` 不同。请保存此 `job_id` 以便后续查询批量发送进度和结果。
+</Callout>
+
+### 查询批量任务列表
+
+```http
+GET /emails/batch
+```
+
+#### 查询参数
+
+同定时邮件列表。
+
+### 查询批量任务详情
+
+```http
+GET /emails/batch/:id
+```
+
+#### 响应
+
+```json
+{
+  "job_id": "696de2c84210d814d66ee054",
+  "total_count": 100,
+  "sent_count": 95,
+  "failed_count": 5,
+  "status": "completed",
+  "created_at": "2026-01-20T08:00:00Z",
+  "completed_at": "2026-01-20T08:15:00Z"
+}
+```
+
+#### 字段说明
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| `job_id` | string | 批量任务 ID（与创建时返回的 `job_id` 一致） |
+| `total_count` | number | 任务中邮件总数 |
+| `sent_count` | number | 已成功发送的邮件数 |
+| `failed_count` | number | 发送失败的邮件数 |
+| `status` | string | 任务状态：`pending`, `processing`, `completed`, `failed` |
+| `created_at` | string | 任务创建时间（ISO 8601 格式） |
+| `completed_at` | string | 任务完成时间（可选） |
+
+---
+
+## 邮件查询
+
+### 查询邮件列表
+
+```http
+GET /emails
+```
+
+#### 查询参数
+
+| 参数 | 类型 | 说明 |
+|------|------|------|
+| `page` | number | 页码（默认 1） |
+| `page_size` | number | 每页数量（默认 20，最大 100） |
+| `status` | string | 筛选状态：`pending`、`sent`、`delivered`、`bounced`、`complained` |
+
+#### 响应
+
+```json
+{
+  "data": [
+    {
+      "id": "696de2c84210d814d66ee052",
+      "from": "hello@yourdomain.com",
+      "to": ["user@example.com"],
+      "subject": "测试邮件",
+      "status": "delivered",
+      "created_at": "2026-01-20T08:00:00Z"
+    }
+  ],
+  "total": 1
+}
+```
+
+### 查询邮件详情
+
+```http
+GET /emails/:id
+```
+
+#### 响应
+
+```json
+{
+  "id": "696de2c84210d814d66ee052",
+  "message_id": "0111019bd53de187-bda14a71-25a3-4fdc-a1a0-f543ff58c085-000000",
+  "from": "hello@yourdomain.com",
+  "to": ["user@example.com"],
+  "cc": [],
+  "bcc": [],
+  "reply_to": [],
+  "subject": "测试邮件",
+  "html": "<h1>测试</h1>",
+  "text": "测试",
+  "status": "delivered",
+  "mal_status": "healthy",
+  "created_at": "2026-01-20T08:00:00Z",
+  "headers": {},
+  "tags": {},
+  "attachments": []
+}
+```
+
+---
+
+## 错误处理
+
+API 使用标准 HTTP 状态码：
+
+| 状态码 | 说明 |
+|--------|------|
+| `200` | 请求成功 |
+| `400` | 请求参数错误 |
+| `401` | 未授权（API 密钥无效或缺失） |
+| `403` | 禁止访问（权限不足或账号被暂停） |
+| `404` | 资源不存在 |
+| `429` | 请求过多（触发限流） |
+| `500` | 服务器内部错误 |
+
+### 错误响应格式
+
+```json
+{
+  "error": "错误简短描述",
+  "message": "详细错误信息"
+}
+```
+
+### 常见错误示例
+
+#### 验证错误（400）
+
+```json
+{
+  "error": "validation error",
+  "message": "subject length (1200) exceeds maximum (998 characters)"
+}
+```
+
+#### 认证错误（401）
+
+```json
+{
+  "error": "unauthorized",
+  "message": "Invalid or missing API key"
+}
+```
+
+#### 权限错误（403）
+
+```json
+{
+  "error": "permission denied",
+  "message": "API key does not have permission to send from this domain"
+}
+```
+
+#### 配额超限错误（429）
+
+```json
+{
+  "error": "daily quota exceeded (55/55), resets at 2026-01-23 00:00:00"
+}
+```
+
+**说明**：
+- 状态码：`429 Too Many Requests`
+- 错误消息包含当前使用量、总配额和重置时间
+- 用户仍可查询历史邮件，但不能发送新邮件
+- 配额将在每天 UTC 00:00 自动重置
+
+---
+
+## 限制说明
+
+### 每日配额限制
+
+每个用户账号都有每日发送配额（Daily Quota），这是**最重要的限制**：
+
+| 账号等级 | 默认每日配额 | 说明 |
+|---------|-------------|------|
+| 新用户   | 100 封/天   | 账号创建后的初始限额 |
+| 已验证   | 1,000 封/天 | 完成域名验证后自动提升 |
+
+**配额重置时间**：每天 UTC 00:00 自动重置
+
+**超出配额时**：
+- 返回状态码：`429 Too Many Requests`
+- 错误消息：`daily quota exceeded (当前/总配额), resets at 时间`
+- **读取操作仍可用**：可以继续查询邮件历史和详情
+- **发送操作被拒**：包括单封、定时、批量发送
+
+
+### 内容限制
+
+- **收件人数量**：单封邮件最多 50 人（to + cc + bcc）
+- **邮件大小**：总大小最大 10 MB（包含附件和邮件头）
+- **附件数量**：最多 10 个附件
+- **单个附件大小**：最大 10 MB
+- **主题长度**：最大 998 字符
+- **HTML 内容**：最大 5 MB
+- **文本内容**：最大 5 MB
+- **批量发送**：单次最多 100 封邮件
+
+### 用户状态限制
+
+用户账号状态会影响 API 访问权限：
+
+| 状态 | API 访问 | 发送邮件 | 查询邮件 | 说明 |
+|------|---------|---------|---------|------|
+| `healthy` | ✅ | ✅ | ✅ | 正常状态，可以发送邮件 |
+| `review` | ✅ | ✅ | ✅ | 审核中，仍可发送（可能限额降低） |
+| `paused` | ✅ | ❌ (403) | ✅ | 已暂停，可查询但不能发送 |
+| `banned` | ❌ (401) | ❌ | ❌ | 已封禁，完全禁止访问 API |
+
+**账号暂停/封禁原因**：
+- Bounce Rate（退信率）≥ 4.0%
+- Complaint Rate（投诉率）≥ 0.08%
+- 违反服务条款
+
+**状态说明**：
+- **`review`**（审核中）：邮件质量出现问题，系统自动标记为审核状态。如果后续 24 小时内没有进一步的恶意行为，可能自动恢复为 `healthy` 状态。
+- **`paused`**（已暂停）：暂时禁止发送，但仍可查询历史数据、管理域名等。需要联系支持团队申诉，申诉通过后最快 24 小时恢复。
+- **`banned`**（已封禁）：完全禁止访问 API，包括查询操作。此状态由工作人员手动设置，表示严重违规，原则上不予恢复。
+
+<Callout type="warning">
+  超出限制的请求将返回 `400 Bad Request` 错误。配额超限返回 `429 Too Many Requests`。
+</Callout>
+
+---
+
+## 最佳实践
+
+### 1. 错误重试
+
+对于临时性错误（如 `500` 或 `429`），建议使用指数退避重试：
+
+```javascript
+async function sendEmailWithRetry(emailData, maxRetries = 3) {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      const response = await fetch('https://api.zeabur.com/api/v1/zsend/emails', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer YOUR_API_KEY'
+        },
+        body: JSON.stringify(emailData)
+      });
+      
+      if (response.ok) {
+        return await response.json();
+      }
+      
+      if (response.status === 400 || response.status === 403) {
+        // 客户端错误，不重试
+        throw new Error(await response.text());
+      }
+      
+      // 其他错误，等待后重试
+      if (i < maxRetries - 1) {
+        await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
+      }
+    } catch (error) {
+      if (i === maxRetries - 1) throw error;
+    }
+  }
+}
+```
+
+### 2. 使用批量发送
+
+当需要发送多封邮件时，使用批量发送接口而不是循环调用单封发送接口：
+
+```javascript
+// ✅ 推荐
+await fetch('https://api.zeabur.com/api/v1/zsend/emails/batch', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+  },
+  body: JSON.stringify({
+    emails: users.map(user => ({
+      from: 'newsletter@yourdomain.com',
+      to: [user.email],
+      subject: `你好，${user.name}`,
+      html: `<p>个性化内容</p>`
+    }))
+  })
+});
+
+// ❌ 不推荐
+for (const user of users) {
+  await fetch('https://api.zeabur.com/api/v1/zsend/emails', {
+    // ... 单封发送
+  });
+}
+```
+
+### 3. 使用 Webhook
+
+配置 Webhook 接收实时邮件状态更新，而不是轮询查询接口。详见 [Webhook 配置](/zh-CN/z-send/webhooks)。
+
+### 4. 合理使用标签
+
+使用 `tags` 字段标记邮件，便于后续追踪和分析：
+
+```json
+{
+  "tags": {
+    "campaign": "welcome_series",
+    "user_segment": "new_users",
+    "template_version": "v2"
+  }
+}
+```

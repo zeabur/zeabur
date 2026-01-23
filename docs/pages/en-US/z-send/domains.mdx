@@ -1,0 +1,162 @@
+---
+title: Domain Management
+ogImageTitle: Z-Send Domain Management
+ogImageSubtitle: Verify and Manage Sender Domains
+---
+
+# Domain Management
+
+To send emails with Z-Send, you need to verify your sender domain first. Domain verification ensures that you own the domain and improves email deliverability.
+
+## Why Domain Verification is Required
+
+import { Callout, Steps } from 'nextra/components'
+
+<Callout type="info">
+  Unverified domains cannot be used to send emails. Domain verification improves email credibility through DKIM, SPF, and DMARC records.
+</Callout>
+
+- **Prevent Spoofing**: Ensure only domain owners can send emails from that domain
+- **Improve Deliverability**: Verified domains are more likely to pass spam filters
+- **Brand Protection**: DKIM signatures protect your brand from phishing attacks
+
+## Adding a Domain
+
+<Steps>
+
+### Log in to Console
+
+Visit the Z-Send management page in the Zeabur console.
+
+### Add New Domain
+
+1. Go to "Domain Management"
+2. Click "Add Domain"
+3. Enter your domain (e.g., `yourdomain.com`)
+4. Select the sending region (recommended to choose one close to your users)
+
+### Configure DNS Records
+
+The system will automatically generate the DNS records you need to add and display them on the console page. Please add these records at your DNS provider (e.g., Cloudflare, Aliyun, Tencent Cloud) according to the page instructions.
+
+<Callout type="info">
+  **Types of records you need to add**:
+  - **DKIM Records** (usually 3): Used for email digital signatures to prove email authenticity
+  - **SPF Record**: Specifies which servers are authorized to send emails from your domain
+  - **DMARC Record**: Defines handling policy when email authentication fails
+  - **MX Record** (optional): Used to receive bounce notifications
+</Callout>
+
+### Wait for Verification
+
+After adding the DNS records, click the "Verify" button in the console. Z-Send will automatically check your DNS configuration.
+
+**Verification usually takes 5-30 minutes, depending on your DNS provider's propagation time.**
+
+<Callout type="success">
+  When the console shows the domain status as **`verified`**, verification is successful and you can start using this domain to send emails!
+</Callout>
+
+</Steps>
+
+## DNS Records Explanation
+
+To ensure emails are delivered successfully, Z-Send uses the following standard email authentication technologies:
+
+### DKIM (Email Digital Signature)
+
+DKIM adds a digital signature to each email, proving the email truly comes from your domain and preventing email tampering or forgery. Usually requires adding 3 DKIM CNAME records.
+
+**Purpose**:
+- Prevent email forgery
+- Improve email deliverability
+- Protect your brand reputation
+
+### SPF (Sender Server Authorization)
+
+SPF records specify which servers are authorized to send emails on behalf of your domain, preventing malicious third parties from impersonating your domain.
+
+**Purpose**:
+- Prevent domain impersonation
+- Reduce false spam classifications
+
+<Callout type="warning">
+  If your domain already has SPF records configured elsewhere (such as Google Workspace, Microsoft 365), please contact the support team for help to avoid conflicts.
+</Callout>
+
+### DMARC (Email Authentication Policy)
+
+DMARC defines handling policy when email authentication (SPF or DKIM) fails, helping you monitor and protect your domain from abuse.
+
+**Purpose**:
+- Receive authentication failure reports
+- Prevent phishing attacks
+- Improve domain credibility
+
+### MX Record (Optional)
+
+MX records are used to receive bounce notifications, helping you understand why email sending failed.
+
+**Purpose**:
+- Receive bounce notifications
+- Detect sending issues promptly
+
+## Verification Status
+
+Domains can be in the following states:
+
+| Status | Description |
+|--------|-------------|
+| `pending` | Waiting for verification, DNS records not yet configured |
+| `verifying` | Verifying DNS records |
+| `verified` | Verified, ready to use |
+| `failed` | Verification failed, please check DNS configuration |
+
+## Common Questions
+
+### How long does it take for DNS records to take effect?
+
+Usually between 5 minutes to 48 hours, depending on your DNS provider. It's recommended to wait 15-30 minutes before attempting verification.
+
+### What if verification fails?
+
+1. **Wait longer**: DNS propagation usually takes 5-30 minutes, some DNS providers may need longer (up to 48 hours)
+2. **Check DNS configuration**: Confirm you've added the records exactly as shown in the console, without extra spaces or quotes
+3. **View error messages**: Z-Send console will show specific verification errors, please modify according to the prompts
+4. **Contact support**: If verification continues to fail, please contact the Zeabur support team for help
+
+### Can I use subdomains?
+
+Yes! You can verify subdomains (like `mail.yourdomain.com`), which allows you to:
+- Separate different types of emails (marketing vs transactional)
+- Better control domain reputation
+
+### What indicates successful verification?
+
+When the Z-Send console shows the domain status as **`verified`**, it means all DNS records have been correctly configured and passed verification. You can immediately start using this domain to send emails.
+
+## Deleting Domains
+
+If you no longer need a domain:
+
+1. Go to "Domain Management"
+2. Find the domain to delete
+3. Click the "Delete" button
+4. Confirm deletion
+
+<Callout type="warning">
+  After deleting a domain, API calls to send emails from that domain will fail. Make sure no applications are using this domain.
+</Callout>
+
+## Best Practices
+
+### Use Dedicated Subdomains
+
+It's recommended to use a dedicated subdomain for email sending (like `mail.yourdomain.com`), which allows you to:
+- Protect main domain reputation
+- Easier tracking and management of emails
+- Separate different types of emails (e.g., marketing emails, transactional emails)
+
+### Avoid Frequent DNS Changes
+
+After successful domain verification, do not randomly modify or delete DNS records, otherwise it may cause email sending failures or emails being marked as spam.

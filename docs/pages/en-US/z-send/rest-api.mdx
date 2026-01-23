@@ -1,0 +1,611 @@
+---
+title: REST API Reference
+ogImageTitle: Z-Send REST API Reference
+ogImageSubtitle: Complete API Endpoint Documentation
+---
+
+# REST API Reference
+
+Z-Send provides a complete REST API that makes it easy to integrate email sending functionality into your application.
+
+## Authentication
+
+All API requests must include an API key (Bearer Token format) in the HTTP header:
+
+```http
+Authorization: Bearer zs_your_api_key_here
+```
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  API keys can be created and managed in the Z-Send management page of the Zeabur console.
+</Callout>
+
+## Base URL
+
+```
+https://api.zeabur.com/api/v1/zsend
+```
+
+## Sending Emails
+
+### Send Single Email
+
+Send an email immediately.
+
+```http
+POST /emails
+```
+
+#### Request Body
+
+```json
+{
+  "from": "sender@yourdomain.com",
+  "to": ["recipient@example.com"],
+  "cc": ["cc@example.com"],           // Optional
+  "bcc": ["bcc@example.com"],         // Optional
+  "reply_to": ["reply@yourdomain.com"], // Optional
+  "subject": "Email Subject",
+  "html": "<h1>HTML Content</h1>",
+  "text": "Plain text content",
+  "attachments": [                    // Optional
+    {
+      "filename": "document.pdf",
+      "content": "base64_encoded_content",
+      "content_type": "application/pdf"
+    }
+  ],
+  "headers": {                        // Optional
+    "X-Custom-Header": "value"
+  },
+  "tags": {                           // Optional
+    "campaign": "newsletter",
+    "user_id": "12345"
+  }
+}
+```
+
+#### Field Descriptions
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `from` | string | Yes | Sender email address, domain must be verified |
+| `to` | array | Yes | List of recipient email addresses |
+| `cc` | array | No | List of CC email addresses |
+| `bcc` | array | No | List of BCC email addresses |
+| `reply_to` | array | No | List of reply-to addresses |
+| `subject` | string | Yes | Email subject (max 998 characters) |
+| `html` | string | No* | HTML format email content (max 5 MB) |
+| `text` | string | No* | Plain text email content (max 5 MB) |
+| `attachments` | array | No | List of attachments (max 10, each up to 10 MB) |
+| `headers` | object | No | Custom email headers (max 50) |
+| `tags` | object | No | Custom tags for categorization and tracking |
+
+<Callout type="warning">
+  At least one of `html` or `text` must be provided. If both are provided, email clients will prioritize the HTML version, while clients that don't support HTML will display the plain text version. Total recipients (to + cc + bcc) cannot exceed 50.
+</Callout>
+
+#### Response
+
+```json
+{
+  "id": "696de2c84210d814d66ee052",
+  "message_id": "",
+  "status": "pending"
+}
+```
+
+#### Example
+
+```bash
+curl -X POST https://api.zeabur.com/api/v1/zsend/emails \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "from": "hello@yourdomain.com",
+    "to": ["user@example.com"],
+    "subject": "Welcome to Z-Send",
+    "html": "<h1>Welcome!</h1><p>Thank you for using Z-Send.</p>"
+  }'
+```
+
+### Send Email with Attachments
+
+Attachment content must be Base64 encoded:
+
+```javascript
+// JavaScript example
+const fs = require('fs');
+
+const fileContent = fs.readFileSync('document.pdf');
+const base64Content = fileContent.toString('base64');
+
+const response = await fetch('https://api.zeabur.com/api/v1/zsend/emails', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+  },
+  body: JSON.stringify({
+    from: 'hello@yourdomain.com',
+    to: ['user@example.com'],
+    subject: 'Attachment Test',
+    html: '<p>Please see the attachment</p>',
+    attachments: [{
+      filename: 'document.pdf',
+      content: base64Content,
+      content_type: 'application/pdf'
+    }]
+  })
+});
+```
+
+---
+
+## Scheduled Sending
+
+### Schedule Email
+
+Schedule an email to be sent at a specified time.
+
+```http
+POST /emails/schedule
+```
+
+#### Request Body
+
+Same as single email sending, with an additional field:
+
+```json
+{
+  // ... other fields same as /emails
+  "scheduled_at": "2026-01-25T10:00:00Z"  // ISO 8601 format
+}
+```
+
+#### Response
+
+```json
+{
+  "id": "696de2c84210d814d66ee053",
+  "status": "enqueued"
+}
+```
+
+### List Scheduled Emails
+
+```http
+GET /emails/scheduled
+```
+
+#### Query Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `page` | number | Page number (default 1) |
+| `limit` | number | Items per page (default 20, max 100) |
+| `status` | string | Filter by status: `scheduled`, `sent`, `cancelled` |
+
+#### Response
+
+```json
+{
+  "scheduled_emails": [
+    {
+      "id": "696de2c84210d814d66ee053",
+      "from": "hello@yourdomain.com",
+      "to": ["user@example.com"],
+      "subject": "Scheduled Email",
+      "scheduled_at": "2026-01-25T10:00:00Z",
+      "status": "enqueued",
+      "created_at": "2026-01-20T08:00:00Z",
+      "attempts": 0
+    }
+  ],
+  "total_count": 1
+}
+```
+
+### Get Scheduled Email Details
+
+```http
+GET /emails/scheduled/:id
+```
+
+### Cancel Scheduled Email
+
+```http
+DELETE /emails/scheduled/:id
+```
+
+#### Response
+
+```json
+{
+  "success": true,
+  "message": "Scheduled email cancelled"
+}
+```
+
+---
+
+## Batch Sending
+
+### Send Batch Emails
+
+Send a large number of emails at once, with each email having different recipients and content.
+
+```http
+POST /emails/batch
+```
+
+#### Request Body
+
+```json
+{
+  "emails": [
+    {
+      "from": "hello@yourdomain.com",
+      "to": ["user1@example.com"],
+      "subject": "Personalized Email 1",
+      "html": "<p>Hello, User 1!</p>"
+    },
+    {
+      "from": "hello@yourdomain.com",
+      "to": ["user2@example.com"],
+      "subject": "Personalized Email 2",
+      "html": "<p>Hello, User 2!</p>"
+    }
+    // ... up to 100 emails
+  ]
+}
+```
+
+<Callout type="info">
+  A single batch send supports up to 100 emails. Each email has the same fields as single email sending.
+</Callout>
+
+#### Response
+
+```json
+{
+  "job_id": "696de2c84210d814d66ee054",
+  "status": "pending",
+  "total_count": 2
+}
+```
+
+#### Field Descriptions
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `job_id` | string | Batch job ID for querying status and details later |
+| `status` | string | Initial job status (usually `pending`) |
+| `total_count` | number | Total number of emails in the batch job |
+
+<Callout type="info">
+  `job_id` is the unique identifier for the batch job, different from single email `id`. Save this `job_id` to query batch sending progress and results later.
+</Callout>
+
+### List Batch Jobs
+
+```http
+GET /emails/batch
+```
+
+#### Query Parameters
+
+Same as scheduled email list.
+
+### Get Batch Job Details
+
+```http
+GET /emails/batch/:id
+```
+
+#### Response
+
+```json
+{
+  "job_id": "696de2c84210d814d66ee054",
+  "total_count": 100,
+  "sent_count": 95,
+  "failed_count": 5,
+  "status": "completed",
+  "created_at": "2026-01-20T08:00:00Z",
+  "completed_at": "2026-01-20T08:15:00Z"
+}
+```
+
+#### Field Descriptions
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `job_id` | string | Batch job ID (consistent with the `job_id` returned at creation) |
+| `total_count` | number | Total number of emails in the job |
+| `sent_count` | number | Number of successfully sent emails |
+| `failed_count` | number | Number of failed emails |
+| `status` | string | Job status: `pending`, `processing`, `completed`, `failed` |
+| `created_at` | string | Job creation time (ISO 8601 format) |
+| `completed_at` | string | Job completion time (optional) |
+
+---
+
+## Email Queries
+
+### List Emails
+
+```http
+GET /emails
+```
+
+#### Query Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `page` | number | Page number (default 1) |
+| `page_size` | number | Items per page (default 20, max 100) |
+| `status` | string | Filter by status: `pending`, `sent`, `delivered`, `bounced`, `complained` |
+
+#### Response
+
+```json
+{
+  "data": [
+    {
+      "id": "696de2c84210d814d66ee052",
+      "from": "hello@yourdomain.com",
+      "to": ["user@example.com"],
+      "subject": "Test Email",
+      "status": "delivered",
+      "created_at": "2026-01-20T08:00:00Z"
+    }
+  ],
+  "total": 1
+}
+```
+
+### Get Email Details
+
+```http
+GET /emails/:id
+```
+
+#### Response
+
+```json
+{
+  "id": "696de2c84210d814d66ee052",
+  "message_id": "0111019bd53de187-bda14a71-25a3-4fdc-a1a0-f543ff58c085-000000",
+  "from": "hello@yourdomain.com",
+  "to": ["user@example.com"],
+  "cc": [],
+  "bcc": [],
+  "reply_to": [],
+  "subject": "Test Email",
+  "html": "<h1>Test</h1>",
+  "text": "Test",
+  "status": "delivered",
+  "mal_status": "healthy",
+  "created_at": "2026-01-20T08:00:00Z",
+  "headers": {},
+  "tags": {},
+  "attachments": []
+}
+```
+
+---
+
+## Error Handling
+
+The API uses standard HTTP status codes:
+
+| Status Code | Description |
+|-------------|-------------|
+| `200` | Request successful |
+| `400` | Bad request parameters |
+| `401` | Unauthorized (invalid or missing API key) |
+| `403` | Forbidden (insufficient permissions or account suspended) |
+| `404` | Resource not found |
+| `429` | Too many requests (rate limited) |
+| `500` | Internal server error |
+
+### Error Response Format
+
+```json
+{
+  "error": "Brief error description",
+  "message": "Detailed error message"
+}
+```
+
+### Common Error Examples
+
+#### Validation Error (400)
+
+```json
+{
+  "error": "validation error",
+  "message": "subject length (1200) exceeds maximum (998 characters)"
+}
+```
+
+#### Authentication Error (401)
+
+```json
+{
+  "error": "unauthorized",
+  "message": "Invalid or missing API key"
+}
+```
+
+#### Permission Error (403)
+
+```json
+{
+  "error": "permission denied",
+  "message": "API key does not have permission to send from this domain"
+}
+```
+
+#### Quota Exceeded Error (429)
+
+```json
+{
+  "error": "daily quota exceeded (55/55), resets at 2026-01-23 00:00:00"
+}
+```
+
+**Description**:
+- Status code: `429 Too Many Requests`
+- Error message includes current usage, total quota, and reset time
+- Users can still query historical emails but cannot send new emails
+- Quota automatically resets daily at UTC 00:00
+
+---
+
+## Limits
+
+### Daily Quota Limit
+
+Each user account has a daily sending quota (Daily Quota), which is **the most important limit**:
+
+| Account Level | Default Daily Quota | Description |
+|--------------|---------------------|-------------|
+| New User     | 100 emails/day      | Initial quota after account creation |
+| Verified     | 1,000 emails/day    | Automatically increased after domain verification |
+
+**Quota Reset Time**: Automatically resets daily at UTC 00:00
+
+**When Quota is Exceeded**:
+- Returns status code: `429 Too Many Requests`
+- Error message: `daily quota exceeded (current/total), resets at time`
+- **Read operations still available**: Can continue querying email history and details
+- **Send operations rejected**: Includes single, scheduled, and batch sending
+
+### Content Limits
+
+- **Recipient count**: Max 50 recipients per email (to + cc + bcc)
+- **Email size**: Max total size 10 MB (including attachments and headers)
+- **Attachment count**: Max 10 attachments
+- **Single attachment size**: Max 10 MB
+- **Subject length**: Max 998 characters
+- **HTML content**: Max 5 MB
+- **Text content**: Max 5 MB
+- **Batch sending**: Max 100 emails per batch
+
+### User Status Limits
+
+User account status affects API access:
+
+| Status | API Access | Send Email | Query Email | Description |
+|--------|-----------|------------|-------------|-------------|
+| `healthy` | ✅ | ✅ | ✅ | Normal status, can send emails |
+| `review` | ✅ | ✅ | ✅ | Under review, can still send (quota may be reduced) |
+| `paused` | ✅ | ❌ (403) | ✅ | Suspended, can query but cannot send |
+| `banned` | ❌ (401) | ❌ | ❌ | Banned, completely prohibited from accessing API |
+
+**Account Suspension/Ban Reasons**:
+- Bounce Rate ≥ 4.0%
+- Complaint Rate ≥ 0.08%
+- Violation of terms of service
+
+**Status Descriptions**:
+- **`review`** (Under Review): Email quality issues detected, system automatically marks for review. If there's no further malicious behavior within 24 hours, may automatically recover to `healthy` status.
+- **`paused`** (Suspended): Temporarily prohibited from sending, but can still query historical data, manage domains, etc. Need to contact support team to appeal, fastest recovery 24 hours after approval.
+- **`banned`** (Banned): Completely prohibited from accessing API, including query operations. This status is manually set by staff, indicating serious violations, and is generally not recoverable.
+
+<Callout type="warning">
+  Requests exceeding limits will return a `400 Bad Request` error. Quota exceeded returns `429 Too Many Requests`.
+</Callout>
+
+---
+
+## Best Practices
+
+### 1. Error Retry
+
+For temporary errors (like `500` or `429`), it's recommended to use exponential backoff retry:
+
+```javascript
+async function sendEmailWithRetry(emailData, maxRetries = 3) {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      const response = await fetch('https://api.zeabur.com/api/v1/zsend/emails', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer YOUR_API_KEY'
+        },
+        body: JSON.stringify(emailData)
+      });
+      
+      if (response.ok) {
+        return await response.json();
+      }
+      
+      if (response.status === 400 || response.status === 403) {
+        // Client errors, don't retry
+        throw new Error(await response.text());
+      }
+      
+      // Other errors, retry after waiting
+      if (i < maxRetries - 1) {
+        await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
+      }
+    } catch (error) {
+      if (i === maxRetries - 1) throw error;
+    }
+  }
+}
+```
+
+### 2. Use Batch Sending
+
+When sending multiple emails, use the batch sending interface instead of looping through single sends:
+
+```javascript
+// ✅ Recommended
+await fetch('https://api.zeabur.com/api/v1/zsend/emails/batch', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+  },
+  body: JSON.stringify({
+    emails: users.map(user => ({
+      from: 'newsletter@yourdomain.com',
+      to: [user.email],
+      subject: `Hello, ${user.name}`,
+      html: `<p>Personalized content</p>`
+    }))
+  })
+});
+
+// ❌ Not recommended
+for (const user of users) {
+  await fetch('https://api.zeabur.com/api/v1/zsend/emails', {
+    // ... single send
+  });
+}
+```
+
+### 3. Use Webhooks
+
+Configure Webhooks to receive real-time email status updates instead of polling the query interface. See [Webhook Configuration](/en-US/z-send/webhooks) for details.
+
+### 4. Use Tags Appropriately
+
+Use the `tags` field to mark emails for easier tracking and analysis:
+
+```json
+{
+  "tags": {
+    "campaign": "welcome_series",
+    "user_segment": "new_users",
+    "template_version": "v2"
+  }
+}
+```

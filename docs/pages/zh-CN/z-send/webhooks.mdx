@@ -1,0 +1,489 @@
+---
+title: Webhook 配置
+ogImageTitle: Z-Send Webhook 配置
+ogImageSubtitle: 实时接收邮件状态通知
+---
+
+# Webhook 配置
+
+Webhook 允许您实时接收邮件状态更新，包括送达、退信、投诉等事件。
+
+## 什么是 Webhook
+
+当邮件状态发生变化时，Z-Send 会向您配置的 URL 发送 HTTP POST 请求，包含事件详情。
+
+## 创建 Webhook
+
+import { Callout, Steps } from 'nextra/components'
+
+<Steps>
+
+### 登录控制台
+
+访问 Zeabur 控制台的 Z-Send 管理页面。
+
+### 创建 Webhook
+
+1. 进入「Webhook 管理」
+2. 点击「创建 Webhook」
+3. 输入 Webhook URL（如 `https://yourapp.com/webhooks/zsend`）
+4. 选择要接收的事件类型
+5. 点击「保存」
+
+### 获取签名密钥
+
+创建后，系统会生成一个签名密钥（Secret），用于验证请求来源。**请妥善保存，密钥仅显示一次！**
+
+### 验证 Webhook
+
+点击「验证」按钮，系统会向您的 URL 发送测试请求，确保可以正常接收。
+
+</Steps>
+
+## 事件类型
+
+Z-Send 支持以下事件类型：
+
+| 事件类型 | 说明 |
+|----------|------|
+| `send` | 邮件已发送到邮件服务器 |
+| `delivery` | 邮件已成功送达收件人 |
+| `bounce` | 邮件被退回（硬退信或软退信） |
+| `complaint` | 收件人标记为垃圾邮件 |
+| `reject` | 邮件被拒绝发送（域名未验证、内容违规等） |
+
+## Webhook 请求格式
+
+### 请求头
+
+```http
+POST /your-webhook-endpoint HTTP/1.1
+Host: yourapp.com
+Content-Type: application/json
+X-ZSend-Event: delivery
+X-ZSend-Timestamp: 1768812348
+X-ZSend-Signature: sha256=dc36b914ecdb7bb6f4ba8714b6ccb04d46e85af5cd1bc52744e0208964f5fb34
+User-Agent: ZSend-Webhook/1.0
+```
+
+| 头部 | 说明 |
+|------|------|
+| `X-ZSend-Event` | 事件类型 |
+| `X-ZSend-Timestamp` | Unix 时间戳 |
+| `X-ZSend-Signature` | HMAC-SHA256 签名 |
+
+### 请求体
+
+#### 送达事件 (delivery)
+
+```json
+{
+  "event": "delivery",
+  "timestamp": "2026-01-19T08:45:48Z",
+  "email": {
+    "id": "696def36de644b22ae711500",
+    "message_id": "0111019bd56e71c1-8ccdb66d-5d71-433f-9a9a-0766822f8955-000000",
+    "from": "hello@yourdomain.com",
+    "to": ["user@example.com"],
+    "subject": "欢迎使用 Z-Send",
+    "sent_at": "2026-01-19T08:45:42Z"
+  },
+  "data": {
+    "processing_time_millis": 5116,
+    "recipients": ["user@example.com"],
+    "smtp_response": "250 OK"
+  }
+}
+```
+
+#### 退信事件 (bounce)
+
+```json
+{
+  "event": "bounce",
+  "timestamp": "2026-01-19T08:45:50Z",
+  "email": {
+    "id": "696def36de644b22ae711501",
+    "message_id": "0111019bd56e71c1-8ccdb66d-5d71-433f-9a9a-0766822f8955-000001",
+    "from": "hello@yourdomain.com",
+    "to": ["invalid@example.com"],
+    "subject": "测试邮件"
+  },
+  "data": {
+    "bounce_type": "Permanent",  // 硬退信
+    "bounce_subtype": "General",
+    "bounced_recipients": [
+      {
+        "email_address": "invalid@example.com",
+        "status": "5.1.1",
+        "diagnostic_code": "smtp; 550 5.1.1 user unknown"
+      }
+    ]
+  }
+}
+```
+
+#### 投诉事件 (complaint)
+
+```json
+{
+  "event": "complaint",
+  "timestamp": "2026-01-19T09:00:00Z",
+  "email": {
+    "id": "696def36de644b22ae711502",
+    "message_id": "0111019bd56e71c1-8ccdb66d-5d71-433f-9a9a-0766822f8955-000002",
+    "from": "newsletter@yourdomain.com",
+    "to": ["user@example.com"],
+    "subject": "每周通讯"
+  },
+  "data": {
+    "complaint_feedback_type": "abuse",
+    "complained_recipients": ["user@example.com"]
+  }
+}
+```
+
+## 签名验证
+
+为了确保请求来自 Z-Send，您需要验证 `X-ZSend-Signature` 签名。
+
+### 验证步骤
+
+1. 获取请求头中的 `X-ZSend-Timestamp` 和 `X-ZSend-Signature`
+2. 读取原始请求体
+3. 构造签名消息：`{timestamp}.{body}`
+4. 使用 HMAC-SHA256 和您的 Secret 计算签名
+5. 比较计算结果与 `X-ZSend-Signature`（格式为 `sha256=xxx`）
+
+### Node.js 示例
+
+```javascript
+const crypto = require('crypto');
+const express = require('express');
+
+const app = express();
+
+// 使用 raw body 保存原始请求体（必须在 express.json() 之前）
+app.post('/webhooks/zsend', 
+  express.raw({ type: 'application/json' }),
+  (req, res) => {
+    const secret = process.env.ZSEND_WEBHOOK_SECRET;
+    const signature = req.headers['x-zsend-signature'];
+    const timestamp = req.headers['x-zsend-timestamp'];
+    const body = req.body.toString('utf8'); // 原始请求体
+    
+    // 构造签名消息
+    const message = `${timestamp}.${body}`;
+    
+    // 计算 HMAC-SHA256
+    const hmac = crypto.createHmac('sha256', secret);
+    hmac.update(message);
+    const expectedSignature = 'sha256=' + hmac.digest('hex');
+    
+    // 时间安全比较
+    const isValid = crypto.timingSafeEqual(
+      Buffer.from(signature),
+      Buffer.from(expectedSignature)
+    );
+    
+    if (!isValid) {
+      return res.status(401).json({ error: 'Invalid signature' });
+    }
+    
+    // 解析 JSON 并处理事件
+    const payload = JSON.parse(body);
+    const { event, email, data } = payload;
+    
+    console.log(`Received ${event} event for email ${email.id}`);
+    
+    // 返回 200 表示成功接收
+    res.status(200).json({ received: true });
+  }
+);
+```
+
+### Python 示例
+
+```python
+import hmac
+import hashlib
+
+def verify_webhook_signature(request, secret):
+    signature = request.headers.get('X-ZSend-Signature')
+    timestamp = request.headers.get('X-ZSend-Timestamp')
+    body = request.get_data(as_text=True)
+    
+    # 构造签名消息
+    message = f"{timestamp}.{body}"
+    
+    # 计算 HMAC-SHA256
+    expected_signature = 'sha256=' + hmac.new(
+        secret.encode('utf-8'),
+        message.encode('utf-8'),
+        hashlib.sha256
+    ).hexdigest()
+    
+    # 时间安全比较
+    return hmac.compare_digest(signature, expected_signature)
+
+# Flask 示例
+@app.route('/webhooks/zsend', methods=['POST'])
+def handle_webhook():
+    secret = os.environ.get('ZSEND_WEBHOOK_SECRET')
+    
+    if not verify_webhook_signature(request, secret):
+        return jsonify({'error': 'Invalid signature'}), 401
+    
+    data = request.get_json()
+    event_type = data['event']
+    email_id = data['email']['id']
+    
+    print(f"Received {event_type} event for email {email_id}")
+    
+    return jsonify({'received': True}), 200
+```
+
+### Go 示例
+
+```go
+package main
+
+import (
+	"crypto/hmac"
+	"crypto/sha256"
+	"crypto/subtle"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	"io"
+	"net/http"
+	"os"
+)
+
+// WebhookPayload represents the webhook payload structure
+type WebhookPayload struct {
+	Event     string `json:"event"`
+	Timestamp string `json:"timestamp"`
+	Email     struct {
+		ID        string   `json:"id"`
+		MessageID string   `json:"message_id"`
+		From      string   `json:"from"`
+		To        []string `json:"to"`
+		Subject   string   `json:"subject"`
+		SentAt    string   `json:"sent_at"`
+	} `json:"email"`
+	Data interface{} `json:"data"`
+}
+
+func verifyWebhookSignature(body []byte, signature, timestamp, secret string) bool {
+	// 构造签名消息
+	message := fmt.Sprintf("%s.%s", timestamp, body)
+	
+	// 计算 HMAC-SHA256
+	h := hmac.New(sha256.New, []byte(secret))
+	h.Write([]byte(message))
+	expectedSignature := "sha256=" + hex.EncodeToString(h.Sum(nil))
+	
+	// 时间安全比较
+	return subtle.ConstantTimeCompare([]byte(signature), []byte(expectedSignature)) == 1
+}
+
+func handleWebhook(w http.ResponseWriter, r *http.Request) {
+	secret := os.Getenv("ZSEND_WEBHOOK_SECRET")
+	
+	// 读取原始请求体
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, "Failed to read body", http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+	
+	// 获取请求头
+	signature := r.Header.Get("X-ZSend-Signature")
+	timestamp := r.Header.Get("X-ZSend-Timestamp")
+	
+	// 验证签名
+	if !verifyWebhookSignature(body, signature, timestamp, secret) {
+		http.Error(w, `{"error":"Invalid signature"}`, http.StatusUnauthorized)
+		return
+	}
+	
+	// 解析 JSON
+	var payload WebhookPayload
+	if err := json.Unmarshal(body, &payload); err != nil {
+		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		return
+	}
+	
+	// 处理事件
+	fmt.Printf("Received %s event for email %s\n", payload.Event, payload.Email.ID)
+	
+	// 返回 200 表示成功接收
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]bool{"received": true})
+}
+
+func main() {
+	http.HandleFunc("/webhooks/zsend", handleWebhook)
+	http.ListenAndServe(":3000", nil)
+}
+```
+
+## 重试机制
+
+如果您的 Webhook 端点：
+- 返回非 2xx 状态码
+- 请求超时（10 秒）
+- 网络错误
+
+Z-Send 会自动重试最多 **3 次**，使用指数退避策略：
+
+- 第 1 次重试：1 秒后
+- 第 2 次重试：2 秒后
+- 第 3 次重试：4 秒后
+
+<Callout type="warning">
+  超过 3 次重试失败后，该 Webhook 事件将被丢弃。请确保您的端点能够快速响应。
+</Callout>
+
+## 最佳实践
+
+### 1. 快速响应
+
+Webhook 处理程序应该快速返回 200 响应，然后异步处理事件：
+
+```javascript
+app.post('/webhooks/zsend', 
+  express.raw({ type: 'application/json' }),
+  async (req, res) => {
+    const secret = process.env.ZSEND_WEBHOOK_SECRET;
+    const signature = req.headers['x-zsend-signature'];
+    const timestamp = req.headers['x-zsend-timestamp'];
+    const body = req.body.toString('utf8');
+    
+    // 先验证签名
+    const message = `${timestamp}.${body}`;
+    const hmac = crypto.createHmac('sha256', secret);
+    hmac.update(message);
+    const expectedSignature = 'sha256=' + hmac.digest('hex');
+    
+    if (!crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
+      return res.status(401).json({ error: 'Invalid signature' });
+    }
+    
+    // 立即返回 200
+    res.status(200).json({ received: true });
+    
+    // 异步处理事件
+    const payload = JSON.parse(body);
+    setImmediate(async () => {
+      try {
+        await processWebhookEvent(payload);
+      } catch (error) {
+        console.error('Failed to process webhook:', error);
+      }
+    });
+  }
+);
+```
+
+### 2. 幂等性处理
+
+同一个事件可能会被发送多次，您的处理逻辑应该是幂等的：
+
+```javascript
+async function processWebhookEvent(event) {
+  const { email, event: eventType } = event;
+  
+  // 检查事件是否已处理
+  const existing = await db.webhookEvents.findOne({
+    email_id: email.id,
+    event_type: eventType,
+    timestamp: event.timestamp
+  });
+  
+  if (existing) {
+    console.log('Event already processed, skipping');
+    return;
+  }
+  
+  // 处理事件
+  await updateEmailStatus(email.id, eventType);
+  
+  // 记录已处理
+  await db.webhookEvents.create({
+    email_id: email.id,
+    event_type: eventType,
+    timestamp: event.timestamp
+  });
+}
+```
+
+### 3. 监控和告警
+
+设置监控来追踪 Webhook 的健康状态：
+
+```javascript
+const webhookMetrics = {
+  received: 0,
+  verified: 0,
+  processed: 0,
+  failed: 0
+};
+
+app.post('/webhooks/zsend', 
+  express.raw({ type: 'application/json' }),
+  async (req, res) => {
+    webhookMetrics.received++;
+    
+    const secret = process.env.ZSEND_WEBHOOK_SECRET;
+    const signature = req.headers['x-zsend-signature'];
+    const timestamp = req.headers['x-zsend-timestamp'];
+    const body = req.body.toString('utf8');
+    
+    // 验证签名
+    const message = `${timestamp}.${body}`;
+    const hmac = crypto.createHmac('sha256', secret);
+    hmac.update(message);
+    const expectedSignature = 'sha256=' + hmac.digest('hex');
+    
+    if (!crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
+      webhookMetrics.failed++;
+      return res.status(401).json({ error: 'Invalid signature' });
+    }
+    
+    webhookMetrics.verified++;
+    res.status(200).json({ received: true });
+    
+    const payload = JSON.parse(body);
+    try {
+      await processWebhookEvent(payload);
+      webhookMetrics.processed++;
+    } catch (error) {
+      webhookMetrics.failed++;
+      // 发送告警
+      await sendAlert('Webhook processing failed', error);
+    }
+  }
+);
+```
+
+### 4. 测试 Webhook
+
+在生产环境部署前，使用测试工具验证 Webhook：
+
+```bash
+# 使用 ngrok 暴露本地服务器
+ngrok http 3000
+
+# 在 Z-Send 控制台配置 ngrok URL
+# https://abc123.ngrok.io/webhooks/zsend
+
+# 发送测试邮件并观察 Webhook 事件
+```
+
+<Callout type="info">
+  建议在 Z-Send 控制台查看 Webhook 日志，了解发送状态和响应详情。
+</Callout>

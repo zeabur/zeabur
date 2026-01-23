@@ -1,0 +1,194 @@
+---
+title: クイックスタート
+ogImageTitle: Z-Send クイックスタート
+ogImageSubtitle: 5分で最初のメールを送信
+---
+
+# クイックスタート
+
+このガイドでは、Z-Sendを使用して数分で最初のメールを送信する方法を説明します。
+
+## 前提条件
+
+開始する前に、以下が必要です：
+
+1. Zeaburアカウント
+2. Zeaburコンソールで有効化されたZ-Sendサービス
+3. 少なくとも1つの検証済み送信者ドメイン
+4. APIキー
+
+## ステップ1：APIキーを作成
+
+import { Callout, Steps } from 'nextra/components'
+
+<Steps>
+
+### Zeaburコンソールにログイン
+
+[Zeabur Dashboard](https://dash.zeabur.com)にアクセスし、アカウントにログインします。
+
+### Z-Send管理に移動
+
+コンソールでZ-Sendサービスを見つけ、管理ページに入ります。
+
+### 新しいAPIキーを作成
+
+1. 「APIキーを作成」ボタンをクリック
+2. 権限タイプを選択：
+   - **読み取り専用**：メールステータスのクエリのみ可能
+   - **送信専用**：メールの送信とステータスのクエリが可能（本番環境推奨）
+   - **フルアクセス**：すべての操作権限を含む
+3. オプション：ドメイン権限の制限（特定のドメインからのみ送信可能）
+4. 「作成」をクリック
+
+<Callout type="warning">
+  作成後すぐにAPIキーを保存してください - 一度しか表示されません！
+</Callout>
+
+</Steps>
+
+## ステップ2：ドメインを検証
+
+メールを送信するには、まず送信者ドメインを検証する必要があります：
+
+<Steps>
+
+### ドメインを追加
+
+Z-Send管理ページの「ドメイン管理」セクションで、「ドメインを追加」をクリックします。
+
+### DNSレコードを設定
+
+システムはDKIM、SPF、DMARCレコードを生成します。これらのレコードをドメインのDNSプロバイダーに追加する必要があります。
+
+### 検証を待つ
+
+DNSレコードを追加した後、「検証」ボタンをクリックします。検証には通常数分から数時間かかります。
+
+</Steps>
+
+## ステップ3：最初のメールを送信
+
+ドメインが検証されたら、メールを送信する準備が整いました！
+
+### cURLを使用
+
+```bash
+curl -X POST https://gateway.zeabur.com/api/v1/zsend/emails \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "from": "hello@yourdomain.com",
+    "to": ["user@example.com"],
+    "subject": "Z-Sendからこんにちは！",
+    "html": "<h1>こんにちは！</h1><p>これはZ-Sendからの最初のメールです。</p>",
+    "text": "こんにちは！これはZ-Sendからの最初のメールです。"
+  }'
+```
+
+### JavaScript/Node.jsを使用
+
+```javascript
+const response = await fetch('https://gateway.zeabur.com/api/v1/zsend/emails', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+  },
+  body: JSON.stringify({
+    from: 'hello@yourdomain.com',
+    to: ['user@example.com'],
+    subject: 'Z-Sendからこんにちは！',
+    html: '<h1>こんにちは！</h1><p>これはZ-Sendからの最初のメールです。</p>',
+    text: 'こんにちは！これはZ-Sendからの最初のメールです。'
+  })
+});
+
+const data = await response.json();
+console.log('メール送信完了:', data);
+```
+
+### Pythonを使用
+
+```python
+import requests
+
+response = requests.post(
+    'https://gateway.zeabur.com/api/v1/zsend/emails',
+    headers={
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer YOUR_API_KEY'
+    },
+    json={
+        'from': 'hello@yourdomain.com',
+        'to': ['user@example.com'],
+        'subject': 'Z-Sendからこんにちは！',
+        'html': '<h1>こんにちは！</h1><p>これはZ-Sendからの最初のメールです。</p>',
+        'text': 'こんにちは！これはZ-Sendからの最初のメールです。'
+    }
+)
+
+print('メール送信完了:', response.json())
+```
+
+### Goを使用
+
+```go
+package main
+
+import (
+    "bytes"
+    "encoding/json"
+    "fmt"
+    "net/http"
+)
+
+func main() {
+    payload := map[string]interface{}{
+        "from":    "hello@yourdomain.com",
+        "to":      []string{"user@example.com"},
+        "subject": "Z-Sendからこんにちは！",
+        "html":    "<h1>こんにちは！</h1><p>これはZ-Sendからの最初のメールです。</p>",
+        "text":    "こんにちは！これはZ-Sendからの最初のメールです。",
+    }
+
+    jsonData, _ := json.Marshal(payload)
+    req, _ := http.NewRequest("POST", "https://gateway.zeabur.com/api/v1/zsend/emails", bytes.NewBuffer(jsonData))
+    req.Header.Set("Content-Type", "application/json")
+    req.Header.Set("Authorization", "Bearer YOUR_API_KEY")
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    if err != nil {
+        panic(err)
+    }
+    defer resp.Body.Close()
+
+    fmt.Println("メール送信完了！ステータス:", resp.Status)
+}
+```
+
+## レスポンス例
+
+送信が成功すると、次のようなレスポンスを受け取ります：
+
+```json
+{
+  "email_id": "696de2c84210d814d66ee052",
+  "status": "queued",
+  "message": "Email queued for sending"
+}
+```
+
+## 次のステップ
+
+最初のメールの送信に成功しました！次は：
+
+- [REST APIリファレンス](/ja-JP/z-send/rest-api)で詳しい機能を確認
+- [Webhooks](/ja-JP/z-send/webhooks)を設定してメールステータス通知を受信
+- [添付ファイル付きメールの送信](/ja-JP/z-send/rest-api#添付ファイル付きメールの送信)方法を学習
+- [スケジュール送信](/ja-JP/z-send/rest-api#メールのスケジュール)と[一括送信](/ja-JP/z-send/rest-api#一括送信)を確認
+
+<Callout type="info">
+  問題が発生していますか？トラブルシューティングガイドを確認するか、サポートにお問い合わせください。
+</Callout>

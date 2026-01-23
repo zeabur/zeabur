@@ -1,0 +1,63 @@
+---
+title: Servicio de Correo Z-Send
+ogImageTitle: Servicio de Correo Z-Send
+ogImageSubtitle: Servicio API de Envío de Correos de Nivel Empresarial
+---
+
+# Servicio de Correo Z-Send
+
+Z-Send es un servicio API de envío de correos de nivel empresarial proporcionado por Zeabur, que ofrece a los desarrolladores una solución de entrega de correos simple, confiable y de alto rendimiento.
+
+## Funciones Principales
+
+- **API REST Simple** - Integre funcionalidad de correo con solo unas pocas líneas de código
+- **Envío Inmediato y Programado** - Envíe correos inmediatamente o programe para más tarde
+- **Envío por Lotes** - Envíe grandes volúmenes de correos con gestión automática de colas
+- **Soporte de Archivos Adjuntos** - Soporte para varios formatos de archivos adjuntos
+- **Notificaciones Webhook** - Actualizaciones de estado de entrega en tiempo real
+- **Gestión de Dominios** - Soporte para dominios de remitente personalizados
+- **Gestión de Claves API** - Control flexible de permisos (solo lectura, solo envío, acceso completo)
+
+## Características Principales
+
+### Alta Confiabilidad
+Construido sobre AWS SES con garantía de tiempo de actividad del 99.9%, asegurando una entrega estable de correos.
+
+### Monitoreo en Tiempo Real
+Reciba actualizaciones de estado de correo en tiempo real a través de Webhooks:
+- Confirmación de envío
+- Confirmación de entrega
+- Notificaciones de rebote
+- Quejas de spam
+
+### Seguridad
+- Verificación de firma HMAC-SHA256
+- Aislamiento de permisos de clave API
+- Verificación de dominio DKIM/SPF
+
+## Primeros Pasos
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Antes de usar Z-Send, asegúrese de haber habilitado el servicio Z-Send en su consola de Zeabur.
+</Callout>
+
+Consulte la [Guía de Inicio Rápido](/es-ES/z-send/quick-start) para enviar su primer correo en minutos.
+
+## Casos de Uso
+
+- Correos de verificación de registro de usuario
+- Correos de restablecimiento de contraseña
+- Notificaciones de transacciones
+- Campañas de marketing
+- Notificaciones de alerta del sistema
+- Facturas y recibos
+
+## Precios
+
+Z-Send utiliza un modelo de precios de pago por uso basado en la cantidad de correos enviados. Para precios detallados, consulte la [Documentación de Facturación](/es-ES/billing).
+
+<Callout type="warning">
+  El envío de correos debe cumplir con las regulaciones anti-spam y las mejores prácticas. El abuso del servicio puede resultar en la suspensión de la cuenta.
+</Callout>

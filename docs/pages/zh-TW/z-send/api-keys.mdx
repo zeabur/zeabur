@@ -1,0 +1,278 @@
+---
+title: API 金鑰管理
+ogImageTitle: Z-Send API 金鑰管理
+ogImageSubtitle: 建立和管理 API 存取金鑰
+---
+
+# API 金鑰管理
+
+API 金鑰用於驗證您的 Z-Send API 請求。每個金鑰可以設定不同的權限等級。
+
+## 權限類型
+
+Z-Send 提供三種權限等級：
+
+| 權限類型 | 說明 | 適用場景 |
+|----------|------|----------|
+| **唯讀** (`read_only`) | 只能查詢郵件和統計資訊 | 數據分析、監控面板 |
+| **僅發送** (`send_only`) | 可以發送郵件和查詢狀態 | 生產環境應用（推薦） |
+| **完全權限** (`all`) | 包含所有操作權限 | 管理工具、開發環境 |
+
+import { Callout, Steps } from 'nextra/components'
+
+<Callout type="warning">
+  出於安全考量，建議在生產環境使用「僅發送」權限，避免使用「完全權限」。
+</Callout>
+
+## 建立 API 金鑰
+
+<Steps>
+
+### 登入控制台
+
+造訪 Zeabur 控制台的 Z-Send 管理頁面。
+
+### 建立新金鑰
+
+1. 進入「API 金鑰管理」
+2. 點擊「建立 API 金鑰」
+3. 輸入金鑰名稱（用於識別用途）
+4. 選擇權限類型
+5. （可選）限制允許使用的網域
+6. 點擊「建立」
+
+### 儲存金鑰
+
+<Callout type="error">
+  金鑰僅在建立時顯示一次！請立即儲存到安全的地方。
+</Callout>
+
+建立後，系統會顯示完整的 API 金鑰。複製並安全儲存，您將無法再次查看完整金鑰。
+
+</Steps>
+
+## 網域限制
+
+您可以限制 API 金鑰只能從特定網域發送郵件，增加安全性：
+
+```json
+// 建立金鑰時設定允許的網域
+{
+  "name": "Production API Key",
+  "permission": "send_only",
+  "allowed_domains": ["yourdomain.com", "mail.yourdomain.com"]
+}
+```
+
+這樣，即使金鑰洩露，攻擊者也無法使用未授權的網域發送郵件。
+
+## 使用 API 金鑰
+
+### HTTP 請求標頭
+
+在所有 API 請求中包含金鑰：
+
+```http
+POST /api/v1/zsend/emails
+Host: api.zeabur.com
+Content-Type: application/json
+Authorization: Bearer zs_your_api_key_here
+
+{
+  "from": "hello@yourdomain.com",
+  ...
+}
+```
+
+### 程式碼範例
+
+#### JavaScript
+
+```javascript
+const apiKey = process.env.ZSEND_API_KEY;
+
+const response = await fetch('https://api.zeabur.com/api/v1/zsend/emails', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + apiKey
+  },
+  body: JSON.stringify({
+    from: 'hello@yourdomain.com',
+    to: ['user@example.com'],
+    subject: '測試郵件',
+    html: '<p>測試內容</p>'
+  })
+});
+```
+
+#### Python
+
+```python
+import os
+import requests
+
+api_key = os.environ.get('ZSEND_API_KEY')
+
+response = requests.post(
+    'https://api.zeabur.com/api/v1/zsend/emails',
+    headers={
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + api_key
+    },
+    json={
+        'from': 'hello@yourdomain.com',
+        'to': ['user@example.com'],
+        'subject': '測試郵件',
+        'html': '<p>測試內容</p>'
+    }
+)
+```
+
+#### Go
+
+```go
+package main
+
+import (
+    "bytes"
+    "encoding/json"
+    "net/http"
+    "os"
+)
+
+func sendEmail() error {
+    apiKey := os.Getenv("ZSEND_API_KEY")
+    
+    payload := map[string]interface{}{
+        "from":    "hello@yourdomain.com",
+        "to":      []string{"user@example.com"},
+        "subject": "測試郵件",
+        "html":    "<p>測試內容</p>",
+    }
+    
+    jsonData, _ := json.Marshal(payload)
+    req, _ := http.NewRequest("POST", "https://api.zeabur.com/api/v1/zsend/emails", bytes.NewBuffer(jsonData))
+    req.Header.Set("Content-Type", "application/json")
+    req.Header.Set("Authorization", "Bearer " + apiKey)
+    
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    return err
+}
+```
+
+## 輪換金鑰
+
+定期輪換 API 金鑰是良好的安全實踐：
+
+<Steps>
+
+### 建立新金鑰
+
+建立一個新的 API 金鑰，保持舊金鑰處於活躍狀態。
+
+### 更新應用設定
+
+逐步將應用中的 API 金鑰更新為新金鑰。
+
+### 刪除舊金鑰
+
+確認所有應用都已更新後，刪除舊金鑰。
+
+</Steps>
+
+建議每 90 天輪換一次金鑰。
+
+## 撤銷金鑰
+
+如果金鑰洩露或不再需要：
+
+1. 進入「API 金鑰管理」
+2. 找到要刪除的金鑰
+3. 點擊「刪除」按鈕
+4. 確認刪除
+
+<Callout type="warning">
+  刪除金鑰後，使用該金鑰的所有 API 請求將立即失敗。
+</Callout>
+
+## 安全最佳實踐
+
+### 1. 使用環境變數
+
+永遠不要在程式碼中硬編碼 API 金鑰：
+
+```javascript
+// ❌ 不推薦：不要硬編碼
+const apiKey = 'zs_1234567890abcdef...';
+
+// ✅ 推薦：使用環境變數
+const apiKey = process.env.ZSEND_API_KEY;
+```
+
+### 2. 使用最小權限原則
+
+為不同的應用建立具有適當權限的獨立金鑰：
+
+- **生產應用**：僅發送權限 + 網域限制
+- **數據分析**：唯讀權限
+- **管理工具**：完全權限（僅在必要時）
+
+### 3. 監控金鑰使用情況
+
+在 Z-Send 控制台查看每個金鑰的使用統計：
+
+- 請求次數
+- 發送郵件數量
+- 錯誤率
+
+發現異常使用立即撤銷金鑰。
+
+### 4. 不要共用金鑰
+
+為每個應用、環境（開發/生產）建立獨立的金鑰，便於追蹤和管理。
+
+## 故障排查
+
+### 401 Unauthorized
+
+```json
+{
+  "error": "unauthorized",
+  "message": "Invalid or missing API key"
+}
+```
+
+**可能原因**：
+- API 金鑰錯誤或已刪除
+- 請求標頭格式錯誤（應為 `Authorization: Bearer <token>`）
+- 金鑰前後有空格或缺少 `Bearer` 前綴
+
+### 403 Forbidden
+
+```json
+{
+  "error": "permission denied",
+  "message": "API key does not have permission to send from this domain"
+}
+```
+
+**可能原因**：
+- 金鑰權限不足（如使用唯讀金鑰發送郵件）
+- 發件網域不在金鑰的允許清單中
+- 網域未驗證
+
+### 429 Too Many Requests
+
+```json
+{
+  "error": "too many requests",
+  "message": "Rate limit exceeded"
+}
+```
+
+**解決方案**：
+- 實作請求限流和重試機制
+- 考慮升級帳號以獲取更高的頻率限制
+- 使用批次發送 API 減少請求次數
