@@ -156,14 +156,28 @@ POST /emails/schedule
 
 #### Cuerpo de la Solicitud
 
-Igual que el envío de correo individual, con un campo adicional:
+Igual que el envío de correo individual, con un campo adicional `scheduled_at`:
 
 ```json
 {
-  // ... otros campos iguales que /emails
-  "scheduled_at": "2026-01-25T10:00:00Z"  // Formato ISO 8601
+  "from": "sender@yourdomain.com",
+  "to": ["recipient@example.com"],
+  "cc": ["cc@example.com"],              // Opcional
+  "bcc": ["bcc@example.com"],            // Opcional
+  "reply_to": ["reply@yourdomain.com"],  // Opcional
+  "subject": "Correo Programado",
+  "html": "<h1>Contenido HTML</h1>",
+  "text": "Contenido de texto plano",
+  "attachments": [],                     // Opcional
+  "headers": {},                         // Opcional
+  "tags": {},                            // Opcional
+  "scheduled_at": "2026-01-25T10:00:00Z" // Requerido, formato ISO 8601
 }
 ```
+
+<Callout type="info">
+  La hora de `scheduled_at` debe ser en el futuro. Todos los demás campos siguen las mismas reglas que el envío de correo individual.
+</Callout>
 
 #### Respuesta
 
@@ -249,8 +263,15 @@ POST /emails/batch
     {
       "from": "hello@yourdomain.com",
       "to": ["user1@example.com"],
+      "cc": ["manager@example.com"],       // Opcional
+      "bcc": ["archive@example.com"],      // Opcional
+      "reply_to": ["support@yourdomain.com"], // Opcional
       "subject": "Correo Personalizado 1",
-      "html": "<p>¡Hola, Usuario 1!</p>"
+      "html": "<p>¡Hola, Usuario 1!</p>",
+      "text": "¡Hola, Usuario 1!",         // Opcional
+      "attachments": [],                   // Opcional
+      "headers": {},                       // Opcional
+      "tags": {"user_id": "1"}             // Opcional
     },
     {
       "from": "hello@yourdomain.com",
@@ -264,7 +285,7 @@ POST /emails/batch
 ```
 
 <Callout type="info">
-  Un envío por lotes admite hasta 100 correos. Cada correo tiene los mismos campos que el envío de correo individual.
+  Un envío por lotes admite hasta 100 correos. Cada correo admite todos los mismos campos que el envío de correo individual, incluyendo `cc`, `bcc`, `reply_to`, `attachments`, `headers` y `tags`.
 </Callout>
 
 #### Respuesta

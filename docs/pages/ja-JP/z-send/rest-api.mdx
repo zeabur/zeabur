@@ -156,14 +156,28 @@ POST /emails/schedule
 
 #### リクエストボディ
 
-単一メール送信と同じで、追加フィールドがあります：
+単一メール送信と同じで、追加の `scheduled_at` フィールドがあります：
 
 ```json
 {
-  // ... /emails と同じ他のフィールド
-  "scheduled_at": "2026-01-25T10:00:00Z"  // ISO 8601 形式
+  "from": "sender@yourdomain.com",
+  "to": ["recipient@example.com"],
+  "cc": ["cc@example.com"],              // オプション
+  "bcc": ["bcc@example.com"],            // オプション
+  "reply_to": ["reply@yourdomain.com"],  // オプション
+  "subject": "スケジュールメール",
+  "html": "<h1>HTMLコンテンツ</h1>",
+  "text": "プレーンテキストコンテンツ",
+  "attachments": [],                     // オプション
+  "headers": {},                         // オプション
+  "tags": {},                            // オプション
+  "scheduled_at": "2026-01-25T10:00:00Z" // 必須、ISO 8601 形式
 }
 ```
+
+<Callout type="info">
+  `scheduled_at` の時間は未来の時間である必要があります。他のすべてのフィールドは単一メール送信と同じルールに従います。
+</Callout>
 
 #### レスポンス
 
@@ -240,8 +254,15 @@ POST /emails/batch
     {
       "from": "hello@yourdomain.com",
       "to": ["user1@example.com"],
+      "cc": ["manager@example.com"],       // オプション
+      "bcc": ["archive@example.com"],      // オプション
+      "reply_to": ["support@yourdomain.com"], // オプション
       "subject": "パーソナライズメール1",
-      "html": "<p>こんにちは、ユーザー1！</p>"
+      "html": "<p>こんにちは、ユーザー1！</p>",
+      "text": "こんにちは、ユーザー1！",    // オプション
+      "attachments": [],                   // オプション
+      "headers": {},                       // オプション
+      "tags": {"user_id": "1"}             // オプション
     },
     {
       "from": "hello@yourdomain.com",
@@ -255,7 +276,7 @@ POST /emails/batch
 ```
 
 <Callout type="info">
-  単一のバッチ送信は最大100通のメールをサポートします。各メールには単一メール送信と同じフィールドがあります。
+  単一のバッチ送信は最大100通のメールをサポートします。各メールは `cc`、`bcc`、`reply_to`、`attachments`、`headers`、`tags` を含む単一メール送信と同じすべてのフィールドをサポートします。
 </Callout>
 
 #### レスポンス

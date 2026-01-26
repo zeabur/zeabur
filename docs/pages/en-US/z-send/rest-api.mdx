@@ -156,14 +156,28 @@ POST /emails/schedule
 
 #### Request Body
 
-Same as single email sending, with an additional field:
+Same as single email sending, with an additional `scheduled_at` field:
 
 ```json
 {
-  // ... other fields same as /emails
-  "scheduled_at": "2026-01-25T10:00:00Z"  // ISO 8601 format
+  "from": "sender@yourdomain.com",
+  "to": ["recipient@example.com"],
+  "cc": ["cc@example.com"],              // Optional
+  "bcc": ["bcc@example.com"],            // Optional
+  "reply_to": ["reply@yourdomain.com"],  // Optional
+  "subject": "Scheduled Email",
+  "html": "<h1>HTML Content</h1>",
+  "text": "Plain text content",
+  "attachments": [],                     // Optional
+  "headers": {},                         // Optional
+  "tags": {},                            // Optional
+  "scheduled_at": "2026-01-25T10:00:00Z" // Required, ISO 8601 format
 }
 ```
+
+<Callout type="info">
+  The `scheduled_at` time must be in the future. All other fields follow the same rules as single email sending.
+</Callout>
 
 #### Response
 
@@ -249,8 +263,15 @@ POST /emails/batch
     {
       "from": "hello@yourdomain.com",
       "to": ["user1@example.com"],
+      "cc": ["manager@example.com"],       // Optional
+      "bcc": ["archive@example.com"],      // Optional
+      "reply_to": ["support@yourdomain.com"], // Optional
       "subject": "Personalized Email 1",
-      "html": "<p>Hello, User 1!</p>"
+      "html": "<p>Hello, User 1!</p>",
+      "text": "Hello, User 1!",            // Optional
+      "attachments": [],                   // Optional
+      "headers": {},                       // Optional
+      "tags": {"user_id": "1"}             // Optional
     },
     {
       "from": "hello@yourdomain.com",
@@ -264,7 +285,7 @@ POST /emails/batch
 ```
 
 <Callout type="info">
-  A single batch send supports up to 100 emails. Each email has the same fields as single email sending.
+  A single batch send supports up to 100 emails. Each email supports all the same fields as single email sending, including `cc`, `bcc`, `reply_to`, `attachments`, `headers`, and `tags`.
 </Callout>
 
 #### Response

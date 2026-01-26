@@ -156,14 +156,28 @@ POST /emails/schedule
 
 #### 请求体
 
-与发送单封邮件相同，额外增加：
+与发送单封邮件相同，额外增加 `scheduled_at` 字段：
 
 ```json
 {
-  // ... 其他字段同 /emails
-  "scheduled_at": "2026-01-25T10:00:00Z"  // ISO 8601 格式
+  "from": "sender@yourdomain.com",
+  "to": ["recipient@example.com"],
+  "cc": ["cc@example.com"],              // 可选
+  "bcc": ["bcc@example.com"],            // 可选
+  "reply_to": ["reply@yourdomain.com"],  // 可选
+  "subject": "定时邮件",
+  "html": "<h1>HTML 内容</h1>",
+  "text": "纯文本内容",
+  "attachments": [],                     // 可选
+  "headers": {},                         // 可选
+  "tags": {},                            // 可选
+  "scheduled_at": "2026-01-25T10:00:00Z" // 必填，ISO 8601 格式
 }
 ```
+
+<Callout type="info">
+  `scheduled_at` 时间必须是未来的时间。其他所有字段与发送单封邮件的规则相同。
+</Callout>
 
 #### 响应
 
@@ -249,8 +263,15 @@ POST /emails/batch
     {
       "from": "hello@yourdomain.com",
       "to": ["user1@example.com"],
+      "cc": ["manager@example.com"],       // 可选
+      "bcc": ["archive@example.com"],      // 可选
+      "reply_to": ["support@yourdomain.com"], // 可选
       "subject": "个性化邮件 1",
-      "html": "<p>你好，用户1！</p>"
+      "html": "<p>你好，用户1！</p>",
+      "text": "你好，用户1！",             // 可选
+      "attachments": [],                   // 可选
+      "headers": {},                       // 可选
+      "tags": {"user_id": "1"}             // 可选
     },
     {
       "from": "hello@yourdomain.com",
@@ -264,7 +285,7 @@ POST /emails/batch
 ```
 
 <Callout type="info">
-  单次批量发送最多支持 100 封邮件。每封邮件的字段与单封邮件发送相同。
+  单次批量发送最多支持 100 封邮件。每封邮件支持与单封邮件发送相同的所有字段，包括 `cc`、`bcc`、`reply_to`、`attachments`、`headers` 和 `tags`。
 </Callout>
 
 #### 响应
