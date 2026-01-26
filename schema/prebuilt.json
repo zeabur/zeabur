@@ -168,16 +168,18 @@
 		},
 		"Git": {
 			"title": "Git / Local source",
-			"description": "Build image from GitHub or Local.",
+			"description": "Build image from GitHub, arbitrary Git repository, upload ID, or Local.",
 			"type": "object",
 			"properties": {
 				"source": {
 					"title": "Repository type",
-					"description": "The provider of this repository. Currently, we support only GitHub. “Local” is only for internal use and is not available in the template.",
+					"description": "The provider of this repository. GITHUB for GitHub repositories, UPLOAD_ID for uploaded code, LOCAL for internal use (not available in templates), and ARBITRARY_GIT for any Git repository.",
 					"type": "string",
 					"enum": [
 						"GITHUB",
-						"LOCAL"
+						"UPLOAD_ID",
+						"LOCAL",
+						"ARBITRARY_GIT"
 					]
 				},
 				"repo": {
@@ -185,9 +187,48 @@
 					"description": "The GitHub repository ID if the source is GitHub. You should set the Zeabur GitHub app in the repository owner or organization before filling this value. You can get the ID [by referring this Stack Overflow answer](https://stackoverflow.com/questions/13902593/how-does-one-find-out-ones-own-repo-id).",
 					"type": "number"
 				},
+				"uploadID": {
+					"title": "Upload ID",
+					"description": "The upload ID if the source is UPLOAD_ID. This is used when deploying from uploaded code. It is only for internal use and should not be used in templates.",
+					"type": "string"
+				},
+				"gitURL": {
+					"title": "Git URL",
+					"description": "The Git repository URL if the source is ARBITRARY_GIT. Supports both HTTPS (https://) and SSH (git@/ssh://) protocols.",
+					"type": "string"
+				},
+				"gitUsername": {
+					"title": "Git Username",
+					"description": "The username for Git authentication when using ARBITRARY_GIT with HTTPS. Optional for public repositories.",
+					"type": "string"
+				},
+				"gitPassword": {
+					"title": "Git Password/Token",
+					"description": "The password or personal access token for Git authentication when using ARBITRARY_GIT with HTTPS. Optional for public repositories.",
+					"type": "string"
+				},
+				"gitSSHKey": {
+					"title": "Git SSH Key",
+					"description": "The SSH private key for Git authentication when using ARBITRARY_GIT with SSH protocol. Required when gitCredentialType is SSH_KEY.",
+					"type": "string"
+				},
+				"gitCredentialType": {
+					"title": "Git Credential Type",
+					"description": "The authentication method for ARBITRARY_GIT. HTTPS_TOKEN for HTTPS with token/password, SSH_KEY for SSH with private key.",
+					"type": "string",
+					"enum": [
+						"HTTPS_TOKEN",
+						"SSH_KEY"
+					]
+				},
 				"branch": {
 					"title": "Repository branch",
 					"description": "The branch of the repository to build from. If not specified, the default branch will be used.",
+					"type": "string"
+				},
+				"submoduleName": {
+					"title": "Submodule name",
+					"description": "The name of the Git submodule to use, if applicable. It is only for internal use and should not be used in templates.",
 					"type": "string"
 				},
 				"watchPaths": {
