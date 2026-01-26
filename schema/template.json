@@ -85,7 +85,7 @@
                             },
                             "type": {
                                 "title": "Variable type",
-                                "description": "The type of the variable. STRING for normal text-based variables, DOMAIN for the domain name that Zeabur can instruct users to generate a zeabur.app domain, PASSWORD for passwords, and AI_HUB_KEY for generating a AI Hub API keys.",
+                                "description": "The type of the variable. STRING for normal text-based variables, DOMAIN for the domain name that Zeabur can instruct users to generate a zeabur.app domain, PASSWORD for passwords, and AI_HUB_KEY for generating an AI Hub API keys.",
                                 "type": "string",
                                 "enum": [
                                     "STRING",
