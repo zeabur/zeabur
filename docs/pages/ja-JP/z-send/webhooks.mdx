@@ -110,7 +110,7 @@ User-Agent: ZSend-Webhook/1.0
     "subject": "テストメール"
   },
   "data": {
-    "bounce_type": "Permanent",  // ハードバウンス
+    "bounce_type": "Permanent"
     "bounce_subtype": "General",
     "bounced_recipients": [
       {
@@ -164,28 +164,34 @@ const express = require('express');
 const app = express();
 
 // 元のリクエストボディを保持するために生のボディを使用（express.json() の前に配置）
-app.post('/webhooks/zsend', 
+app.post('/webhooks/zsend',
   express.raw({ type: 'application/json' }),
   (req, res) => {
     const secret = process.env.ZSEND_WEBHOOK_SECRET;
     const signature = req.headers['x-zsend-signature'];
     const timestamp = req.headers['x-zsend-timestamp'];
+
+    // 必須ヘッダーを確認
+    if (!signature || !timestamp) {
+      return res.status(400).json({ error: 'Missing signature or timestamp' });
+    }
+
     const body = req.body.toString('utf8'); // 生のリクエストボディ
-    
+
     // 署名メッセージを構築
     const message = `${timestamp}.${body}`;
-    
+
     // HMAC-SHA256 を計算
     const hmac = crypto.createHmac('sha256', secret);
     hmac.update(message);
     const expectedSignature = 'sha256=' + hmac.digest('hex');
-    
-    // タイミングセーフな比較
-    const isValid = crypto.timingSafeEqual(
-      Buffer.from(signature),
-      Buffer.from(expectedSignature)
-    );
-    
+
+    // タイミングセーフな比較（RangeError を避けるため長さを先に確認）
+    const sigBuf = Buffer.from(signature);
+    const expBuf = Buffer.from(expectedSignature);
+    const isValid = sigBuf.length === expBuf.length &&
+      crypto.timingSafeEqual(sigBuf, expBuf);
+
     if (!isValid) {
       return res.status(401).json({ error: 'Invalid signature' });
     }

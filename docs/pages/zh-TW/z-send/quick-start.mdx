@@ -74,7 +74,7 @@ DNS 記錄新增後，點擊「驗證」按鈕。驗證通常需要幾分鐘到�
 ### 使用 cURL
 
 ```bash
-curl -X POST https://gateway.zeabur.com/api/v1/zsend/emails \
+curl -X POST https://api.zeabur.com/api/v1/zsend/emails \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -d '{
@@ -89,7 +89,7 @@ curl -X POST https://gateway.zeabur.com/api/v1/zsend/emails \
 ### 使用 JavaScript/Node.js
 
 ```javascript
-const response = await fetch('https://gateway.zeabur.com/api/v1/zsend/emails', {
+const response = await fetch('https://api.zeabur.com/api/v1/zsend/emails', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ console.log('郵件已發送:', data);
 import requests
 
 response = requests.post(
-    'https://gateway.zeabur.com/api/v1/zsend/emails',
+    'https://api.zeabur.com/api/v1/zsend/emails',
     headers={
         'Content-Type': 'application/json',
         'Authorization': 'Bearer YOUR_API_KEY'
@@ -153,7 +153,7 @@ func main() {
     }
 
     jsonData, _ := json.Marshal(payload)
-    req, _ := http.NewRequest("POST", "https://gateway.zeabur.com/api/v1/zsend/emails", bytes.NewBuffer(jsonData))
+    req, _ := http.NewRequest("POST", "https://api.zeabur.com/api/v1/zsend/emails", bytes.NewBuffer(jsonData))
     req.Header.Set("Content-Type", "application/json")
     req.Header.Set("Authorization", "Bearer YOUR_API_KEY")
 

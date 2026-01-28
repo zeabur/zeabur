@@ -110,7 +110,7 @@ User-Agent: ZSend-Webhook/1.0
     "subject": "测试邮件"
   },
   "data": {
-    "bounce_type": "Permanent",  // 硬退信
+    "bounce_type": "Permanent"
     "bounce_subtype": "General",
     "bounced_recipients": [
       {
@@ -164,28 +164,34 @@ const express = require('express');
 const app = express();
 
 // 使用 raw body 保存原始请求体（必须在 express.json() 之前）
-app.post('/webhooks/zsend', 
+app.post('/webhooks/zsend',
   express.raw({ type: 'application/json' }),
   (req, res) => {
     const secret = process.env.ZSEND_WEBHOOK_SECRET;
     const signature = req.headers['x-zsend-signature'];
     const timestamp = req.headers['x-zsend-timestamp'];
+
+    // 检查必需的请求头
+    if (!signature || !timestamp) {
+      return res.status(400).json({ error: 'Missing signature or timestamp' });
+    }
+
     const body = req.body.toString('utf8'); // 原始请求体
-    
+
     // 构造签名消息
     const message = `${timestamp}.${body}`;
-    
+
     // 计算 HMAC-SHA256
     const hmac = crypto.createHmac('sha256', secret);
     hmac.update(message);
     const expectedSignature = 'sha256=' + hmac.digest('hex');
-    
-    // 时间安全比较
-    const isValid = crypto.timingSafeEqual(
-      Buffer.from(signature),
-      Buffer.from(expectedSignature)
-    );
-    
+
+    // 时间安全比较（先检查长度避免 RangeError）
+    const sigBuf = Buffer.from(signature);
+    const expBuf = Buffer.from(expectedSignature);
+    const isValid = sigBuf.length === expBuf.length &&
+      crypto.timingSafeEqual(sigBuf, expBuf);
+
     if (!isValid) {
       return res.status(401).json({ error: 'Invalid signature' });
     }
@@ -355,27 +361,34 @@ Z-Send 会自动重试最多 **3 次**，使用指数退避策略：
 Webhook 处理程序应该快速返回 200 响应，然后异步处理事件：
 
 ```javascript
-app.post('/webhooks/zsend', 
+app.post('/webhooks/zsend',
   express.raw({ type: 'application/json' }),
   async (req, res) => {
     const secret = process.env.ZSEND_WEBHOOK_SECRET;
     const signature = req.headers['x-zsend-signature'];
     const timestamp = req.headers['x-zsend-timestamp'];
+
+    if (!signature || !timestamp) {
+      return res.status(400).json({ error: 'Missing signature or timestamp' });
+    }
+
     const body = req.body.toString('utf8');
-    
+
     // 先验证签名
     const message = `${timestamp}.${body}`;
     const hmac = crypto.createHmac('sha256', secret);
     hmac.update(message);
     const expectedSignature = 'sha256=' + hmac.digest('hex');
-    
-    if (!crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
+
+    const sigBuf = Buffer.from(signature);
+    const expBuf = Buffer.from(expectedSignature);
+    if (sigBuf.length !== expBuf.length || !crypto.timingSafeEqual(sigBuf, expBuf)) {
       return res.status(401).json({ error: 'Invalid signature' });
     }
-    
+
     // 立即返回 200
     res.status(200).json({ received: true });
-    
+
     // 异步处理事件
     const payload = JSON.parse(body);
     setImmediate(async () => {
@@ -433,23 +446,31 @@ const webhookMetrics = {
   failed: 0
 };
 
-app.post('/webhooks/zsend', 
+app.post('/webhooks/zsend',
   express.raw({ type: 'application/json' }),
   async (req, res) => {
     webhookMetrics.received++;
-    
+
     const secret = process.env.ZSEND_WEBHOOK_SECRET;
     const signature = req.headers['x-zsend-signature'];
     const timestamp = req.headers['x-zsend-timestamp'];
+
+    if (!signature || !timestamp) {
+      webhookMetrics.failed++;
+      return res.status(400).json({ error: 'Missing signature or timestamp' });
+    }
+
     const body = req.body.toString('utf8');
-    
+
     // 验证签名
     const message = `${timestamp}.${body}`;
     const hmac = crypto.createHmac('sha256', secret);
     hmac.update(message);
     const expectedSignature = 'sha256=' + hmac.digest('hex');
-    
-    if (!crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
+
+    const sigBuf = Buffer.from(signature);
+    const expBuf = Buffer.from(expectedSignature);
+    if (sigBuf.length !== expBuf.length || !crypto.timingSafeEqual(sigBuf, expBuf)) {
       webhookMetrics.failed++;
       return res.status(401).json({ error: 'Invalid signature' });
     }

@@ -110,7 +110,7 @@ User-Agent: ZSend-Webhook/1.0
     "subject": "Test Email"
   },
   "data": {
-    "bounce_type": "Permanent",  // Hard bounce
+    "bounce_type": "Permanent"
     "bounce_subtype": "General",
     "bounced_recipients": [
       {
@@ -164,28 +164,34 @@ const express = require('express');
 const app = express();
 
 // Use raw body to preserve original request body (must be before express.json())
-app.post('/webhooks/zsend', 
+app.post('/webhooks/zsend',
   express.raw({ type: 'application/json' }),
   (req, res) => {
     const secret = process.env.ZSEND_WEBHOOK_SECRET;
     const signature = req.headers['x-zsend-signature'];
     const timestamp = req.headers['x-zsend-timestamp'];
+
+    // Check required headers
+    if (!signature || !timestamp) {
+      return res.status(400).json({ error: 'Missing signature or timestamp' });
+    }
+
     const body = req.body.toString('utf8'); // Raw request body
-    
+
     // Construct signature message
     const message = `${timestamp}.${body}`;
-    
+
     // Calculate HMAC-SHA256
     const hmac = crypto.createHmac('sha256', secret);
     hmac.update(message);
     const expectedSignature = 'sha256=' + hmac.digest('hex');
-    
-    // Timing-safe comparison
-    const isValid = crypto.timingSafeEqual(
-      Buffer.from(signature),
-      Buffer.from(expectedSignature)
-    );
-    
+
+    // Timing-safe comparison (check length first to avoid RangeError)
+    const sigBuf = Buffer.from(signature);
+    const expBuf = Buffer.from(expectedSignature);
+    const isValid = sigBuf.length === expBuf.length &&
+      crypto.timingSafeEqual(sigBuf, expBuf);
+
     if (!isValid) {
       return res.status(401).json({ error: 'Invalid signature' });
     }
@@ -355,27 +361,34 @@ Z-Send will automatically retry up to **3 times** using exponential backoff:
 Webhook handlers should quickly return a 200 response, then process events asynchronously:
 
 ```javascript
-app.post('/webhooks/zsend', 
+app.post('/webhooks/zsend',
   express.raw({ type: 'application/json' }),
   async (req, res) => {
     const secret = process.env.ZSEND_WEBHOOK_SECRET;
     const signature = req.headers['x-zsend-signature'];
     const timestamp = req.headers['x-zsend-timestamp'];
+
+    if (!signature || !timestamp) {
+      return res.status(400).json({ error: 'Missing signature or timestamp' });
+    }
+
     const body = req.body.toString('utf8');
-    
+
     // Verify signature first
     const message = `${timestamp}.${body}`;
     const hmac = crypto.createHmac('sha256', secret);
     hmac.update(message);
     const expectedSignature = 'sha256=' + hmac.digest('hex');
-    
-    if (!crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
+
+    const sigBuf = Buffer.from(signature);
+    const expBuf = Buffer.from(expectedSignature);
+    if (sigBuf.length !== expBuf.length || !crypto.timingSafeEqual(sigBuf, expBuf)) {
       return res.status(401).json({ error: 'Invalid signature' });
     }
-    
+
     // Return 200 immediately
     res.status(200).json({ received: true });
-    
+
     // Process event asynchronously
     const payload = JSON.parse(body);
     setImmediate(async () => {
@@ -433,23 +446,31 @@ const webhookMetrics = {
   failed: 0
 };
 
-app.post('/webhooks/zsend', 
+app.post('/webhooks/zsend',
   express.raw({ type: 'application/json' }),
   async (req, res) => {
     webhookMetrics.received++;
-    
+
     const secret = process.env.ZSEND_WEBHOOK_SECRET;
     const signature = req.headers['x-zsend-signature'];
     const timestamp = req.headers['x-zsend-timestamp'];
+
+    if (!signature || !timestamp) {
+      webhookMetrics.failed++;
+      return res.status(400).json({ error: 'Missing signature or timestamp' });
+    }
+
     const body = req.body.toString('utf8');
-    
+
     // Verify signature
     const message = `${timestamp}.${body}`;
     const hmac = crypto.createHmac('sha256', secret);
     hmac.update(message);
     const expectedSignature = 'sha256=' + hmac.digest('hex');
-    
-    if (!crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
+
+    const sigBuf = Buffer.from(signature);
+    const expBuf = Buffer.from(expectedSignature);
+    if (sigBuf.length !== expBuf.length || !crypto.timingSafeEqual(sigBuf, expBuf)) {
       webhookMetrics.failed++;
       return res.status(401).json({ error: 'Invalid signature' });
     }
