@@ -1,6 +1,6 @@
 ---
 title: Webhook Configuration
-ogImageTitle: Z-Send Webhook Configuration
+ogImageTitle: Zeabur Email Webhook Configuration
 ogImageSubtitle: Receive Real-time Email Status Notifications
 ---
 
@@ -10,7 +10,7 @@ Webhooks allow you to receive real-time email status updates, including delivery
 
 ## What is a Webhook
 
-When an email status changes, Z-Send sends an HTTP POST request to your configured URL containing event details.
+When an email status changes, Zeabur Email sends an HTTP POST request to your configured URL containing event details.
 
 ## Creating a Webhook
 
@@ -20,7 +20,7 @@ import { Callout, Steps } from 'nextra/components'
 
 ### Log in to Console
 
-Visit the Z-Send management page in the Zeabur console.
+Visit the Zeabur Email management page in the Zeabur console.
 
 ### Create Webhook
 
@@ -42,7 +42,7 @@ Click the "Verify" button, and the system will send a test request to your URL t
 
 ## Event Types
 
-Z-Send supports the following event types:
+Zeabur Email supports the following event types:
 
 | Event Type | Description |
 |-----------|-------------|
@@ -85,7 +85,7 @@ User-Agent: ZSend-Webhook/1.0
     "message_id": "0111019bd56e71c1-8ccdb66d-5d71-433f-9a9a-0766822f8955-000000",
     "from": "hello@yourdomain.com",
     "to": ["user@example.com"],
-    "subject": "Welcome to Z-Send",
+    "subject": "Welcome to Zeabur Email",
     "sent_at": "2026-01-19T08:45:42Z"
   },
   "data": {
@@ -145,7 +145,7 @@ User-Agent: ZSend-Webhook/1.0
 
 ## Signature Verification
 
-To ensure requests come from Z-Send, you need to verify the `X-ZSend-Signature`.
+To ensure requests come from Zeabur Email, you need to verify the `X-ZSend-Signature`.
 
 ### Verification Steps
 
@@ -344,7 +344,7 @@ If your Webhook endpoint:
 - Times out (10 seconds)
 - Has network errors
 
-Z-Send will automatically retry up to **3 times** using exponential backoff:
+Zeabur Email will automatically retry up to **3 times** using exponential backoff:
 
 - 1st retry: after 1 second
 - 2nd retry: after 2 seconds
@@ -499,12 +499,12 @@ Before deploying to production, use testing tools to verify the Webhook:
 # Use ngrok to expose local server
 ngrok http 3000
 
-# Configure ngrok URL in Z-Send console
+# Configure ngrok URL in Zeabur Email console
 # https://abc123.ngrok.io/webhooks/zsend
 
 # Send test emails and observe Webhook events
 ```
 
 <Callout type="info">
-  It's recommended to view Webhook logs in the Z-Send console to understand sending status and response details.
+  It's recommended to view Webhook logs in the Zeabur Email console to understand sending status and response details.
 </Callout>

@@ -1,12 +1,12 @@
 ---
 title: Domain Management
-ogImageTitle: Z-Send Domain Management
+ogImageTitle: Zeabur Email Domain Management
 ogImageSubtitle: Verify and Manage Sender Domains
 ---
 
 # Domain Management
 
-To send emails with Z-Send, you need to verify your sender domain first. Domain verification ensures that you own the domain and improves email deliverability.
+To send emails with Zeabur Email, you need to verify your sender domain first. Domain verification ensures that you own the domain and improves email deliverability.
 
 ## Why Domain Verification is Required
 
@@ -26,7 +26,7 @@ import { Callout, Steps } from 'nextra/components'
 
 ### Log in to Console
 
-Visit the Z-Send management page in the Zeabur console.
+Visit the Zeabur Email management page in the Zeabur console.
 
 ### Add New Domain
 
@@ -49,7 +49,7 @@ The system will automatically generate the DNS records you need to add and displ
 
 ### Wait for Verification
 
-After adding the DNS records, click the "Verify" button in the console. Z-Send will automatically check your DNS configuration.
+After adding the DNS records, click the "Verify" button in the console. Zeabur Email will automatically check your DNS configuration.
 
 **Verification usually takes 5-30 minutes, depending on your DNS provider's propagation time.**
 
@@ -61,7 +61,7 @@ After adding the DNS records, click the "Verify" button in the console. Z-Send w
 
 ## DNS Records Explanation
 
-To ensure emails are delivered successfully, Z-Send uses the following standard email authentication technologies:
+To ensure emails are delivered successfully, Zeabur Email uses the following standard email authentication technologies:
 
 ### DKIM (Email Digital Signature)
 
@@ -122,7 +122,7 @@ Usually between 5 minutes to 48 hours, depending on your DNS provider. It's reco
 
 1. **Wait longer**: DNS propagation usually takes 5-30 minutes, some DNS providers may need longer (up to 48 hours)
 2. **Check DNS configuration**: Confirm you've added the records exactly as shown in the console, without extra spaces or quotes
-3. **View error messages**: Z-Send console will show specific verification errors, please modify according to the prompts
+3. **View error messages**: Zeabur Email console will show specific verification errors, please modify according to the prompts
 4. **Contact support**: If verification continues to fail, please contact the Zeabur support team for help
 
 ### Can I use subdomains?
@@ -133,7 +133,7 @@ Yes! You can verify subdomains (like `mail.yourdomain.com`), which allows you to
 
 ### What indicates successful verification?
 
-When the Z-Send console shows the domain status as **`verified`**, it means all DNS records have been correctly configured and passed verification. You can immediately start using this domain to send emails.
+When the Zeabur Email console shows the domain status as **`verified`**, it means all DNS records have been correctly configured and passed verification. You can immediately start using this domain to send emails.
 
 ## Deleting Domains
 

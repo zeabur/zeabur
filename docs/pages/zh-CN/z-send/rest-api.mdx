@@ -1,12 +1,12 @@
 ---
 title: REST API 参考
-ogImageTitle: Z-Send REST API 参考
+ogImageTitle: Zeabur Email REST API 参考
 ogImageSubtitle: 完整的 API 端点文档
 ---
 
 # REST API 参考
 
-Z-Send 提供完整的 REST API，让您轻松集成邮件发送功能到您的应用中。
+Zeabur Email 提供完整的 REST API，让您轻松集成邮件发送功能到您的应用中。
 
 ## 认证
 
@@ -19,7 +19,7 @@ Authorization: Bearer zs_your_api_key_here
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  API 密钥可以在 Zeabur 控制台的 Z-Send 管理页面创建和管理。
+  API 密钥可以在 Zeabur 控制台的 Zeabur Email 管理页面创建和管理。
 </Callout>
 
 ## 基础 URL
@@ -106,8 +106,8 @@ curl -X POST https://api.zeabur.com/api/v1/zsend/emails \
   -d '{
     "from": "hello@yourdomain.com",
     "to": ["user@example.com"],
-    "subject": "欢迎使用 Z-Send",
-    "html": "<h1>欢迎！</h1><p>感谢您使用 Z-Send。</p>"
+    "subject": "欢迎使用 Zeabur Email",
+    "html": "<h1>欢迎！</h1><p>感谢您使用 Zeabur Email。</p>"
   }'
 ```
 

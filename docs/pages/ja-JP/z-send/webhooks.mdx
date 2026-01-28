@@ -1,6 +1,6 @@
 ---
 title: Webhook 設定
-ogImageTitle: Z-Send Webhook 設定
+ogImageTitle: Zeabur Email Webhook 設定
 ogImageSubtitle: リアルタイムでメールステータス通知を受信
 ---
 
@@ -10,7 +10,7 @@ Webhook を使用すると、配信、バウンス、苦情などのイベント
 
 ## Webhook とは
 
-メールのステータスが変更されると、Z-Send は設定された URL にイベントの詳細を含む HTTP POST リクエストを送信します。
+メールのステータスが変更されると、Zeabur Email は設定された URL にイベントの詳細を含む HTTP POST リクエストを送信します。
 
 ## Webhook の作成
 
@@ -20,7 +20,7 @@ import { Callout, Steps } from 'nextra/components'
 
 ### コンソールにログイン
 
-Zeabur コンソールの Z-Send 管理ページにアクセスします。
+Zeabur コンソールの Zeabur Email 管理ページにアクセスします。
 
 ### Webhook を作成
 
@@ -42,7 +42,7 @@ Zeabur コンソールの Z-Send 管理ページにアクセスします。
 
 ## イベントタイプ
 
-Z-Send は以下のイベントタイプをサポートしています：
+Zeabur Email は以下のイベントタイプをサポートしています：
 
 | イベントタイプ | 説明 |
 |------------|------|
@@ -85,7 +85,7 @@ User-Agent: ZSend-Webhook/1.0
     "message_id": "0111019bd56e71c1-8ccdb66d-5d71-433f-9a9a-0766822f8955-000000",
     "from": "hello@yourdomain.com",
     "to": ["user@example.com"],
-    "subject": "Z-Send へようこそ",
+    "subject": "Zeabur Email へようこそ",
     "sent_at": "2026-01-19T08:45:42Z"
   },
   "data": {
@@ -145,7 +145,7 @@ User-Agent: ZSend-Webhook/1.0
 
 ## 署名検証
 
-リクエストが Z-Send から送信されたことを確認するには、`X-ZSend-Signature` を検証する必要があります。
+リクエストが Zeabur Email から送信されたことを確認するには、`X-ZSend-Signature` を検証する必要があります。
 
 ### 検証手順
 
@@ -344,7 +344,7 @@ Webhook エンドポイントが以下の場合：
 - タイムアウト（10秒）
 - ネットワークエラー
 
-Z-Send は指数バックオフを使用して最大 **3回** 自動的にリトライします：
+Zeabur Email は指数バックオフを使用して最大 **3回** 自動的にリトライします：
 
 - 1回目のリトライ：1秒後
 - 2回目のリトライ：2秒後
@@ -376,12 +376,12 @@ Webhook の健全性を追跡するための監視を設定します。
 # ngrok を使用してローカルサーバーを公開
 ngrok http 3000
 
-# Z-Send コンソールで ngrok URL を設定
+# Zeabur Email コンソールで ngrok URL を設定
 # https://abc123.ngrok.io/webhooks/zsend
 
 # テストメールを送信して Webhook イベントを観察
 ```
 
 <Callout type="info">
-  Z-Send コンソールで Webhook ログを表示して、送信ステータスとレスポンスの詳細を理解することをお勧めします。
+  Zeabur Email コンソールで Webhook ログを表示して、送信ステータスとレスポンスの詳細を理解することをお勧めします。
 </Callout>

@@ -1,12 +1,12 @@
 ---
 title: REST API リファレンス
-ogImageTitle: Z-Send REST API リファレンス
+ogImageTitle: Zeabur Email REST API リファレンス
 ogImageSubtitle: 完全な API エンドポイントドキュメント
 ---
 
 # REST API リファレンス
 
-Z-Send は、アプリケーションにメール送信機能を簡単に統合できる完全な REST API を提供します。
+Zeabur Email は、アプリケーションにメール送信機能を簡単に統合できる完全な REST API を提供します。
 
 ## 認証
 
@@ -19,7 +19,7 @@ Authorization: Bearer zs_your_api_key_here
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  API キーは、Zeabur コンソールの Z-Send 管理ページで作成および管理できます。
+  API キーは、Zeabur コンソールの Zeabur Email 管理ページで作成および管理できます。
 </Callout>
 
 ## ベース URL
@@ -106,8 +106,8 @@ curl -X POST https://api.zeabur.com/api/v1/zsend/emails \
   -d '{
     "from": "hello@yourdomain.com",
     "to": ["user@example.com"],
-    "subject": "Z-Send へようこそ",
-    "html": "<h1>ようこそ！</h1><p>Z-Send をご利用いただきありがとうございます。</p>"
+    "subject": "Zeabur Email へようこそ",
+    "html": "<h1>ようこそ！</h1><p>Zeabur Email をご利用いただきありがとうございます。</p>"
   }'
 ```
 

@@ -1,6 +1,6 @@
 ---
 title: Configuración de Webhook
-ogImageTitle: Configuración de Webhook de Z-Send
+ogImageTitle: Configuración de Webhook de Zeabur Email
 ogImageSubtitle: Recibir Notificaciones de Estado de Correo en Tiempo Real
 ---
 
@@ -10,7 +10,7 @@ Los Webhooks le permiten recibir actualizaciones de estado de correo en tiempo r
 
 ## ¿Qué es un Webhook?
 
-Cuando el estado de un correo cambia, Z-Send envía una solicitud HTTP POST a su URL configurada conteniendo los detalles del evento.
+Cuando el estado de un correo cambia, Zeabur Email envía una solicitud HTTP POST a su URL configurada conteniendo los detalles del evento.
 
 ## Crear un Webhook
 
@@ -20,7 +20,7 @@ import { Callout, Steps } from 'nextra/components'
 
 ### Iniciar Sesión en la Consola
 
-Visite la página de gestión de Z-Send en la consola de Zeabur.
+Visite la página de gestión de Zeabur Email en la consola de Zeabur.
 
 ### Crear Webhook
 
@@ -42,7 +42,7 @@ Haga clic en el botón "Verificar", y el sistema enviará una solicitud de prueb
 
 ## Tipos de Eventos
 
-Z-Send admite los siguientes tipos de eventos:
+Zeabur Email admite los siguientes tipos de eventos:
 
 | Tipo de Evento | Descripción |
 |---------------|-------------|
@@ -85,7 +85,7 @@ User-Agent: ZSend-Webhook/1.0
     "message_id": "0111019bd56e71c1-8ccdb66d-5d71-433f-9a9a-0766822f8955-000000",
     "from": "hello@yourdomain.com",
     "to": ["user@example.com"],
-    "subject": "Bienvenido a Z-Send",
+    "subject": "Bienvenido a Zeabur Email",
     "sent_at": "2026-01-19T08:45:42Z"
   },
   "data": {
@@ -145,7 +145,7 @@ User-Agent: ZSend-Webhook/1.0
 
 ## Verificación de Firma
 
-Para asegurar que las solicitudes provienen de Z-Send, necesita verificar `X-ZSend-Signature`.
+Para asegurar que las solicitudes provienen de Zeabur Email, necesita verificar `X-ZSend-Signature`.
 
 ### Pasos de Verificación
 
@@ -344,7 +344,7 @@ Si su endpoint de Webhook:
 - Agota el tiempo de espera (10 segundos)
 - Tiene errores de red
 
-Z-Send reintentará automáticamente hasta **3 veces** usando retroceso exponencial:
+Zeabur Email reintentará automáticamente hasta **3 veces** usando retroceso exponencial:
 
 - 1er reintento: después de 1 segundo
 - 2do reintento: después de 2 segundos
@@ -499,12 +499,12 @@ Antes de implementar en producción, use herramientas de prueba para verificar e
 # Usar ngrok para exponer el servidor local
 ngrok http 3000
 
-# Configurar URL de ngrok en la consola de Z-Send
+# Configurar URL de ngrok en la consola de Zeabur Email
 # https://abc123.ngrok.io/webhooks/zsend
 
 # Enviar correos de prueba y observar eventos de Webhook
 ```
 
 <Callout type="info">
-  Se recomienda ver los registros de Webhook en la consola de Z-Send para entender el estado de envío y los detalles de respuesta.
+  Se recomienda ver los registros de Webhook en la consola de Zeabur Email para entender el estado de envío y los detalles de respuesta.
 </Callout>

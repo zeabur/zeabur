@@ -1,12 +1,12 @@
 ---
 title: REST API Reference
-ogImageTitle: Z-Send REST API Reference
+ogImageTitle: Zeabur Email REST API Reference
 ogImageSubtitle: Complete API Endpoint Documentation
 ---
 
 # REST API Reference
 
-Z-Send provides a complete REST API that makes it easy to integrate email sending functionality into your application.
+Zeabur Email provides a complete REST API that makes it easy to integrate email sending functionality into your application.
 
 ## Authentication
 
@@ -19,7 +19,7 @@ Authorization: Bearer zs_your_api_key_here
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  API keys can be created and managed in the Z-Send management page of the Zeabur console.
+  API keys can be created and managed in the Zeabur Email management page of the Zeabur console.
 </Callout>
 
 ## Base URL
@@ -106,8 +106,8 @@ curl -X POST https://api.zeabur.com/api/v1/zsend/emails \
   -d '{
     "from": "hello@yourdomain.com",
     "to": ["user@example.com"],
-    "subject": "Welcome to Z-Send",
-    "html": "<h1>Welcome!</h1><p>Thank you for using Z-Send.</p>"
+    "subject": "Welcome to Zeabur Email",
+    "html": "<h1>Welcome!</h1><p>Thank you for using Zeabur Email.</p>"
   }'
 ```
 

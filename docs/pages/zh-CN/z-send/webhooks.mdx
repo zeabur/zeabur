@@ -1,6 +1,6 @@
 ---
 title: Webhook 配置
-ogImageTitle: Z-Send Webhook 配置
+ogImageTitle: Zeabur Email Webhook 配置
 ogImageSubtitle: 实时接收邮件状态通知
 ---
 
@@ -10,7 +10,7 @@ Webhook 允许您实时接收邮件状态更新，包括送达、退信、投诉
 
 ## 什么是 Webhook
 
-当邮件状态发生变化时，Z-Send 会向您配置的 URL 发送 HTTP POST 请求，包含事件详情。
+当邮件状态发生变化时，Zeabur Email 会向您配置的 URL 发送 HTTP POST 请求，包含事件详情。
 
 ## 创建 Webhook
 
@@ -20,7 +20,7 @@ import { Callout, Steps } from 'nextra/components'
 
 ### 登录控制台
 
-访问 Zeabur 控制台的 Z-Send 管理页面。
+访问 Zeabur 控制台的 Zeabur Email 管理页面。
 
 ### 创建 Webhook
 
@@ -42,7 +42,7 @@ import { Callout, Steps } from 'nextra/components'
 
 ## 事件类型
 
-Z-Send 支持以下事件类型：
+Zeabur Email 支持以下事件类型：
 
 | 事件类型 | 说明 |
 |----------|------|
@@ -85,7 +85,7 @@ User-Agent: ZSend-Webhook/1.0
     "message_id": "0111019bd56e71c1-8ccdb66d-5d71-433f-9a9a-0766822f8955-000000",
     "from": "hello@yourdomain.com",
     "to": ["user@example.com"],
-    "subject": "欢迎使用 Z-Send",
+    "subject": "欢迎使用 Zeabur Email",
     "sent_at": "2026-01-19T08:45:42Z"
   },
   "data": {
@@ -145,7 +145,7 @@ User-Agent: ZSend-Webhook/1.0
 
 ## 签名验证
 
-为了确保请求来自 Z-Send，您需要验证 `X-ZSend-Signature` 签名。
+为了确保请求来自 Zeabur Email，您需要验证 `X-ZSend-Signature` 签名。
 
 ### 验证步骤
 
@@ -344,7 +344,7 @@ func main() {
 - 请求超时（10 秒）
 - 网络错误
 
-Z-Send 会自动重试最多 **3 次**，使用指数退避策略：
+Zeabur Email 会自动重试最多 **3 次**，使用指数退避策略：
 
 - 第 1 次重试：1 秒后
 - 第 2 次重试：2 秒后
@@ -499,12 +499,12 @@ app.post('/webhooks/zsend',
 # 使用 ngrok 暴露本地服务器
 ngrok http 3000
 
-# 在 Z-Send 控制台配置 ngrok URL
+# 在 Zeabur Email 控制台配置 ngrok URL
 # https://abc123.ngrok.io/webhooks/zsend
 
 # 发送测试邮件并观察 Webhook 事件
 ```
 
 <Callout type="info">
-  建议在 Z-Send 控制台查看 Webhook 日志，了解发送状态和响应详情。
+  建议在 Zeabur Email 控制台查看 Webhook 日志，了解发送状态和响应详情。
 </Callout>

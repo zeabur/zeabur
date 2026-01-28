@@ -1,12 +1,12 @@
 ---
 title: REST API 參考
-ogImageTitle: Z-Send REST API 參考
+ogImageTitle: Zeabur Email REST API 參考
 ogImageSubtitle: 完整的 API 端點文件
 ---
 
 # REST API 參考
 
-Z-Send 提供完整的 REST API，讓您輕鬆整合郵件發送功能到您的應用中。
+Zeabur Email 提供完整的 REST API，讓您輕鬆整合郵件發送功能到您的應用中。
 
 ## 認證
 
@@ -19,7 +19,7 @@ Authorization: Bearer zs_your_api_key_here
 import { Callout } from 'nextra/components'
 
 <Callout type="info">
-  API 金鑰可以在 Zeabur 控制台的 Z-Send 管理頁面建立和管理。
+  API 金鑰可以在 Zeabur 控制台的 Zeabur Email 管理頁面建立和管理。
 </Callout>
 
 ## 基礎 URL
@@ -106,8 +106,8 @@ curl -X POST https://api.zeabur.com/api/v1/zsend/emails \
   -d '{
     "from": "hello@yourdomain.com",
     "to": ["user@example.com"],
-    "subject": "歡迎使用 Z-Send",
-    "html": "<h1>歡迎！</h1><p>感謝您使用 Z-Send。</p>"
+    "subject": "歡迎使用 Zeabur Email",
+    "html": "<h1>歡迎！</h1><p>感謝您使用 Zeabur Email。</p>"
   }'
 ```
 
