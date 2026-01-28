@@ -1,0 +1,162 @@
+---
+title: Gestión de Dominios
+ogImageTitle: Gestión de Dominios de Zeabur Email
+ogImageSubtitle: Verificar y Gestionar Dominios de Envío
+---
+
+# Gestión de Dominios
+
+Para enviar correos con Zeabur Email, primero debe verificar su dominio de envío. La verificación de dominio asegura que usted es el propietario del dominio y mejora la entregabilidad del correo.
+
+## Por Qué se Requiere la Verificación de Dominio
+
+import { Callout, Steps } from 'nextra/components'
+
+<Callout type="info">
+  Los dominios no verificados no se pueden usar para enviar correos. La verificación de dominio mejora la credibilidad del correo a través de registros DKIM, SPF y DMARC.
+</Callout>
+
+- **Prevenir Suplantación**: Asegurar que solo los propietarios del dominio puedan enviar correos desde ese dominio
+- **Mejorar la Entregabilidad**: Los dominios verificados tienen más probabilidades de pasar los filtros de spam
+- **Protección de Marca**: Las firmas DKIM protegen su marca de ataques de phishing
+
+## Agregar un Dominio
+
+<Steps>
+
+### Iniciar Sesión en la Consola
+
+Visite la página de gestión de Zeabur Email en la consola de Zeabur.
+
+### Agregar Nuevo Dominio
+
+1. Vaya a "Gestión de Dominios"
+2. Haga clic en "Agregar Dominio"
+3. Ingrese su dominio (por ejemplo, `yourdomain.com`)
+4. Seleccione la región de envío (se recomienda elegir una cercana a sus usuarios)
+
+### Configurar Registros DNS
+
+El sistema generará automáticamente los registros DNS que necesita agregar y los mostrará en la página de la consola. Por favor, agregue estos registros en su proveedor de DNS (por ejemplo, Cloudflare, Aliyun, Tencent Cloud) según las instrucciones de la página.
+
+<Callout type="info">
+  **Tipos de registros que necesita agregar**:
+  - **Registros DKIM** (usualmente 3): Utilizados para firmas digitales de correo para probar la autenticidad del correo
+  - **Registro SPF**: Especifica qué servidores están autorizados para enviar correos desde su dominio
+  - **Registro DMARC**: Define la política de manejo cuando falla la autenticación del correo
+  - **Registro MX** (opcional): Utilizado para recibir notificaciones de rebote
+</Callout>
+
+### Esperar la Verificación
+
+Después de agregar los registros DNS, haga clic en el botón "Verificar" en la consola. Zeabur Email verificará automáticamente su configuración DNS.
+
+**La verificación generalmente toma de 5 a 30 minutos, dependiendo del tiempo de propagación de su proveedor de DNS.**
+
+<Callout type="success">
+  Cuando la consola muestre el estado del dominio como **`verified`**, ¡la verificación es exitosa y puede comenzar a usar este dominio para enviar correos!
+</Callout>
+
+</Steps>
+
+## Explicación de Registros DNS
+
+Para asegurar que los correos se entreguen con éxito, Zeabur Email utiliza las siguientes tecnologías estándar de autenticación de correo:
+
+### DKIM (Firma Digital de Correo)
+
+DKIM agrega una firma digital a cada correo, probando que el correo realmente proviene de su dominio y previniendo la manipulación o falsificación del correo. Generalmente requiere agregar 3 registros CNAME de DKIM.
+
+**Propósito**:
+- Prevenir falsificación de correos
+- Mejorar la entregabilidad del correo
+- Proteger la reputación de su marca
+
+### SPF (Autorización del Servidor de Envío)
+
+Los registros SPF especifican qué servidores están autorizados para enviar correos en nombre de su dominio, previniendo que terceros malintencionados suplanten su dominio.
+
+**Propósito**:
+- Prevenir suplantación de dominio
+- Reducir clasificaciones falsas de spam
+
+<Callout type="warning">
+  Si su dominio ya tiene registros SPF configurados en otro lugar (como Google Workspace, Microsoft 365), por favor contacte al equipo de soporte para obtener ayuda y evitar conflictos.
+</Callout>
+
+### DMARC (Política de Autenticación de Correo)
+
+DMARC define la política de manejo cuando falla la autenticación del correo (SPF o DKIM), ayudándole a monitorear y proteger su dominio del abuso.
+
+**Propósito**:
+- Recibir informes de fallos de autenticación
+- Prevenir ataques de phishing
+- Mejorar la credibilidad del dominio
+
+### Registro MX (Opcional)
+
+Los registros MX se utilizan para recibir notificaciones de rebote, ayudándole a entender por qué falló el envío de correos.
+
+**Propósito**:
+- Recibir notificaciones de rebote
+- Detectar problemas de envío de inmediato
+
+## Estado de Verificación
+
+Los dominios pueden estar en los siguientes estados:
+
+| Estado | Descripción |
+|--------|-------------|
+| `pending` | Esperando verificación, registros DNS aún no configurados |
+| `verifying` | Verificando registros DNS |
+| `verified` | Verificado, listo para usar |
+| `failed` | Verificación fallida, por favor verifique la configuración DNS |
+
+## Preguntas Frecuentes
+
+### ¿Cuánto tiempo tardan en surtir efecto los registros DNS?
+
+Generalmente entre 5 minutos y 48 horas, dependiendo de su proveedor de DNS. Se recomienda esperar de 15 a 30 minutos antes de intentar la verificación.
+
+### ¿Qué hacer si falla la verificación?
+
+1. **Espere más tiempo**: La propagación DNS generalmente toma de 5 a 30 minutos, algunos proveedores de DNS pueden necesitar más tiempo (hasta 48 horas)
+2. **Verifique la configuración DNS**: Confirme que ha agregado los registros exactamente como se muestran en la consola, sin espacios o comillas adicionales
+3. **Ver mensajes de error**: La consola de Zeabur Email mostrará errores de verificación específicos, por favor modifique según las indicaciones
+4. **Contactar soporte**: Si la verificación continúa fallando, por favor contacte al equipo de soporte de Zeabur para obtener ayuda
+
+### ¿Puedo usar subdominios?
+
+¡Sí! Puede verificar subdominios (como `mail.yourdomain.com`), lo que le permite:
+- Separar diferentes tipos de correos (marketing vs transaccional)
+- Mejor control de la reputación del dominio
+
+### ¿Qué indica la verificación exitosa?
+
+Cuando la consola de Zeabur Email muestre el estado del dominio como **`verified`**, significa que todos los registros DNS se han configurado correctamente y han pasado la verificación. Puede comenzar a usar este dominio para enviar correos de inmediato.
+
+## Eliminar Dominios
+
+Si ya no necesita un dominio:
+
+1. Vaya a "Gestión de Dominios"
+2. Encuentre el dominio a eliminar
+3. Haga clic en el botón "Eliminar"
+4. Confirme la eliminación
+
+<Callout type="warning">
+  Después de eliminar un dominio, las llamadas API para enviar correos desde ese dominio fallarán. Asegúrese de que ninguna aplicación esté usando este dominio.
+</Callout>
+
+## Mejores Prácticas
+
+### Usar Subdominios Dedicados
+
+Se recomienda usar un subdominio dedicado para el envío de correos (como `mail.yourdomain.com`), lo que le permite:
+- Proteger la reputación del dominio principal
+- Seguimiento y gestión más fácil de correos
+- Separar diferentes tipos de correos (por ejemplo, correos de marketing, correos transaccionales)
+
+### Evitar Cambios Frecuentes de DNS
+
+Después de una verificación exitosa del dominio, no modifique ni elimine aleatoriamente los registros DNS, de lo contrario puede causar fallos en el envío de correos o que los correos sean marcados como spam.

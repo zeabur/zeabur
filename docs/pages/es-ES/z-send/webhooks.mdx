@@ -1,0 +1,510 @@
+---
+title: Configuración de Webhook
+ogImageTitle: Configuración de Webhook de Zeabur Email
+ogImageSubtitle: Recibir Notificaciones de Estado de Correo en Tiempo Real
+---
+
+# Configuración de Webhook
+
+Los Webhooks le permiten recibir actualizaciones de estado de correo en tiempo real, incluyendo entrega, rebote, queja y otros eventos.
+
+## ¿Qué es un Webhook?
+
+Cuando el estado de un correo cambia, Zeabur Email envía una solicitud HTTP POST a su URL configurada conteniendo los detalles del evento.
+
+## Crear un Webhook
+
+import { Callout, Steps } from 'nextra/components'
+
+<Steps>
+
+### Iniciar Sesión en la Consola
+
+Visite la página de gestión de Zeabur Email en la consola de Zeabur.
+
+### Crear Webhook
+
+1. Vaya a "Gestión de Webhooks"
+2. Haga clic en "Crear Webhook"
+3. Ingrese la URL del Webhook (por ejemplo, `https://yourapp.com/webhooks/zsend`)
+4. Seleccione los tipos de eventos a recibir
+5. Haga clic en "Guardar"
+
+### Obtener Secreto de Firma
+
+Después de la creación, el sistema genera un secreto de firma para verificar el origen de la solicitud. **¡Guárdelo de forma segura, solo se muestra una vez!**
+
+### Verificar Webhook
+
+Haga clic en el botón "Verificar", y el sistema enviará una solicitud de prueba a su URL para asegurar que puede recibir correctamente.
+
+</Steps>
+
+## Tipos de Eventos
+
+Zeabur Email admite los siguientes tipos de eventos:
+
+| Tipo de Evento | Descripción |
+|---------------|-------------|
+| `send` | Correo enviado al servidor de correo |
+| `delivery` | Correo entregado exitosamente al destinatario |
+| `bounce` | Correo rebotado (rebote duro o suave) |
+| `complaint` | Destinatario marcó como spam |
+| `reject` | Correo rechazado para envío (dominio no verificado, violación de contenido, etc.) |
+
+## Formato de Solicitud de Webhook
+
+### Encabezados de Solicitud
+
+```http
+POST /your-webhook-endpoint HTTP/1.1
+Host: yourapp.com
+Content-Type: application/json
+X-ZSend-Event: delivery
+X-ZSend-Timestamp: 1768812348
+X-ZSend-Signature: sha256=dc36b914ecdb7bb6f4ba8714b6ccb04d46e85af5cd1bc52744e0208964f5fb34
+User-Agent: ZSend-Webhook/1.0
+```
+
+| Encabezado | Descripción |
+|------------|-------------|
+| `X-ZSend-Event` | Tipo de evento |
+| `X-ZSend-Timestamp` | Marca de tiempo Unix |
+| `X-ZSend-Signature` | Firma HMAC-SHA256 |
+
+### Cuerpo de la Solicitud
+
+#### Evento de Entrega (delivery)
+
+```json
+{
+  "event": "delivery",
+  "timestamp": "2026-01-19T08:45:48Z",
+  "email": {
+    "id": "696def36de644b22ae711500",
+    "message_id": "0111019bd56e71c1-8ccdb66d-5d71-433f-9a9a-0766822f8955-000000",
+    "from": "hello@yourdomain.com",
+    "to": ["user@example.com"],
+    "subject": "Bienvenido a Zeabur Email",
+    "sent_at": "2026-01-19T08:45:42Z"
+  },
+  "data": {
+    "processing_time_millis": 5116,
+    "recipients": ["user@example.com"],
+    "smtp_response": "250 OK"
+  }
+}
+```
+
+#### Evento de Rebote (bounce)
+
+```json
+{
+  "event": "bounce",
+  "timestamp": "2026-01-19T08:45:50Z",
+  "email": {
+    "id": "696def36de644b22ae711501",
+    "message_id": "0111019bd56e71c1-8ccdb66d-5d71-433f-9a9a-0766822f8955-000001",
+    "from": "hello@yourdomain.com",
+    "to": ["invalid@example.com"],
+    "subject": "Correo de Prueba"
+  },
+  "data": {
+    "bounce_type": "Permanent"
+    "bounce_subtype": "General",
+    "bounced_recipients": [
+      {
+        "email_address": "invalid@example.com",
+        "status": "5.1.1",
+        "diagnostic_code": "smtp; 550 5.1.1 user unknown"
+      }
+    ]
+  }
+}
+```
+
+#### Evento de Queja (complaint)
+
+```json
+{
+  "event": "complaint",
+  "timestamp": "2026-01-19T09:00:00Z",
+  "email": {
+    "id": "696def36de644b22ae711502",
+    "message_id": "0111019bd56e71c1-8ccdb66d-5d71-433f-9a9a-0766822f8955-000002",
+    "from": "newsletter@yourdomain.com",
+    "to": ["user@example.com"],
+    "subject": "Boletín Semanal"
+  },
+  "data": {
+    "complaint_feedback_type": "abuse",
+    "complained_recipients": ["user@example.com"]
+  }
+}
+```
+
+## Verificación de Firma
+
+Para asegurar que las solicitudes provienen de Zeabur Email, necesita verificar `X-ZSend-Signature`.
+
+### Pasos de Verificación
+
+1. Obtener `X-ZSend-Timestamp` y `X-ZSend-Signature` de los encabezados de solicitud
+2. Leer el cuerpo de solicitud sin procesar
+3. Construir mensaje de firma: `{timestamp}.{body}`
+4. Calcular firma usando HMAC-SHA256 y su Secreto
+5. Comparar el resultado con `X-ZSend-Signature` (formato: `sha256=xxx`)
+
+### Ejemplo de Node.js
+
+```javascript
+const crypto = require('crypto');
+const express = require('express');
+
+const app = express();
+
+// Usar cuerpo sin procesar para preservar el cuerpo de solicitud original (debe ser antes de express.json())
+app.post('/webhooks/zsend',
+  express.raw({ type: 'application/json' }),
+  (req, res) => {
+    const secret = process.env.ZSEND_WEBHOOK_SECRET;
+    const signature = req.headers['x-zsend-signature'];
+    const timestamp = req.headers['x-zsend-timestamp'];
+
+    // Verificar encabezados requeridos
+    if (!signature || !timestamp) {
+      return res.status(400).json({ error: 'Missing signature or timestamp' });
+    }
+
+    const body = req.body.toString('utf8'); // Cuerpo de solicitud sin procesar
+
+    // Construir mensaje de firma
+    const message = `${timestamp}.${body}`;
+
+    // Calcular HMAC-SHA256
+    const hmac = crypto.createHmac('sha256', secret);
+    hmac.update(message);
+    const expectedSignature = 'sha256=' + hmac.digest('hex');
+
+    // Comparación segura de tiempo (verificar longitud primero para evitar RangeError)
+    const sigBuf = Buffer.from(signature);
+    const expBuf = Buffer.from(expectedSignature);
+    const isValid = sigBuf.length === expBuf.length &&
+      crypto.timingSafeEqual(sigBuf, expBuf);
+
+    if (!isValid) {
+      return res.status(401).json({ error: 'Invalid signature' });
+    }
+    
+    // Analizar JSON y procesar evento
+    const payload = JSON.parse(body);
+    const { event, email, data } = payload;
+    
+    console.log(`Received ${event} event for email ${email.id}`);
+    
+    // Devolver 200 para indicar recepción exitosa
+    res.status(200).json({ received: true });
+  }
+);
+```
+
+### Ejemplo de Python
+
+```python
+import hmac
+import hashlib
+
+def verify_webhook_signature(request, secret):
+    signature = request.headers.get('X-ZSend-Signature')
+    timestamp = request.headers.get('X-ZSend-Timestamp')
+    body = request.get_data(as_text=True)
+    
+    # Construir mensaje de firma
+    message = f"{timestamp}.{body}"
+    
+    # Calcular HMAC-SHA256
+    expected_signature = 'sha256=' + hmac.new(
+        secret.encode('utf-8'),
+        message.encode('utf-8'),
+        hashlib.sha256
+    ).hexdigest()
+    
+    # Comparación segura de tiempo
+    return hmac.compare_digest(signature, expected_signature)
+
+# Ejemplo de Flask
+@app.route('/webhooks/zsend', methods=['POST'])
+def handle_webhook():
+    secret = os.environ.get('ZSEND_WEBHOOK_SECRET')
+    
+    if not verify_webhook_signature(request, secret):
+        return jsonify({'error': 'Invalid signature'}), 401
+    
+    data = request.get_json()
+    event_type = data['event']
+    email_id = data['email']['id']
+    
+    print(f"Received {event_type} event for email {email_id}")
+    
+    return jsonify({'received': True}), 200
+```
+
+### Ejemplo de Go
+
+```go
+package main
+
+import (
+	"crypto/hmac"
+	"crypto/sha256"
+	"crypto/subtle"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	"io"
+	"net/http"
+	"os"
+)
+
+// WebhookPayload representa la estructura del payload del webhook
+type WebhookPayload struct {
+	Event     string `json:"event"`
+	Timestamp string `json:"timestamp"`
+	Email     struct {
+		ID        string   `json:"id"`
+		MessageID string   `json:"message_id"`
+		From      string   `json:"from"`
+		To        []string `json:"to"`
+		Subject   string   `json:"subject"`
+		SentAt    string   `json:"sent_at"`
+	} `json:"email"`
+	Data interface{} `json:"data"`
+}
+
+func verifyWebhookSignature(body []byte, signature, timestamp, secret string) bool {
+	// Construir mensaje de firma
+	message := fmt.Sprintf("%s.%s", timestamp, body)
+	
+	// Calcular HMAC-SHA256
+	h := hmac.New(sha256.New, []byte(secret))
+	h.Write([]byte(message))
+	expectedSignature := "sha256=" + hex.EncodeToString(h.Sum(nil))
+	
+	// Comparación segura de tiempo
+	return subtle.ConstantTimeCompare([]byte(signature), []byte(expectedSignature)) == 1
+}
+
+func handleWebhook(w http.ResponseWriter, r *http.Request) {
+	secret := os.Getenv("ZSEND_WEBHOOK_SECRET")
+	
+	// Leer cuerpo de solicitud sin procesar
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, "Failed to read body", http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+	
+	// Obtener encabezados de solicitud
+	signature := r.Header.Get("X-ZSend-Signature")
+	timestamp := r.Header.Get("X-ZSend-Timestamp")
+	
+	// Verificar firma
+	if !verifyWebhookSignature(body, signature, timestamp, secret) {
+		http.Error(w, `{"error":"Invalid signature"}`, http.StatusUnauthorized)
+		return
+	}
+	
+	// Analizar JSON
+	var payload WebhookPayload
+	if err := json.Unmarshal(body, &payload); err != nil {
+		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		return
+	}
+	
+	// Procesar evento
+	fmt.Printf("Received %s event for email %s\n", payload.Event, payload.Email.ID)
+	
+	// Devolver 200 para indicar recepción exitosa
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]bool{"received": true})
+}
+
+func main() {
+	http.HandleFunc("/webhooks/zsend", handleWebhook)
+	http.ListenAndServe(":3000", nil)
+}
+```
+
+## Mecanismo de Reintento
+
+Si su endpoint de Webhook:
+- Devuelve un código de estado no 2xx
+- Agota el tiempo de espera (10 segundos)
+- Tiene errores de red
+
+Zeabur Email reintentará automáticamente hasta **3 veces** usando retroceso exponencial:
+
+- 1er reintento: después de 1 segundo
+- 2do reintento: después de 2 segundos
+- 3er reintento: después de 4 segundos
+
+<Callout type="warning">
+  Después de 3 reintentos fallidos, el evento de Webhook se descartará. Asegúrese de que su endpoint pueda responder rápidamente.
+</Callout>
+
+## Mejores Prácticas
+
+### 1. Respuesta Rápida
+
+Los manejadores de Webhook deben devolver rápidamente una respuesta 200, luego procesar eventos de forma asíncrona:
+
+```javascript
+app.post('/webhooks/zsend',
+  express.raw({ type: 'application/json' }),
+  async (req, res) => {
+    const secret = process.env.ZSEND_WEBHOOK_SECRET;
+    const signature = req.headers['x-zsend-signature'];
+    const timestamp = req.headers['x-zsend-timestamp'];
+
+    if (!signature || !timestamp) {
+      return res.status(400).json({ error: 'Missing signature or timestamp' });
+    }
+
+    const body = req.body.toString('utf8');
+
+    // Verificar firma primero
+    const message = `${timestamp}.${body}`;
+    const hmac = crypto.createHmac('sha256', secret);
+    hmac.update(message);
+    const expectedSignature = 'sha256=' + hmac.digest('hex');
+
+    const sigBuf = Buffer.from(signature);
+    const expBuf = Buffer.from(expectedSignature);
+    if (sigBuf.length !== expBuf.length || !crypto.timingSafeEqual(sigBuf, expBuf)) {
+      return res.status(401).json({ error: 'Invalid signature' });
+    }
+
+    // Devolver 200 inmediatamente
+    res.status(200).json({ received: true });
+
+    // Procesar evento de forma asíncrona
+    const payload = JSON.parse(body);
+    setImmediate(async () => {
+      try {
+        await processWebhookEvent(payload);
+      } catch (error) {
+        console.error('Failed to process webhook:', error);
+      }
+    });
+  }
+);
+```
+
+### 2. Procesamiento Idempotente
+
+El mismo evento puede enviarse múltiples veces, por lo que su lógica de procesamiento debe ser idempotente:
+
+```javascript
+async function processWebhookEvent(event) {
+  const { email, event: eventType } = event;
+  
+  // Verificar si el evento ya ha sido procesado
+  const existing = await db.webhookEvents.findOne({
+    email_id: email.id,
+    event_type: eventType,
+    timestamp: event.timestamp
+  });
+  
+  if (existing) {
+    console.log('Event already processed, skipping');
+    return;
+  }
+  
+  // Procesar evento
+  await updateEmailStatus(email.id, eventType);
+  
+  // Registrar como procesado
+  await db.webhookEvents.create({
+    email_id: email.id,
+    event_type: eventType,
+    timestamp: event.timestamp
+  });
+}
+```
+
+### 3. Monitoreo y Alertas
+
+Configure el monitoreo para rastrear la salud del Webhook:
+
+```javascript
+const webhookMetrics = {
+  received: 0,
+  verified: 0,
+  processed: 0,
+  failed: 0
+};
+
+app.post('/webhooks/zsend',
+  express.raw({ type: 'application/json' }),
+  async (req, res) => {
+    webhookMetrics.received++;
+
+    const secret = process.env.ZSEND_WEBHOOK_SECRET;
+    const signature = req.headers['x-zsend-signature'];
+    const timestamp = req.headers['x-zsend-timestamp'];
+
+    if (!signature || !timestamp) {
+      webhookMetrics.failed++;
+      return res.status(400).json({ error: 'Missing signature or timestamp' });
+    }
+
+    const body = req.body.toString('utf8');
+
+    // Verificar firma
+    const message = `${timestamp}.${body}`;
+    const hmac = crypto.createHmac('sha256', secret);
+    hmac.update(message);
+    const expectedSignature = 'sha256=' + hmac.digest('hex');
+
+    const sigBuf = Buffer.from(signature);
+    const expBuf = Buffer.from(expectedSignature);
+    if (sigBuf.length !== expBuf.length || !crypto.timingSafeEqual(sigBuf, expBuf)) {
+      webhookMetrics.failed++;
+      return res.status(401).json({ error: 'Invalid signature' });
+    }
+    
+    webhookMetrics.verified++;
+    res.status(200).json({ received: true });
+    
+    const payload = JSON.parse(body);
+    try {
+      await processWebhookEvent(payload);
+      webhookMetrics.processed++;
+    } catch (error) {
+      webhookMetrics.failed++;
+      // Enviar alerta
+      await sendAlert('Webhook processing failed', error);
+    }
+  }
+);
+```
+
+### 4. Probar Webhook
+
+Antes de implementar en producción, use herramientas de prueba para verificar el Webhook:
+
+```bash
+# Usar ngrok para exponer el servidor local
+ngrok http 3000
+
+# Configurar URL de ngrok en la consola de Zeabur Email
+# https://abc123.ngrok.io/webhooks/zsend
+
+# Enviar correos de prueba y observar eventos de Webhook
+```
+
+<Callout type="info">
+  Se recomienda ver los registros de Webhook en la consola de Zeabur Email para entender el estado de envío y los detalles de respuesta.
+</Callout>
