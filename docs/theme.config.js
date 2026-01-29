@@ -1,6 +1,7 @@
 //@ts-check
 
 import React from 'react'
+import Link from 'next/link'
 import { useConfig } from 'nextra-theme-docs'
 import { useRouter } from 'nextra/hooks'
 import WorkingInProgress from './components/WorkingInProgress'
@@ -55,22 +56,26 @@ const config = {
       </>
     ),
   },
-  logo: (
-    <>
-      <img
-        src={LogoBlack.src}
-        style={{ height: 20, objectFit: 'contain' }}
-        alt="zeabur"
-        className="black-logo"
-      />
-      <img
-        src={LogoWhite.src}
-        style={{ height: 20, objectFit: 'contain' }}
-        alt="zeabur"
-        className="white-logo"
-      />
-    </>
-  ),
+  logoLink: false,
+  logo: () => {
+    const { locale } = useRouter()
+    return (
+      <Link href={`/${locale}`}>
+        <img
+          src={LogoBlack.src}
+          style={{ height: 20, objectFit: 'contain' }}
+          alt="zeabur"
+          className="black-logo"
+        />
+        <img
+          src={LogoWhite.src}
+          style={{ height: 20, objectFit: 'contain' }}
+          alt="zeabur"
+          className="white-logo"
+        />
+      </Link>
+    )
+  },
   head: () => {
     const r = useRouter()
     const p = `${r.basePath}${r.pathname}`
