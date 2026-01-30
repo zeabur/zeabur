@@ -1,77 +1,77 @@
 ---
-title: Quick Start
-ogImageTitle: Zeabur Email Quick Start
-ogImageSubtitle: Send Your First Email in 5 Minutes
+title: 快速开始
+ogImageTitle: Zeabur Email 快速开始
+ogImageSubtitle: 5分钟发送第一封邮件
 ---
 
-# Quick Start
+# 快速开始
 
-This guide will help you send your first email using Zeabur Email in minutes.
+本指南将帮助您在几分钟内使用 Zeabur Email 发送第一封邮件。
 
-## Prerequisites
+## 前提条件
 
-Before you begin, you'll need:
+在开始之前，您需要：
 
-1. A Zeabur account
-2. Zeabur Email service enabled in your Zeabur console
-3. At least one verified sender domain
-4. An API key
+1. 一个 Zeabur 账号
+2. 在 Zeabur 控制台中启用 Zeabur Email 服务
+3. 至少一个已验证的发件域名
+4. 一个 API 密钥
 
-## Step 1: Create an API Key
+## 步骤 1：创建 API 密钥
 
 import { Callout, Steps } from 'nextra/components'
 
 <Steps>
 
-### Log in to Zeabur Console
+### 登录 Zeabur 控制台
 
-Visit [Zeabur Dashboard](https://dash.zeabur.com) and log in to your account.
+访问 [Zeabur Dashboard](https://dash.zeabur.com) 并登录您的账号。
 
-### Navigate to Zeabur Email Management
+### 进入 Zeabur Email 管理页面
 
-Find the Zeabur Email service in the console and enter the management page.
+在控制台中找到 Zeabur Email 服务并进入管理页面。
 
-### Create a New API Key
+### 创建新的 API 密钥
 
-1. Click the "Create API Key" button
-2. Select permission type:
-   - **Read Only**: Can only query email status
-   - **Send Only**: Can send emails and query status (recommended for production)
-   - **Full Access**: Includes all operation permissions
-3. Optional: Restrict domain permissions (can only send from specific domains)
-4. Click "Create"
+1. 点击「创建 API 密钥」按钮
+2. 选择权限类型：
+   - **只读**：仅能查询邮件状态
+   - **只发送**：可发送邮件和查询状态（推荐用于生产环境）
+   - **完全权限**：包含所有操作权限
+3. 可选：限制域名权限（只能使用特定域名发送）
+4. 点击「创建」
 
 <Callout type="warning">
-  Save your API key immediately after creation - it will only be shown once!
+  创建后请立即保存 API 密钥，密钥仅显示一次！
 </Callout>
 
 </Steps>
 
-## Step 2: Verify Your Domain
+## 步骤 2：验证域名
 
-To send emails, you need to verify your sender domain first:
+要发送邮件，您需要先验证发件域名：
 
 <Steps>
 
-### Add Domain
+### 添加域名
 
-In the "Domain Management" section of the Zeabur Email management page, click "Add Domain".
+在 Zeabur Email 管理页面的「域名管理」中，点击「添加域名」。
 
-### Configure DNS Records
+### 配置 DNS 记录
 
-The system will generate DKIM, SPF, and DMARC records. You need to add these records at your domain's DNS provider.
+系统会生成 DKIM、SPF 和 DMARC 记录，您需要在域名 DNS 提供商处添加这些记录。
 
-### Wait for Verification
+### 等待验证
 
-After adding the DNS records, click the "Verify" button. Verification usually takes a few minutes to a few hours.
+DNS 记录添加后，点击「验证」按钮。验证通常需要几分钟到几小时。
 
 </Steps>
 
-## Step 3: Send Your First Email
+## 步骤 3：发送第一封邮件
 
-Once your domain is verified, you're ready to send emails!
+域名验证通过后，您就可以发送邮件了！
 
-### Using cURL
+### 使用 cURL
 
 ```bash
 curl -X POST https://api.zeabur.com/api/v1/zsend/emails \
@@ -86,7 +86,7 @@ curl -X POST https://api.zeabur.com/api/v1/zsend/emails \
   }'
 ```
 
-### Using JavaScript/Node.js
+### 使用 JavaScript/Node.js
 
 ```javascript
 const response = await fetch('https://api.zeabur.com/api/v1/zsend/emails', {
@@ -108,7 +108,7 @@ const data = await response.json();
 console.log('Email sent:', data);
 ```
 
-### Using Python
+### 使用 Python
 
 ```python
 import requests
@@ -131,7 +131,7 @@ response = requests.post(
 print('Email sent:', response.json())
 ```
 
-### Using Go
+### 使用 Go
 
 ```go
 package main
@@ -168,9 +168,9 @@ func main() {
 }
 ```
 
-## Response Example
+## 响应示例
 
-After successful sending, you'll receive a response like this:
+成功发送后，您会收到如下响应：
 
 ```json
 {
@@ -180,15 +180,15 @@ After successful sending, you'll receive a response like this:
 }
 ```
 
-## Next Steps
+## 下一步
 
-You've successfully sent your first email! Now you can:
+现在您已经成功发送了第一封邮件！接下来可以：
 
-- Check out the [REST API Reference](/en-US/z-send/rest-api) to learn about more features
-- Configure [Webhooks](/en-US/z-send/webhooks) to receive email status notifications
-- Learn how to send [emails with attachments](/en-US/z-send/rest-api#sending-emails-with-attachments)
-- Explore [scheduled sending](/en-US/z-send/rest-api#scheduling-emails) and [batch sending](/en-US/z-send/rest-api#batch-sending)
+- 查看 [REST API 参考](/zh-CN/email/rest-api) 了解更多功能
+- 配置 [Webhook](/zh-CN/email/webhooks) 接收邮件状态通知
+- 学习如何发送[带附件的邮件](/zh-CN/email/rest-api#发送带附件的邮件)
+- 了解[定时发送](/zh-CN/email/rest-api#定时发送邮件)和[批量发送](/zh-CN/email/rest-api#批量发送邮件)
 
 <Callout type="info">
-  Having issues? Check our troubleshooting guide or contact support.
+  遇到问题？查看我们的 [故障排查指南](#) 或联系支持团队。
 </Callout>

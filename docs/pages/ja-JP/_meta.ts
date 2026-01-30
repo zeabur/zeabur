@@ -8,7 +8,7 @@ export default {
     href: 'https://zeabur.com/templates',
   },
   'ai-hub': 'Zeabur AI Hub',
-  'z-send': 'Zeabur Email',
+  'email': 'Zeabur Email',
   'data-management': 'データ管理',
   networking: 'ネットワーキング',
   guides: 'ガイド',
