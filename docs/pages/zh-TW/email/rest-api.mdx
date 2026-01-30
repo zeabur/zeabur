@@ -1,0 +1,486 @@
+---
+title: REST API 參考
+ogImageTitle: Zeabur Email REST API 參考
+ogImageSubtitle: 完整的 API 端點文件
+---
+
+# REST API 參考
+
+Zeabur Email 提供完整的 REST API，讓您輕鬆整合郵件發送功能到您的應用中。
+
+## 認證
+
+所有 API 請求都需要在 HTTP 標頭中包含 API 金鑰（Bearer Token 格式）：
+
+```http
+Authorization: Bearer zs_your_api_key_here
+```
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  API 金鑰可以在 Zeabur 控制台的 Zeabur Email 管理頁面建立和管理。
+</Callout>
+
+## 基礎 URL
+
+```
+https://api.zeabur.com/api/v1/zsend
+```
+
+## 郵件發送
+
+### 發送單封郵件
+
+立即發送一封郵件。
+
+```http
+POST /emails
+```
+
+#### 請求主體
+
+```json
+{
+  "from": "sender@yourdomain.com",
+  "to": ["recipient@example.com"],
+  "cc": ["cc@example.com"],           // 可選
+  "bcc": ["bcc@example.com"],         // 可選
+  "reply_to": ["reply@yourdomain.com"], // 可選
+  "subject": "郵件主旨",
+  "html": "<h1>HTML 內容</h1>",
+  "text": "純文字內容",
+  "attachments": [                    // 可選
+    {
+      "filename": "document.pdf",
+      "content": "base64_encoded_content",
+      "content_type": "application/pdf"
+    }
+  ],
+  "headers": {                        // 可選
+    "X-Custom-Header": "value"
+  },
+  "tags": {                           // 可選
+    "campaign": "newsletter",
+    "user_id": "12345"
+  }
+}
+```
+
+#### 欄位說明
+
+| 欄位 | 類型 | 必填 | 說明 |
+|------|------|------|------|
+| `from` | string | 是 | 發件人郵箱地址，網域必須已驗證 |
+| `to` | array | 是 | 收件人郵箱地址列表 |
+| `cc` | array | 否 | 副本郵箱地址列表 |
+| `bcc` | array | 否 | 密件副本郵箱地址列表 |
+| `reply_to` | array | 否 | 回覆地址列表 |
+| `subject` | string | 是 | 郵件主旨（最大 998 字元） |
+| `html` | string | 否* | HTML 格式郵件內容（最大 5 MB） |
+| `text` | string | 否* | 純文字郵件內容（最大 5 MB） |
+| `attachments` | array | 否 | 附件列表（最多 10 個，單個最大 10 MB） |
+| `headers` | object | 否 | 自訂郵件標頭（最多 50 個） |
+| `tags` | object | 否 | 自訂標籤，用於分類和追蹤 |
+
+<Callout type="warning">
+  `html` 和 `text` 至少需要提供一個。如果同時提供，郵件用戶端會優先顯示 HTML 版本，不支援 HTML 的用戶端則顯示純文字版本。總收件人數（to + cc + bcc）不能超過 50 人。
+</Callout>
+
+#### 回應
+
+```json
+{
+  "id": "696de2c84210d814d66ee052",
+  "message_id": "",
+  "status": "pending"
+}
+```
+
+#### 範例
+
+```bash
+curl -X POST https://api.zeabur.com/api/v1/zsend/emails \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "from": "hello@yourdomain.com",
+    "to": ["user@example.com"],
+    "subject": "歡迎使用 Zeabur Email",
+    "html": "<h1>歡迎！</h1><p>感謝您使用 Zeabur Email。</p>"
+  }'
+```
+
+### 發送帶附件的郵件
+
+附件內容需要使用 Base64 編碼：
+
+```javascript
+// JavaScript 範例
+const fs = require('fs');
+
+const fileContent = fs.readFileSync('document.pdf');
+const base64Content = fileContent.toString('base64');
+
+const response = await fetch('https://api.zeabur.com/api/v1/zsend/emails', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+  },
+  body: JSON.stringify({
+    from: 'hello@yourdomain.com',
+    to: ['user@example.com'],
+    subject: '附件測試',
+    html: '<p>請查看附件</p>',
+    attachments: [{
+      filename: 'document.pdf',
+      content: base64Content,
+      content_type: 'application/pdf'
+    }]
+  })
+});
+```
+
+---
+
+## 定時發送
+
+### 定時發送郵件
+
+安排在指定時間發送郵件。
+
+```http
+POST /emails/schedule
+```
+
+#### 請求主體
+
+與發送單封郵件相同，額外增加 `scheduled_at` 欄位：
+
+```json
+{
+  "from": "sender@yourdomain.com",
+  "to": ["recipient@example.com"],
+  "cc": ["cc@example.com"],              // 可選
+  "bcc": ["bcc@example.com"],            // 可選
+  "reply_to": ["reply@yourdomain.com"],  // 可選
+  "subject": "定時郵件",
+  "html": "<h1>HTML 內容</h1>",
+  "text": "純文字內容",
+  "attachments": [],                     // 可選
+  "headers": {},                         // 可選
+  "tags": {},                            // 可選
+  "scheduled_at": "2026-01-25T10:00:00Z" // 必填，ISO 8601 格式
+}
+```
+
+<Callout type="info">
+  `scheduled_at` 時間必須是未來的時間。其他所有欄位與發送單封郵件的規則相同。
+</Callout>
+
+#### 回應
+
+```json
+{
+  "id": "696de2c84210d814d66ee053",
+  "status": "enqueued"
+}
+```
+
+### 查詢定時郵件列表
+
+```http
+GET /emails/scheduled
+```
+
+#### 查詢參數
+
+| 參數 | 類型 | 說明 |
+|------|------|------|
+| `page` | number | 頁碼（預設 1） |
+| `limit` | number | 每頁數量（預設 20，最大 100） |
+| `status` | string | 篩選狀態：`scheduled`、`sent`、`cancelled` |
+
+#### 回應
+
+```json
+{
+  "scheduled_emails": [
+    {
+      "id": "696de2c84210d814d66ee053",
+      "from": "hello@yourdomain.com",
+      "to": ["user@example.com"],
+      "subject": "定時郵件",
+      "scheduled_at": "2026-01-25T10:00:00Z",
+      "status": "enqueued",
+      "created_at": "2026-01-20T08:00:00Z",
+      "attempts": 0
+    }
+  ],
+  "total_count": 1
+}
+```
+
+### 查詢定時郵件詳情
+
+```http
+GET /emails/scheduled/:id
+```
+
+### 取消定時郵件
+
+```http
+DELETE /emails/scheduled/:id
+```
+
+---
+
+## 批次發送
+
+### 發送批次郵件
+
+一次性發送大量郵件，每封郵件可以有不同的收件人和內容。
+
+```http
+POST /emails/batch
+```
+
+#### 請求主體
+
+```json
+{
+  "emails": [
+    {
+      "from": "hello@yourdomain.com",
+      "to": ["user1@example.com"],
+      "cc": ["manager@example.com"],       // 可選
+      "bcc": ["archive@example.com"],      // 可選
+      "reply_to": ["support@yourdomain.com"], // 可選
+      "subject": "個人化郵件 1",
+      "html": "<p>你好，使用者1！</p>",
+      "text": "你好，使用者1！",            // 可選
+      "attachments": [],                   // 可選
+      "headers": {},                       // 可選
+      "tags": {"user_id": "1"}             // 可選
+    },
+    {
+      "from": "hello@yourdomain.com",
+      "to": ["user2@example.com"],
+      "subject": "個人化郵件 2",
+      "html": "<p>你好，使用者2！</p>"
+    }
+    // ... 最多 100 封
+  ]
+}
+```
+
+<Callout type="info">
+  單次批次發送最多支援 100 封郵件。每封郵件支援與單封郵件發送相同的所有欄位，包括 `cc`、`bcc`、`reply_to`、`attachments`、`headers` 和 `tags`。
+</Callout>
+
+#### 回應
+
+```json
+{
+  "job_id": "696de2c84210d814d66ee054",
+  "status": "pending",
+  "total_count": 2
+}
+```
+
+#### 欄位說明
+
+| 欄位 | 類型 | 說明 |
+|------|------|------|
+| `job_id` | string | 批次任務 ID，用於後續查詢任務狀態和詳情 |
+| `status` | string | 任務初始狀態（通常為 `pending`） |
+| `total_count` | number | 批次任務中的郵件總數 |
+
+<Callout type="info">
+  `job_id` 是批次任務的唯一識別碼，與單封郵件的 `id` 不同。請儲存此 `job_id` 以便後續查詢批次發送進度和結果。
+</Callout>
+
+### 查詢批次任務列表
+
+```http
+GET /emails/batch
+```
+
+#### 查詢參數
+
+同定時郵件列表。
+
+### 查詢批次任務詳情
+
+```http
+GET /emails/batch/:id
+```
+
+#### 回應
+
+```json
+{
+  "job_id": "696de2c84210d814d66ee054",
+  "total_count": 100,
+  "sent_count": 95,
+  "failed_count": 5,
+  "status": "completed",
+  "created_at": "2026-01-20T08:00:00Z",
+  "completed_at": "2026-01-20T08:15:00Z"
+}
+```
+
+---
+
+## 郵件查詢
+
+### 查詢郵件列表
+
+```http
+GET /emails
+```
+
+#### 查詢參數
+
+| 參數 | 類型 | 說明 |
+|------|------|------|
+| `page` | number | 頁碼（預設 1） |
+| `page_size` | number | 每頁數量（預設 20，最大 100） |
+| `status` | string | 篩選狀態：`pending`、`sent`、`delivered`、`bounced`、`complained` |
+
+#### 回應
+
+```json
+{
+  "data": [
+    {
+      "id": "696de2c84210d814d66ee052",
+      "from": "hello@yourdomain.com",
+      "to": ["user@example.com"],
+      "subject": "測試郵件",
+      "status": "delivered",
+      "created_at": "2026-01-20T08:00:00Z"
+    }
+  ],
+  "total": 1
+}
+```
+
+### 查詢郵件詳情
+
+```http
+GET /emails/:id
+```
+
+---
+
+## 錯誤處理
+
+API 使用標準 HTTP 狀態碼：
+
+| 狀態碼 | 說明 |
+|--------|------|
+| `200` | 請求成功 |
+| `400` | 請求參數錯誤 |
+| `401` | 未授權（API 金鑰無效或缺失） |
+| `403` | 禁止存取（權限不足或帳號被暫停） |
+| `404` | 資源不存在 |
+| `429` | 請求過多（觸發限流） |
+| `500` | 伺服器內部錯誤 |
+
+### 錯誤回應格式
+
+```json
+{
+  "error": "錯誤簡短描述",
+  "message": "詳細錯誤訊息"
+}
+```
+
+---
+
+## 限制說明
+
+### 每日配額限制
+
+每個使用者帳號都有每日發送配額（Daily Quota），這是**最重要的限制**：
+
+| 帳號等級 | 預設每日配額 | 說明 |
+|---------|-------------|------|
+| 新使用者   | 100 封/天   | 帳號建立後的初始限額 |
+| 已驗證   | 1,000 封/天 | 完成網域驗證後自動提升 |
+
+**配額重置時間**：每天 UTC 00:00 自動重置
+
+**超出配額時**：
+- 回傳狀態碼：`429 Too Many Requests`
+- 錯誤訊息：`daily quota exceeded (目前/總配額), resets at 時間`
+- **讀取操作仍可用**：可以繼續查詢郵件歷史和詳情
+- **發送操作被拒**：包括單封、定時、批次發送
+
+### 內容限制
+
+- **收件人數量**：單封郵件最多 50 人（to + cc + bcc）
+- **郵件大小**：總大小最大 10 MB（包含附件和郵件標頭）
+- **附件數量**：最多 10 個附件
+- **單個附件大小**：最大 10 MB
+- **主旨長度**：最大 998 字元
+- **HTML 內容**：最大 5 MB
+- **文字內容**：最大 5 MB
+- **批次發送**：單次最多 100 封郵件
+
+### 使用者狀態限制
+
+使用者帳號狀態會影響 API 存取權限：
+
+| 狀態 | API 存取 | 發送郵件 | 查詢郵件 | 說明 |
+|------|---------|---------|---------|------|
+| `healthy` | ✅ | ✅ | ✅ | 正常狀態，可以發送郵件 |
+| `review` | ✅ | ✅ | ✅ | 審核中，仍可發送（可能限額降低） |
+| `paused` | ✅ | ❌ (403) | ✅ | 已暫停，可查詢但不能發送 |
+| `banned` | ❌ (401) | ❌ | ❌ | 已封禁，完全禁止存取 API |
+
+**帳號暫停/封禁原因**：
+- 退信率 ≥ 4.0%
+- 投訴率 ≥ 0.08%
+- 違反服務條款
+
+**狀態說明**：
+- **`review`**（審核中）：郵件品質出現問題，系統自動標記為審核狀態。如果後續 24 小時內沒有進一步的惡意行為，可能自動恢復為 `healthy` 狀態。
+- **`paused`**（已暫停）：暫時禁止發送，但仍可查詢歷史資料、管理網域等。需要聯絡支援團隊申訴，申訴通過後最快 24 小時恢復。
+- **`banned`**（已封禁）：完全禁止存取 API，包括查詢操作。此狀態由工作人員手動設定，表示嚴重違規，原則上不予恢復。
+
+<Callout type="warning">
+  超出限制的請求將回傳 `400 Bad Request` 錯誤。配額超限回傳 `429 Too Many Requests`。
+</Callout>
+
+---
+
+## 最佳實踐
+
+### 1. 錯誤重試
+
+對於臨時性錯誤（如 `500` 或 `429`），建議使用指數退避重試。
+
+### 2. 使用批次發送
+
+當需要發送多封郵件時，使用批次發送介面而不是迴圈呼叫單封發送介面。
+
+### 3. 使用 Webhook
+
+設定 Webhook 接收即時郵件狀態更新，而不是輪詢查詢介面。詳見 [Webhook 設定](/zh-TW/email/webhooks)。
+
+### 4. 合理使用標籤
+
+使用 `tags` 欄位標記郵件，便於後續追蹤和分析：
+
+```json
+{
+  "tags": {
+    "campaign": "welcome_series",
+    "user_segment": "new_users",
+    "template_version": "v2"
+  }
+}
+```

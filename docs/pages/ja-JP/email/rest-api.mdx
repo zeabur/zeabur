@@ -1,0 +1,420 @@
+---
+title: REST API リファレンス
+ogImageTitle: Zeabur Email REST API リファレンス
+ogImageSubtitle: 完全な API エンドポイントドキュメント
+---
+
+# REST API リファレンス
+
+Zeabur Email は、アプリケーションにメール送信機能を簡単に統合できる完全な REST API を提供します。
+
+## 認証
+
+すべての API リクエストには、HTTP ヘッダーに API キー（Bearer Token 形式）を含める必要があります：
+
+```http
+Authorization: Bearer zs_your_api_key_here
+```
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  API キーは、Zeabur コンソールの Zeabur Email 管理ページで作成および管理できます。
+</Callout>
+
+## ベース URL
+
+```
+https://api.zeabur.com/api/v1/zsend
+```
+
+## メール送信
+
+### 単一メールの送信
+
+すぐにメールを送信します。
+
+```http
+POST /emails
+```
+
+#### リクエストボディ
+
+```json
+{
+  "from": "sender@yourdomain.com",
+  "to": ["recipient@example.com"],
+  "cc": ["cc@example.com"],           // オプション
+  "bcc": ["bcc@example.com"],         // オプション
+  "reply_to": ["reply@yourdomain.com"], // オプション
+  "subject": "メールの件名",
+  "html": "<h1>HTML コンテンツ</h1>",
+  "text": "プレーンテキストコンテンツ",
+  "attachments": [                    // オプション
+    {
+      "filename": "document.pdf",
+      "content": "base64_encoded_content",
+      "content_type": "application/pdf"
+    }
+  ],
+  "headers": {                        // オプション
+    "X-Custom-Header": "value"
+  },
+  "tags": {                           // オプション
+    "campaign": "newsletter",
+    "user_id": "12345"
+  }
+}
+```
+
+#### フィールド説明
+
+| フィールド | タイプ | 必須 | 説明 |
+|---------|-------|------|------|
+| `from` | string | はい | 送信者のメールアドレス、ドメインは検証済みである必要があります |
+| `to` | array | はい | 受信者のメールアドレスリスト |
+| `cc` | array | いいえ | CC メールアドレスリスト |
+| `bcc` | array | いいえ | BCC メールアドレスリスト |
+| `reply_to` | array | いいえ | 返信先アドレスリスト |
+| `subject` | string | はい | メールの件名（最大998文字） |
+| `html` | string | いいえ* | HTML 形式のメールコンテンツ（最大5 MB） |
+| `text` | string | いいえ* | プレーンテキストのメールコンテンツ（最大5 MB） |
+| `attachments` | array | いいえ | 添付ファイルリスト（最大10個、各最大10 MB） |
+| `headers` | object | いいえ | カスタムメールヘッダー（最大50個） |
+| `tags` | object | いいえ | 分類と追跡用のカスタムタグ |
+
+<Callout type="warning">
+  `html` または `text` の少なくとも1つを提供する必要があります。両方を提供した場合、メールクライアントは HTML バージョンを優先し、HTML をサポートしていないクライアントはプレーンテキストバージョンを表示します。合計受信者数（to + cc + bcc）は50人を超えることはできません。
+</Callout>
+
+#### レスポンス
+
+```json
+{
+  "id": "696de2c84210d814d66ee052",
+  "message_id": "",
+  "status": "pending"
+}
+```
+
+#### 例
+
+```bash
+curl -X POST https://api.zeabur.com/api/v1/zsend/emails \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "from": "hello@yourdomain.com",
+    "to": ["user@example.com"],
+    "subject": "Zeabur Email へようこそ",
+    "html": "<h1>ようこそ！</h1><p>Zeabur Email をご利用いただきありがとうございます。</p>"
+  }'
+```
+
+### 添付ファイル付きメールの送信
+
+添付ファイルの内容は Base64 エンコードする必要があります：
+
+```javascript
+// JavaScript の例
+const fs = require('fs');
+
+const fileContent = fs.readFileSync('document.pdf');
+const base64Content = fileContent.toString('base64');
+
+const response = await fetch('https://api.zeabur.com/api/v1/zsend/emails', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+  },
+  body: JSON.stringify({
+    from: 'hello@yourdomain.com',
+    to: ['user@example.com'],
+    subject: '添付ファイルテスト',
+    html: '<p>添付ファイルをご確認ください</p>',
+    attachments: [{
+      filename: 'document.pdf',
+      content: base64Content,
+      content_type: 'application/pdf'
+    }]
+  })
+});
+```
+
+---
+
+## スケジュール送信
+
+### メールのスケジュール
+
+指定された時間にメールを送信するようスケジュールします。
+
+```http
+POST /emails/schedule
+```
+
+#### リクエストボディ
+
+単一メール送信と同じで、追加の `scheduled_at` フィールドがあります：
+
+```json
+{
+  "from": "sender@yourdomain.com",
+  "to": ["recipient@example.com"],
+  "cc": ["cc@example.com"],              // オプション
+  "bcc": ["bcc@example.com"],            // オプション
+  "reply_to": ["reply@yourdomain.com"],  // オプション
+  "subject": "スケジュールメール",
+  "html": "<h1>HTMLコンテンツ</h1>",
+  "text": "プレーンテキストコンテンツ",
+  "attachments": [],                     // オプション
+  "headers": {},                         // オプション
+  "tags": {},                            // オプション
+  "scheduled_at": "2026-01-25T10:00:00Z" // 必須、ISO 8601 形式
+}
+```
+
+<Callout type="info">
+  `scheduled_at` の時間は未来の時間である必要があります。他のすべてのフィールドは単一メール送信と同じルールに従います。
+</Callout>
+
+#### レスポンス
+
+```json
+{
+  "id": "696de2c84210d814d66ee053",
+  "status": "enqueued"
+}
+```
+
+### スケジュールメールのリスト
+
+```http
+GET /emails/scheduled
+```
+
+#### クエリパラメータ
+
+| パラメータ | タイプ | 説明 |
+|---------|-------|------|
+| `page` | number | ページ番号（デフォルト1） |
+| `limit` | number | ページあたりのアイテム数（デフォルト20、最大100） |
+| `status` | string | ステータスでフィルタ：`scheduled`、`sent`、`cancelled` |
+
+#### レスポンス
+
+```json
+{
+  "scheduled_emails": [
+    {
+      "id": "696de2c84210d814d66ee053",
+      "from": "hello@yourdomain.com",
+      "to": ["user@example.com"],
+      "subject": "スケジュールメール",
+      "scheduled_at": "2026-01-25T10:00:00Z",
+      "status": "enqueued",
+      "created_at": "2026-01-20T08:00:00Z",
+      "attempts": 0
+    }
+  ],
+  "total_count": 1
+}
+```
+
+### スケジュールメールの詳細取得
+
+```http
+GET /emails/scheduled/:id
+```
+
+### スケジュールメールのキャンセル
+
+```http
+DELETE /emails/scheduled/:id
+```
+
+---
+
+## バッチ送信
+
+### バッチメールの送信
+
+一度に大量のメールを送信し、各メールは異なる受信者とコンテンツを持つことができます。
+
+```http
+POST /emails/batch
+```
+
+#### リクエストボディ
+
+```json
+{
+  "emails": [
+    {
+      "from": "hello@yourdomain.com",
+      "to": ["user1@example.com"],
+      "cc": ["manager@example.com"],       // オプション
+      "bcc": ["archive@example.com"],      // オプション
+      "reply_to": ["support@yourdomain.com"], // オプション
+      "subject": "パーソナライズメール1",
+      "html": "<p>こんにちは、ユーザー1！</p>",
+      "text": "こんにちは、ユーザー1！",    // オプション
+      "attachments": [],                   // オプション
+      "headers": {},                       // オプション
+      "tags": {"user_id": "1"}             // オプション
+    },
+    {
+      "from": "hello@yourdomain.com",
+      "to": ["user2@example.com"],
+      "subject": "パーソナライズメール2",
+      "html": "<p>こんにちは、ユーザー2！</p>"
+    }
+    // ... 最大100通
+  ]
+}
+```
+
+<Callout type="info">
+  単一のバッチ送信は最大100通のメールをサポートします。各メールは `cc`、`bcc`、`reply_to`、`attachments`、`headers`、`tags` を含む単一メール送信と同じすべてのフィールドをサポートします。
+</Callout>
+
+#### レスポンス
+
+```json
+{
+  "job_id": "696de2c84210d814d66ee054",
+  "status": "pending",
+  "total_count": 2
+}
+```
+
+---
+
+## メールクエリ
+
+### メールリスト
+
+```http
+GET /emails
+```
+
+#### クエリパラメータ
+
+| パラメータ | タイプ | 説明 |
+|---------|-------|------|
+| `page` | number | ページ番号（デフォルト1） |
+| `page_size` | number | ページあたりのアイテム数（デフォルト20、最大100） |
+| `status` | string | ステータスでフィルタ：`pending`、`sent`、`delivered`、`bounced`、`complained` |
+
+---
+
+## エラーハンドリング
+
+API は標準の HTTP ステータスコードを使用します：
+
+| ステータスコード | 説明 |
+|--------------|------|
+| `200` | リクエスト成功 |
+| `400` | リクエストパラメータが不正 |
+| `401` | 未認証（API キーが無効または欠落） |
+| `403` | 禁止（権限不足またはアカウント停止） |
+| `404` | リソースが見つかりません |
+| `429` | リクエストが多すぎます（レート制限） |
+| `500` | 内部サーバーエラー |
+
+### エラーレスポンス形式
+
+```json
+{
+  "error": "簡単なエラー説明",
+  "message": "詳細なエラーメッセージ"
+}
+```
+
+---
+
+## 制限
+
+### 日次クォータ制限
+
+各ユーザーアカウントには日次送信クォータ（Daily Quota）があり、これが**最も重要な制限**です：
+
+| アカウントレベル | デフォルト日次クォータ | 説明 |
+|-------------|-----------------|------|
+| 新規ユーザー   | 100通/日        | アカウント作成後の初期クォータ |
+| 検証済み     | 1,000通/日      | ドメイン検証後に自動的に増加 |
+
+**クォータリセット時間**：毎日 UTC 00:00 に自動的にリセット
+
+**クォータ超過時**：
+- ステータスコード：`429 Too Many Requests`
+- エラーメッセージ：`daily quota exceeded (現在/合計), resets at 時間`
+- **読み取り操作は引き続き利用可能**：メール履歴と詳細のクエリを続行できます
+- **送信操作は拒否**：単一、スケジュール、バッチ送信を含む
+
+### コンテンツ制限
+
+- **受信者数**：メールあたり最大50人（to + cc + bcc）
+- **メールサイズ**：最大合計サイズ10 MB（添付ファイルとヘッダーを含む）
+- **添付ファイル数**：最大10個
+- **単一添付ファイルサイズ**：最大10 MB
+- **件名の長さ**：最大998文字
+- **HTML コンテンツ**：最大5 MB
+- **テキストコンテンツ**：最大5 MB
+- **バッチ送信**：バッチあたり最大100通
+
+### ユーザーステータス制限
+
+ユーザーアカウントのステータスは API アクセスに影響します：
+
+| ステータス | API アクセス | メール送信 | メールクエリ | 説明 |
+|---------|-----------|----------|----------|------|
+| `healthy` | ✅ | ✅ | ✅ | 通常のステータス、メールを送信できます |
+| `review` | ✅ | ✅ | ✅ | レビュー中、引き続き送信可能（クォータが削減される場合があります） |
+| `paused` | ✅ | ❌ (403) | ✅ | 停止中、クエリは可能ですが送信はできません |
+| `banned` | ❌ (401) | ❌ | ❌ | 禁止、API への完全なアクセス禁止 |
+
+**アカウント停止/禁止の理由**：
+- バウンス率 ≥ 4.0%
+- 苦情率 ≥ 0.08%
+- 利用規約違反
+
+**ステータスの説明**：
+- **`review`**（レビュー中）：メール品質の問題が検出され、システムが自動的にレビュー用にマークします。24時間以内にさらなる悪意のある行動がない場合、自動的に `healthy` ステータスに回復する可能性があります。
+- **`paused`**（停止中）：一時的に送信が禁止されていますが、履歴データのクエリ、ドメインの管理などは引き続き可能です。サポートチームに連絡して申し立てる必要があり、承認後最短24時間で回復します。
+- **`banned`**（禁止）：クエリ操作を含む API へのアクセスが完全に禁止されています。このステータスはスタッフによって手動で設定され、重大な違反を示し、通常は回復不可能です。
+
+<Callout type="warning">
+  制限を超えるリクエストは `400 Bad Request` エラーを返します。クォータ超過は `429 Too Many Requests` を返します。
+</Callout>
+
+---
+
+## ベストプラクティス
+
+### 1. エラーリトライ
+
+一時的なエラー（`500` や `429` など）の場合、指数バックオフリトライを使用することをお勧めします。
+
+### 2. バッチ送信を使用
+
+複数のメールを送信する場合は、単一送信をループで呼び出すのではなく、バッチ送信インターフェースを使用してください。
+
+### 3. Webhook を使用
+
+リアルタイムのメールステータス更新を受信するには、クエリインターフェースをポーリングするのではなく、Webhook を設定してください。詳細は [Webhook 設定](/ja-JP/email/webhooks) を参照してください。
+
+### 4. タグを適切に使用
+
+`tags` フィールドを使用してメールをマークし、後で追跡と分析を容易にします：
+
+```json
+{
+  "tags": {
+    "campaign": "welcome_series",
+    "user_segment": "new_users",
+    "template_version": "v2"
+  }
+}
+```

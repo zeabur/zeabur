@@ -1,0 +1,63 @@
+---
+title: Zeabur Email
+ogImageTitle: Zeabur Email
+ogImageSubtitle: 企业级邮件发送 API 服务
+---
+
+# Zeabur Email
+
+Zeabur Email 是 Zeabur 提供的企业级邮件发送 API 服务，为开发者提供简单、可靠、高性能的邮件发送解决方案。
+
+## 核心功能
+
+- **简单易用的 REST API** - 几行代码即可集成邮件发送功能
+- **即时发送与定时发送** - 支持立即发送或指定时间发送邮件
+- **批量发送** - 一次性发送大量邮件，自动队列管理
+- **附件支持** - 支持多种格式的邮件附件
+- **Webhook 通知** - 实时接收邮件发送状态（送达、退信、投诉等）
+- **域名管理** - 支持自定义发件域名
+- **API 密钥管理** - 灵活的权限控制（只读、只发送、完全权限）
+
+## 主要特性
+
+### 高可靠性
+基于 AWS SES 构建，提供 99.9% 的可用性保证，确保邮件稳定送达。
+
+### 实时监控
+通过 Webhook 实时获取邮件状态，包括：
+- 发送成功
+- 送达确认
+- 退信通知
+- 垃圾邮件投诉
+
+### 安全性
+- HMAC-SHA256 签名验证
+- API 密钥权限隔离
+- 域名 DKIM/SPF 验证
+
+## 快速开始
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  开始使用 Zeabur Email 前，请确保您已经在 Zeabur 控制台中启用了 Zeabur Email 服务。
+</Callout>
+
+查看 [快速开始指南](/zh-CN/email/quick-start) 了解如何在几分钟内发送第一封邮件。
+
+## 使用场景
+
+- 用户注册验证邮件
+- 密码重置邮件
+- 交易通知
+- 营销邮件
+- 系统告警通知
+- 账单和发票
+
+## 定价
+
+Zeabur Email 采用按量计费模式，根据实际发送的邮件数量收费。具体定价请参考 [计费说明](/zh-CN/billing)。
+
+<Callout type="warning">
+  邮件发送需遵守反垃圾邮件法规和最佳实践，滥用服务可能导致账号被暂停。
+</Callout>

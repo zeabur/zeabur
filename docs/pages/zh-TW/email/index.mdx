@@ -1,0 +1,63 @@
+---
+title: Zeabur Email
+ogImageTitle: Zeabur Email
+ogImageSubtitle: 企業級郵件發送 API 服務
+---
+
+# Zeabur Email
+
+Zeabur Email 是 Zeabur 提供的企業級郵件發送 API 服務，為開發者提供簡單、可靠、高效能的郵件發送解決方案。
+
+## 核心功能
+
+- **簡單易用的 REST API** - 幾行程式碼即可整合郵件發送功能
+- **即時發送與定時發送** - 支援立即發送或指定時間發送郵件
+- **批次發送** - 一次性發送大量郵件，自動佇列管理
+- **附件支援** - 支援多種格式的郵件附件
+- **Webhook 通知** - 即時接收郵件發送狀態（送達、退信、投訴等）
+- **網域管理** - 支援自訂寄件網域
+- **API 金鑰管理** - 靈活的權限控制（唯讀、僅發送、完整權限）
+
+## 主要特性
+
+### 高可靠性
+基於 AWS SES 建置，提供 99.9% 的可用性保證，確保郵件穩定送達。
+
+### 即時監控
+透過 Webhook 即時獲取郵件狀態，包括：
+- 發送成功
+- 送達確認
+- 退信通知
+- 垃圾郵件投訴
+
+### 安全性
+- HMAC-SHA256 簽章驗證
+- API 金鑰權限隔離
+- 網域 DKIM/SPF 驗證
+
+## 快速開始
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  開始使用 Zeabur Email 前，請確保您已經在 Zeabur 控制台中啟用了 Zeabur Email 服務。
+</Callout>
+
+查看 [快速開始指南](/zh-TW/email/quick-start) 了解如何在幾分鐘內發送第一封郵件。
+
+## 使用場景
+
+- 使用者註冊驗證郵件
+- 密碼重設郵件
+- 交易通知
+- 行銷郵件
+- 系統告警通知
+- 帳單和發票
+
+## 定價
+
+Zeabur Email 採用按量計費模式，根據實際發送的郵件數量收費。具體定價請參考 [計費說明](/zh-TW/billing)。
+
+<Callout type="warning">
+  郵件發送需遵守反垃圾郵件法規和最佳實踐，濫用服務可能導致帳號被暫停。
+</Callout>

@@ -1,0 +1,614 @@
+---
+title: Referencia de REST API
+ogImageTitle: Referencia de REST API de Zeabur Email
+ogImageSubtitle: Documentación Completa de Endpoints API
+---
+
+# Referencia de REST API
+
+Zeabur Email proporciona una API REST completa que facilita la integración de funcionalidad de envío de correos en su aplicación.
+
+## Autenticación
+
+Todas las solicitudes API deben incluir una clave API (formato Bearer Token) en el encabezado HTTP:
+
+```http
+Authorization: Bearer zs_your_api_key_here
+```
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Las claves API se pueden crear y gestionar en la página de gestión de Zeabur Email de la consola de Zeabur.
+</Callout>
+
+## URL Base
+
+```
+https://api.zeabur.com/api/v1/zsend
+```
+
+## Envío de Correos
+
+### Enviar Correo Individual
+
+Enviar un correo inmediatamente.
+
+```http
+POST /emails
+```
+
+#### Cuerpo de la Solicitud
+
+```json
+{
+  "from": "sender@yourdomain.com",
+  "to": ["recipient@example.com"],
+  "cc": ["cc@example.com"],           // Opcional
+  "bcc": ["bcc@example.com"],         // Opcional
+  "reply_to": ["reply@yourdomain.com"], // Opcional
+  "subject": "Asunto del Correo",
+  "html": "<h1>Contenido HTML</h1>",
+  "text": "Contenido de texto plano",
+  "attachments": [                    // Opcional
+    {
+      "filename": "document.pdf",
+      "content": "base64_encoded_content",
+      "content_type": "application/pdf"
+    }
+  ],
+  "headers": {                        // Opcional
+    "X-Custom-Header": "value"
+  },
+  "tags": {                           // Opcional
+    "campaign": "newsletter",
+    "user_id": "12345"
+  }
+}
+```
+
+#### Descripción de Campos
+
+| Campo | Tipo | Requerido | Descripción |
+|-------|------|-----------|-------------|
+| `from` | string | Sí | Dirección de correo del remitente, el dominio debe estar verificado |
+| `to` | array | Sí | Lista de direcciones de correo de destinatarios |
+| `cc` | array | No | Lista de direcciones de correo CC |
+| `bcc` | array | No | Lista de direcciones de correo BCC |
+| `reply_to` | array | No | Lista de direcciones de respuesta |
+| `subject` | string | Sí | Asunto del correo (máximo 998 caracteres) |
+| `html` | string | No* | Contenido del correo en formato HTML (máximo 5 MB) |
+| `text` | string | No* | Contenido del correo en texto plano (máximo 5 MB) |
+| `attachments` | array | No | Lista de archivos adjuntos (máximo 10, cada uno hasta 10 MB) |
+| `headers` | object | No | Encabezados de correo personalizados (máximo 50) |
+| `tags` | object | No | Etiquetas personalizadas para categorización y seguimiento |
+
+<Callout type="warning">
+  Debe proporcionarse al menos uno de `html` o `text`. Si se proporcionan ambos, los clientes de correo priorizarán la versión HTML, mientras que los clientes que no soporten HTML mostrarán la versión de texto plano. El total de destinatarios (to + cc + bcc) no puede exceder 50.
+</Callout>
+
+#### Respuesta
+
+```json
+{
+  "id": "696de2c84210d814d66ee052",
+  "message_id": "",
+  "status": "pending"
+}
+```
+
+#### Ejemplo
+
+```bash
+curl -X POST https://api.zeabur.com/api/v1/zsend/emails \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "from": "hello@yourdomain.com",
+    "to": ["user@example.com"],
+    "subject": "Bienvenido a Zeabur Email",
+    "html": "<h1>¡Bienvenido!</h1><p>Gracias por usar Zeabur Email.</p>"
+  }'
+```
+
+### Enviar Correo con Archivos Adjuntos
+
+El contenido de los archivos adjuntos debe codificarse en Base64:
+
+```javascript
+// Ejemplo de JavaScript
+const fs = require('fs');
+
+const fileContent = fs.readFileSync('document.pdf');
+const base64Content = fileContent.toString('base64');
+
+const response = await fetch('https://api.zeabur.com/api/v1/zsend/emails', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+  },
+  body: JSON.stringify({
+    from: 'hello@yourdomain.com',
+    to: ['user@example.com'],
+    subject: 'Prueba de Archivo Adjunto',
+    html: '<p>Por favor vea el archivo adjunto</p>',
+    attachments: [{
+      filename: 'document.pdf',
+      content: base64Content,
+      content_type: 'application/pdf'
+    }]
+  })
+});
+```
+
+---
+
+## Envío Programado
+
+### Programar Correo
+
+Programar un correo para ser enviado en un momento específico.
+
+```http
+POST /emails/schedule
+```
+
+#### Cuerpo de la Solicitud
+
+Igual que el envío de correo individual, con un campo adicional `scheduled_at`:
+
+```json
+{
+  "from": "sender@yourdomain.com",
+  "to": ["recipient@example.com"],
+  "cc": ["cc@example.com"],              // Opcional
+  "bcc": ["bcc@example.com"],            // Opcional
+  "reply_to": ["reply@yourdomain.com"],  // Opcional
+  "subject": "Correo Programado",
+  "html": "<h1>Contenido HTML</h1>",
+  "text": "Contenido de texto plano",
+  "attachments": [],                     // Opcional
+  "headers": {},                         // Opcional
+  "tags": {},                            // Opcional
+  "scheduled_at": "2026-01-25T10:00:00Z" // Requerido, formato ISO 8601
+}
+```
+
+<Callout type="info">
+  La hora de `scheduled_at` debe ser en el futuro. Todos los demás campos siguen las mismas reglas que el envío de correo individual.
+</Callout>
+
+#### Respuesta
+
+```json
+{
+  "id": "696de2c84210d814d66ee053",
+  "status": "enqueued"
+}
+```
+
+### Listar Correos Programados
+
+```http
+GET /emails/scheduled
+```
+
+#### Parámetros de Consulta
+
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `page` | number | Número de página (predeterminado 1) |
+| `limit` | number | Elementos por página (predeterminado 20, máximo 100) |
+| `status` | string | Filtrar por estado: `scheduled`, `sent`, `cancelled` |
+
+#### Respuesta
+
+```json
+{
+  "scheduled_emails": [
+    {
+      "id": "696de2c84210d814d66ee053",
+      "from": "hello@yourdomain.com",
+      "to": ["user@example.com"],
+      "subject": "Correo Programado",
+      "scheduled_at": "2026-01-25T10:00:00Z",
+      "status": "enqueued",
+      "created_at": "2026-01-20T08:00:00Z",
+      "attempts": 0
+    }
+  ],
+  "total_count": 1
+}
+```
+
+### Obtener Detalles de Correo Programado
+
+```http
+GET /emails/scheduled/:id
+```
+
+### Cancelar Correo Programado
+
+```http
+DELETE /emails/scheduled/:id
+```
+
+#### Respuesta
+
+```json
+{
+  "success": true,
+  "message": "Scheduled email cancelled"
+}
+```
+
+---
+
+## Envío por Lotes
+
+### Enviar Correos por Lotes
+
+Enviar una gran cantidad de correos a la vez, con cada correo teniendo diferentes destinatarios y contenido.
+
+```http
+POST /emails/batch
+```
+
+#### Cuerpo de la Solicitud
+
+```json
+{
+  "emails": [
+    {
+      "from": "hello@yourdomain.com",
+      "to": ["user1@example.com"],
+      "cc": ["manager@example.com"],       // Opcional
+      "bcc": ["archive@example.com"],      // Opcional
+      "reply_to": ["support@yourdomain.com"], // Opcional
+      "subject": "Correo Personalizado 1",
+      "html": "<p>¡Hola, Usuario 1!</p>",
+      "text": "¡Hola, Usuario 1!",         // Opcional
+      "attachments": [],                   // Opcional
+      "headers": {},                       // Opcional
+      "tags": {"user_id": "1"}             // Opcional
+    },
+    {
+      "from": "hello@yourdomain.com",
+      "to": ["user2@example.com"],
+      "subject": "Correo Personalizado 2",
+      "html": "<p>¡Hola, Usuario 2!</p>"
+    }
+    // ... hasta 100 correos
+  ]
+}
+```
+
+<Callout type="info">
+  Un envío por lotes admite hasta 100 correos. Cada correo admite todos los mismos campos que el envío de correo individual, incluyendo `cc`, `bcc`, `reply_to`, `attachments`, `headers` y `tags`.
+</Callout>
+
+#### Respuesta
+
+```json
+{
+  "job_id": "696de2c84210d814d66ee054",
+  "status": "pending",
+  "total_count": 2
+}
+```
+
+#### Descripción de Campos
+
+| Campo | Tipo | Descripción |
+|-------|------|-------------|
+| `job_id` | string | ID del trabajo por lotes para consultar el estado y detalles más tarde |
+| `status` | string | Estado inicial del trabajo (generalmente `pending`) |
+| `total_count` | number | Número total de correos en el trabajo por lotes |
+
+<Callout type="info">
+  `job_id` es el identificador único del trabajo por lotes, diferente del `id` del correo individual. Guarde este `job_id` para consultar el progreso y los resultados del envío por lotes más tarde.
+</Callout>
+
+### Listar Trabajos por Lotes
+
+```http
+GET /emails/batch
+```
+
+#### Parámetros de Consulta
+
+Iguales que la lista de correos programados.
+
+### Obtener Detalles del Trabajo por Lotes
+
+```http
+GET /emails/batch/:id
+```
+
+#### Respuesta
+
+```json
+{
+  "job_id": "696de2c84210d814d66ee054",
+  "total_count": 100,
+  "sent_count": 95,
+  "failed_count": 5,
+  "status": "completed",
+  "created_at": "2026-01-20T08:00:00Z",
+  "completed_at": "2026-01-20T08:15:00Z"
+}
+```
+
+---
+
+## Consultas de Correos
+
+### Listar Correos
+
+```http
+GET /emails
+```
+
+#### Parámetros de Consulta
+
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `page` | number | Número de página (predeterminado 1) |
+| `page_size` | number | Elementos por página (predeterminado 20, máximo 100) |
+| `status` | string | Filtrar por estado: `pending`, `sent`, `delivered`, `bounced`, `complained` |
+
+#### Respuesta
+
+```json
+{
+  "data": [
+    {
+      "id": "696de2c84210d814d66ee052",
+      "from": "hello@yourdomain.com",
+      "to": ["user@example.com"],
+      "subject": "Correo de Prueba",
+      "status": "delivered",
+      "created_at": "2026-01-20T08:00:00Z"
+    }
+  ],
+  "total": 1
+}
+```
+
+### Obtener Detalles del Correo
+
+```http
+GET /emails/:id
+```
+
+#### Respuesta
+
+```json
+{
+  "id": "696de2c84210d814d66ee052",
+  "message_id": "0111019bd53de187-bda14a71-25a3-4fdc-a1a0-f543ff58c085-000000",
+  "from": "hello@yourdomain.com",
+  "to": ["user@example.com"],
+  "cc": [],
+  "bcc": [],
+  "reply_to": [],
+  "subject": "Correo de Prueba",
+  "html": "<h1>Prueba</h1>",
+  "text": "Prueba",
+  "status": "delivered",
+  "mal_status": "healthy",
+  "created_at": "2026-01-20T08:00:00Z",
+  "headers": {},
+  "tags": {},
+  "attachments": []
+}
+```
+
+---
+
+## Manejo de Errores
+
+La API utiliza códigos de estado HTTP estándar:
+
+| Código de Estado | Descripción |
+|------------------|-------------|
+| `200` | Solicitud exitosa |
+| `400` | Parámetros de solicitud incorrectos |
+| `401` | No autorizado (clave API inválida o faltante) |
+| `403` | Prohibido (permisos insuficientes o cuenta suspendida) |
+| `404` | Recurso no encontrado |
+| `429` | Demasiadas solicitudes (limitado por tasa) |
+| `500` | Error interno del servidor |
+
+### Formato de Respuesta de Error
+
+```json
+{
+  "error": "Descripción breve del error",
+  "message": "Mensaje de error detallado"
+}
+```
+
+### Ejemplos de Errores Comunes
+
+#### Error de Validación (400)
+
+```json
+{
+  "error": "validation error",
+  "message": "subject length (1200) exceeds maximum (998 characters)"
+}
+```
+
+#### Error de Autenticación (401)
+
+```json
+{
+  "error": "unauthorized",
+  "message": "Invalid or missing API key"
+}
+```
+
+#### Error de Permiso (403)
+
+```json
+{
+  "error": "permission denied",
+  "message": "API key does not have permission to send from this domain"
+}
+```
+
+#### Error de Cuota Excedida (429)
+
+```json
+{
+  "error": "daily quota exceeded (55/55), resets at 2026-01-23 00:00:00"
+}
+```
+
+---
+
+## Límites
+
+### Límite de Cuota Diaria
+
+Cada cuenta de usuario tiene una cuota de envío diaria (Daily Quota), que es **el límite más importante**:
+
+| Nivel de Cuenta | Cuota Diaria Predeterminada | Descripción |
+|----------------|----------------------------|-------------|
+| Usuario Nuevo  | 100 correos/día           | Cuota inicial después de la creación de la cuenta |
+| Verificado     | 1,000 correos/día         | Aumenta automáticamente después de la verificación del dominio |
+
+**Tiempo de Reinicio de Cuota**: Se reinicia automáticamente diariamente a las UTC 00:00
+
+**Cuando se Excede la Cuota**:
+- Devuelve código de estado: `429 Too Many Requests`
+- Mensaje de error: `daily quota exceeded (actual/total), resets at time`
+- **Operaciones de lectura aún disponibles**: Puede continuar consultando el historial y detalles de correos
+- **Operaciones de envío rechazadas**: Incluye envíos individuales, programados y por lotes
+
+### Límites de Contenido
+
+- **Cantidad de destinatarios**: Máximo 50 destinatarios por correo (to + cc + bcc)
+- **Tamaño del correo**: Tamaño total máximo 10 MB (incluidos archivos adjuntos y encabezados)
+- **Cantidad de archivos adjuntos**: Máximo 10 archivos adjuntos
+- **Tamaño de archivo adjunto individual**: Máximo 10 MB
+- **Longitud del asunto**: Máximo 998 caracteres
+- **Contenido HTML**: Máximo 5 MB
+- **Contenido de texto**: Máximo 5 MB
+- **Envío por lotes**: Máximo 100 correos por lote
+
+### Límites de Estado de Usuario
+
+El estado de la cuenta de usuario afecta el acceso a la API:
+
+| Estado | Acceso API | Enviar Correo | Consultar Correo | Descripción |
+|--------|-----------|---------------|------------------|-------------|
+| `healthy` | ✅ | ✅ | ✅ | Estado normal, puede enviar correos |
+| `review` | ✅ | ✅ | ✅ | En revisión, aún puede enviar (la cuota puede reducirse) |
+| `paused` | ✅ | ❌ (403) | ✅ | Suspendido, puede consultar pero no puede enviar |
+| `banned` | ❌ (401) | ❌ | ❌ | Prohibido, completamente prohibido acceder a la API |
+
+**Razones de Suspensión/Prohibición de Cuenta**:
+- Tasa de Rebote ≥ 4.0%
+- Tasa de Quejas ≥ 0.08%
+- Violación de términos de servicio
+
+**Descripciones de Estado**:
+- **`review`** (En Revisión): Problemas de calidad de correo detectados, el sistema marca automáticamente para revisión. Si no hay comportamiento malicioso adicional dentro de 24 horas, puede recuperarse automáticamente al estado `healthy`.
+- **`paused`** (Suspendido): Temporalmente prohibido enviar, pero aún puede consultar datos históricos, gestionar dominios, etc. Necesita contactar al equipo de soporte para apelar, la recuperación más rápida es 24 horas después de la aprobación.
+- **`banned`** (Prohibido): Completamente prohibido acceder a la API, incluidas las operaciones de consulta. Este estado es establecido manualmente por el personal, indicando violaciones graves, y generalmente no es recuperable.
+
+<Callout type="warning">
+  Las solicitudes que excedan los límites devolverán un error `400 Bad Request`. La cuota excedida devuelve `429 Too Many Requests`.
+</Callout>
+
+---
+
+## Mejores Prácticas
+
+### 1. Reintento de Errores
+
+Para errores temporales (como `500` o `429`), se recomienda usar reintento con retroceso exponencial:
+
+```javascript
+async function sendEmailWithRetry(emailData, maxRetries = 3) {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      const response = await fetch('https://api.zeabur.com/api/v1/zsend/emails', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer YOUR_API_KEY'
+        },
+        body: JSON.stringify(emailData)
+      });
+      
+      if (response.ok) {
+        return await response.json();
+      }
+      
+      if (response.status === 400 || response.status === 403) {
+        // Errores del cliente, no reintentar
+        throw new Error(await response.text());
+      }
+      
+      // Otros errores, reintentar después de esperar
+      if (i < maxRetries - 1) {
+        await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
+      }
+    } catch (error) {
+      if (i === maxRetries - 1) throw error;
+    }
+  }
+}
+```
+
+### 2. Usar Envío por Lotes
+
+Al enviar múltiples correos, use la interfaz de envío por lotes en lugar de llamar en bucle al envío individual:
+
+```javascript
+// ✅ Recomendado
+await fetch('https://api.zeabur.com/api/v1/zsend/emails/batch', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+  },
+  body: JSON.stringify({
+    emails: users.map(user => ({
+      from: 'newsletter@yourdomain.com',
+      to: [user.email],
+      subject: `Hola, ${user.name}`,
+      html: `<p>Contenido personalizado</p>`
+    }))
+  })
+});
+
+// ❌ No recomendado
+for (const user of users) {
+  await fetch('https://api.zeabur.com/api/v1/zsend/emails', {
+    // ... envío individual
+  });
+}
+```
+
+### 3. Usar Webhooks
+
+Configure Webhooks para recibir actualizaciones de estado de correo en tiempo real en lugar de sondear la interfaz de consulta. Consulte [Configuración de Webhooks](/es-ES/email/webhooks) para más detalles.
+
+### 4. Usar Etiquetas Apropiadamente
+
+Use el campo `tags` para marcar correos para facilitar el seguimiento y análisis:
+
+```json
+{
+  "tags": {
+    "campaign": "welcome_series",
+    "user_segment": "new_users",
+    "template_version": "v2"
+  }
+}
+```
