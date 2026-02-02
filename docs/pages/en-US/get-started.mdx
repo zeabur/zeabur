@@ -6,110 +6,111 @@ ogImageSubtitle: Deploying your services to Zeabur from scratch
 
 import { Callout } from 'nextra/components'
 
-# Getting Started
+# **Getting Started**
 
-## Step One: Create an Account
+## **Step One: Create an Account**
 
 You need to create an account to start deploying your services on Zeabur.
 
-If you are new to Zeabur, you will need to register using your email (the first option). Enter your email address here, then click "Continue with Email".
+If you are new to Zeabur, you will need to register using your email (the first option). Enter your email address here, then click “Continue with Email”.
 
-![Login](/start/login.webp)
+![SignUp.png](/start/get-started/SignUp.png)
 
-You will then receive a prompt stating "Login link sent".
+You will then receive a prompt stating “Email Sent Successfully”.
 
-![Verification mail sent](/start/verification-mail-sent.webp)
+![SignUp Part 2.png](/start/get-started/SignUp%20Part%202.png)
 
-Open your email inbox (e.g., Gmail, Outlook, Apple Mail), and you will see an email from Zeabur. Click the "Log in" button within the email.
+Open your email inbox (e.g., Gmail, Outlook, Apple Mail), and you will see an email from Zeabur. Click the “Log in” button within the email.
 
-![Verification mail](/start/verification-mail.webp)
+![Sign Up Callback.png](/start/get-started/Sign%20Up%20Callback.png)
 
-<Callout>
-  If the browser you are logging in from is not your system's default browser (i.e., if opening the link launches Safari instead of Chrome),
-  you can right-click the "Log in" button to copy the link, then paste it into the browser you wish to use.
-</Callout>
+If the browser launching during the login process is not your preferred default browser (e.g., Safari opens instead of Chrome), you can manually copy the link provided below the Sign In button and paste it into your desired browser.
 
-Once this login interface appears, it means you have successfully logged in!
+Once this login interface appears, it means you have successfully logged in! 
 
-![Onboarding UI](/start/onboarding-ui.webp)
+![Dashboard.png](/start/get-started/Dashboard.png)
 
-Remember that you can switch the interface language in the top right corner! We currently support Traditional Chinese, Simplified Chinese, English, Japanese, Spanish, and Indonesian.
+Remember that you may switch the interface language in the left panel! We currently support Traditional Chinese, Simplified Chinese, English, Japanese, Spanish, and Indonesian. 
 
-![Switch language](/start/switch-language.webp)
+![Languages.png](/start/get-started/Languages.png)
 
-## Step Two: Create a Project
+## **Step Two: Create a Project**
 
 In Zeabur, a Project serves as a single container for all related services that make up a real-world application. For example, if your application consists of a frontend website, a backend API, and a database, they should all be kept within the same Project.
 
 ![Project structure](/start/project-structure.webp)
 
-To start creating a project, click the **Create Project** button in the center (or top right corner).
+To start creating a project, click the **Create Project** button in the center .
 
-![Create new project](/start/create-new-project.webp)
+![Create New Project.png](/start/get-started/Create%20New%20Project.png)
 
-If this is your first time creating a project, you will likely see an "Account Verification" prompt.
+If this is your first time creating a project, you will likely see an “Account Verification” prompt.
 
-![Account verification](/start/account-verification.webp)
+![Toast if not verified.png](/start/get-started/Toast%20if%20not%20verified.png)
 
-You can choose:
+You can either choose:
 
-1. Verify using a phone number. Most countries and regions support this method. If your country or region does not support it, or if you need to bind multiple Zeabur accounts, in addition to [contacting us](https://zeabur.com/dc), you can also refer to the second and third options.
-2. Pre-deposit some usage credits. As long as you haven't subscribed to a Dev Plan or server, and are not involved in severe abuse (e.g., violating ToS by initiating high-volume DoS attacks), we will not deduct from your balance.
-3. Link a credit card. Similar to the second point, we will not initiate any charges unless you perform subscription operations; it's purely for verification purposes.
+1. Verify using a **phone number**. Most countries and regions support this method. If your country or region does not support it, or if you need to bind multiple Zeabur accounts, in addition to [contacting us](https://zeabur.com/forum), you can also refer to the second and third options.
+2. Pre-deposit some **usage credits**. As long as you haven’t subscribed to a Dev Plan or purchased a dedicated server, and are not involved in severe abuse (e.g., violating ToS by initiating high-volume DoS attacks), we will not deduct from your balance.
+3. We require a **credit card** to verify your account, ensuring seamless operations. Please note, no charges will be made unless you actively initiate subscription-related transactions.
 
-Choose your preferred method, then click the "Verify" button in the corresponding section.
+Choose your preferred method, then click the “Verify” button in the corresponding section.
 
 Once verification is complete, you can recreate the project and see the successfully created project.
 
-![Project page with add service](/start/project-page-with-add-service.webp)
+![After Verification.png](/start/get-started/After%20Verification.png)
 
-## Step Three: Deploy Services
+## **Step Three: Deploy Services**
 
 Zeabur can deploy a wide variety of services, including databases (PostgreSQL, MySQL, Redis), open-source projects (n8n, WordPress), or your own custom applications (imported from GitHub or uploaded from a folder).
 
-![Project page with add service](/start/project-page-with-add-service.webp)
+- If you want to deploy a database, click “Databases” to directly deploy various common databases.
+    
+    ![Databases.png](/start/get-started/Databases.png)
+    
+- If you want to deploy an open-source project, Zeabur’s “Templates” provide many pre-configured common open-source projects, which you can deploy with one click by selecting “Templates”.
+    
+    ![templates.png](/start/get-started/templates.png)
+    
+- If you want to deploy your own custom application, you can upload your code by clicking “GitHub” or “Local Project,” or you can click “Cursor” to directly deploy your current project.
+- If the open-source project you want to deploy is not listed in “Templates,” you can also set it up yourself using a “Docker Image,” which is an advanced operation.
 
-- If you want to deploy a database, click "Databases" to directly deploy various common databases.
-  ![Database services](/start/database-services.webp)
-- If you want to deploy an open-source project, Zeabur's "Templates" provide many pre-configured common open-source projects, which you can deploy with one click by selecting "Templates".
-  ![Template services](/start/template-services.webp)
-- If you want to deploy your own custom application, you can upload your code by clicking "GitHub" or "Local Project," or you can click "Cursor" to directly deploy your current project.
-- If the open-source project you want to deploy is not listed in "Templates," you can also set it up yourself using a "Docker Image," which is an advanced operation.
+Taking GitHub deployment as an example. First, you need to link your Zeabur account to GitHub and wait for about 1 minute, then search for the repository you likely to deploy:
 
-Taking GitHub deployment as an example, you need to first link your account to GitHub and wait for about 1 minute, then search for the repository you wish to deploy:
+![Github.png](/start/get-started/Github.png)
 
-![Search repository](/start/search-repository.webp)
+After clicking on the repository, Zeabur Agent will automatically analyze your code and select the most suitable deployment method for you.
 
-After clicking on the repository, Zeabur will automatically analyze your code and select the most suitable deployment method for you.
+![Build Plan.png](/start/get-started/Build%20Plan.png)
 
-![Build plan](/start/build-plan.webp)
+Click “Deploy” to deploy the project with one click. If needed, you can go to “Configuration” to adjust environment variables.
 
-Click "Deploy" to deploy the project with one click. If needed, you can go to "Configuration" to adjust environment variables.
+In Configuration, set the Root Directory to your app folder (e.g., “/” or a subfolder) and add required environment variables via Key/Value or Edit Raw Variables, then click Next to confirm.
 
-![Build configuration](/start/build-configuration.webp)
+![Configure Build Plan  .png](/start/get-started/Configure%20Build%20Plan%20%20.png)
 
-## Deploy Services using AI
+## **Deploy Any Services using Zeabur AI Agents**
 
-Zeabur's AI Assistant allows you to quickly deploy the services you need using natural language.
+Zeabur’s AI Agents allows you to quickly deploy the services you need using natural language.
 
-![Zeabur Agent](/start/zeabur-agent.webp)
+![Postgresql Examples.png](/start/get-started/Postgresql%20Examples.png)
 
-Click "Agent" in the navigation bar to access the AI Assistant interface. If you encounter any deployment issues, you can also ask it for help!
+Click “Zeabur AI” in the right panel to access the AI Assistant interface. If you encounter any deployment issues, you can also ask it for help!
 
-## Step Four: Launch Your Website
+## **Step Four: Launch Your Website**
 
-To make your website accessible to others, you can bind your own domain in "Domains":
+To make your website accessible to others, you can bind your own domain in “Domains”:
 
 ![Bind domain](/start/bind-domain.webp)
 
 Wait for about 30 seconds, then you can click on the domain. Zeabur will handle HTTPS and other settings for you. Once everything is confirmed, you can share your website.
 
-If you need to bind your own domain, you can find more information in the [Domain Binding](/deploy/domain-binding) documentation.
+If you need to bind your own domain, you can find more information in the [Domain Binding](https://zeabur.com/docs/deploy/domain-binding) documentation.
 
-## What's Next?
+## **What’s Next?**
 
-If you wish to log in using your Google or GitHub account, you can bind your GitHub and Google accounts in "Settings" > "Integrations".
+If you wish to log in using your Google or GitHub account, you can bind your GitHub and Google accounts in “Settings” > “Integrations”.
 
 ![Account integration](/start/account-integration.webp)
 
-Next, you can continue to explore Zeabur's rich template library and various features for different purposes (e.g., File Management, Logs). If you need technical support, Zeabur's [Discord server](https://zeabur.com/dc) has dedicated channels to help you resolve any issues!
+Next, you can continue to explore Zeabur’s rich template library and various features for different purposes (e.g., File Management, Logs). For technical issues, submit a developer ticket on the [Zeabur Official Forum.](https://zeabur.com/forum) For community discussion and peer support, join our developer community on the [Zeabur Discord server](https://zeabur.com/dc).

@@ -4,6 +4,15 @@
     <loc>https://zeabur.com/docs/en-US/advanced/builds</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/en-US/ai-hub/n8n-integration</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/ai-hub/sillytavern-integration</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/ai-hub</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/en-US/billing/plans</loc>
   </url>
   <url>
@@ -64,6 +73,9 @@
     <loc>https://zeabur.com/docs/en-US/deploy/create-project</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/create-service</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/en-US/deploy/customize-prebuilt</loc>
   </url>
   <url>
@@ -110,6 +122,9 @@
   </url>
   <url>
     <loc>https://zeabur.com/docs/en-US/developer/use-api-key</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/developer/websocket-guide</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/en-US/get-started</loc>
@@ -223,6 +238,9 @@
     <loc>https://zeabur.com/docs/en-US</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/en-US/legal/abuse-report</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/en-US/legal/fair-use-guideline</loc>
   </url>
   <url>
@@ -262,7 +280,40 @@
     <loc>https://zeabur.com/docs/en-US/template/template-in-code</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/en-US/tutorials/aistudio</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/tutorials/bolt</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/tutorials/emergent</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/tutorials/github</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/tutorials/lovable</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/tutorials/replit</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/tutorials/v0</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/tutorials</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/es-ES/advanced/builds</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/ai-hub/n8n-integration</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/ai-hub/sillytavern-integration</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/ai-hub</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/es-ES/billing/plans</loc>
@@ -322,6 +373,9 @@
     <loc>https://zeabur.com/docs/es-ES/deploy/copy-project</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/es-ES/deploy/create-service</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/es-ES/deploy/customize-prebuilt</loc>
   </url>
   <url>
@@ -368,6 +422,9 @@
   </url>
   <url>
     <loc>https://zeabur.com/docs/es-ES/developer/use-api-key</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/developer/websocket-guide</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/es-ES/get-started</loc>
@@ -481,6 +538,9 @@
     <loc>https://zeabur.com/docs/es-ES</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/es-ES/legal/abuse-report</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/es-ES/legal/fair-use-guideline</loc>
   </url>
   <url>
@@ -520,7 +580,40 @@
     <loc>https://zeabur.com/docs/es-ES/template/template-in-code</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/es-ES/tutorials/aistudio</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/tutorials/bolt</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/tutorials/emergent</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/tutorials/github</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/tutorials/lovable</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/tutorials/replit</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/tutorials/v0</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/tutorials</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/ja-JP/advanced/builds</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/ai-hub/n8n-integration</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/ai-hub/sillytavern-integration</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/ai-hub</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/ja-JP/billing/plans</loc>
@@ -583,6 +676,9 @@
     <loc>https://zeabur.com/docs/ja-JP/deploy/create-project</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/ja-JP/deploy/create-service</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/ja-JP/deploy/customize-prebuilt</loc>
   </url>
   <url>
@@ -629,6 +725,9 @@
   </url>
   <url>
     <loc>https://zeabur.com/docs/ja-JP/developer/use-api-key</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/developer/websocket-guide</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/ja-JP/get-started</loc>
@@ -742,6 +841,9 @@
     <loc>https://zeabur.com/docs/ja-JP</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/ja-JP/legal/abuse-report</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/ja-JP/legal/fair-use-guideline</loc>
   </url>
   <url>
@@ -781,7 +883,40 @@
     <loc>https://zeabur.com/docs/ja-JP/template/template-in-code</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/ja-JP/tutorials/aistudio</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/tutorials/bolt</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/tutorials/emergent</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/tutorials/github</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/tutorials/lovable</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/tutorials/replit</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/tutorials/v0</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/tutorials</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/zh-CN/advanced/builds</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/ai-hub/n8n-integration</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/ai-hub/sillytavern-integration</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/ai-hub</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/billing/plans</loc>
@@ -844,6 +979,9 @@
     <loc>https://zeabur.com/docs/zh-CN/deploy/create-project</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/zh-CN/deploy/create-service</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/zh-CN/deploy/customize-prebuilt</loc>
   </url>
   <url>
@@ -890,6 +1028,9 @@
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/developer/use-api-key</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/developer/websocket-guide</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/get-started</loc>
@@ -1003,6 +1144,9 @@
     <loc>https://zeabur.com/docs/zh-CN</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/zh-CN/legal/abuse-report</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/zh-CN/legal/fair-use-guideline</loc>
   </url>
   <url>
@@ -1045,7 +1189,40 @@
     <loc>https://zeabur.com/docs/zh-CN/template/template-in-code</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/zh-CN/tutorials/aistudio</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/tutorials/bolt</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/tutorials/emergent</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/tutorials/github</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/tutorials/lovable</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/tutorials/replit</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/tutorials/v0</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/tutorials</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/zh-TW/advanced/builds</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/ai-hub/n8n-integration</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/ai-hub/sillytavern-integration</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/ai-hub</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-TW/billing/plans</loc>
@@ -1108,6 +1285,9 @@
     <loc>https://zeabur.com/docs/zh-TW/deploy/create-project</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/create-service</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/zh-TW/deploy/customize-prebuilt</loc>
   </url>
   <url>
@@ -1154,6 +1334,9 @@
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-TW/developer/use-api-key</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/developer/websocket-guide</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-TW/get-started</loc>
@@ -1267,6 +1450,9 @@
     <loc>https://zeabur.com/docs/zh-TW</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/zh-TW/legal/abuse-report</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/zh-TW/legal/fair-use-guideline</loc>
   </url>
   <url>
@@ -1304,5 +1490,344 @@
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-TW/template/template-in-code</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/tutorials/aistudio</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/tutorials/bolt</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/tutorials/emergent</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/tutorials/github</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/tutorials/lovable</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/tutorials/replit</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/tutorials/v0</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/tutorials</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/marketplace/dragonfly</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/marketplace/flowise</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/marketplace/focalboard</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/marketplace/ghost</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/marketplace/halo</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/marketplace/likit</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/marketplace/linkwarden</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/marketplace/logto</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/marketplace/memos</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/marketplace/mongodb</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/marketplace/mysql</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/marketplace/n8n</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/marketplace/postgresql</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/marketplace/rabbitmq</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/marketplace/redis</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/marketplace/rsshub</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/marketplace/ttrss</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/marketplace/umami</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/marketplace/uptime-kuma</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/marketplace/wewe-rss</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/marketplace/wordpress</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/marketplace/dragonfly</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/marketplace/flowise</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/marketplace/focalboard</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/marketplace/ghost</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/marketplace/halo</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/marketplace/likit</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/marketplace/linkwarden</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/marketplace/logto</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/marketplace/memos</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/marketplace/mongodb</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/marketplace/mysql</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/marketplace/n8n</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/marketplace/postgresql</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/marketplace/rabbitmq</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/marketplace/redis</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/marketplace/rsshub</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/marketplace/ttrss</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/marketplace/umami</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/marketplace/uptime-kuma</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/marketplace/wewe-rss</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/marketplace/wordpress</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/marketplace/dragonfly</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/marketplace/flowise</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/marketplace/focalboard</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/marketplace/ghost</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/marketplace/halo</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/marketplace/likit</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/marketplace/linkwarden</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/marketplace/logto</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/marketplace/memos</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/marketplace/mongodb</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/marketplace/mysql</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/marketplace/n8n</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/marketplace/postgresql</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/marketplace/rabbitmq</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/marketplace/redis</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/marketplace/rsshub</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/marketplace/ttrss</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/marketplace/umami</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/marketplace/uptime-kuma</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/marketplace/wewe-rss</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/marketplace/wordpress</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/marketplace/dragonfly</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/marketplace/flowise</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/marketplace/focalboard</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/marketplace/ghost</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/marketplace/halo</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/marketplace/likit</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/marketplace/linkwarden</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/marketplace/logto</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/marketplace/memos</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/marketplace/mongodb</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/marketplace/mysql</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/marketplace/n8n</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/marketplace/postgresql</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/marketplace/rabbitmq</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/marketplace/redis</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/marketplace/rsshub</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/marketplace/ttrss</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/marketplace/umami</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/marketplace/uptime-kuma</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/marketplace/wewe-rss</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/marketplace/wordpress</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/marketplace/dragonfly</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/marketplace/flowise</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/marketplace/focalboard</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/marketplace/ghost</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/marketplace/halo</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/marketplace/likit</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/marketplace/linkwarden</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/marketplace/logto</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/marketplace/memos</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/marketplace/mongodb</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/marketplace/mysql</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/marketplace/n8n</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/marketplace/postgresql</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/marketplace/rabbitmq</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/marketplace/redis</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/marketplace/rsshub</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/marketplace/ttrss</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/marketplace/umami</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/marketplace/uptime-kuma</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/marketplace/wewe-rss</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/marketplace/wordpress</loc>
   </url>
 </urlset>

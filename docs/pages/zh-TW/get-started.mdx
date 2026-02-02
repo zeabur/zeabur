@@ -6,110 +6,111 @@ ogImageSubtitle: 從零開始將你的服務部署到 Zeabur 上
 
 import { Callout } from 'nextra/components'
 
-# 快速開始
+# **快速開始**
 
-## 步驟一：建立帳戶
+## **第一步：建立帳號**
 
-你需要先建立一個帳戶來開始在 Zeabur 部署你的服務。
+您需要建立一個帳號才能開始在 Zeabur 上部署服務。
 
-如果您是第一次使用 Zeabur，需要先使用 E-mail 註冊（也就是第一個選項）。在這裡填寫您的 E-mail 然後，點選「透過電子郵件繼續」。
+若您是 Zeabur 新使用者，請使用電子郵件註冊（第一個選項）。在此輸入您的電子郵件地址，然後點擊「使用電子郵件繼續」。
 
-![login](/start/login.webp)
+![SignUp.png](/start/get-started/SignUp.png)
 
-接著您會收到「登入連結已經寄送」的提示。
+接著會收到「郵件發送成功」的提示。
 
-![verification mail sent](/start/verification-mail-sent.webp)
+![SignUp Part 2.png](/start/get-started/SignUp%20Part%202.png)
 
-打開您的電子信箱頁面（比如 Gmail、Outlook、Apple Mail 等等），您會看到一封來自 Zeabur 的信件。點選信件內的「登入」按鈕。
+開啟您的郵件收件匣（例如 Gmail、Outlook、Apple Mail），您會看到來自 Zeabur 的郵件。點擊郵件中的「登入」按鈕。
 
-![verification mail](/start/verification-mail.webp)
+![Sign Up Callback.png](/start/get-started/Sign%20Up%20Callback.png)
 
-<Callout>
-  如果您登入的瀏覽器不是您系統設定的預設瀏覽器（也就是說打開連結時出現的是 Safari 而不是 Chrome），可以先右鍵「登入」按鈕複製連結，
-  然後再貼上到您登入的瀏覽器打開。
-</Callout>
+若登入過程中開啟的瀏覽器不是您偏好的預設瀏覽器（例如開啟 Safari 而非 Chrome），您可手動複製「登入」按鈕下方的連結，並貼到您想要的瀏覽器中。
 
-出現這個登入介面，就代表您完成登入了！
+出現此登入介面即表示您已成功登入！
 
-![onboarding ui](/start/onboarding-ui.webp)
+![Dashboard.png](/start/get-started/Dashboard.png)
 
-記得右上角可以切換介面語言喔！我們目前有繁體中文、簡體中文、英文、日文、西班牙文和印尼文可以選擇。
+請記得，您可在左側面板切換介面語言！我們目前支援繁體中文、簡體中文、英語、日語、西班牙語和印尼語。
 
-![switch language](/start/switch-language.webp)
+![Languages.png](/start/get-started/Languages.png)
 
-## 步驟二：建立專案
+## **第二步：建立專案**
 
-在 Zeabur 中，一個「專案 (Project)」用於容納構成真實世界應用程式的所有相關服務。舉例來說，如果您的應用程式由一個前端網站、一個後端 API 和一個資料庫所組成，那麼這些服務都應該被放在同一個專案中。
+在 Zeabur 中，專案是一個單一容器，用來存放構成真實世界應用程式的所有相關服務。例如，若您的應用程式包含前端網站、後端 API 和資料庫，它們都應放在同一個專案中。
 
-![project structure](/start/project-structure.webp)
+![Project structure](/start/project-structure.webp)
 
-要開始建立專案，請點選正中央（或右上角）的 **建立專案** 按鈕。
+要開始建立專案，請點擊中央的**建立專案**按鈕。
 
-![create new project](/start/create-new-project.webp)
+![Create New Project.png](/start/get-started/Create%20New%20Project.png)
 
-如果您是第一次建立專案，很可能會看到「帳號驗證」的提示。
+若是第一次建立專案，您可能會看到「帳號驗證」提示。
 
-![account verification](/start/account-verification.webp)
+![Toast if not verified.png](/start/get-started/Toast%20if%20not%20verified.png)
 
-您可以選擇：
+您可選擇：
 
-1. 使用電話號碼進行驗證。大部分的國家或地區都支援這種驗證方式，如果您的國家或地區不支援這種方式，或者是需要綁定多個 Zeabur 帳號，除了 [聯絡我們](https://zeabur.com/dc) 外也可以參考第二和第三種方案。
-2. 預存一些使用額度。只要您沒有訂閱 Dev Plan 或伺服器，且沒有涉及嚴重濫用行為（比如違反 ToS 發起大流量 DoS），我們都不會扣除您的餘額。
-3. 綁定信用卡。和第二點相似，除非您有操作訂閱項目，否則我們都不會發起扣款，純粹作為驗證用途。
+1. 使用**手機號碼**驗證。大多數國家和地區都支援此方式。若您的國家/地區不支援，或需要綁定多個 Zeabur 帳號，除[聯絡我們](https://zeabur.com/forum)外，也可參考第二和第三個選項。
+2. 預先儲值一些**使用額度**。只要您未訂閱 Dev 方案、未購買專用伺服器，且未涉及嚴重濫用（例如違反 ToS 發起高流量 DoS 攻擊），我們不會扣除餘額。
+3. 我們需要**信用卡**來驗證您的帳號，以確保操作順暢。請注意，除非您主動發起訂閱相關交易，否則不會產生任何扣款。
 
-選擇您想要的方式，然後點選對應區塊的「驗證」按鈕。
+選擇您偏好的方式，然後點擊對應部分的「驗證」按鈕。
 
-驗證完成後，重新建立專案就可以看到建立完成的專案了。
+驗證完成後，您可重新建立專案，並看到成功建立的專案。
 
-![project page with add service](/start/project-page-with-add-service.webp)
+![After Verification.png](/start/get-started/After%20Verification.png)
 
-## 步驟三：部署服務
+## **第三步：部署服務**
 
-Zeabur 可以部署各式各樣的服務，包括資料庫（PostgreSQL、MySQL、Redis）、開源專案（n8n、WordPress），或者是你自己寫的程式（從 GitHub 匯入或者是用資料夾上傳）。
+Zeabur 可部署多種服務，包括資料庫（PostgreSQL、MySQL、Redis）、開源專案（n8n、WordPress）或您自己的自訂應用（從 GitHub 匯入或從資料夾上傳）。
 
-![project page with add service](/start/project-page-with-add-service.webp)
+- 若要部署資料庫，點擊「資料庫」直接部署常見資料庫。
+    
+    ![Databases.png](/start/get-started/Databases.png)
+    
+- 若要部署開源專案，Zeabur 的「模板」提供許多預先配置的常見開源專案，選擇「模板」即可一鍵部署。
+    
+    ![templates.png](/start/get-started/templates.png)
+    
+- 若要部署自己的自訂應用，可點擊「GitHub」或「本地專案」上傳程式碼，或點擊「Cursor」直接部署目前專案。
+- 若您想部署的開源專案不在「模板」中，也可使用「Docker 映像」自行設定（屬於進階操作）。
 
-- 如果你想要部署資料庫的話，點選「資料庫」就可以直接部署各種常見的資料庫。
-  ![database services](/start/database-services.webp)
-- 如果您想要部署某個開源專案，Zeabur 的「模板」有預先設定好很多常見的開源專案，點選「模板」就可以一鍵部署。
-  ![template services](/start/template-services.webp)
-- 如果您想要部署您自己寫的程式，點選「GitHub」、「本機專案」就可以上傳您的程式碼，也可以按「Cursor」直接部署您目前的專案。
-- 如果您想部署的開源專案不在「模板」裡面，也可以用「Docker Image」自己架設，屬於進階操作。
+以 GitHub 部署為例。首先將 Zeabur 帳號綁定至 GitHub，等待約 1 分鐘，然後搜尋您想部署的儲存庫：
 
-就以 GitHub 部署為例，您需要先將帳號綁定到 GitHub 上後等待 1 分鐘，然後搜尋您想要部署的儲存庫：
+![Github.png](/start/get-started/Github.png)
 
-![search repository](/start/search-repository.webp)
+點擊儲存庫後，Zeabur 代理會自動分析您的程式碼並為您選擇最適合的部署方式。
 
-點下去儲存庫後，Zeabur 會自動分析您的程式碼，然後為您選擇最適合的部署方式。
+![Build Plan.png](/start/get-started/Build%20Plan.png)
 
-![build plan](/start/build-plan.webp)
+點擊「部署」即可一鍵部署專案。如有需要，可前往「設定」調整環境變數。
 
-直接點選「部署」就能一鍵部署專案。如果有需要，可以到「配置」調整環境變數。
+在設定中，將根目錄設為您的應用資料夾（例如“/”或子資料夾），透過鍵/值或編輯原始變數新增所需環境變數，然後點擊下一步確認。
 
-![build configuration](/start/build-configuration.webp)
+![Configure Build Plan  .png](/start/get-started/Configure%20Build%20Plan%20%20.png)
 
-## 使用 AI 部署服務
+## **使用 Zeabur AI 代理部署任意服務**
 
-Zeabur 的 AI 助理可以讓您用自然語言，快速部署出您需要的服務。
+Zeabur 的 AI 代理讓您使用自然語言快速部署所需服務。
 
-![zeabur agent](/start/zeabur-agent.webp)
+![Postgresql Examples.png](/start/get-started/Postgresql%20Examples.png)
 
-點選導覽列的「Agent」即可進入 AI 助理的介面。如果部署遇到障礙，也可以請它幫忙！
+點擊右側面板中的「Zeabur AI」進入 AI 助手介面。若遇到任何部署問題，也可向其求助！
 
-## 步驟四：上線網站
+## **第四步：啟動您的網站**
 
-要讓別人可以瀏覽你的網站，可以到「網域」中綁定自己的網域：
+要讓您的網站可供他人存取，可在「網域」中綁定自己的網域：
 
-![bind domain](/start/bind-domain.webp)
+![Bind domain](/start/bind-domain.webp)
 
-等待 30 秒左右就能點開網域，Zeabur 會幫您處理好 HTTPS 等等的設定，確認沒問題就能分享自己的網站了。
+等待約 30 秒後即可點擊網域。Zeabur 會為您處理 HTTPS 等設定。全部確認後，即可分享您的網站。
 
-如果需要綁定自己的網域，可以到 [網域綁定](/deploy/domain-binding) 文件中了解更多資訊。
+若需綁定自己的網域，可查看[網域綁定](https://zeabur.com/docs/deploy/domain-binding)文件取得更多資訊。
 
-## 下一步可以做什麼？
+## **下一步做什麼？**
 
-如果想要用 Google、GitHub 帳號登入的話，可以到「設定」>「整合」中綁定 GitHub 和 Google 帳號。
+若希望使用 Google 或 GitHub 帳號登入，可在「設定」>「整合」中綁定 GitHub 和 Google 帳號。
 
-![account integration](/start/account-integration.webp)
+![Account integration](/start/account-integration.webp)
 
-接下來您可以繼續探索 Zeabur 豐富的模板庫，以及各種面向不同用途的功能（如檔案管理、Logs）。如果您需要技術支援的話，[Zeabur 的 Discord 伺服器](https://zeabur.com/dc) 有專門的頻道可以幫助您解決各種疑難雜症！
+接下來，您可繼續探索 Zeabur 豐富的模板庫以及各種功能（例如檔案管理、記錄）。如遇技術問題，可在 [Zeabur 官方論壇](https://zeabur.com/forum) 提交開發者票證。如需社群討論與互助，請加入我們的開發者社群 [Zeabur Discord 伺服器](https://zeabur.com/dc)。

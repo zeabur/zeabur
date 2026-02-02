@@ -36,7 +36,7 @@ Zeabur 就会忽略你的 Dockerfile，而由 Zeabur 自动决定部署方式。
 
 ## 环境变量
 
-如果你的 `Dockerfile` 需要使用到环境变量，你可以在该服务的页面点选 **环境变量** 来新增，更多的设置方式请参考 [环境变量](/zh-CN/environment/variables)。
+如果你的 `Dockerfile` 需要使用到环境变量，你可以在该服务的页面点选 **环境变量** 来新增，更多的设置方式请参考 [环境变量](/deploy/variables)。
 
 ![环境变量设置](/environment/add-variables.png)
 
@@ -97,4 +97,4 @@ CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/ngin
 
 Zeabur 当前尚不支持从 Docker Compose YAML 进行部署。
 
-您可以将 Docker Compose 文件转换为 Zeabur Template YAML，详情可以参考[《从 YAML 创建模板》](/template/template-in-code)。如果需要帮助，也可以在 [社区](https://discord.gg/zeabur) 中向我们提问。
+您可以将 Docker Compose 文件转换为 Zeabur Template YAML，详情可以参考[《从 YAML 创建模板》](/template/template-in-code)。如果需要帮助，也可以在 [社区](https://zeabur.com/forum) 中向我们提问。

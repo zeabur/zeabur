@@ -4,39 +4,39 @@ ogImageTitle: 运行命令
 ogImageSubtitle: 在 Zeabur 服务内运行命令
 ---
 
-# 运行命令
+import { Callout } from 'nextra/components';
 
-你可以在 Zeabur 的服务内运行命令，例如安装软件包、运行程序、查看信息甚至是备份特定数据等。
+# 执行命令
 
-## 打开命令运行界面
+你可以在 Zeabur 服务内执行命令，用于安装包、运行程序、查看信息，甚至备份特定数据。
 
-打开服务的 **服务状态** 标签页，然后点击 **命令** 区块，即可打开"命令执行"的界面。
+## 打开命令执行界面
 
-![打开命令运行界面](/deploy/command-execution/open-command-executor.webp)
+打开服务的 **Overview** 标签页，点击 **Command** 即可显示“Execute Command”界面。
 
-命令运行界面由两个部分组成：
+![打开命令执行界面](/deploy/command-execution/Command_part1.png)
 
-- 命令输入栏：允许你敲 <kbd>Enter</kbd> 或者是点击旁边的 <kbd>⏎</kbd> 按钮运行命令。
-- 命令输出区：显示命令运行的结果。如果命令运行成功，会显示输出结果；反之则会显示错误代码。
+命令执行界面：
 
-![命令运行界面](/deploy/command-execution/interface.webp)
+- 命令输出区域：显示命令执行结果。成功时显示输出内容，失败时显示错误码。
 
-## 运行命令
+![命令执行界面](/deploy/command-execution/terminal.png)
 
-以一个最基本的 `echo` 为例，输入 `echo Hello, World!`，你应该会看到输出结果 `Hello, World!`。
+## 执行命令
 
-![运行 hello world 命令](/deploy/command-execution/command-success.webp)
+以简单 `echo` 为例，输入 `echo Hello, World!`，应看到输出 `Hello, World!`。
 
-而输入不存在的命令，则会显示错误代码。
+![执行 hello world 命令](/deploy/command-execution/terminal_2.png)
 
-![运行命令失败](/deploy/command-execution/command-error.webp)
+输入不存在的命令会显示错误码。
 
-更深入一些，你可以在 MySQL、PostgreSQL 等等的数据库容器中运行 SQL 语句，调用 cURL 上传日志或者是备份文件，甚至是运行迁移程序（如 `prisma migrate`、`node seeder.js`）。
+![命令执行失败](/deploy/command-execution/terminal_3.png)
 
-就以 MySQL 来说，我们可以复制“Command to connect to your MySQL”的命令，删除其中的 `host` 和 `port` 参数（容器内运行，无需远程连接），将 `mysqlsh` 改写成 `mysql` 的命令（容器内没有 `mysqlsh`），最后加上 `-e` 运行 SQL 语句。
+你还可以在 MySQL 或 PostgreSQL 等数据库容器中执行 SQL 语句、使用 cURL 上传日志或备份文件，甚至运行迁移程序（如 `prisma migrate`、`node seeder.js`）。
+
+对于 MySQL，可复制“Command to connect to your MySQL”命令，删除 `host` 和 `port` 参数（容器内无需远程连接），将 `mysqlsh` 改为 `mysql`（容器内无 `mysqlsh`），最后加上 `-e` 执行 SQL 语句。
 
 ```bash
-mysql --user=root --password=<密码> --database=zeabur -e "SHOW DATABASES;"
-```
+mysql --user=root --password=<password> --database=zeabur -e "SHOW DATABASES;"
 
-![运行 MySQL 命令](/deploy/command-execution/mysql-example.webp)
+![执行 MySQL 命令](/deploy/command-execution/MySQL_terminal.png)
