@@ -1,16 +1,14 @@
 ---
 title: Builds
 ogImageTitle: Builds
-ogImageSubtitle: How Zeabur builds your source code into service?
+ogImageSubtitle: Construcción de servicios en Zeabur
 ---
-
-<WorkingInProgress />
 
 # Builds
 
-Zeabur uses [zbpack](https://github.com/zeabur/zbpack) as the internal tool to build user services, so that users can deploy services based on any language and framework with one click without understanding the complex details.
+Zeabur utiliza [zbpack](https://github.com/zeabur/zbpack) como herramienta interna para construir los servicios de los usuarios, permitiendo desplegar servicios basados en cualquier lenguaje y framework con un solo clic, sin necesidad de entender los detalles complejos.
 
-For now, [zbpack](https://github.com/zeabur/zbpack) has supported all mainstream programming languages for web development, and has further identified and optimized for each popular development framework. At the same time, it is also constantly updating for new programming languages and frameworks:
+Actualmente, [zbpack](https://github.com/zeabur/zbpack) soporta todos los lenguajes de programación principales para desarrollo web y ha optimizado aún más la detección y el rendimiento para los frameworks más populares. Al mismo tiempo, se actualiza constantemente para nuevos lenguajes y frameworks:
 
 - Node.js
 - Python
@@ -22,20 +20,20 @@ For now, [zbpack](https://github.com/zeabur/zbpack) has supported all mainstream
 - Rust
 - Elixir
 
-If the language or framework used by your service is not in the above list, or if you find that zbpack has a problem during the build process, please contribute a Pull Request to [GitHub](https://github.com/zeabur/zbpack/pulls) to help us improve the functionality of zbpack.
+Si el lenguaje o framework que utiliza tu servicio no está en la lista anterior, o si encuentras algún problema con zbpack durante el proceso de construcción, por favor contribuye con un Pull Request en [GitHub](https://github.com/zeabur/zbpack/pulls) para ayudarnos a mejorar la funcionalidad de zbpack.
 
-When you use zbpack to build a service in a project, it will automatically identify the language and framework used by the service based on the code, configuration files and other information in the project, and according to this information, choose the appropriate way to build the service.
+Cuando utilizas zbpack para construir un servicio en un proyecto, identifica automáticamente el lenguaje y el framework basándose en el código, archivos de configuración y otra información del proyecto, y selecciona la forma adecuada de construir el servicio.
 
-## Generate Build Plan
+## Generar el Plan de Construcción
 
-For example, suppose you have developed a web application based on [Next.js](https://nextjs.org/):
+Por ejemplo, supongamos que has desarrollado una aplicación web basada en [Next.js](https://nextjs.org/):
 
 ```bash
 git clone https://github.com/zeabur/nextjs-template
 cd nextjs-template
 ```
 
-When you run the `zbpack` command in the folder of this project, you can see the customized build plan for this:
+Al ejecutar el comando `zbpack` en la carpeta del proyecto, puedes ver el plan de construcción personalizado para este caso:
 
 ```bash
 zbpack .
@@ -57,18 +55,18 @@ zbpack .
 ╚═══════════════════════════════════════════════════════════════════════╝
 ```
 
-From the figure, we can see that `zbpack` chooses to use the `nodejs` Provider as the solution provider for the build, which means that it will do the following in the further plan:
+En la imagen podemos ver que `zbpack` elige usar el **Provider** `nodejs` como solución de construcción, lo que implica que realizará los siguientes pasos en el plan:
 
-1. Find out which version of Node.js the service uses
-2. Find out which package manager the service uses, is it `npm`, `yarn` or `pnpm`
-3. Find out which command the service uses to install dependencies
-4. Find out which command the service uses to build
-5. Find out which command the service uses to start
-6. Find out which Node.js framework the service uses
+1. Detectar qué versión de Node.js utiliza el servicio
+2. Identificar qué gestor de paquetes usa el servicio (`npm`, `yarn` o `pnpm`)
+3. Determinar qué comando se usa para instalar dependencias
+4. Determinar qué comando se usa para construir
+5. Determinar qué comando se usa para iniciar
+6. Identificar qué framework de Node.js está utilizando el servicio
 
-## Build Service
+## Construir el Servicio
 
-Next, zbpack will generate a Dockerfile based on this build plan, and then automatically use this Dockerfile to build the service:
+A continuación, zbpack generará un **Dockerfile** basado en este plan de construcción y usará automáticamente ese Dockerfile para construir el servicio:
 
 ```bash
 [+] Building 41.3s (12/12) FINISHED                                                                     docker:orbstack
@@ -103,8 +101,11 @@ Next, zbpack will generate a Dockerfile based on this build plan, and then autom
 
 Build successful
 
-To run the image, use the following command:
+Para ejecutar la imagen, usa el siguiente comando:
 docker run -p 8080:8080 -it nextjs-template
 ```
 
-Then, we can use `docker run -p 8080:8080 -it nextjs-template` to start the service, and then open `http://localhost:8080` in the browser to access the service.
+Después, puedes usar `docker run -p 8080:8080 -it nextjs-template` para iniciar el servicio y abrir `http://localhost:8080` en el navegador para acceder a él.
+```
+
+Si también necesitas la versión en **japonés (ja-JP)** o cualquier ajuste adicional, ¡házmelo saber!

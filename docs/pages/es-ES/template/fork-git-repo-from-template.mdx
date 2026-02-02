@@ -1,33 +1,37 @@
 ---
-title: Fork Code from Template Services
-ogImageTitle: Fork Code from Template Services
-ogImageSubtitle: How to modify the code of a Git service deployed from a template service
+title: Bifurcar código desde servicios de plantilla
+ogImageTitle: Bifurcar código desde servicios de plantilla
+ogImageSubtitle: Cómo modificar el código de un servicio Git desplegado desde un servicio de plantilla
 ---
 
-# Fork Code from Template Services
+import { Callout } from 'nextra/components';
 
-On Zeabur, you can use template services to quickly deploy applications. A template includes multiple services, each being either a Prebuilt service (deployed from a Docker Image) or a Git service (deployed from GitHub).
+# Bifurcar Código desde Servicios de Plantilla
 
-By default, when you deploy a template with a Git service, Zeabur directly deploys the service from the template source's GitHub repository to your project, and automatically binds CI/CD to the repository set by the template author. This means that when the template author pushes new commits to their repository, Zeabur automatically triggers CI/CD and deploys the new service to your project.
+En Zeabur puedes usar servicios de plantilla para desplegar aplicaciones rápidamente. Una plantilla incluye múltiples servicios, cada uno siendo un servicio Prebuilt (desplegado desde una imagen Docker) o un servicio Git (desplegado desde GitHub).
 
-However, there may be times when you want to modify the template author's code, adding your own features or changing settings, etc. For this scenario, Zeabur provides a convenient one-click Fork function.
+Por defecto, al desplegar una plantilla con un servicio Git, Zeabur despliega directamente el servicio desde el repositorio GitHub de origen de la plantilla en tu proyecto y vincula automáticamente CI/CD al repositorio establecido por el autor de la plantilla. Esto significa que cuando el autor de la plantilla sube nuevos commits, Zeabur activa automáticamente CI/CD y despliega la nueva versión en tu proyecto.
 
-## How to Fork Code from a Template Service
+Sin embargo, puede haber ocasiones en las que quieras modificar el código del autor de la plantilla, agregar tus propias funciones o cambiar configuraciones, etc. Para este escenario, Zeabur ofrece una conveniente función de Fork con un solo clic.
 
-Taking the [Zeabur official Express.js template](https://zeabur.com/templates/W96I3Z) as an example, after you have deployed this template, click on the settings page for the express service. You will see that the Git Repository field currently has the value `https://github.com/zeabur/expressjs-template`, which is the GitHub repository specified by this template.
+## Cómo Bifurcar Código desde un Servicio de Plantilla
 
-If we want to modify the code based on this template, you can click the Fork Repository button below:
+Tomando como ejemplo la [plantilla oficial de Express.js de Zeabur](https://zeabur.com/templates/W96I3Z), después de desplegar esta plantilla, haz clic en la página de configuración del servicio express. Verás que el campo Git Repository tiene actualmente el valor `https://github.com/zeabur/expressjs-template`, que es el repositorio GitHub especificado por esta plantilla.
 
-![](https://i.imgur.com/Wz9tJsV.jpeg)
+Si queremos modificar el código basado en esta plantilla, puedes hacer clic en el botón Fork Repository que aparece debajo:
 
-After clicking, a window will pop up asking you what the name of the Repository is. Please choose a repository name that has not been used before, otherwise, the Fork may fail. There is also an input box below the name allowing you to choose whether to set the repository to private, which can prevent others from seeing your code changes:
+![Express.js github fork](/template/fork-git-repo-from-template/Expressjs_github_fork.png)
 
-![](https://i.imgur.com/ETc1yKk.jpeg)
+Después de hacer clic, aparecerá una ventana preguntando el nombre del repositorio. Elige un nombre de repositorio que no haya sido usado antes, de lo contrario, el Fork podría fallar. También hay un cuadro de entrada debajo del nombre que te permite elegir si configurar el repositorio como privado, lo que evita que otros vean tus cambios de código:
 
-After you have chosen a name, click the Fork button. If you have not yet authorized GitHub, you may be directed to GitHub's OAuth authorization page. After authorization is complete, you will see the Fork loading screen:
+![git fork](/template/fork-git-repo-from-template/git_fork.png)
 
-![](https://i.imgur.com/9Y2qX0P.png)
+Después de elegir un nombre, haz clic en Fork. Si aún no has autorizado GitHub, es posible que te redirijan a la página de autorización OAuth de GitHub. Una vez completada la autorización, verás la pantalla de carga del Fork:
 
-After completion, you will see that a new repository has been added to your GitHub account, containing the same code as originally.
+![Configure Github](/template/fork-git-repo-from-template/Configure_Github.png)
 
-Zeabur will automatically Fork this template's code to your GitHub account and set this Forked repository as your service's Git Repository. This means that when you modify this Forked repository on GitHub and push commits, Zeabur will automatically trigger CI/CD and deploy the new service to your project.
+![github connection](/template/fork-git-repo-from-template/github_connection.png)
+
+Al finalizar, verás que se ha añadido un nuevo repositorio a tu cuenta de GitHub, con el mismo código que el original.
+
+Zeabur automáticamente bifurcará el código de esta plantilla a tu cuenta de GitHub y establecerá este repositorio bifurcado como el Git Repository de tu servicio. Esto significa que cuando modifiques este repositorio bifurcado en GitHub y subas commits, Zeabur activará automáticamente CI/CD y desplegará la nueva versión en tu proyecto.

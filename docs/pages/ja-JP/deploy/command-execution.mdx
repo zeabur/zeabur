@@ -1,42 +1,40 @@
 ---
 title: コマンドの実行
 ogImageTitle: コマンドの実行
-ogImageSubtitle: Zeabur サービス内でのコマンド実行
+ogImageSubtitle: Zeaburサービス内でコマンドを実行
 ---
 
 # コマンドの実行
 
-Zeabur のサービス内でコマンドを実行できます。例えば、パッケージのインストール、プログラムの実行、情報の確認、特定データのバックアップなどです。
+Zeaburのサービス内でコマンドを実行して、パッケージのインストール、プログラムの実行、情報の確認、特定のデータのバックアップなどを行うことができます。
 
-## コマンド実行インターフェースの開き方
+## コマンド実行インターフェースを開く
 
-サービスの **Overview** タブを開き、**Command** セクションをクリックすると、「コマンド実行」画面が表示されます。
+サービスの **Overview** タブを開き、**Command** をクリックすると「Execute Command」インターフェースが表示されます。
 
-![コマンド実行インターフェースの開き方](/deploy/command-execution/open-command-executor.webp)
+![コマンド実行インターフェースを開く](/deploy/command-execution/Command_part1.png)
 
-コマンド実行インターフェースは次の2つの部分で構成されています：
+コマンド実行インターフェース：
 
-- コマンド入力欄：<kbd>Enter</kbd> を押すか、横にある <kbd>⏎</kbd> ボタンをクリックしてコマンドを実行できます。
-- コマンド出力エリア：コマンド実行の結果を表示します。コマンドが成功すれば出力結果が表示され、失敗すればエラーコードが表示されます。
+- コマンド出力エリア：コマンドの実行結果を表示。成功時は出力が表示され、エラー時はエラーコードが表示されます。
 
-![コマンド実行インターフェース](/deploy/command-execution/interface.webp)
+![コマンド実行インターフェース](/deploy/command-execution/terminal.png)
 
-## コマンドの実行
+## コマンドを実行
 
-基本的な `echo` の例として、`echo Hello, World!` と入力すると、`Hello, World!` という出力結果が表示されるはずです。
+基本例として `echo Hello, World!` を入力すると、出力に `Hello, World!` が表示されます。
 
-![hello world コマンドの実行](/deploy/command-execution/command-success.webp)
+![hello worldコマンドの実行](/deploy/command-execution/terminal_2.png)
 
-存在しないコマンドを入力すると、エラーコードが表示されます。
+存在しないコマンドを入力するとエラーコードが表示されます。
 
-![コマンド実行の失敗](/deploy/command-execution/command-error.webp)
+![コマンド実行失敗](/deploy/command-execution/terminal_3.png)
 
-さらに高度な使い方として、MySQL や PostgreSQL などのデータベースコンテナ内で SQL 文を実行したり、cURL を使ってログをアップロードしたり、ファイルをバックアップしたり、さらには移行プログラム（例：`prisma migrate`、`node seeder.js`）を実行したりすることができます。
+MySQLやPostgreSQLなどのデータベースコンテナ内でSQL文を実行したり、cURLでログをアップロードしたりファイルをバックアップしたり、マイグレーションプログラム（例：`prisma migrate`、`node seeder.js`）を実行することも可能です。
 
-MySQL の例として、「Command to connect to your MySQL」のコマンドをコピーし、その中から `host` と `port` パラメータを削除します（コンテナ内で実行するためリモート接続は不要）。さらに `mysqlsh` を `mysql` に書き換えます（コンテナ内に `mysqlsh` はありません）。最後に `-e` を追加して SQL 文を実行します。
+MySQLの場合、「Command to connect to your MySQL」のコマンドをコピーし、`host` と `port` パラメータを削除（コンテナ内接続なので不要）、`mysqlsh` を `mysql` に書き換え（コンテナ内に `mysqlsh` はない）、最後に `-e` を追加してSQL文を実行します。
 
 ```bash
-mysql --user=root --password=<パスワード> --database=zeabur -e "SHOW DATABASES;"
-```
+mysql --user=root --password=<password> --database=zeabur -e "SHOW DATABASES;"
 
-![MySQL コマンドの実行](/deploy/command-execution/mysql-example.webp)
+![MySQLコマンドの実行](/deploy/command-execution/MySQL_terminal.png)

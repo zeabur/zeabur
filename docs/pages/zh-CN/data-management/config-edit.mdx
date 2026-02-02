@@ -14,25 +14,25 @@ import { Callout } from 'nextra/components'
 
 ## 步骤一：创建项目
 
-在 [Zeabur Dash](https://dash.zeabur.com/) 创建 Project。
+在 [Zeabur Dash](https://zeabur.com/new) 创建 Project。
 
 ## 步骤二：创建服务
 
 在上述 Project 中分别创建 NGINX 和 Vaultwarden 的 Prebuilt Service。
 
-![创建 NGINX 服务](/data-management/config-edit/create-nginx-service.en-US.png)
+![创建 NGINX 服务](/data-management/config-edit/nginx.png)
 
-![创建 Vaultwarden 服务](/data-management/config-edit/create-vultwarden-service.en-US.png)
+![创建 Vaultwarden 服务](/data-management/config-edit/vaultwarden.png)
 
 ## 步骤三：编辑 Nginx 服务配置文件
 
 1. 在 Services 区中，点击 NGINX 服务的 `Settings` 区块的下拉按钮，找到 `Configs` 部分后点击 `Open Config Editor` 按钮，进入配置文件编辑器。
 
-![打开配置文件编辑器](/data-management/config-edit/open-config-editor.en-US.png)
+![打开配置文件编辑器](/data-management/config-edit/nginx_open_config.png)
 
 2. 在打开的编辑器中，点击 `Add Config file` 按钮新增一个配置文件。在弹出表单的 `Config Path` 输入框打上配置文件的路径和名称，这里我们输入 `/etc/nginx/nginx.conf`，接着点击 `Save Config` 按钮。
 
-![新增配置文件](/data-management/config-edit/create-new-config.en-US.png)
+![新增配置文件](/data-management/config-edit/nginx_create_config_file.png)
 
 <Callout>
     上方的 `Config Path` 需要输入配置文件的绝对路径，请根据实际情况调整。
@@ -85,13 +85,13 @@ http {
 
 4. 点击 `Save` 按钮保存配置。
 
-![保存配置文件](/data-management/config-edit/save-config.en-US.png)
+![保存配置文件](/data-management/config-edit/Open_Config_Editor.png)
 
 ## 步骤四：重新启动服务
 
 在上述步骤中，我们已经完成了配置文件的编辑，接下来我们需要重新启动服务。点击服务状态的“重新启动服务”按钮重新启动服务，以使配置文件生效。
 
-![重新启动服务](/data-management/config-edit/restart-service.en-US.png)
+![重新启动服务](/data-management/config-edit/restart_nginx_Instance.png)
 
 [将域名绑定到 NGINX 服务后](/deploy/domain-binding)，即可通过域名访问 Vaultwarden 服务。
 

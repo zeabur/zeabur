@@ -4,36 +4,38 @@ ogImageTitle: プロジェクトを作成
 ogImageSubtitle: Zeaburでプロジェクトを作成する
 ---
 
-# プロジェクトを作成
+# **プロジェクトを作成**
 
 Zeaburでサービスをデプロイするには、まずプロジェクトを作成する必要があります。
 
 以下の手順に従ってプロジェクトを作成できます。
 
-## プロジェクトとは
+## **プロジェクトとは**
 
-プロジェクトは、一緒にデプロイされるサービスのコレクションです。同じプロジェクト内のサービスは内部ネットワークでお互いに通信できます。
-異なる地域に複数のプロジェクトを作成し、各プロジェクトにさまざまな種類のサービスをデプロイできます。
+プロジェクトは、一緒にデプロイされるサービスのコレクションです。同じプロジェクト内のサービスは内部ネットワークで相互に通信できます。異なるリージョンに複数のプロジェクトを作成し、各プロジェクトでさまざまな種類のサービスをデプロイできます。
 
-さらに、プロジェクトの[予算を設定して使用量を管理](../manage/budget)したり、[他のチームメンバーを招待](../manage/invite)してサービスを管理したりすることができます。
+また、プロジェクトに対して[予算を設定し、使用量を管理](https://zeabur.com/docs/ja-JP/manage/budget)したり、[他のチームメンバーを招待](https://zeabur.com/docs/ja-JP/manage/invite)してサービスを管理したりできます。
 
-## プロジェクトの作成方法
+## **プロジェクトの作成方法**
 
-まず、[ダッシュボードのプロジェクトページ](https://dash.zeabur.com/projects)に移動する必要があります。
+まず、[ダッシュボードのプロジェクトページ](https://zeabur.com/projects)に移動します。
 
-Zeaburを初めて使用する場合、プロジェクトがないと、最初のプロジェクトを作成するためのオンボーディングページが表示されます。
+Zeaburに初めてでプロジェクトがない場合、最初のプロジェクトを作成するためのオンボーディングページが表示されます。
 
-![プロジェクト作成のオンボーディング](/deploy/create-project/onboarding.png)
+![プロジェクト作成オンボーディング](/deploy/create-project/Deployment_Services_Create_Project.png)
 
-以前にプロジェクトを作成したことがある場合は、**プロジェクトを作成**ボタンをクリックするか、`CMD + K`または`Ctrl + K`を押してコマンドパレットを開き、**プロジェクトを作成**を選択します。
-次に、プロジェクトを作成したい地域を選択すると、ランダムな名前でプロジェクトが自動的に作成されます。
+以前にプロジェクトを作成したことがある場合は、**Create Project**ボタンをクリックして**Create New Project**ページに移動し、**Deployment Type**を選択します。**dedicated server**または**share cluster**のいずれかを選択してください。
 
-![地域を選択](/deploy/create-project/select-region.png)
+![デプロイメントタイプを選択](/deploy/create-project/choose_Deployment_Type_2.png)
 
-## 次のステップ
+次に、サブスクリプションプランと希望するリージョンに基づいてリージョンを選択すると、プロジェクトがuntitled-0、untitled-1などの名前で自動的に作成されます。
 
-地域を選択すると、空のプロジェクトが表示されます：
+![リージョンを選択](/deploy/create-project/select_a_region_2.png)
 
-![空のプロジェクト](/deploy/create-project/empty-project.png)
+## **次に何をするか**
 
-このプロジェクトにサービスをデプロイするには、**新しいサービスをデプロイ**ボタンをクリックするか、設定ボタンをクリックしてプロジェクト設定を管理し、チームメンバーを招待することができます。
+リージョン選択後、空のプロジェクトが表示されます：
+
+![空のプロジェクト](/deploy/create-project/Deployment_Services_empty_project.png)
+
+**Deploy New Service**ボタンをクリックしてこのプロジェクトに[サービスをデプロイ](https://zeabur.com/docs/ja-JP/deploy/create-service)するか、設定ボタンをクリックしてプロジェクト設定を管理し、[他のチームメンバーを招待](https://zeabur.com/docs/ja-JP/manage/invite)できます。

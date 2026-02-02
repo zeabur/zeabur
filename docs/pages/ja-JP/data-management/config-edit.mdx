@@ -14,25 +14,25 @@ import { Callout } from 'nextra/components'
 
 ## ステップ1：プロジェクトの作成
 
-[Zeabur Dash](https://dash.zeabur.com/)でプロジェクトを作成します。
+[Zeabur Dash](https://zeabur.com/new)でプロジェクトを作成します。
 
 ## ステップ2：サービスの作成
 
 上記のプロジェクトで、NGINXとVaultwardenのPrebuiltサービスをそれぞれ作成します。
 
-![NGINXサービスの作成](/data-management/config-edit/create-nginx-service.en-US.png)
+![NGINXサービスの作成](/data-management/config-edit/nginx.png)
 
-![Vaultwardenサービスの作成](/data-management/config-edit/create-vultwarden-service.en-US.png)
+![Vaultwardenサービスの作成](/data-management/config-edit/vaultwarden.png)
 
 ## ステップ3：Nginxサービスの設定ファイルを編集
 
 1. Servicesエリアで、NGINXサービスの`Settings`ブロックのドロップダウンボタンをクリックし、`Configs`セクションを見つけて`Open Config Editor`ボタンをクリックし、設定ファイルエディタを開きます。
 
-![設定ファイルエディタを開く](/data-management/config-edit/open-config-editor.en-US.png)
+![設定ファイルエディタを開く](/data-management/config-edit/nginx_open_config.png)
 
 2. 開いたエディタで、`Add Config file`ボタンをクリックして新しい設定ファイルを追加します。表示されたフォームの`Config Path`入力ボックスに設定ファイルのパスと名前を入力します。ここでは`/etc/nginx/nginx.conf`と入力し、`Save Config`ボタンをクリックします。
 
-![設定ファイルの追加](/data-management/config-edit/create-new-config.en-US.png)
+![設定ファイルの追加](/data-management/config-edit/nginx_create_config_file.png)
 
 <Callout>
     上記の`Config Path`には設定ファイルの絶対パスを入力する必要があります。実際の状況に応じて調整してください。
@@ -86,13 +86,13 @@ http {
 
 4. `Save`ボタンをクリックして設定を保存します。
 
-![設定ファイルの保存](/data-management/config-edit/save-config.en-US.png)
+![設定ファイルの保存](/data-management/config-edit/Open_Config_Editor.png)
 
 ## ステップ4：サービスの再起動
 
 上記の手順で設定ファイルの編集が完了しましたので、次はサービスを再起動する必要があります。設定ファイルを有効にするために、サービス状態の `Restart` ボタンをクリックしてサービスを再起動してください。
 
-![サービスの再起動](/data-management/config-edit/restart-service.en-US.png)
+![サービスの再起動](/data-management/config-edit/restart_nginx_Instance.png)
 
 [NGINXサービスにドメインをバインド](/deploy/domain-binding)した後、ドメインを通じてVaultwardenサービスにアクセスできます。
 
