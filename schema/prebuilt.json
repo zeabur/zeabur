@@ -270,7 +270,7 @@
 					"title": "Port ID",
 					"description": "The port name that follows the ID naming enforcement. It will be the name of some special variables, such as `${[SERVICE_NAME]_PORT}`.",
 					"type": "string",
-					"pattern": "^[a-z][a-z0-9]{0,14}$"
+					"pattern": "^[a-z][a-z0-9-]{0,14}$"
 				},
 				"port": {
 					"title": "Port number",
