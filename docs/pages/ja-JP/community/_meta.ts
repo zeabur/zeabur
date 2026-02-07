@@ -1,4 +1,4 @@
 export default {
-    "verify": "Verify",
-    "help": "Get Help"
+    "verify": "認証",
+    "help": "ヘルプを受ける"
 }

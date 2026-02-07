@@ -4,19 +4,20 @@ ogImageTitle: 自定义根目录
 ogImageSubtitle: 根据指定的根目录构建运行
 ---
 
-# 自定义根目录
+import { Callout } from 'nextra/components'
 
-对于某些仓库，例如前后端一体的应用，你可能需要手动为其指明项目根目录。
+# **自定义根目录**
 
-### 第一步：部署服务
+对于某些 Git 仓库（如同时包含前端和后端的项目），需要手动指定项目的根目录。
 
-参照 [部署服务](/zh-CN/get-started) 来部署你的应用
+### **步骤 1：部署服务**
 
-### 第二步：更改项目根目录
+按照[部署服务](https://zeabur.com/docs/zh-CN/get-started)的指南部署你的应用。
 
-选择部署好的服务，选择其中的设置选项卡，下拉至 **Root Directory** 一栏
+## **步骤 2：更改项目根目录**
 
-![setting](/deploy/root-directory/setting.png)
+点击已部署的服务，进入设置标签，向下滚动至 **Root Directory** 栏目。
 
-输入想要指定的根目录，并点击保存，保存成功后，点击 **Redeploy Service** 重新部署你的服务，服务将会根据指定的根目录重新构建运行。
+![Root Directory](/deploy/root-directory/root_directory.png)
 
+在此处设置你的项目根目录。

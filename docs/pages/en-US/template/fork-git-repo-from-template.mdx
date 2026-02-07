@@ -4,6 +4,8 @@ ogImageTitle: Fork Code from Template Services
 ogImageSubtitle: How to modify the code of a Git service deployed from a template service
 ---
 
+import { Callout } from 'nextra/components';
+
 # Fork Code from Template Services
 
 On Zeabur, you can use template services to quickly deploy applications. A template includes multiple services, each being either a Prebuilt service (deployed from a Docker Image) or a Git service (deployed from GitHub).
@@ -18,15 +20,17 @@ Taking the [Zeabur official Express.js template](https://zeabur.com/templates/W9
 
 If we want to modify the code based on this template, you can click the Fork Repository button below:
 
-![](https://i.imgur.com/Wz9tJsV.jpeg)
+![Express.js github fork](/template/fork-git-repo-from-template/Expressjs_github_fork.png) 
 
 After clicking, a window will pop up asking you what the name of the Repository is. Please choose a repository name that has not been used before, otherwise, the Fork may fail. There is also an input box below the name allowing you to choose whether to set the repository to private, which can prevent others from seeing your code changes:
 
-![](https://i.imgur.com/ETc1yKk.jpeg)
+![git fork](/template/fork-git-repo-from-template/git_fork.png) 
 
 After you have chosen a name, click the Fork button. If you have not yet authorized GitHub, you may be directed to GitHub's OAuth authorization page. After authorization is complete, you will see the Fork loading screen:
 
-![](https://i.imgur.com/9Y2qX0P.png)
+![Configure Github](/template/fork-git-repo-from-template/Configure_Github.png) 
+
+![github connection](/template/fork-git-repo-from-template/github_connection.png) 
 
 After completion, you will see that a new repository has been added to your GitHub account, containing the same code as originally.
 

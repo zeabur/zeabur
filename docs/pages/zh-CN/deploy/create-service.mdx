@@ -6,92 +6,89 @@ ogImageSubtitle: 在 Zeabur 项目中部署服务
 
 import { Callout } from 'nextra/components';
 
-# 创建服务
+# **创建服务**
 
-[创建项目](./create-project)后，你可以开始部署服务。点击 **部署新服务** 按钮（或按 `CMD + K` / `Ctrl + K` 并选择 **部署新服务**），你将看到一个包含各种部署选项的菜单：
+在[创建项目](https://zeabur.com/docs/zh-CN/deploy/create-project)后，你可以开始部署服务。点击 **Deploy New Service** 按钮（或按 `CMD + K` / `Ctrl + K` 并选择 **Deploy New Service**），你将看到包含各种部署选项的菜单：
 
-![添加服务](/start/project-page-with-add-service.webp)
+![Create Service](/deploy/Create-Services/add-service.png)
 
-## 模板
+## **模板**
 
-Zeabur 提供了丰富的预配置模板库，包括 WordPress、n8n、Ghost 等热门开源项目。这些模板可以一键部署。
+Zeabur 提供丰富的预配置模板库，涵盖热门开源项目如 WordPress、n8n、Ghost 等。这些模板可一键部署。
 
-1. 点击 **模板** 浏览可用模板。
+1. 点击 **Template** 浏览可用模板。
 2. 搜索或浏览你需要的模板。
 3. 点击模板并按照提示进行部署。
 
-![模板服务](/start/template-services.webp)
+更多详情见[从模板部署](https://zeabur.com/docs/zh-CN/template/template-in-code)。
 
-更多详情，请参阅[从模板部署](/template/deploy-template)。
+![choose template](/deploy/Create-Services/choose-template.gif)
 
-## GitHub
+## **GitHub**
 
-直接从你的 GitHub 仓库部署。这是部署自己应用程序最常见的方式。
+直接从你的 GitHub 仓库部署。这是部署自有应用的最常见方式。
 
-1. 点击 **GitHub** 连接你的 GitHub 账户（如果尚未连接）。
-2. 连接后，搜索你想要部署的仓库。
-3. 点击仓库，Zeabur 会自动分析你的代码并选择最合适的构建方式。
-4. 点击 **部署** 开始部署。
+1. 点击 **GitHub** 连接你的 GitHub 账号（若未连接）。
+2. 连接后，搜索要部署的仓库。
+3. 点击仓库，Zeabur 会自动分析代码并选择最合适的构建方式。
+4. 点击 **Deploy** 开始部署。
 
-![搜索仓库](/start/search-repository.webp)
+![Search repository](https://zeabur.com/docs/_next/image?url=%2Fdocs%2F_next%2Fstatic%2Fmedia%2Fsearch-repository.db02d750.webp&w=3840&q=75)
 
-更多详情，请参阅[与 GitHub 集成](./github)。
+更多详情见[与 GitHub 集成](https://zeabur.com/docs/zh-CN/deploy/github)。
 
-## 数据库
+## **数据库**
 
-无需任何配置，快速部署常用数据库。
+无需配置即可快速部署常见数据库。
 
-1. 点击 **数据库** 查看可用的数据库列表。
-2. 选择你需要的数据库（PostgreSQL、MySQL、MongoDB、Redis 等）。
-3. 数据库将立即部署并可以使用。
+1. 点击 **Databases** 查看可用数据库列表。
+2. 选择需要的数据库（PostgreSQL、MySQL、MongoDB、Redis 等）。
+3. 数据库将立即部署并可用。
 
-![数据库服务](/start/database-services.webp)
+![Database](/deploy/Create-Services/database.png)
 
-## 函数
+## **函数**
 
-使用 Zeabur Functions 即时编写、运行和迭代你的代码。这非常适合快速脚本、API 或无服务器函数。
+使用 Zeabur Functions 即时编写、运行和迭代代码。适合快速脚本、API 或 serverless 函数。
 
-1. 点击 **函数** 创建新函数。
-2. 选择 **JavaScript** 或 **Python** 作为函数语言。
-3. 直接在编辑器中编写代码。
-4. 你的函数将被部署，并可通过控制台访问。
+1. 点击 **Functions** 创建新函数。
+2. 选择函数语言为 **JavaScript** 或 **Python**。
+3. 在编辑器中直接编写代码。
+4. 函数将部署完成，可通过 dashboard 访问。
 
-![简单函数](/deploy/create-service/simple-function.png)
+![Functions](/deploy/Create-Services/functions.png)
 
-## 本地项目
+## **本地项目**
 
-直接将本地源代码上传到 Zeabur，无需 Git 仓库。
+无需 Git 仓库，直接上传本地源代码到 Zeabur。
 
-1. 点击 **本地项目**。
-2. 拖放你的项目文件夹，或点击浏览并选择文件夹。
+1. 点击 **Local Project**。
+2. 拖拽项目文件夹，或点击浏览选择文件夹。
 3. Zeabur 将分析并部署你的项目。
 
-![本地项目](/deploy/create-service/local-project.png)
+![Local Project](/deploy/Create-Services/local-project.png)
 
-这对于快速部署或不想先将代码推送到仓库时非常有用。
+适用于快速部署或不想先推送代码到仓库的情况。
 
-<Callout type="warning">
-  上传时 `/dist/*` 目录将被自动忽略。
-</Callout>
+上传时 `/dist/*` 目录将被自动忽略。
 
-## Docker 镜像
+## **Docker 镜像**
 
 从 Docker Hub 或其他容器注册表部署任何预构建的 Docker 容器镜像。
 
-1. 点击 **Docker 镜像**。
+1. 点击 **Docker Image**。
 2. 输入镜像名称（例如 `nginx:latest` 或 `ghcr.io/owner/image:tag`）。
 3. 配置所需的环境变量或端口。
-4. 点击 **部署**。
+4. 点击 **Deploy**。
 
-更多详情，请参阅[使用 Docker 镜像部署](./customize-prebuilt)。
+更多详情见[使用 Docker 镜像部署](https://zeabur.com/docs/zh-CN/deploy/customize-prebuilt)。
 
-## Cursor
+## **Cursor**
 
-使用 Zeabur 扩展直接从 Cursor IDE 部署。
+使用 Zeabur 扩展从 Cursor IDE 直接部署。
 
-1. 点击 **Cursor** 在 Cursor IDE 中打开你的项目。
-2. 如果你尚未安装 Zeabur 扩展，系统会提示你安装。
+1. 点击 **Cursor** 以在 Cursor IDE 中打开你的项目。
+2. 若未安装 Zeabur 扩展，将提示安装。
 3. 使用扩展直接从 Cursor 部署当前项目。
 
-这为使用 Cursor 作为主要 IDE 的开发者提供了无缝体验。
-
+为主要使用 Cursor 作为 IDE 的开发者提供无缝体验。

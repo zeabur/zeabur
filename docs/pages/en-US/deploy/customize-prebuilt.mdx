@@ -4,6 +4,8 @@ ogImageTitle: Customize Docker image
 ogImageSubtitle: Deploy Docker image to Zeabur
 ---
 
+import { Callout } from 'nextra/components'
+
 # Custom Docker image
 
 While Zeabur already includes numerous templates provided by the community, you might need to deploy your own Docker images, configure persistent storage, set start command, and more. For this need, Zeabur offers customizable Prebuilt functionality.
@@ -146,10 +148,10 @@ services:
 
 "Start Command" allows you to override the default Docker image entrypoint and arguments. This is an advanced setting and can be skipped if you are unsure what it is.
 
-When specifying from the GUI, the default entrypoint when setting this field is `/bin/sh`. If your image does not provide `/bin/sh`, use **Edit TOML** to change it or consult [support](/community/help) for assistant.
+When specifying from the GUI, the default entrypoint when setting this field is `/bin/sh`. If your image does not provide `/bin/sh`, use **Edit TOML** to change it or consult [Zeabur Forum](https://zeabur.com/forum) for assistant.
 
 ## Manually Write Your Template
 
 Although the GUI offers many necessary parameters for creating your Docker services, you might want to add custom icons, connection instructions, or detailed settings. In this case, [writing your template in code](/deploy/template-in-code) is a better choice.
 
-If you have any questions about writing your own template, feel free to contact [support](/community/help).
+If you have any questions about writing your own template, feel free to contact [Zeabur Forum](https://zeabur.com/forum).
