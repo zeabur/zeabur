@@ -144,7 +144,8 @@
                 },
                 "resourceUsage": {
                     "title": "Resource usage",
-                    "description": "The expected resource usage of this template. It is only for displaying and does not affect the actual resource usage.",
+                    "description": "Deprecated: Use resourceRequirement instead. The expected resource usage of this template. It is only for displaying and does not affect the actual resource usage.",
+                    "deprecated": true,
                     "type": "object",
                     "properties": {
                         "cpu": {
@@ -159,6 +160,62 @@
                             "type": "number",
                             "examples": [1024, 2048, 4096]
                         }
+                    }
+                },
+                "resourceRequirement": {
+                    "title": "Resource requirement",
+                    "description": "The minimum and recommended resource configuration for dedicated servers.",
+                    "type": "object",
+                    "properties": {
+                        "minConfig": {
+                            "title": "Minimum configuration",
+                            "description": "The minimum resource configuration for running this template.",
+                            "type": "object",
+                            "properties": {
+                                "cpu": {
+                                    "title": "CPU",
+                                    "description": "The minimum vCPU cores.",
+                                    "type": "number",
+                                    "examples": [1, 2, 4]
+                                },
+                                "ram": {
+                                    "title": "RAM",
+                                    "description": "The minimum RAM (in GB).",
+                                    "type": "number",
+                                    "examples": [1, 2, 4]
+                                }
+                            }
+                        },
+                        "recommendedConfig": {
+                            "title": "Recommended configuration",
+                            "description": "The recommended resource configuration for running this template.",
+                            "type": "object",
+                            "properties": {
+                                "cpu": {
+                                    "title": "CPU",
+                                    "description": "The recommended vCPU cores.",
+                                    "type": "number",
+                                    "examples": [2, 4, 8]
+                                },
+                                "ram": {
+                                    "title": "RAM",
+                                    "description": "The recommended RAM (in GB).",
+                                    "type": "number",
+                                    "examples": [2, 4, 8]
+                                }
+                            }
+                        }
+                    }
+                },
+                "video": {
+                    "title": "Template videos",
+                    "description": "A list of video URLs for the template.",
+                    "type": "array",
+                    "items": {
+                        "title": "Video URL",
+                        "type": "string",
+                        "format": "uri",
+                        "examples": ["https://example.com/video.mp4"]
                     }
                 },
                 "services": {
