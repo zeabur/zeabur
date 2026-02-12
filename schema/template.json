@@ -145,7 +145,6 @@
                 "resourceUsage": {
                     "title": "Resource usage",
                     "description": "Deprecated: Use resourceRequirement instead. The expected resource usage of this template. It is only for displaying and does not affect the actual resource usage.",
-                    "deprecated": true,
                     "type": "object",
                     "properties": {
                         "cpu": {
