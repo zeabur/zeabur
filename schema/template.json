@@ -142,22 +142,48 @@
                         "# PostgreSQL\nPostgreSQL is a powerful, open source object-relational database system with over 35 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance."
                     ]
                 },
-                "resourceUsage": {
-                    "title": "Resource usage",
-                    "description": "The expected resource usage of this template. It is only for displaying and does not affect the actual resource usage.",
+                "resourceRequirement": {
+                    "title": "Resource requirement",
+                    "description": "The minimum and recommended resource requirements of this template.",
                     "type": "object",
                     "properties": {
-                        "cpu": {
-                            "title": "CPU",
-                            "description": "The expected average vCPU usage of this template.",
-                            "type": "number",
-                            "examples": [0.1, 0.3, 1]
+                        "minConfig": {
+                            "title": "Minimum configuration",
+                            "description": "The minimum computational resources required for this template.",
+                            "type": "object",
+                            "properties": {
+                                "cpu": {
+                                    "title": "CPU",
+                                    "description": "The minimum vCPU core count.",
+                                    "type": "number",
+                                    "examples": [1, 2, 4]
+                                },
+                                "ram": {
+                                    "title": "RAM",
+                                    "description": "The minimum memory allocation in GiB.",
+                                    "type": "number",
+                                    "examples": [1, 2, 4]
+                                }
+                            }
                         },
-                        "memory": {
-                            "title": "Memory",
-                            "description": "The expected average memory usage (in MiB) of this template.",
-                            "type": "number",
-                            "examples": [1024, 2048, 4096]
+                        "recommendedConfig": {
+                            "title": "Recommended configuration",
+                            "description": "The suggested computational resources for optimal performance.",
+                            "type": "object",
+                            "properties": {
+                                "cpu": {
+                                    "title": "CPU",
+                                    "description": "The recommended vCPU core count.",
+                                    "type": "number",
+                                    "examples": [2, 4, 8]
+                                },
+                                "ram": {
+                                    "title": "RAM",
+                                    "description": "The recommended memory allocation in GiB.",
+                                    "type": "number",
+                                    "examples": [4, 8, 16]
+                                }
+                            }
                         }
                     }
                 },
