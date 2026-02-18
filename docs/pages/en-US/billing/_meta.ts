@@ -2,6 +2,6 @@ export default {
     "pricing": "Pricing",
     "plans": "Plans",
     "subscription": "Subscription",
-    "referral": "Referral",
+    "referral": "Referral Rewards",
     "sponsor": "Sponsor"
 }
