@@ -15,7 +15,6 @@ export default {
   manage: 'Gestión de Proyectos',
   legal: 'Legal y Políticas',
   billing: 'Pagos y Facturación',
-  referral: 'Referidos y Recompensas',
   community: 'Comunidad',
   advanced: 'Avanzado',
   developer: 'Desarrollador',

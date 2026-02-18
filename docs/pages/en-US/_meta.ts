@@ -16,7 +16,6 @@ export default {
   manage: 'Project Manage',
   legal: 'Legal and Policies',
   billing: 'Payments and Billing',
-  referral: 'Referral & Rewards',
   community: 'Community',
   advanced: 'Advanced',
   developer: 'Developer',

@@ -15,7 +15,6 @@ export default {
   manage: 'プロジェクト管理',
   legal: '法律とポリシー',
   billing: '支払いと請求',
-  referral: '紹介と報酬',
   community: 'コミュニティ',
   advanced: '高度な内容',
   developer: '開発者',

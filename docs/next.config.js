@@ -129,27 +129,27 @@ export default withNextra({
         permanent: true,
       },
 
-      // billing/referral -> referral/rewards
+      // billing/referral -> community/referral
       {
         source: '/billing/referral',
-        destination: '/referral/rewards',
+        destination: '/community/referral',
         permanent: true,
       },
       {
         source: '/:locale/billing/referral',
-        destination: '/:locale/referral/rewards',
+        destination: '/:locale/community/referral',
         permanent: true,
       },
 
-      // billing/reward -> referral/contribution
+      // billing/reward -> community/contribution
       {
         source: '/billing/reward',
-        destination: '/referral/contribution',
+        destination: '/community/contribution',
         permanent: true,
       },
       {
         source: '/:locale/billing/reward',
-        destination: '/:locale/referral/contribution',
+        destination: '/:locale/community/contribution',
         permanent: true,
       },
     ]);

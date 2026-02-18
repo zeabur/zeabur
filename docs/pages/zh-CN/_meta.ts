@@ -15,7 +15,6 @@ export default {
   manage: '项目管理',
   legal: '法律及政策',
   billing: '付款与账单',
-  referral: '推荐与奖励',
   community: '社区',
   advanced: '高级',
   developer: '开发者',
