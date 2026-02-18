@@ -15,6 +15,7 @@ export default {
   manage: '專案管理',
   legal: '法律及政策',
   billing: '付款與帳單',
+  referral: '推薦與獎勵',
   community: '社群',
   advanced: '進階',
   developer: '開發者',

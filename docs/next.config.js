@@ -128,6 +128,30 @@ export default withNextra({
         destination: '/:locale/deploy/variables',
         permanent: true,
       },
+
+      // billing/referral -> referral/rewards
+      {
+        source: '/billing/referral',
+        destination: '/referral/rewards',
+        permanent: true,
+      },
+      {
+        source: '/:locale/billing/referral',
+        destination: '/:locale/referral/rewards',
+        permanent: true,
+      },
+
+      // billing/reward -> referral/contribution
+      {
+        source: '/billing/reward',
+        destination: '/referral/contribution',
+        permanent: true,
+      },
+      {
+        source: '/:locale/billing/reward',
+        destination: '/:locale/referral/contribution',
+        permanent: true,
+      },
     ]);
   },
 })
