@@ -31,6 +31,17 @@ import { Callout } from 'nextra/components';
 3. 輸入伺服器的 IP 位址及 SSH 端口（預設為 `22`）。
 4. 輸入使用者（比如 `root`），然後選擇登入方式（密碼或 SSH 金鑰）。
 5. 若選擇密碼，則在下方輸入密碼，若選擇 SSH 金鑰，則在下方輸入 SSH 金鑰。
+
+<Callout type="warning">
+    Zeabur 僅接受 **OpenSSH 格式** 的 SSH 金鑰（私鑰以 `-----BEGIN OPENSSH PRIVATE KEY-----` 開頭）。部分雲端服務商（如騰訊雲）預設提供的 SSH 金鑰為舊版 RSA PEM 格式（`-----BEGIN RSA PRIVATE KEY-----`），這會導致 SSH 連線失敗。您可以使用以下指令將金鑰轉換為 OpenSSH 格式：
+
+    ```bash
+    ssh-keygen -p -N "" -f /path/to/your_private_key
+    ```
+
+    轉換完成後，將更新後的金鑰內容貼到 SSH 金鑰輸入框中。
+</Callout>
+
 6. 點選「新增伺服器」按鈕，等待伺服器註冊完成（過程約需 30 秒）。
 7. 註冊成功後，你會在伺服器列表看到多了一台剛剛註冊的伺服器。
 8. 稍等大約一分鐘直到狀態顯示為「線上」且 CPU 和記憶體的使用情況可以正常顯示。
