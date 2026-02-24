@@ -31,6 +31,17 @@ This article will explain how to register a [Dedicated Server](../dedicated-serv
 3. Enter the server's IP address and SSH port (default is `22`).
 4. Enter the username (e.g., `root`), then choose the login method (password or SSH key).
 5. If you choose a password, enter the password below; if you choose an SSH key, enter the SSH key below.
+
+<Callout type="warning">
+    Zeabur only accepts SSH keys in **OpenSSH format** (the private key starts with `-----BEGIN OPENSSH PRIVATE KEY-----`). Some cloud providers, such as Tencent Cloud, provide SSH keys in the legacy RSA PEM format (`-----BEGIN RSA PRIVATE KEY-----`) by default, which will cause an SSH connection failure. To convert your key to OpenSSH format, run:
+
+    ```bash
+    ssh-keygen -p -N "" -f /path/to/your_private_key
+    ```
+
+    After conversion, paste the updated key content into the SSH key field.
+</Callout>
+
 6. Click the "Add Server" button and wait for the server registration to complete (this process takes about 30 seconds).
 7. After successful registration, you will see the newly registered server in the server list.
 8. Wait about a minute until the status shows "Online" and the CPU and memory usage can be displayed normally.
