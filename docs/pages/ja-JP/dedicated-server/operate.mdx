@@ -85,6 +85,67 @@ sudo systemctl enable --now containerd
 
 > 注意：これらのサービスを停止すると、サーバー上で稼働しているすべてのコンテナとサービスが停止しますのでご注意ください。
 
+## VS Code でリモート開発
+
+[VS Code Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) を使用して専用サーバーに接続し、慣れ親しんだ IDE 環境で直接ファイルの編集やコンテナの操作が行えます。
+
+### ステップ 1：Remote-SSH 拡張機能をインストール
+
+VS Code を開き、拡張機能マーケットプレイスから **Remote - SSH** 拡張機能をインストールします。
+
+### ステップ 2：SSH キー認証を設定
+
+ローカルマシンで SSH キーペアを生成し（まだない場合）、公開キーをサーバーに追加します：
+
+```bash
+# ローカルマシンで SSH キーペアを生成
+$ ssh-keygen -t ed25519
+
+# 公開キーをサーバーにコピー
+$ ssh-copy-id <ユーザー名>@<サーバー IP>
+```
+
+`ssh-copy-id` が使用できない場合は、手動で公開キーを追加できます：
+
+```bash
+$ cat ~/.ssh/id_ed25519.pub | ssh <ユーザー名>@<サーバー IP> "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+```
+
+### ステップ 3：VS Code で接続
+
+VS Code のコマンドパレット（`Ctrl+Shift+P` / `Cmd+Shift+P`）を開き、**Remote-SSH: Connect to Host** を選択して、`<ユーザー名>@<サーバー IP>` を入力して接続します。
+
+### ステップ 4：サービスのファイル保存パスを特定
+
+接続後、サーバーのルートディレクトリにいます。サービスファイルの実際の保存場所を見つけるには、まずサービスに対応する PVC（Persistent Volume Claim）を特定し、次にその PVC がバインドされている PV（Persistent Volume）とそのホストパスを取得します。
+
+PVC 名は `<volume-id>-service-<service-id>` の形式で、Namespace は `environment-<environment-id>` です。
+
+```bash
+# すべての PVC を一覧表示して、サービスの Volume を特定
+$ kubectl get pvc -A
+
+# PVC がバインドされている PV 名を取得
+$ kubectl get pvc <PVC名> -n <Namespace> -o jsonpath='{.spec.volumeName}'
+
+# 対応する PV のホストパスを取得
+$ kubectl get pv <PV名> -o jsonpath='{.spec.local.path}'
+```
+
+VS Code で **ファイル → フォルダーを開く** からこのパスを開くと、サービスファイルの編集を開始できます。
+
+### ステップ 5：コンテナのシェルにアクセス
+
+サービスコンテナ内のターミナル環境を取得するには（Zeabur の Web Terminal に相当）：
+
+```bash
+# 特定の Namespace の Pod を一覧表示
+$ kubectl get pods -n <Namespace>
+
+# Pod のシェルに入る
+$ kubectl exec -it <Pod名> -n <Namespace> -- /bin/sh
+```
+
 ## アンインストール
 
 まず、Zeaburからサーバーとその上にデプロイされているサービスを削除する必要があります。

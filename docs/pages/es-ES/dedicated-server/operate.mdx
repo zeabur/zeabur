@@ -85,6 +85,67 @@ sudo systemctl enable --now containerd
 
 > Nota: Detener estos servicios hará que todos los contenedores y servicios que se estén ejecutando en el servidor se detengan. Proceda con precaución.
 
+## Uso de VS Code para Desarrollo Remoto
+
+Puedes usar [VS Code Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) para conectarte a tu servidor dedicado y editar archivos u operar contenedores directamente en un entorno IDE familiar.
+
+### Paso 1: Instalar la Extensión Remote-SSH
+
+Abre VS Code e instala la extensión **Remote - SSH** desde el Marketplace de extensiones.
+
+### Paso 2: Configurar la Autenticación por Clave SSH
+
+Genera un par de claves SSH en tu máquina local (si aún no tienes uno) y agrega la clave pública al servidor:
+
+```bash
+# Generar un par de claves SSH en tu máquina local
+$ ssh-keygen -t ed25519
+
+# Copiar la clave pública al servidor
+$ ssh-copy-id <nombre-de-usuario>@<IP-del-servidor>
+```
+
+Si `ssh-copy-id` no está disponible, puedes agregar la clave pública manualmente:
+
+```bash
+$ cat ~/.ssh/id_ed25519.pub | ssh <nombre-de-usuario>@<IP-del-servidor> "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+```
+
+### Paso 3: Conectarse a través de VS Code
+
+Abre la Paleta de Comandos de VS Code (`Ctrl+Shift+P` / `Cmd+Shift+P`), selecciona **Remote-SSH: Connect to Host** e ingresa `<nombre-de-usuario>@<IP-del-servidor>` para conectarte.
+
+### Paso 4: Localizar la Ruta de Almacenamiento del Servicio
+
+Después de conectarte, estarás en el directorio raíz del servidor. Para encontrar dónde se almacenan los archivos de tu servicio, primero localiza el PVC (Persistent Volume Claim) de tu servicio, luego encuentra el PV (Persistent Volume) correspondiente y su ruta en el host.
+
+El nombre del PVC sigue el formato `<volume-id>-service-<service-id>`, ubicado en el namespace `environment-<environment-id>`.
+
+```bash
+# Listar todos los PVCs para encontrar el volumen de tu servicio
+$ kubectl get pvc -A
+
+# Encontrar el PV al que está vinculado el PVC
+$ kubectl get pvc <nombre-del-pvc> -n <namespace> -o jsonpath='{.spec.volumeName}'
+
+# Obtener la ruta del host del PV correspondiente
+$ kubectl get pv <nombre-del-pv> -o jsonpath='{.spec.local.path}'
+```
+
+Luego puedes abrir esta ruta en VS Code usando **Archivo → Abrir Carpeta** para comenzar a editar los archivos de tu servicio.
+
+### Paso 5: Acceder al Shell del Contenedor
+
+Para obtener un entorno de terminal dentro del contenedor de tu servicio (equivalente a la Terminal Web en Zeabur):
+
+```bash
+# Listar los pods en un namespace
+$ kubectl get pods -n <namespace>
+
+# Abrir un shell en un pod
+$ kubectl exec -it <nombre-del-pod> -n <namespace> -- /bin/sh
+```
+
 ## Desinstalación
 
 Primero, necesitas eliminar el servidor y los servicios desplegados en él desde Zeabur.
