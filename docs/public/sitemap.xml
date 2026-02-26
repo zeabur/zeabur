@@ -22,19 +22,22 @@
     <loc>https://zeabur.com/docs/en-US/billing/redeem</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/en-US/billing/referral</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/en-US/billing/reward</loc>
-  </url>
-  <url>
     <loc>https://zeabur.com/docs/en-US/billing/sponsor</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/en-US/billing/subscription</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/en-US/community/contribution</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/community/forum</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/en-US/community/help</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/community/referral</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/en-US/community/verify</loc>
@@ -125,6 +128,24 @@
   </url>
   <url>
     <loc>https://zeabur.com/docs/en-US/developer/websocket-guide</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/email/api-keys</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/email/domains</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/email</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/email/quick-start</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/email/rest-api</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/email/webhooks</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/en-US/get-started</loc>
@@ -328,16 +349,22 @@
     <loc>https://zeabur.com/docs/es-ES/billing/referral</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/es-ES/billing/reward</loc>
-  </url>
-  <url>
     <loc>https://zeabur.com/docs/es-ES/billing/sponsor</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/es-ES/billing/subscription</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/es-ES/community/contribution</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/community/forum</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/es-ES/community/help</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/community/referral</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/es-ES/community/verify</loc>
@@ -371,6 +398,9 @@
   </url>
   <url>
     <loc>https://zeabur.com/docs/es-ES/deploy/copy-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/deploy/create-project</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/es-ES/deploy/create-service</loc>
@@ -425,6 +455,24 @@
   </url>
   <url>
     <loc>https://zeabur.com/docs/es-ES/developer/websocket-guide</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/email/api-keys</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/email/domains</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/email</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/email/quick-start</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/email/rest-api</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/email/webhooks</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/es-ES/get-started</loc>
@@ -625,19 +673,22 @@
     <loc>https://zeabur.com/docs/ja-JP/billing/redeem</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/ja-JP/billing/referral</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/ja-JP/billing/reward</loc>
-  </url>
-  <url>
     <loc>https://zeabur.com/docs/ja-JP/billing/sponsor</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/ja-JP/billing/subscription</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/ja-JP/community/contribution</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/community/forum</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/ja-JP/community/help</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/community/referral</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/ja-JP/community/verify</loc>
@@ -728,6 +779,24 @@
   </url>
   <url>
     <loc>https://zeabur.com/docs/ja-JP/developer/websocket-guide</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/email/api-keys</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/email/domains</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/email</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/email/quick-start</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/email/rest-api</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/email/webhooks</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/ja-JP/get-started</loc>
@@ -928,19 +997,22 @@
     <loc>https://zeabur.com/docs/zh-CN/billing/redeem</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-CN/billing/referral</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/zh-CN/billing/reward</loc>
-  </url>
-  <url>
     <loc>https://zeabur.com/docs/zh-CN/billing/sponsor</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/billing/subscription</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/zh-CN/community/contribution</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/community/forum</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/zh-CN/community/help</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/community/referral</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/community/verify</loc>
@@ -1031,6 +1103,24 @@
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/developer/websocket-guide</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/email/api-keys</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/email/domains</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/email</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/email/quick-start</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/email/rest-api</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/email/webhooks</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/get-started</loc>
@@ -1234,19 +1324,22 @@
     <loc>https://zeabur.com/docs/zh-TW/billing/redeem</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/billing/referral</loc>
-  </url>
-  <url>
-    <loc>https://zeabur.com/docs/zh-TW/billing/reward</loc>
-  </url>
-  <url>
     <loc>https://zeabur.com/docs/zh-TW/billing/sponsor</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-TW/billing/subscription</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/zh-TW/community/contribution</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/community/forum</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/zh-TW/community/help</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/community/referral</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-TW/community/verify</loc>
@@ -1337,6 +1430,24 @@
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-TW/developer/websocket-guide</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/email/api-keys</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/email/domains</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/email</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/email/quick-start</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/email/rest-api</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/email/webhooks</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-TW/get-started</loc>
