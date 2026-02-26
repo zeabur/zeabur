@@ -85,6 +85,67 @@ sudo systemctl enable --now containerd
 
 > Note: Stopping these services will cause all containers and services running on the server to stop. Please proceed with caution.
 
+## Using VS Code for Remote Development
+
+You can use [VS Code Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) to connect to your dedicated server and directly edit files or operate containers in a familiar IDE environment.
+
+### Step 1: Install the Remote-SSH Extension
+
+Open VS Code and install the **Remote - SSH** extension from the Extensions Marketplace.
+
+### Step 2: Set Up SSH Key Authentication
+
+Generate an SSH key pair on your local machine (if you don't have one) and add the public key to the server:
+
+```bash
+# Generate an SSH key pair on your local machine
+$ ssh-keygen -t ed25519
+
+# Copy the public key to the server
+$ ssh-copy-id <username>@<server-ip>
+```
+
+If `ssh-copy-id` is not available, you can manually append the public key:
+
+```bash
+$ cat ~/.ssh/id_ed25519.pub | ssh <username>@<server-ip> "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+```
+
+### Step 3: Connect via VS Code
+
+Open the VS Code Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`), select **Remote-SSH: Connect to Host**, and enter `<username>@<server-ip>` to connect.
+
+### Step 4: Locate the Service's File Storage Path
+
+After connecting, you will be at the server's root directory. To find where your service's files are stored, first locate the PVC (Persistent Volume Claim) for your service, then find the corresponding PV (Persistent Volume) and its host path.
+
+The PVC name follows the format `<volume-id>-service-<service-id>`, located in the namespace `environment-<environment-id>`.
+
+```bash
+# List all PVCs to find your service's volume
+$ kubectl get pvc -A
+
+# Find the PV that the PVC is bound to
+$ kubectl get pvc <pvc-name> -n <namespace> -o jsonpath='{.spec.volumeName}'
+
+# Get the host path of the corresponding PV
+$ kubectl get pv <pv-name> -o jsonpath='{.spec.local.path}'
+```
+
+You can then open this path in VS Code using **File → Open Folder** to start editing your service's files.
+
+### Step 5: Access a Container Shell
+
+To get a terminal environment inside your service's container (equivalent to the Web Terminal on Zeabur):
+
+```bash
+# List pods in a namespace
+$ kubectl get pods -n <namespace>
+
+# Open a shell in a pod
+$ kubectl exec -it <pod-name> -n <namespace> -- /bin/sh
+```
+
 ## Uninstallation
 
 First, you need to remove the server and the services deployed on it from Zeabur.

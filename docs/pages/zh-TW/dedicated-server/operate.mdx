@@ -85,6 +85,67 @@ sudo systemctl enable --now containerd
 
 > 注意：關閉這些服務會導致所有在這台伺服器上運作的容器與服務停止，請謹慎操作。
 
+## 使用 VS Code 遠端開發
+
+你可以使用 [VS Code Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) 連線到你的專用伺服器，在熟悉的 IDE 環境中直接編輯檔案或操作容器。
+
+### 步驟一：安裝 Remote-SSH 套件
+
+打開 VS Code，在擴充功能商店中安裝 **Remote - SSH** 套件。
+
+### 步驟二：設定 SSH 金鑰認證
+
+在本機產生一組 SSH 金鑰對（如果還沒有的話），然後將公鑰加到伺服器上：
+
+```bash
+# 在本機產生 SSH 金鑰對
+$ ssh-keygen -t ed25519
+
+# 將公鑰複製到伺服器
+$ ssh-copy-id <使用者名稱>@<伺服器 IP>
+```
+
+如果 `ssh-copy-id` 不可用，可以手動新增公鑰：
+
+```bash
+$ cat ~/.ssh/id_ed25519.pub | ssh <使用者名稱>@<伺服器 IP> "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+```
+
+### 步驟三：透過 VS Code 連線
+
+打開 VS Code 的命令面板（`Ctrl+Shift+P` / `Cmd+Shift+P`），選擇 **Remote-SSH: Connect to Host**，輸入 `<使用者名稱>@<伺服器 IP>` 即可連線。
+
+### 步驟四：找到服務的檔案存放路徑
+
+連線後會位在伺服器的根目錄。若要找到服務檔案的實際存放位置，需要先找到服務對應的 PVC（Persistent Volume Claim），再找到 PVC 綁定的 PV（Persistent Volume）及其宿主機路徑。
+
+PVC 名稱的格式為 `<volume-id>-service-<service-id>`，所在的 Namespace 為 `environment-<environment-id>`。
+
+```bash
+# 列出所有 PVC，找到你的服務的 Volume
+$ kubectl get pvc -A
+
+# 找到 PVC 綁定的 PV 名稱
+$ kubectl get pvc <PVC 名稱> -n <Namespace> -o jsonpath='{.spec.volumeName}'
+
+# 取得該 PV 在宿主機上的路徑
+$ kubectl get pv <PV 名稱> -o jsonpath='{.spec.local.path}'
+```
+
+接著在 VS Code 中使用 **檔案 → 開啟資料夾** 打開這個路徑，就可以開始編輯你的服務檔案了。
+
+### 步驟五：進入容器的 Shell 環境
+
+若要取得服務容器內的終端機環境（相當於 Zeabur 上的 Web Terminal）：
+
+```bash
+# 列出特定 Namespace 的 Pod
+$ kubectl get pods -n <Namespace>
+
+# 進入 Pod 的 Shell
+$ kubectl exec -it <Pod 名稱> -n <Namespace> -- /bin/sh
+```
+
 ## 解除安裝
 
 首先您得先從 Zeabur 移除伺服器及在其上面部署的服務。

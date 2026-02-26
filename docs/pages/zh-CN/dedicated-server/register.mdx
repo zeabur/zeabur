@@ -26,12 +26,23 @@ import { Callout } from 'nextra/components';
 
 ![add machine to zeabur](/dedicated-server/add-machine-to-zeabur.webp)
 
-1. 登录 Zeabur 后，点击顶部导航栏或项目列表页面上方的“我的服务器”，或是直接访问 [https://dash.zeabur.com/servers](https://dash.zeabur.com/servers)。
+1. 登录 Zeabur 后，点击顶部导航栏或项目列表页面上方的“我的服务器”，或是直接访问 [https://zeabur.com/servers](https://zeabur.com/servers)。
 2. 点击页面右上角的“创建”按钮，然后选择“添加自己的服务器”。
 3. 输入服务器的 IP 地址及 SSH 端口（默认为 `22`）。
 4. 输入用户名（例如 `root`），然后选择登录方式（密码或 SSH 密钥）。
 5. 若选择密码，则在下方输入密码，若选择 SSH 密钥，则在下方输入 SSH 密钥。
-6. 点击“新增服务器”按钮，等待服务器注册完成（过程约需 30 秒）。
+
+<Callout type="warning">
+    Zeabur 仅接受 **OpenSSH 格式** 的 SSH 密钥（私钥以 `-----BEGIN OPENSSH PRIVATE KEY-----` 开头）。部分云服务商（如腾讯云）默认提供的 SSH 密钥为旧版 RSA PEM 格式（`-----BEGIN RSA PRIVATE KEY-----`），这会导致 SSH 连接失败。您可以使用以下命令将密钥转换为 OpenSSH 格式：
+
+    ```bash
+    ssh-keygen -p -N "" -f /path/to/your_private_key
+    ```
+
+    转换完成后，将更新后的密钥内容粘贴到 SSH 密钥输入框中。
+</Callout>
+
+6. 点击"新增服务器"按钮，等待服务器注册完成（过程约需 30 秒）。
 7. 注册成功后，你会在服务器列表看到多了一台刚刚注册的服务器。
 8. 稍等大约一分钟直到状态显示为“在线”且 CPU 和内存的使用情况可以正常显示。
 
