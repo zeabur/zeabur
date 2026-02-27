@@ -4,37 +4,36 @@ ogImageTitle: Watch Paths
 ogImageSubtitle: Customize the service trigger path
 ---
 
-<WorkingInProgress />
+import { Callout } from 'nextra/components'
 
-# Watch Paths
+# **Watch Paths**
 
-After your service is deployed, you may often update your code, but some code updates do not require a service to be redeployed.
+Después de desplegar tu servicio, es común actualizar el código con frecuencia, pero algunas actualizaciones no requieren redeplegar el servicio.
 
-For example, in a project where the front-end and back-end code are in the same Git repository, you may have only updated the back-end code, but after committing, you find that the front-end service is redeployed as well.
+Por ejemplo, en un proyecto donde el frontend y el backend están en el mismo repositorio Git, podrías haber actualizado solo el código del backend, pero al hacer commit, descubres que el servicio del frontend también se redepliega.
 
-To avoid this, simply go to the settings and modify the watch paths:
+Para evitar esto, ve a la configuración y modifica las watch paths:
 
-### Step 1: Open the service settings page
+### **Paso 1: Abre la página de configuración del servicio**
 
-Click on the service you want to modify the configuration for, expand the **Settings** page, and swipe down to find the **Watch Paths** item, where you can modify the service's watch paths.
+Haz clic en el servicio cuya configuración deseas modificar, expande la página **Settings** y desplázate hacia abajo para encontrar el ítem **Watch Paths**, donde puedes modificar las watch paths del servicio.
 
-![setting](/deploy/watch-path/setting.png)
+![Watch path settings](/deploy/watch-path/watch_path_settings.png)
 
-### Step 2: Modify the watch paths
+### **Paso 2: Modifica las watch paths**
 
-You will see that the default watch path is `*`, which means that the service triggers the entire repository, and any file updates in the repository will result in a service redeployment.
+Verás que la watch path por defecto es `*`, lo que significa que el servicio monitorea todo el repositorio y cualquier actualización de archivo desencadena un redepliegue.
 
-You can modify your watch paths in the same format as the `.gitignore` file.
+Puedes modificar las watch paths usando el mismo formato que un archivo `.gitignore`.
 
-The only difference is that `.gitignore` represents ignore, and here represents trigger.
+La única diferencia es que `.gitignore` indica qué ignorar, mientras que aquí indica qué activar (trigger).
 
-For example, you have deployed a full-stack application, and the code format is as follows:
+Por ejemplo, has desplegado una aplicación full-stack con la siguiente estructura de código:
 
-![repo](/deploy/watch-path/repo.png)
+![Repository structure](/deploy/watch-path/repo.png)
 
-And you have deployed two services for this repository, one service with the root directory set to `client` and the other to `server`, but this is just to specify the build path. To further isolate, you need to set the **Watch paths**.
+Y has desplegado dos servicios para este repositorio: uno con el root directory en `client` y otro en `server`. Esto solo especifica la ruta de build. Para aislar mejor, configura las **Watch paths**.
 
-For example, after setting the **Watch paths** of the client service to `/client`, any updates you make in the `server` folder will no longer automatically trigger the client service to be redeployed.
+Por ejemplo, al establecer las **Watch paths** del servicio client en `/client`, las actualizaciones en la carpeta `server` ya no activarán automáticamente el redepliegue del servicio client.
 
-![repo](/deploy/watch-path/save.png)
-
+![Watch paths saved](/deploy/watch-path/watch_paths_save.png)

@@ -14,25 +14,25 @@ Usaremos [NGINX](https://nginx.com/) para hacer proxy inverso del servicio inter
 
 ## Paso 1: Crear un Proyecto
 
-Crea un Proyecto en el [Panel de Control de Zeabur](https://zeabur.com/).
+Crea un Proyecto en el [Panel de Control de Zeabur](https://zeabur.com/new).
 
 ## Paso 2: Crear Servicios
 
 Crea Servicios Preconfigurados tanto para NGINX como para Vaultwarden en el Proyecto anterior.
 
-![Crear Servicio NGINX](/data-management/config-edit/create-nginx-service.en-US.png)
+![Crear Servicio NGINX](/data-management/config-edit/nginx.png)
 
-![Crear Servicio Vaultwarden](/data-management/config-edit/create-vultwarden-service.en-US.png)
+![Crear Servicio Vaultwarden](/data-management/config-edit/vaultwarden.png)
 
 ## Paso 3: Editar el Archivo de Configuración del Servicio NGINX
 
 1. En la sección de Servicios, haz clic en el botón desplegable en el bloque `Configuración` del servicio NGINX, encuentra la sección `Configuraciones`, y haz clic en el botón `Abrir Editor de Configuración` para entrar al editor de archivos de configuración.
 
-![Abrir Editor de Configuración](/data-management/config-edit/open-config-editor.en-US.png)
+![Abrir Editor de Configuración](/data-management/config-edit/nginx_open_config.png)
 
 2. En el editor abierto, haz clic en el botón `Agregar archivo de configuración` para añadir un nuevo archivo de configuración. En el cuadro de entrada `Ruta de Configuración` del formulario emergente, ingresa la ruta y nombre del archivo de configuración. Aquí, ingresamos `/etc/nginx/nginx.conf`, luego haz clic en el botón `Guardar Configuración`.
 
-![Agregar Archivo de Configuración](/data-management/config-edit/create-new-config.en-US.png)
+![Agregar Archivo de Configuración](/data-management/config-edit/nginx_create_config_file.png)
 
 <Callout>
     La `Ruta de Configuración` anterior debe ser la ruta absoluta del archivo de configuración. Por favor, ajusta según la situación real.
@@ -86,13 +86,13 @@ Para permitir que otros accedan a nuestro servicio interno Vaultwarden a través
 
 4. Haz clic en el botón `Guardar` para guardar la configuración.
 
-![Guardar Configuración](/data-management/config-edit/save-config.en-US.png)
+![Guardar Configuración](/data-management/config-edit/Open_Config_Editor.png)
 
 ## Paso 4: Reiniciar el Servicio
 
 En los pasos anteriores, hemos completado la edición del archivo de configuración. A continuación, necesitamos reiniciar el servicio. Encuentra la sección `Instrucciones` y haz clic en el botón `Reiniciar` para reiniciar el servicio para que el archivo de configuración surta efecto.
 
-![Reiniciar Servicio](/data-management/config-edit/restart-service.en-US.png)
+![Reiniciar Servicio](/data-management/config-edit/restart_nginx_Instance.png)
 
 [Después de vincular el dominio al servicio NGINX](/deploy/domain-binding), puedes acceder al servicio Vaultwarden a través del dominio.
 

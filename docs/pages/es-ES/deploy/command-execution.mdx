@@ -1,42 +1,43 @@
 ---
 title: Ejecutar Comandos
 ogImageTitle: Ejecutar Comandos
-ogImageSubtitle: Ejecutar Comandos dentro de los Servicios de Zeabur
+ogImageSubtitle: Ejecutar comandos dentro de los servicios de Zeabur
 ---
+
+import { Callout } from 'nextra/components';
 
 # Ejecutar Comandos
 
 Puedes ejecutar comandos dentro de los servicios de Zeabur para instalar paquetes, ejecutar programas, ver información o incluso hacer copias de seguridad de datos específicos.
 
-## Abrir la Interfaz de Ejecución de Comandos
+## Abrir la interfaz de ejecución de comandos
 
-Abra la pestaña **Overview** del servicio y haga clic en el bloque **Comando** para mostrar la interfaz "Execute Command".
+Abre la pestaña **Overview** del servicio y haz clic en **Command** para mostrar la interfaz “Execute Command”.
 
-![Abrir la Interfaz de Ejecución de Comandos](/deploy/command-execution/open-command-executor.webp)
+![Abrir la interfaz de ejecución de comandos](/deploy/command-execution/Command_part1.png)
 
-La interfaz de ejecución de comandos consta de dos partes:
+La interfaz de ejecución de comandos incluye:
 
-- Barra de Entrada de Comandos: Te permite presionar <kbd>Enter</kbd> o hacer clic en el botón <kbd>⏎</kbd> junto al campo de entrada para ejecutar comandos.
-- Área de Salida de Comandos: Muestra los resultados de la ejecución del comando. Si el comando se ejecuta correctamente, se mostrará el resultado de salida; de lo contrario, se mostrará un código de error.
+- Área de salida de comandos: Muestra los resultados de la ejecución. Si el comando se ejecuta correctamente, se muestra la salida; de lo contrario, aparece un código de error.
 
-![Interfaz de Ejecución de Comandos](/deploy/command-execution/interface.webp)
+![Interfaz de ejecución de comandos](/deploy/command-execution/terminal.png)
 
-## Ejecutar Comandos
+## Ejecutar comandos
 
-Tomando un `echo` básico como ejemplo, ingresa `echo Hello, World!` y deberías ver el resultado de salida `Hello, World!`.
+Como ejemplo básico, ingresa `echo Hello, World!` y deberías ver la salida `Hello, World!`.
 
-![Ejecutar el Comando hello world](/deploy/command-execution/command-success.webp)
+![Ejecutar comando hello world](/deploy/command-execution/terminal_2.png)
 
-Ingresar un comando inexistente mostrará un código de error.
+Si ingresas un comando inexistente, se mostrará un código de error.
 
-![Fallo en la Ejecución del Comando](/deploy/command-execution/command-error.webp)
+![Fallo en la ejecución de comando](/deploy/command-execution/terminal_3.png)
 
-Incluso puedes ejecutar sentencias SQL en contenedores de bases de datos como MySQL o PostgreSQL, usar cURL para subir registros o hacer copias de seguridad de archivos, o incluso ejecutar programas de migración (por ejemplo, `prisma migrate`, `node seeder.js`).
+También puedes ejecutar sentencias SQL en contenedores de bases de datos como MySQL o PostgreSQL, usar cURL para subir logs o respaldar archivos, o incluso ejecutar programas de migración (por ejemplo, `prisma migrate`, `node seeder.js`).
 
-Para MySQL, podemos copiar el comando “Command to connect to your MySQL”, eliminar los parámetros `host` y `port` (no es necesario realizar una conexión remota dentro del contenedor), reescribir `mysqlsh` como `mysql` (ya que `mysqlsh` no está disponible en el contenedor) y finalmente agregar `-e` para ejecutar la sentencia SQL.
+Para MySQL, puedes copiar el comando “Command to connect to your MySQL”, eliminar los parámetros `host` y `port` (no se necesitan para conexiones remotas dentro del contenedor), cambiar `mysqlsh` por `mysql` (ya que `mysqlsh` no está disponible en el contenedor), y finalmente añadir `-e` para ejecutar la sentencia SQL.
 
 ```bash
 mysql --user=root --password=<password> --database=zeabur -e "SHOW DATABASES;"
-```
 
-![Ejecutar el Comando MySQL](/deploy/command-execution/mysql-example.webp)
+
+![Ejecutar comando MySQL](/deploy/command-execution/MySQL_terminal.png)

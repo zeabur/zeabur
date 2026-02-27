@@ -6,110 +6,111 @@ ogImageSubtitle: Implementando tus servicios en Zeabur desde cero
 
 import { Callout } from 'nextra/components'
 
-# Primeros Pasos
+# **Primeros Pasos**
 
-## Paso Uno: Crea una Cuenta
+## **Paso uno: Crear una cuenta**
 
-Necesitas crear una cuenta para empezar a implementar tus servicios en Zeabur.
+Necesitas crear una cuenta para empezar a desplegar tus servicios en Zeabur.
 
-Si eres nuevo en Zeabur, deberás registrarte usando tu correo electrónico (la primera opción). Introduce tu dirección de correo electrónico aquí y luego haz clic en "Continuar con el correo electrónico".
+Si eres nuevo en Zeabur, tendrás que registrarte usando tu correo electrónico (la primera opción). Introduce tu dirección de correo aquí y haz clic en “Continuar con correo electrónico”.
 
-![Login](/start/login.webp)
+![SignUp.png](/start/get-started/SignUp.png)
 
-Luego, recibirás un mensaje que dice "Enlace de inicio de sesión enviado".
+A continuación, recibirás un mensaje que indica “Correo enviado correctamente”.
 
-![Verification mail sent](/start/verification-mail-sent.webp)
+![SignUp Part 2.png](/start/get-started/SignUp%20Part%202.png)
 
-Abre tu bandeja de entrada de correo electrónico (por ejemplo, Gmail, Outlook, Apple Mail) y verás un correo electrónico de Zeabur. Haz clic en el botón "Iniciar sesión" dentro del correo electrónico.
+Abre la bandeja de entrada de tu correo (por ejemplo, Gmail, Outlook, Apple Mail) y verás un correo de Zeabur. Haz clic en el botón “Iniciar sesión” dentro del correo.
 
-![Verification mail](/start/verification-mail.webp)
+![Sign Up Callback.png](/start/get-started/Sign%20Up%20Callback.png)
 
-<Callout>
-  Si el navegador desde el que inicias sesión no es el navegador predeterminado de tu sistema (es decir, si al abrir el enlace se inicia Safari en lugar de Chrome),
-  puedes hacer clic derecho en el botón "Iniciar sesión" para copiar el enlace y luego pegarlo en el navegador que desees usar.
-</Callout>
+Si el navegador que se abre durante el proceso de inicio de sesión no es tu navegador predeterminado preferido (por ejemplo, se abre Safari en lugar de Chrome), puedes copiar manualmente el enlace que aparece debajo del botón Iniciar sesión y pegarlo en el navegador que desees.
 
-Una vez que aparezca esta interfaz de inicio de sesión, ¡significa que has iniciado sesión con éxito!
+Una vez que aparezca esta interfaz de inicio de sesión, ¡significa que has iniciado sesión correctamente!
 
-![Onboarding UI](/start/onboarding-ui.webp)
+![Dashboard.png](/start/get-started/Dashboard.png)
 
-¡Recuerda que puedes cambiar el idioma de la interfaz en la esquina superior derecha! Actualmente admitimos chino tradicional, chino simplificado, inglés, japonés, español e indonesio.
+Recuerda que puedes cambiar el idioma de la interfaz en el panel izquierdo. Actualmente admitimos chino tradicional, chino simplificado, inglés, japonés, español e indonesio.
 
-![Switch language](/start/switch-language.webp)
+![Languages.png](/start/get-started/Languages.png)
 
-## Paso Dos: Crea un Proyecto
+## **Paso dos: Crear un proyecto**
 
-En Zeabur, un Proyecto sirve como un único contenedor para todos los servicios relacionados que componen una aplicación real. Por ejemplo, si tu aplicación consta de un sitio web frontend, una API backend y una base de datos, todos deben mantenerse dentro del mismo Proyecto.
+En Zeabur, un Proyecto actúa como un contenedor único para todos los servicios relacionados que componen una aplicación del mundo real. Por ejemplo, si tu aplicación consta de un sitio web frontend, una API backend y una base de datos, todos deben mantenerse dentro del mismo Proyecto.
 
 ![Project structure](/start/project-structure.webp)
 
-Para comenzar a crear un proyecto, haz clic en el botón **Crear proyecto** en el centro (o en la esquina superior derecha).
+Para empezar a crear un proyecto, haz clic en el botón **Crear proyecto** en el centro.
 
-![Create new project](/start/create-new-project.webp)
+![Create New Project.png](/start/get-started/Create%20New%20Project.png)
 
-Si es la primera vez que creas un proyecto, es probable que veas una ventana de "Verificación de cuenta".
+Si es la primera vez que creas un proyecto, es probable que veas un mensaje de “Verificación de cuenta”.
 
-![Account verification](/start/account-verification.webp)
+![Toast if not verified.png](/start/get-started/Toast%20if%20not%20verified.png)
 
 Puedes elegir:
 
-1. Verificar usando un número de teléfono. La mayoría de los países y regiones admiten este método. Si tu país o región no lo admite, o si necesitas vincular varias cuentas de Zeabur, además de [contactarnos](https://zeabur.com/dc), también puedes consultar las opciones segunda y tercera.
-2. Realizar un prepago de créditos de uso. Siempre y cuando no te hayas suscrito a un Plan Dev o a un servidor, y no estés involucrado en un abuso grave (por ejemplo, violar los Términos de Servicio iniciando ataques DoS de gran volumen), no deduciremos de tu saldo.
-3. Vincular una tarjeta de crédito. Similar al segundo punto, no iniciaremos ningún cargo a menos que realices operaciones de suscripción; es puramente para fines de verificación.
+1. Verificar usando un **número de teléfono**. La mayoría de países y regiones lo admiten. Si tu país o región no lo permite, o si necesitas vincular varias cuentas de Zeabur, además de [contactarnos](https://zeabur.com/forum), también puedes consultar las opciones segunda y tercera.
+2. Predepositar algunos **créditos de uso**. Mientras no hayas suscrito a un Plan Dev ni comprado un servidor dedicado, y no estés involucrado en abusos graves (por ejemplo, violar los ToS iniciando ataques DoS de alto volumen), no se descontará de tu saldo.
+3. Requerimos una **tarjeta de crédito** para verificar tu cuenta y garantizar operaciones fluidas. Ten en cuenta que no se realizará ningún cargo a menos que inicies activamente transacciones relacionadas con suscripciones.
 
-Elige tu método preferido y luego haz clic en el botón "Verificar" en la sección correspondiente.
+Elige el método que prefieras y haz clic en el botón “Verificar” en la sección correspondiente.
 
-Una vez completada la verificación, puedes volver a crear el proyecto y ver el proyecto creado con éxito.
+Una vez completada la verificación, puedes volver a crear el proyecto y ver el proyecto creado correctamente.
 
-![Project page with add service](/start/project-page-with-add-service.webp)
+![After Verification.png](/start/get-started/After%20Verification.png)
 
-## Paso Tres: Implementar Servicios
+## **Paso tres: Desplegar servicios**
 
-Zeabur puede implementar una amplia variedad de servicios, incluyendo bases de datos (PostgreSQL, MySQL, Redis), proyectos de código abierto (n8n, WordPress) o tus propias aplicaciones personalizadas (importadas desde GitHub o subidas desde una carpeta).
+Zeabur puede desplegar una amplia variedad de servicios, incluidas bases de datos (PostgreSQL, MySQL, Redis), proyectos de código abierto (n8n, WordPress) o tus propias aplicaciones personalizadas (importadas desde GitHub o subidas desde una carpeta).
 
-![Project page with add service](/start/project-page-with-add-service.webp)
+- Si quieres desplegar una base de datos, haz clic en “Bases de datos” para desplegar directamente varias bases de datos comunes.
+    
+    ![Databases.png](/start/get-started/Databases.png)
+    
+- Si quieres desplegar un proyecto de código abierto, las “Plantillas” de Zeabur ofrecen muchos proyectos de código abierto comunes preconfigurados, que puedes desplegar con un solo clic seleccionando “Plantillas”.
+    
+    ![templates.png](/start/get-started/templates.png)
+    
+- Si quieres desplegar tu propia aplicación personalizada, puedes subir tu código haciendo clic en “GitHub” o “Proyecto local”, o hacer clic en “Cursor” para desplegar directamente tu proyecto actual.
+- Si el proyecto de código abierto que deseas desplegar no aparece en “Plantillas”, también puedes configurarlo tú mismo usando una “Imagen Docker”, que es una operación avanzada.
 
-- Si quieres implementar una base de datos, haz clic en "Bases de datos" para implementar directamente varias bases de datos comunes.
-  ![Database services](/start/database-services.webp)
-- Si quieres implementar un proyecto de código abierto, las "Plantillas" de Zeabur proporcionan muchos proyectos de código abierto comunes preconfigurados, que puedes implementar con un solo clic seleccionando "Plantillas".
-  ![Template services](/start/template-services.webp)
-- Si quieres implementar tu propia aplicación personalizada, puedes subir tu código haciendo clic en "GitHub" o "Proyecto local", o puedes hacer clic en "Cursor" para implementar directamente tu proyecto actual.
-- Si el proyecto de código abierto que quieres implementar no aparece en "Plantillas", también puedes configurarlo tú mismo usando una "Imagen Docker", lo cual es una operación avanzada.
+Tomando el despliegue desde GitHub como ejemplo. Primero, necesitas vincular tu cuenta de Zeabur a GitHub y esperar aproximadamente 1 minuto, luego busca el repositorio que deseas desplegar:
 
-Tomando como ejemplo la implementación de GitHub, primero debes vincular tu cuenta a GitHub y esperar aproximadamente 1 minuto, luego buscar el repositorio que deseas implementar:
+![Github.png](/start/get-started/Github.png)
 
-![Search repository](/start/search-repository.webp)
+Tras hacer clic en el repositorio, el Agente de Zeabur analizará automáticamente tu código y seleccionará el método de despliegue más adecuado para ti.
 
-Después de hacer clic en el repositorio, Zeabur analizará automáticamente tu código y seleccionará el método de implementación más adecuado para ti.
+![Build Plan.png](/start/get-started/Build%20Plan.png)
 
-![Build plan](/start/build-plan.webp)
+Haz clic en “Desplegar” para desplegar el proyecto con un solo clic. Si es necesario, puedes ir a “Configuración” para ajustar las variables de entorno.
 
-Haz clic en "Implementar" para implementar el proyecto con un solo clic. Si es necesario, puedes ir a "Configuración" para ajustar las variables de entorno.
+En Configuración, establece el Directorio raíz en la carpeta de tu app (por ejemplo, “/” o una subcarpeta) y añade las variables de entorno requeridas mediante Clave/Valor o Editar variables en bruto, luego haz clic en Siguiente para confirmar.
 
-![Build configuration](/start/build-configuration.webp)
+![Configure Build Plan  .png](/start/get-started/Configure%20Build%20Plan%20%20.png)
 
-## Implementar Servicios usando IA
+## **Desplegar cualquier servicio usando los Agentes de IA de Zeabur**
 
-El Asistente de IA de Zeabur te permite implementar rápidamente los servicios que necesitas usando lenguaje natural.
+Los Agentes de IA de Zeabur te permiten desplegar rápidamente los servicios que necesitas usando lenguaje natural.
 
-![Zeabur Agent](/start/zeabur-agent.webp)
+![Postgresql Examples.png](/start/get-started/Postgresql%20Examples.png)
 
-Haz clic en "Agente" en la barra de navegación para acceder a la interfaz del Asistente de IA. Si encuentras algún problema de implementación, ¡también puedes pedirle ayuda!
+Haz clic en “Zeabur AI” en el panel derecho para acceder a la interfaz del Asistente de IA. ¡Si encuentras cualquier problema de despliegue, también puedes pedirle ayuda!
 
-## Paso Cuatro: Lanza tu Sitio Web
+## **Paso cuatro: Lanzar tu sitio web**
 
-Para que tu sitio web sea accesible para otros, puedes vincular tu propio dominio en "Dominios":
+Para que tu sitio web sea accesible para otros, puedes vincular tu propio dominio en “Dominios”:
 
 ![Bind domain](/start/bind-domain.webp)
 
-Espera unos 30 segundos, luego podrás hacer clic en el dominio. Zeabur gestionará HTTPS y otras configuraciones por ti. Una vez que todo esté confirmado, podrás compartir tu sitio web.
+Espera unos 30 segundos y luego puedes hacer clic en el dominio. Zeabur se encargará de HTTPS y otros ajustes por ti. Una vez confirmado todo, puedes compartir tu sitio web.
 
-Si necesitas vincular tu propio dominio, puedes encontrar más información en la documentación de [Vinculación de Dominio](/deploy/domain-binding).
+Si necesitas vincular tu propio dominio, puedes encontrar más información en la documentación de [Vinculación de dominios](https://zeabur.com/docs/deploy/domain-binding).
 
-## ¿Qué sigue?
+## **¿Qué sigue?**
 
-Si deseas iniciar sesión usando tu cuenta de Google o GitHub, puedes vincular tus cuentas de GitHub y Google en "Configuración" > "Integraciones".
+Si deseas iniciar sesión usando tu cuenta de Google o GitHub, puedes vincular tus cuentas de GitHub y Google en “Ajustes” > “Integraciones”.
 
 ![Account integration](/start/account-integration.webp)
 
-A continuación, puedes seguir explorando la rica biblioteca de plantillas de Zeabur y varias características para diferentes propósitos (por ejemplo, Gestión de archivos, Registros). Si necesitas soporte técnico, el [servidor de Discord](https://zeabur.com/dc) de Zeabur tiene canales dedicados para ayudarte a resolver cualquier problema.
+A continuación, puedes seguir explorando la amplia biblioteca de plantillas de Zeabur y sus diversas funciones para diferentes propósitos (por ejemplo, Gestión de archivos, Registros). Para problemas técnicos, envía un ticket de desarrollador en el [Foro oficial de Zeabur](https://zeabur.com/forum). Para discusiones comunitarias y soporte entre pares, únete a nuestra comunidad de desarrolladores en el [servidor de Discord de Zeabur](https://zeabur.com/dc).

@@ -6,86 +6,84 @@ ogImageSubtitle: Despliega servicios en tu proyecto de Zeabur
 
 import { Callout } from 'nextra/components';
 
-# Crear Servicio
+# **Crear Servicio**
 
-Después de [crear un proyecto](./create-project), puedes comenzar a desplegar servicios. Haz clic en el botón **Desplegar Nuevo Servicio** (o presiona `CMD + K` / `Ctrl + K` y selecciona **Desplegar Nuevo Servicio**), y verás un menú con varias opciones de despliegue:
+Después de [crear un proyecto](https://zeabur.com/docs/es-ES/deploy/create-project), puedes comenzar a desplegar servicios. Haz clic en el botón **Deploy New Service** (o presiona `CMD + K` / `Ctrl + K` y selecciona **Deploy New Service**), y verás un menú con varias opciones de despliegue:
 
-![Agregar Servicio](/start/project-page-with-add-service.webp)
+![Create Service](/deploy/Create-Services/add-service.png)
 
-## Plantilla
+## **Plantilla**
 
-Zeabur proporciona una rica biblioteca de plantillas preconfiguradas para proyectos de código abierto populares como WordPress, n8n, Ghost y muchos más. Estas plantillas están listas para desplegarse con un solo clic.
+Zeabur ofrece una amplia biblioteca de plantillas preconfiguradas para proyectos open-source populares como WordPress, n8n, Ghost y muchos más. Estas plantillas están listas para desplegarse con un solo clic.
 
-1. Haz clic en **Plantilla** para explorar las plantillas disponibles.
-2. Busca o navega por la plantilla que necesitas.
+1. Haz clic en **Template** para explorar las plantillas disponibles.
+2. Busca o navega hasta la plantilla que necesitas.
 3. Haz clic en la plantilla y sigue las indicaciones para desplegar.
 
-![Servicios de plantilla](/start/template-services.webp)
+Para más detalles, consulta [Desplegar desde Plantilla](https://zeabur.com/docs/es-ES/template/deploy-template).
 
-Para más detalles, consulta [Desplegar desde Plantilla](/template/deploy-template).
+[choose template](/deploy/Create-Services/choose-template.gif)
 
-## GitHub
+## **GitHub**
 
 Despliega directamente desde tu repositorio de GitHub. Esta es la forma más común de desplegar tus propias aplicaciones.
 
 1. Haz clic en **GitHub** para conectar tu cuenta de GitHub si aún no lo has hecho.
 2. Una vez conectado, busca el repositorio que deseas desplegar.
-3. Haz clic en el repositorio y Zeabur analizará automáticamente tu código y seleccionará el método de compilación más adecuado.
-4. Haz clic en **Desplegar** para iniciar el despliegue.
+3. Haz clic en el repositorio, y Zeabur analizará automáticamente tu código y seleccionará el método de compilación más adecuado.
+4. Haz clic en **Deploy** para iniciar el despliegue.
 
-![Buscar repositorio](/start/search-repository.webp)
+[Search repository](https://zeabur.com/docs/_next/image?url=%2Fdocs%2F_next%2Fstatic%2Fmedia%2Fsearch-repository.db02d750.webp&w=3840&q=75)
 
-Para más detalles, consulta [Integración con GitHub](./github).
+Para más detalles, consulta [Integración con GitHub](https://zeabur.com/docs/es-ES/deploy/github).
 
-## Bases de Datos
+## **Bases de datos**
 
 Despliega rápidamente bases de datos comunes sin ninguna configuración.
 
-1. Haz clic en **Bases de Datos** para ver la lista de bases de datos disponibles.
+1. Haz clic en **Databases** para ver la lista de bases de datos disponibles.
 2. Selecciona la base de datos que necesitas (PostgreSQL, MySQL, MongoDB, Redis, etc.).
 3. La base de datos se desplegará instantáneamente y estará lista para usar.
 
-![Servicios de base de datos](/start/database-services.webp)
+![Database](/deploy/Create-Services/database.png)
 
-## Funciones
+## **Funciones**
 
-Escribe, ejecuta e itera tu código instantáneamente con Zeabur Functions. Esto es perfecto para scripts rápidos, APIs o funciones serverless.
+Escribe, ejecuta e itera tu código instantáneamente con Zeabur Functions. Ideal para scripts rápidos, APIs o funciones serverless.
 
-1. Haz clic en **Funciones** para crear una nueva función.
-2. Elige entre **JavaScript** o **Python** como lenguaje de tu función.
+1. Haz clic en **Functions** para crear una nueva función.
+2. Elige entre **JavaScript** o **Python** como lenguaje de la función.
 3. Escribe tu código directamente en el editor.
-4. Tu función será desplegada y accesible a través del panel de control.
+4. Tu función se desplegará y estará accesible desde el dashboard.
 
-![Función Simple](/deploy/create-service/simple-function.png)
+![Functions](/deploy/Create-Services/functions.png)
 
-## Proyecto Local
+## **Proyecto Local**
 
 Sube tu código fuente local directamente a Zeabur sin necesidad de un repositorio Git.
 
-1. Haz clic en **Proyecto Local**.
-2. Arrastra y suelta tu carpeta de proyecto, o haz clic para explorar y seleccionar tu carpeta.
+1. Haz clic en **Local Project**.
+2. Arrastra y suelta la carpeta de tu proyecto, o haz clic para navegar y seleccionar la carpeta.
 3. Zeabur analizará y desplegará tu proyecto.
 
-![Proyecto Local](/deploy/create-service/local-project.png)
+![Local Project](/deploy/Create-Services/local-project.png)
 
-Esto es útil para despliegues rápidos o cuando no quieres enviar tu código a un repositorio primero.
+Esto es útil para despliegues rápidos o cuando no quieres subir tu código a un repositorio primero.
 
-<Callout type="warning">
-  El directorio `/dist/*` será ignorado automáticamente durante la subida.
-</Callout>
+El directorio `/dist/*` se ignorará automáticamente durante la subida.
 
-## Imagen Docker
+## **Imagen Docker**
 
-Despliega cualquier imagen de contenedor Docker preconstruida desde Docker Hub u otros registros de contenedores.
+Despliega cualquier imagen de contenedor Docker precompilada desde Docker Hub u otros registros de contenedores.
 
-1. Haz clic en **Imagen Docker**.
-2. Ingresa el nombre de la imagen (por ejemplo, `nginx:latest` o `ghcr.io/owner/image:tag`).
-3. Configura las variables de entorno o puertos requeridos.
-4. Haz clic en **Desplegar**.
+1. Haz clic en **Docker Image**.
+2. Ingresa el nombre de la imagen (p. ej., `nginx:latest` o `ghcr.io/owner/image:tag`).
+3. Configura las variables de entorno o puertos necesarios.
+4. Haz clic en **Deploy**.
 
-Para más detalles, consulta [Desplegar con Imagen Docker](./customize-prebuilt).
+Para más detalles, consulta [Desplegar con Imagen Docker](https://zeabur.com/docs/es-ES/deploy/customize-prebuilt).
 
-## Cursor
+## **Cursor**
 
 Despliega directamente desde el IDE Cursor usando la extensión de Zeabur.
 
@@ -93,5 +91,4 @@ Despliega directamente desde el IDE Cursor usando la extensión de Zeabur.
 2. Si no has instalado la extensión de Zeabur, se te pedirá que la instales.
 3. Usa la extensión para desplegar tu proyecto actual directamente desde Cursor.
 
-Esto proporciona una experiencia fluida para los desarrolladores que usan Cursor como su IDE principal.
-
+Esto ofrece una experiencia fluida para desarrolladores que usan Cursor como su IDE principal.

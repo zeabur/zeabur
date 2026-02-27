@@ -1,129 +1,102 @@
 ---
 title: 環境変数の設定
 ogImageTitle: 環境変数の設定
-ogImageSubtitle: Zeabur での環境変数の設定
+ogImageSubtitle: Zeaburでの環境変数の設定
 ---
 
 # 環境変数の設定
 
-環境変数は、アプリケーションを構成するために使用されます。
-Zeabur では、サービスの環境変数を設定する方法が提供されています。
+環境変数はアプリケーションの設定に使用されます。Zeaburはサービス向けに環境変数を設定する方法を提供します。
 
 ## 追加、編集、削除
 
-サービスの**変数**タブで環境変数を設定でき、サービスに**変数を追加**することができます。
+サービスの **Variables** タブで環境変数を設定でき、**Add Variables** で追加可能。
 
-![environment variables](/environment/add-variables.en-US.png)
+![environment variables](/environment/add-variables.png)
 
-Zeabur は、これらの環境変数を自動的にサービスに注入します。
+Zeaburはこれらの環境変数を自動的にサービスに注入します。
 
-- `<YOUR_SERVICE_NAME>_HOST`：サービスのホスト。
+- `<YOUR_SERVICE_NAME>_HOST`: サービスのホスト。
+- `PORT`: サービスのポート。
+- データベース資格情報（[PostgreSQL](https://zeabur.com/templates/B20CX0)）や [Redis](https://zeabur.com/templates/KQZHXT) 接続文字列など。
 
-- `PORT`：サービスのポート。
+これらは手動で設定する必要はありません。
 
-- その他の変数は、データベースの認証情報（[PostgreSQL](/marketplace/postgresql)）や[Redis](/marketplace/redis)の接続文字列などです。
+![db env](/environment/env_var.png)
 
-そして、環境変数を手動で設定する必要はありません。
+変数にホバーすると編集または削除を選択可能。
 
-![db env](/environment/db-env.en-US.png)
+![hovering](/environment/env_var_hover.png)
 
-変数上でマウスをホバーすると、変数の編集を開始したり、変数を削除したりすることができます。
+## Raw編集
 
-![hovering](/environment/var-hover.png)
+複数変数を一括追加する場合、バッチ編集を使用。
 
-リストビューを切り替えるには、右上のチェックボックスをクリックします。
+**Edit as Raw** ボタンをクリックしてバッチモードに入り、`.env` ファイル形式で設定。
 
-![list view](/environment/var-list-view.png)
+![edit-raw](/environment/edit_raw_env_var.png)
 
-値を編集するには、編集アイコンをクリックします。
+## 変数参照
 
-![edit variable](/environment/var-edit.png)
+Zeaburでは他の変数をテンプレート構文で参照可能。
 
-## 生データで編集
+新しい変数設定時に既存変数を `${}` で囲む。
 
-一度に複数の変数を追加したい場合は、バッチ編集機能を使用できます。
+**例:**
 
-**生データで編集**ボタンをクリックしてバッチ編集モードに入り、`.env` ファイルにサービスの環境変数を設定します。
-
-![edit-raw](/environment/var-raw-edit.png)
-
-## 変数の参照
-
-Zeabur では、他の変数を参照することができます。
-
-変数を設定する際に、テンプレート構文で他の変数を参照するだけです：
+`USERNAME` と `PASSWORD` がある場合、`AUTH_INFOR` を以下のように設定：
 
 ```bash
-# 例えば、次のように変数を設定できます：
 AUTH_INFOR=${USERNAME}:${PASSWORD}
 ```
 
 ![reference](/environment/var-reference.png)
 
-これにより、`USERNAME` と `PASSWORD` の値が自動的に結合され、`AUTH_INFOR` に注入されます。
+これで `USERNAME` と `PASSWORD` の値が自動結合され `AUTH_INFOR` に注入されます。
 
-## スペシャル変数
+## 特殊変数
 
-"スペシャル変数" とは、Zeaburによって事前定義され、直接使用できる環境変数のことです。
+「特殊変数」はZeaburが事前定義した環境変数で直接使用可能。
 
 ### 参照方法
 
-- Zeaburの環境変数入力ボックスでは、`${VARIABLE}` フォーマットを使用して特別な変数を挿入します。
-- あなた自身のアプリケーションでは、環境変数を参照する方法と同じく (`process.env.VARIABLE`) を使用します。
+- Zeaburの入力ボックス: `${VARIABLE}` 形式。
+- アプリケーション内: `process.env.VARIABLE` など。
 
-### 変数の優先順位
+### 変数優先順位
 
-サービス内の変数の展開順序は以下の通りです。
+サービス内の展開順序:
 
-- 現在のサービスで定義された環境変数が最初に取得されます。
-- 未定義の場合、他のサービスで公開された環境変数が取得されます。
-- 未定義の場合、スペシャル変数が取得されます。
+1. 現在のサービスで定義された環境変数。
+2. 未定義なら他のサービスで公開された変数。
+3. 未定義なら特殊変数。
 
-### 変数
+### 変数一覧
 
 #### ホスト名/ポート
 
-- `${ZEABUR_[PORTNAME]_URL}`: 特定のポートに対応するURL。
-  - 例えば、 `https://test.zeabur.app`。
-  - このURLは "ドメイン" セクションで設定するものです:
-
-    ![ドメインポートのカスタマイズ](/deploy/special-variables/domain-port-customization.png)
-
-  - Gitリポジトリからデプロイされたサービスの場合、 `PORTNAME` は常に `web` です。
-- `${ZEABUR_[PORTNAME]_DOMAIN}`: 特定のポートに対応するドメイン。
-  - 例えば、 `test.zeabur.app`。
-  - このURLは "ドメイン" セクションで設定するものです。
-  - Gitリポジトリからデプロイされたサービスの場合、 `PORTNAME` は常に `web` です。
-- `${CONTAINER_HOSTNAME}`: Zeaburプロジェクト内の現在のサービスのホスト名。
-    - 通常、Exposeプロパティを持つ環境変数を作成します（例: `${MYSQL_HOST}`）。
-      そして、この環境変数に `${CONTAINER_HOSTNAME}` の値を記入します。
-    - ただし、Zeabur内の他のサービスのホスト名を参照したい場合は、Zeaburが将来リリースするDNS機能を使用することをお勧めします。
-- `${[PORTNAME]_PORT}`: Prebuiltサービスで定義されたポート。
-    - 例えば、 `database / 3306 / TCP` と設定した場合、 `DATABASE_PORT` は `3306` になります。
-    - 現在のサービス内でのみ可視です。
-    - Gitリポジトリからデプロイされたサービスの場合、`8080` です。このポートは `${PORT}` から読み取ることができます。
+- `${ZEABUR_[PORTNAME]_URL}`: 特定ポートのURL (例: `https://test.zeabur.app`)。Domainセクションで設定。Gitサービスでは `PORTNAME` は常に `web`。
+- `${ZEABUR_[PORTNAME]_DOMAIN}`: ドメイン部分。
+- `${CONTAINER_HOSTNAME}`: 現在のサービスのホスト名。`${MYSQL_HOST}` = `${CONTAINER_HOSTNAME}` のように公開。
+- `${[PORTNAME]_PORT}`: Prebuiltサービスのポート (例: `DATABASE_PORT`=3306)。Gitでは8080 (`${PORT}`)。
 
 #### Zeabur情報
 
-これらの変数は一般的に使用されることはありませんが、現在のZeaburサービス/プロジェクトの一意の識別子が必要な場合、これらの変数は非常に役立ちます。
-
-
 - `${ZEABUR_SERVICE_ID}`: サービスID
 - `${ZEABUR_PROJECT_ID}`: プロジェクトID
-- `${ZEABUR_ENVIRONMENT_ID}`: サービス環境ID
-- `${ZEABUR_USER_ID}`: このプロジェクトを作成したユーザーID
+- `${ZEABUR_ENVIRONMENT_ID}`: 環境ID
+- `${ZEABUR_USER_ID}`: プロジェクト作成ユーザーID
 
-#### Git情報
+#### Git情報 (Gitサービスビルド時のみ)
 
-これらの変数はGitサービスのビルドフェーズ中のみ表示されます。
-
-- `${ZEABUR_GIT_COMMIT_SHA}`: 現在のデプロイが属するGitコミットSHA値。
-- `${ZEABUR_GIT_AUTHOR}`: 現在のデプロイが属するGitコミットの著者ID。
-- `${ZEABUR_GIT_BRANCH}`: 現在のデプロイが属するGitブランチ名。
-- `${ZEABUR_GIT_REPO_NAME}`: 現在のデプロイが属するGitリポジトリ名。
-- `${ZEABUR_GIT_REPO_OWNER}`: 現在のデプロイが属するGitリポジトリの所有者ID。
-- `${ZEABUR_GIT_COMMIT_MESSAGE}`: 現在のデプロイが属するGitコミットメッセージ。
+- `${ZEABUR_GIT_COMMIT_SHA}`: コミットSHA
+- `${ZEABUR_GIT_AUTHOR}`: コミット作者
+- `${ZEABUR_GIT_BRANCH}`: ブランチ名
+- `${ZEABUR_GIT_REPO_NAME}`: リポジトリ名
+- `${ZEABUR_GIT_REPO_OWNER}`: オーナー
+- `${ZEABUR_GIT_COMMIT_MESSAGE}`: コミットメッセージ
 
 #### ユーティリティ
 
-- `${PASSWORD}`: Zeaburが各サービスのために生成したランダムなパスワード。
+- `${PASSWORD}`: Zeaburが各サービスに生成するランダムパスワード。
+

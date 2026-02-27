@@ -1,128 +1,102 @@
 ---
-title: 添加变量
-ogImageTitle: 添加变量
-ogImageSubtitle: 在 Zeabur 中添加变量
+title: 设置环境变量
+ogImageTitle: 设置环境变量
+ogImageSubtitle: 在 Zeabur 中设置环境变量
 ---
 
-# 添加变量
+# 设置环境变量
 
-Zeabur 中可以添加变量，并自动注入到该服务中。
+环境变量用于配置你的应用程序。Zeabur 提供为服务设置环境变量的方式。
 
-## 添加，编辑，修改
+## 添加、编辑、删除
 
-点选该服务并到 **变量** 页面，里面的 **添加变量** 即可新增变量。
+在服务的 **Variables** 标签页中设置环境变量，并可通过 **Add Variables** 添加。
 
-![添加变量](/environment/add-variables.zh-CN.png)
+![environment variables](/environment/add-variables.png)
 
-Zeabur 预设会自动注入以下变量：
+Zeabur 会自动将这些环境变量注入服务。
 
-- `<YOUR_SERVICE_NAME>_HOST`：该服务对内网络通信的 host 名称
+- `<YOUR_SERVICE_NAME>_HOST`：服务的 host。
+- `PORT`：服务的端口。
+- 其他如数据库凭证（[PostgreSQL](https://zeabur.com/templates/B20CX0)）或 [Redis](https://zeabur.com/templates/KQZHXT) 连接字符串等。
 
-- `PORT`：该服务对外的 port
+无需手动设置这些变量。
 
-- 其他相关服务，例如数据库([PostgreSQL](/marketplace/postgresql))、[Redis](/marketplace/redis) 等，也会自动注入相关变量。
+![db env](/environment/env_var.png)
 
-这时我们就不需要再手动添加变量到自己的服务中。
+鼠标悬停在变量上可选择编辑或删除。
 
-![数据库变量](/environment/db-env.zh-CN.png)
+![hovering](/environment/env_var_hover.png)
 
-当鼠标悬停在变量上时，可以选择开始编辑或删除变量。
+## 原始编辑
 
-![hover效果](/environment/var-hover.png)
+若需批量添加多个变量，使用批量编辑功能。
 
-点击右上角的 checkbox, 可切换至列表视图。
+点击 **Edit as Raw** 按钮进入批量模式，以 `.env` 文件格式设置服务环境变量。
 
-![列表视图](/environment/var-list-view.png)
-
-点击编辑 icon, 可以编辑变量的值。
-
-![编辑变量](/environment/var-edit.png)
-
-## 批量编辑
-
-如果你想要一次性添加多个变量，可以使用批量编辑的功能。
-
-点击上方的 **编辑原始环境变量** 按钮，即可进入批量编辑模式，将以编辑 `.env` 文件的方式来批量设置服务的环境变量。
-
-![批量编辑](/environment/var-raw-edit.png)
+![edit-raw](/environment/edit_raw_env_var.png)
 
 ## 变量引用
 
-在 Zeabur 中，可以通过变量引用的方式来引用其他变量。
+Zeabur 支持使用简单模板语法引用其他变量：
 
-你只需要在变量设置的时候，用模板语法的方式来引用：
+1. 在设置变量时直接使用模板语法引用。
+2. 用 `${}` 包围现有变量名。
+
+**示例：**
+
+若有 `USERNAME` 和 `PASSWORD`，可设置新变量 `AUTH_INFOR`：
 
 ```bash
-# 例如，你可以这样设置变量
 AUTH_INFOR=${USERNAME}:${PASSWORD}
 ```
 
-![变量引用](/environment/var-reference.png)
+![reference](/environment/var-reference.png)
 
-这样，`USERNAME` 与 `PASSWORD` 的值就会自动组合注入到 `AUTH_INFOR` 中。
+这样，`USERNAME` 和 `PASSWORD` 的值会自动组合并注入 `AUTH_INFOR`。
 
 ## 特殊变量
 
-“特殊变量”是由 Zeabur 预先定义并可直接使用的环境变量。
+“特殊变量”是 Zeabur 预定义的环境变量，可直接使用。
 
 ### 引用方式
 
-- 在 Zeabur 内的环境变量输入框中：使用 `${变量}` 格式插入特殊变量。
-- 在自己的应用程序中：与一般的环境变量引用方式相同（`process.env.VARIABLE`）。
+- Zeabur 环境变量输入框：使用 `${VARIABLE}` 格式插入。
+- 应用内：同普通环境变量（如 `process.env.VARIABLE`）。
 
-### 变量优先顺序
+### 变量优先级顺序
 
-服务间变量的展开优先顺序如下：
+服务内变量展开顺序：
 
-- 当前服务定义的环境变量将首先被获取。
-- 如果未定义，则其他服务暴露（Expose）的环境变量将被获取。
-- 如果未定义，则特殊变量将被获取。
+- 当前服务定义的环境变量优先获取。
+- 未定义则获取其他服务暴露的变量。
+- 未定义则获取特殊变量。
 
-### 变量
+### 变量列表
 
-#### 主机名/端口类
+#### 主机名/端口
 
-- `${ZEABUR_[端口名称]_URL}`：某个端口对应的 URL。
-  - 例如 `https://test.zeabur.app`。
-  - 此 URL 是您在“域名”中设置的：
+- `${ZEABUR_[PORTNAME]_URL}`：特定端口对应的 URL（如 `https://test.zeabur.app`）。Domain 部分设置。对于 Git 服务，`PORTNAME` 始终为 `web`。
+- `${ZEABUR_[PORTNAME]_DOMAIN}`：对应域名。
+- `${CONTAINER_HOSTNAME}`：当前服务在 Zeabur 项目中的主机名。通常设 `${MYSQL_HOST}` = `${CONTAINER_HOSTNAME}` 并暴露。
+- `${[PORTNAME]_PORT}`：Prebuilt 服务定义的端口（如 `DATABASE_PORT` = 3306）。仅当前服务可见。Git 服务为 8080（用 `${PORT}`）。
 
-    ![域名设置](/deploy/special-variables/domain-port-customization.png)
-
-  - 对于从 Git 存储库部署的服务，`端口名称` 总是 `web`。
-- `${ZEABUR_[端口名称]_DOMAIN}`：某个端口对应的域名。
-  - 例如 `test.zeabur.app`。
-  - 此 URL 是您在“域名”中设置的。
-  - 对于从 Git 存储库部署的服务，`端口名称` 总是 `web`。
-- `${CONTAINER_HOSTNAME}`: 当前服务在 Zeabur 项目中的主机名（hostname）。
-    - 通常我们会创建一个具有 Expose（向项目暴露）属性的环境变量（例如 `${MYSQL_HOST}`），
-      然后将 `${CONTAINER_HOSTNAME}` 的值填入此环境变量。
-    - 但是，如果您要在 Zeabur 内引用其他服务的主机名，我们更推荐使用 Zeabur 未来推出的 DNS 功能。
-- `${[端口名称]_PORT}`：在 Prebuilt 服务中定义的端口。
-    - 例如，如果您设置了 `database / 3306 / TCP`，那么 `DATABASE_PORT` 将是 `3306`。
-    - 仅在当前服务内可见。
-    - 对于从 Git 存储库部署的服务，值是 `8080`。您可以从 `${PORT}` 中读取这个端口值。
-
-#### Zeabur 信息类
-
-这些变量不常用，但如果您需要当前 Zeabur 服务/项目的唯一标识符，
-那么这些变量将非常有帮助。
+#### Zeabur 信息
 
 - `${ZEABUR_SERVICE_ID}`：服务 ID
 - `${ZEABUR_PROJECT_ID}`：项目 ID
 - `${ZEABUR_ENVIRONMENT_ID}`：服务环境 ID
-- `${ZEABUR_USER_ID}`：创建此项目的用户 ID
+- `${ZEABUR_USER_ID}`：创建项目用户 ID
 
-#### Git 信息类
+#### Git 信息（仅 Git 服务构建阶段）
 
-这些变量仅会在 Git 服务的编译阶段出现。
+- `${ZEABUR_GIT_COMMIT_SHA}`：当前部署的 commit SHA
+- `${ZEABUR_GIT_AUTHOR}`：commit 作者
+- `${ZEABUR_GIT_BRANCH}`：分支名
+- `${ZEABUR_GIT_REPO_NAME}`：仓库名
+- `${ZEABUR_GIT_REPO_OWNER}`：仓库拥有者
+- `${ZEABUR_GIT_COMMIT_MESSAGE}`：commit 消息
 
-- `${ZEABUR_GIT_COMMIT_SHA}`：当前部署所属的 Git 提交 SHA 值。
-- `${ZEABUR_GIT_AUTHOR}`：当前部署所属的 Git 提交作者 ID。
-- `${ZEABUR_GIT_BRANCH}`：当前部署所属的 Git 分支名称。
-- `${ZEABUR_GIT_REPO_NAME}`：当前部署所属的 Git 版本库名称。
-- `${ZEABUR_GIT_REPO_OWNER}`：当前部署所属的 Git 版本库所有者 ID。
-- `${ZEABUR_GIT_COMMIT_MESSAGE}`：当前部署所属的 Git 提交消息。
-
-#### 工具类
+#### 实用工具
 
 - `${PASSWORD}`：Zeabur 为每个服务生成的随机密码。
