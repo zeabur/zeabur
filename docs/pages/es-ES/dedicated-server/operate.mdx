@@ -45,45 +45,35 @@ Recuerda reiniciar el servicio K3s después de hacer cambios.
 $ sudo systemctl restart k3s
 ```
 
-## Iniciar y detener K3s y Containerd
+## Desactivar los Servicios de Zeabur
 
-Si necesita iniciar o detener manualmente los servicios de K3s o containerd, siga estos pasos:
+Si tienes un servidor dedicado propio, puedes desactivar todos los servicios de Zeabur y usar el VPS libremente para otros propósitos, como ejecutar servicios de Docker Compose.
 
-1. Conéctese a su servidor dedicado mediante SSH:
+<Callout type="warning">
+    Al desactivar los servicios de Zeabur, no podrás crear proyectos ni servicios desde el panel de Zeabur, y los servicios que se estén ejecutando en Zeabur se detendrán. Sin embargo, aún podrás gestionar la configuración del servidor, como las reglas del firewall y los reinicios. Ten en cuenta que reinstalar el servidor desde Zeabur reinstalará y reactivará los servicios de Zeabur.
+</Callout>
 
-```bash
-ssh <nombre_de_usuario>@<IP_del_servidor>
-```
+### Desactivar los Servicios de Zeabur
 
-### K3s
+También puedes hacer clic en la opción **SSH** en la barra lateral del panel de Zeabur para conectarte al servidor directamente desde el navegador, sin necesidad de una terminal local:
 
-- Detener el servicio K3s:
+![Conectarse por SSH desde el panel de Zeabur](/dedicated-server/server-ssh-from-dashboard.webp)
 
-```bash
-sudo systemctl disable --now k3s
-```
-
-- Iniciar el servicio K3s:
+O conéctate a tu servidor por SSH y ejecuta:
 
 ```bash
-sudo systemctl enable --now k3s
-```
-
-### Containerd
-
-- Detener el servicio containerd:
-
-```bash
-sudo systemctl disable --now containerd
-```
-
-- Iniciar el servicio containerd:
-
-```bash
-sudo systemctl enable --now containerd
+sudo systemctl disable --now k3s containerd
 ```
 
 > Nota: Detener estos servicios hará que todos los contenedores y servicios que se estén ejecutando en el servidor se detengan. Proceda con precaución.
+
+### Reactivar los Servicios de Zeabur
+
+Si quieres volver a poner en línea Zeabur, conéctate por SSH y ejecuta:
+
+```bash
+sudo systemctl enable --now k3s containerd
+```
 
 ## Uso de VS Code para Desarrollo Remoto
 

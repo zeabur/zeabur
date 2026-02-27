@@ -45,45 +45,35 @@ Remember to restart the K3s service after making changes.
 $ sudo systemctl restart k3s
 ```
 
-## Starting and Stopping K3s and Containerd
+## Disabling Zeabur Services
 
-If you need to manually start or stop the K3s or containerd services, follow these steps:
+If you own a dedicated server, you can disable all Zeabur services and use the VPS freely for other purposes, such as running Docker Compose services.
 
-1. Connect to your dedicated server via SSH:
+<Callout type="warning">
+    Disabling Zeabur services means you will not be able to create projects and services from the Zeabur dashboard, and any services currently running on Zeabur will stop. However, you can still manage server settings such as firewall rules and reboots. Note that reinstalling the server from Zeabur will reinstall and re-enable Zeabur services.
+</Callout>
 
-```bash
-ssh <username>@<server IP>
-```
+### Disable Zeabur Services
 
-### K3s
+You can also click the **SSH** option in the Zeabur Dashboard sidebar to connect to your server directly from the browser, no local terminal required:
 
-- Stop the K3s service:
+![SSH into server from Zeabur Dashboard](/dedicated-server/server-ssh-from-dashboard.webp)
 
-```bash
-sudo systemctl disable --now k3s
-```
-
-- Start the K3s service:
+Or connect via SSH and run:
 
 ```bash
-sudo systemctl enable --now k3s
-```
-
-### Containerd
-
-- Stop the containerd service:
-
-```bash
-sudo systemctl disable --now containerd
-```
-
-- Start the containerd service:
-
-```bash
-sudo systemctl enable --now containerd
+sudo systemctl disable --now k3s containerd
 ```
 
 > Note: Stopping these services will cause all containers and services running on the server to stop. Please proceed with caution.
+
+### Re-enable Zeabur Services
+
+If you want to bring Zeabur back online, connect via SSH and run:
+
+```bash
+sudo systemctl enable --now k3s containerd
+```
 
 ## Using VS Code for Remote Development
 
