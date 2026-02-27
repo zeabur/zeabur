@@ -45,45 +45,35 @@ nameserver 119.29.29.29
 $ sudo systemctl restart k3s
 ```
 
-## 啟動與關閉 K3s 與 Containerd
+## 停用 Zeabur 服務
 
-如果您需要手動啟動或關閉 K3s 或 containerd 服務，可以按照以下步驟操作：
+如果您擁有專用伺服器，可以關閉所有 Zeabur 服務，將 VPS 用於其他用途，例如執行 Docker Compose 服務。
 
-1. 透過 SSH 連線到您的專用伺服器：
+<Callout type="warning">
+    關閉 Zeabur 服務後，您將無法從 Zeabur 儀表板建立專案與服務，且目前在 Zeabur 上執行的服務也會隨之停止。但您仍可管理伺服器設定，例如防火牆規則與重新啟動。請注意，若從 Zeabur 重新安裝伺服器，Zeabur 服務將會重新安裝並啟用。
+</Callout>
 
-```bash
-ssh <使用者名稱>@<伺服器 IP>
-```
+### 停用 Zeabur 服務
 
-### K3s
+您也可以直接在 Zeabur 儀表板點擊左側的 **SSH** 選項，透過瀏覽器連線到伺服器，無需本機終端機：
 
-- 關閉 K3s 服務：
+![透過 Zeabur 儀表板進行 SSH 連線](/dedicated-server/server-ssh-from-dashboard.webp)
 
-```bash
-sudo systemctl disable --now k3s
-```
-
-- 啟動 K3s 服務：
+或透過 SSH 連線到您的伺服器後執行：
 
 ```bash
-sudo systemctl enable --now k3s
-```
-
-### Containerd
-
-- 關閉 containerd 服務：
-
-```bash
-sudo systemctl disable --now containerd
-```
-
-- 啟動 containerd 服務：
-
-```bash
-sudo systemctl enable --now containerd
+sudo systemctl disable --now k3s containerd
 ```
 
 > 注意：關閉這些服務會導致所有在這台伺服器上運作的容器與服務停止，請謹慎操作。
+
+### 重新啟用 Zeabur 服務
+
+若您想讓 Zeabur 重新上線，透過 SSH 連線後執行：
+
+```bash
+sudo systemctl enable --now k3s containerd
+```
 
 ## 使用 VS Code 遠端開發
 
