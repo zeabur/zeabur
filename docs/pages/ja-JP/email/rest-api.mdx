@@ -306,6 +306,8 @@ GET /emails
 | `page` | number | ページ番号（デフォルト1） |
 | `page_size` | number | ページあたりのアイテム数（デフォルト20、最大100） |
 | `status` | string | ステータスでフィルタ：`pending`、`sent`、`delivered`、`bounced`、`complained` |
+| `job_type` | string | ソースでフィルタ：`direct`（単一送信）、`scheduled`（スケジュール送信）、`batch`（バッチ送信） |
+| `job_id` | string | ジョブ ID でフィルタ（スケジュールメール ID またはバッチジョブ ID） |
 
 ---
 

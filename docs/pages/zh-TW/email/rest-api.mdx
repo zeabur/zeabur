@@ -348,6 +348,8 @@ GET /emails
 | `page` | number | 頁碼（預設 1） |
 | `page_size` | number | 每頁數量（預設 20，最大 100） |
 | `status` | string | 篩選狀態：`pending`、`sent`、`delivered`、`bounced`、`complained` |
+| `job_type` | string | 篩選來源：`direct`（單封發送）、`scheduled`（定時發送）、`batch`（批次發送） |
+| `job_id` | string | 篩選任務 ID（定時郵件 ID 或批次任務 ID） |
 
 #### 回應
 
