@@ -51,6 +51,8 @@ Zeabur Email supports the following event types:
 | `bounce` | Email bounced (hard or soft bounce) |
 | `complaint` | Recipient marked as spam |
 | `reject` | Email rejected for sending (unverified domain, content violation, etc.) |
+| `open` | Recipient opened the email |
+| `click` | Recipient clicked a link in the email |
 
 ## Webhook Request Format
 
@@ -139,6 +141,51 @@ User-Agent: ZSend-Webhook/1.0
   "data": {
     "complaint_feedback_type": "abuse",
     "complained_recipients": ["user@example.com"]
+  }
+}
+```
+
+#### Open Event (open)
+
+```json
+{
+  "event": "open",
+  "timestamp": "2026-01-19T09:10:00Z",
+  "email": {
+    "id": "696def36de644b22ae711503",
+    "message_id": "0111019bd56e71c1-8ccdb66d-5d71-433f-9a9a-0766822f8955-000003",
+    "from": "hello@yourdomain.com",
+    "to": ["user@example.com"],
+    "subject": "Welcome to Zeabur Email",
+    "sent_at": "2026-01-19T08:45:42Z"
+  },
+  "data": {
+    "timestamp": "2026-01-19T09:10:00Z",
+    "ip_address": "203.0.113.1",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+  }
+}
+```
+
+#### Click Event (click)
+
+```json
+{
+  "event": "click",
+  "timestamp": "2026-01-19T09:12:00Z",
+  "email": {
+    "id": "696def36de644b22ae711503",
+    "message_id": "0111019bd56e71c1-8ccdb66d-5d71-433f-9a9a-0766822f8955-000003",
+    "from": "hello@yourdomain.com",
+    "to": ["user@example.com"],
+    "subject": "Welcome to Zeabur Email",
+    "sent_at": "2026-01-19T08:45:42Z"
+  },
+  "data": {
+    "timestamp": "2026-01-19T09:12:00Z",
+    "ip_address": "203.0.113.1",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+    "link": "https://zeabur.com/docs"
   }
 }
 ```

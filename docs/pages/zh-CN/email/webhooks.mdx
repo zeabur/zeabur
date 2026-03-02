@@ -51,6 +51,8 @@ Zeabur Email 支持以下事件类型：
 | `bounce` | 邮件被退回（硬退信或软退信） |
 | `complaint` | 收件人标记为垃圾邮件 |
 | `reject` | 邮件被拒绝发送（域名未验证、内容违规等） |
+| `open` | 收件人打开了邮件 |
+| `click` | 收件人点击了邮件中的链接 |
 
 ## Webhook 请求格式
 
@@ -139,6 +141,51 @@ User-Agent: ZSend-Webhook/1.0
   "data": {
     "complaint_feedback_type": "abuse",
     "complained_recipients": ["user@example.com"]
+  }
+}
+```
+
+#### 打开事件 (open)
+
+```json
+{
+  "event": "open",
+  "timestamp": "2026-01-19T09:10:00Z",
+  "email": {
+    "id": "696def36de644b22ae711503",
+    "message_id": "0111019bd56e71c1-8ccdb66d-5d71-433f-9a9a-0766822f8955-000003",
+    "from": "hello@yourdomain.com",
+    "to": ["user@example.com"],
+    "subject": "欢迎使用 Zeabur Email",
+    "sent_at": "2026-01-19T08:45:42Z"
+  },
+  "data": {
+    "timestamp": "2026-01-19T09:10:00Z",
+    "ip_address": "203.0.113.1",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+  }
+}
+```
+
+#### 点击事件 (click)
+
+```json
+{
+  "event": "click",
+  "timestamp": "2026-01-19T09:12:00Z",
+  "email": {
+    "id": "696def36de644b22ae711503",
+    "message_id": "0111019bd56e71c1-8ccdb66d-5d71-433f-9a9a-0766822f8955-000003",
+    "from": "hello@yourdomain.com",
+    "to": ["user@example.com"],
+    "subject": "欢迎使用 Zeabur Email",
+    "sent_at": "2026-01-19T08:45:42Z"
+  },
+  "data": {
+    "timestamp": "2026-01-19T09:12:00Z",
+    "ip_address": "203.0.113.1",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+    "link": "https://zeabur.com/docs"
   }
 }
 ```

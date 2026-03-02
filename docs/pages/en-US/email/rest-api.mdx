@@ -369,6 +369,8 @@ GET /emails
 | `page` | number | Page number (default 1) |
 | `page_size` | number | Items per page (default 20, max 100) |
 | `status` | string | Filter by status: `pending`, `sent`, `delivered`, `bounced`, `complained` |
+| `job_type` | string | Filter by source: `direct`, `scheduled`, `batch` |
+| `job_id` | string | Filter by job ID (scheduled email ID or batch job ID) |
 
 #### Response
 
@@ -413,9 +415,16 @@ GET /emails/:id
   "created_at": "2026-01-20T08:00:00Z",
   "headers": {},
   "tags": {},
-  "attachments": []
+  "attachments": [],
+  "job_type": "direct",
+  "job_id": ""
 }
 ```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `job_type` | string | Email source: `direct` (single send), `scheduled` (scheduled send), `batch` (batch send) |
+| `job_id` | string | Job ID. Empty for direct emails; scheduled email ID or batch job ID otherwise |
 
 ---
 

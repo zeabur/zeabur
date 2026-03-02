@@ -348,6 +348,8 @@ GET /emails
 | `page` | number | 頁碼（預設 1） |
 | `page_size` | number | 每頁數量（預設 20，最大 100） |
 | `status` | string | 篩選狀態：`pending`、`sent`、`delivered`、`bounced`、`complained` |
+| `job_type` | string | 篩選來源：`direct`（單封發送）、`scheduled`（定時發送）、`batch`（批次發送） |
+| `job_id` | string | 篩選任務 ID（定時郵件 ID 或批次任務 ID） |
 
 #### 回應
 
@@ -372,6 +374,36 @@ GET /emails
 ```http
 GET /emails/:id
 ```
+
+#### 回應
+
+```json
+{
+  "id": "696de2c84210d814d66ee052",
+  "message_id": "0111019bd53de187-bda14a71-25a3-4fdc-a1a0-f543ff58c085-000000",
+  "from": "hello@yourdomain.com",
+  "to": ["user@example.com"],
+  "cc": [],
+  "bcc": [],
+  "reply_to": [],
+  "subject": "測試郵件",
+  "html": "<h1>測試</h1>",
+  "text": "測試",
+  "status": "delivered",
+  "mal_status": "healthy",
+  "created_at": "2026-01-20T08:00:00Z",
+  "headers": {},
+  "tags": {},
+  "attachments": [],
+  "job_type": "direct",
+  "job_id": ""
+}
+```
+
+| 欄位 | 類型 | 說明 |
+|------|------|------|
+| `job_type` | string | 郵件來源：`direct`（單封發送）、`scheduled`（定時發送）、`batch`（批次發送） |
+| `job_id` | string | 任務 ID。單封發送時為空；定時郵件 ID 或批次任務 ID |
 
 ---
 

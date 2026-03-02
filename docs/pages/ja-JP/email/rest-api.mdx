@@ -306,6 +306,44 @@ GET /emails
 | `page` | number | ページ番号（デフォルト1） |
 | `page_size` | number | ページあたりのアイテム数（デフォルト20、最大100） |
 | `status` | string | ステータスでフィルタ：`pending`、`sent`、`delivered`、`bounced`、`complained` |
+| `job_type` | string | ソースでフィルタ：`direct`（単一送信）、`scheduled`（スケジュール送信）、`batch`（バッチ送信） |
+| `job_id` | string | ジョブ ID でフィルタ（スケジュールメール ID またはバッチジョブ ID） |
+
+### メール詳細
+
+```http
+GET /emails/:id
+```
+
+#### レスポンス
+
+```json
+{
+  "id": "696de2c84210d814d66ee052",
+  "message_id": "0111019bd53de187-bda14a71-25a3-4fdc-a1a0-f543ff58c085-000000",
+  "from": "hello@yourdomain.com",
+  "to": ["user@example.com"],
+  "cc": [],
+  "bcc": [],
+  "reply_to": [],
+  "subject": "テストメール",
+  "html": "<h1>テスト</h1>",
+  "text": "テスト",
+  "status": "delivered",
+  "mal_status": "healthy",
+  "created_at": "2026-01-20T08:00:00Z",
+  "headers": {},
+  "tags": {},
+  "attachments": [],
+  "job_type": "direct",
+  "job_id": ""
+}
+```
+
+| フィールド | タイプ | 説明 |
+|-----------|-------|------|
+| `job_type` | string | メールソース：`direct`（単一送信）、`scheduled`（スケジュール送信）、`batch`（バッチ送信） |
+| `job_id` | string | ジョブ ID。単一送信の場合は空；スケジュールメール ID またはバッチジョブ ID |
 
 ---
 

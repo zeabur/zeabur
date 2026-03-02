@@ -369,6 +369,8 @@ GET /emails
 | `page` | number | 页码（默认 1） |
 | `page_size` | number | 每页数量（默认 20，最大 100） |
 | `status` | string | 筛选状态：`pending`、`sent`、`delivered`、`bounced`、`complained` |
+| `job_type` | string | 筛选来源：`direct`（单封发送）、`scheduled`（定时发送）、`batch`（批量发送） |
+| `job_id` | string | 筛选任务 ID（定时邮件 ID 或批量任务 ID） |
 
 #### 响应
 
@@ -413,9 +415,16 @@ GET /emails/:id
   "created_at": "2026-01-20T08:00:00Z",
   "headers": {},
   "tags": {},
-  "attachments": []
+  "attachments": [],
+  "job_type": "direct",
+  "job_id": ""
 }
 ```
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| `job_type` | string | 邮件来源：`direct`（单封发送）、`scheduled`（定时发送）、`batch`（批量发送） |
+| `job_id` | string | 任务 ID。单封发送时为空；定时发送为定时邮件 ID，批量发送为批量任务 ID |
 
 ---
 

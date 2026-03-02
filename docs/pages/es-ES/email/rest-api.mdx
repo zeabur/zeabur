@@ -357,6 +357,8 @@ GET /emails
 | `page` | number | Número de página (predeterminado 1) |
 | `page_size` | number | Elementos por página (predeterminado 20, máximo 100) |
 | `status` | string | Filtrar por estado: `pending`, `sent`, `delivered`, `bounced`, `complained` |
+| `job_type` | string | Filtrar por origen: `direct` (envío único), `scheduled` (envío programado), `batch` (envío por lotes) |
+| `job_id` | string | Filtrar por ID de trabajo (ID de correo programado o ID de trabajo por lotes) |
 
 #### Respuesta
 
@@ -401,9 +403,16 @@ GET /emails/:id
   "created_at": "2026-01-20T08:00:00Z",
   "headers": {},
   "tags": {},
-  "attachments": []
+  "attachments": [],
+  "job_type": "direct",
+  "job_id": ""
 }
 ```
+
+| Campo | Tipo | Descripción |
+|-------|------|-------------|
+| `job_type` | string | Origen del correo: `direct` (envío único), `scheduled` (envío programado), `batch` (envío por lotes) |
+| `job_id` | string | ID de trabajo. Vacío para envíos directos; ID del correo programado o ID del trabajo por lotes |
 
 ---
 
