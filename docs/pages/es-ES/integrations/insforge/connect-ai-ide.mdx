@@ -1,0 +1,92 @@
+---
+title: Conectar IDE de IA
+ogImageTitle: Conectar IDE de IA a InsForge
+ogImageSubtitle: Configure la integración MCP con su herramienta de codificación IA
+---
+
+# Conectar IDE de IA
+
+InsForge utiliza MCP (Model Context Protocol) para permitir que su agente de codificación IA interactúe con su backend.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Primero debe [habilitar InsForge](/es-ES/integrations/insforge/quick-start) en su proyecto de Zeabur antes de conectar un IDE de IA.
+</Callout>
+
+## Abrir el modal de conexión
+
+1. Navegue a la página de integración de InsForge en el panel de Zeabur
+2. Haga clic en **Usar en IDE de IA**
+3. Seleccione su IDE de IA del menú desplegable
+
+## Cursor
+
+Cursor soporta instalación con un clic via deeplink.
+
+1. Seleccione **Cursor** en el menú desplegable
+2. Haga clic en **Agregar a Cursor**
+3. Cursor se abrirá automáticamente y le pedirá confirmar la instalación del servidor MCP
+
+## Claude Code
+
+1. Seleccione **Claude Code** en el menú desplegable
+2. Copie y ejecute el comando del terminal:
+
+```bash
+npx @insforge/install --client claude-code --env API_KEY=YOUR_API_KEY --env API_BASE_URL=YOUR_API_ENDPOINT
+```
+
+## Otros IDEs de IA
+
+Trae, Cline, Windsurf y Roo Code se conectan de manera similar con comandos de terminal. Cambie el parámetro `--client` al nombre del cliente correspondiente (`trae`, `cline`, `windsurf`, `roocode`).
+
+## Configuración MCP JSON manual
+
+### macOS / Linux
+
+```json
+{
+  "mcpServers": {
+    "insforge": {
+      "command": "npx",
+      "args": ["-y", "@insforge/mcp@latest"],
+      "env": {
+        "API_KEY": "YOUR_API_KEY",
+        "API_BASE_URL": "YOUR_API_ENDPOINT"
+      }
+    }
+  }
+}
+```
+
+### Windows
+
+```json
+{
+  "mcpServers": {
+    "insforge": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@insforge/mcp@latest"],
+      "env": {
+        "API_KEY": "YOUR_API_KEY",
+        "API_BASE_URL": "YOUR_API_ENDPOINT"
+      }
+    }
+  }
+}
+```
+
+## Verificar la conexión
+
+Envíe el siguiente prompt en el chat de su agente de IA:
+
+```
+I'm using InsForge as my backend platform, fetch InsForge instruction doc to learn more about InsForge
+```
+
+## Solución de problemas
+
+- **¿La conexión no funciona?** Verifique que haya copiado correctamente `API_KEY` y `API_BASE_URL`.
+- **¿El comando falla en Windows?** Use la configuración específica de Windows con `cmd`.
+- **¿Necesita ayuda?** Visite el [Foro de Zeabur](https://zeabur.com/forum).

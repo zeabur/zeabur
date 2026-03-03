@@ -1,0 +1,76 @@
+---
+title: Usage & Billing
+ogImageTitle: InsForge Usage & Billing
+ogImageSubtitle: Monitor Resource Consumption and Costs
+---
+
+# Usage & Billing
+
+InsForge provides detailed usage tracking so you can monitor your resource consumption and costs.
+
+## Viewing Usage
+
+1. Navigate to your project's InsForge integration page in the Zeabur dashboard
+2. Scroll down to the **Usage overview** section
+
+### Overview Tab
+
+The overview tab shows a summary of your usage for the selected time range:
+
+- **Max Database Size** - Peak database storage used
+- **Max File Storage** - Peak file storage used
+- **Total Egress** - Total outbound bandwidth consumed
+- **EC2 Compute** - Total compute hours used
+- **AI Credits** - Total LLM AI credits consumed
+- **AI Tokens** - Total AI tokens processed
+- **MCP Calls** - Total MCP protocol calls made
+- **Email Requests** - Total email API requests
+- **Function Calls** - Total serverless function invocations
+
+### Daily Usage Tab
+
+The daily usage tab provides a breakdown of resource usage by day, with a paginated table showing all metrics for each date.
+
+### Time Range Filters
+
+You can filter usage data by:
+- **1 day** - Last 24 hours
+- **7 days** - Last week
+- **30 days** - Last month
+- **Max** - All available data
+
+## Billing
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+  InsForge is billed separately and is not included in Zeabur free credits. Since InsForge is a cloud-hosted service, charges apply even if your Zeabur project runs on a dedicated server.
+</Callout>
+
+### Pricing
+
+| Item | Rate |
+| --- | --- |
+| Compute Hour (Nano EC2 + EBS + Public IP) | $0.006 / hour |
+| Database Size | $0.125 / GB / month |
+| Storage | $0.021 / GB / month |
+| Egress | $0.1 / GB |
+| LLM AI Credits | $0.1 / credit |
+
+### Key Billing Details
+
+- **No artificial limits** - There are no API rate limits, row limits, or max user caps. You only pay for the compute and storage you actually use.
+- **Unified billing** - All InsForge costs are consolidated into your existing Zeabur project bill. One platform, one bill.
+- **Pay-as-you-go** - You're only charged for the resources your backend actually consumes.
+
+### Billing Issues
+
+If your InsForge instance is paused due to billing issues:
+
+1. Navigate to **Billing** in your Zeabur dashboard
+2. Add a payment method or top up your balance
+3. Return to the InsForge integration page and click **Restore** to retry payment and resume service
+
+<Callout type="info">
+  If your instance is paused due to billing failure, your data is preserved. Restore the instance after resolving billing issues to resume service.
+</Callout>

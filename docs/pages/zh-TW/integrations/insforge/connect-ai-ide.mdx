@@ -1,0 +1,128 @@
+---
+title: 連接 AI IDE
+ogImageTitle: 連接 AI IDE 到 InsForge
+ogImageSubtitle: 設定 MCP 整合您的 AI 程式開發工具
+---
+
+# 連接 AI IDE
+
+InsForge 使用 MCP（Model Context Protocol）讓您的 AI 程式開發代理與後端互動。本指南涵蓋如何連接各種支援的 AI IDE。
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  您必須先在 Zeabur 專案中 [啟用 InsForge](/zh-TW/integrations/insforge/quick-start) 才能連接 AI IDE。
+</Callout>
+
+## 開啟連接視窗
+
+1. 在 Zeabur 面板中導航到您專案的 InsForge 整合頁面
+2. 點擊 **在 AI IDE 中使用**
+3. 從下拉選單中選擇您的 AI IDE
+
+## Cursor
+
+Cursor 支援透過 deeplink 一鍵安裝。
+
+1. 在連接視窗的代理下拉選單中選擇 **Cursor**
+2. 點擊 **新增到 Cursor**
+3. Cursor 將自動開啟並提示您確認 MCP 伺服器安裝
+
+## Claude Code
+
+1. 在代理下拉選單中選擇 **Claude Code**
+2. 複製並執行終端機指令：
+
+```bash
+npx @insforge/install --client claude-code --env API_KEY=YOUR_API_KEY --env API_BASE_URL=YOUR_API_ENDPOINT
+```
+
+## Trae
+
+1. 在代理下拉選單中選擇 **Trae**
+2. 複製並執行終端機指令：
+
+```bash
+npx @insforge/install --client trae --env API_KEY=YOUR_API_KEY --env API_BASE_URL=YOUR_API_ENDPOINT
+```
+
+## Cline
+
+1. 在代理下拉選單中選擇 **Cline**
+2. 複製並執行終端機指令：
+
+```bash
+npx @insforge/install --client cline --env API_KEY=YOUR_API_KEY --env API_BASE_URL=YOUR_API_ENDPOINT
+```
+
+## Windsurf
+
+1. 在代理下拉選單中選擇 **Windsurf**
+2. 複製並執行終端機指令：
+
+```bash
+npx @insforge/install --client windsurf --env API_KEY=YOUR_API_KEY --env API_BASE_URL=YOUR_API_ENDPOINT
+```
+
+## Roo Code
+
+1. 在代理下拉選單中選擇 **Roo Code**
+2. 複製並執行終端機指令：
+
+```bash
+npx @insforge/install --client roocode --env API_KEY=YOUR_API_KEY --env API_BASE_URL=YOUR_API_ENDPOINT
+```
+
+## 手動 MCP JSON 設定
+
+對於其他 MCP 相容工具，您可以手動設定 MCP 伺服器。
+
+### macOS / Linux
+
+```json
+{
+  "mcpServers": {
+    "insforge": {
+      "command": "npx",
+      "args": ["-y", "@insforge/mcp@latest"],
+      "env": {
+        "API_KEY": "YOUR_API_KEY",
+        "API_BASE_URL": "YOUR_API_ENDPOINT"
+      }
+    }
+  }
+}
+```
+
+### Windows
+
+```json
+{
+  "mcpServers": {
+    "insforge": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@insforge/mcp@latest"],
+      "env": {
+        "API_KEY": "YOUR_API_KEY",
+        "API_BASE_URL": "YOUR_API_ENDPOINT"
+      }
+    }
+  }
+}
+```
+
+## 驗證連接
+
+安裝完成後，在您的 AI 代理聊天中發送以下提示詞來驗證連接：
+
+```
+I'm using InsForge as my backend platform, fetch InsForge instruction doc to learn more about InsForge
+```
+
+當 InsForge 收到您代理的第一個 MCP 呼叫時，安裝會自動完成。
+
+## 疑難排解
+
+- **連接不成功？** 確保您已正確複製 InsForge 整合頁面中的 `API_KEY` 和 `API_BASE_URL`。
+- **Windows 上指令失敗？** 請確保使用以 `cmd` 為指令的 Windows 專用設定。
+- **需要幫助？** 前往 [Zeabur 論壇](https://zeabur.com/forum) 獲得支援。

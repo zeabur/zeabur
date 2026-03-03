@@ -9,6 +9,7 @@ export default {
   },
   'ai-hub': 'Zeabur AI Hub',
   'email': 'Zeabur Email',
+  'integrations': 'Integrations',
   'data-management': 'Data Management',
   networking: 'Networking',
   guides: 'Guides',

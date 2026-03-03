@@ -1,0 +1,85 @@
+---
+title: クイックスタート
+ogImageTitle: InsForge クイックスタート
+ogImageSubtitle: InsForgeを有効化してAI IDEを接続する
+---
+
+# クイックスタート
+
+このガイドでは、数分でZeaburプロジェクトでInsForgeを有効化し、AI IDEを接続する方法を説明します。
+
+## 前提条件
+
+開始する前に、以下が必要です：
+
+1. Zeaburアカウント
+2. Zeabur請求設定でクレジットカードを登録済み
+3. 十分なアカウント残高
+4. MCPをサポートするAI IDE（例：Cursor、Claude Code、Windsurf）
+
+## ステップ 1：InsForgeを有効化
+
+import { Callout, Steps } from 'nextra/components'
+
+<Steps>
+
+### プロジェクトを開く
+
+[Zeabur Dashboard](https://zeabur.com) にアクセスし、InsForgeを有効化したいプロジェクトに移動します。
+
+### InsForge統合ページに移動
+
+プロジェクトサイドバーで「InsForge」を見つけてクリックします。
+
+### InsForgeを有効化
+
+**InsForgeを有効化** ボタンをクリックします。確認ダイアログが表示されるので、確認して続行します。
+
+<Callout type="info">
+  InsForgeを有効化すると、プロジェクト専用のバックエンドインスタンスが作成されます。少し時間がかかる場合があります。
+</Callout>
+
+### API認証情報を確認
+
+InsForgeが有効化されると、以下が表示されます：
+- **API Endpoint** — InsForgeインスタンスのベースURL
+- **API Key** — APIアクセス用の認証キー
+
+</Steps>
+
+## ステップ 2：AI IDEを接続
+
+InsForgeを有効化した後、**AI IDEで使用** をクリックして接続モーダルを開きます。詳細な設定手順は [AI IDEの接続](/ja-JP/integrations/insforge/connect-ai-ide) をご参照ください。
+
+## ステップ 3：構築を開始
+
+AI IDEがMCPで接続されたら、AIエージェントのチャットで以下のプロンプトを送信して開始します：
+
+```
+I'm using InsForge as my backend platform, fetch InsForge instruction doc to learn more about InsForge
+```
+
+## インスタンスの管理
+
+### InsForgeダッシュボードを開く
+
+統合ページで **InsForgeダッシュボードを開く** をクリックして、データベース、認証、ストレージ、ファンクションを管理できます。
+
+### InsForgeを一時停止
+
+コスト節約のためにInsForgeインスタンスを一時的に停止するには、危険ゾーンの **InsForgeを一時停止** オプションを使用します。
+
+### InsForgeを復元
+
+**復元** をクリックして一時停止したインスタンスを再開します。
+
+### InsForgeを削除
+
+<Callout type="error">
+  InsForgeを削除すると、インスタンスに関連するすべてのデータが永久に削除されます。この操作は元に戻せません。
+</Callout>
+
+## 次のステップ
+
+- [AI IDEの接続](/ja-JP/integrations/insforge/connect-ai-ide) の詳細な設定手順を確認
+- [使用量と請求](/ja-JP/integrations/insforge/usage-and-billing) でリソース消費を監視
