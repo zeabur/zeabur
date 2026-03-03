@@ -9,6 +9,7 @@ export default {
   },
   'ai-hub': 'Zeabur AI Hub',
   'email': 'Zeabur Email',
+  'integrations': '集成服务',
   'data-management': '数据管理',
   networking: '网络',
   guides: '教程',

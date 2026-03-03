@@ -1,0 +1,94 @@
+---
+title: Quick Start
+ogImageTitle: InsForge Quick Start
+ogImageSubtitle: Enable InsForge and Connect Your AI IDE
+---
+
+# Quick Start
+
+This guide will help you enable InsForge in your Zeabur project and connect your AI IDE in minutes.
+
+## Prerequisites
+
+Before you begin, you'll need:
+
+1. A Zeabur account
+2. A credit card on file in your Zeabur billing settings
+3. Sufficient account balance
+4. An AI IDE that supports MCP (e.g., Cursor, Claude Code, Windsurf)
+
+## Step 1: Enable InsForge
+
+import { Callout, Steps } from 'nextra/components'
+
+<Steps>
+
+### Open Your Project
+
+Visit [Zeabur Dashboard](https://zeabur.com) and navigate to the project where you want to enable InsForge.
+
+### Navigate to the InsForge Integration
+
+In the project sidebar, find and click on "InsForge".
+
+### Enable InsForge
+
+Click the **Enable InsForge** button. A confirmation dialog will appear — confirm to proceed.
+
+<Callout type="info">
+  Enabling InsForge will provision a dedicated backend instance for your project. This may take a moment.
+</Callout>
+
+### Note Your API Credentials
+
+Once InsForge is enabled, you'll see your:
+- **API Endpoint** - The base URL for your InsForge instance
+- **API Key** - Your authentication key for API access
+
+</Steps>
+
+## Step 2: Connect Your AI IDE
+
+After enabling InsForge, click **Use in AI IDE** to open the connection modal. Follow the instructions in [Connect AI IDE](/en-US/integrations/insforge/connect-ai-ide) for detailed setup steps.
+
+## Step 3: Start Building
+
+Once your AI IDE is connected via MCP, send the following prompt to your AI agent to get started:
+
+```
+I'm using InsForge as my backend platform, fetch InsForge instruction doc to learn more about InsForge
+```
+
+Your AI agent will then be able to:
+- Create and manage database tables
+- Set up authentication
+- Handle file storage
+- Deploy edge functions
+- And more — all autonomously through the MCP protocol
+
+## Managing Your Instance
+
+### Open InsForge Dashboard
+
+Click **Open InsForge Dashboard** in the integration page to access the full InsForge management interface with a dedicated dashboard for managing your database, auth, storage, and functions.
+
+### Pause InsForge
+
+If you want to temporarily stop your InsForge instance to save costs, use the **Pause InsForge** option in the Danger Zone section. Your data will be preserved, and you can restore it later.
+
+### Restore InsForge
+
+Click **Restore** to resume a paused instance.
+
+### Delete InsForge
+
+<Callout type="error">
+  Deleting InsForge will permanently remove all data associated with the instance. This action cannot be undone.
+</Callout>
+
+To permanently delete your InsForge instance, use the **Delete InsForge** option in the Danger Zone section.
+
+## Next Steps
+
+- Learn how to [Connect your AI IDE](/en-US/integrations/insforge/connect-ai-ide) with detailed setup instructions
+- Check [Usage & Billing](/en-US/integrations/insforge/usage-and-billing) to monitor your resource consumption

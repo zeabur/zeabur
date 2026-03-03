@@ -1,0 +1,66 @@
+---
+title: InsForge
+ogImageTitle: InsForge
+ogImageSubtitle: Zeabur 上的 AI 原生后端即服务
+---
+
+# InsForge
+
+InsForge 是集成在 Zeabur 中的 AI 原生 Supabase 替代方案，帮助需要简单轻量后端和数据库但不想部署完整服务的开发者直接使用。AI 代理可以通过 MCP 协议自主构建和管理全栈应用程序。
+
+## 核心功能
+
+- **PostgreSQL 数据库** - 零配置即可获得即时 REST API
+- **JWT 身份验证** - 内置身份验证，支持社交登录
+- **S3 兼容文件存储** - 使用熟悉的 API 存储和提供文件
+- **无服务器边缘函数** - 无需管理基础设施即可部署服务器端逻辑
+- **MCP 协议支持** - 连接您的 AI IDE，让代理自主管理您的后端
+
+## 运作方式
+
+import { Callout } from 'nextra/components'
+
+1. 在 Zeabur 项目面板中**启用 InsForge**
+2. 通过 MCP 协议**连接您的 AI IDE**（Cursor、Claude Code、Windsurf、Trae、Cline、Roo Code）
+3. **让 AI 代理开始构建** — 代理可以自主创建数据表、管理身份验证、处理存储等
+
+<Callout type="info">
+  InsForge 会为每个 Zeabur 项目配置一个专属的后端实例。每个实例都有自己的 API Endpoint 和 API Key。
+</Callout>
+
+## 支持的 AI IDE
+
+InsForge 通过 MCP 协议与热门 AI 编程工具无缝集成：
+
+| AI IDE | 安装方式 |
+| --- | --- |
+| Cursor | 一键 deeplink 安装 |
+| Claude Code | 终端命令 |
+| Trae | 终端命令 |
+| Cline | 终端命令 |
+| Windsurf | 终端命令 |
+| Roo Code | 终端命令 |
+| 其他（MCP JSON） | 手动 MCP 配置 |
+
+## 快速开始
+
+查看 [快速开始指南](/zh-CN/integrations/insforge/quick-start) 了解如何在几分钟内启用 InsForge 并连接您的第一个 AI IDE。
+
+## 定价
+
+InsForge 为独立计费服务，**不包含在免费额度中**。你只需要为后端实际消耗的底层资源付费：
+
+| 项目 | 费率 |
+| --- | --- |
+| Compute Hour (Nano EC2 + EBS + Public IP) | $0.006 / 小时 |
+| Database Size | $0.125 / GB / 月 |
+| Storage | $0.021 / GB / 月 |
+| Egress | $0.1 / GB |
+| LLM AI Credits | $0.1 / credit |
+
+- **没有人工限制** — 不存在 API rate limits、Row limits 或 Max User 上限
+- **统一账单** — 所有成本会直接汇总到你既有的 Zeabur 项目账单中
+
+<Callout type="warning">
+  启用 InsForge 前，请确保您已绑定信用卡并有足够的账户余额。
+</Callout>

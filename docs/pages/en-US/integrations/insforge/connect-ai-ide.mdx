@@ -1,0 +1,128 @@
+---
+title: Connect AI IDE
+ogImageTitle: Connect AI IDE to InsForge
+ogImageSubtitle: Set Up MCP Integration with Your AI Coding Tool
+---
+
+# Connect AI IDE
+
+InsForge uses the MCP (Model Context Protocol) to let your AI coding agent interact with your backend. This guide covers how to connect various supported AI IDEs.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  You must first [enable InsForge](/en-US/integrations/insforge/quick-start) in your Zeabur project before connecting an AI IDE.
+</Callout>
+
+## Opening the Connection Modal
+
+1. Navigate to your project's InsForge integration page in the Zeabur dashboard
+2. Click **Use in AI IDE**
+3. Select your AI IDE from the dropdown
+
+## Cursor
+
+Cursor supports one-click installation via deeplink.
+
+1. Select **Cursor** from the agent dropdown in the connection modal
+2. Click **Add to Cursor**
+3. Cursor will open automatically and prompt you to confirm the MCP server installation
+
+## Claude Code
+
+1. Select **Claude Code** from the agent dropdown
+2. Copy and run the terminal command:
+
+```bash
+npx @insforge/install --client claude-code --env API_KEY=YOUR_API_KEY --env API_BASE_URL=YOUR_API_ENDPOINT
+```
+
+## Trae
+
+1. Select **Trae** from the agent dropdown
+2. Copy and run the terminal command:
+
+```bash
+npx @insforge/install --client trae --env API_KEY=YOUR_API_KEY --env API_BASE_URL=YOUR_API_ENDPOINT
+```
+
+## Cline
+
+1. Select **Cline** from the agent dropdown
+2. Copy and run the terminal command:
+
+```bash
+npx @insforge/install --client cline --env API_KEY=YOUR_API_KEY --env API_BASE_URL=YOUR_API_ENDPOINT
+```
+
+## Windsurf
+
+1. Select **Windsurf** from the agent dropdown
+2. Copy and run the terminal command:
+
+```bash
+npx @insforge/install --client windsurf --env API_KEY=YOUR_API_KEY --env API_BASE_URL=YOUR_API_ENDPOINT
+```
+
+## Roo Code
+
+1. Select **Roo Code** from the agent dropdown
+2. Copy and run the terminal command:
+
+```bash
+npx @insforge/install --client roocode --env API_KEY=YOUR_API_KEY --env API_BASE_URL=YOUR_API_ENDPOINT
+```
+
+## Manual MCP JSON Configuration
+
+For other MCP-compatible tools, you can manually configure the MCP server.
+
+### macOS / Linux
+
+```json
+{
+  "mcpServers": {
+    "insforge": {
+      "command": "npx",
+      "args": ["-y", "@insforge/mcp@latest"],
+      "env": {
+        "API_KEY": "YOUR_API_KEY",
+        "API_BASE_URL": "YOUR_API_ENDPOINT"
+      }
+    }
+  }
+}
+```
+
+### Windows
+
+```json
+{
+  "mcpServers": {
+    "insforge": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@insforge/mcp@latest"],
+      "env": {
+        "API_KEY": "YOUR_API_KEY",
+        "API_BASE_URL": "YOUR_API_ENDPOINT"
+      }
+    }
+  }
+}
+```
+
+## Verifying the Connection
+
+After installation, send the following prompt in your AI agent's chat to verify the connection:
+
+```
+I'm using InsForge as my backend platform, fetch InsForge instruction doc to learn more about InsForge
+```
+
+The installation completes automatically when InsForge receives the first MCP call from your agent.
+
+## Troubleshooting
+
+- **Connection not working?** Make sure you've correctly copied the `API_KEY` and `API_BASE_URL` from the InsForge integration page.
+- **Command fails on Windows?** Ensure you're using the Windows-specific configuration with `cmd` as the command.
+- **Need help?** Visit the [Zeabur Forum](https://zeabur.com/forum) for support.

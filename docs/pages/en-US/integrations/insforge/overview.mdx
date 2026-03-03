@@ -1,0 +1,66 @@
+---
+title: InsForge
+ogImageTitle: InsForge
+ogImageSubtitle: Agent-native Backend-as-a-Service on Zeabur
+---
+
+# InsForge
+
+InsForge is an agent-native Supabase alternative integrated into Zeabur, helping developers who need a simple, lightweight backend and database without deploying a full service. AI agents can autonomously build and manage full-stack applications through the MCP protocol.
+
+## Core Features
+
+- **PostgreSQL Database** - Instant REST APIs for your database with zero configuration
+- **JWT Authentication** - Built-in auth with social sign-on support
+- **S3-compatible File Storage** - Store and serve files with a familiar API
+- **Serverless Edge Functions** - Deploy server-side logic without managing infrastructure
+- **MCP Protocol Support** - Connect your AI IDE and let agents manage your backend autonomously
+
+## How It Works
+
+import { Callout } from 'nextra/components'
+
+1. **Enable InsForge** in your Zeabur project dashboard
+2. **Connect your AI IDE** (Cursor, Claude Code, Windsurf, Trae, Cline, Roo Code) via the MCP protocol
+3. **Let your AI agent build** - the agent can autonomously create tables, manage auth, handle storage, and more
+
+<Callout type="info">
+  InsForge provisions a dedicated backend instance for each Zeabur project. Each instance comes with its own API endpoint and API key.
+</Callout>
+
+## Supported AI IDEs
+
+InsForge integrates seamlessly with popular AI coding tools through the MCP protocol:
+
+| AI IDE | Installation |
+| --- | --- |
+| Cursor | One-click deeplink install |
+| Claude Code | Terminal command |
+| Trae | Terminal command |
+| Cline | Terminal command |
+| Windsurf | Terminal command |
+| Roo Code | Terminal command |
+| Other (MCP JSON) | Manual MCP configuration |
+
+## Getting Started
+
+Check out the [Quick Start Guide](/en-US/integrations/insforge/quick-start) to enable InsForge and connect your first AI IDE in minutes.
+
+## Pricing
+
+InsForge is billed separately and is **not included in free credits**. You only pay for the underlying resources your backend actually consumes:
+
+| Item | Rate |
+| --- | --- |
+| Compute Hour (Nano EC2 + EBS + Public IP) | $0.006 / hour |
+| Database Size | $0.125 / GB / month |
+| Storage | $0.021 / GB / month |
+| Egress | $0.1 / GB |
+| LLM AI Credits | $0.1 / credit |
+
+- **No artificial limits** - No API rate limits, row limits, or max user caps
+- **Unified billing** - All costs are consolidated into your existing Zeabur project bill
+
+<Callout type="warning">
+  Before enabling InsForge, ensure you have a credit card on file and sufficient account balance.
+</Callout>

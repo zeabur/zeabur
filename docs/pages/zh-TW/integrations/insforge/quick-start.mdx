@@ -1,0 +1,94 @@
+---
+title: 快速開始
+ogImageTitle: InsForge 快速開始
+ogImageSubtitle: 啟用 InsForge 並連接您的 AI IDE
+---
+
+# 快速開始
+
+本指南將幫助您在幾分鐘內啟用 InsForge 並連接您的 AI IDE。
+
+## 前置需求
+
+開始之前，您需要：
+
+1. 一個 Zeabur 帳號
+2. 在 Zeabur 帳單設定中綁定信用卡
+3. 足夠的帳戶餘額
+4. 一個支援 MCP 的 AI IDE（例如 Cursor、Claude Code、Windsurf）
+
+## 步驟 1：啟用 InsForge
+
+import { Callout, Steps } from 'nextra/components'
+
+<Steps>
+
+### 開啟您的專案
+
+前往 [Zeabur Dashboard](https://zeabur.com) 並導航到您想要啟用 InsForge 的專案。
+
+### 前往 InsForge 整合頁面
+
+在專案側欄中，找到並點擊「InsForge」。
+
+### 啟用 InsForge
+
+點擊 **啟用 InsForge** 按鈕。系統會顯示確認對話框 — 確認後即可繼續。
+
+<Callout type="info">
+  啟用 InsForge 將為您的專案配置一個專屬的後端實例，可能需要一些時間。
+</Callout>
+
+### 記下您的 API 憑證
+
+InsForge 啟用後，您將看到：
+- **API Endpoint** — 您的 InsForge 實例的基礎 URL
+- **API Key** — 用於 API 存取的驗證金鑰
+
+</Steps>
+
+## 步驟 2：連接您的 AI IDE
+
+啟用 InsForge 後，點擊 **在 AI IDE 中使用** 開啟連接視窗。詳細設定步驟請參閱 [連接 AI IDE](/zh-TW/integrations/insforge/connect-ai-ide)。
+
+## 步驟 3：開始建構
+
+AI IDE 透過 MCP 連接後，在 AI 代理的聊天中發送以下提示詞即可開始：
+
+```
+I'm using InsForge as my backend platform, fetch InsForge instruction doc to learn more about InsForge
+```
+
+您的 AI 代理將能夠：
+- 建立和管理資料庫表格
+- 設定身份驗證
+- 處理檔案儲存
+- 部署邊緣函式
+- 更多功能 — 全部透過 MCP 協定自主完成
+
+## 管理您的實例
+
+### 開啟 InsForge 後台
+
+在整合頁面點擊 **開啟 InsForge 後台** 即可存取完整的 InsForge 管理介面，管理您的資料庫、身份驗證、儲存和函式。
+
+### 暫停 InsForge
+
+如果您想暫時停止 InsForge 實例以節省費用，可以在危險區域使用 **暫停 InsForge** 選項。您的資料將被保留，之後可以隨時復原。
+
+### 復原 InsForge
+
+點擊 **復原** 即可恢復已暫停的實例。
+
+### 刪除 InsForge
+
+<Callout type="error">
+  刪除 InsForge 將永久移除與該實例相關的所有資料。此操作無法復原。
+</Callout>
+
+如需永久刪除 InsForge 實例，請在危險區域使用 **刪除 InsForge** 選項。
+
+## 下一步
+
+- 了解如何透過詳細設定步驟 [連接您的 AI IDE](/zh-TW/integrations/insforge/connect-ai-ide)
+- 查看 [使用量與帳單](/zh-TW/integrations/insforge/usage-and-billing) 以監控您的資源使用情況

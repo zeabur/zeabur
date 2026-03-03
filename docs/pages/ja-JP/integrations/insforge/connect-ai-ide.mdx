@@ -1,0 +1,92 @@
+---
+title: AI IDEの接続
+ogImageTitle: AI IDEをInsForgeに接続
+ogImageSubtitle: AIコーディングツールとのMCP統合を設定
+---
+
+# AI IDEの接続
+
+InsForgeはMCP（Model Context Protocol）を使用して、AIコーディングエージェントがバックエンドと対話できるようにします。このガイドでは、対応するAI IDEの接続方法を説明します。
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  AI IDEを接続する前に、Zeaburプロジェクトで [InsForgeを有効化](/ja-JP/integrations/insforge/quick-start) する必要があります。
+</Callout>
+
+## 接続モーダルを開く
+
+1. ZeaburダッシュボードでプロジェクトのInsForge統合ページに移動
+2. **AI IDEで使用** をクリック
+3. ドロップダウンからAI IDEを選択
+
+## Cursor
+
+Cursorはdeeplinkによるワンクリックインストールをサポートしています。
+
+1. 接続モーダルのドロップダウンで **Cursor** を選択
+2. **Cursorに追加** をクリック
+3. Cursorが自動的に開き、MCPサーバーのインストールを確認します
+
+## Claude Code
+
+1. ドロップダウンで **Claude Code** を選択
+2. ターミナルコマンドをコピーして実行：
+
+```bash
+npx @insforge/install --client claude-code --env API_KEY=YOUR_API_KEY --env API_BASE_URL=YOUR_API_ENDPOINT
+```
+
+## その他のAI IDE
+
+Trae、Cline、Windsurf、Roo Codeも同様にターミナルコマンドで接続できます。`--client` パラメータを対応するクライアント名（`trae`、`cline`、`windsurf`、`roocode`）に変更してください。
+
+## 手動MCP JSON設定
+
+### macOS / Linux
+
+```json
+{
+  "mcpServers": {
+    "insforge": {
+      "command": "npx",
+      "args": ["-y", "@insforge/mcp@latest"],
+      "env": {
+        "API_KEY": "YOUR_API_KEY",
+        "API_BASE_URL": "YOUR_API_ENDPOINT"
+      }
+    }
+  }
+}
+```
+
+### Windows
+
+```json
+{
+  "mcpServers": {
+    "insforge": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@insforge/mcp@latest"],
+      "env": {
+        "API_KEY": "YOUR_API_KEY",
+        "API_BASE_URL": "YOUR_API_ENDPOINT"
+      }
+    }
+  }
+}
+```
+
+## 接続の確認
+
+インストール後、AIエージェントのチャットで以下のプロンプトを送信して接続を確認します：
+
+```
+I'm using InsForge as my backend platform, fetch InsForge instruction doc to learn more about InsForge
+```
+
+## トラブルシューティング
+
+- **接続がうまくいかない？** InsForge統合ページから `API_KEY` と `API_BASE_URL` を正しくコピーしたか確認してください。
+- **Windowsでコマンドが失敗？** `cmd` をコマンドとしたWindows専用設定を使用してください。
+- **ヘルプが必要？** [Zeaburフォーラム](https://zeabur.com/forum) でサポートを受けられます。
