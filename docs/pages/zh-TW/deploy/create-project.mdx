@@ -1,39 +1,41 @@
 ---
 title: 建立專案
 ogImageTitle: 建立專案
-ogImageSubtitle: 在 Zeabur 上建立一個專案
+ogImageSubtitle: 在 Zeabur 上建立專案
 ---
 
-# 建立專案
+# **建立專案**
 
-在 Zeabur 上部署服務之前，你需要先建立一個專案。
+要在 Zeabur 上部署服務，首先需要建立一個專案。
 
-你可以按照以下步驟建立一個專案。
+你可以按照以下步驟建立專案。
 
-## 什麼是專案
+## **什麼是專案**
 
-一個專案是一組一起部署的服務，同一專案中的服務可以透過內部網路相互通信。
-你可以在不同的區域建立多個專案，並在每個專案中部署各種服務。
+專案是一組一起部署的服務集合，同一專案中的服務可以透過內部網路互相通訊。你可以在不同區域建立多個專案，並在每個專案中部署各種類型的服務。
 
-除此之外，你可以為專案[設定預算和管理用量](../manage/budget)，[邀請其他團隊成員](../manage/invite)來管理服務等。
+此外，你可以為專案[設定預算並管理用量](https://zeabur.com/docs/zh-TW/manage/budget)，[邀請其他團隊成員](https://zeabur.com/docs/zh-TW/manage/invite)來管理服務等。
 
-## 如何建立專案
+## **如何建立專案**
 
-首先，你需要導航到[控制台的專案頁面](https://zeabur.com/projects)。
+首先，導航至[儀表板的 projects 頁面](https://zeabur.com/projects)。
 
-如果你是第一次使用 Zeabur，你會看到一個建立專案的引導頁面。
+如果你是 Zeabur 新使用者且沒有任何專案，將看到用於建立第一個專案的引導頁面。
 
-![Create project onboarding](/deploy/create-project/onboarding.png)
+![建立專案引導](/deploy/create-project/Deployment_Services_Create_Project.png)
 
-如果你之前建立過專案，你可以直接點擊 **Create Project** 按鈕，或者按下 `CMD + K` 或 `Ctrl + K` 打開指令面板選擇 **Create Project**，
-然後選擇你想要建立專案的區域，專案將會自動建立並分配一個隨機名稱。
+如果你之前已建立過專案，只需點擊 **Create Project** 按鈕，進入 **Create New Project** 頁面，選擇 **Deployment Type**，選擇 **dedicated server** 或 **share cluster**。
 
-![Select Region](/deploy/create-project/select-region.png)
+![選擇部署類型](/deploy/create-project/choose_Deployment_Type_2.png)
 
-## 下一步
+然後根據訂閱計劃和期望區域選擇區域，專案將自動建立，名稱為 untitled-0、untitled-1 等。
 
-你將會在區域選擇後看到一個空專案：
+![選擇區域](/deploy/create-project/select_a_region_2.png)
 
-![Empty Project](/deploy/create-project/empty-project.png)
+## **接下來要做什麼**
 
-你可以點擊 **部署新服務** 按鈕在這個專案中部署服務，或者點擊配置按鈕管理專案設定和邀請團隊成員。
+選擇區域後，你將看到一個空的專案：
+
+![空專案](/deploy/create-project/Deployment_Services_empty_project.png)
+
+你可以點擊 **Deploy New Service** 按鈕在此專案中[部署服務](https://zeabur.com/docs/zh-TW/deploy/create-service)，或點擊設定按鈕管理專案設定並[邀請其他團隊成員](https://zeabur.com/docs/zh-TW/manage/invite)。

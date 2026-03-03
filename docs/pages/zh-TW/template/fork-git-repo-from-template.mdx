@@ -1,33 +1,37 @@
 ---
 title: 從模板服務 Fork 程式碼
 ogImageTitle: 從模板服務 Fork 程式碼
-ogImageSubtitle: 如何修改已部署的模板內的 Git 服務的程式碼
+ogImageSubtitle: 如何修改從模板服務部署的 Git 服務的程式碼
 ---
+
+import { Callout } from 'nextra/components';
 
 # 從模板服務 Fork 程式碼
 
-在 Zeabur 上，您可以使用模板服務來快速部署應用程式，一個模板包含了多個服務，而每個服務又分為 Prebuilt 服務（從 Docker Image 部署）或 Git 服務（從 GitHub 部署）。
+在 Zeabur 上，你可以使用模板服務快速部署應用。一個模板通常包含多個服務，每個服務要麼是 Prebuilt 服務（從 Docker 映像部署），要麼是 Git 服務（從 GitHub 部署）。
 
-在預設情況下，當你部署了一個帶有 Git 服務的模板時，Zeabur 會直接從模板來源的 GitHub 儲存庫部署服務到你的專案內，且會自動綁定 CI/CD 在模板作者設定的儲存庫上，這意味著當模板作者往他的儲存庫推送新的 commit 時，Zeabur 會自動觸發 CI/CD 並部署新的服務到你的專案內。
+預設情況下，當你部署包含 Git 服務的模板時，Zeabur 會直接從模板作者的 GitHub 儲存庫部署服務，並自動將 CI/CD 綁定到模板作者設定的儲存庫。這意味著當模板作者向其儲存庫推送新提交時，Zeabur 會自動觸發 CI/CD 並將新版本部署到你的專案中。
 
-但有些時候，你可能想基於模板作者的程式碼進行修改，加入一些你自己的功能或是修改設定等等，Zeabur 為這個場景提供了很方便的一鍵 Fork 的功能。
+但有時你希望基於模板作者的程式碼進行修改，加入自己的功能或更改設定等。為此，Zeabur 提供了一鍵 Fork 的便利功能。
 
-## 如何 Fork 模板服務的程式碼
+## 如何從模板服務 Fork 程式碼
 
-以這個 [Zeabur 官方的 Express.js 模板](https://zeabur.com/templates/W96I3Z) 為例，當你部署完這個模板以後，點擊 express 服務的設定頁面，你會看到 Git Repository 欄位目前的值是 `https://github.com/zeabur/expressjs-template` ，也就是這個模板指定的 GitHub 儲存庫。
+以 [Zeabur 官方 Express.js 模板](https://zeabur.com/templates/W96I3Z) 為例，部署該模板後，進入 express 服務的設定頁面。你會看到 Git Repository 欄位目前值為 `https://github.com/zeabur/expressjs-template`，這是該模板指定的 GitHub 儲存庫。
 
-如果我們想要基於這個模板對程式碼進行修改，可以點擊下方的 Fork Repository 按鈕：
+若想基於此模板修改程式碼，可點擊下方的 Fork Repository 按鈕：
 
-![](https://i.imgur.com/Wz9tJsV.jpeg)
+![Express.js github fork](/template/fork-git-repo-from-template/Expressjs_github_fork.png)
 
-點擊後，會彈出一個窗口詢問你 Repository 的名字是什麼，請你選擇一個尚未使用過的儲存庫名稱，否則可能會導致 Fork 失敗。 名稱下方還有一個輸入框讓你選擇儲存庫是否要設置為私有的，這可以避免你的程式碼改動被其他人看到：
+點擊後會彈出視窗詢問儲存庫名稱。請使用尚未使用的儲存庫名稱，否則 Fork 可能失敗。名稱下方還有輸入框，可選擇是否將儲存庫設為私人，以防止他人看到你的程式碼修改：
 
-![](https://i.imgur.com/ETc1yKk.jpeg)
+![git fork](/template/fork-git-repo-from-template/git_fork.png)
 
-當你選擇好名稱以後，點擊 Fork 按鈕，如果你還沒進行過 GitHub 授權可能會被導向到 GitHub 的 OAuth 授權頁面，授權完成後即可看到 Fork 的載入畫面：
+選好名稱後點擊 Fork。若尚未授權 GitHub，可能會跳轉至 GitHub 的 OAuth 授權頁面。授權完成後會顯示 Fork 載入畫面：
 
-![](https://i.imgur.com/9Y2qX0P.png)
+![Configure Github](/template/fork-git-repo-from-template/Configure_Github.png)
 
-完成後，你可以看到你的 GitHub 帳號內已經多了一個儲存庫，且裡面放了和原本相同的程式碼。
+![github connection](/template/fork-git-repo-from-template/github_connection.png)
 
-Zeabur 會自動為你 Fork 這個模板的程式碼到你的 GitHub 帳號下，並且將這個 Fork 的儲存庫設置為你的服務的 Git Repository，這樣當你在 GitHub 上對這個 Fork 的儲存庫進行修改並推送 commit 時，Zeabur 會自動觸發 CI/CD 並部署新的服務到你的專案內。
+完成後，你的 GitHub 帳戶中會新增一個與原程式碼相同的儲存庫。
+
+Zeabur 會自動將該模板的程式碼 Fork 到你的 GitHub 帳戶，並將這個 Fork 後的儲存庫設為你服務的 Git Repository。這意味著你在 GitHub 上修改這個 Fork 儲存庫並推送提交後，Zeabur 會自動觸發 CI/CD 並將新版本部署到你的專案中。

@@ -1,18 +1,16 @@
 ---
-title: Creating Templates from YAML
-ogImageTitle: Creating Templates from YAML
-ogImageSubtitle: Creating Templates from YAML in Zeabur
+title: Creación de plantillas desde YAML
+ogImageTitle: Creación de plantillas desde YAML
+ogImageSubtitle: Creación de plantillas desde YAML en Zeabur
 ---
 
-# Creating Templates from YAML
+# Creación de Plantillas desde YAML
 
-<WorkingInProgress />
+Puedes usar la CLI `zeabur` para desplegar, crear y gestionar plantillas en un formato similar a [Docker Compose](https://docs.docker.com/compose/) o [Kubernetes Object](https://kubernetes.io/docs/concepts/overview/working-with-objects/) a partir de YAML.
 
-You can use the `zeabur` CLI to deploy, create, and manage templates in a format similar to [Docker Compose](https://docs.docker.com/compose/) or [Kubernetes Object](https://kubernetes.io/docs/concepts/overview/working-with-objects/) from YAML.
+## Formato YAML (Resource)
 
-## YAML (Resource) Format
-
-Zeabur uses a single YAML file to describe the template resources referred to as **Template Resource**.
+Zeabur utiliza un único archivo YAML para describir los recursos de la plantilla, denominado **Template Resource**.
 
 ```yaml
 apiVersion: zeabur.com/v1
@@ -26,15 +24,15 @@ spec:
     variables:
         - key: PUBLIC_DOMAIN
           type: DOMAIN
-          name: Domain
-          description: What is the domain you want for your RSSHub?
+          name: Dominio
+          description: ¿Qué dominio deseas para tu RSSHub?
     tags:
         - Tool
     readme: |-
         # RSSHub
-        RSSHub is an open source, easy to use, and extensible RSS feed aggregator, it's capable of generating RSS feeds from pretty much everything.
+        RSSHub es un agregador de feeds RSS de código abierto, fácil de usar y extensible, capaz de generar feeds RSS prácticamente de cualquier cosa.
 
-        RSSHub delivers millions of contents aggregated from all kinds of sources, our vibrant open source community is ensuring the deliver of RSSHub's new routes, new features and bug fixes.
+        RSSHub entrega millones de contenidos agregados de todo tipo de fuentes, nuestra vibrante comunidad de código abierto asegura la entrega de nuevas rutas, nuevas funciones y correcciones de errores de RSSHub.
     services:
         - name: Redis
           icon: https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/redis.svg
@@ -51,23 +49,23 @@ spec:
                   dir: /data
             instructions:
                 - type: TEXT
-                  title: Command to connect to your Redis
+                  title: Comando para conectar a tu Redis
                   content: redis-cli -h ${PORT_FORWARDED_HOSTNAME} -p ${DATABASE_PORT_FORWARDED_PORT} -a ${REDIS_PASSWORD}
                 - type: TEXT
-                  title: Redis Connection String
+                  title: Cadena de conexión Redis
                   content: redis://:${REDIS_PASSWORD}@${PORT_FORWARDED_HOSTNAME}:${DATABASE_PORT_FORWARDED_PORT}
                 - type: PASSWORD
-                  title: Redis password
+                  title: Contraseña de Redis
                   content: ${REDIS_PASSWORD}
-                  category: Credentials
+                  category: Credenciales
                 - type: TEXT
-                  title: Redis host
+                  title: Host de Redis
                   content: ${PORT_FORWARDED_HOSTNAME}
-                  category: Hostname & Port
+                  category: Hostname & Puerto
                 - type: TEXT
-                  title: Redis port
+                  title: Puerto de Redis
                   content: ${DATABASE_PORT_FORWARDED_PORT}
-                  category: Hostname & Port
+                  category: Hostname & Puerto
             env:
                 REDIS_ARGS:
                     default: --requirepass ${REDIS_PASSWORD}
@@ -122,31 +120,31 @@ localization:
         RSSHub 提供來自各種來源的數百萬內容，我們充滿活力的開源社群確保提供 RSSHub 的新路線、新功能和錯誤修復。
 ```
 
-A **Template** can be divided into three main sections: "Template Information", "Service Specifications", and "Localization". The complete format can be viewed in the [Zeabur Schema Repository](https://json-schema.app/view/%23?url=https%3A%2F%2Fschema.zeabur.app%2Ftemplate.json). Below, each field's purpose and how it is presented on the Zeabur template page will be briefly described.
+Un **Template** se divide en tres secciones principales: "Información de la Plantilla", "Especificaciones del Servicio" y "Localización". El formato completo puede verse en el [Repositorio de Esquema de Zeabur](https://json-schema.app/view/%23?url=https%3A%2F%2Fschema.zeabur.app%2Ftemplate.json). A continuación se describe brevemente el propósito de cada campo y cómo se presenta en la página de plantilla de Zeabur.
 
-### Template Definition
+### Definición de la Plantilla
 
-![Appearance of each field in the template definition on the Zeabur template page](/template/template-in-code/field-in-template-page.webp)
+![Apariencia de cada campo en la definición de la plantilla en la página de plantilla de Zeabur](/template/template-in-code/field-in-template-page.webp)
 
-`apiVersion` and `kind` are always `zeabur.com/v1` and `Template`.
+`apiVersion` y `kind` siempre son `zeabur.com/v1` y `Template`.
 
-In `metadata`, `name` is the arbitrary template name, such as `RSSHub`, `Lobe-Chat`, and `ChatGPT API`. This will appear in the `WeWe RSS` block in the image above.
+En `metadata`, `name` es el nombre arbitrario de la plantilla, como `RSSHub`, `Lobe-Chat` o `ChatGPT API`. Aparecerá en el bloque `WeWe RSS` de la imagen anterior.
 
-In `spec`, `description` is a brief summary of the template, displayed under the template title. `icon` is the template's icon, a URL pointing to an image, shown next to the template title. `tags` are the template's labels, with reference categories available on the [template browsing page's left `Tags` section](https://zeabur.com/templates). Correct tags not only help users find templates easily but also optimize SEO.
+En `spec`, `description` es un resumen breve de la plantilla, mostrado debajo del título. `icon` es el icono (URL de imagen), mostrado junto al título. `tags` son etiquetas; las categorías de referencia están en la sección izquierda `Tags` de la página de exploración de plantillas. Las etiquetas correctas ayudan a los usuarios a encontrar plantillas y mejoran el SEO.
 
-`readme` is the template's documentation, written in Markdown format, displayed at the bottom of the template page. `coverImage` is shown above the documentation and is also a URL pointing to an image; it can be left blank.
+`readme` es la documentación en Markdown, mostrada al final de la página. `coverImage` aparece encima de la documentación (URL de imagen; opcional).
 
-`variables` are the variables users can set during deployment. The `type` can be `STRING` (a normal variable string) or `DOMAIN` (Zeabur guides domain setup); `key` corresponds to the service's environment variables, with Zeabur automatically creating an environment variable in all services as specified. `name` and `description` correspond to the variable name and description during template deployment, as shown below.
+`variables` son variables configurables por el usuario al desplegar. `type` puede ser `STRING` o `DOMAIN`; `key` corresponde a variables de entorno (Zeabur las crea automáticamente en los servicios). `name` y `description` se muestran en el formulario de despliegue.
 
-![Variable presentation in Template deployment popup](/template/template-in-code/variable-example.webp)
+![Presentación de variables en el popup de despliegue](/template/template-in-code/variable-example.webp)
 
-### Service Specifications
+### Especificaciones de Servicios
 
-![Appearance of each field in the service specifications on the Zeabur Dashboard project page](/template/template-in-code/service-details.webp)
+![Apariencia de cada campo en las especificaciones de servicios en la página del dashboard de Zeabur](/template/template-in-code/service-details.webp)
 
-`services` are the template's service specifications. Zeabur will deploy the specified services into the project during deployment. The service's `name` is its name, and `icon` is its icon. `template` declares whether the service is a Docker image (`PREBUILT`) or a service deployed from Git (`GIT`).
+`services` define los servicios que se crearán en el proyecto al desplegar. `name` y `icon` son nombre e icono. `template` indica `PREBUILT` (imagen Docker) o `GIT` (repositorio GitHub).
 
-`dependencies` declare the services this service depends on. Zeabur can wait for the specified services to start before starting your service, avoiding the trouble of repeatedly restarting services. For example, if your service `blog` depends on `redis` and `postgresql`, you can specify as below. Note that `redis` and `postgresql` must also be services defined in the template.
+`dependencies` indica servicios de los que depende este. Zeabur espera a que inicien antes de iniciar el tuyo.
 
 ```yaml
 dependencies:
@@ -154,86 +152,43 @@ dependencies:
     - postgresql
 ```
 
-The startup relationship is as follows:
-
 ```mermaid
 graph LR
-  subgraph Dependencies
+  subgraph Dependencias
     direction LR
-
     redis
     postgresql
-
-    redis -- Wait 2 seconds to start --> postgresql
+    redis -- Espera 2 segundos --> postgresql
   end
-
-  Dependencies -- Wait for both to start --> blog
+  Dependencias -- Espera a ambos --> blog
 ```
 
-The `domainKey` indicates which service the domain (type `DOMAIN`) variable in the template definition should be bound to. In the example above, `spec.variables` has a variable `PUBLIC_DOMAIN` of type `DOMAIN`, and the RSSHub service specification has a `domainKey` pointing to `PUBLIC_DOMAIN`. When deploying, the domain set in `PUBLIC_DOMAIN` will be bound to the RSSHub service.
+`domainKey` vincula una variable `DOMAIN` al servicio (dominio se asigna al desplegar).
 
-`spec` is the Service Specification. Detailed information on each field can be found in the [Template Service Specifications documentation](https://json-schema.app/view/%23/%23%2Fproperties%2Fspec/%23%2Fproperties%2Fspec%2Fproperties%2Fservices%2Fitems/%23%2Fproperties%2Fspec%2Fproperties%2Fservices%2Fitems%2Fproperties%2Fspec?url=https%3A%2F%2Fschema.zeabur.app%2Ftemplate.json). Below is a brief description of key points in the service specifications:
+`spec` es la especificación del servicio. Detalles completos en la [documentación de Especificaciones de Servicio](https://json-schema.app/view/%23/%23%2Fproperties%2Fspec/%23%2Fproperties%2Fspec%2Fproperties%2Fservices%2Fitems/%23%2Fproperties%2Fspec%2Fproperties%2Fservices%2Fitems%2Fproperties%2Fspec?url=https%3A%2F%2Fschema.zeabur.app%2Ftemplate.json).
 
-For `PREBUILT` services, you need to specify the Docker image (`image`), and optionally the execution command and parameters (`command` and `args`). If your image is stored in a private registry, you may want to specify the `username` and `password` to pull. Additionally, you can specify the user ID (`runAsUserID`) to run your container in the non-root mode. For `GIT` services, you need to specify the Git repository type (currently only `GITHUB`), repository ID (currently only GitHub's [`repoID`](https://stackoverflow.com/a/47223479)), and optionally the branch (`branch`).
+Puntos clave:
 
-`ports` specifies the service Ports to be exposed to the project or even externally. HTTP services can be connected using a domain name (e.g., `https://my-service.zeabur.app`), while TCP and UDP services can use Zeabur's forwarding link `xxx.clusters.zeabur.com:12345`. For example, if `type` is `HTTP` and `port` is `12345`, others can connect to your service listening on `12345` port via `https://my-service.zeabur.app`.
+- `PREBUILT`: `image`, opcionalmente `command`/`args`, credenciales de registro privado, `runAsUserID` (no-root).
+- `GIT`: tipo (`GITHUB`), `repoID`, rama opcional.
+- `ports`: puertos expuestos (`HTTP` → dominio, `TCP`/`UDP` → reenvío Zeabur).
+- `volumes`: rutas de almacenamiento persistente.
+- `instructions`: instrucciones de uso (`TEXT`, `PASSWORD`, `DOMAIN`).
+- `env`: variables de entorno (`default`, `expose`, `readonly`).
+- `configs`: archivos de configuración (`path`, `template`, `envsubst`, `permission` decimal).
+- `gpu`: `enabled: true` para solicitar GPU.
 
-`volumes` specifies the persistent storage paths for the service. In principle, Zeabur restores the service's state to the initial state (Stateless) after each Redeploy or Restart, but if you need to persist some data, you can use `volumes` to specify the persistent storage path. For example, if `dir` is `/data`, it means your service can persist data under the `/data` path until the service is deleted.
+### Localización
 
-`instructions` tell other users how to use your service, such as the example `Redis Connection String`, which provides how others can connect to Redis using a Client. `type` can be `DOMAIN` (a button that directs to the specified URL when clicked), `TEXT` (text), `PASSWORD` (password, hidden by default), and `category` is a customizable classification, not currently displayed on the frontend.
+Puedes localizar `description`, `coverImage`, títulos/descripciones de `variables` y `readme`. Zeabur muestra el idioma correspondiente según el visitante.
 
-`env` is the service's environment variables. `default` is the default value of the environment variable, `expose` indicates whether other projects can directly use this variable or use the `${VARIABLE}` syntax to reference this variable, and `readonly` indicates whether it is read-only (cannot be modified after the service is created). For example, if `REDIS_CONNECTION_STRING`'s `expose` is `true`, other services can connect to Redis through the `REDIS_CONNECTION_STRING` environment variable, and can also reference this connection string in other environment variables using `${REDIS_CONNECTION_STRING}`.
+![Presentación de campos localizados](/template/template-in-code/localization.webp)
 
-`configs` are the file-based settings for the service. You can use `path` and `template` to specify the default configuration file, making it easier for users to modify it. Use `envsubst` to replace variable references in the template with their corresponding values. For example, when `envsubst` is enabled and the variable `MONGO_URI=mongodb://mongo.zeabur.internal:27017` is set:
+Idiomas soportados: `zh-TW`, `zh-CN`, `ja-JP`, `es-ES`. `en-US` es el predeterminado (escribe directamente en `spec`). Campos omitidos usan el valor por defecto.
 
-```yaml {6}
-configs:
-    - path: /config.yaml
-      template: |
-        mongo:
-            uri: ${MONGO_URI}
-      envsubst: true
-```
+## Desplegar Plantillas con la CLI `zeabur`
 
-The `/config.yml` file will be populated with the following content in the service instance:
-
-```yaml filename="/config.yaml"
-mongo:
-    uri: mongodb://mongo.zeabur.internal:27017
-```
-
-You can also specify the `permission` of your configuration file. Note that `permission` must be a decimal number, converted from the octal [UNIX file permissions](https://mason.gmu.edu/~montecin/UNIXpermiss.htm). Here are some common permission mappings:
-
-| `permission` value | Raw octal value | Read | Write | Execute | Suitable for |
-| ------------------ | --------------- | ---- | ----- | ------- | ------------ |
-| 256                | 0400            | O    | X     | X       | Confidential files (e.g., passwords) |
-| 420                | 0644            | O    | O     | X       | Normal readable and writable files. Default permission |
-| 493                | 0755            | O    | O     | O       | Executable files (e.g., bash scripts) |
-
-"Read", "Write", and "Execute" here refer to the permissions of the container user. For details (groups, everyone, etc.), please refer to the above URL.
-
-`gpu` specifies the GPU resources required by the service. Currently, you can only enable or disable these resources. To use GPU resources, set `gpu.enabled` to `true`:
-
-```yaml
-gpu:
-    enabled: true
-```
-
-### Localization
-
-You can localize the `description`, `coverImage`, `variables` titles and descriptions, and `readme` in the template definition. Zeabur will display the corresponding localized content based on the visitor's language.
-
-![Presentation of various fields localized on the Zeabur template page](/template/template-in-code/localization.webp)
-
-You can localize your contents to `zh-TW`, `zh-CN`, `ja-JP`, and `es-ES`. Note that `en-US` is the default language of the template, and you should write directly in the template definition. The format of `description`, `readme`, and `coverImage` is the same as in the template definition. You can translate the field `name` and `description` in `variables`; however, other parts (`type` and `key`) must remain the same as in the template definition fields.
-
-Leaving fields blank (or omitting them) will automatically use the default content from the template definition. In the above example, the `coverImage` is omitted, so Zeabur picks the `coverImage` from the template definition.
-
-## Deploying Templates with the `zeabur` CLI
-
-If you have finished writing the Template Resource YAML and want to test the deployment, you can use the `zeabur` CLI to deploy the template.
-
-```
+```bash
 $ cat wp.yaml | head -n 10
 apiVersion: zeabur.com/v1
 kind: Template
@@ -249,59 +204,31 @@ spec:
 $ npx zeabur@latest template deploy -f wp.yaml
 ```
 
-First, the `zeabur` CLI will ask you which project you want to deploy to, then it will ask you to fill in the variables specified in the services' `variables`, and finally, it will deploy the template to the project you specified.
+La CLI te pedirá seleccionar/crear proyecto, región y completar variables.
 
-```
-$ npx zeabur@latest template deploy -f wp.yaml
-? Select project  [Use arrows to move, type to filter]
-  your-project
-> Create a new project
-? Select project region  [Use arrows to move, type to filter]
- DigitalOcean - sgp1 (Singapore)
-  HuaWei Cloud - cn-east-3 (Shanghai, China)
-  Vultr - ewr1 (New Jersey, United States)
-  Google Cloud Platform - asia-east1 (Taipei, Taiwan)
-> Amazon Web Services - ap-east-1 (Hong Kong)
-  Amazon Web Services - ap-northeast-1 (Tokyo, Japan)
-  Amazon Web Services - us-west-1 (California, United States)
-? What is the domain of your WordPress website? (For example, if you enter "myapp", the domain will be "myapp.zeabur.app") mywordpressdemo7c918e14
-INFO	Domain mywordpressdemo7c918e14.zeabur.app is available!
-m
-INFO	Template successfully deployed into project "aphylac" (https://zeabur.com/projects/your-project-id).
-```
+## Publicar Plantillas
 
-## Publishing Templates Using the `zeabur` CLI
-
-If testing is successful, you can use the `npx zeabur@latest template create` command to publish the template for others to use. For example, using the `wp.yaml` from above:
-
-```
+```bash
 $ npx zeabur@latest template create -f wp.yaml
 INFO	Template "WordPress" (https://zeabur.com/templates/71HORL) created
 ```
 
-It is a one-click command. You can click the link to view the deployed template:
+Ver YAML crudo: `https://zeabur.com/templates/71HORL.yaml`
 
-![Deployed template](/template/template-in-code/created-template.webp)
+## Actualizar Plantillas
 
-You can also add `.yaml` to the end of link to view the Template's Resource YAML format: `https://zeabur.com/templates/71HORL.yaml`.
-
-## Updating Templates Using the `zeabur` CLI
-
-If you need to modify the template's content, such as renaming the template or updating the Image version, you can update it after modifying the Resource YAML by using the `npx zeabur@latest template update` command:
-
-```
+```bash
 $ npx zeabur@latest template update -c 71HORL -f wp.yaml
 INFO	Template updated.
 ```
 
-## Eliminar plantillas usando la CLI `zeabur`
+## Eliminar Plantillas
 
-Si tienes plantillas duplicadas o ya no necesitas una plantilla, puedes eliminarla usando el comando `npx zeabur@latest template delete`:
-
-```
+```bash
 $ npx zeabur@latest template delete
 ? Enter template code: 71HORL
 INFO	Template deleted successfully.
 ```
 
-Simplemente ejecuta el comando e ingresa el código de la plantilla cuando se te solicite. La plantilla será eliminada permanentemente de la plataforma.
+La plantilla se elimina permanentemente.
+

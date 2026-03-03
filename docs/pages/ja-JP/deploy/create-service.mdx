@@ -6,92 +6,89 @@ ogImageSubtitle: Zeabur プロジェクトにサービスをデプロイする
 
 import { Callout } from 'nextra/components';
 
-# サービスの作成
+# **サービスを作成**
 
-[プロジェクトを作成](./create-project)した後、サービスのデプロイを開始できます。**新しいサービスをデプロイ** ボタンをクリック（または `CMD + K` / `Ctrl + K` を押して **新しいサービスをデプロイ** を選択）すると、さまざまなデプロイオプションを含むメニューが表示されます：
+[プロジェクトを作成](https://zeabur.com/docs/ja-JP/deploy/create-project)した後、サービスのデプロイを開始できます。**Deploy New Service**ボタンをクリックするか（または`CMD + K` / `Ctrl + K`を押して**Deploy New Service**を選択）、さまざまなデプロイオプションのメニューが表示されます：
 
-![サービスを追加](/start/project-page-with-add-service.webp)
+![Create Service](/deploy/Create-Services/add-service.png)
 
-## テンプレート
+## **テンプレート**
 
-Zeabur は WordPress、n8n、Ghost など、人気のオープンソースプロジェクト向けに事前設定されたテンプレートの豊富なライブラリを提供しています。これらのテンプレートはワンクリックでデプロイできます。
+Zeaburは、WordPress、n8n、Ghostなど人気のオープンソースプロジェクト向けに豊富な事前設定テンプレートライブラリを提供しています。これらのテンプレートはワンクリックでデプロイ可能です。
 
-1. **テンプレート** をクリックして利用可能なテンプレートを閲覧します。
-2. 必要なテンプレートを検索または閲覧します。
-3. テンプレートをクリックし、プロンプトに従ってデプロイします。
+1. **Template**をクリックして利用可能なテンプレートを閲覧。
+2. 必要なテンプレートを検索または閲覧。
+3. テンプレートをクリックし、指示に従ってデプロイ。
 
-![テンプレートサービス](/start/template-services.webp)
+詳細は[テンプレートからデプロイ](https://zeabur.com/docs/ja-JP/template/template-in-code)を参照。
 
-詳細については、[テンプレートからデプロイ](/template/deploy-template)をご覧ください。
+![choose template](/deploy/Create-Services/choose-template.gif)
 
-## GitHub
+## **GitHub**
 
-GitHub リポジトリから直接デプロイします。これは自分のアプリケーションをデプロイする最も一般的な方法です。
+GitHubリポジトリから直接デプロイ。これは独自アプリケーションをデプロイする最も一般的な方法です。
 
-1. **GitHub** をクリックして GitHub アカウントに接続します（まだ接続していない場合）。
-2. 接続後、デプロイしたいリポジトリを検索します。
-3. リポジトリをクリックすると、Zeabur が自動的にコードを分析し、最適なビルド方法を選択します。
-4. **デプロイ** をクリックしてデプロイを開始します。
+1. 未接続の場合、**GitHub**をクリックしてGitHubアカウントを接続。
+2. 接続後、デプロイしたいリポジトリを検索。
+3. リポジトリをクリックすると、Zeaburがコードを自動解析し、最適なビルド方法を選択。
+4. **Deploy**をクリックしてデプロイ開始。
 
-![リポジトリを検索](/start/search-repository.webp)
+![Search repository](https://zeabur.com/docs/_next/image?url=%2Fdocs%2F_next%2Fstatic%2Fmedia%2Fsearch-repository.db02d750.webp&w=3840&q=75)
 
-詳細については、[GitHub との統合](./github)をご覧ください。
+詳細は[GitHubとの統合](https://zeabur.com/docs/ja-JP/deploy/github)を参照。
 
-## データベース
+## **データベース**
 
-設定不要で一般的なデータベースを素早くデプロイできます。
+設定なしで一般的なデータベースを素早くデプロイ。
 
-1. **データベース** をクリックして利用可能なデータベースのリストを表示します。
-2. 必要なデータベース（PostgreSQL、MySQL、MongoDB、Redis など）を選択します。
-3. データベースは即座にデプロイされ、すぐに使用できます。
+1. **Databases**をクリックして利用可能なデータベース一覧を表示。
+2. 必要なデータベースを選択（PostgreSQL、MySQL、MongoDB、Redisなど）。
+3. データベースが即座にデプロイされ、使用可能に。
 
-![データベースサービス](/start/database-services.webp)
+![Database](/deploy/Create-Services/database.png)
 
-## ファンクション
+## **Functions**
 
-Zeabur Functions を使用してコードを即座に作成、実行、反復できます。これはクイックスクリプト、API、またはサーバーレス関数に最適です。
+Zeabur Functionsでコードを即座に書き、実行、イテレーション。クイックスクリプト、API、サーバーレス関数に最適。
 
-1. **ファンクション** をクリックして新しい関数を作成します。
-2. 関数言語として **JavaScript** または **Python** を選択します。
-3. エディタで直接コードを記述します。
-4. 関数がデプロイされ、ダッシュボードからアクセスできるようになります。
+1. **Functions**をクリックして新しい関数を作成。
+2. 関数言語として**JavaScript**または**Python**を選択。
+3. エディタに直接コードを記述。
+4. 関数がデプロイされ、ダッシュボードからアクセス可能。
 
-![シンプルファンクション](/deploy/create-service/simple-function.png)
+![Functions](/deploy/Create-Services/functions.png)
 
-## ローカルプロジェクト
+## **ローカルプロジェクト**
 
-Git リポジトリを使用せずに、ローカルのソースコードを Zeabur に直接アップロードします。
+Gitリポジトリ不要でローカルソースコードを直接Zeaburにアップロード。
 
-1. **ローカルプロジェクト** をクリックします。
-2. プロジェクトフォルダをドラッグ＆ドロップするか、クリックしてフォルダを参照・選択します。
-3. Zeabur がプロジェクトを分析してデプロイします。
+1. **Local Project**をクリック。
+2. プロジェクトフォルダをドラッグ＆ドロップ、または閲覧して選択。
+3. Zeaburが解析してプロジェクトをデプロイ。
 
-![ローカルプロジェクト](/deploy/create-service/local-project.png)
+![Local Project](/deploy/Create-Services/local-project.png)
 
-これは素早いデプロイや、先にリポジトリにコードをプッシュしたくない場合に便利です。
+リポジトリにプッシュせずに素早くデプロイしたい場合に便利。
 
-<Callout type="warning">
-  アップロード時に `/dist/*` ディレクトリは自動的に無視されます。
-</Callout>
+アップロード時に`/dist/*`ディレクトリは自動的に無視されます。
 
-## Docker イメージ
+## **Dockerイメージ**
 
-Docker Hub やその他のコンテナレジストリから事前ビルドされた Docker コンテナイメージをデプロイします。
+Docker Hubや他のコンテナレジストリから事前ビルド済みのDockerイメージをデプロイ。
 
-1. **Docker イメージ** をクリックします。
-2. イメージ名を入力します（例：`nginx:latest` または `ghcr.io/owner/image:tag`）。
-3. 必要な環境変数やポートを設定します。
-4. **デプロイ** をクリックします。
+1. **Docker Image**をクリック。
+2. イメージ名を入力（例：`nginx:latest` または `ghcr.io/owner/image:tag`）。
+3. 必要な環境変数やポートを設定。
+4. **Deploy**をクリック。
 
-詳細については、[Docker イメージでデプロイ](./customize-prebuilt)をご覧ください。
+詳細は[Dockerイメージでデプロイ](https://zeabur.com/docs/ja-JP/deploy/customize-prebuilt)を参照。
 
-## Cursor
+## **Cursor**
 
-Zeabur 拡張機能を使用して Cursor IDE から直接デプロイします。
+Zeabur拡張機能を使ってCursor IDEから直接デプロイ。
 
-1. **Cursor** をクリックして Cursor IDE でプロジェクトを開きます。
-2. Zeabur 拡張機能をまだインストールしていない場合は、インストールを促されます。
-3. 拡張機能を使用して Cursor から現在のプロジェクトを直接デプロイします。
+1. **Cursor**をクリックしてCursor IDEをプロジェクトで開く。
+2. Zeabur拡張機能が未インストールの場合、インストールを促されます。
+3. 拡張機能を使って現在のプロジェクトをCursorから直接デプロイ。
 
-これにより、Cursor をメインの IDE として使用する開発者にシームレスなエクスペリエンスを提供します。
-
+CursorをメインIDEとする開発者にシームレスな体験を提供。

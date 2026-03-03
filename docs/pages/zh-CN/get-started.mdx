@@ -6,110 +6,111 @@ ogImageSubtitle: 从零开始将你的服务部署到 Zeabur 上
 
 import { Callout } from 'nextra/components'
 
-# 快速入门
+# **快速入门**
 
-## 步骤一：创建账户
+## **第一步：创建账户**
 
-你需要先创建一个账户来开始在 Zeabur 部署你的服务。
+您需要创建一个账户才能开始在 Zeabur 上部署服务。
 
-如果你是第一次使用 Zeabur，需要先使用邮箱注册（也就是第一个选项）。在这里填写你的邮箱然后，点击“通过电子邮件继续”。
+如果是 Zeabur 新用户，请使用邮箱注册（第一个选项）。在此输入您的邮箱地址，然后点击“使用邮箱继续”。
 
-![登录](/start/login.webp)
+![SignUp.png](/start/get-started/SignUp.png)
 
-接着你会收到“登录链接已发送”的提示。
+随后会收到提示“邮件发送成功”。
 
-![验证邮件已发送](/start/verification-mail-sent.webp)
+![SignUp Part 2.png](/start/get-started/SignUp%20Part%202.png)
 
-打开你的电子邮箱页面（比如 Gmail、Outlook、Apple Mail 等等），你会看到一封来自 Zeabur 的邮件。点击邮件内的“登录”按钮。
+打开您的邮箱收件箱（例如 Gmail、Outlook、Apple Mail），您会看到来自 Zeabur 的邮件。点击邮件中的“登录”按钮。
 
-![验证邮件](/start/verification-mail.webp)
+![Sign Up Callback.png](/start/get-started/Sign%20Up%20Callback.png)
 
-<Callout>
-  如果你登录的浏览器不是你系统设置的默认浏览器（也就是说打开链接时出现的是 Safari 而不是 Chrome），可以先右键“登录”按钮复制链接，
-  然后再粘贴到你登录的浏览器打开。
-</Callout>
+如果登录过程中打开的浏览器不是您偏好的默认浏览器（例如打开了 Safari 而不是 Chrome），您可以手动复制“登录”按钮下方的链接，并粘贴到您想要的浏览器中。
 
-出现这个登录界面，就代表你完成登录了！
+出现此登录界面即表示您已成功登录！
 
-![引导界面](/start/onboarding-ui.webp)
+![Dashboard.png](/start/get-started/Dashboard.png)
 
-记得右上角可以切换界面语言哦！我们目前有繁体中文、简体中文、英文、日文、西班牙文和印尼文可以选择。
+请记住，您可以在左侧面板切换界面语言！我们目前支持繁体中文、简体中文、英语、日语、西班牙语和印尼语。
 
-![切换语言](/start/switch-language.webp)
+![Languages.png](/start/get-started/Languages.png)
 
-## 步骤二：创建项目
+## **第二步：创建项目**
 
-在 Zeabur 中，一个“项目 (Project)”用于容纳构成真实世界应用程序的所有相关服务。举例来说，如果你的应用程序由一个前端网站、一个后端 API 和一个数据库所组成，那么这些服务都应该被放在同一个项目中。
+在 Zeabur 中，项目是一个单一容器，用于存放构成真实世界应用的所有相关服务。例如，如果您的应用包含前端网站、后端 API 和数据库，它们都应放在同一个项目中。
 
-![项目结构](/start/project-structure.webp)
+![Project structure](/start/project-structure.webp)
 
-要开始创建项目，请点击正中央（或右上角）的 **创建项目** 按钮。
+要开始创建项目，请点击中央的**创建项目**按钮。
 
-![创建新项目](/start/create-new-project.webp)
+![Create New Project.png](/start/get-started/Create%20New%20Project.png)
 
-如果你是第一次创建项目，很可能会看到“账户验证”的提示。
+如果是第一次创建项目，您可能会看到“账户验证”提示。
 
-![账户验证](/start/account-verification.webp)
+![Toast if not verified.png](/start/get-started/Toast%20if%20not%20verified.png)
 
-你可以选择：
+您可以选择：
 
-1. 使用手机号码进行验证。大部分的国家或地区都支持这种验证方式，如果你的国家或地区不支持这种方式，或者是需要绑定多个 Zeabur 账户，除了 [联系我们](https://zeabur.com/dc) 外也可以参考第二和第三种方案。
-2. 预存一些使用额度。只要你没有订阅 Dev Plan 或服务器，且没有涉及严重滥用行为（比如违反 ToS 发起大流量 DoS），我们都不会扣除你的余额。
-3. 绑定信用卡。和第二点相似，除非你有操作订阅项目，否则我们都不会发起扣款，纯粹作为验证用途。
+1. 使用**手机号**验证。大多数国家和地区都支持此方式。如果您的国家/地区不支持，或需要绑定多个 Zeabur 账户，除[联系我们](https://zeabur.com/forum)外，还可参考第二和第三个选项。
+2. 预存一些**使用额度**。只要您未订阅 Dev 计划、未购买专用服务器，且未涉及严重滥用（例如违反 ToS 发起高流量 DoS 攻击），我们不会扣除余额。
+3. 我们需要**信用卡**来验证账户，以确保操作顺畅。请注意，除非您主动发起订阅相关交易，否则不会产生任何扣款。
 
-选择你想要的方式，然后点击对应区块的“验证”按钮。
+选择您偏好的方式，然后点击对应部分的“验证”按钮。
 
-验证完成后，重新创建项目就可以看到创建完成的项目了。
+验证完成后，您可以重新创建项目，并看到成功创建的项目。
 
-![项目页面添加服务](/start/project-page-with-add-service.webp)
+![After Verification.png](/start/get-started/After%20Verification.png)
 
-## 步骤三：部署服务
+## **第三步：部署服务**
 
-Zeabur 可以部署各种各样的服务，包括数据库（PostgreSQL、MySQL、Redis）、开源项目（n8n、WordPress），或者是你自己写的程序（从 GitHub 导入或者是用文件夹上传）。
+Zeabur 支持部署多种服务，包括数据库（PostgreSQL、MySQL、Redis）、开源项目（n8n、WordPress）或您自己的自定义应用（从 GitHub 导入或从文件夹上传）。
 
-![项目页面添加服务](/start/project-page-with-add-service.webp)
+- 若要部署数据库，点击“数据库”直接部署常见数据库。
+    
+    ![Databases.png](/start/get-started/Databases.png)
+    
+- 若要部署开源项目，Zeabur 的“模板”提供了许多预配置的常见开源项目，选择“模板”即可一键部署。
+    
+    ![templates.png](/start/get-started/templates.png)
+    
+- 若要部署自己的自定义应用，可点击“GitHub”或“本地项目”上传代码，或点击“Cursor”直接部署当前项目。
+- 若您想部署的开源项目不在“模板”中，也可使用“Docker 镜像”自行设置（属于高级操作）。
 
-- 如果你想要部署数据库的话，点击“数据库”就可以直接部署各种常见的数据库。
-  ![数据库服务](/start/database-services.webp)
-- 如果你想要部署某个开源项目，Zeabur 的“模板”有预先设置好很多常见的开源项目，点击“模板”就可以一键部署。
-  ![模板服务](/start/template-services.webp)
-- 如果你想要部署你自己写的程序，点击“GitHub”、“本地项目”就可以上传你的代码，也可以按“Cursor”直接部署你目前的项目。
-- 如果你想部署的开源项目不在“模板”里面，也可以用“Docker Image”自己搭建，属于高级操作。
+以 GitHub 部署为例。首先将 Zeabur 账户绑定到 GitHub，等待约 1 分钟，然后搜索您想部署的仓库：
 
-就以 GitHub 部署为例，你需要先将账户绑定到 GitHub 上后等待 1 分钟，然后搜索你想要部署的仓库：
+![Github.png](/start/get-started/Github.png)
 
-![搜索仓库](/start/search-repository.webp)
+点击仓库后，Zeabur 代理会自动分析您的代码并为您选择最适合的部署方式。
 
-点下去仓库后，Zeabur 会自动分析你的代码，然后为你选择最适合的部署方式。
+![Build Plan.png](/start/get-started/Build%20Plan.png)
 
-![构建方案](/start/build-plan.webp)
+点击“部署”即可一键部署项目。如有需要，可前往“配置”调整环境变量。
 
-直接点击“部署”就能一键部署项目。如果有需要，可以到“配置”调整环境变量。
+在配置中，将根目录设置为您的应用文件夹（例如“/”或子文件夹），通过键/值或编辑原始变量添加所需环境变量，然后点击下一步确认。
 
-![构建配置](/start/build-configuration.webp)
+![Configure Build Plan  .png](/start/get-started/Configure%20Build%20Plan%20%20.png)
 
-## 使用 AI 部署服务
+## **使用 Zeabur AI 代理部署任意服务**
 
-Zeabur 的 AI 助理可以让你用自然语言，快速部署出你需要的服务。
+Zeabur 的 AI 代理允许您使用自然语言快速部署所需服务。
 
-![Zeabur 代理](/start/zeabur-agent.webp)
+![Postgresql Examples.png](/start/get-started/Postgresql%20Examples.png)
 
-点击导航栏的“Agent”即可进入 AI 助理的界面。如果部署遇到障碍，也可以请它帮忙！
+点击右侧面板中的“Zeabur AI”进入 AI 助手界面。如果遇到任何部署问题，也可以向它求助！
 
-## 步骤四：上线网站
+## **第四步：启动您的网站**
 
-要让别人可以浏览你的网站，可以到“域名”中绑定自己的域名：
+要让您的网站可供他人访问，可在“域名”中绑定自己的域名：
 
-![绑定域名](/start/bind-domain.webp)
+![Bind domain](/start/bind-domain.webp)
 
-等待 30 秒左右就能点开域名，Zeabur 会帮你处理好 HTTPS 等等的设置，确认没问题就能分享自己的网站了。
+等待约 30 秒后即可点击域名。Zeabur 会为您处理 HTTPS 等设置。全部确认后，即可分享您的网站。
 
-如果需要绑定自己的域名，可以到 [域名绑定](/deploy/domain-binding) 文档中了解更多信息。
+如需绑定自己的域名，可查看[域名绑定](https://zeabur.com/docs/deploy/domain-binding)文档获取更多信息。
 
-## 下一步可以做什么？
+## **下一步做什么？**
 
-如果想要用 Google、GitHub 账户登录的话，可以到“设置”>“集成”中绑定 GitHub 和 Google 账户。
+若希望使用 Google 或 GitHub 账户登录，可在“设置” > “集成”中绑定 GitHub 和 Google 账户。
 
-![账户集成](/start/account-integration.webp)
+![Account integration](/start/account-integration.webp)
 
-接下来你可以继续探索 Zeabur 丰富的模板库，以及各种面向不同用途的功能（如文件管理、日志）。如果你需要技术支持的话，[Zeabur 的 Discord 服务器](https://zeabur.com/dc) 有专门的频道可以帮助你解决各种疑难杂症！
+接下来，您可以继续探索 Zeabur 丰富的模板库以及各种功能（例如文件管理、日志）。如遇技术问题，可在 [Zeabur 官方论坛](https://zeabur.com/forum) 提交开发者工单。如需社区讨论和互助，请加入我们的开发者社区 [Zeabur Discord 服务器](https://zeabur.com/dc)。

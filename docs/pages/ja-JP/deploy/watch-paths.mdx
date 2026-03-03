@@ -4,6 +4,8 @@ ogImageTitle: ウォッチパス
 ogImageSubtitle: サービストリガーパスをカスタマイズ
 ---
 
+import { Callout } from 'nextra/components'
+
 # ウォッチパス
 
 サービスがデプロイされた後、コードを頻繁に更新することがありますが、一部のコードの更新ではサービスの再デプロイは必要ありません。
@@ -16,7 +18,7 @@ ogImageSubtitle: サービストリガーパスをカスタマイズ
 
 変更を加えたいサービスをクリックし、**設定**ページを展開し、**ウォッチパス**項目を見つけるためにスワイプして、サービスのウォッチパスを変更できます。
 
-![setting](/deploy/watch-path/setting.png)
+![setting](/deploy/watch-path/watch_path_settings.png)
 
 ### ステップ2: ウォッチパスを変更する
 
@@ -34,4 +36,4 @@ ogImageSubtitle: サービストリガーパスをカスタマイズ
 
 例えば、クライアントサービスの**ウォッチパス**を`/client`に設定した後、`server`フォルダで行われた任意の更新によってクライアントサービスが自動的に再デプロイされなくなります。
 
-![repo](/deploy/watch-path/save.png)
+![repo](/deploy/watch-path/watch_paths_save.png)

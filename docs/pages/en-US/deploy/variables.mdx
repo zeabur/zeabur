@@ -13,7 +13,7 @@ Zeabur provides a way to set environment variables for your service.
 
 You can set environment variables in the **Variables** tab of your service, and you can **Add Variables** to your service.
 
-![environment variables](/environment/add-variables.en-US.png)
+![environment variables](/environment/add-variables.png)
 
 Zeabur will automatically inject these environment variables into your service.
 
@@ -21,23 +21,15 @@ Zeabur will automatically inject these environment variables into your service.
 
 - `PORT`：The port of the service
 
-- Other variables like database credentials([PostgreSQL](/marketplace/postgresql)) or [Redis](/marketplace/redis) connection string and so on.
+- Other variables like database credentials([PostgreSQL](https://zeabur.com/templates/B20CX0)) or [Redis](https://zeabur.com/templates/KQZHXT) connection string and so on.
 
 And you don't need to set the environment variables manually.
 
-![db env](/environment/db-env.en-US.png)
+![db env](/environment/env_var.png)
 
 When hovering over a variable, you can choose to start editing or delete the variable.
 
-![hovering](/environment/var-hover.png)
-
-Click the checkbox in the upper right corner to toggle the list view.
-
-![list view](/environment/var-list-view.png)
-
-Click the edit icon to edit the value of the variable.
-
-![edit variable](/environment/var-edit.png)
+![hovering](/environment/env_var_hover.png)
 
 ## Edit as Raw
 
@@ -45,13 +37,18 @@ If you want to add multiple variables at once, you can use the batch editing fun
 
 Click the **Edit as Raw** button to enter the batch editing mode, which will set the service environment variables in `.env` file.
 
-![edit-raw](/environment/var-raw-edit.png)
+![edit-raw](/environment/edit_raw_env_var.png)
 
 ## Variable Reference
 
-You can reference other variables in Zeabur.
+Zeabur allows you to reference other variables using a simple template syntax. Here's how you can do it:
 
-All you need to do is to reference other variables in the template syntax when setting the variable:
+1. Use the template syntax to reference other variables directly.
+2. When setting a new variable, refer to existing variable names by surrounding them with ${}.
+
+**Example:**
+
+If you have two variables, `USERNAME` and `PASSWORD`, you can combine their values and set a new variable, `AUTH_INFOR`, like this:
 
 ```bash
 # For example, you can set the variable like this:
