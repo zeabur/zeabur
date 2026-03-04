@@ -9,7 +9,7 @@ import { Callout } from 'nextra/components'
 # High Availability Architecture
 
 <Callout type="info">
-  This high availability architecture is designed for users of **Dedicated Clusters** (multi-node Kubernetes clusters). It is not applicable to single-node **Dedicated Servers**. Zeabur is also [phasing out shared clusters](https://zeabur.com/changelogs/phasing-out-shared-cluster) — new projects should use Dedicated Servers or Dedicated Clusters.
+  This high availability architecture applies to both **Dedicated Servers** and **Dedicated Clusters**. However, horizontal scaling (service replicas) requires a **Dedicated Cluster** (multi-node Kubernetes cluster). Zeabur is also [phasing out shared clusters](https://zeabur.com/changelogs/phasing-out-shared-cluster) — new projects should use Dedicated Servers or Dedicated Clusters.
 </Callout>
 
 This document outlines recommended architectures for achieving high availability for your services deployed on Zeabur.
