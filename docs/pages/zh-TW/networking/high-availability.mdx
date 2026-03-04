@@ -8,9 +8,13 @@ import { Callout } from 'nextra/components'
 
 # 高可用性架構
 
+<Callout type="info">
+  此高可用性架構適用於**專用叢集**（多節點 Kubernetes 叢集）的使用者，不適用於單節點的**專用伺服器**。Zeabur 也正在[逐步淘汰共享叢集](https://zeabur.com/changelogs/phasing-out-shared-cluster)，新專案請使用專用伺服器或專用叢集。
+</Callout>
+
 本文件概述了在 Zeabur 上部署服務，來實作高可用性所推薦的架構。
 
-請注意，這個主題較為進階。對於您的新創服務，通常不需要高可用性 (HA)。最簡單的解決方案是將您的服務放在一個專案中，並使用 [內網](/networking/private) 進行通訊；使用 [公網](/networking/public) 將您的服務暴露到網際網路。我們可以為您處理垂直擴縮，而在共享叢集中，如果一個節點故障，我們可以自動將您的服務遷移到另一個節點。（注意：Zeabur 正在[逐步淘汰共享叢集](https://zeabur.com/changelogs/phasing-out-shared-cluster)，新專案請使用專用伺服器。）
+請注意，這個主題較為進階。對於您的新創服務，通常不需要高可用性 (HA)。最簡單的解決方案是將您的服務放在一個專案中，並使用 [內網](/networking/private) 進行通訊；使用 [公網](/networking/public) 將您的服務暴露到網際網路。我們可以為您處理垂直擴縮。
 
 ## DNS 負載平衡器 (推薦)
 

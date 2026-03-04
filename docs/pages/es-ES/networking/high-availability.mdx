@@ -8,9 +8,13 @@ import { Callout } from 'nextra/components'
 
 # Arquitectura de Alta Disponibilidad
 
+<Callout type="info">
+  Esta arquitectura de alta disponibilidad está diseñada para usuarios de **Clústeres Dedicados** (clústeres Kubernetes de múltiples nodos). No es aplicable a **Servidores Dedicados** de un solo nodo. Zeabur también está [eliminando gradualmente los clústeres compartidos](https://zeabur.com/changelogs/phasing-out-shared-cluster) — los nuevos proyectos deben usar Servidores Dedicados o Clústeres Dedicados.
+</Callout>
+
 Este documento describe las arquitecturas recomendadas para lograr alta disponibilidad para sus servicios desplegados en Zeabur.
 
-Tenga en cuenta que este es un tema avanzado. Típicamente, no necesita alta disponibilidad (HA) para los servicios de su startup. Para la solución más sencilla, coloque sus servicios en un solo proyecto y use [redes privadas](/networking/private) para la comunicación. Exponga su servicio a Internet utilizando [redes públicas](/networking/public). Nosotros podemos encargarnos del escalado vertical por usted. En clústeres compartidos, si un nodo falla, podemos migrar automáticamente su servicio a otro nodo. (Nota: Zeabur está [eliminando gradualmente los clústeres compartidos](https://zeabur.com/changelogs/phasing-out-shared-cluster) — los nuevos proyectos deben usar Servidores Dedicados.)
+Tenga en cuenta que este es un tema avanzado. Típicamente, no necesita alta disponibilidad (HA) para los servicios de su startup. Para la solución más sencilla, coloque sus servicios en un solo proyecto y use [redes privadas](/networking/private) para la comunicación. Exponga su servicio a Internet utilizando [redes públicas](/networking/public). Nosotros podemos encargarnos del escalado vertical por usted.
 
 ## Balanceador de Carga DNS (Recomendado)
 
