@@ -4,6 +4,8 @@ ogImageTitle: Create Project
 ogImageSubtitle: Create a project on Zeabur
 ---
 
+import { Callout } from 'nextra/components'
+
 # Create Project
 
 To deploy services on Zeabur, you need to create a project first. 
@@ -19,20 +21,23 @@ Besides, you can [set the budget and manage the usages](../manage/budget) for pr
 
 ## How to create a project
 
+<Callout type="warning">
+  Zeabur is phasing out shared clusters. New projects can only be created on Dedicated Servers. For more details, see the [changelog](https://zeabur.com/changelogs/phasing-out-shared-cluster).
+</Callout>
+
 First, you need to navigate to the [dashboard's projects page](https://zeabur.com/projects).
 
 If you are new to Zeabur without any project, you will see an onboarding page to create your first project.
 
 ![Create project onboarding](/deploy/create-project/onboarding.png)
 
-If you've created projects before, you can just click on the **Create Project** button or press `CMD + K` or `Ctrl + K` to open the command palette to select **Create Project**, 
-and then select the region where you want to create the project, the project will be automatically created with a random name.
+If you've created projects before, you can click on the **Create Project** button or press `CMD + K` or `Ctrl + K` to open the command palette to select **Create Project**. Select a dedicated server you already own, or choose **Buy New Server** to purchase one, or **Bind External Server** to connect your own server via SSH. Then click **Create Project** to finish.
 
 ![Select Region](/deploy/create-project/select-region.png)
 
 ## What's next
 
-You will see an empty project after the region selection:
+You will see an empty project after creation:
 
 ![Empty Project](/deploy/create-project/empty-project.png)
 
