@@ -9,7 +9,7 @@ import { Callout } from 'nextra/components'
 # 高可用性架构
 
 <Callout type="info">
-  此高可用性架构适用于**专用集群**（多节点 Kubernetes 集群）的用户，不适用于单节点的**专用服务器**。Zeabur 也正在[逐步淘汰共享集群](https://zeabur.com/changelogs/phasing-out-shared-cluster)，新项目请使用专用服务器或专用集群。
+  此高可用性架构适用于**专用服务器**和**专用集群**。但水平扩缩（服务副本）需要**专用集群**（多节点 Kubernetes 集群）。Zeabur 也正在[逐步淘汰共享集群](https://zeabur.com/changelogs/phasing-out-shared-cluster)，新项目请使用专用服务器或专用集群。
 </Callout>
 
 本文档概述了在 Zeabur 上部署服务，以实现高可用性的推荐架构。
