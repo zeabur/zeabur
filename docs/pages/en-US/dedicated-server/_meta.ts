@@ -1,4 +1,5 @@
 export default {
-    "register": "Register Server",
-    "operate": "Maintain Server"
+  index:    { display: 'hidden' },  // product landing — no extra sidebar link
+  register: 'Add a Server',
+  operate:  'Manage Server',
 }

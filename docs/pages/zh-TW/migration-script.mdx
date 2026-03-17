@@ -1,0 +1,341 @@
+---
+title: IA 搬遷腳本
+description: 舊版 → 新版架構的搬遷依據、分類基準與 en-US 執行步驟
+---
+
+import { Callout, Steps, Tabs } from 'nextra/components'
+
+# IA 搬遷腳本
+
+<Callout type="warning">
+  此為內部執行文件。記錄了 zh-TW 已完成的 IA 重構邏輯，以及 en-US 同步所需的完整執行步驟。
+</Callout>
+
+## 重構背景
+
+原始架構（~2024）以**功能類型**為分類軸心，導致：
+
+- `data-management/`、`networking/`、`manage/` 三個獨立目錄在概念上都屬於「如何維運一個已部署的服務」
+- `billing/`、`legal/` 各自分離，但用戶查帳務時往往也需要法律文件
+- `deploy/` 下無分組，20 頁文件全部平鋪，難以導航
+- 新功能（Insforge、Email、AI Hub）找不到明確的歸屬位置
+
+新架構以**用戶任務旅程**為分類軸心，將所有內容重組為 10 個頂層 Section。
+
+---
+
+## 各 Section 說明與分類基準
+
+### `get-started/` — 入門與快速指南
+
+**目的**：新用戶的第一入口，從「什麼是 Zeabur」到「成功部署第一個服務」。
+
+**收錄基準**：
+- 文件的主要讀者是**首次接觸 Zeabur 的用戶**
+- 內容不預設用戶有 Zeabur 操作經驗
+- 屬於「一次性閱讀」（讀完就不需要再回來查）
+
+**子分區**：
+
+| 子分區 | 說明 | 分類基準 |
+|-------|------|---------|
+| `platform-overview/` | 概念說明：專案/服務/叢集的關係 | 理論性、無操作步驟、給想了解架構的用戶 |
+| `quick-start.mdx` | 端到端的新手部署教學 | 有具體操作步驟、目標是「讓服務跑起來」 |
+| `best-practices.mdx` | 使用建議與常見陷阱 | 給已完成 quick-start、想把服務做好的用戶 |
+| `migration/` | 從其他平台遷移的教學 | 文件標題為「從 X 遷移到 Zeabur」的形式 |
+| `faq-support/` | 帳號驗證、求助管道 | 非技術性問題、帳號/社群相關 |
+
+---
+
+### `deploy/` — 部署
+
+**目的**：服務的建立與部署設定，涵蓋從「怎麼建立服務」到「怎麼設定環境變數」。
+
+**收錄基準**：
+- 文件主題是**第一次把服務部署起來**所需的操作
+- 屬於「設定型」文件，用戶通常在部署新服務時查閱
+- 不包含服務已部署後的日常維運（那屬於 `operations/`）
+
+**子分組**（sidebar separator）：
+
+| 分組 | 說明 | 分類基準 |
+|-----|------|---------|
+| 建立專案與服務 | 建立 Project 和 Service 的操作 | 目標是「產生一個新的 Service 物件」 |
+| 部署方式 | 如何把程式碼或映像檔部署上去 | 輸入是原始碼/Image，輸出是運行中的服務 |
+| 服務設定 | 環境變數、Build 設定、目錄設定 | 服務行為的靜態配置，不是運行時的管理 |
+| 專案管理 | 複製、匯出、更新映像檔引用 | 以 Project 為單位的操作 |
+
+---
+
+### `guides/` — 語言與框架
+
+**目的**：各程式語言的 Zeabur 部署配置說明。
+
+**收錄基準**：
+- 文件標題格式為「[語言/框架] 部署指南」
+- 包含該語言特有的 buildpack 設定、環境需求、常見問題
+- **不包含**通用的部署方式（那在 `deploy/`）
+
+---
+
+### `ai-hub/`、`email/`、`integrations/` — 產品服務
+
+**目的**：Zeabur 自家產品（AI Hub、Email）和第三方整合的專屬文件區。
+
+**收錄基準**：
+- 文件是關於某個**具名 Zeabur 產品**的功能說明或使用指南
+- 第三方整合（如 Insforge）放 `integrations/` 下的子目錄
+
+---
+
+### `infrastructure/` — 基礎設施
+
+**目的**：服務的底層資源設定：儲存空間、網路拓墣、專用伺服器。
+
+**收錄基準**：
+- 文件描述的是**「資源」層面**的設定，而非服務本身的行為
+- 通常涉及 Volume、網路、Domain、CDN、硬體
+
+**子分組**：
+
+| 分組 | 說明 | 分類基準 |
+|-----|------|---------|
+| 儲存 | Volume、檔案存取、備份還原、設定檔 | 以「資料持久化」或「磁碟」為核心概念 |
+| 網路 | 公共/私有網路、高可用性、CDN | 以「流量路由」或「網路拓墣」為核心 |
+| 進階配置 | 專用伺服器 | 需要獨立硬體資源的進階設定 |
+
+---
+
+### `operations/` — 維運
+
+**目的**：服務上線後的日常管理：團隊協作、資源監控、部署版本控制。
+
+**收錄基準**：
+- 文件描述的是**服務已部署後**的操作
+- 通常是重複性的日常任務（查 Log、調整預算、回溯版本）
+- 不包含「如何部署服務」（那在 `deploy/`）
+
+**子分組**：
+
+| 分組 | 說明 | 分類基準 |
+|-----|------|---------|
+| 團隊管理 | 邀請成員、安全報告 | 以「人」和「權限」為主題 |
+| 資源配置 | 使用量查看、預算設定、擴展 | 以「費用」和「規格調整」為主題 |
+| 部署管理 | Preview、版本回溯、維護模式 | 以「部署版本的生命週期」為主題 |
+| 監控 | 健康檢查、日誌、效能指標 | 以「可觀測性」為主題 |
+
+---
+
+### `developer/` — 開發者
+
+**目的**：CLI、Public API、Webhook 等程式化控制 Zeabur 的方式。
+
+**收錄基準**：
+- 文件的讀者是要用**程式碼或命令列**操作 Zeabur 的開發者
+- 不包含 Dashboard 的 UI 操作
+
+---
+
+### `billing-legal/` — 帳務與法律
+
+**目的**：費用相關的所有資訊，含定價、獎勵計畫和法律條款。
+
+**收錄基準**：
+- 文件和「金錢流動」或「法律義務」直接相關
+
+**子分區**：
+
+| 子分區 | 說明 | 分類基準 |
+|-------|------|---------|
+| `pricing/` | 方案費用、訂閱管理 | 用戶**付出**金錢的情境 |
+| `rewards/` | 推薦、兌換、贊助 | 用戶**獲得**或**兌換**額度的情境 |
+| `legal/` | 服務條款、隱私權、公平使用 | 法律條文類文件 |
+
+---
+
+## 完整搬遷對照表
+
+### `billing/` → `billing-legal/`
+
+| 舊路徑 | 新路徑 | 搬遷說明 |
+|-------|-------|---------|
+| `billing/pricing.mdx` | `billing-legal/pricing/pricing-plans.mdx` | 重命名，原 `plans.mdx` 合併進去 |
+| `billing/plans.mdx` | `billing-legal/pricing/pricing-plans.mdx` | 與 `pricing.mdx` 合併 |
+| `billing/subscription.mdx` | `billing-legal/pricing/subscription-billing.mdx` | 重命名 |
+| `billing/redeem.mdx` | `billing-legal/rewards/redeem-card.mdx` | 移到 rewards/ 子分區，重命名 |
+| `billing/sponsor.mdx` | `billing-legal/rewards/sponsor.mdx` | 移到 rewards/ 子分區 |
+
+### `community/` → 分散到多處
+
+| 舊路徑 | 新路徑 | 搬遷說明 |
+|-------|-------|---------|
+| `community/referral.mdx` | `billing-legal/rewards/referral.mdx` | 推薦計劃屬於獎勵機制 |
+| `community/verify.mdx` | `get-started/faq-support/verify.mdx` | 帳號驗證屬於新手支援 |
+| `community/help.mdx` | `get-started/faq-support/help.mdx` | 求助管道屬於新手支援 |
+| `community/forum.mdx` | ⚠️ 無對應新路徑 | 需確認是否保留 |
+| `community/contribution.mdx` | ⚠️ 無對應新路徑 | 需確認是否保留 |
+
+### `data-management/` → `infrastructure/`（儲存分組）
+
+| 舊路徑 | 新路徑 | 搬遷說明 |
+|-------|-------|---------|
+| `data-management/volumes.mdx` | `infrastructure/volumes.mdx` | 移動，路徑更新 |
+| `data-management/file-management.mdx` | `infrastructure/file-management.mdx` | 移動 |
+| `data-management/backup.mdx` | `infrastructure/backup-restore.mdx` | 與 `restore.mdx` 合併 |
+| `data-management/restore.mdx` | `infrastructure/backup-restore.mdx` | 與 `backup.mdx` 合併 |
+| `data-management/config-edit.mdx` | `infrastructure/config-file-management.mdx` | 重命名（功能名稱更清楚） |
+
+### `dedicated-server/` → `infrastructure/dedicated-server/`
+
+| 舊路徑 | 新路徑 | 搬遷說明 |
+|-------|-------|---------|
+| `dedicated-server/register.mdx` | `infrastructure/dedicated-server/register.mdx` | 移動到 infrastructure 子目錄 |
+| `dedicated-server/operate.mdx` | `infrastructure/dedicated-server/operate.mdx` | 移動到 infrastructure 子目錄 |
+
+### `legal/` → `billing-legal/legal/`
+
+| 舊路徑 | 新路徑 | 搬遷說明 |
+|-------|-------|---------|
+| `legal/terms.mdx` | `billing-legal/legal/terms-of-service.mdx` | 重命名（更完整的名稱） |
+| `legal/privacy.mdx` | `billing-legal/legal/privacy-policy.mdx` | 重命名 |
+| `legal/fair-use-guideline.mdx` | `billing-legal/legal/fair-use-guidelines.mdx` | 重命名（複數） |
+| `legal/abuse-report.mdx` | `billing-legal/legal/abuse-report.mdx` | 直接移動 |
+
+### `manage/` → `operations/`（團隊管理 + 資源配置）
+
+| 舊路徑 | 新路徑 | 搬遷說明 |
+|-------|-------|---------|
+| `manage/invite.mdx` | `operations/invite-member.mdx` | 重命名，移到 operations |
+| `manage/metric.mdx` | `operations/service-usage.mdx` | 重命名（語意更清楚） |
+| `manage/budget.mdx` | `operations/project-budget.mdx` | 重命名 |
+| `manage/security-report.mdx` | `operations/security-report.mdx` | 直接移動 |
+
+### `networking/` → `infrastructure/`（網路分組）
+
+| 舊路徑 | 新路徑 | 搬遷說明 |
+|-------|-------|---------|
+| `networking/public.mdx` | `infrastructure/public-networking.mdx` | 重命名（public → public-networking） |
+| `networking/private.mdx` | `infrastructure/private-networking.mdx` | 重命名 |
+| `networking/high-availability.mdx` | `infrastructure/high-availability.mdx` | 直接移動 |
+
+### `template/` → `deploy/templates/`
+
+| 舊路徑 | 新路徑 | 搬遷說明 |
+|-------|-------|---------|
+| `template/template-in-code.mdx` | `deploy/templates/template-catalog.mdx` | 重命名（語意更清楚） |
+| `template/fork-git-repo-from-template.mdx` | `deploy/templates/fork-from-template.mdx` | 縮短路徑 |
+
+### `tutorials/` → `get-started/migration/`
+
+| 舊路徑 | 新路徑 | 搬遷說明 |
+|-------|-------|---------|
+| `tutorials/replit.mdx` | `get-started/migration/replit.mdx` | 歸類為平台遷移指南 |
+| `tutorials/lovable.mdx` | `get-started/migration/lovable.mdx` | 歸類為平台遷移指南 |
+| `tutorials/bolt.mdx` | `get-started/migration/bolt.mdx` | 歸類為平台遷移指南 |
+| `tutorials/emergent.mdx` | `get-started/migration/emergent.mdx` | 歸類為平台遷移指南 |
+| `tutorials/aistudio.mdx` | `get-started/migration/aistudio.mdx` | 歸類為平台遷移指南 |
+| `tutorials/v0.mdx` | ⚠️ 無對應新路徑 | 考慮加入 migration/ 或 guides/ |
+| `tutorials/github.mdx` | ⚠️ 無對應新路徑 | 考慮移入 deploy/github-integration.mdx |
+
+### 新增文件（無舊路徑對應）
+
+| 新路徑 | 說明 |
+|-------|------|
+| `infrastructure/edge-caching.mdx` | CDN/邊緣快取功能文件（全新） |
+| `billing-legal/rewards/reward.mdx` | 獎勵計劃文件（全新） |
+| `get-started/migration/heroku.mdx` | Heroku 遷移指南（全新） |
+| `get-started/migration/railway.mdx` | Railway 遷移指南（全新） |
+| `get-started/migration/vercel.mdx` | Vercel 遷移指南（全新） |
+| `get-started/migration/fly-io.mdx` | Fly.io 遷移指南（全新） |
+| `operations/scaling.mdx` | 服務擴展（確認是否為新增） |
+| `operations/previews.mdx` | 服務預覽（確認是否為新增） |
+| `operations/rollbacks.mdx` | 版本回溯（確認是否為新增） |
+| `operations/maintenance-mode.mdx` | 維護模式（確認是否為新增） |
+| `operations/health-checks.mdx` | 健康檢查（確認是否為新增） |
+| `operations/logging.mdx` | 日誌（確認是否為新增） |
+| `operations/metrics.mdx` | 效能指標（確認是否為新增） |
+
+---
+
+## en-US 同步執行步驟
+
+<Callout type="warning">
+  執行前先 `git pull`，並從 `main` 開新 branch。
+</Callout>
+
+<Steps>
+
+### 確認 en-US 現有結構
+
+```bash
+find pages/en-US -name "_meta.ts" | sort
+find pages/en-US -maxdepth 2 -type d | sort
+```
+
+### 同步頂層 `_meta.ts`
+
+`pages/en-US/_meta.ts` 需要加上：
+- 5 個 separator（建置、產品、系統資源、維運管理、計費與法規）
+- Hidden 舊目錄清單與 zh-TW 一致
+
+```typescript
+// 參考 zh-TW/_meta.ts 的結構
+'--- deploy ---': { type: 'separator', title: 'Build' },
+'--- products ---': { type: 'separator', title: 'Products' },
+'--- infra ---': { type: 'separator', title: 'Infrastructure' },
+'--- ops ---': { type: 'separator', title: 'Operations' },
+'--- billing ---': { type: 'separator', title: 'Billing & Legal' },
+```
+
+### 建立 `billing-legal/` 三層結構
+
+1. 確認 `billing-legal/pricing/`、`billing-legal/rewards/`、`billing-legal/legal/` 存在
+2. 移動/複製 en-US 舊版檔案到對應新位置（參照上方對照表）
+3. 更新各層 `_meta.ts`
+
+### 同步 `deploy/_meta.ts` 加 separator 分組
+
+加入 4 個分組：建立專案與服務 / 部署方式 / 服務設定 / 專案管理
+
+### 同步 `infrastructure/_meta.ts` 加 separator 分組
+
+加入 3 個分組：儲存 / 網路 / 進階配置
+
+### 同步 `operations/_meta.ts` 加 separator 分組
+
+加入 4 個分組：團隊管理 / 資源配置 / 部署管理 / 監控
+
+### 確認圖片路徑
+
+en-US 頁面可能也有圖片路徑問題。執行健康檢查：
+
+```bash
+# 抽查幾個頁面的 HTTP 狀態
+curl -s -o /dev/null -w "%{http_code}\n" \
+  http://localhost:3000/docs/en-US/infrastructure/volumes \
+  http://localhost:3000/docs/en-US/operations/invite-member \
+  http://localhost:3000/docs/en-US/billing-legal/pricing/pricing-plans
+```
+
+如有 500，依 zh-TW 做法在 `public/` 補 symlink。
+
+### Commit 並開 PR
+
+```bash
+git add pages/en-US/
+git commit -m "docs: sync en-US IA structure with zh-TW restructure"
+```
+
+</Steps>
+
+---
+
+## 尚待確認事項
+
+| # | 問題 | 影響 |
+|---|------|------|
+| 1 | `community/forum.mdx` 和 `community/contribution.mdx` 是否需要保留/遷移？ | 兩個頁面 |
+| 2 | `tutorials/v0.mdx` 歸屬：`get-started/migration/` 還是其他？ | 一個頁面 |
+| 3 | `tutorials/github.mdx` 是否合併進 `deploy/github-integration.mdx`？ | 一個頁面 |
+| 4 | `advanced/builds.mdx` 的新歸屬（目前仍在 hidden）？ | 一個頁面 |
+| 5 | `operations/` 中新增的 7 個文件（scaling, previews 等）是否已有舊版對應？ | 7 個頁面 |

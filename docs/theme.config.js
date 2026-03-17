@@ -16,6 +16,15 @@ function base64Encode(str) {
   return buffer.toString('base64')
 }
 
+// ── i18n helper ────────────────────────────────────────────────────
+const t = {
+  tocTitle:       { 'zh-TW': '目錄', 'zh-CN': '目录', 'ja-JP': '目次', 'es-ES': 'En esta página' },
+  editLink:       { 'zh-TW': '編輯此頁面', 'zh-CN': '编辑此页面', 'ja-JP': 'このページを編集', 'es-ES': 'Editar esta página' },
+  feedback:       { 'zh-TW': '有問題嗎？給我們回饋 →', 'zh-CN': '有问题？给我们反馈 →', 'ja-JP': 'フィードバックを送る →', 'es-ES': '¿Preguntas? Danos tu opinión →' },
+  backToTop:      { 'zh-TW': '回到頂部', 'zh-CN': '回到顶部', 'ja-JP': 'トップに戻る', 'es-ES': 'Volver arriba' },
+  searchPlaceholder: { 'zh-TW': '搜尋文件…', 'zh-CN': '搜索文档…', 'ja-JP': 'ドキュメントを検索…', 'es-ES': 'Buscar documentación…' },
+}
+
 /**
  * @type {import('nextra-theme-docs').DocsThemeConfig}
  */
@@ -39,6 +48,34 @@ const config = {
     { locale: 'ja-JP', name: '日本語' },
     { locale: 'es-ES', name: 'Español' },
   ],
+  toc: {
+    title: () => {
+      const { locale } = useRouter()
+      return t.tocTitle[locale] || 'On This Page'
+    },
+    backToTop: () => {
+      const { locale } = useRouter()
+      return t.backToTop[locale] || 'Scroll to top'
+    },
+  },
+  editLink: {
+    content: () => {
+      const { locale } = useRouter()
+      return t.editLink[locale] || 'Edit this page'
+    },
+  },
+  feedback: {
+    content: () => {
+      const { locale } = useRouter()
+      return t.feedback[locale] || 'Question? Give us feedback →'
+    },
+  },
+  search: {
+    placeholder: () => {
+      const { locale } = useRouter()
+      return t.searchPlaceholder[locale] || 'Search documentation…'
+    },
+  },
 
   navbar: {
     extraContent: (

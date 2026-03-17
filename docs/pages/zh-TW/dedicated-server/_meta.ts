@@ -1,4 +1,5 @@
 export default {
-    "register": "註冊伺服器",
-    "operate": "維護伺服器"
+  index:    { display: 'hidden' },  // product landing — no extra sidebar link
+  register: '新增主機',
+  operate:  '管理伺服器',
 }

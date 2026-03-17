@@ -1,0 +1,158 @@
+---
+title: 匯入 Google AI Studio
+ogImageTitle: 匯入 Google AI Studio
+ogImageSubtitle: 匯入你的 Google AI Studio 專案
+---
+
+## 如何將 Google AI Studio 專案匯出到 GitHub
+
+本指南是取得 **Google AI Studio（Gemini）** 產生的程式碼並將其轉換為永久專案的最簡單方法，你可以保存、編輯並與世界分享。
+
+### 概述
+
+[**Google AI Studio**](https://aistudio.google.com/) 非常適合"Vibe Coding"——要求 Gemini 在幾秒內建構一個 React 應用、遊戲或工具。但是，AI Studio 是一個沙盒；為了擁有你的程式碼並在其上進行開發，你需要將其移動到 **GitHub**。
+
+**工作流程：**
+
+- **建立：** 在 **AI Studio（Build Mode）** 中產生你的應用。
+- **匯出：** 一鍵直接將程式碼推送到 **GitHub**。
+- **改進：** 複製到你的電腦（VS Code/Cursor）以進一步開發。
+
+> 📝 重要說明：本指南重點關注"Build"模式（建立完整應用/網站）。如果你的應用使用 API 金鑰（如 Gemini API），請記住出於安全考慮，你不應該將這些金鑰直接提交到 GitHub。我們將在本地設定步驟中介紹如何處理這個問題。
+
+### 前置條件
+
+- 一個 [Google AI Studio](https://aistudio.google.com/) 帳戶。
+- 一個 GitHub 帳戶。
+- 在電腦上安裝了 [VS Code](https://code.visualstudio.com/) 或 [Cursor](https://cursor.sh/)。
+- 本機安裝了 Node.js（建議 18+ 版本）。
+
+### **遷移概述**
+
+本計劃將你從臨時 AI 生成遷移到專業開發環境。
+
+- **來源：** Google AI Studio（Gemini 2.0 Flash/Pro）。
+- **橋接：** AI Studio GitHub 整合。
+- **目標：** 你的 GitHub 儲存庫。
+
+## 第 1 步：在 AI Studio 中建立你的應用
+
+在匯出之前，你需要有一個專案。我們將使用 **Build** 功能（有時稱為"Vibe Coding"）來產生完整的應用程式。
+
+1. **進入 Build 模式：**
+    - 轉到 Google AI Studio。
+    - 點擊 **新建** 並選擇 **應用**（或確保頂部的切換開關設定為"Build"而不是"Prompt"）。
+
+2. **向 AI 提示：**
+    - 輸入你的請求（例如：_"使用 React 和 Tailwind 建立具有賽博龐克美學的番茄鐘計時器"_）。
+    - 等待右側載入預覽。
+
+3. **改進（可選）：**
+    - 與 Gemini 聊天以調整設計（例如：_"讓開始按鈕變綠"_）。
+    - 一旦你對預覽滿意，就可以進行匯出了。
+
+## 第 2 步：將程式碼推送到 GitHub
+
+現在你的程式碼已準備就緒，你將把它從 Google 沙盒遷移到你自己的版本控制系統。
+
+1. **找到 GitHub 整合：**
+    - 查看程式碼/預覽窗格上方的標題欄。
+    - 點擊 **GitHub 圖示**（貓咪剪影）。
+    ![AI Studio github 圖示](https://cdn.zeabur.com/AI%20Studio%20Migration/AI%20Studio%20github%20icon.png)
+
+2. **授權（僅第一次）：**
+    - 如果你之前沒有連接過，彈出視窗將要求授權。
+    - 點擊 **連接帳戶** 並授權 Google AI Studio 代表你建立儲存庫。
+    ![登入 Github（如果你之前沒有）](https://cdn.zeabur.com/AI%20Studio%20Migration/Sign%20In%20Github%20%28If%20you%20didn%27t%20done%20it%20before%29.png)
+
+3. **設定儲存庫：**
+    - **儲存庫名稱：** 輸入一個簡潔的名稱（例如 `cyberpunk-pomodoro`）。_注意：不允許有空格。_
+    - **描述：** （可選）"由 Gemini 產生"。
+    - **可見性：** 選擇 **公開**（所有人都可見）或 **私有**（僅你可見）。
+    ![填寫儲存庫名稱和描述](https://cdn.zeabur.com/AI%20Studio%20Migration/fill%20in%20the%20repo%20name%20and%20description.png)
+    - 點擊 **推送**。
+    ![點擊暫存和提交](https://cdn.zeabur.com/AI%20Studio%20Migration/Click%20Stage%20and%20commit%20.png)
+
+4. **驗證：**
+    - 等待成功訊息：_"成功推送到 GitHub"_。
+    - 點擊訊息中提供的連結，在 GitHub 上打開你的新儲存庫。
+
+## 第 3 步：設定本機環境（Cursor）
+
+現在程式碼已在 GitHub 上，你將在本機設定它以驗證依賴項並進行生產調整。
+
+1. **複製儲存庫：**
+打開 Cursor，打開命令調板（`Cmd+Shift+P` 或 `Ctrl+Shift+P`），然後輸入 `> Git: Clone`。貼上你的新儲存庫 URL。
+
+    _或者，通過終端：_
+    ```bash
+    git clone <https://github.com/your-username/your-repo-name.git>
+    cd your-repo-name
+    ```
+
+2. **安裝依賴項：**
+AI Studio 專案通常會自動偵測套件管理器。檢查鎖定檔案（`pnpm-lock.yaml`、`package-lock.json` 或 `yarn.lock`）。
+
+    ```bash
+    # 如果使用 npm
+    npm install
+    # 如果使用 pnpm（在 AI Studio 中常見）
+    pnpm install
+    ```
+
+3. **環境設定：**
+    - 找到 `.env.example` 檔案（如果存在），並複製它以建立 `.env` 檔案。
+    - **重要：** 如果你的 AI Studio 應用使用了 API 金鑰（Gemini API 等），你必須手動將這些金鑰新增到本機的 `.env` 檔案中。AI Studio 出於安全考慮，不會將你的金鑰匯出到 GitHub。
+
+4. **本機測試：**
+執行開發伺服器以確保應用在 AI Studio 沙盒外運作。
+
+    ```bash
+    npm run dev
+    ```
+
+## 第 4 步：在本機編輯器中打開並安裝 Zeabur 擴充功能
+
+解壓縮檔案並在本機程式碼編輯器（如 VS Code 或 Cursor）中打開專案資料夾。為了使部署非常簡單，你將使用 Zeabur 擴充功能。
+
+1. 轉到編輯器中的擴充功能市集。
+2. 搜尋"Zeabur"並點擊 **安裝**。
+![下載 Zeabur 擴充功能.png](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
+
+## 第 5 步：一鍵部署
+
+現在是魔法時刻。安裝擴充功能後，部署你的專案只需點擊幾次。
+
+1. 點擊左側活動列中的新 Zeabur 圖示。
+2. 點擊 **"部署"** 按鈕。
+
+你的編輯器將要求權限在瀏覽器中打開連結。點擊 **"打開"**。
+
+![點擊部署和打開.png](https://cdn.zeabur.com/replit%20migration%20/Click%20Deploy%20and%20Open%20.png)
+
+## 第 6 步：讓 Zeabur AI 代理處理其餘的
+
+重定向到 Zeabur 後，平台的 AI 代理接管。它分析你的程式碼以理解專案的結構、依賴項和構建要求。
+
+Zeabur 代理將：
+
+- 識別你有一個全棧應用（例如 React 前端和 Express 後端）。
+- 自動設定構建和啟動命令。
+- 配置所有必要的服務。
+
+![Zeabur 代理處理其餘的.png](https://cdn.zeabur.com/new%20agent.png)
+
+你將被提示選擇一個專案和一個部署區域。之後，Zeabur 處理其餘的一切。
+
+你可以即時觀看你的服務構建並變得完全可運作。Zeabur 甚至在部署成功後立即為你提供一個即時網域。
+
+## 第 7 步：網域和網路
+
+1. 在 Zeabur 中點擊你的服務。
+2. 導航到 **網路** 索引標籤。
+3. 點擊 **產生網域**（取得 `.zeabur.app` 網域）或 **自訂網域**（連接你自己的網域）。
+4. 造訪該 URL。你的 Google AI Studio 應用現在是一個完全部署的生產就緒應用。
+
+---
+
+就是這樣！你已成功將專案從 Google AI Studio 上的原型遷移到 Zeabur 上的即時、生產就緒應用，無需編寫任何一行設定程式碼。這種無縫工作流讓你可以專注於最重要的事情：構建優秀的軟體。

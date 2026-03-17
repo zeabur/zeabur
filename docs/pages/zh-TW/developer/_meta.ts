@@ -1,5 +1,11 @@
 export default {
-  "use-api-key": "建立和使用 API 金鑰",
-  "public-api": "開放 API",
-  "websocket-guide": "WebSocket 連線指南"
+  index: { display: 'hidden' },
+
+  '--- tools ---': { type: 'separator', title: '工具' },
+  cli: 'CLI',
+
+  '--- api ---': { type: 'separator', title: 'API 參考' },
+  'public-api': 'GraphQL API',
+  'api-keys': 'API 金鑰',
+  'websocket-guide': 'WebSocket 即時訂閱',
 }

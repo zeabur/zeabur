@@ -1,0 +1,133 @@
+---
+title: Backup & Restore
+ogImageTitle: Backup & Restore
+ogImageSubtitle: Backup and Restore your Service on Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Backup & Restore
+
+Zeabur provides <abbr title="Backup stored separately from your host data">off-site backup</abbr> functionality for Dev Plan and above. Your backups will be securely and temporarily stored in our Amazon S3 storage space, which will not occupy space on your existing host and will not be subject to additional charges.
+
+For database services, Zeabur supports online and automatic backups, allowing your database to be backed up without downtime. For other <abbr title="Stateful, services with attached hard drives">stateful</abbr> services, we also provide offline off-site backup functionality after pausing.
+
+## Backup Your Service
+
+### Offline Offsite Backup
+
+<Callout>
+    If you have not mounted [volumes](/infrastructure/datastores/volumes), the backup feature will not be displayed. "Backup" will only back up the data within the volumes; other files in the service (such as source code) will not be backed up.
+</Callout>
+
+First, you need to suspend the service. Click on "Settings" → "Suspend Service" for the service to suspend it. Note that suspension will not cause data loss.
+
+Next, click on the "Backup" tab of your service, and you will see the "Backup" button.
+
+![backup tab](/infrastructure/datastores/backup-restore/backup-tab.webp)
+
+After clicking it, Zeabur will automatically back up your service in the background, and you can wait a few minutes. Once the backup is complete, you will see a download button, which you can click to download the backup file. The content of the backup file is the complete content of the folder where your service's volumes are mounted.
+
+![backup success](/infrastructure/datastores/backup-restore/backup-success.webp)
+
+After the backup is complete, you can go to "Overview" and click "Restart Service" to resume your service.
+
+### Online Offsite Backup
+
+Zeabur supports online offsite backup for databases such as PostgreSQL, MySQL, MariaDB, MongoDB, etc., allowing secure backups without pausing your service. Additionally, the "Online Offsite Backup" service also supports automatic backup.
+
+![online backup](/infrastructure/datastores/backup-restore/online-backup.webp)
+
+Similar to "Offline Offsite Backup," after clicking the "Backup" button, Zeabur will automatically back up in the background, and you can wait a few minutes. Once the backup is complete, you will also see a download button, which you can click to download the backup file.
+
+The content of the backup file will be a standard dump file of the database (for PostgreSQL, MySQL, it is a `.sql` file; for MongoDB, it is various `.bson` files). These backup files can be restored later using built-in database restoration tools (such as `psql` and `mongoimport`).
+
+### Automatic Backup
+
+Zeabur also supports automatic backups, currently offering daily backups at a set time.
+
+![auto backup](/infrastructure/datastores/backup-restore/auto-backup.webp)
+
+After enabling "Automatic Backup," you can set the backup time in UTC. It's best to choose a time when your service experiences the least traffic. You can refer to the "At your local time" hint next to it to see what this UTC period corresponds to in your local time.
+
+## Backup Retention Period and API Retrieval Method
+
+Zeabur **only retains your backups for 7 days**. Backups exceeding this period will be automatically deleted. If you need to store backups for a longer period, please download the backup files yourself and store them elsewhere.
+
+Currently, Zeabur does not yet support backing up to your own Amazon S3 storage space, but you can write a program to retrieve backups by calling the [Zeabur Public API](/operations/developer-tools/public-api) and store them in your own storage space of your choice:
+
+```graphql
+query Backups($environmentId: ObjectID!, $serviceId: ObjectID!) {
+  backups(environmentID: $environmentId, serviceID: $serviceId) {
+    createdAt
+    downloadURL
+    status
+  }
+}
+```
+
+Example response:
+
+```json
+{
+  "data": {
+    "backups": [
+      {
+        "createdAt": "2025-06-23T16:00:10.864Z",
+        "downloadURL": "https://backup.zeabur.com/XXXXXX",
+        "status": "SUCCESS"
+      }
+    ]
+  }
+}
+```
+
+You can use the backup file download link (`downloadURL`) along with the backup time (`createdAt`) to store the backup files.
+
+## Restore Backup
+
+This section briefly describes various methods for restoring the backup of your service.
+
+### Database
+
+#### PostgreSQL
+
+Refer to the "Restore Backup" section on the [PostgreSQL Service Template Page](https://zeabur.com/templates/B20CX0).
+
+#### MySQL and MariaDB
+
+Refer to the "Restore Backup" section on the [MySQL Service Template Page](https://zeabur.com/templates/DGLGRG) and the [MariaDB Service Template Page](https://zeabur.com/zh-TW/templates/46YKAR).
+
+#### Redis
+
+You can use the [Redis `RESTORE` command](https://redis.io/commands/restore) to restore a backup.
+
+Expand the Redis service's "Command to connect to your Redis" string, and you will see something like this:
+
+```bash
+redis-cli -h <host> -p <port> -a <password>
+```
+
+Insert the `<host>`, `<port>`, and `<password>` into the following command:
+
+```bash
+cat /path/to/backup.rdb | redis-cli -h <host> -p <port> -a <password> -x RESTORE <key> 0
+```
+
+#### MongoDB
+
+Expand the MongoDB service's "Command to connect to your MongoDB" string, and you will see something like this:
+
+```bash
+mongosh "<connection string>"
+```
+
+Copy the `<connection string>` into the terminal and execute the `mongorestore` command to restore the backup:
+
+```bash
+mongorestore "<connection string>" "<backup directory>"
+```
+
+### Volumes
+
+If you want to restore data within [volumes](/infrastructure/datastores/volumes), you can refer to the [File Management](/infrastructure/datastores/file-management) method to upload the backup files to the target directory and decompress them.

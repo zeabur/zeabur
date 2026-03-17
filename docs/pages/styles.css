@@ -1,28 +1,236 @@
+/* @imports must come first */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400;1,14..32,500&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap');
 @import 'nextra-theme-docs/style.css' layer(nextra-base);
 
+/* ─────────────────────────────────────────────────────────────────
+   BRAND TOKENS
+   ───────────────────────────────────────────────────────────────── */
+:root {
+  /* Zeabur Purple — primary accent */
+  --zb-purple:       #6300FF;
+  --zb-purple-muted: rgba(99, 0, 255, 0.08);
+  /* Zeabur Orange — content accents only (code, blockquote) */
+  --zb-orange:       #FF4400;
+  /* Sidebar section label — neutral gray (Cursor style) */
+  --zb-label:        rgba(0, 0, 0, 0.38);
+}
+
+.dark {
+  --zb-purple:       #a370ff;
+  --zb-purple-muted: rgba(163, 112, 255, 0.12);
+  --zb-orange:       #ff6b3d;
+  --zb-label:        rgba(255, 255, 255, 0.38);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   GLOBAL TYPOGRAPHY — Inter body + JetBrains Mono code
+   ───────────────────────────────────────────────────────────────── */
+body {
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system,
+               BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing:  antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code, pre, kbd, samp {
+  font-family: 'JetBrains Mono', ui-monospace, 'Cascadia Code',
+               'Fira Code', Menlo, Monaco, monospace;
+}
+
+/* Tighter tracking on headings */
+h1 { letter-spacing: -0.03em;  font-weight: 700; }
+h2 { letter-spacing: -0.02em;  font-weight: 600; }
+h3 { letter-spacing: -0.015em; font-weight: 600; }
+h4 { letter-spacing: -0.01em;  font-weight: 600; }
+
+/* ─────────────────────────────────────────────────────────────────
+   LAYOUT
+   ───────────────────────────────────────────────────────────────── */
 main {
-	padding-top: 64px !important;
+  padding-top: 64px !important;
 }
 
-html.light .white-logo {
-	display: none !important;
+/* ─────────────────────────────────────────────────────────────────
+   LOGO — LIGHT / DARK TOGGLE
+   ───────────────────────────────────────────────────────────────── */
+html.light .white-logo { display: none !important; }
+html.dark  .black-logo { display: none !important; }
+
+/* ─────────────────────────────────────────────────────────────────
+   NAVBAR — frosted glass
+   ───────────────────────────────────────────────────────────────── */
+.nextra-nav-container {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+.dark .nextra-nav-container {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+.nextra-nav-container-blur {
+  backdrop-filter:         blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  background-color: rgba(255, 255, 255, 0.85) !important;
+}
+.dark .nextra-nav-container-blur {
+  background-color: rgba(17, 17, 17, 0.85) !important;
 }
 
-html.dark .black-logo {
-	display: none !important;
+/* ─────────────────────────────────────────────────────────────────
+   SIDEBAR — SECTION SEPARATOR LABELS
+   Cursor style: tiny ALL-CAPS, muted gray, wide tracking
+   ───────────────────────────────────────────────────────────────── */
+.nextra-sidebar-container ul > li:not(:has(a, button)) {
+  font-size:      0.65rem !important;
+  font-weight:    600 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color:          var(--zb-label) !important;
+  padding:        0 0.5rem !important;
+  margin-top:     1.25rem !important;
+  margin-bottom:  0.15rem !important;
+  line-height:    1.4 !important;
+  user-select:    none !important;
+}
+/* No extra top margin for the very first separator */
+.nextra-sidebar-container ul > li:not(:has(a, button)):first-child {
+  margin-top: 0.5rem !important;
 }
 
+/* ─────────────────────────────────────────────────────────────────
+   SIDEBAR — LINK COLOR  (darker default — black/white, not gray)
+   ───────────────────────────────────────────────────────────────── */
+.nextra-sidebar-container li:not(.active) > a,
+.nextra-sidebar-container button {
+  color: rgba(0, 0, 0, 0.75) !important;
+}
+.dark .nextra-sidebar-container li:not(.active) > a,
+.dark .nextra-sidebar-container button {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SIDEBAR — ACTIVE LINK  (brand purple, no fill — must come AFTER
+   link-color rule so same-specificity !important wins by order)
+   ───────────────────────────────────────────────────────────────── */
+.nextra-sidebar-container li.active {
+  border-left: none !important;
+  margin-left: 0 !important;
+}
+
+.nextra-sidebar-container li.active > a {
+  background-color: transparent !important;
+  color:            var(--zb-purple) !important;
+  font-weight:      600 !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SIDEBAR — LINK SIZES  (compact 13px)
+   ───────────────────────────────────────────────────────────────── */
+.nextra-sidebar-container a,
+.nextra-sidebar-container button {
+  font-size: 0.8125rem !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SIDEBAR — HOVER  (uniform subtle gray — light and dark)
+   ───────────────────────────────────────────────────────────────── */
+.nextra-sidebar-container li:not(.active) a:hover,
+.nextra-sidebar-container button:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  transition: background-color 0.12s ease;
+}
+.dark .nextra-sidebar-container li:not(.active) a:hover,
+.dark .nextra-sidebar-container button:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SIDEBAR — VERTICAL GUIDE LINE  (very soft)
+   ───────────────────────────────────────────────────────────────── */
+.nextra-sidebar-container ul ul::before {
+  background-color: rgba(0, 0, 0, 0.06) !important;
+}
+.dark .nextra-sidebar-container ul ul::before {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SIDEBAR — FOLDER BUTTON  (regular weight, not semibold)
+   ───────────────────────────────────────────────────────────────── */
+.nextra-sidebar-container button._font-semibold {
+  font-weight: 500 !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   CONTENT — IMAGE CARDS  (lift-on-hover)
+   ───────────────────────────────────────────────────────────────── */
 main p:has(> img) {
-	border-radius: 12px;
-	box-shadow: 2px 2px 12px 2px rgba(0,0,0,0.3);
-	transition: all 0.2s ease-in-out;
-	overflow: hidden;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 14px rgba(0,0,0,0.07);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+main p:has(> img):hover {
+  box-shadow: 0 4px 10px rgba(0,0,0,0.10), 0 14px 36px rgba(0,0,0,0.10);
+  transform: translateY(-1px) scale(1.005);
 }
 
-main p:has(> img):hover {
-	box-shadow: 2px 2px 12px 2px rgba(0,0,0,0.5);
-	transform: scale(1.01);
+/* ─────────────────────────────────────────────────────────────────
+   CONTENT — INLINE CODE  (Zeabur orange tint)
+   ───────────────────────────────────────────────────────────────── */
+article :not(pre) > code {
+  background-color: rgba(255, 68, 0, 0.07) !important;
+  color:            #c03800 !important;
+  border-radius:    4px !important;
+  padding:          0.13em 0.4em !important;
+  font-size:        0.875em !important;
+}
+.dark article :not(pre) > code {
+  background-color: rgba(255, 107, 61, 0.13) !important;
+  color:            #ff8155 !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   CONTENT — PROSE LINKS  (Zeabur purple underline)
+   ───────────────────────────────────────────────────────────────── */
+article a:not([class]) {
+  color:                  var(--zb-purple);
+  text-decoration:        underline;
+  text-decoration-color:  rgba(99, 0, 255, 0.3);
+  text-underline-offset:  2px;
+  transition: text-decoration-color 0.15s ease;
+}
+article a:not([class]):hover {
+  text-decoration-color: var(--zb-purple);
+}
+.dark article a:not([class]) {
+  color:                 #a370ff;
+  text-decoration-color: rgba(163, 112, 255, 0.35);
+}
+.dark article a:not([class]):hover {
+  text-decoration-color: #a370ff;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   CONTENT — BLOCKQUOTE  (Zeabur orange left border)
+   ───────────────────────────────────────────────────────────────── */
+article blockquote {
+  border-left-color: var(--zb-orange) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   TOC (right sidebar) — purple hover & active heading
+   ───────────────────────────────────────────────────────────────── */
+.nextra-toc a {
+  transition: color 0.12s ease !important;
+}
+.nextra-toc a:hover,
+.nextra-toc a._text-primary-600 {
+  color: var(--zb-purple) !important;
+}
+.dark .nextra-toc a:hover,
+.dark .nextra-toc a._text-primary-600 {
+  color: var(--zb-purple) !important;
 }

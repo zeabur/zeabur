@@ -1,0 +1,40 @@
+---
+title: Templates
+ogImageTitle: Zeabur Templates
+ogImageSubtitle: Deploy popular services in one click
+---
+
+import { Callout } from 'nextra/components'
+
+# Templates
+
+Zeabur offers a rich catalog of **one-click deployment templates**, so you can launch WordPress, Postgres, Redis, n8n, Ghost, and hundreds of other popular services without any manual setup.
+
+## Browse Templates
+
+Visit [zeabur.com/templates](https://zeabur.com/templates) to explore the full catalog. Click any template to deploy it directly to your project.
+
+## How Templates Work
+
+Each template pre-defines:
+
+- Required services and versions
+- Environment variables and default configuration
+- Connection relationships between services
+
+When you deploy, Zeabur automatically creates all services defined in the template, wires them together, and makes your application immediately ready to use.
+
+## Using Templates in the Deploy Flow
+
+When creating a service, select "Deploy from Template" to search and apply a template directly from the deploy page.
+
+<Callout type="info">
+  Deploying a template creates a complete project containing all defined services. You can freely modify environment variables and settings after deployment.
+</Callout>
+
+## Create Your Own Template
+
+If you have a reusable architecture, you can package it as a template and share it with others:
+
+- [Create a Template from YAML](/en-US/template/template-in-code) — define your template structure in code
+- [Fork a Git Repository from Template](/en-US/template/fork-git-repo-from-template) — template deployment with Git repository integration

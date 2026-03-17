@@ -1,6 +1,14 @@
 export default {
+  // ── I. Primeros Pasos ─────────────────────────────────────────────────
   index: 'Introducción',
   'get-started': 'Empezar',
+  tutorials: 'Guías de Importación',
+
+  // ── II. Despliegue y Servicios ────────────────────────────────────────
+  '--- ii ---': {
+    type: 'separator',
+    title: 'Despliegue y Servicios',
+  },
   deploy: 'Implementar',
   template: 'Plantilla',
   marketplace: {
@@ -8,16 +16,34 @@ export default {
     href: 'https://zeabur.com/templates',
   },
   'ai-hub': 'Zeabur AI Hub',
-  'email': 'Zeabur Email',
-  'integrations': 'Integraciones',
+  email: 'Zeabur Email',
+  integrations: 'Integraciones',
+  guides: 'Guías',
+
+  // ── III. Infraestructura y Configuración ──────────────────────────────
+  '--- iii ---': {
+    type: 'separator',
+    title: 'Infraestructura y Configuración',
+  },
   'data-management': 'Gestión de Datos',
   networking: 'Redes',
-  guides: 'Guías',
+  'dedicated-server': 'Servidor Dedicado',
+
+  // ── IV. Operaciones y Herramientas ────────────────────────────────────
+  '--- iv ---': {
+    type: 'separator',
+    title: 'Operaciones y Herramientas',
+  },
   manage: 'Gestión de Proyectos',
-  legal: 'Legal y Políticas',
-  billing: 'Pagos y Facturación',
-  community: 'Comunidad',
   advanced: 'Avanzado',
   developer: 'Desarrollador',
-  tutorials: 'Guías de Importación',
+
+  // ── V. Facturación, Legal y Políticas ─────────────────────────────────
+  '--- v ---': {
+    type: 'separator',
+    title: 'Facturación, Legal y Políticas',
+  },
+  billing: 'Pagos y Facturación',
+  legal: 'Legal y Políticas',
+  community: 'Comunidad',
 }

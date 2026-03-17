@@ -1,0 +1,103 @@
+---
+title: Config Editor
+ogImageTitle: Config Editor
+ogImageSubtitle: Editing the Configuration of your Service.
+---
+
+import { Callout } from 'nextra/components'
+
+# Config Editor
+
+When executing services, you can customize various settings through configuration files. Zeabur provides a configuration file editor that allows you to specify the storage location and content of the configuration file through the editor. The configuration file is automatically mounted when the service starts.
+
+We use [NGINX](https://nginx.com/) to reverse proxy the internal [vaultwarden](https://github.com/dani-garcia/vaultwarden) service here, to demonstrate the process of using the configuration file editor to change the NGINX configuration file.
+
+## Step 1: Create a Project
+
+Create a Project in [Zeabur Dashboard](https://dash.zeabur.com/).
+
+## Step 2: Create Services
+
+Create Prebuilt Services for both NGINX and Vaultwarden in the above Project.
+
+![Create NGINX Service](/data-management/config-edit/create-nginx-service.en-US.png)
+
+![Create Vaultwarden Service](/data-management/config-edit/create-vultwarden-service.en-US.png)
+
+## Step 3: Edit NGINX Service Configuration File
+
+1. In the Services section, click the dropdown button in the `Settings` block of the NGINX service, find the `Configs` section, and click the `Open Config Editor` button to enter the configuration file editor.
+
+![Open Config Editor](/data-management/config-edit/open-config-editor.en-US.png)
+
+2. In the opened editor, click the `Add Config file` button to add a new configuration file. In the pop-up form's `Config Path` input box, enter the path and name of the configuration file. Here, we enter `/etc/nginx/nginx.conf`, then click the `Save Config` button.
+
+![Add Config File](/data-management/config-edit/create-new-config.en-US.png)
+
+<Callout>
+    The `Config Path` above needs to be the absolute path of the configuration file. Please adjust according to the actual situation.
+</Callout>
+
+3. Edit the content of the configuration file as needed. Here, we add a `server` block to reverse proxy the Vaultwarden service.
+
+```nginx
+worker_processes  4;
+error_log  stderr;
+worker_rlimit_nofile 8192;
+
+events {}
+
+http {
+  default_type application/octet-stream;
+  log_format   main '$remote_addr - $remote_user [$time_local]  $status '
+    '"$request" $body_bytes_sent "$http_referer" '
+    '"$http_user_agent" "$http_x_forwarded_for"';
+  access_log   /dev/stdout  main;
+  sendfile     on;
+  tcp_nopush   on;
+  server_names_hash_bucket_size 128; # this seems to be required for some vhosts
+
+  map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      "";
+  }
+
+  server {
+    listen 80 default_server;
+    server_name _;
+
+    location / {
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection $connection_upgrade;
+
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+
+      proxy_pass http://vaultwarden.zeabur.internal:80;
+    }
+  }
+}
+```
+
+To allow others to access our internal Vaultwarden service through the NGINX service, we use the `proxy_pass http://vaultwarden.zeabur.internal:80;` directive in NGINX, indicating that NGINX should proxy all requests to this location to Vaultwarden. We use the [private network](/deploy/private-networking) feature to access Vaultwarden within our private network using a fixed hostname.
+
+4. Click the `Save` button to save the configuration.
+
+![Save Config](/data-management/config-edit/save-config.en-US.png)
+
+## Step 4: Restart the Service
+
+In the above steps, we have completed editing the configuration file. Next, we need to restart the service. Find the `Instructions` section and click the `Restart` button to restart the service so that the configuration file takes effect.
+
+![Restart Service](/data-management/config-edit/restart-service.en-US.png)
+
+[After binding the domain to the NGINX service](/deploy/domain-binding), you can access the Vaultwarden service through the domain.
+
+![Access Vaultwarden](/data-management/config-edit/vultwarden-service.en-US.png)
+
+## Pre-specify Configuration Files in Template YAML
+
+You can use `configs` in the "Service Specification" to pre-specify the configuration files for this service. For more information, refer to the article, [Create Template from YAML](/template/template-in-code).
