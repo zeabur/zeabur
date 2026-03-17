@@ -10,7 +10,7 @@ import { Callout } from 'nextra/components'
 
 On Zeabur, you can mount Volumes to persistently store your data within a service. Typically, services on Zeabur reset data to default values upon restarting (this is known as <abbr title="Stateless">stateless</abbr>), but if you need to persist data (making a service <abbr title="Stateful">stateful</abbr>), you can mount the directory that needs persistent storage onto Volumes. This way, even if the service restarts, the data will not be lost.
 
-For pricing information on Volumes, please refer to [our pricing page](/billing-legal/pricing/pricing-plans).
+For pricing information on Volumes, please refer to [our pricing page](/pricing/pricing-plans).
 
 <Callout type="info">
     If you only want to upload configuration files, using the [Config Editor](/data-management/config-edit) is more convenient and incurs no additional cost.
@@ -25,7 +25,7 @@ For pricing information on Volumes, please refer to [our pricing page](/billing-
 
 Open the service page where you want to mount Volumes, click on the "Volumes" tab, and you will see a "Mount Volumes" button. After clicking it, you will see two fields:
 
-![mount volumes](/infrastructure/datastores/volumes/mount-volumes.webp)
+![mount volumes](/data-management/volumes/mount-volumes.webp)
 
 - **Volume ID** is a unique identifier for this Volume. You can use a simple name (such as `data`, `cache`, `photos`) to easily represent this Volume. This identifier is unrelated to the actual mounting result.
 - **Mount Directory** is the directory where the Volume will be mounted, essentially the "folder that needs persistent storage." If you want to persistently store the `/data` directory in the service, enter `/data` here.
@@ -36,7 +36,7 @@ Open the service page where you want to mount Volumes, click on the "Volumes" ta
 
 If you want to stop billing for a particular Volume, click the "Delete" button next to the Volume. Deleting it will stop the billing for this space. Note that after deletion, the data in this directory will be **completely cleared** and **cannot be recovered**.
 
-![unmount volumes](/infrastructure/datastores/volumes/unmount-volumes.webp)
+![unmount volumes](/data-management/volumes/unmount-volumes.webp)
 
 ## Using Volumes in Template YAML
 

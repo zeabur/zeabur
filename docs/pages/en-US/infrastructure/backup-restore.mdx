@@ -17,18 +17,18 @@ For database services, Zeabur supports online and automatic backups, allowing yo
 ### Offline Offsite Backup
 
 <Callout>
-    If you have not mounted [volumes](/infrastructure/datastores/volumes), the backup feature will not be displayed. "Backup" will only back up the data within the volumes; other files in the service (such as source code) will not be backed up.
+    If you have not mounted [volumes](/infrastructure/volumes), the backup feature will not be displayed. "Backup" will only back up the data within the volumes; other files in the service (such as source code) will not be backed up.
 </Callout>
 
 First, you need to suspend the service. Click on "Settings" → "Suspend Service" for the service to suspend it. Note that suspension will not cause data loss.
 
 Next, click on the "Backup" tab of your service, and you will see the "Backup" button.
 
-![backup tab](/infrastructure/datastores/backup-restore/backup-tab.webp)
+![backup tab](/data-management/backup/backup-tab.webp)
 
 After clicking it, Zeabur will automatically back up your service in the background, and you can wait a few minutes. Once the backup is complete, you will see a download button, which you can click to download the backup file. The content of the backup file is the complete content of the folder where your service's volumes are mounted.
 
-![backup success](/infrastructure/datastores/backup-restore/backup-success.webp)
+![backup success](/data-management/backup/backup-success.webp)
 
 After the backup is complete, you can go to "Overview" and click "Restart Service" to resume your service.
 
@@ -36,7 +36,7 @@ After the backup is complete, you can go to "Overview" and click "Restart Servic
 
 Zeabur supports online offsite backup for databases such as PostgreSQL, MySQL, MariaDB, MongoDB, etc., allowing secure backups without pausing your service. Additionally, the "Online Offsite Backup" service also supports automatic backup.
 
-![online backup](/infrastructure/datastores/backup-restore/online-backup.webp)
+![online backup](/data-management/backup/online-backup.webp)
 
 Similar to "Offline Offsite Backup," after clicking the "Backup" button, Zeabur will automatically back up in the background, and you can wait a few minutes. Once the backup is complete, you will also see a download button, which you can click to download the backup file.
 
@@ -46,7 +46,7 @@ The content of the backup file will be a standard dump file of the database (for
 
 Zeabur also supports automatic backups, currently offering daily backups at a set time.
 
-![auto backup](/infrastructure/datastores/backup-restore/auto-backup.webp)
+![auto backup](/data-management/backup/auto-backup.webp)
 
 After enabling "Automatic Backup," you can set the backup time in UTC. It's best to choose a time when your service experiences the least traffic. You can refer to the "At your local time" hint next to it to see what this UTC period corresponds to in your local time.
 
@@ -130,4 +130,4 @@ mongorestore "<connection string>" "<backup directory>"
 
 ### Volumes
 
-If you want to restore data within [volumes](/infrastructure/datastores/volumes), you can refer to the [File Management](/infrastructure/datastores/file-management) method to upload the backup files to the target directory and decompress them.
+If you want to restore data within [volumes](/infrastructure/volumes), you can refer to the [File Management](/infrastructure/file-management) method to upload the backup files to the target directory and decompress them.

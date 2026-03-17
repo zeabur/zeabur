@@ -19,17 +19,17 @@ A **domain** is a unique identifier for your service, allowing it to be accessed
 
 To bind a domain to your service, navigate to your service in the Zeabur Dashboard and expand the **Domains** tab. You'll have two options for creating a domain for your service.
 
-![Two options to bind a domain](/infrastructure/networking/public-networking/two-buttons-to-bind-domain.webp)
+![Two options to bind a domain](/networking/public/two-buttons-to-bind-domain.webp)
 
 ### Generate Domain
 
 The "**Generate Domain**" option allows you to create a domain name with the `zeabur.app` suffix, such as `your-service.zeabur.app`, provided it is available. This is the simplest way to make your service publicly accessible.
 
-![Binding a zeabur.app domain](/infrastructure/networking/public-networking/binding-zeabur-app-domain.webp)
+![Binding a zeabur.app domain](/networking/public/binding-zeabur-app-domain.webp)
 
 Once your `zeabur.app` domain is set up, you can access your service using the domain name provided by Zeabur.
 
-![Bound zeabur.app domain](/infrastructure/networking/public-networking/bound-zeabur-app-domain.webp)
+![Bound zeabur.app domain](/networking/public/bound-zeabur-app-domain.webp)
 
 ### Custom Domain
 
@@ -37,21 +37,21 @@ To use your own domain name, select the "**Custom Domain**" option.
 
 First, enter your domain name in the input box and click the "Create Domain" button.
 
-![Binding a custom domain](/infrastructure/networking/public-networking/binding-custom-domain.webp)
+![Binding a custom domain](/networking/public/binding-custom-domain.webp)
 
 After adding your domain name, you'll see the DNS information for your domain.
 
-![Setting DNS for your domain](/infrastructure/networking/public-networking/custom-domain-setting-dns.webp)
+![Setting DNS for your domain](/networking/public/custom-domain-setting-dns.webp)
 
 You'll need to manually configure the DNS records for your domain. For example, if you're using Cloudflare, you can add the required record in the "DNS" → "Record" section using the configuration provided by Zeabur. If you use a different DNS provider, refer to their documentation for instructions on adding a CNAME record.
 
-![Configuring DNS in Cloudflare](/infrastructure/networking/public-networking/configure-dns-record-in-cloudflare.webp)
+![Configuring DNS in Cloudflare](/networking/public/configure-dns-record-in-cloudflare.webp)
 
 You can use Cloudflare's CDN (orange cloud enabled) to reduce traffic costs and improve browsing speed. However, for Cloudflare [SSL/TLS encryption mode](https://developers.cloudflare.com/ssl/origin-configuration/ssl-modes/#custom-ssltls), you **cannot select Full (Strict)**, as it may cause connection failures due to self-signed certificates. Additionally, Cloudflare does not support SSL certificate issuance for custom domains beyond 3rd-level domains (i.e., `*.example.com` is supported, but `*.sub.example.com` is not). In this case, you can switch back to direct connection to Zeabur servers (orange cloud disabled).
 
 After configuring the DNS record, it may take a few minutes for the changes to propagate. Once complete, you can access your service using your custom domain.
 
-![Bound custom domain](/infrastructure/networking/public-networking/bound-custom-domain.webp)
+![Bound custom domain](/networking/public/bound-custom-domain.webp)
 
 ### Root Domain DNS Settings
 
@@ -64,7 +64,7 @@ If you're using other DNS providers and Zeabur provides you with a CNAME record,
 1. When you bind your domain, Zeabur will give you a `CNAME` pointing to a hostname like `hkg1.clusters.zeabur.com`.
 2. Then, open [Google Admin Toolbox - Dig](https://toolbox.googleapps.com/apps/dig/#A/) and enter this hostname.
 
-   ![Google Admin Toolbox - Dig](/infrastructure/networking/public-networking/google-dig-tool.webp)
+   ![Google Admin Toolbox - Dig](/networking/public/google-dig-tool.webp)
    <br />
 
 3. You'll see an IP address for an `A` record. Enter this IP address in your corresponding DNS field.
@@ -75,23 +75,23 @@ Please note that Zeabur may update the A record address that the CNAME points to
 
 To redirect your domain to another URL, use the "**Redirect to another domain**" feature. This will temporarily (307) redirect your domain to the specified target domain.
 
-![Binding custom domain for redirection](/infrastructure/networking/public-networking/binding-custom-domain-for-redirect.webp)
+![Binding custom domain for redirection](/networking/public/binding-custom-domain-for-redirect.webp)
 
 ## Deleting Domains
 
 To delete a domain, click the trash bin icon next to the domain name.
 
-![Delete button](/infrastructure/networking/public-networking/delete-button.webp)
+![Delete button](/networking/public/delete-button.webp)
 
 Then, enter your domain name in the input box and click the "Delete" button to confirm.
 
-![Deleting domain modal](/infrastructure/networking/public-networking/deleting-domain-modal.webp)
+![Deleting domain modal](/networking/public/deleting-domain-modal.webp)
 
 ## Using the Assigned Hostname and Port
 
 For non-HTTP services, you can access them via the assigned hostname and port, commonly referred to as "port forwarding." For instance, if you have a Minecraft server running on port `25565`, it can be accessed using the assigned hostname and port, such as `hkg1.clusters.zeabur.com:34567`.
 
-![Assigned hostname and port](/infrastructure/networking/public-networking/assigned-hostname-and-port.webp)
+![Assigned hostname and port](/networking/public/assigned-hostname-and-port.webp)
 
 While the hostname and port are generally consistent, there may be rare instances where they change. It's advisable not to assume they are permanently fixed. You can also configure custom port forwarding within your service.
 
