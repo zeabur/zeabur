@@ -1,4 +1,6 @@
 export default {
     "register": "Registrar Servidor",
-    "operate": "Mantener Servidor"
+    "operate": "Mantener Servidor",
+    "shared-cluster": "Clúster Compartido (Descontinuado)",
+    "firewall": "Firewall y Seguridad",
 }

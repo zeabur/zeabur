@@ -4,10 +4,131 @@ ogImageTitle: 從 Heroku 遷移
 ogImageSubtitle: 將您的應用程式從 Heroku 遷移到 Zeabur
 ---
 
+import { Callout } from 'nextra/components'
+
 # 從 Heroku 遷移
 
-本文檔即將推出。我們正在準備完整的 Heroku 遷移指南。
+本指南將帶您逐步將應用程式從 Heroku 遷移到 Zeabur。大多數 Heroku 應用程式都是以 Git 為基礎，並使用標準語言 buildpack，因此遷移過程非常順暢——Zeabur 能零設定自動偵測您的專案。
 
-如果您需要幫助，請聯繫我們的 [Discord 社群](https://zeabur.com/dc) 或查看 [快速入門指南](/get-started/quick-start)。
+## 開始之前
 
+- 一個 [Zeabur](https://zeabur.com/) 帳號。
+- 您的應用程式原始碼存放在 Git 儲存庫中。
+- 可存取您的 Heroku 主控台或 CLI（`heroku`）。
 
+## 步驟 1：連結 Git 儲存庫
+
+大多數 Heroku 應用程式已經有對應的 Git 儲存庫。如果您的應用程式也是如此：
+
+1. 登入 [Zeabur 主控台](https://dash.zeabur.com/)。
+2. 建立新專案並選擇部署區域。
+3. 點選 **Add Service** → **Git**，連結您的 GitHub、GitLab 或 Bitbucket 帳號。
+4. 選擇您的應用程式所在的儲存庫。
+
+Zeabur 會自動偵測 Node.js、Python、Ruby、Go、Java、PHP 及許多其他語言——不需要 `Procfile`。
+
+<Callout>
+如果您的程式碼僅存在於 Heroku Git 中（不在 GitHub 上），請先將它推送到 GitHub 儲存庫：
+
+```bash
+heroku git:clone -a my-app
+cd my-app
+git remote add github https://github.com/your-username/my-app.git
+git push github main
+```
+</Callout>
+
+## 步驟 2：轉移環境變數
+
+Heroku 將設定儲存在 **Config Vars** 中。匯出它們並新增到 Zeabur：
+
+1. **列出您的 Heroku config vars：**
+
+   ```bash
+   heroku config -a my-app
+   ```
+
+2. 在 Zeabur 主控台中，點選您的服務並前往 **Variables** 分頁。
+3. 逐一新增每個變數，或使用 **Bulk Edit** 功能一次貼上多組鍵值對。
+
+<Callout>
+您不需要在 Zeabur 上設定 `PORT`。Zeabur 會自動分配並注入連接埠。如果您的應用程式會從環境變數讀取 `PORT`（大多數 Heroku 應用程式都會），則無需任何調整即可正常運作。
+</Callout>
+
+## 步驟 3：遷移資料庫
+
+如果您使用 Heroku Postgres：
+
+1. **建立備份並下載：**
+
+   ```bash
+   heroku pg:backups:capture -a my-app
+   heroku pg:backups:download -a my-app
+   ```
+
+   這會下載一個 `latest.dump` 檔案，為 Postgres 自訂格式。
+
+2. **在 Zeabur 上建立資料庫**：點選 **Add Service** → **Marketplace** → **PostgreSQL**。
+
+3. **匯入資料**，使用 Zeabur PostgreSQL 的連線字串：
+
+   ```bash
+   pg_restore -d "your-zeabur-postgres-connection-string" --no-owner latest.dump
+   ```
+
+4. **更新應用程式的資料庫連線**：在 Zeabur 的 **Variables** 分頁中設定 `DATABASE_URL`。您可以使用 Zeabur 的變數參照 `${POSTGRES_URI}` 來自動注入 Marketplace 服務的連線字串。
+
+<Callout>
+若使用 Heroku Redis，可使用 `redis-cli --rdb` 匯出資料，再匯入到 Zeabur Marketplace 中的 Redis 執行個體。
+</Callout>
+
+## 步驟 4：替換 Heroku Add-on
+
+Heroku 的 add-on 在 Zeabur Marketplace 中有對應的替代方案，或可作為外部服務連接：
+
+| Heroku Add-on | Zeabur 對應方案 |
+|---|---|
+| Heroku Postgres | Marketplace → PostgreSQL |
+| Heroku Redis | Marketplace → Redis |
+| Heroku Scheduler | 使用系統 cron 或排程服務 |
+| Papertrail（日誌） | 主控台內建日誌檢視器 |
+| SendGrid | 透過環境變數連接 |
+| Cloudinary | 透過環境變數連接 |
+
+對於屬於外部 SaaS 產品的 add-on（如 SendGrid、Cloudinary 等），只需繼續使用它們——將 API 金鑰轉移到 Zeabur 的 **Variables** 分頁即可。
+
+## 步驟 5：設定自訂網域
+
+1. 在 Zeabur 主控台中，點選您的服務並前往 **Networking** 分頁。
+2. 點選 **Generate Domain** 取得免費的 `.zeabur.app` 子網域，或點選 **Custom Domain** 新增您自己的網域。
+3. 更新您的 DNS 記錄：
+   - 移除舊的 Heroku DNS 目標（指向 `*.herokuapp.com` 或 Heroku SSL 端點的 CNAME）。
+   - 新增 CNAME 記錄，指向 Zeabur 提供的目標位址。
+
+## 步驟 6：驗證並上線
+
+1. 推送一個 commit 來觸發部署（或在主控台點選 **Redeploy**）。
+2. 檢查 Zeabur 的 **Logs** 分頁，確認應用程式成功啟動。
+3. 測試應用程式的關鍵流程（身份驗證、資料庫讀寫、API 呼叫）。
+4. 確認無誤後，將正式環境的 DNS 指向 Zeabur。
+
+## 主要差異：Heroku vs Zeabur
+
+| 功能 | Heroku | Zeabur |
+|---|---|---|
+| 設定方式 | `Procfile` + buildpack | 自動偵測（零設定） |
+| 部署方式 | `git push heroku main` | Git push 到 GitHub（自動部署） |
+| 擴展 | Dyno 類型（Basic、Standard、Performance） | 按使用量計費，自動擴展 |
+| 休眠行為 | Free/Basic dyno 閒置 30 分鐘後休眠 | 不休眠——持續運行 |
+| Slug 大小限制 | 壓縮後 500 MB | 無 slug 大小限制 |
+| 資料庫 | Heroku Postgres（受管理） | Marketplace（PostgreSQL、MySQL、MongoDB、Redis 等） |
+| 附加服務 | Heroku Add-on 市集 | Zeabur Marketplace + 外部服務 |
+| 計價模式 | 按 dyno 月費計價 | 按使用量計費，用多少付多少 |
+
+<Callout>
+Heroku 的 `Procfile` 在 Zeabur 上不是必要的。Zeabur 會自動偵測您的啟動指令。如果需要自訂，可以在服務設定的 **Build & Deploy** 中進行設定。
+</Callout>
+
+---
+
+完成了！您的 Heroku 應用程式現在已在 Zeabur 上運行，不再需要 dyno、Procfile 和 slug 大小限制。如果遇到任何問題，歡迎到我們的 [Discord 社群](https://zeabur.com/dc) 尋求協助。

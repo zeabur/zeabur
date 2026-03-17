@@ -1,0 +1,85 @@
+---
+title: Payment Methods
+ogImageTitle: Payment Methods
+ogImageSubtitle: Credit card, Alipay, and other payment options
+---
+
+import { Callout } from 'nextra/components'
+
+# Payment Methods
+
+Zeabur's payment system is powered by [Stripe](https://stripe.com/) and supports multiple payment methods.
+
+## Supported Payment Methods
+
+### Credit / Debit Cards
+
+Zeabur accepts all Stripe-supported credit and debit cards, billed in **USD**:
+
+- Visa
+- Mastercard
+- American Express
+- JCB
+- UnionPay
+
+### Alipay
+
+If you don't have a Stripe-compatible credit card, you can use Alipay to **add credits** and pay in CNY.
+
+Credits added via Alipay are converted to Zeabur Credits, which offset subscription fees and resource usage.
+
+## Payment Flow
+
+### Subscribe to a Paid Plan
+
+1. Go to the [Zeabur Pricing page](https://zeabur.com/pricing) or the [Dashboard billing page](https://dash.zeabur.com/account/billing).
+2. Select the plan you want ([Dev Plan](/pricing/dev-plan) or [Team Plan](/pricing/team-plan)).
+3. Enter your credit card information (or use an already-linked card) and complete payment.
+4. Your plan takes effect immediately after successful payment.
+
+### Add Credits
+
+1. Go to the [Dashboard billing page](https://dash.zeabur.com/account/billing).
+2. Click the top-up button in the "Credits" section.
+3. Select an amount and complete payment via credit card or Alipay.
+4. Credits are instantly added to your account balance.
+
+![Add Credits](/billing/subscription/get-more-credits.png)
+
+## Managing Payment Methods
+
+### Link a Credit Card
+
+On the [billing page](https://dash.zeabur.com/account/billing), enter your credit card details in the "Payment Method" section and click "Add".
+
+### Change Credit Card
+
+1. Find the "**Unbind**" button on the billing page and unbind your current card.
+2. Link a new credit card.
+
+### Unbind
+
+If you've cancelled all paid subscriptions, you can unbind your credit card.
+
+<Callout type="warning">
+If you have an active paid subscription, unbinding your credit card may cause the next billing attempt to fail. Make sure to cancel your subscription or set up an alternative payment method first.
+</Callout>
+
+## FAQ
+
+### What if my credit card is declined?
+
+- Check that the card has sufficient balance.
+- Verify the card supports international transactions (USD).
+- Contact your card issuer to check for blocked transactions.
+- Try a different credit card or use Alipay to add credits.
+
+### Can I pay with PayPal?
+
+PayPal is not currently supported. Please use a credit card or Alipay.
+
+### What currency am I billed in?
+
+All charges are in US Dollars (USD). Your credit card issuer may charge a foreign transaction fee — check with your bank for details.
+
+For other payment questions, reach out on our [Discord server](https://zeabur.com/dc).

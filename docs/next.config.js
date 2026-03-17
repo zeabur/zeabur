@@ -65,25 +65,14 @@ export default withNextra({
       },
       {
         source: '/deploy/domain-binding',
-        destination: '/infrastructure/public-networking',
+        destination: '/deploy/public-networking',
         permanent: true,
       },
       {
         source: '/:locale/deploy/domain-binding',
-        destination: '/:locale/infrastructure/public-networking',
+        destination: '/:locale/deploy/public-networking',
         permanent: true,
       },
-      {
-        source: '/deploy/private-networking',
-        destination: '/infrastructure/private-networking',
-        permanent: true,
-      },
-      {
-        source: '/:locale/deploy/private-networking',
-        destination: '/:locale/infrastructure/private-networking',
-        permanent: true,
-      },
-
       // The GUI of Create Template is temporarily removed
       // since it is unmaintained. We may add it back in the future.
       {
@@ -100,32 +89,32 @@ export default withNextra({
       // deploy -> infrastructure (was data-management)
       {
         source: '/deploy/backup',
-        destination: '/infrastructure/backup-restore',
+        destination: '/operations/backup-restore',
         permanent: true,
       },
       {
         source: '/:locale/deploy/backup',
-        destination: '/:locale/infrastructure/backup-restore',
+        destination: '/:locale/operations/backup-restore',
         permanent: true,
       },
       {
         source: '/deploy/config-edit',
-        destination: '/infrastructure/config-file-management',
+        destination: '/operations/config-file-management',
         permanent: true,
       },
       {
         source: '/:locale/deploy/config-edit',
-        destination: '/:locale/infrastructure/config-file-management',
+        destination: '/:locale/operations/config-file-management',
         permanent: true,
       },
       {
         source: '/deploy/file-management',
-        destination: '/infrastructure/file-management',
+        destination: '/operations/file-management',
         permanent: true,
       },
       {
         source: '/:locale/deploy/file-management',
-        destination: '/:locale/infrastructure/file-management',
+        destination: '/:locale/operations/file-management',
         permanent: true,
       },
       {
@@ -182,16 +171,21 @@ export default withNextra({
         destination: '/:locale/rewards/:path*',
         permanent: true,
       },
-      {
-        source: '/billing-legal/legal/:path*',
-        destination: '/legal/:path*',
-        permanent: true,
-      },
-      {
-        source: '/:locale/billing-legal/legal/:path*',
-        destination: '/:locale/legal/:path*',
-        permanent: true,
-      },
+      // billing-legal/legal → dissolved locations (avoid redirect chains)
+      { source: '/billing-legal/legal/privacy-policy',       destination: '/privacy-policy', permanent: true },
+      { source: '/:locale/billing-legal/legal/privacy-policy', destination: '/:locale/privacy-policy', permanent: true },
+      { source: '/billing-legal/legal/privacy',              destination: '/privacy-policy', permanent: true },
+      { source: '/:locale/billing-legal/legal/privacy',       destination: '/:locale/privacy-policy', permanent: true },
+      { source: '/billing-legal/legal/terms-of-service',     destination: '/terms-of-service', permanent: true },
+      { source: '/:locale/billing-legal/legal/terms-of-service', destination: '/:locale/terms-of-service', permanent: true },
+      { source: '/billing-legal/legal/terms',                destination: '/terms-of-service', permanent: true },
+      { source: '/:locale/billing-legal/legal/terms',         destination: '/:locale/terms-of-service', permanent: true },
+      { source: '/billing-legal/legal/fair-use-guidelines',  destination: '/compliance/fair-use-guidelines', permanent: true },
+      { source: '/:locale/billing-legal/legal/fair-use-guidelines', destination: '/:locale/compliance/fair-use-guidelines', permanent: true },
+      { source: '/billing-legal/legal/fair-use-guideline',   destination: '/compliance/fair-use-guidelines', permanent: true },
+      { source: '/:locale/billing-legal/legal/fair-use-guideline', destination: '/:locale/compliance/fair-use-guidelines', permanent: true },
+      { source: '/billing-legal/legal/abuse-report',         destination: '/compliance/abuse-report', permanent: true },
+      { source: '/:locale/billing-legal/legal/abuse-report',  destination: '/:locale/compliance/abuse-report', permanent: true },
       {
         source: '/billing-legal',
         destination: '/pricing/pricing-plans',
@@ -233,37 +227,69 @@ export default withNextra({
       { source: '/developer/use-api-key',          destination: '/developer/api-keys', permanent: true },
       { source: '/:locale/developer/use-api-key',   destination: '/:locale/developer/api-keys', permanent: true },
 
-      // legal renames
-      { source: '/legal/terms',                    destination: '/legal/terms-of-service', permanent: true },
-      { source: '/:locale/legal/terms',             destination: '/:locale/legal/terms-of-service', permanent: true },
-      { source: '/legal/privacy',                  destination: '/legal/privacy-policy', permanent: true },
-      { source: '/:locale/legal/privacy',           destination: '/:locale/legal/privacy-policy', permanent: true },
-      { source: '/legal/fair-use-guideline',        destination: '/legal/fair-use-guidelines', permanent: true },
-      { source: '/:locale/legal/fair-use-guideline', destination: '/:locale/legal/fair-use-guidelines', permanent: true },
+      // legal → standalone pages / compliance (dissolved)
+      { source: '/legal/terms',                    destination: '/terms-of-service', permanent: true },
+      { source: '/:locale/legal/terms',             destination: '/:locale/terms-of-service', permanent: true },
+      { source: '/legal/terms-of-service',          destination: '/terms-of-service', permanent: true },
+      { source: '/:locale/legal/terms-of-service',  destination: '/:locale/terms-of-service', permanent: true },
+      { source: '/legal/privacy',                  destination: '/privacy-policy', permanent: true },
+      { source: '/:locale/legal/privacy',           destination: '/:locale/privacy-policy', permanent: true },
+      { source: '/legal/privacy-policy',            destination: '/privacy-policy', permanent: true },
+      { source: '/:locale/legal/privacy-policy',    destination: '/:locale/privacy-policy', permanent: true },
+      { source: '/legal/fair-use-guideline',        destination: '/compliance/fair-use-guidelines', permanent: true },
+      { source: '/:locale/legal/fair-use-guideline', destination: '/:locale/compliance/fair-use-guidelines', permanent: true },
+      { source: '/legal/fair-use-guidelines',       destination: '/compliance/fair-use-guidelines', permanent: true },
+      { source: '/:locale/legal/fair-use-guidelines', destination: '/:locale/compliance/fair-use-guidelines', permanent: true },
+      { source: '/legal/abuse-report',              destination: '/compliance/abuse-report', permanent: true },
+      { source: '/:locale/legal/abuse-report',       destination: '/:locale/compliance/abuse-report', permanent: true },
+      { source: '/legal',                           destination: '/privacy-policy', permanent: true },
+      { source: '/:locale/legal',                    destination: '/:locale/privacy-policy', permanent: true },
+
+      // pricing/subscription-billing → subscription
+      { source: '/pricing/subscription-billing',     destination: '/subscription', permanent: true },
+      { source: '/:locale/pricing/subscription-billing', destination: '/:locale/subscription', permanent: true },
 
       // ═══════════════════════════════════════════════════════════════
       // IA Restructure: old hidden dirs → new canonical paths
       // ═══════════════════════════════════════════════════════════════
 
-      // data-management → infrastructure
-      { source: '/data-management/volumes',              destination: '/infrastructure/volumes', permanent: true },
-      { source: '/:locale/data-management/volumes',       destination: '/:locale/infrastructure/volumes', permanent: true },
-      { source: '/data-management/config-edit',           destination: '/infrastructure/config-file-management', permanent: true },
-      { source: '/:locale/data-management/config-edit',    destination: '/:locale/infrastructure/config-file-management', permanent: true },
-      { source: '/data-management/file-management',       destination: '/infrastructure/file-management', permanent: true },
-      { source: '/:locale/data-management/file-management', destination: '/:locale/infrastructure/file-management', permanent: true },
-      { source: '/data-management/backup',                destination: '/infrastructure/backup-restore', permanent: true },
-      { source: '/:locale/data-management/backup',         destination: '/:locale/infrastructure/backup-restore', permanent: true },
-      { source: '/data-management/restore',               destination: '/infrastructure/backup-restore', permanent: true },
-      { source: '/:locale/data-management/restore',        destination: '/:locale/infrastructure/backup-restore', permanent: true },
+      // data-management → operations (storage)
+      { source: '/data-management/volumes',              destination: '/operations/volumes', permanent: true },
+      { source: '/:locale/data-management/volumes',       destination: '/:locale/operations/volumes', permanent: true },
+      { source: '/data-management/config-edit',           destination: '/operations/config-file-management', permanent: true },
+      { source: '/:locale/data-management/config-edit',    destination: '/:locale/operations/config-file-management', permanent: true },
+      { source: '/data-management/file-management',       destination: '/operations/file-management', permanent: true },
+      { source: '/:locale/data-management/file-management', destination: '/:locale/operations/file-management', permanent: true },
+      { source: '/data-management/backup',                destination: '/operations/backup-restore', permanent: true },
+      { source: '/:locale/data-management/backup',         destination: '/:locale/operations/backup-restore', permanent: true },
+      { source: '/data-management/restore',               destination: '/operations/backup-restore', permanent: true },
+      { source: '/:locale/data-management/restore',        destination: '/:locale/operations/backup-restore', permanent: true },
 
-      // networking → infrastructure
-      { source: '/networking/public',                     destination: '/infrastructure/public-networking', permanent: true },
-      { source: '/:locale/networking/public',              destination: '/:locale/infrastructure/public-networking', permanent: true },
-      { source: '/networking/private',                    destination: '/infrastructure/private-networking', permanent: true },
-      { source: '/:locale/networking/private',             destination: '/:locale/infrastructure/private-networking', permanent: true },
-      { source: '/networking/high-availability',           destination: '/infrastructure/high-availability', permanent: true },
-      { source: '/:locale/networking/high-availability',    destination: '/:locale/infrastructure/high-availability', permanent: true },
+      // networking → deploy (networking)
+      { source: '/networking/public',                     destination: '/deploy/public-networking', permanent: true },
+      { source: '/:locale/networking/public',              destination: '/:locale/deploy/public-networking', permanent: true },
+      { source: '/networking/private',                    destination: '/deploy/private-networking', permanent: true },
+      { source: '/:locale/networking/private',             destination: '/:locale/deploy/private-networking', permanent: true },
+      { source: '/networking/high-availability',           destination: '/deploy/high-availability', permanent: true },
+      { source: '/:locale/networking/high-availability',    destination: '/:locale/deploy/high-availability', permanent: true },
+
+      // infrastructure → new locations (dissolved)
+      { source: '/infrastructure/volumes',               destination: '/operations/volumes', permanent: true },
+      { source: '/:locale/infrastructure/volumes',        destination: '/:locale/operations/volumes', permanent: true },
+      { source: '/infrastructure/file-management',       destination: '/operations/file-management', permanent: true },
+      { source: '/:locale/infrastructure/file-management', destination: '/:locale/operations/file-management', permanent: true },
+      { source: '/infrastructure/backup-restore',        destination: '/operations/backup-restore', permanent: true },
+      { source: '/:locale/infrastructure/backup-restore', destination: '/:locale/operations/backup-restore', permanent: true },
+      { source: '/infrastructure/config-file-management', destination: '/operations/config-file-management', permanent: true },
+      { source: '/:locale/infrastructure/config-file-management', destination: '/:locale/operations/config-file-management', permanent: true },
+      { source: '/infrastructure/public-networking',     destination: '/deploy/public-networking', permanent: true },
+      { source: '/:locale/infrastructure/public-networking', destination: '/:locale/deploy/public-networking', permanent: true },
+      { source: '/infrastructure/private-networking',    destination: '/deploy/private-networking', permanent: true },
+      { source: '/:locale/infrastructure/private-networking', destination: '/:locale/deploy/private-networking', permanent: true },
+      { source: '/infrastructure/high-availability',     destination: '/deploy/high-availability', permanent: true },
+      { source: '/:locale/infrastructure/high-availability', destination: '/:locale/deploy/high-availability', permanent: true },
+      { source: '/infrastructure/edge-caching',          destination: '/deploy/edge-caching', permanent: true },
+      { source: '/:locale/infrastructure/edge-caching',   destination: '/:locale/deploy/edge-caching', permanent: true },
 
       // manage → operations
       { source: '/manage/metric',                         destination: '/operations/metrics', permanent: true },
@@ -280,8 +306,8 @@ export default withNextra({
       { source: '/:locale/billing/pricing',                destination: '/:locale/pricing/pricing-plans', permanent: true },
       { source: '/billing/plans',                         destination: '/pricing/pricing-plans', permanent: true },
       { source: '/:locale/billing/plans',                  destination: '/:locale/pricing/pricing-plans', permanent: true },
-      { source: '/billing/subscription',                  destination: '/pricing/subscription-billing', permanent: true },
-      { source: '/:locale/billing/subscription',           destination: '/:locale/pricing/subscription-billing', permanent: true },
+      { source: '/billing/subscription',                  destination: '/subscription', permanent: true },
+      { source: '/:locale/billing/subscription',           destination: '/:locale/subscription', permanent: true },
       { source: '/billing/sponsor',                       destination: '/rewards/sponsor', permanent: true },
       { source: '/:locale/billing/sponsor',                destination: '/:locale/rewards/sponsor', permanent: true },
       { source: '/billing/redeem',                        destination: '/rewards/redeem-card', permanent: true },
@@ -308,10 +334,12 @@ export default withNextra({
       { source: '/:locale/manage',      destination: '/:locale/operations',      permanent: true },
       { source: '/community',          destination: '/get-started/faq-support', permanent: true },
       { source: '/:locale/community',   destination: '/:locale/get-started/faq-support', permanent: true },
-      { source: '/data-management',    destination: '/infrastructure',          permanent: true },
-      { source: '/:locale/data-management', destination: '/:locale/infrastructure', permanent: true },
-      { source: '/networking',         destination: '/infrastructure',          permanent: true },
-      { source: '/:locale/networking',  destination: '/:locale/infrastructure',  permanent: true },
+      { source: '/data-management',    destination: '/operations',              permanent: true },
+      { source: '/:locale/data-management', destination: '/:locale/operations', permanent: true },
+      { source: '/networking',         destination: '/deploy',                  permanent: true },
+      { source: '/:locale/networking',  destination: '/:locale/deploy',          permanent: true },
+      { source: '/infrastructure',     destination: '/deploy',                  permanent: true },
+      { source: '/:locale/infrastructure', destination: '/:locale/deploy',      permanent: true },
     ]);
   },
 })

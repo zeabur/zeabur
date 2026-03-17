@@ -1,4 +1,6 @@
 export default {
-  'pricing-plans': '定價方案',
-  'subscription-billing': '訂閱與帳單',
+  'pricing-plans': '方案總覽',
+  'free-plan':     'Free Plan',
+  'dev-plan':      'Dev Plan',
+  'team-plan':     'Team Plan',
 }

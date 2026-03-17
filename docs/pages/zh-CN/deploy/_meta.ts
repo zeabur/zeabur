@@ -8,4 +8,5 @@ export default {
   "customize-prebuilt": "自定义 Docker 镜像",
   "github": "与 GitHub 集成",
   "variables": "环境变量",
+  "migrate-project": "迁移项目",
 }

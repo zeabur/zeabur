@@ -21,4 +21,11 @@ export default {
   'health-checks': '健康檢查',
   logging: '日誌查看與串流',
   metrics: '效能指標',
+
+  // ── 資料管理 ───────────────────────────────────────────────────────────────
+  '--- data ---': { type: 'separator', title: '資料管理' },
+  volumes: '儲存空間',
+  'file-management': '檔案管理',
+  'backup-restore': '備份與還原',
+  'config-file-management': '設定檔管理',
 }

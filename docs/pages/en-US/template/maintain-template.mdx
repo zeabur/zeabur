@@ -1,0 +1,66 @@
+---
+title: Maintain & Update Templates
+ogImageTitle: Maintain & Update Templates
+ogImageSubtitle: Template maintenance guide and reward program
+---
+
+import { Callout } from 'nextra/components'
+
+# Maintain & Update Templates
+
+Publishing a template is just the beginning. As upstream software evolves and users report issues, template maintainers need to keep their templates up to date to ensure a smooth deployment experience.
+
+## Template Version Update Process
+
+When you need to update a published template (e.g., upgrading a Docker image version, modifying default environment variables, or adjusting service configurations), you can use the following methods:
+
+### Update via CLI
+
+1. Edit your Template Resource YAML file (see [Create Templates from YAML](/template/template-in-code) for the format).
+2. Run the update command with the `zeabur` CLI:
+
+```bash
+npx zeabur@latest template update -c <template-code> -f template.yaml
+```
+
+The `<template-code>` is the code in the template URL (e.g., `71HORL` from `https://zeabur.com/templates/71HORL`).
+
+### Update via Dashboard
+
+1. Go to the [Zeabur Dashboard](https://dash.zeabur.com/account) account page and select the **Template** tab.
+2. Find the template you want to update and click edit.
+3. Modify the template information (name, description, icon, service configurations, etc.).
+4. Save your changes.
+
+<Callout type="info">
+Updating a template does not affect already-deployed projects. Existing users need to redeploy manually to pick up the new version.
+</Callout>
+
+## Template Review Standards
+
+The Zeabur template marketplace has basic quality requirements for published templates:
+
+- **Deployability** — The template must deploy successfully and work correctly. Test with `zeabur template deploy` before submitting.
+- **Complete description** — Provide a clear template name, description, and README so users understand the template's purpose.
+- **Appropriate icon and tags** — Use the software's official icon and select the correct category tags.
+- **Variable documentation** — If the template requires user-provided variables, include clear `name` and `description` fields.
+- **Security** — Do not hardcode secrets. Use auto-generated values like `${PASSWORD}` for password variables.
+
+## Maintainer Rewards
+
+Zeabur rewards community contributors through the [Contribution Reward Program](/pricing/reward). Template maintainers can earn the following:
+
+- **Creating a new template**: Templates that pass review and are successfully published earn ≥ US$10 in Credits.
+- **Ongoing maintenance**: Templates used more than 30 times earn an additional US$20 in Credits.
+- **Referral earnings**: Enable a referral code in your template's [Deploy Button](/deploy/deploy-button). For each new user who signs up through the button and upgrades to a paid plan, you'll earn US$5 in Credits.
+
+<Callout type="info">
+To claim rewards, open a ticket on the [Zeabur Discord server](https://zeabur.com/dc) with your template link and account information.
+</Callout>
+
+## Best Practices
+
+- **Watch upstream releases** — Follow the release page of the open-source project your template uses and update the image tag promptly after major releases.
+- **Use specific version tags** — Avoid using the `latest` tag. Use explicit version numbers (e.g., `redis:7.2`) to ensure reproducible deployments.
+- **Provide localization** — Add `zh-TW`, `ja-JP`, and other language translations to expand your template's reach.
+- **Respond to user feedback** — Monitor the Discord community for issue reports related to your template and fix or clarify as needed.

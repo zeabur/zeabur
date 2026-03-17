@@ -1,14 +1,14 @@
 ---
-title: Zeabur AI Hub
-ogImageTitle: Zeabur AI Hub
+title: AI Hub
+ogImageTitle: AI Hub
 ogImageSubtitle: 輕鬆整合多種 AI 模型到您的應用程式
 ---
 
 import { Callout } from 'nextra/components'
 
-# Zeabur AI Hub
+# AI Hub
 
-Zeabur AI Hub 是一個統一的 AI 服務平台，讓您可以透過單一介面存取多種 AI 模型（如 OpenAI、Claude 等），並以透明的點數預付制按實際使用量計費。
+AI Hub 是一個統一的 AI 服務平台，讓您可以透過單一介面存取多種 AI 模型（如 OpenAI、Claude 等），並以透明的點數預付制按實際使用量計費。
 
 ## 主要特色
 
@@ -63,12 +63,14 @@ curl https://hnd1.aihub.zeabur.ai/v1/chat/completions \
 
 Zeabur AI Hub 支援多種主流 AI 模型：
 
-- **GPT** - OpenAI 的 GPT 系列模型
-- **Claude** - Anthropic 的 Claude 系列模型
-- **Grok** - xAI 的 Grok 系列模型
+| 模型系列 | 提供者 | 代表模型 | 官方文件 |
+| --- | --- | --- | --- |
+| **GPT** | [OpenAI](https://openai.com) | GPT-4o、GPT-4o mini、o1、o3-mini | [模型文件](https://platform.openai.com/docs/models) |
+| **Claude** | [Anthropic](https://www.anthropic.com) | Claude 3.5 Sonnet、Claude 3 Opus | [模型文件](https://docs.anthropic.com/en/docs/about-claude/models) |
+| **Grok** | [xAI](https://x.ai) | Grok-2 | [模型文件](https://docs.x.ai/docs) |
 
 <Callout>
-  模型列表會持續更新，請造訪 [Zeabur Models](https://zeabur.com/zh-TW/models) 查看最新支援的模型和定價。
+  模型列表會持續更新，請造訪 [Zeabur Models](https://zeabur.com/zh-TW/models) 查看最新支援的完整模型列表和即時定價。
 </Callout>
 
 ## API 端點

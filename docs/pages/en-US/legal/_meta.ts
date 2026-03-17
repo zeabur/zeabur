@@ -1,8 +1,8 @@
 export default {
-  'terms-of-service': 'Terms of Service',
-  'privacy-policy': 'Privacy Policy',
-  'fair-use-guidelines': 'Fair Use Guidelines',
-  'abuse-report': 'Abuse Report',
+  // All content moved — legal/ is now hidden in sidebar
+  // privacy-policy → /privacy-policy
+  // terms-of-service → /terms-of-service
+  // fair-use-guidelines, abuse-report → /compliance/
 }
 
 

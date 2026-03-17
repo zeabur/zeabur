@@ -1,0 +1,65 @@
+---
+title: 发票与税号
+ogImageTitle: 发票与税号
+ogImageSubtitle: 发票申请与税号设置
+---
+
+import { Callout } from 'nextra/components'
+
+# 发票与税号
+
+Zeabur 为 [Team Plan](/pricing/team-plan) 以上的用户提供发票功能，方便企业和组织进行财务报账。
+
+<Callout type="info">
+发票功能仅限 **Team Plan** 以上方案使用。[Dev Plan](/pricing/dev-plan) 和 Free Plan 用户如需发票，请先升级至 Team Plan。
+</Callout>
+
+## 如何申请发票
+
+1. 前往 [Dashboard 账单页面](https://dash.zeabur.com/account/billing)。
+2. 在发票设置区域，填写公司名称与税号（Tax ID）。
+3. 保存设置后，后续的账单将自动附上发票信息。
+
+## 税号设置
+
+在账单页面的发票设置中，你可以设置：
+
+- **公司名称** — 发票上显示的公司或组织全名。
+- **税号（Tax ID）** — 台湾统一编号、VAT 号码，或其他国家/地区的税务识别号。
+- **账单地址** — 公司的账单寄送地址。
+
+## 支持的国家 / 地区
+
+Zeabur 通过 Stripe 提供发票服务，支持以下国家和地区的税务识别号：
+
+- **台湾** — 统一编号（Tax ID）
+- **美国** — EIN（Employer Identification Number）
+- **欧盟** — VAT Number
+- **日本** — 法人番号
+- **其他 Stripe 支持的国家/地区**
+
+如果你的国家/地区不在上述列表中，请到 [Discord 服务器](https://zeabur.com/dc) 联系我们，我们会协助处理。
+
+## 发票内容
+
+Zeabur 发票包含以下信息：
+
+- 账单期间
+- 订阅方案费用
+- 资源使用明细（内存、流量、存储等）
+- 专用服务器费用（如适用）
+- 税额（依据所在地区法规）
+
+## 常见问题
+
+### 可以补开过去月份的发票吗？
+
+可以。请到 [Discord 服务器](https://zeabur.com/dc) 联系我们，提供需要补开的月份和账号信息。
+
+### 发票币别是什么？
+
+发票以美元（USD）开立，与 Zeabur 的计费币别一致。
+
+### Dev Plan 可以开发票吗？
+
+目前 Dev Plan 不支持发票功能。如需发票，请升级至 [Team Plan](/pricing/team-plan)。

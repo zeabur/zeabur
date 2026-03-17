@@ -1,27 +1,36 @@
 export default {
   'get-started': 'Get Started',
 
-  // ── Deploy & Services ──────────────────────────────────────────────────
-  '--- deploy-service ---': { type: 'separator', title: 'Deploy & Services' },
-  'dedicated-server': 'Dedicated Server',
-  infrastructure:     'Infrastructure',
+  // ── Infrastructure ────────────────────────────────────────────────────
+  '---1---': { type: 'separator' },
+  'dedicated-server': 'Servers',
   deploy:             'Deploy',
   operations:         'Operations',
+
+  // ── Products ──────────────────────────────────────────────────────────
+  '---2---': { type: 'separator' },
+  'ai-hub':           'AI Hub',
+  email:              'Email',
   template:           'Templates',
-  'ai-hub':           'Zeabur AI Hub',
-  email:              'Zeabur Email',
   integrations:       'Integrations',
 
-  // ── Developer ───────────────────────────────────────────────────────────
-  '--- developer ---': { type: 'separator', title: 'Developer' },
+  // ── Developer ─────────────────────────────────────────────────────────
+  '---3---': { type: 'separator' },
   developer: 'Developer Tools',
   guides:    'Frameworks',
 
-  // ── Billing ─────────────────────────────────────────────────────────────
-  '--- billing ---': { type: 'separator', title: 'Billing' },
-  pricing: 'Pricing & Plans',
-  rewards: 'Rewards & Referrals',
-  legal:   'Legal & Compliance',
+  // ── Commercial ────────────────────────────────────────────────────────
+  '---4---': { type: 'separator' },
+  pricing:            'Pricing',
+  subscription:       'Subscription & Billing',
+  rewards:            'Rewards & Referrals',
+  partner:            'Partner Program',
+
+  // ── Legal ─────────────────────────────────────────────────────────────
+  '---5---': { type: 'separator' },
+  'privacy-policy':   'Privacy Policy',
+  compliance:         'Compliance',
+  'terms-of-service': 'Terms of Service',
 
   // ── Hidden: legacy directories (not shown in sidebar) ──────────────────
   advanced:        { display: 'hidden' },
@@ -29,7 +38,9 @@ export default {
   'billing-legal': { display: 'hidden' },
   community:       { display: 'hidden' },
   'data-management': { display: 'hidden' },
+  legal:           { display: 'hidden' },
   manage:          { display: 'hidden' },
+  infrastructure:  { display: 'hidden' },
   mesh:            { display: 'hidden' },
   networking:      { display: 'hidden' },
   tutorials:       { display: 'hidden' },

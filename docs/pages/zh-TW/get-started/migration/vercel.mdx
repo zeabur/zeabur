@@ -4,10 +4,120 @@ ogImageTitle: 從 Vercel 遷移
 ogImageSubtitle: 將您的應用程式從 Vercel 遷移到 Zeabur
 ---
 
+import { Callout } from 'nextra/components'
+
 # 從 Vercel 遷移
 
-本文檔即將推出。我們正在準備完整的 Vercel 遷移指南。
+本指南將帶您逐步將應用程式從 Vercel 遷移到 Zeabur。如果您正在尋找一個能同時處理前端與後端服務——資料庫、快取、背景工作排程——以及您的 Web 應用程式的單一平台，Zeabur 是理想的選擇。
 
-如果您需要幫助，請聯繫我們的 [Discord 社群](https://zeabur.com/dc) 或查看 [快速入門指南](/get-started/quick-start)。
+## 開始之前
 
+- 一個 [Zeabur](https://zeabur.com/) 帳號。
+- 您的應用程式原始碼存放在 Git 儲存庫中（GitHub、GitLab 或 Bitbucket）。
+- 可存取您的 Vercel 主控台。
 
+## 步驟 1：連結 Git 儲存庫
+
+您的 Vercel 專案已經連結到 Git 儲存庫，只需將同一個儲存庫連結到 Zeabur：
+
+1. 登入 [Zeabur 主控台](https://dash.zeabur.com/)。
+2. 建立新專案並選擇部署區域。
+3. 點選 **Add Service** → **Git**，連結您的 GitHub、GitLab 或 Bitbucket 帳號。
+4. 選擇您的 Vercel 專案所使用的相同儲存庫。
+
+Zeabur 原生支援所有主流框架，包括 **Next.js**、**Nuxt**、**Astro**、**Remix**、**SvelteKit**、**Vite** 以及靜態網站。
+
+<Callout>
+您的 `next.config.js`（或 `next.config.mjs`）在 Zeabur 上可以直接使用，不需要任何修改——Zeabur 的建置系統完全相容 Next.js 設定，包括 `output: 'standalone'`。
+</Callout>
+
+## 步驟 2：轉移環境變數
+
+1. 在 Vercel 專案中，前往 **Settings** → **Environment Variables**。複製每個變數的鍵與值。
+2. 在 Zeabur 主控台中，點選您的服務並前往 **Variables** 分頁。
+3. 新增您的變數。使用 **Bulk Edit** 一次貼上多組鍵值對。
+
+<Callout>
+Vercel 將變數依環境區分（Production、Preview、Development）。在 Zeabur 上，變數預設會套用到所有部署。如果您需要為預覽部署設定不同的值，可以按分支進行設定。
+</Callout>
+
+## 步驟 3：處理框架特定設定
+
+### Next.js
+
+- **不需要任何修改。** Zeabur 會自動偵測 Next.js 並正確建置。
+- `next.config.js` 中的功能，包括 rewrites、redirects、headers 和圖片最佳化，都能直接使用。
+- **API routes 和 Server Actions** 原生支援——Zeabur 將您的 Next.js 應用程式作為完整伺服器運行，而非 serverless functions。
+- 如果您在 Next.js 設定中使用 `output: 'standalone'`，Zeabur 會自動處理。
+
+### Nuxt / Astro / Remix / SvelteKit
+
+- 這些框架會被自動偵測，並使用它們的標準建置指令進行建置。
+- 不需要框架特定的設定變更。
+
+### 靜態網站（Vite、Create React App 等）
+
+- Zeabur 會自動偵測靜態建置，並使用內建的 Web 伺服器提供服務。
+- 如果您的專案中有包含自訂路由規則的 `vercel.json`，您可能需要在框架的設定中設定對應的重新導向規則。
+
+## 步驟 4：Vercel 特定功能對照
+
+部分 Vercel 功能在 Zeabur 上有不同的對應方式：
+
+| Vercel 功能 | Zeabur 對應方案 |
+|---|---|
+| Serverless Functions | 作為持久化伺服器運行（更佳的冷啟動效能） |
+| Edge Functions | 在基礎架構層級處理（內建邊緣快取） |
+| Vercel Postgres / KV / Blob | Marketplace → PostgreSQL、Redis 或物件儲存 |
+| Cron Jobs（`vercel.json`） | 使用框架內建的 cron 或獨立的 worker 服務 |
+| `vercel.json` rewrites/redirects | 使用框架層級的設定（例如 `next.config.js` rewrites） |
+| Preview Deployments | 自動為 pull request 建立預覽部署 |
+| Analytics | 使用第三方分析工具（例如 Plausible、PostHog） |
+
+<Callout>
+在 Vercel 上，每個 API route 都作為獨立的 serverless function 運行，會有冷啟動延遲。在 Zeabur 上，您的應用程式作為持久化伺服器運行——這意味著更快的回應時間，且沒有冷啟動延遲。
+</Callout>
+
+## 步驟 5：新增後端服務（如需要）
+
+從 Vercel 遷移的主要原因之一，是將整個技術堆疊整合到單一平台。在 Zeabur 上，您可以在前端旁邊新增資料庫和後端服務：
+
+- **PostgreSQL、MySQL、MongoDB**：點選 **Add Service** → **Marketplace** 並選擇您的資料庫。
+- **Redis**：在 Marketplace 中提供，可用於快取和 session 儲存。
+- **後端 API**：在同一個專案中部署獨立的後端服務（Node.js、Python、Go 等）。同專案中的服務可以透過[私有網路](/deploy/private-networking)互相通訊。
+
+## 步驟 6：設定自訂網域
+
+1. 在 Zeabur 主控台中，點選您的服務並前往 **Networking** 分頁。
+2. 點選 **Generate Domain** 取得免費的 `.zeabur.app` 子網域，或點選 **Custom Domain** 新增您自己的網域。
+3. 更新您的 DNS 記錄：
+   - 移除舊的 Vercel CNAME 記錄（通常指向 `cname.vercel-dns.com`）。
+   - 新增 CNAME 記錄，指向 Zeabur 提供的目標位址。
+
+<Callout type="warning">
+如果您正在使用 Vercel 的名稱伺服器管理網域，您需要先將 DNS 管理轉移回您的網域註冊商或其他 DNS 供應商，然後再更新記錄。
+</Callout>
+
+## 步驟 7：驗證並上線
+
+1. 推送一個 commit 來觸發部署，或在主控台點選 **Redeploy**。
+2. 檢查 **Logs** 分頁，確認應用程式建置並正常啟動。
+3. 測試所有路由、API 端點和伺服器端渲染。
+4. 確認無誤後，將正式環境的 DNS 切換到 Zeabur。
+
+## 主要差異：Vercel vs Zeabur
+
+| 功能 | Vercel | Zeabur |
+|---|---|---|
+| 定位 | 前端 / Jamstack / Serverless | 全端（前端 + 後端 + 資料庫） |
+| 執行模式 | Serverless functions（有冷啟動） | 持久化伺服器（無冷啟動） |
+| 資料庫 | Vercel Postgres、KV、Blob（有限） | 完整 Marketplace（PostgreSQL、MySQL、MongoDB、Redis 等） |
+| 後端服務 | 原生不支援 | 可在前端旁部署任何後端 |
+| 建置系統 | Vercel Build | 自動偵測（Nixpacks / Dockerfile） |
+| 計價模式 | 按 function 呼叫次數 + 頻寬計費 | 按使用量計算運算資源 + 儲存空間 |
+| 團隊功能 | 按席次計價 | 彈性團隊方案 |
+| 基礎架構 | 僅 Serverless | 共享叢集 + 專屬伺服器 |
+
+---
+
+完成了！您的 Vercel 應用程式現在已在 Zeabur 上運行，作為一個全端平台，資料庫、後端服務和前端全部整合在同一個地方。如果遇到任何問題，歡迎到我們的 [Discord 社群](https://zeabur.com/dc) 尋求協助。

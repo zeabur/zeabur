@@ -4,10 +4,131 @@ ogImageTitle: Migrate from Fly.io
 ogImageSubtitle: Migrate your application from Fly.io to Zeabur
 ---
 
+import { Callout } from 'nextra/components'
+
 # Migrate from Fly.io
 
-This documentation is coming soon. We are preparing a complete Fly.io migration guide.
+This guide walks you through migrating your application from Fly.io to Zeabur. Whether you're running a Docker-based app, a web service, or a full-stack application with a Postgres database, Zeabur can handle it with minimal configuration changes.
 
-If you need help, please contact our [Discord community](https://zeabur.com/dc) or check out the [Quick Start Guide](/get-started/quick-start).
+## Before You Begin
 
+- A [Zeabur](https://zeabur.com/) account.
+- Your application source code in a Git repository (GitHub, GitLab, or Bitbucket).
+- Access to your Fly.io dashboard and CLI (`flyctl`).
 
+<Callout>
+If your app is deployed on Fly.io using only a Docker image (no Git repo), you can still migrate by pushing your image to a container registry and deploying it on Zeabur as a Docker service.
+</Callout>
+
+## Step 1: Review Your Fly.io Configuration
+
+Open your project's `fly.toml` file. This contains the settings you'll need to recreate on Zeabur:
+
+```toml
+# fly.toml — example
+app = "my-app"
+
+[env]
+  NODE_ENV = "production"
+  PORT = "8080"
+
+[http_service]
+  internal_port = 8080
+
+[[vm]]
+  memory = "512mb"
+  cpu_kind = "shared"
+```
+
+Take note of:
+- **Environment variables** under `[env]` and any secrets set via `fly secrets list`.
+- **Internal port** your app listens on.
+- **Volumes** if you have `[mounts]` configured.
+
+## Step 2: Export Your Fly.io Secrets
+
+List all secrets so you can transfer them to Zeabur:
+
+```bash
+fly secrets list -a my-app
+```
+
+This shows the secret names (values are hidden). For each secret, you'll need to retrieve or regenerate the value from the original source (e.g., your database provider, API dashboard).
+
+## Step 3: Connect Your Git Repository to Zeabur
+
+1. Log in to the [Zeabur dashboard](https://dash.zeabur.com/).
+2. Create a new project and select a deployment region.
+3. Click **Add Service** → **Git** and connect your GitHub, GitLab, or Bitbucket account.
+4. Select the repository containing your application code.
+
+Zeabur automatically detects your project's language and framework — no `fly.toml` or `Dockerfile` required in most cases.
+
+<Callout>
+If your project uses a Dockerfile, Zeabur will detect and use it automatically. No extra configuration needed.
+</Callout>
+
+## Step 4: Configure Environment Variables
+
+1. Click on your newly created service in the Zeabur dashboard.
+2. Go to the **Variables** tab.
+3. Add each environment variable and secret from your Fly.io app.
+
+You do not need to set `PORT` — Zeabur automatically assigns and injects the port for your service.
+
+## Step 5: Set Up Persistent Storage (If Needed)
+
+If your Fly.io app uses volumes (`[mounts]` in `fly.toml`), you'll need to create a volume on Zeabur:
+
+1. In your service settings, go to the **Volumes** tab.
+2. Click **Add Volume** and specify the mount path (e.g., `/data`).
+3. Zeabur provisions persistent storage that survives redeployments.
+
+<Callout type="warning">
+Fly.io volumes are not automatically exportable. You'll need to SSH into your Fly.io machine (`fly ssh console`), compress your data, and transfer it to the new volume on Zeabur.
+</Callout>
+
+## Step 6: Migrate Your Database
+
+If you're running Fly.io Postgres:
+
+1. **Export your data** from Fly.io Postgres:
+
+   ```bash
+   fly proxy 15432:5432 -a my-app-db &
+   pg_dump -h localhost -p 15432 -U postgres -d my_database > backup.sql
+   ```
+
+2. **Create a database on Zeabur**: click **Add Service** → **Marketplace** → **PostgreSQL**.
+
+3. **Import your data**: use the connection string from Zeabur's PostgreSQL service:
+
+   ```bash
+   psql "your-zeabur-postgres-connection-string" < backup.sql
+   ```
+
+4. **Update your app's database URL**: in the Zeabur **Variables** tab, set `DATABASE_URL` to the Zeabur PostgreSQL connection string. You can use Zeabur's built-in variable reference `${POSTGRES_URI}` to automatically inject the connection string.
+
+## Step 7: Set Up Custom Domains
+
+1. In the Zeabur dashboard, click your service and go to the **Networking** tab.
+2. Click **Generate Domain** for a free `.zeabur.app` subdomain, or click **Custom Domain** to add your own.
+3. If using a custom domain, update your DNS records:
+   - Remove the old Fly.io CNAME or A records.
+   - Add a CNAME record pointing to the Zeabur-provided target.
+
+## Key Differences: Fly.io vs Zeabur
+
+| Feature | Fly.io | Zeabur |
+|---|---|---|
+| Configuration | `fly.toml` + CLI | Auto-detect + dashboard |
+| Deployment | `fly deploy` CLI command | Git push (auto-deploy) |
+| Scaling | Machines API, manual config | One-click scaling in dashboard |
+| Databases | Fly Postgres (self-managed) | Marketplace (managed PostgreSQL, MySQL, Redis, etc.) |
+| Networking | Anycast IPs, WireGuard | Automatic HTTPS, custom domains |
+| Persistent storage | Fly Volumes (region-locked) | Zeabur Volumes (managed) |
+| Pricing model | Per-VM + bandwidth | Usage-based, pay for what you use |
+
+---
+
+That's it. Your Fly.io application is now running on Zeabur. If you run into any issues, reach out on our [Discord community](https://zeabur.com/dc).

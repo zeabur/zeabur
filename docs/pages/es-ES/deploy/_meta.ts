@@ -8,4 +8,5 @@ export default {
   "github": "Integración con GitHub",
   "deploy-in-cli": "Implementar en CLI",
   "variables": "Variables de Entorno",
+  "migrate-project": "Migrar Proyecto",
 }

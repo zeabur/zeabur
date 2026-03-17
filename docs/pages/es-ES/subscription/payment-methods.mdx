@@ -1,0 +1,85 @@
+---
+title: Métodos de Pago
+ogImageTitle: Métodos de Pago
+ogImageSubtitle: Tarjeta de crédito, Alipay y otras opciones de pago
+---
+
+import { Callout } from 'nextra/components'
+
+# Métodos de Pago
+
+El sistema de pagos de Zeabur funciona con [Stripe](https://stripe.com/) y soporta múltiples métodos de pago.
+
+## Métodos de pago soportados
+
+### Tarjetas de crédito / débito
+
+Zeabur acepta todas las tarjetas de crédito y débito soportadas por Stripe, facturadas en **USD**:
+
+- Visa
+- Mastercard
+- American Express
+- JCB
+- UnionPay
+
+### Alipay
+
+Si no tiene una tarjeta de crédito compatible con Stripe, puede usar Alipay para **agregar Credits** y pagar en CNY.
+
+Los Credits agregados vía Alipay se convierten en Credits de Zeabur, que compensan las tarifas de suscripción y el uso de recursos.
+
+## Flujo de pago
+
+### Suscribirse a un plan de pago
+
+1. Vaya a la [página de precios de Zeabur](https://zeabur.com/pricing) o a la [página de facturación del Dashboard](https://dash.zeabur.com/account/billing).
+2. Seleccione el plan que desea ([Plan Dev](/pricing/dev-plan) o [Plan Team](/pricing/team-plan)).
+3. Ingrese la información de su tarjeta de crédito (o use una tarjeta ya vinculada) y complete el pago.
+4. Su plan entra en vigor inmediatamente después del pago exitoso.
+
+### Agregar Credits
+
+1. Vaya a la [página de facturación del Dashboard](https://dash.zeabur.com/account/billing).
+2. Haga clic en el botón de recarga en la sección "Credits".
+3. Seleccione un monto y complete el pago con tarjeta de crédito o Alipay.
+4. Los Credits se agregan instantáneamente al saldo de su cuenta.
+
+![Agregar Credits](/billing/subscription/get-more-credits.png)
+
+## Gestión de métodos de pago
+
+### Vincular una tarjeta de crédito
+
+En la [página de facturación](https://dash.zeabur.com/account/billing), ingrese los datos de su tarjeta de crédito en la sección "Método de Pago" y haga clic en "Agregar".
+
+### Cambiar tarjeta de crédito
+
+1. Encuentre el botón "**Desvincular**" en la página de facturación y desvincule su tarjeta actual.
+2. Vincule una nueva tarjeta de crédito.
+
+### Desvincular
+
+Si ha cancelado todas las suscripciones de pago, puede desvincular su tarjeta de crédito.
+
+<Callout type="warning">
+Si tiene una suscripción de pago activa, desvincular su tarjeta de crédito puede causar que el próximo intento de cobro falle. Asegúrese de cancelar su suscripción o configurar un método de pago alternativo primero.
+</Callout>
+
+## Preguntas frecuentes
+
+### ¿Qué pasa si mi tarjeta de crédito es rechazada?
+
+- Verifique que la tarjeta tenga saldo suficiente.
+- Verifique que la tarjeta soporte transacciones internacionales (USD).
+- Contacte a su emisor de tarjeta para verificar si hay transacciones bloqueadas.
+- Intente con una tarjeta de crédito diferente o use Alipay para agregar Credits.
+
+### ¿Puedo pagar con PayPal?
+
+PayPal no está soportado actualmente. Por favor use una tarjeta de crédito o Alipay.
+
+### ¿En qué moneda se me cobra?
+
+Todos los cargos son en dólares estadounidenses (USD). Su emisor de tarjeta de crédito puede cobrar una comisión por transacción extranjera — consulte con su banco para más detalles.
+
+Para otras preguntas sobre pagos, comuníquese en nuestro [servidor de Discord](https://zeabur.com/dc).

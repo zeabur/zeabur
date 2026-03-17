@@ -1,0 +1,52 @@
+---
+title: Free Plan (Serverless Plan)
+ogImageTitle: Free Plan
+ogImageSubtitle: Zeabur Free Plan details
+---
+
+import { Callout } from 'nextra/components'
+
+# Free Plan (Serverless Plan)
+
+The Serverless Plan is Zeabur's free tier, designed for personal exploration and learning. No credit card required — just sign up and start deploying.
+
+## Included Resources
+
+| Resource | Limit |
+| --- | --- |
+| Projects | 1 |
+| Services | Up to 2 per project |
+| Deployment regions | Shared cluster regions |
+| Free credits | Reset monthly (see [Free Quota](/subscription/free-quota)) |
+| Custom domains | Not supported |
+| Persistent storage | Not supported |
+
+### Service Rates
+
+The Serverless Plan uses the same rates as paid plans, deducted from free credits:
+
+- **vCPU** — Free ($0.0 / vCPU-minute)
+- **Memory** — US$0.00025 / GB-minute (~US$10.8 / GB-month)
+- **Network egress** — US$0.1 / GB
+- **Persistent storage** — US$0.2 / GB-month
+
+## Limitations
+
+- **Auto-sleep** — Services on the Serverless Plan automatically sleep after a period of inactivity. They wake up on the next incoming request, which may cause a few seconds of cold-start latency.
+- **No persistent storage** — Cannot deploy services that require persistent volumes (e.g., databases).
+- **No SLA** — The free plan does not include a Service Level Agreement.
+- **Credits exhausted** — When monthly free credits run out, services are suspended until the next month's reset.
+
+<Callout type="info">
+Services on the Serverless Plan auto-sleep when idle to conserve resources. If you need services to run continuously, consider upgrading to the [Dev Plan](/pricing/dev-plan).
+</Callout>
+
+## Upgrade Path
+
+When your needs exceed the Serverless Plan, you can upgrade to a paid plan:
+
+- **[Dev Plan](/pricing/dev-plan)** — US$5/month, ideal for individual developers with production projects. Includes custom domains, persistent storage, and unlimited projects.
+- **[Team Plan](/pricing/team-plan)** — Usage-based billing, designed for team collaboration with member management and invoicing support.
+- **Enterprise** — Custom plans with dedicated support and SLAs — [contact us](https://zeabur.com/dc) for details.
+
+Visit [zeabur.com/pricing](https://zeabur.com/pricing) to compare all plans.

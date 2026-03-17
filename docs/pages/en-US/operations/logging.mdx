@@ -4,10 +4,50 @@ ogImageTitle: Logging & Streaming
 ogImageSubtitle: View and manage service logs
 ---
 
+import { Callout } from 'nextra/components'
+
 # Logging & Streaming
 
-This documentation is coming soon. We are preparing detailed documentation on logging functionality.
+Zeabur provides real-time log streaming for every service, giving you immediate visibility into your application's behavior directly from the dashboard.
 
-Please check out the [Monitoring & Logs](/operations/monitoring) documentation first.
+## Viewing Logs
 
+To view logs for a service:
 
+1. Open your project in the Zeabur dashboard.
+2. Select the service you want to inspect.
+3. Click the **Logs** tab.
+
+The log viewer displays output from your application's `stdout` and `stderr` streams in real time. New log entries appear automatically as they are emitted — no manual refresh is needed.
+
+## Build Logs vs. Runtime Logs
+
+Zeabur separates logs into two categories:
+
+- **Build logs** — Output generated during the build phase (e.g., dependency installation, compilation). These are available under the **Deployments** tab for each deployment.
+- **Runtime logs** — Output generated while your service is running. These are shown in the **Logs** tab and stream in real time.
+
+## Searching and Filtering
+
+The log viewer supports keyword search to help you locate specific entries. Type a search term in the filter bar at the top of the log viewer to highlight and filter matching lines.
+
+This is particularly useful for:
+
+- Finding error messages or stack traces
+- Tracing specific request IDs
+- Filtering by log level (e.g., `ERROR`, `WARN`)
+
+## Log Retention
+
+Runtime logs are available as long as the service is running. When a service is restarted or redeployed, logs from the previous instance are no longer accessible in the dashboard.
+
+<Callout>
+  Zeabur does not provide long-term log storage. If you need to retain logs beyond the current service lifecycle, integrate an external logging service such as [Logflare](https://logflare.app), [Better Stack](https://betterstack.com), or [Datadog](https://www.datadoghq.com). You can forward logs by configuring your application to send output to these services directly.
+</Callout>
+
+## Best Practices
+
+- **Use structured logging.** Output logs in JSON format to make them easier to search and parse, especially if forwarding to external services.
+- **Include timestamps.** While Zeabur adds timestamps to log entries, including them in your application output ensures consistency across environments.
+- **Log at appropriate levels.** Use `INFO` for routine events, `WARN` for recoverable issues, and `ERROR` for failures that need attention. Avoid excessive `DEBUG` output in production.
+- **Avoid logging sensitive data.** Never log passwords, API keys, or personally identifiable information.

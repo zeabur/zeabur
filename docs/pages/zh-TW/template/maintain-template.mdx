@@ -1,0 +1,66 @@
+---
+title: 維護與更新模板
+ogImageTitle: 維護與更新模板
+ogImageSubtitle: 模板維護指南與獎勵計畫
+---
+
+import { Callout } from 'nextra/components'
+
+# 維護與更新模板
+
+模板上架後並非一勞永逸。隨著上游軟體版本迭代、使用者回報問題，模板維護者需要定期更新模板，確保部署體驗持續順暢。
+
+## 模板版本更新流程
+
+當你需要更新已上架的模板（例如升級 Docker image 版本、修改預設環境變數、調整服務配置等），可以透過以下方式操作：
+
+### 使用 CLI 更新
+
+1. 修改你的 Template Resource YAML 檔案（格式參考[從 YAML 建立模板](/template/template-in-code)）。
+2. 使用 `zeabur` CLI 執行更新：
+
+```bash
+npx zeabur@latest template update -c <模板代碼> -f template.yaml
+```
+
+其中 `<模板代碼>` 是你在模板 URL 中看到的代碼（例如 `https://zeabur.com/templates/71HORL` 中的 `71HORL`）。
+
+### 使用 Dashboard 更新
+
+1. 前往 [Zeabur Dashboard](https://dash.zeabur.com/account) 的帳號頁面，選擇 **模板** 分頁。
+2. 找到要更新的模板，點選編輯。
+3. 修改模板資訊（名稱、描述、圖示、服務配置等）。
+4. 儲存變更。
+
+<Callout type="info">
+更新模板不會影響已部署的專案。已部署的使用者需要手動重新部署才會套用新版本。
+</Callout>
+
+## 模板審核標準
+
+Zeabur 模板市集對上架的模板有基本的品質要求：
+
+- **可部署性** — 模板必須能成功部署並正常運作，建議在提交前先用 `zeabur template deploy` 測試。
+- **完整描述** — 提供清楚的模板名稱、描述和 README，讓使用者了解模板的用途。
+- **合適的圖示與標籤** — 使用軟體的官方圖示，並選擇正確的分類標籤。
+- **環境變數說明** — 若模板需要使用者填入變數，提供明確的 `name` 和 `description`。
+- **安全性** — 不包含硬編碼的機密資訊，密碼類變數使用 `${PASSWORD}` 等自動產生的值。
+
+## 維護者獎勵
+
+Zeabur 透過[貢獻獎勵計畫](/pricing/reward)回饋社群貢獻者。模板維護者可以獲得以下獎勵：
+
+- **建立新模板**：符合審核標準且成功上架，可獲得 ≥ US$10 的 Credits 獎勵。
+- **持續維護**：模板累計被使用超過 30 次，可額外獲得 US$20 的 Credits。
+- **推薦回饋**：在模板的[一鍵部署按鈕](/deploy/deploy-button)中啟用推薦碼，每位透過按鈕註冊並升級付費方案的新使用者，你將獲得 US$5 的 Credits。
+
+<Callout type="info">
+獎勵申請方式：前往 [Zeabur Discord 伺服器](https://zeabur.com/dc) 開啟 ticket，提供模板連結與你的帳號資訊。
+</Callout>
+
+## 最佳實踐
+
+- **訂閱上游更新** — 關注模板使用的開源專案 Release 頁面，在重大版本發佈後及時更新 image 標籤。
+- **使用特定版本標籤** — 避免使用 `latest` 標籤，改用明確的版本號（如 `redis:7.2`），確保部署結果可重現。
+- **提供本地化** — 為模板添加 `zh-TW`、`ja-JP` 等語言的本地化翻譯，擴大使用者覆蓋範圍。
+- **回應使用者回饋** — 留意 Discord 社群中關於你模板的問題回報，及時修復或補充說明。

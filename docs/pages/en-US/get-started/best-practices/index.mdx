@@ -4,10 +4,93 @@ ogImageTitle: Best Practices
 ogImageSubtitle: Recommended practices for Zeabur deployment and management
 ---
 
+import { Callout } from 'nextra/components'
+
 # Best Practices
 
-This documentation is coming soon. We are preparing a best practices guide for using Zeabur.
+Follow these practical tips to get the most out of Zeabur while keeping your deployments reliable and cost-efficient.
 
-Please check out the [Quick Start Guide](/get-started/quick-start) and [Deployment Configuration](/deploy/deployment-config) first.
+## Use Environment Variables for Configuration
 
+Store all configuration values — API keys, database URLs, feature flags — in [environment variables](/deploy/variable). Never hardcode secrets in your source code or Docker images.
 
+<Callout type="warning">
+Secrets committed to Git are permanently exposed in your repository history. Always use Zeabur's environment variable management instead.
+</Callout>
+
+Zeabur supports variable references between services (e.g., `${MYSQL_HOST}`), which keeps credentials in sync automatically.
+
+## Be Intentional with Persistent Volumes
+
+[Persistent volumes](/operations/volumes) are essential for databases and file storage, but they come with a trade-off: services with volumes attached cannot perform zero-downtime rolling deploys.
+
+<Callout type="warning">
+Only attach volumes to services that truly need persistent data (databases, uploaded files). Stateless application servers should not use volumes.
+</Callout>
+
+For static assets and build artifacts, use object storage or a CDN instead.
+
+## Set Resource Limits to Control Costs
+
+Configure CPU and memory limits for each service to prevent runaway costs. A single misconfigured service can consume resources far beyond what your application needs.
+
+- Review the [pricing calculator](https://zeabur.com/pricing) to estimate costs before deployment.
+- Check the [Dashboard](https://dash.zeabur.com) usage metrics regularly.
+
+## Use Marketplace Services for Databases
+
+Instead of running your own database containers, use Zeabur's [Marketplace services](/marketplace). They come pre-configured, include automatic connection variable injection, and are optimized for the platform.
+
+Popular options include PostgreSQL, MySQL, MongoDB, and Redis — all deployable in one click.
+
+## Structure Projects Logically
+
+Organize your workloads with a clear project structure:
+
+- **One project per application** — group related services (API, frontend, database) in the same project.
+- **Separate environments** — use different projects for production, staging, and development.
+- **Naming conventions** — use descriptive project and service names so your team can navigate the Dashboard quickly.
+
+## Use Git-Based Deployments
+
+Connect your GitHub or GitLab repository for automatic deployments on every push. This gives you:
+
+- Full CI/CD automation without extra tooling.
+- Automatic rollback by reverting a commit.
+- Branch-based [preview environments](/deploy/preview) for pull request testing.
+
+<Callout type="info">
+For projects not in a Git repository, you can also deploy via the [CLI](/deploy/command-line) or Docker images.
+</Callout>
+
+## Enable Custom Domains with HTTPS
+
+Zeabur provides automatic TLS certificates for all custom domains. Point your DNS to Zeabur and HTTPS is enabled with zero configuration — see [Custom Domains](/deploy/domain-bindling) for setup instructions.
+
+Use your own domain for production services to maintain a professional appearance and avoid sharing the default `*.zeabur.app` subdomain.
+
+## Monitor Usage and Optimize Costs
+
+Check the billing dashboard regularly to understand your spending:
+
+- Identify services with excessive memory usage and right-size them.
+- Remove unused services and projects — idle resources still incur costs unless on the Free Plan (which auto-sleeps).
+- Use the [subscription overview](/subscription) to track credits and invoices.
+
+## Use Preview Environments for Testing
+
+Enable [preview deployments](/deploy/preview) so every pull request gets its own isolated environment. This lets your team test changes in a production-like setting before merging.
+
+Preview environments are automatically cleaned up when the branch is deleted or the PR is closed.
+
+## Back Up Important Data Regularly
+
+While Zeabur provides infrastructure-level reliability, you should still maintain your own backups for critical data:
+
+- Use the [backup and restore](/operations/backup-restore) feature for database snapshots.
+- Export important configurations via [config file management](/operations/config-file-management).
+- Store backups externally (e.g., object storage) for disaster recovery.
+
+<Callout type="info">
+Combining these practices with Zeabur's built-in features — like [high availability](/deploy/high-availability) and [edge caching](/deploy/edge-caching) — gives you a solid foundation for production workloads.
+</Callout>

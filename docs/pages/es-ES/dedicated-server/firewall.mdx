@@ -1,0 +1,78 @@
+---
+title: Firewall y Configuración de Seguridad
+ogImageTitle: Firewall y Configuración de Seguridad
+ogImageSubtitle: Configure reglas de firewall y ajustes de seguridad para su servidor
+---
+
+import { Callout } from 'nextra/components'
+
+# Firewall y Configuración de Seguridad
+
+Zeabur proporciona gestión de firewall a nivel de servidor, permitiéndole configurar reglas de entrada directamente desde el Dashboard sin necesidad de conectarse por SSH al servidor para gestionar iptables manualmente.
+
+## Descripción general
+
+Cada [servidor dedicado](/dedicated-server) tiene su propia configuración de firewall. Por defecto, Zeabur abre los puertos necesarios para que los servicios funcionen (como el 80 y el 443) y bloquea todas las demás conexiones entrantes no autorizadas.
+
+<Callout type="info">
+Las reglas de firewall solo controlan el **tráfico entrante**. Las conexiones salientes de sus servicios no están restringidas por el firewall.
+</Callout>
+
+## Configuración de reglas de firewall
+
+1. Vaya a la [página de Servidores de Zeabur](https://zeabur.com/servers) y seleccione su servidor dedicado.
+2. Haga clic en la pestaña "**Firewall**" en la navegación izquierda.
+3. Haga clic en el botón "**Agregar Regla**" para crear una regla de entrada.
+
+Cada regla requiere los siguientes campos:
+
+| Campo | Descripción |
+| --- | --- |
+| Protocolo | TCP o UDP |
+| Rango de puertos | Un puerto único (ej., `8080`) o un rango (ej., `3000-3100`) |
+| IP de origen | Dirección IP de origen permitida o bloque CIDR (ej., `203.0.113.0/24`); déjelo vacío para permitir todos los orígenes |
+
+Haga clic en "**Guardar**" cuando termine. Las reglas surten efecto en segundos.
+
+## Lista de permitidos y lista de bloqueados
+
+- **Modo de lista de permitidos**: Para restringir el acceso a IPs específicas para un puerto determinado, simplemente especifique la IP de origen al crear una regla.
+- **Modo de lista de bloqueados**: El firewall de Zeabur utiliza una estrategia de lista de permitidos (denegación por defecto). Los puertos y orígenes no abiertos explícitamente en una regla están bloqueados, por lo que no se necesita una configuración separada de lista de bloqueados.
+
+### Escenarios comunes
+
+**Permitir solo la IP de la oficina para acceder al panel de administración**
+
+| Protocolo | Puerto | IP de origen |
+| --- | --- | --- |
+| TCP | 8443 | `203.0.113.10` |
+
+**Abrir puerto de base de datos para una subred específica**
+
+| Protocolo | Puerto | IP de origen |
+| --- | --- | --- |
+| TCP | 5432 | `10.0.0.0/16` |
+
+## Puertos requeridos
+
+Los siguientes puertos son necesarios para que Zeabur funcione correctamente. No los bloquee:
+
+| Puerto | Propósito |
+| --- | --- |
+| 22 | Gestión SSH |
+| 80 | Tráfico HTTP |
+| 443 | Tráfico HTTPS |
+| 4222 | Comunicación interna NATS |
+| 6443 | K3s API Server |
+| 30000–32767 | Rango de Kubernetes NodePort |
+
+<Callout type="warning">
+Bloquear cualquiera de estos puertos puede impedir que Zeabur gestione su servidor o causar que los servicios sean inaccesibles.
+</Callout>
+
+## Mejores prácticas de seguridad
+
+- **Principio de mínimo privilegio** — Solo abra los puertos y las IPs de origen que realmente necesite. Evite usar `0.0.0.0/0` (permitir todo) para servicios sensibles.
+- **Auditar reglas regularmente** — Revise periódicamente sus reglas de firewall y elimine los puertos que ya no sean necesarios.
+- **Usar red privada** — Para la comunicación entre servicios, utilice la [red privada](/deploy/private-networking) para evitar transmitir datos sensibles por Internet público.
+- **Mantener SSH seguro** — Use autenticación por clave SSH en lugar de contraseñas, y considere restringir el acceso SSH a IPs específicas.

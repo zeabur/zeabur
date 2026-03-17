@@ -9,4 +9,5 @@ export default {
     "github": "GitHub との統合",
     "deploy-in-cli": "CLI でデプロイ",
     "variables": "変数",
+    "migrate-project": "プロジェクトの移行",
 }

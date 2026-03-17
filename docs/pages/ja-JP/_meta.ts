@@ -1,49 +1,42 @@
 export default {
-  // ── I. はじめに ───────────────────────────────────────────────────────
-  index: 'イントロダクション',
-  'get-started': 'スタート',
-  tutorials: 'インポートガイド',
+  'get-started': 'はじめに',
 
-  // ── II. コアデプロイメントとサービス ──────────────────────────────────
-  '--- ii ---': {
-    type: 'separator',
-    title: 'コアデプロイメントとサービス',
-  },
-  deploy: 'デプロイ',
-  template: 'テンプレート',
-  marketplace: {
-    title: 'Zeaburテンプレートカタログ',
-    href: 'https://zeabur.com/templates',
-  },
-  'ai-hub': 'Zeabur AI Hub',
-  email: 'Zeabur Email',
-  integrations: 'インテグレーション',
-  guides: 'ガイド',
+  // ── インフラストラクチャ ─────────────────────────────────────────────────
+  '---1---': { type: 'separator' },
+  'dedicated-server': 'サーバー',
+  deploy:             'デプロイ',
 
-  // ── III. インフラストラクチャと設定 ───────────────────────────────────
-  '--- iii ---': {
-    type: 'separator',
-    title: 'インフラストラクチャと設定',
-  },
-  'data-management': 'データ管理',
-  networking: 'ネットワーキング',
-  'dedicated-server': '専用サーバー',
+  // ── プロダクト ───────────────────────────────────────────────────────────
+  '---2---': { type: 'separator' },
+  'ai-hub':           'AI Hub',
+  email:              'Email',
+  template:           'テンプレート',
+  integrations:       'インテグレーション',
 
-  // ── IV. 運用と開発者ツール ─────────────────────────────────────────────
-  '--- iv ---': {
-    type: 'separator',
-    title: '運用と開発者ツール',
-  },
-  manage: 'プロジェクト管理',
-  advanced: '高度な内容',
-  developer: '開発者',
+  // ── 開発者 ───────────────────────────────────────────────────────────────
+  '---3---': { type: 'separator' },
+  developer: '開発者ツール',
+  guides:    'フレームワーク',
 
-  // ── V. 請求・法律・ポリシー ────────────────────────────────────────────
-  '--- v ---': {
-    type: 'separator',
-    title: '請求・法律・ポリシー',
-  },
-  billing: '支払いと請求',
-  legal: '法律とポリシー',
-  community: 'コミュニティ',
+  // ── 商業 ─────────────────────────────────────────────────────────────────
+  '---4---': { type: 'separator' },
+  pricing:            '料金プラン',
+  subscription:       'サブスクリプションと請求',
+  partner:            'パートナープログラム',
+
+  // ── 法律 ─────────────────────────────────────────────────────────────────
+  '---5---': { type: 'separator' },
+  legal:              '法律とポリシー',
+
+  // ── 非表示：レガシーディレクトリ ──────────────────────────────────────────
+  advanced:        { display: 'hidden' },
+  billing:         { display: 'hidden' },
+  community:       { display: 'hidden' },
+  'data-management': { display: 'hidden' },
+  manage:          { display: 'hidden' },
+  networking:      { display: 'hidden' },
+  tutorials:       { display: 'hidden' },
+
+  // ── Root index ────────────────────────────────────────────────────────────
+  index: { display: 'hidden' },
 }

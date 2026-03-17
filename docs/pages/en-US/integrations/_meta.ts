@@ -1,4 +1,4 @@
 export default {
-  index: 'Overview',
+  index: { display: 'hidden' },
   insforge: 'InsForge',
 }

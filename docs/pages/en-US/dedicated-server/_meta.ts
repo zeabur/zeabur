@@ -1,5 +1,7 @@
 export default {
-  index:    { display: 'hidden' },  // product landing — no extra sidebar link
-  register: 'Add a Server',
-  operate:  'Manage Server',
+  index:            { display: 'hidden' },
+  register:         'Add a Server',
+  operate:          'Manage Server',
+  'shared-cluster': 'Shared Cluster (Deprecated)',
+  firewall:         'Firewall & Security',
 }

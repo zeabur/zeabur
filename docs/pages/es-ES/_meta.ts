@@ -1,49 +1,42 @@
 export default {
-  // ── I. Primeros Pasos ─────────────────────────────────────────────────
-  index: 'Introducción',
-  'get-started': 'Empezar',
-  tutorials: 'Guías de Importación',
+  'get-started': 'Comenzar',
 
-  // ── II. Despliegue y Servicios ────────────────────────────────────────
-  '--- ii ---': {
-    type: 'separator',
-    title: 'Despliegue y Servicios',
-  },
-  deploy: 'Implementar',
-  template: 'Plantilla',
-  marketplace: {
-    title: 'Catálogo de Plantillas',
-    href: 'https://zeabur.com/templates',
-  },
-  'ai-hub': 'Zeabur AI Hub',
-  email: 'Zeabur Email',
-  integrations: 'Integraciones',
-  guides: 'Guías',
+  // ── Infraestructura ──────────────────────────────────────────────────────
+  '---1---': { type: 'separator' },
+  'dedicated-server': 'Servidores',
+  deploy:             'Implementar',
 
-  // ── III. Infraestructura y Configuración ──────────────────────────────
-  '--- iii ---': {
-    type: 'separator',
-    title: 'Infraestructura y Configuración',
-  },
-  'data-management': 'Gestión de Datos',
-  networking: 'Redes',
-  'dedicated-server': 'Servidor Dedicado',
+  // ── Productos ────────────────────────────────────────────────────────────
+  '---2---': { type: 'separator' },
+  'ai-hub':           'AI Hub',
+  email:              'Email',
+  template:           'Plantillas',
+  integrations:       'Integraciones',
 
-  // ── IV. Operaciones y Herramientas ────────────────────────────────────
-  '--- iv ---': {
-    type: 'separator',
-    title: 'Operaciones y Herramientas',
-  },
-  manage: 'Gestión de Proyectos',
-  advanced: 'Avanzado',
-  developer: 'Desarrollador',
+  // ── Desarrollador ────────────────────────────────────────────────────────
+  '---3---': { type: 'separator' },
+  developer: 'Herramientas de Desarrollador',
+  guides:    'Frameworks',
 
-  // ── V. Facturación, Legal y Políticas ─────────────────────────────────
-  '--- v ---': {
-    type: 'separator',
-    title: 'Facturación, Legal y Políticas',
-  },
-  billing: 'Pagos y Facturación',
-  legal: 'Legal y Políticas',
-  community: 'Comunidad',
+  // ── Comercial ────────────────────────────────────────────────────────────
+  '---4---': { type: 'separator' },
+  pricing:            'Precios',
+  subscription:       'Suscripción y Facturación',
+  partner:            'Programa de Socios',
+
+  // ── Legal ────────────────────────────────────────────────────────────────
+  '---5---': { type: 'separator' },
+  legal:              'Legal y Políticas',
+
+  // ── Ocultos: directorios heredados ───────────────────────────────────────
+  advanced:        { display: 'hidden' },
+  billing:         { display: 'hidden' },
+  community:       { display: 'hidden' },
+  'data-management': { display: 'hidden' },
+  manage:          { display: 'hidden' },
+  networking:      { display: 'hidden' },
+  tutorials:       { display: 'hidden' },
+
+  // ── Root index ────────────────────────────────────────────────────────────
+  index: { display: 'hidden' },
 }

@@ -8,7 +8,7 @@ ogImageSubtitle: Make your service highly available even a single server is down
 
 This document outlines recommended architectures for achieving high availability for your services deployed on Zeabur.
 
-Note that this is an advanced topic. Typically, you don't need high availability (HA) for your startup services. For the simplest solution, place your services in one project and use [private networking](/infrastructure/private-networking) for communication. Expose your service to the Internet using [public networking](/infrastructure/public-networking). We can handle vertical scaling for you. In shared clusters, if a node goes down, we can automatically migrate your service to another node.
+Note that this is an advanced topic. Typically, you don't need high availability (HA) for your startup services. For the simplest solution, place your services in one project and use [private networking](/deploy/private-networking) for communication. Expose your service to the Internet using [public networking](/deploy/public-networking). We can handle vertical scaling for you. In shared clusters, if a node goes down, we can automatically migrate your service to another node.
 
 ## DNS Load Balancer (Recommended)
 

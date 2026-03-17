@@ -1,5 +1,5 @@
 export default {
-  index: 'Overview',
+  index: { display: 'hidden' },
   'quick-start': 'Quick Start',
   'rest-api': 'REST API Reference',
   'domains': 'Domain Management',

@@ -28,5 +28,13 @@ export default {
   '--- manage ---': { type: 'separator', title: 'Project Management' },
   'copy-project': 'Copy Project',
   'export-project': 'Export Project',
+  'migrate-project': 'Migrate Project',
   'update-image-reference': 'Update Image Reference',
+
+  // ── Networking ──────────────────────────────────────────────────────────────
+  '--- networking ---': { type: 'separator', title: 'Networking' },
+  'public-networking': 'Public Networking',
+  'private-networking': 'Private Networking',
+  'high-availability': 'High Availability',
+  'edge-caching': 'Edge Caching',
 }

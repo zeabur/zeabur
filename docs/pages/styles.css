@@ -1,5 +1,4 @@
-/* @imports must come first */
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400;1,14..32,500&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap');
+/* next/font handles font loading — no CDN @import needed */
 @import 'nextra-theme-docs/style.css' layer(nextra-base);
 
 /* ─────────────────────────────────────────────────────────────────
@@ -11,37 +10,152 @@
   --zb-purple-muted: rgba(99, 0, 255, 0.08);
   /* Zeabur Orange — content accents only (code, blockquote) */
   --zb-orange:       #FF4400;
-  /* Sidebar section label — neutral gray (Cursor style) */
-  --zb-label:        rgba(0, 0, 0, 0.38);
+
+  /* Text hierarchy — 3-tier warm grays (Cursor-inspired) */
+  --zb-text:         #1f1f1f;   /* headings, primary */
+  --zb-text-2:       #37352f;   /* body text */
+  --zb-text-muted:   #787774;   /* captions, meta, labels */
+
+  /* Background */
+  --zb-bg:           #ffffff;
+  --zb-bg-muted:     #f7f7f5;
 }
 
 .dark {
   --zb-purple:       #a370ff;
   --zb-purple-muted: rgba(163, 112, 255, 0.12);
   --zb-orange:       #ff6b3d;
-  --zb-label:        rgba(255, 255, 255, 0.38);
+
+  --zb-text:         #ededec;
+  --zb-text-2:       #d4d4d2;
+  --zb-text-muted:   #9b9a97;
+
+  --zb-bg:           #111111;
+  --zb-bg-muted:     #191919;
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   GLOBAL TYPOGRAPHY — Inter body + JetBrains Mono code
+   FONT STACKS — Geist (Latin) + Noto Sans CJK per locale
+   ───────────────────────────────────────────────────────────────── */
+:root {
+  --font-sans: var(--font-geist), var(--font-noto-tc), var(--font-noto-sc),
+               var(--font-noto-jp), ui-sans-serif, system-ui, sans-serif;
+  --font-code: var(--font-mono), ui-monospace, 'Cascadia Code',
+               'Fira Code', Menlo, Monaco, monospace;
+
+  /* Type scale — Cursor-inspired (base 15px) */
+  --zb-fs-body:  0.9375rem;  /* 15px */
+  --zb-fs-h1:    2rem;       /* 32px */
+  --zb-fs-h2:    1.5rem;     /* 24px */
+  --zb-fs-h3:    1.25rem;    /* 20px */
+  --zb-fs-h4:    1.0625rem;  /* 17px */
+  --zb-fs-small: 0.8125rem;  /* 13px — sidebar, captions */
+
+  /* Line-heights */
+  --zb-lh-body: 1.7;
+  --zb-lh-h1:   1.15;
+  --zb-lh-h2:   1.2;
+  --zb-lh-h3:   1.25;
+  --zb-lh-h4:   1.3;
+}
+
+/* Locale-specific CJK priority — ensures correct glyph variants
+   CJK glyphs fill more of the em-square and appear ~5-8% larger
+   than Latin at the same font-size. We compensate with slightly
+   smaller sizes and slightly more generous line-heights. */
+:lang(zh-Hant), :lang(zh-TW) {
+  --font-sans: var(--font-geist), var(--font-noto-tc), var(--font-noto-sc),
+               ui-sans-serif, system-ui, sans-serif;
+  --zb-fs-body:  0.9rem;     /* 14.4px (~97%) */
+  --zb-fs-h1:    1.875rem;   /* 30px */
+  --zb-fs-h2:    1.4375rem;  /* 23px */
+  --zb-fs-h3:    1.1875rem;  /* 19px */
+  --zb-fs-h4:    1rem;       /* 16px */
+  --zb-lh-body:  1.8;
+  --zb-lh-h1:    1.2;
+  --zb-lh-h2:    1.3;
+  --zb-lh-h3:    1.35;
+  --zb-lh-h4:    1.4;
+}
+:lang(zh-Hans), :lang(zh-CN) {
+  --font-sans: var(--font-geist), var(--font-noto-sc), var(--font-noto-tc),
+               ui-sans-serif, system-ui, sans-serif;
+  --zb-fs-body:  0.9rem;
+  --zb-fs-h1:    1.875rem;
+  --zb-fs-h2:    1.4375rem;
+  --zb-fs-h3:    1.1875rem;
+  --zb-fs-h4:    1rem;
+  --zb-lh-body:  1.8;
+  --zb-lh-h1:    1.2;
+  --zb-lh-h2:    1.3;
+  --zb-lh-h3:    1.35;
+  --zb-lh-h4:    1.4;
+}
+:lang(ja), :lang(ja-JP) {
+  --font-sans: var(--font-geist), var(--font-noto-jp),
+               ui-sans-serif, system-ui, sans-serif;
+  --zb-fs-body:  0.9rem;
+  --zb-fs-h1:    1.875rem;
+  --zb-fs-h2:    1.4375rem;
+  --zb-fs-h3:    1.1875rem;
+  --zb-fs-h4:    1rem;
+  --zb-lh-body:  1.8;
+  --zb-lh-h1:    1.2;
+  --zb-lh-h2:    1.3;
+  --zb-lh-h3:    1.35;
+  --zb-lh-h4:    1.4;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   GLOBAL TYPOGRAPHY
    ───────────────────────────────────────────────────────────────── */
 body {
-  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system,
-               BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-sans) !important;
+  font-size: var(--zb-fs-body) !important;
+  color: var(--zb-text-2) !important;
   -webkit-font-smoothing:  antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code, pre, kbd, samp {
-  font-family: 'JetBrains Mono', ui-monospace, 'Cascadia Code',
-               'Fira Code', Menlo, Monaco, monospace;
+  font-family: var(--font-code) !important;
 }
 
-/* Tighter tracking on headings */
-h1 { letter-spacing: -0.03em;  font-weight: 700; }
-h2 { letter-spacing: -0.02em;  font-weight: 600; }
-h3 { letter-spacing: -0.015em; font-weight: 600; }
-h4 { letter-spacing: -0.01em;  font-weight: 600; }
+/* Headings: tighter tracking + lower line-height at larger sizes */
+h1 {
+  font-size: var(--zb-fs-h1) !important;
+  letter-spacing: -0.025em !important;
+  line-height: var(--zb-lh-h1) !important;
+  font-weight: 700 !important;
+  color: var(--zb-text) !important;
+}
+h2 {
+  font-size: var(--zb-fs-h2) !important;
+  letter-spacing: -0.02em !important;
+  line-height: var(--zb-lh-h2) !important;
+  font-weight: 600 !important;
+  color: var(--zb-text) !important;
+}
+h3 {
+  font-size: var(--zb-fs-h3) !important;
+  letter-spacing: -0.015em !important;
+  line-height: var(--zb-lh-h3) !important;
+  font-weight: 600 !important;
+  color: var(--zb-text) !important;
+}
+h4 {
+  font-size: var(--zb-fs-h4) !important;
+  letter-spacing: -0.01em !important;
+  line-height: var(--zb-lh-h4) !important;
+  font-weight: 600 !important;
+  color: var(--zb-text) !important;
+}
+
+/* Body prose */
+article p, article li {
+  line-height: var(--zb-lh-body) !important;
+  color: var(--zb-text-2) !important;
+}
 
 /* ─────────────────────────────────────────────────────────────────
    LAYOUT
@@ -76,40 +190,33 @@ html.dark  .black-logo { display: none !important; }
 
 /* ─────────────────────────────────────────────────────────────────
    SIDEBAR — SECTION SEPARATOR LABELS
-   Cursor style: tiny ALL-CAPS, muted gray, wide tracking
    ───────────────────────────────────────────────────────────────── */
 .nextra-sidebar-container ul > li:not(:has(a, button)) {
   font-size:      0.65rem !important;
   font-weight:    600 !important;
   letter-spacing: 0.08em !important;
   text-transform: uppercase !important;
-  color:          var(--zb-label) !important;
+  color:          var(--zb-text-muted) !important;
   padding:        0 0.5rem !important;
   margin-top:     1.25rem !important;
   margin-bottom:  0.15rem !important;
   line-height:    1.4 !important;
   user-select:    none !important;
 }
-/* No extra top margin for the very first separator */
 .nextra-sidebar-container ul > li:not(:has(a, button)):first-child {
   margin-top: 0.5rem !important;
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   SIDEBAR — LINK COLOR  (darker default — black/white, not gray)
+   SIDEBAR — LINK COLOR  (use text hierarchy)
    ───────────────────────────────────────────────────────────────── */
 .nextra-sidebar-container li:not(.active) > a,
 .nextra-sidebar-container button {
-  color: rgba(0, 0, 0, 0.75) !important;
-}
-.dark .nextra-sidebar-container li:not(.active) > a,
-.dark .nextra-sidebar-container button {
-  color: rgba(255, 255, 255, 0.75) !important;
+  color: var(--zb-text-2) !important;
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   SIDEBAR — ACTIVE LINK  (brand purple, no fill — must come AFTER
-   link-color rule so same-specificity !important wins by order)
+   SIDEBAR — ACTIVE LINK  (brand purple, no fill)
    ───────────────────────────────────────────────────────────────── */
 .nextra-sidebar-container li.active {
   border-left: none !important;
@@ -131,7 +238,7 @@ html.dark  .black-logo { display: none !important; }
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   SIDEBAR — HOVER  (uniform subtle gray — light and dark)
+   SIDEBAR — HOVER  (uniform subtle gray)
    ───────────────────────────────────────────────────────────────── */
 .nextra-sidebar-container li:not(.active) a:hover,
 .nextra-sidebar-container button:hover {
@@ -224,6 +331,7 @@ article blockquote {
    TOC (right sidebar) — purple hover & active heading
    ───────────────────────────────────────────────────────────────── */
 .nextra-toc a {
+  color: var(--zb-text-muted) !important;
   transition: color 0.12s ease !important;
 }
 .nextra-toc a:hover,
@@ -232,5 +340,28 @@ article blockquote {
 }
 .dark .nextra-toc a:hover,
 .dark .nextra-toc a._text-primary-600 {
+  color: var(--zb-purple) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   PREV / NEXT NAVIGATION — compact muted CTA
+   ───────────────────────────────────────────────────────────────── */
+main > ._mb-8._flex._border-t {
+  padding-top: 1.25rem !important;
+  margin-bottom: 1.5rem !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+}
+.dark main > ._mb-8._flex._border-t {
+  border-color: rgba(255, 255, 255, 0.06) !important;
+}
+main > ._mb-8._flex._border-t > a {
+  font-size: var(--zb-fs-small) !important;
+  font-weight: 400 !important;
+  color: var(--zb-text-muted) !important;
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
+  transition: color 0.12s ease !important;
+}
+main > ._mb-8._flex._border-t > a:hover {
   color: var(--zb-purple) !important;
 }

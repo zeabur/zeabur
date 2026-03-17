@@ -1,0 +1,52 @@
+---
+title: Migrar Proyecto
+ogImageTitle: Migrar Proyecto
+ogImageSubtitle: Migre proyectos entre regiones o cuentas
+---
+
+import { Callout } from 'nextra/components'
+
+# Migrar Proyecto
+
+Migrar un proyecto es esencialmente **copiar el proyecto + sincronizar datos**. La función de [Copiar Proyecto](/deploy/copy-project) de Zeabur le permite duplicar un proyecto completo (incluyendo configuraciones de servicio, variables de entorno y datos de volúmenes) a otra región con un solo clic. Combinado con [Copia de seguridad y Restauración](/operations/backup-restore), puede realizar una migración completa entre regiones o incluso entre cuentas.
+
+## Migración entre regiones
+
+Para mover un proyecto de una región a otra (ej., de Tokio a San Francisco), el enfoque más fácil es usar la función **Copiar Proyecto**:
+
+1. Abra el proyecto que desea migrar y vaya a **Configuración del Proyecto**.
+2. Haga clic en el botón "**Copiar Proyecto**" y seleccione la región de destino.
+3. Espere a que se complete la copia (sin tiempo de inactividad para proyectos sin volúmenes; la duración depende del tamaño de los datos para proyectos con volúmenes).
+4. Una vez completada la copia, vuelva a vincular su dominio personalizado al nuevo proyecto.
+5. Una vez confirmado que el nuevo proyecto funciona correctamente, elimine el proyecto antiguo.
+
+<Callout type="info">
+Copiar Proyecto traslada todas las configuraciones de servicio, variables de entorno y datos de volúmenes, pero **no hereda automáticamente la configuración de dominio del proyecto original** — deberá volver a vincularlos manualmente.
+</Callout>
+
+Para pasos detallados, consulte la documentación de [Copiar Proyecto](/deploy/copy-project).
+
+## Migración entre cuentas
+
+Para migrar un proyecto a una cuenta de Zeabur diferente (ej., de una cuenta personal a una cuenta de equipo), deberá realizar la migración manualmente:
+
+1. **Exportar la configuración del proyecto** — Utilice la función de [Exportar Proyecto](/deploy/export-project) para descargar la configuración YAML del proyecto.
+2. **Hacer copia de seguridad de los datos** — Cree copias de seguridad para todos los servicios con estado:
+   - Bases de datos: Utilice la función de copia de seguridad en línea en [Copia de seguridad y Restauración](/operations/backup-restore).
+   - Almacenamiento persistente: Utilice copia de seguridad fuera de línea o descargue manualmente a través de [Gestión de Archivos](/operations/file-management).
+3. **Crear un nuevo proyecto en la cuenta de destino** — Inicie sesión en la cuenta de destino y cree un nuevo proyecto en la región deseada.
+4. **Redesplegar servicios** — Basándose en la configuración YAML exportada, cree los servicios correspondientes en el nuevo proyecto.
+5. **Restaurar datos** — Restaure las copias de seguridad del paso 2 en los nuevos servicios.
+6. **Cambiar DNS** — Apunte los registros DNS de su dominio personalizado a los dominios de servicio del nuevo proyecto.
+7. **Verificar** — Una vez confirmado que todos los servicios funcionan correctamente, limpie los recursos en la cuenta antigua.
+
+## Notas importantes
+
+- **Cambio de DNS** — Antes de migrar, reduzca el valor TTL de su DNS para acelerar la propagación de DNS después del cambio.
+- **Variables de entorno** — Copiar Proyecto traslada automáticamente las variables de entorno; la migración entre cuentas requiere reconfiguración manual, especialmente para variables que contienen secretos.
+- **Copia de seguridad de datos** — Siempre confirme que todas las bases de datos y el almacenamiento persistente estén completamente respaldados antes de migrar. Considere pausar las escrituras en el proyecto antiguo durante la migración para evitar inconsistencias de datos.
+- **Integración Git** — Si los servicios están vinculados a un repositorio de GitHub, deberá reconfigurar la [integración con GitHub](/deploy/github-integration) en la nueva cuenta después de la migración entre cuentas.
+
+<Callout type="info">
+Si encuentra algún problema durante la migración, comuníquese con nosotros en nuestro [servidor de Discord](https://zeabur.com/dc).
+</Callout>

@@ -17,7 +17,7 @@ For database services, Zeabur supports online and automatic backups, allowing yo
 ### Offline Offsite Backup
 
 <Callout>
-    If you have not mounted [volumes](/infrastructure/volumes), the backup feature will not be displayed. "Backup" will only back up the data within the volumes; other files in the service (such as source code) will not be backed up.
+    If you have not mounted [volumes](/operations/volumes), the backup feature will not be displayed. "Backup" will only back up the data within the volumes; other files in the service (such as source code) will not be backed up.
 </Callout>
 
 First, you need to suspend the service. Click on "Settings" → "Suspend Service" for the service to suspend it. Note that suspension will not cause data loss.
@@ -130,4 +130,4 @@ mongorestore "<connection string>" "<backup directory>"
 
 ### Volumes
 
-If you want to restore data within [volumes](/infrastructure/volumes), you can refer to the [File Management](/infrastructure/file-management) method to upload the backup files to the target directory and decompress them.
+If you want to restore data within [volumes](/operations/volumes), you can refer to the [File Management](/operations/file-management) method to upload the backup files to the target directory and decompress them.

@@ -1,0 +1,65 @@
+---
+title: 發票與統編
+ogImageTitle: 發票與統編
+ogImageSubtitle: 發票申請與統一編號設定
+---
+
+import { Callout } from 'nextra/components'
+
+# 發票與統編
+
+Zeabur 為 [Team Plan](/pricing/team-plan) 以上的使用者提供發票功能，方便企業和組織進行財務報帳。
+
+<Callout type="info">
+發票功能僅限 **Team Plan** 以上方案使用。[Dev Plan](/pricing/dev-plan) 和 Free Plan 使用者如需發票，請先升級至 Team Plan。
+</Callout>
+
+## 如何申請發票
+
+1. 前往 [Dashboard 帳單頁面](https://dash.zeabur.com/account/billing)。
+2. 在發票設定區域，填寫公司名稱與統一編號（Tax ID）。
+3. 儲存設定後，後續的帳單將自動附上發票資訊。
+
+## 統一編號設定
+
+在帳單頁面的發票設定中，你可以設定：
+
+- **公司名稱** — 發票上顯示的公司或組織全名。
+- **統一編號（Tax ID）** — 台灣統編、VAT 號碼，或其他國家/地區的稅務識別號。
+- **帳單地址** — 公司的帳單寄送地址。
+
+## 支援的國家 / 地區
+
+Zeabur 透過 Stripe 提供發票服務，支援以下國家和地區的稅務識別號：
+
+- **台灣** — 統一編號（Tax ID）
+- **美國** — EIN（Employer Identification Number）
+- **歐盟** — VAT Number
+- **日本** — 法人番号
+- **其他 Stripe 支援的國家/地區**
+
+如果你的國家/地區不在上述列表中，請到 [Discord 伺服器](https://zeabur.com/dc) 聯絡我們，我們會協助處理。
+
+## 發票內容
+
+Zeabur 發票包含以下資訊：
+
+- 帳單期間
+- 訂閱方案費用
+- 資源使用明細（記憶體、流量、儲存等）
+- 專用伺服器費用（如適用）
+- 稅額（依據所在地區法規）
+
+## 常見問題
+
+### 可以補開過去月份的發票嗎？
+
+可以。請到 [Discord 伺服器](https://zeabur.com/dc) 聯絡我們，提供需要補開的月份和帳號資訊。
+
+### 發票幣別是什麼？
+
+發票以美元（USD）開立，與 Zeabur 的計費幣別一致。
+
+### Dev Plan 可以開發票嗎？
+
+目前 Dev Plan 不支援發票功能。如需發票，請升級至 [Team Plan](/pricing/team-plan)。

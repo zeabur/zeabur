@@ -1,0 +1,76 @@
+---
+title: Refund Policy
+ogImageTitle: Refund Policy
+ogImageSubtitle: Zeabur refund and cancellation policy
+---
+
+import { Callout } from 'nextra/components'
+
+# Refund Policy
+
+## Subscription Plan Refunds
+
+For **Developer Plan (Dev Plan)** and **Team Plan**:
+
+- If you cancel your subscription, you can request a **prorated refund** for the remaining days. For example, if you cancel the Developer Plan after 10 days, you can get a refund for the remaining 20 days.
+- If you request a refund within **24 hours** of subscribing, you can receive a **full refund**.
+
+### Refund Methods
+
+You can choose how to receive your refund:
+
+| Refund Method | Processing Time | Fees |
+| --- | --- | --- |
+| **Zeabur Credits** | Instant after approval | None |
+| **Original payment method** | Up to 7 days | ~30% of refund amount (Stripe transaction fee) |
+
+<Callout type="info">
+Choosing Zeabur Credits avoids the Stripe processing fee and is faster. Credits can be used for future subscriptions or resource usage.
+</Callout>
+
+## Dedicated Server Refunds
+
+Dedicated server refund rules vary by cloud provider:
+
+### Non-China Providers (GCP, Hetzner, Linode, DigitalOcean)
+
+You can **cancel directly** from the Server page in your Dashboard. The system processes the refund automatically — no need to contact support.
+
+### China Providers (Volcengine, Alibaba Cloud, Tencent Cloud)
+
+- **First refund**: Self-service cancellation on the Server page. Unconditional refund, no review required.
+- **Second and subsequent refunds**: Submit a refund request on the [Zeabur Forum](https://zeabur.com/forum) for review by customer support.
+
+<Callout type="warning">
+Before requesting a refund, make sure all data on the server has been backed up or confirmed as no longer needed — **data cannot be recovered after the server is destroyed**.
+</Callout>
+
+### Refund Notes
+
+- Refunds are returned to the **original payment method**, processing takes approximately **7 business days**.
+- A **~30% Stripe processing fee** will be deducted from the refund amount.
+- To avoid charges in the next billing cycle, disable auto-renewal in advance.
+
+![Disable auto-renewal](/billing/pricing/auto-renewal.png)
+
+## Cancelling Your Subscription
+
+To cancel your paid plan and downgrade to the Serverless (Free) Plan:
+
+1. Go to the [Dashboard billing page](https://dash.zeabur.com/account/billing).
+2. Scroll down and find the "**Unsubscribe**" button.
+3. Confirm the cancellation.
+
+![Unsubscribe](/billing/subscription/unsubscribe.png)
+
+<Callout type="warning">
+After downgrading to the Serverless Plan, your currently deployed containerized services will be automatically suspended by the system. Make sure to back up important data before cancelling.
+</Callout>
+
+## Prepaid Credits Refund
+
+Prepaid credits are currently **non-refundable**. Please add credits according to your actual needs.
+
+## How to Request a Refund
+
+Please reach out on our [Discord server](https://zeabur.com/dc) with your account information and reason for the refund.

@@ -1,0 +1,66 @@
+---
+title: Mantener y Actualizar Plantillas
+ogImageTitle: Mantener y Actualizar Plantillas
+ogImageSubtitle: Guía de mantenimiento de plantillas y programa de recompensas
+---
+
+import { Callout } from 'nextra/components'
+
+# Mantener y Actualizar Plantillas
+
+Publicar una plantilla es solo el comienzo. A medida que el software upstream evoluciona y los usuarios reportan problemas, los mantenedores de plantillas necesitan mantener sus plantillas actualizadas para asegurar una experiencia de despliegue fluida.
+
+## Proceso de actualización de versión de plantilla
+
+Cuando necesite actualizar una plantilla publicada (ej., actualizar una versión de imagen Docker, modificar variables de entorno predeterminadas o ajustar configuraciones de servicio), puede utilizar los siguientes métodos:
+
+### Actualizar vía CLI
+
+1. Edite su archivo YAML de recurso de plantilla (consulte [Crear Plantillas desde YAML](/template/template-in-code) para el formato).
+2. Ejecute el comando de actualización con el CLI `zeabur`:
+
+```bash
+npx zeabur@latest template update -c <template-code> -f template.yaml
+```
+
+El `<template-code>` es el código en la URL de la plantilla (ej., `71HORL` de `https://zeabur.com/templates/71HORL`).
+
+### Actualizar vía Dashboard
+
+1. Vaya a la página de cuenta del [Dashboard de Zeabur](https://dash.zeabur.com/account) y seleccione la pestaña **Plantilla**.
+2. Encuentre la plantilla que desea actualizar y haga clic en editar.
+3. Modifique la información de la plantilla (nombre, descripción, icono, configuraciones de servicio, etc.).
+4. Guarde sus cambios.
+
+<Callout type="info">
+Actualizar una plantilla no afecta los proyectos ya desplegados. Los usuarios existentes necesitan redesplegar manualmente para obtener la nueva versión.
+</Callout>
+
+## Estándares de revisión de plantillas
+
+El marketplace de plantillas de Zeabur tiene requisitos básicos de calidad para las plantillas publicadas:
+
+- **Desplegabilidad** — La plantilla debe desplegarse exitosamente y funcionar correctamente. Pruebe con `zeabur template deploy` antes de enviar.
+- **Descripción completa** — Proporcione un nombre de plantilla claro, descripción y README para que los usuarios entiendan el propósito de la plantilla.
+- **Icono y etiquetas apropiados** — Use el icono oficial del software y seleccione las etiquetas de categoría correctas.
+- **Documentación de variables** — Si la plantilla requiere variables proporcionadas por el usuario, incluya campos claros de `name` y `description`.
+- **Seguridad** — No codifique secretos directamente. Use valores autogenerados como `${PASSWORD}` para variables de contraseña.
+
+## Recompensas para mantenedores
+
+Zeabur recompensa a los contribuidores de la comunidad a través del [Programa de Recompensas por Contribución](/pricing/reward). Los mantenedores de plantillas pueden ganar lo siguiente:
+
+- **Crear una nueva plantilla**: Las plantillas que pasan la revisión y se publican exitosamente ganan ≥ US$10 en Credits.
+- **Mantenimiento continuo**: Las plantillas utilizadas más de 30 veces ganan US$20 adicionales en Credits.
+- **Ganancias por referidos**: Habilite un código de referido en el [Deploy Button](/deploy/deploy-button) de su plantilla. Por cada nuevo usuario que se registre a través del botón y actualice a un plan de pago, ganará US$5 en Credits.
+
+<Callout type="info">
+Para reclamar recompensas, abra un ticket en el [servidor de Discord de Zeabur](https://zeabur.com/dc) con el enlace de su plantilla e información de cuenta.
+</Callout>
+
+## Mejores prácticas
+
+- **Seguir las versiones upstream** — Siga la página de lanzamientos del proyecto de código abierto que utiliza su plantilla y actualice la etiqueta de imagen rápidamente después de lanzamientos importantes.
+- **Usar etiquetas de versión específicas** — Evite usar la etiqueta `latest`. Use números de versión explícitos (ej., `redis:7.2`) para asegurar despliegues reproducibles.
+- **Proporcionar localización** — Agregue traducciones en `zh-TW`, `ja-JP` y otros idiomas para ampliar el alcance de su plantilla.
+- **Responder a los comentarios de usuarios** — Monitoree la comunidad de Discord para reportes de problemas relacionados con su plantilla y corrija o aclare según sea necesario.

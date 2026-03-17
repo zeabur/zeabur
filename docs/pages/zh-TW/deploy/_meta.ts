@@ -28,5 +28,13 @@ export default {
   '--- manage ---': { type: 'separator', title: '專案管理' },
   'copy-project': '複製專案',
   'export-project': '匯出專案',
+  'migrate-project': '搬遷專案',
   'update-image-reference': '更新映像檔引用',
+
+  // ── 網路 ───────────────────────────────────────────────────────────────────
+  '--- networking ---': { type: 'separator', title: '網路' },
+  'public-networking': '公開網路',
+  'private-networking': '私有網路',
+  'high-availability': '高可用性',
+  'edge-caching': '邊緣快取',
 }
