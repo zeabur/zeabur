@@ -31,7 +31,12 @@ export default function Nextra({ Component, pageProps }) {
       const hash = pendingHash
       pendingHash = ''
       requestAnimationFrame(() => {
-        const id = decodeURIComponent(hash.slice(1))
+        let id = hash.slice(1)
+        try {
+          id = decodeURIComponent(id)
+        } catch {
+          // keep raw fragment if percent-encoding is malformed
+        }
         const el = document.getElementById(id)
         if (el) {
           el.scrollIntoView()
