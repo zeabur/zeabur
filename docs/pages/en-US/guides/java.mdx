@@ -10,6 +10,42 @@ Zeabur supports deploying Java projects that use the Maven or Gradle build syste
 
 - [Guide to Deploying Spring Boot](/guides/java/spring-boot)
 
+## JAR File Discovery
+
+By default, Zeabur automatically finds your JAR (or WAR) file in the standard build output directory:
+
+- **Maven**: `target/*.jar`
+- **Gradle**: `build/libs/*.jar`
+
+This works out of the box for standard single-module projects.
+
+### JAR in a Subdirectory
+
+If your JAR file is not in the default location — for example, in a multi-module project where the runnable JAR is built under a submodule — you need to specify the path explicitly using `javaArgs` in `zbpack.json`:
+
+```json
+{
+  "javaArgs": "-jar my-server/target/server.jar"
+}
+```
+
+For Spring Boot projects, remember to include the port binding so Zeabur can route traffic to your service:
+
+```json
+{
+  "javaArgs": "-Dserver.port=$PORT -jar my-server/target/server.jar"
+}
+```
+
+{/* prettier-ignore */}
+<Callout>
+  When `javaArgs` is set, it **completely replaces** the default startup command. You must include `-jar path/to/your.jar` yourself.
+</Callout>
+
+### Project in a Subdirectory
+
+If your entire Java project (including `pom.xml` or `build.gradle`) lives in a subdirectory of the Git repository, use the [Root Directory](/deploy/root-directory) setting instead. This tells Zeabur to treat that subdirectory as the project root, and default JAR discovery will work as normal.
+
 ## Environment Setup
 
 The available JDK versions are:
@@ -41,7 +77,7 @@ sourceCompatibility = 11
 ### Specifying JVM Startup Parameters
 
 You can override Zeabur's default JVM startup parameters with the `javaArgs` field in `zbpack.json`.
-You'll need to add the path to your jar file yourself.
+When using `javaArgs`, you must include the full command arguments including `-jar` and the path to your JAR file.
 
 ```json
 {
