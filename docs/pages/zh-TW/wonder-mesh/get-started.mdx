@@ -36,11 +36,11 @@ uname -m
 
 ### 建立新專案
 
-前往 [Zeabur Dashboard](https://zeabur.com/projects) 並建立一個新專案。
+前往 [Zeabur 控制台](https://zeabur.com/projects) 並建立一個新專案。
 
 ### 將你的裝置新增為 Wonder Mesh 伺服器
 
-在「Create New Project」頁面中，在「Select a Dedicated Server」下方選擇 **Bind External Server**，然後選擇 **Wonder Mesh**。設定你裝置的架構（amd64 或 arm64）和作業系統（Linux 或 macOS）。
+在「建立新專案」頁面中，在「選擇您的伺服器」下方選擇 **綁定外部伺服器**，然後選擇 **Wonder Mesh**。設定你裝置的架構（amd64 或 arm64）和作業系統（Linux 或 macOS）。
 
 對於 macOS，你還需要指定虛擬機的資源配置：
 - **CPU 核心數** — 至少 2 核；如果你的 Mac 有 8 核以上，建議設定 4 核
@@ -55,7 +55,7 @@ uname -m
 
 ### 在你的裝置上執行安裝腳本
 
-在伺服器頁面上，點擊 **View Install Command** 以顯示完整的安裝指令。複製並在你想要註冊的裝置終端機中執行它。
+在伺服器頁面上，點擊 **查看安裝指令** 以顯示完整的安裝指令。複製並在你想要註冊的裝置終端機中執行它。
 
 ![Zeabur console showing the View Install Command button on the server page](/wonder-mesh/view-install-command.png)
 
@@ -97,7 +97,7 @@ Mesh IP: 100.x.x.x
 
 ### 安裝 K3s
 
-裝置加入網狀網路後，在控制台點擊 **Install K3s**。K3s 是 Zeabur 用來在你的裝置上管理和執行服務的執行引擎。你不需要任何 Kubernetes 知識——只需點擊按鈕並等待完成即可。
+裝置加入網狀網路後，在控制台點擊 **安裝 K3s**。K3s 是 Zeabur 用來在你的裝置上管理和執行服務的執行引擎。你不需要任何 Kubernetes 知識——只需點擊按鈕並等待完成即可。
 
 ### 開始部署
 
@@ -152,7 +152,7 @@ Mesh IP: 100.x.x.x
 
 你可以從同一區域網路（Wi-Fi 或乙太網路）上的任何裝置直接存取服務。請按照以下步驟操作：
 
-1. **找到通訊埠號碼** — 在 Zeabur 控制台中打開你的服務頁面，前往 **Networking** 分頁。找到分配給你服務的通訊埠號碼（例如 `32518`）。
+1. **找到通訊埠號碼** — 在 Zeabur 控制台中打開你的服務頁面，前往 **網路** 分頁。找到分配給你服務的通訊埠號碼（例如 `32518`）。
 
    ![Networking tab showing LAN access address for the deployed service](/wonder-mesh/access-from-lan.png)
 
