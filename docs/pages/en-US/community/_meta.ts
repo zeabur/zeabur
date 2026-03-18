@@ -2,6 +2,6 @@ export default {
     "forum": "Community Forum",
     "referral": "Referral Program",
     "contribution": "Contribution Rewards",
-    "verify": "Verify",
+    "verify": { "title": "Verify", "display": "hidden" },
     "help": "Get Help"
 }
