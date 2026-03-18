@@ -158,7 +158,7 @@ You can access services directly from any device on the same local network (Wi-F
 
 2. **Find your device's LAN IP** — Run one of these commands on your **actual device's terminal** (not inside the service or Zeabur Server SSH):
    - **Linux**: `hostname -I`
-   - **macOS**: `ipconfig getifaddr en0` (use `en1` if connected via Ethernet and `en0` returns nothing)
+   - **macOS**: `ipconfig getifaddr en0` (if this returns nothing, run `route -n get default | grep interface` to find the active interface name, then use `ipconfig getifaddr <interface>`)
 
 3. **Open the service** — From any device on the same network, open `http://<lan-ip>:<port>` in a browser or client.
 
