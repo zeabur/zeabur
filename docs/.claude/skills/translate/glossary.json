@@ -1,0 +1,870 @@
+{
+  "_comment": "Translation glossary extracted from existing documents across all locales. Every term here is sourced from actual _meta.ts labels and MDX frontmatter — not guessed. Use 'keep' to leave the term untranslated.",
+
+  "_brand_names": "Brand names, product names, and proper nouns that must stay in English across all locales.",
+  "terms": {
+    "Zeabur": { "keep": true },
+    "Wonder Mesh": { "keep": true },
+    "InsForge": { "keep": true },
+    "Zeabur AI Hub": { "keep": true },
+    "Zeabur Email": { "keep": true },
+    "K3s": { "keep": true },
+    "Kubernetes": { "keep": true },
+    "Lima": { "keep": true },
+    "Docker": { "keep": true },
+    "Dockerfile": { "keep": true },
+    "GitHub": { "keep": true },
+    "Git": { "keep": true },
+    "Discord": { "keep": true },
+    "Node.js": { "keep": true },
+    "Homebrew": { "keep": true },
+    "GraphQL": { "keep": true },
+    "WebSocket": { "keep": true },
+    "Webhook": { "keep": true },
+    "REST API": { "keep": true },
+    "MCP": { "keep": true },
+    "MDX": { "keep": true },
+    "API": { "keep": true },
+    "CLI": { "keep": true },
+    "DNS": { "keep": true },
+    "SSL": { "keep": true },
+    "TLS": { "keep": true },
+    "HTTPS": { "keep": true },
+    "SSH": { "keep": true },
+    "CI/CD": { "keep": true },
+    "YAML": { "keep": true },
+    "n8n": { "keep": true },
+    "SillyTavern": { "keep": true },
+    "Raycast": { "keep": true },
+    "VS Code": { "keep": true },
+    "Chrome": { "keep": true },
+    "Gemini": { "keep": true },
+    "Replit": { "keep": true },
+    "Lovable": { "keep": true },
+    "v0": { "keep": true },
+    "Bolt": { "keep": true },
+    "Emergent": { "keep": true },
+    "Google AI Studio": { "keep": true },
+
+    "_framework_names": "Framework and language names stay in English.",
+    "Next.js": { "keep": true },
+    "Nuxt": { "keep": true },
+    "Astro": { "keep": true },
+    "Remix": { "keep": true },
+    "Svelte Kit": { "keep": true },
+    "Express": { "keep": true },
+    "NestJS": { "keep": true },
+    "ElysiaJS": { "keep": true },
+    "Hono": { "keep": true },
+    "Vite": { "keep": true },
+    "Waku": { "keep": true },
+    "Umi": { "keep": true },
+    "Nue": { "keep": true },
+    "Qwik": { "keep": true },
+    "Laravel": { "keep": true },
+    "Symfony": { "keep": true },
+    "Django": { "keep": true },
+    "Flask": { "keep": true },
+    "Reflex": { "keep": true },
+    "Spring Boot": { "keep": true },
+    "Vapor": { "keep": true },
+    "Flutter": { "keep": true },
+    "Fresh": { "keep": true },
+    "Hugo": { "keep": true },
+    "MkDocs": { "keep": true },
+    "Bun": { "keep": true },
+    "Deno": { "keep": true },
+    "Rust": { "keep": true },
+    "Go": { "keep": true },
+    "Java": { "keep": true },
+    "PHP": { "keep": true },
+    "Python": { "keep": true },
+    "Swift": { "keep": true },
+    ".NET": { "keep": true },
+
+    "_navigation_labels": "Top-level navigation labels from root _meta.ts files.",
+    "Introduction": {
+      "zh-TW": "基本介紹",
+      "zh-CN": "基本介绍",
+      "ja-JP": "イントロダクション",
+      "es-ES": "Introducción"
+    },
+    "Get Started": {
+      "zh-TW": "快速開始",
+      "zh-CN": "快速开始",
+      "ja-JP": "スタート",
+      "es-ES": "Empezar"
+    },
+    "Deploy": {
+      "zh-TW": "部署",
+      "zh-CN": "部署",
+      "ja-JP": "デプロイ",
+      "es-ES": "Implementar"
+    },
+    "Template": {
+      "zh-TW": "模板",
+      "zh-CN": "模板",
+      "ja-JP": "テンプレート",
+      "es-ES": "Plantilla"
+    },
+    "Template Catalog": {
+      "zh-TW": "Zeabur 模板目錄",
+      "zh-CN": "Zeabur 模板目录",
+      "ja-JP": "Zeaburテンプレートカタログ",
+      "es-ES": "Catálogo de Plantillas"
+    },
+    "Integrations": {
+      "zh-TW": "整合",
+      "zh-CN": "集成服务",
+      "ja-JP": "インテグレーション",
+      "es-ES": "Integraciones"
+    },
+    "Data Management": {
+      "zh-TW": "資料管理",
+      "zh-CN": "数据管理",
+      "ja-JP": "データ管理",
+      "es-ES": "Gestión de Datos"
+    },
+    "Networking": {
+      "zh-TW": "網路",
+      "zh-CN": "网络",
+      "ja-JP": "ネットワーキング",
+      "es-ES": "Redes"
+    },
+    "Guides": {
+      "zh-TW": "教學",
+      "zh-CN": "教程",
+      "ja-JP": "ガイド",
+      "es-ES": "Guías"
+    },
+    "Project Manage": {
+      "zh-TW": "專案管理",
+      "zh-CN": "项目管理",
+      "ja-JP": "プロジェクト管理",
+      "es-ES": "Gestión de Proyectos"
+    },
+    "Legal and Policies": {
+      "zh-TW": "法律及政策",
+      "zh-CN": "法律及政策",
+      "ja-JP": "法律とポリシー",
+      "es-ES": "Legal y Políticas"
+    },
+    "Payments and Billing": {
+      "zh-TW": "付款與帳單",
+      "zh-CN": "付款与账单",
+      "ja-JP": "支払いと請求",
+      "es-ES": "Pagos y Facturación"
+    },
+    "Community": {
+      "zh-TW": "社群",
+      "zh-CN": "社区",
+      "ja-JP": "コミュニティ",
+      "es-ES": "Comunidad"
+    },
+    "Advanced": {
+      "zh-TW": "進階",
+      "zh-CN": "高级",
+      "ja-JP": "高度な内容",
+      "es-ES": "Avanzado"
+    },
+    "Developer": {
+      "zh-TW": "開發者",
+      "zh-CN": "开发者",
+      "ja-JP": "開発者",
+      "es-ES": "Desarrollador"
+    },
+    "Import Guides": {
+      "zh-TW": "導入指南",
+      "zh-CN": "导入指南",
+      "ja-JP": "インポートガイド",
+      "es-ES": "Guías de Importación"
+    },
+    "Overview": {
+      "zh-TW": "概覽",
+      "zh-CN": "概览",
+      "ja-JP": "概要",
+      "es-ES": "Descripción general"
+    },
+
+    "_section_titles": "Section/page titles from MDX frontmatter and nested _meta.ts files.",
+    "Builds": {
+      "zh-TW": "構建原理",
+      "zh-CN": "构建原理",
+      "ja-JP": "ビルド",
+      "es-ES": "Builds"
+    },
+    "Plans": {
+      "zh-TW": "方案",
+      "zh-CN": "方案",
+      "ja-JP": "プラン",
+      "es-ES": "Planes"
+    },
+    "Pricing": {
+      "zh-TW": "定價",
+      "zh-CN": "定价",
+      "ja-JP": "定価",
+      "es-ES": "Precios"
+    },
+    "Subscription": {
+      "zh-TW": "訂閱",
+      "zh-CN": "订阅",
+      "ja-JP": "定期購読",
+      "es-ES": "Suscripción"
+    },
+    "Sponsor": {
+      "zh-TW": "贊助",
+      "zh-CN": "赞助",
+      "ja-JP": "スポンサー",
+      "es-ES": "Patrocinador"
+    },
+    "Redeem Prepaid Card": {
+      "zh-TW": "兌換預付卡",
+      "zh-CN": "兑换代金券",
+      "ja-JP": "プリペイドカードの引換",
+      "es-ES": "Canjear Tarjeta Prepago"
+    },
+    "Community Forum": {
+      "zh-TW": "社群論壇",
+      "zh-CN": "社区论坛",
+      "ja-JP": "コミュニティフォーラム",
+      "es-ES": "Foro de la Comunidad"
+    },
+    "Contribution Reward Program": {
+      "zh-TW": "貢獻獎勵計畫",
+      "zh-CN": "贡献奖励计划",
+      "ja-JP": "貢献報酬プログラム",
+      "es-ES": "Programa de Recompensas por Contribución"
+    },
+    "Referral Rewards": {
+      "zh-TW": "推薦獎勵",
+      "zh-CN": "推荐奖励",
+      "ja-JP": "紹介報酬",
+      "es-ES": "Recompensas por referidos"
+    },
+    "Get Help": {
+      "zh-TW": "尋求幫助",
+      "zh-CN": "寻求帮助",
+      "ja-JP": "ヘルプを取得する",
+      "es-ES": "Obtener Ayuda"
+    },
+    "Verify": {
+      "zh-TW": "驗證帳戶",
+      "zh-CN": "验证账户",
+      "ja-JP": "アカウント認証",
+      "es-ES": "Verificar"
+    },
+    "Backup": {
+      "zh-TW": "備份服務",
+      "zh-CN": "备份服务",
+      "ja-JP": "バックアップサービス",
+      "es-ES": "Copia de Seguridad"
+    },
+    "Config Editor": {
+      "zh-TW": "編輯設定檔",
+      "zh-CN": "编辑配置文件",
+      "ja-JP": "設定ファイルの編集",
+      "es-ES": "Editor de Configuración"
+    },
+    "File Management": {
+      "zh-TW": "檔案管理",
+      "zh-CN": "文件管理",
+      "ja-JP": "ファイル管理",
+      "es-ES": "Gestión de Archivos"
+    },
+    "Restore Backup": {
+      "zh-TW": "還原備份",
+      "zh-CN": "还原备份",
+      "ja-JP": "バックアップの復元",
+      "es-ES": "Restaurar Copia de Seguridad"
+    },
+    "Volumes": {
+      "zh-TW": "持久儲存空間（硬碟）",
+      "zh-CN": "持久存储空间（硬盘）",
+      "ja-JP": "永続ストレージ（ディスク）",
+      "es-ES": "Volúmenes"
+    },
+    "Dedicated Server": {
+      "zh-TW": "專用伺服器",
+      "zh-CN": "独立服务器",
+      "ja-JP": "専用サーバー",
+      "es-ES": "Servidor Dedicado"
+    },
+    "Register Dedicated Server": {
+      "zh-TW": "註冊專用伺服器",
+      "zh-CN": "注册独立服务器",
+      "ja-JP": "専用サーバーの登録",
+      "es-ES": "Registrar Servidor Dedicado"
+    },
+    "Maintain Dedicated Server": {
+      "zh-TW": "維護專用伺服器",
+      "zh-CN": "维护独立服务器",
+      "ja-JP": "専用サーバーのメンテナンス",
+      "es-ES": "Mantener Servidor Dedicado"
+    },
+    "Execute Commands": {
+      "zh-TW": "執行命令",
+      "zh-CN": "运行命令",
+      "ja-JP": "コマンドの実行",
+      "es-ES": "Ejecutar Comandos"
+    },
+    "Copy Project": {
+      "zh-TW": "複製專案",
+      "zh-CN": "复制项目",
+      "ja-JP": "プロジェクトをコピー",
+      "es-ES": "Copiar Proyecto"
+    },
+    "Create Project": {
+      "zh-TW": "建立專案",
+      "zh-CN": "创建项目",
+      "ja-JP": "プロジェクトを作成",
+      "es-ES": "Crear Proyecto"
+    },
+    "Create Service": {
+      "zh-TW": "建立服務",
+      "zh-CN": "创建服务",
+      "ja-JP": "サービスの作成",
+      "es-ES": "Crear Servicio"
+    },
+    "Customize Docker image": {
+      "zh-TW": "自訂 Docker 映像檔",
+      "zh-CN": "自定义 Docker 镜像",
+      "ja-JP": "カスタム Docker イメージ",
+      "es-ES": "Personalizar imagen Docker"
+    },
+    "Deploy Button": {
+      "zh-TW": "一鍵部署按鈕",
+      "zh-CN": "一键部署按钮",
+      "ja-JP": "デプロイボタン",
+      "es-ES": "Botón de Despliegue"
+    },
+    "Deploy in CLI": {
+      "zh-TW": "使用 CLI 部署服務",
+      "zh-CN": "使用 CLI 部署服务",
+      "ja-JP": "CLIを使用したサービスのデプロイ",
+      "es-ES": "Desplegar con CLI"
+    },
+    "Chrome Extension": {
+      "zh-TW": "Chrome 插件",
+      "zh-CN": "Chrome 插件",
+      "ja-JP": "Chrome 拡張機能",
+      "es-ES": "Extensión de Chrome"
+    },
+    "Deploying with Dockerfile": {
+      "zh-TW": "Dockerfile 部署",
+      "zh-CN": "Dockerfile 部署",
+      "ja-JP": "Dockerfile を使用したデプロイ",
+      "es-ES": "Implementación con Dockerfile"
+    },
+    "Export Project": {
+      "zh-TW": "匯出專案",
+      "zh-CN": "导出项目",
+      "ja-JP": "プロジェクトのエクスポート",
+      "es-ES": "Exportar Proyecto"
+    },
+    "GitHub Integration": {
+      "zh-TW": "整合 GitHub",
+      "zh-CN": "集成 GitHub",
+      "ja-JP": "GitHub 連携",
+      "es-ES": "Integración con GitHub"
+    },
+    "Custom Root Directory": {
+      "zh-TW": "自訂根目錄",
+      "zh-CN": "自定义根目录",
+      "ja-JP": "カスタムルートディレクトリ",
+      "es-ES": "Directorio Raíz Personalizado"
+    },
+    "Update Image Reference": {
+      "zh-TW": "更新映像引用",
+      "zh-CN": "更新映像引用",
+      "ja-JP": "イメージ参照を更新する",
+      "es-ES": "Actualizar la referencia de imagen"
+    },
+    "Setting Environment Variables": {
+      "zh-TW": "環境變數設定",
+      "zh-CN": "添加变量",
+      "ja-JP": "環境変数の設定",
+      "es-ES": "Configuración de Variables de Entorno"
+    },
+    "Watch Paths": {
+      "zh-TW": "觸發路徑",
+      "zh-CN": "监控路径",
+      "ja-JP": "ウォッチパス",
+      "es-ES": "Rutas de Vigilancia"
+    },
+    "Public API": {
+      "zh-TW": "開放 API",
+      "zh-CN": "开放 API",
+      "ja-JP": "オープン API",
+      "es-ES": "API Pública"
+    },
+    "Create and Use API Keys": {
+      "zh-TW": "建立和使用 API 金鑰",
+      "zh-CN": "创建和使用 API 密钥",
+      "ja-JP": "API キーの作成と使用",
+      "es-ES": "Crear y Usar Claves de API"
+    },
+    "WebSocket Connection Guide": {
+      "zh-TW": "WebSocket 連線指南",
+      "zh-CN": "WebSocket 连接指南",
+      "ja-JP": "WebSocket 接続ガイド",
+      "es-ES": "Guía de Conexión WebSocket"
+    },
+    "API Key Management": {
+      "zh-TW": "API 金鑰管理",
+      "zh-CN": "API 密钥管理",
+      "ja-JP": "API キー管理",
+      "es-ES": "Gestión de Claves API"
+    },
+    "Domain Management": {
+      "zh-TW": "網域管理",
+      "zh-CN": "域名管理",
+      "ja-JP": "ドメイン管理",
+      "es-ES": "Gestión de Dominios"
+    },
+    "Quick Start": {
+      "zh-TW": "快速開始",
+      "zh-CN": "快速开始",
+      "ja-JP": "クイックスタート",
+      "es-ES": "Inicio Rápido"
+    },
+    "Webhook Configuration": {
+      "zh-TW": "Webhook 設定",
+      "zh-CN": "Webhook 配置",
+      "ja-JP": "Webhook 設定",
+      "es-ES": "Configuración de Webhook"
+    },
+    "Connect AI IDE": {
+      "zh-TW": "連接 AI IDE",
+      "zh-CN": "连接 AI IDE",
+      "ja-JP": "AI IDEの接続",
+      "es-ES": "Conectar IDE de IA"
+    },
+    "Usage & Billing": {
+      "zh-TW": "使用量與帳單",
+      "zh-CN": "用量与账单",
+      "ja-JP": "使用量と請求",
+      "es-ES": "Uso y Facturación"
+    },
+    "MCP Integration": {
+      "zh-TW": "MCP 整合",
+      "zh-CN": "MCP 集成",
+      "ja-JP": "MCP 連携",
+      "es-ES": "Integración MCP"
+    },
+    "High Availability": {
+      "zh-TW": "高可用性架構",
+      "zh-CN": "高可用性架构",
+      "ja-JP": "高可用性アーキテクチャ",
+      "es-ES": "Arquitectura de Alta Disponibilidad"
+    },
+    "Abuse Reporting Guidelines": {
+      "zh-TW": "濫用回報指引",
+      "zh-CN": "滥用举报指引",
+      "ja-JP": "不正利用の報告ガイドライン",
+      "es-ES": "Guía para reportar abusos"
+    },
+    "Fair Use Guidelines": {
+      "zh-TW": "公平使用指南",
+      "zh-CN": "公平使用指南",
+      "ja-JP": "フェアユースガイドライン",
+      "es-ES": "Guía de uso justo"
+    },
+    "Privacy Policy": {
+      "zh-TW": "隱私權政策",
+      "zh-CN": "隐私权政策",
+      "ja-JP": "プライバシーポリシー",
+      "es-ES": "Política de privacidad"
+    },
+    "Terms of Service": {
+      "zh-TW": "服務條款",
+      "zh-CN": "服务条款",
+      "ja-JP": "利用規約",
+      "es-ES": "Términos de Servicio"
+    },
+    "Project Budget": {
+      "zh-TW": "專案預算",
+      "zh-CN": "项目预算",
+      "ja-JP": "プロジェクト予算",
+      "es-ES": "Presupuesto del Proyecto"
+    },
+    "Invite Member": {
+      "zh-TW": "邀請成員",
+      "zh-CN": "邀请成员",
+      "ja-JP": "メンバーを招待する",
+      "es-ES": "Invitar Miembro"
+    },
+    "Service Usage": {
+      "zh-TW": "使用量分析",
+      "zh-CN": "服务用量",
+      "ja-JP": "サービス利用",
+      "es-ES": "Uso del Servicio"
+    },
+    "Security Report": {
+      "zh-TW": "安全報告",
+      "zh-CN": "安全报告",
+      "ja-JP": "セキュリティレポート",
+      "es-ES": "Informe de seguridad"
+    },
+    "Static Web Pages": {
+      "zh-TW": "靜態網頁",
+      "zh-CN": "静态网页",
+      "ja-JP": "静的ウェブページ",
+      "es-ES": "Páginas Web Estáticas"
+    },
+    "Create Template from YAML": {
+      "zh-TW": "從 YAML 建立模板",
+      "zh-CN": "从 YAML 创建模板",
+      "ja-JP": "YAML からテンプレートを作成",
+      "es-ES": "Crear Plantilla desde YAML"
+    },
+
+    "_common_domain_terms": "Recurring domain-specific terms used in body text, headings, and UI labels.",
+    "server": {
+      "zh-TW": "伺服器",
+      "zh-CN": "服务器",
+      "ja-JP": "サーバー",
+      "es-ES": "servidor"
+    },
+    "service": {
+      "zh-TW": "服務",
+      "zh-CN": "服务",
+      "ja-JP": "サービス",
+      "es-ES": "servicio"
+    },
+    "project": {
+      "zh-TW": "專案",
+      "zh-CN": "项目",
+      "ja-JP": "プロジェクト",
+      "es-ES": "proyecto"
+    },
+    "environment": {
+      "zh-TW": "環境",
+      "zh-CN": "环境",
+      "ja-JP": "環境",
+      "es-ES": "entorno"
+    },
+    "environment variable": {
+      "zh-TW": "環境變數",
+      "zh-CN": "变量",
+      "ja-JP": "環境変数",
+      "es-ES": "variable de entorno"
+    },
+    "domain": {
+      "zh-TW": "網域",
+      "zh-CN": "域名",
+      "ja-JP": "ドメイン",
+      "es-ES": "dominio"
+    },
+    "deployment": {
+      "zh-TW": "部署",
+      "zh-CN": "部署",
+      "ja-JP": "デプロイメント",
+      "es-ES": "despliegue"
+    },
+    "console": {
+      "zh-TW": "控制台",
+      "zh-CN": "控制台",
+      "ja-JP": "コンソール",
+      "es-ES": "consola"
+    },
+    "template": {
+      "zh-TW": "模板",
+      "zh-CN": "模板",
+      "ja-JP": "テンプレート",
+      "es-ES": "plantilla"
+    },
+    "region": {
+      "zh-TW": "地區",
+      "zh-CN": "地区",
+      "ja-JP": "リージョン",
+      "es-ES": "región"
+    },
+    "virtual machine": {
+      "zh-TW": "虛擬機",
+      "zh-CN": "虚拟机",
+      "ja-JP": "仮想マシン",
+      "es-ES": "máquina virtual"
+    },
+    "mesh network": {
+      "zh-TW": "網狀網路",
+      "zh-CN": "网状网络",
+      "ja-JP": "メッシュネットワーク",
+      "es-ES": "red mesh"
+    },
+    "Docker image": {
+      "zh-TW": "Docker 映像檔",
+      "zh-CN": "Docker 镜像",
+      "ja-JP": "Docker イメージ",
+      "es-ES": "imagen Docker"
+    },
+    "extension": {
+      "zh-TW": "插件",
+      "zh-CN": "插件",
+      "ja-JP": "拡張機能",
+      "es-ES": "extensión"
+    },
+    "integration": {
+      "zh-TW": "整合",
+      "zh-CN": "集成",
+      "ja-JP": "連携",
+      "es-ES": "integración"
+    },
+    "backup": {
+      "zh-TW": "備份",
+      "zh-CN": "备份",
+      "ja-JP": "バックアップ",
+      "es-ES": "copia de seguridad"
+    },
+    "restore": {
+      "zh-TW": "還原",
+      "zh-CN": "还原",
+      "ja-JP": "復元",
+      "es-ES": "restaurar"
+    },
+    "volume": {
+      "zh-TW": "儲存空間",
+      "zh-CN": "存储空间",
+      "ja-JP": "ストレージ",
+      "es-ES": "volumen"
+    },
+    "persistent storage": {
+      "zh-TW": "持久儲存空間",
+      "zh-CN": "持久存储空间",
+      "ja-JP": "永続ストレージ",
+      "es-ES": "almacenamiento persistente"
+    },
+    "configuration": {
+      "zh-TW": "設定",
+      "zh-CN": "配置",
+      "ja-JP": "設定",
+      "es-ES": "configuración"
+    },
+    "API key": {
+      "zh-TW": "API 金鑰",
+      "zh-CN": "API 密钥",
+      "ja-JP": "API キー",
+      "es-ES": "clave de API"
+    },
+    "subscription": {
+      "zh-TW": "訂閱",
+      "zh-CN": "订阅",
+      "ja-JP": "サブスクリプション",
+      "es-ES": "suscripción"
+    },
+    "billing": {
+      "zh-TW": "帳單",
+      "zh-CN": "账单",
+      "ja-JP": "請求",
+      "es-ES": "facturación"
+    },
+    "payment": {
+      "zh-TW": "付款",
+      "zh-CN": "付款",
+      "ja-JP": "支払い",
+      "es-ES": "pago"
+    },
+    "pricing": {
+      "zh-TW": "定價",
+      "zh-CN": "定价",
+      "ja-JP": "定価",
+      "es-ES": "precios"
+    },
+    "plan": {
+      "zh-TW": "方案",
+      "zh-CN": "方案",
+      "ja-JP": "プラン",
+      "es-ES": "plan"
+    },
+    "budget": {
+      "zh-TW": "預算",
+      "zh-CN": "预算",
+      "ja-JP": "予算",
+      "es-ES": "presupuesto"
+    },
+    "referral": {
+      "zh-TW": "推薦",
+      "zh-CN": "推荐",
+      "ja-JP": "紹介",
+      "es-ES": "referido"
+    },
+    "contribution": {
+      "zh-TW": "貢獻",
+      "zh-CN": "贡献",
+      "ja-JP": "貢献",
+      "es-ES": "contribución"
+    },
+    "forum": {
+      "zh-TW": "論壇",
+      "zh-CN": "论坛",
+      "ja-JP": "フォーラム",
+      "es-ES": "foro"
+    },
+    "member": {
+      "zh-TW": "成員",
+      "zh-CN": "成员",
+      "ja-JP": "メンバー",
+      "es-ES": "miembro"
+    },
+    "security": {
+      "zh-TW": "安全",
+      "zh-CN": "安全",
+      "ja-JP": "セキュリティ",
+      "es-ES": "seguridad"
+    },
+    "privacy": {
+      "zh-TW": "隱私",
+      "zh-CN": "隐私",
+      "ja-JP": "プライバシー",
+      "es-ES": "privacidad"
+    },
+    "abuse": {
+      "zh-TW": "濫用",
+      "zh-CN": "滥用",
+      "ja-JP": "不正利用",
+      "es-ES": "abuso"
+    },
+    "fair use": {
+      "zh-TW": "公平使用",
+      "zh-CN": "公平使用",
+      "ja-JP": "フェアユース",
+      "es-ES": "uso justo"
+    },
+    "high availability": {
+      "zh-TW": "高可用性",
+      "zh-CN": "高可用性",
+      "ja-JP": "高可用性",
+      "es-ES": "alta disponibilidad"
+    },
+
+    "_action_verbs": "Common verbs used in documentation headings and instructions.",
+    "deploy": {
+      "zh-TW": "部署",
+      "zh-CN": "部署",
+      "ja-JP": "デプロイ",
+      "es-ES": "desplegar"
+    },
+    "create": {
+      "zh-TW": "建立",
+      "zh-CN": "创建",
+      "ja-JP": "作成",
+      "es-ES": "crear"
+    },
+    "install": {
+      "zh-TW": "安裝",
+      "zh-CN": "安装",
+      "ja-JP": "インストール",
+      "es-ES": "instalar"
+    },
+    "register": {
+      "zh-TW": "註冊",
+      "zh-CN": "注册",
+      "ja-JP": "登録",
+      "es-ES": "registrar"
+    },
+    "maintain": {
+      "zh-TW": "維護",
+      "zh-CN": "维护",
+      "ja-JP": "メンテナンス",
+      "es-ES": "mantener"
+    },
+    "customize": {
+      "zh-TW": "自訂",
+      "zh-CN": "自定义",
+      "ja-JP": "カスタマイズ",
+      "es-ES": "personalizar"
+    },
+    "execute": {
+      "zh-TW": "執行",
+      "zh-CN": "运行",
+      "ja-JP": "実行",
+      "es-ES": "ejecutar"
+    },
+    "export": {
+      "zh-TW": "匯出",
+      "zh-CN": "导出",
+      "ja-JP": "エクスポート",
+      "es-ES": "exportar"
+    },
+    "import": {
+      "zh-TW": "導入",
+      "zh-CN": "导入",
+      "ja-JP": "インポート",
+      "es-ES": "importar"
+    },
+    "copy": {
+      "zh-TW": "複製",
+      "zh-CN": "复制",
+      "ja-JP": "コピー",
+      "es-ES": "copiar"
+    },
+    "invite": {
+      "zh-TW": "邀請",
+      "zh-CN": "邀请",
+      "ja-JP": "招待",
+      "es-ES": "invitar"
+    },
+    "verify": {
+      "zh-TW": "驗證",
+      "zh-CN": "验证",
+      "ja-JP": "認証",
+      "es-ES": "verificar"
+    },
+    "configure": {
+      "zh-TW": "設定",
+      "zh-CN": "配置",
+      "ja-JP": "設定",
+      "es-ES": "configurar"
+    },
+    "update": {
+      "zh-TW": "更新",
+      "zh-CN": "更新",
+      "ja-JP": "更新",
+      "es-ES": "actualizar"
+    },
+
+    "_ui_phrases": "Common phrases used in frontmatter ogImageSubtitle patterns.",
+    "on Zeabur": {
+      "zh-TW": "在 Zeabur 上",
+      "zh-CN": "在 Zeabur 上",
+      "ja-JP": "Zeabur で",
+      "es-ES": "en Zeabur"
+    },
+    "Deploy X App in Zeabur": {
+      "_pattern_note": "Common ogImageSubtitle pattern. X is a framework name.",
+      "zh-TW": "在 Zeabur 部署 X 專案",
+      "zh-CN": "在 Zeabur 部署 X 项目",
+      "ja-JP": "Zeabur で X アプリをデプロイ",
+      "es-ES": "Implementar aplicación X en Zeabur"
+    },
+    "local code": {
+      "zh-TW": "本機程式碼",
+      "zh-CN": "本地代码",
+      "ja-JP": "ローカルコード",
+      "es-ES": "código local"
+    },
+    "source code": {
+      "zh-TW": "原始碼",
+      "zh-CN": "源代码",
+      "ja-JP": "ソースコード",
+      "es-ES": "código fuente"
+    },
+    "one click": {
+      "zh-TW": "一鍵",
+      "zh-CN": "一键",
+      "ja-JP": "ワンクリック",
+      "es-ES": "un clic"
+    },
+    "from scratch": {
+      "zh-TW": "從零開始",
+      "zh-CN": "从零开始",
+      "ja-JP": "ゼロから",
+      "es-ES": "desde cero"
+    },
+    "What is Zeabur": {
+      "zh-TW": "Zeabur 是什麼？",
+      "zh-CN": "Zeabur 是什么？",
+      "ja-JP": "Zeaburとは何か",
+      "es-ES": "¿Qué es Zeabur?"
+    }
+  }
+}
