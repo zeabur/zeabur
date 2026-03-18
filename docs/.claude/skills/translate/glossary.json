@@ -45,6 +45,10 @@
     "Bolt": { "keep": true },
     "Emergent": { "keep": true },
     "Google AI Studio": { "keep": true },
+    "WireGuard": { "keep": true },
+    "Headscale": { "keep": true },
+    "Tailscale": { "keep": true },
+    "QEMU": { "keep": true },
 
     "_framework_names": "Framework and language names stay in English.",
     "Next.js": { "keep": true },
@@ -187,6 +191,18 @@
     },
 
     "_section_titles": "Section/page titles from MDX frontmatter and nested _meta.ts files.",
+    "Get Started with Wonder Mesh": {
+      "zh-TW": "Wonder Mesh 快速開始",
+      "zh-CN": "Wonder Mesh 快速开始",
+      "ja-JP": "Wonder Mesh をはじめる",
+      "es-ES": "Empezar con Wonder Mesh"
+    },
+    "What Does the Install Script Do?": {
+      "zh-TW": "安裝腳本做了什麼？",
+      "zh-CN": "安装脚本做了什么？",
+      "ja-JP": "インストールスクリプトの内容",
+      "es-ES": "¿Qué hace el script de instalación?"
+    },
     "Builds": {
       "zh-TW": "構建原理",
       "zh-CN": "构建原理",
@@ -735,6 +751,60 @@
       "ja-JP": "高可用性",
       "es-ES": "alta disponibilidad"
     },
+    "compute node": {
+      "zh-TW": "運算節點",
+      "zh-CN": "计算节点",
+      "ja-JP": "コンピュートノード",
+      "es-ES": "nodo de cómputo"
+    },
+    "install script": {
+      "zh-TW": "安裝腳本",
+      "zh-CN": "安装脚本",
+      "ja-JP": "インストールスクリプト",
+      "es-ES": "script de instalación"
+    },
+    "LAN access": {
+      "zh-TW": "區域網路存取",
+      "zh-CN": "局域网访问",
+      "ja-JP": "LAN アクセス",
+      "es-ES": "acceso LAN"
+    },
+    "port forwarding": {
+      "zh-TW": "通訊埠轉發",
+      "zh-CN": "端口转发",
+      "ja-JP": "ポートフォワーディング",
+      "es-ES": "reenvío de puertos"
+    },
+    "mesh IP": {
+      "zh-TW": "Mesh IP",
+      "zh-CN": "Mesh IP",
+      "ja-JP": "Mesh IP",
+      "es-ES": "IP mesh"
+    },
+    "homelab": {
+      "zh-TW": "家用實驗室",
+      "zh-CN": "家庭实验室",
+      "ja-JP": "ホームラボ",
+      "es-ES": "laboratorio doméstico"
+    },
+    "self-hosting": {
+      "zh-TW": "自架",
+      "zh-CN": "自托管",
+      "ja-JP": "セルフホスティング",
+      "es-ES": "autoalojamiento"
+    },
+    "password authentication": {
+      "zh-TW": "密碼驗證",
+      "zh-CN": "密码认证",
+      "ja-JP": "パスワード認証",
+      "es-ES": "autenticación por contraseña"
+    },
+    "system user": {
+      "zh-TW": "系統使用者",
+      "zh-CN": "系统用户",
+      "ja-JP": "システムユーザー",
+      "es-ES": "usuario del sistema"
+    },
 
     "_action_verbs": "Common verbs used in documentation headings and instructions.",
     "deploy": {
@@ -865,6 +935,27 @@
       "zh-CN": "Zeabur 是什么？",
       "ja-JP": "Zeaburとは何か",
       "es-ES": "¿Qué es Zeabur?"
+    },
+    "Turn your own devices into Zeabur servers": {
+      "_pattern_note": "ogImageSubtitle for Wonder Mesh overview page.",
+      "zh-TW": "將自己的裝置變成 Zeabur 伺服器",
+      "zh-CN": "将自己的设备变成 Zeabur 服务器",
+      "ja-JP": "自分のデバイスを Zeabur サーバーに",
+      "es-ES": "Convierte tus dispositivos en servidores Zeabur"
+    },
+    "Set up your device as a Zeabur server in minutes": {
+      "_pattern_note": "ogImageSubtitle for Wonder Mesh get-started page.",
+      "zh-TW": "幾分鐘內將裝置設定為 Zeabur 伺服器",
+      "zh-CN": "几分钟内将设备设置为 Zeabur 服务器",
+      "ja-JP": "数分でデバイスを Zeabur サーバーに",
+      "es-ES": "Configura tu dispositivo como servidor Zeabur en minutos"
+    },
+    "A detailed breakdown of what the install script changes on your machine": {
+      "_pattern_note": "ogImageSubtitle for Wonder Mesh install-script-details page.",
+      "zh-TW": "安裝腳本在您的機器上所做變更的詳細說明",
+      "zh-CN": "安装脚本在您的机器上所做更改的详细说明",
+      "ja-JP": "インストールスクリプトがマシンに加える変更の詳細",
+      "es-ES": "Desglose detallado de los cambios del script de instalación en tu máquina"
     }
   }
 }
