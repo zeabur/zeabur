@@ -4,9 +4,15 @@ ogImageTitle: 服务内网
 ogImageSubtitle: 服务间可以互相连接的网络
 ---
 
+import { Callout } from 'nextra/components'
+
 # 服务内网
 
 服务内网 (Private Networking) 可以让服务使用固定的主机名称，连接到同属一个项目的网络。
+
+<Callout type="info">
+  服务内网用于同一项目内的**服务间通信**——而非从你的本地机器访问服务。如果你正在使用 [Wonder Mesh](/wonder-mesh) 并希望从局域网访问服务，请参阅[从局域网访问服务](/wonder-mesh/get-started#accessing-services)。
+</Callout>
 
 ## 查看主机名称
 

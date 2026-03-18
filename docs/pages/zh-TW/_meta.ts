@@ -9,6 +9,7 @@ export default {
   },
   'ai-hub': 'Zeabur AI Hub',
   'email': 'Zeabur Email',
+  'wonder-mesh': 'Wonder Mesh',
   'integrations': '整合',
   'data-management': '資料管理',
   networking: '網路',

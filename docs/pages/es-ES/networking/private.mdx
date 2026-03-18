@@ -4,9 +4,15 @@ ogImageTitle: Red privada
 ogImageSubtitle: Una red que permite la conexión entre servicios
 ---
 
+import { Callout } from 'nextra/components'
+
 # Red privada
 
 La Red privada permite a los servicios utilizar un nombre de host fijo para conectarse a otro servicio en el mismo proyecto.
+
+<Callout type="info">
+  La red privada es para la **comunicación entre servicios** dentro del mismo proyecto — no para acceder a servicios desde tu máquina local. Si estás usando [Wonder Mesh](/wonder-mesh) y quieres acceder a servicios desde tu red local, consulta [Acceder a servicios desde tu red LAN](/wonder-mesh/get-started#accessing-services).
+</Callout>
 
 ## Encontrar el nombre de host
 
