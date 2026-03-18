@@ -1,16 +1,20 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useRouter } from 'nextra/hooks'
+import type { AppProps } from 'next/app'
 import { LOCALE_LOCAL_STORAGE_KEY } from '../i18n-config'
 import './styles.css'
 
 const SCROLL_KEY = 'zeabur-docs-scroll'
 
-export default function Nextra({ Component, pageProps }) {
+export default function Nextra({ Component, pageProps }: AppProps) {
   const router = useRouter()
   const { locale } = router
+  const asPathRef = useRef(router.asPath)
+  asPathRef.current = router.asPath
 
   // sync locale to localStorage when it changes
   useEffect(() => {
+    if (window.localStorage.getItem(LOCALE_LOCAL_STORAGE_KEY) === locale) return
     window.localStorage.setItem(LOCALE_LOCAL_STORAGE_KEY, locale)
   }, [locale])
 
@@ -86,26 +90,38 @@ export default function Nextra({ Component, pageProps }) {
     const onBeforeUnload = () => {
       sessionStorage.setItem(
         SCROLL_KEY,
-        JSON.stringify({ path: router.asPath, y: window.scrollY })
+        JSON.stringify({ path: asPathRef.current, y: window.scrollY })
       )
     }
     window.addEventListener('beforeunload', onBeforeUnload)
     return () => window.removeEventListener('beforeunload', onBeforeUnload)
-  }, [router.asPath])
+  }, [])
 
   // rewrite zeabur.com links to zeabur.cn when served from zeabur.cn
   useEffect(() => {
     if (!window.location.hostname.endsWith('zeabur.cn')) return
 
-    const rewriteLinks = () => {
-      document.querySelectorAll<HTMLAnchorElement>('a[href*="zeabur.com"]').forEach((a) => {
+    const rewriteLink = (a: HTMLAnchorElement) => {
+      if (a.href.includes('zeabur.com')) {
         a.href = a.href.replace(/zeabur\.com/g, 'zeabur.cn')
-      })
+      }
     }
 
-    rewriteLinks()
+    // initial pass
+    document.querySelectorAll<HTMLAnchorElement>('a[href*="zeabur.com"]').forEach(rewriteLink)
 
-    const observer = new MutationObserver(rewriteLinks)
+    // only scan newly added nodes instead of the entire DOM
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (!(node instanceof HTMLElement)) return
+          if (node instanceof HTMLAnchorElement) {
+            rewriteLink(node)
+          }
+          node.querySelectorAll<HTMLAnchorElement>('a[href*="zeabur.com"]').forEach(rewriteLink)
+        })
+      })
+    })
     observer.observe(document.body, { childList: true, subtree: true })
     return () => observer.disconnect()
   }, [router.asPath])
