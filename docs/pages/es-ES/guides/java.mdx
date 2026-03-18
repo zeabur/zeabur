@@ -12,6 +12,42 @@ Zeabur supports deploying Java projects that use the Maven or Gradle build syste
 
 - [Guide to Deploying Spring Boot](/guides/java/spring-boot)
 
+## Descubrimiento de archivos JAR
+
+Por defecto, Zeabur encuentra automáticamente tu archivo JAR (o WAR) en el directorio de salida de compilación estándar:
+
+- **Maven**: `target/*.jar`
+- **Gradle**: `build/libs/*.jar`
+
+Esto funciona sin configuración adicional para proyectos estándar de un solo módulo.
+
+### JAR en un subdirectorio
+
+Si tu archivo JAR no está en la ubicación predeterminada — por ejemplo, en un proyecto multi-módulo donde el JAR ejecutable se genera en un submódulo — necesitas especificar la ruta explícitamente usando `javaArgs` en `zbpack.json`:
+
+```json
+{
+  "javaArgs": "-jar my-server/target/server.jar"
+}
+```
+
+Para proyectos Spring Boot, recuerda incluir el enlace de puerto para que Zeabur pueda enrutar el tráfico a tu servicio:
+
+```json
+{
+  "javaArgs": "-Dserver.port=$PORT -jar my-server/target/server.jar"
+}
+```
+
+{/* prettier-ignore */}
+<Callout>
+  Cuando se configura `javaArgs`, **reemplaza completamente** el comando de inicio predeterminado. Debes incluir `-jar path/to/your.jar` tú mismo.
+</Callout>
+
+### Proyecto en un subdirectorio
+
+Si todo tu proyecto Java (incluyendo `pom.xml` o `build.gradle`) está en un subdirectorio del repositorio Git, usa la configuración de [Directorio raíz](/deploy/root-directory) en su lugar. Esto le indica a Zeabur que trate ese subdirectorio como la raíz del proyecto, y el descubrimiento predeterminado de JAR funcionará normalmente.
+
 ## Environment Setup
 
 The available JDK versions are:
@@ -40,10 +76,10 @@ If you're using Gradle, add the following to `build.gradle`:
 sourceCompatibility = 11
 ```
 
-### Specifying JVM Startup Parameters
+### Especificar parámetros de inicio de JVM
 
-You can override Zeabur's default JVM startup parameters with the `javaArgs` field in `zbpack.json`.
-You'll need to add the path to your jar file yourself.
+Puedes sobreescribir los parámetros de inicio de JVM predeterminados de Zeabur con el campo `javaArgs` en `zbpack.json`.
+Al usar `javaArgs`, debes incluir los argumentos completos del comando, incluyendo `-jar` y la ruta a tu archivo JAR.
 
 ```json
 {
