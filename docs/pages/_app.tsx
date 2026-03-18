@@ -14,11 +14,43 @@ export default function Nextra({ Component, pageProps }) {
     window.localStorage.setItem(LOCALE_LOCAL_STORAGE_KEY, locale)
   }, [locale])
 
-  // save & restore scroll position across page refreshes
+  // preserve hash across client-side navigation (i18n redirects strip the hash)
   useEffect(() => {
-    // skip restoration when URL has a hash — let the browser scroll to the anchor
-    if (window.location.hash) return
+    let pendingHash = ''
 
+    const handleStart = (url: string) => {
+      const hashIndex = url.indexOf('#')
+      if (hashIndex !== -1) {
+        pendingHash = url.slice(hashIndex)
+      }
+    }
+
+    const handleComplete = () => {
+      if (!pendingHash) return
+      const hash = pendingHash
+      pendingHash = ''
+      requestAnimationFrame(() => {
+        const el = document.querySelector(hash)
+        if (el) {
+          el.scrollIntoView()
+        }
+        if (window.location.hash !== hash) {
+          history.replaceState(null, '', window.location.pathname + window.location.search + hash)
+        }
+      })
+    }
+
+    router.events.on('routeChangeStart', handleStart)
+    router.events.on('routeChangeComplete', handleComplete)
+    return () => {
+      router.events.off('routeChangeStart', handleStart)
+      router.events.off('routeChangeComplete', handleComplete)
+    }
+  }, [router.events])
+
+  // restore scroll position on page refresh (non-hash pages only)
+  useEffect(() => {
+    if (window.location.hash) return
     const saved = sessionStorage.getItem(SCROLL_KEY)
     if (saved) {
       const { path, y } = JSON.parse(saved)
@@ -29,7 +61,10 @@ export default function Nextra({ Component, pageProps }) {
       }
       sessionStorage.removeItem(SCROLL_KEY)
     }
+  }, [router.asPath])
 
+  // save scroll position before page unload
+  useEffect(() => {
     const onBeforeUnload = () => {
       sessionStorage.setItem(
         SCROLL_KEY,
