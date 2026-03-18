@@ -16,11 +16,13 @@ export default function Nextra({ Component, pageProps }) {
 
   // save & restore scroll position across page refreshes
   useEffect(() => {
+    // skip restoration when URL has a hash — let the browser scroll to the anchor
+    if (window.location.hash) return
+
     const saved = sessionStorage.getItem(SCROLL_KEY)
     if (saved) {
       const { path, y } = JSON.parse(saved)
       if (path === router.asPath) {
-        // wait for layout to finish painting before restoring
         requestAnimationFrame(() => {
           window.scrollTo(0, y)
         })
