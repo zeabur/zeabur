@@ -8,5 +8,11 @@ devenv.local.nix
 # pre-commit
 .pre-commit-config.yaml
 
+# TypeScript
+tsconfig.tsbuildinfo
+
+# Claude Code worktrees
+.claude/worktrees
+
 # Temporary files
 /tmp
