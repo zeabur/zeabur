@@ -4,6 +4,8 @@ ogImageTitle: 自定义 Docker 镜像
 ogImageSubtitle: 将 Docker 镜像部署到 Zeabur
 ---
 
+import { Callout } from 'nextra/components'
+
 # 自定义 Docker 镜像
 
 虽然 Zeabur 已经包含了许多由社区提供的模板，但您可能需要部署自己的 Docker 镜像、设置持久存储、设置启动命令等等。为此需求，Zeabur 提供了可定制的预构建功能。
@@ -38,6 +40,17 @@ services:
 ```
 
 设置完成后，即可接下去设置环境变量、Port……等等的 Prebuilt 启动设置。
+
+<Callout type="warning">
+如果你在 Apple Silicon Mac（M1/M2/M3/M4）上本地构建 Docker 镜像，镜像默认会是 `linux/arm64` 平台。
+Zeabur 的服务器运行在 `linux/amd64` 上，因此部署仅包含 ARM 架构的镜像会失败，并显示 **"no match for platform in manifest"** 错误。
+
+为避免此问题，请在构建时加上 `--platform linux/amd64` 参数：
+
+```bash
+docker buildx build --platform linux/amd64 -t <your-image> --push .
+```
+</Callout>
 
 ### Environment Variable
 
