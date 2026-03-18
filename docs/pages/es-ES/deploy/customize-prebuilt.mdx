@@ -4,6 +4,8 @@ ogImageTitle: Personalizar imagen Docker
 ogImageSubtitle: Desplegar imagen Docker en Zeabur
 ---
 
+import { Callout } from 'nextra/components'
+
 # Imagen Docker personalizada
 
 Aunque Zeabur ya incluye numerosas plantillas proporcionadas por la comunidad, es posible que necesites desplegar tus propias imágenes Docker, configurar almacenamiento persistente, establecer el comando de inicio y más. Para esta necesidad, Zeabur ofrece la funcionalidad personalizable Prebuilt.
@@ -38,6 +40,17 @@ services:
 ```
 
 Tras configurarla, puedes proceder a configurar variables de entorno, puertos, etc.
+
+<Callout type="warning">
+Si construyes tu imagen Docker localmente en un Mac con Apple Silicon (M1/M2/M3/M4), la imagen se genera por defecto para la plataforma `linux/arm64`.
+Los servidores de Zeabur ejecutan `linux/amd64`, por lo que desplegar una imagen solo ARM fallará con el error **"no match for platform in manifest"**.
+
+Para evitar este problema, construye tu imagen con el flag `--platform linux/amd64`:
+
+```bash
+docker buildx build --platform linux/amd64 -t <your-image> --push .
+```
+</Callout>
 
 ### Variable de entorno
 

@@ -4,6 +4,8 @@ ogImageTitle: 自訂 Docker 映像檔
 ogImageSubtitle: 將 Docker 映像檔部署到 Zeabur
 ---
 
+import { Callout } from 'nextra/components'
+
 # 自訂 Docker 映像檔
 
 雖然 Zeabur 已經包含了許多由社群提供的模板，但您可能需要部署自己的 Docker 映像檔、設定持久儲存、設定啟動指令等等。為此需求，Zeabur 提供了可客製化的預建功能。
@@ -38,6 +40,17 @@ services:
 ```
 
 設定完成後，即可接下去設定環境變數、Port⋯⋯等等的 Prebuilt 啟動設定。
+
+<Callout type="warning">
+如果你在 Apple Silicon Mac（M1/M2/M3/M4）上本地建置 Docker 映像檔，映像檔預設會是 `linux/arm64` 平台。
+Zeabur 的伺服器執行在 `linux/amd64` 上，因此部署僅包含 ARM 架構的映像檔會失敗，並顯示 **「no match for platform in manifest」** 錯誤。
+
+為避免此問題，請在建置時加上 `--platform linux/amd64` 參數：
+
+```bash
+docker buildx build --platform linux/amd64 -t <your-image> --push .
+```
+</Callout>
 
 ### Environment Variable
 
