@@ -95,7 +95,7 @@ Each step reports its progress to the Zeabur API in real time, so you can monito
 | WireGuard tunnel | Adds a mesh network interface with a `100.x.x.x` IP |
 | Tailscale control server | Points to Zeabur's Headscale instance (not the official Tailscale service) |
 | SSH port 22 | Accessible over the mesh network with password authentication |
-| Outbound connections | Connects to `tailscale.com`, `cdn.zeabur.com`, `wonder-net.strrl.dev`, `api.zeabur.com`, `ifconfig.me` during installation |
+| Outbound connections | Connects to `tailscale.com`, `cdn.zeabur.com`, `wonder-net.strrl.dev`, `api.zeabur.com`, `ifconfig.me` during installation. After setup, ongoing connections are maintained to the Tailscale coordination server and `api.zeabur.com` for mesh networking and platform communication. |
 
 ---
 

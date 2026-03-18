@@ -38,14 +38,18 @@ uname -m
 
 Go to the [Zeabur Dashboard](https://zeabur.com/projects) and create a new project.
 
-### Bind an External Server with Wonder Mesh
+### Add Your Device as a Wonder Mesh Server
 
 In "Create New Project" page, under "Select a Dedicated Server", select **Bind External Server**, then choose **Wonder Mesh**. Configure your device's architecture (amd64 or arm64) and operating system (Linux or macOS).
 
 For macOS, you will also need to specify the virtual machine resource allocation:
-- CPU cores
-- Memory (GB)
-- Disk size (GB)
+- **CPU cores** — at least 2; recommend 4 if your Mac has 8+ cores
+- **Memory (GB)** — at least 2 GB; recommend 4 GB if you plan to run multiple services
+- **Disk size (GB)** — at least 40 GB; increase if you use large container images or need persistent storage
+
+<Callout type="info">
+  These resources are **reserved** for the Wonder Mesh virtual machine and will not be available to your macOS host while the VM is running. Choose values that leave enough headroom for your daily work.
+</Callout>
 
 After confirming, you will be redirected to the server page.
 
@@ -103,6 +107,41 @@ When the server shows a healthy status, you can deploy services to it just like 
 
 </Steps>
 
+## Troubleshooting
+
+### Installation gets stuck or fails
+
+- Check the installation log for errors:
+  ```bash copy
+  cat /tmp/zeabur-install.log
+  ```
+- Make sure your device has a stable internet connection.
+- Verify that the Tailscale daemon is running:
+  ```bash copy
+  sudo systemctl status tailscaled   # Linux
+  ```
+- If Tailscale appears stuck, restart it and re-run the install command:
+  ```bash copy
+  sudo systemctl restart tailscaled  # Linux
+  ```
+
+### Server shows as disconnected
+
+- Confirm the Tailscale daemon is still active:
+  ```bash copy
+  tailscale status
+  ```
+- If it shows as stopped, restart it:
+  ```bash copy
+  sudo systemctl restart tailscaled  # Linux
+  ```
+- On macOS, make sure the Lima VM is running:
+  ```bash copy
+  limactl list
+  ```
+
+If the issue persists, contact [Zeabur Support](https://zeabur.com/support) with the contents of `/tmp/zeabur-install.log`.
+
 ## Accessing Services
 
 Services deployed on a Wonder Mesh server work just like services on any other Zeabur server — you can bind domains, set up port forwarding, and expose them to the internet. See [Public Networking](/networking/public) for details.
@@ -111,15 +150,23 @@ Services in the same project can also communicate with each other using internal
 
 ### From Your Local Network
 
-You can also access services directly from your local network. Go to the service page and open the **Networking** tab to find the LAN access information.
+You can access services directly from any device on the same local network (Wi-Fi or Ethernet). Follow these steps:
 
-![Networking tab showing LAN access address for the deployed service](/wonder-mesh/access-from-lan.png)
+1. **Find the port number** — Open your service page in the Zeabur console and go to the **Networking** tab. Look for the port number assigned to your service (e.g., `32518`).
+
+   ![Networking tab showing LAN access address for the deployed service](/wonder-mesh/access-from-lan.png)
+
+2. **Find your device's LAN IP** — Run one of these commands on your **actual device's terminal** (not inside the service or Zeabur Server SSH):
+   - **Linux**: `hostname -I`
+   - **macOS**: `ipconfig getifaddr en0` (use `en1` if connected via Ethernet and `en0` returns nothing)
+
+3. **Open the service** — From any device on the same network, open `http://<lan-ip>:<port>` in a browser or client.
+
+   For example, if your LAN IP is `192.168.1.42` and the assigned port is `32518`:
+   ```
+   http://192.168.1.42:32518
+   ```
 
 <Callout type="info">
-  To find your device's LAN IP, run the following command on your **actual device's terminal** (not inside the service or Zeabur Server SSH):
-
-  - **Linux**: `hostname -I`
-  - **macOS**: `ipconfig getifaddr en0`
-
-  `en0` is typically the Wi-Fi interface on Mac. If you are connected via Ethernet and the command returns nothing, try `en1` instead.
+  On **macOS**, the Lima VM forwards ports 30000–32767 to the host. Services on these ports are accessible from your LAN using your Mac's IP address — no extra configuration is needed.
 </Callout>
