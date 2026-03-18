@@ -9,11 +9,11 @@ export default {
   },
   'ai-hub': 'Zeabur AI Hub',
   'email': 'Zeabur Email',
+  'wonder-mesh': 'Wonder Mesh',
   'integrations': 'Integrations',
   'data-management': 'Data Management',
   networking: 'Networking',
   guides: 'Guides',
-  
   manage: 'Project Manage',
   legal: 'Legal and Policies',
   billing: 'Payments and Billing',

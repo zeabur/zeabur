@@ -1,0 +1,58 @@
+---
+title: Wonder Mesh
+ogImageTitle: Wonder Mesh
+ogImageSubtitle: Turn your own devices into Zeabur servers
+---
+
+import { Callout } from 'nextra/components'
+
+# Wonder Mesh
+
+Wonder Mesh lets you turn your own computer or server into a Zeabur compute node. Whether your device is at home, in the office, or behind any network environment, it can securely connect to the Zeabur platform to deploy and run your services — no public IP or port forwarding required.
+
+<Callout>
+  Wonder Mesh is currently in **Beta**. You can apply for access from the [Servers page](https://zeabur.com/servers) in the Zeabur console.  
+  Already have access? See the [Get Started guide](./wonder-mesh/get-started) to set up your first Wonder Mesh server.
+</Callout>
+
+## Why Wonder Mesh?
+
+Normally, Zeabur services run on cloud servers managed by Zeabur. Wonder Mesh changes this by letting you use your **own hardware** — a laptop, desktop, homelab server, or even a mini PC sitting at home — as a deployment target with the full Zeabur experience.
+
+- **Homelab enthusiasts**: Get a cloud-grade deployment and management experience for your home servers.
+- **Developers**: Test services locally with a real orchestration system, then deploy to the cloud when ready.
+- **Self-hosting advocates**: Keep data on your own hardware without sacrificing the convenience of one-click deployments.
+
+## Key Features
+
+- **One-click setup**: Create a server in the console, run a single command on your device, and you're ready to deploy.
+- **Works behind NAT**: No need for a public IP, static IP, or port forwarding. Wonder Mesh establishes a secure mesh network that works from any network.
+- **Full Zeabur integration**: Deploy templates from the marketplace, push code, bind domains, view logs, and monitor resources — just like any other Zeabur server.
+- **Server management**: Monitor CPU, memory, and disk usage, access SSH, and check real-time server status from the console.
+
+## Supported Platforms
+
+| Operating System | Architecture | Notes |
+|-----------------|--------------|-------|
+| Linux | amd64 / arm64 | Direct installation |
+| macOS | amd64 / arm64 | Runs via a Lima virtual machine |
+
+From Mac minis to Raspberry Pis, any Linux or macOS device can become a Zeabur server.
+
+## FAQ
+
+### Does my device need to stay powered on?
+
+Yes. The device must remain powered on and connected to the internet for the services deployed on it to stay accessible.
+
+### What happens if my device goes offline?
+
+Services deployed on that device will be temporarily unavailable. Once the device comes back online, connectivity is restored automatically.
+
+### Are there any network requirements?
+
+Just an internet connection. No public IP, no port forwarding, and no firewall changes are needed.
+
+### Can I add multiple devices to my account?
+
+Yes. Each device joins your mesh network independently, and you can choose which device to deploy each service to.
