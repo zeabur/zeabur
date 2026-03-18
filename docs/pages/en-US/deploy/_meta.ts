@@ -1,40 +1,33 @@
 export default {
+  index:      { display: 'hidden' },
   'how-deploys-work': 'How Deploys Work',
+  create:     'Create Projects & Services',
+  methods:    'Deployment Methods',
+  templates:  'Templates',
+  config:     'Service Configuration',
+  manage:     'Project Management',
+  networking: 'Networking',
 
-  // ── Create Projects & Services ──────────────────────────────────────────────
-  '--- project ---': { type: 'separator', title: 'Create Projects & Services' },
-  'create-project': 'Create Project',
-  'create-service': 'Create Service',
-
-  // ── Deployment Methods ──────────────────────────────────────────────────────
-  '--- methods ---': { type: 'separator', title: 'Deployment Methods' },
-  dockerfile: 'Dockerfile',
-  'custom-docker-image': 'Custom Docker Image',
-  'github-integration': 'GitHub/Git Integration',
-  'deploy-button': 'Deploy Button',
-  'deploy-with-chrome-extension': 'Chrome Extension',
-  'deploy-with-vscode-extension': 'VS Code / Cursor Extension',
-  'deploy-with-raycast-extension': 'Raycast Extension',
-  templates: 'Templates',
-
-  // ── Service Configuration ───────────────────────────────────────────────────
-  '--- config ---': { type: 'separator', title: 'Service Configuration' },
-  'environment-variables': 'Environment Variables',
-  'root-directory': 'Root Directory',
-  'watch-paths': 'Watch Paths',
-  'command-execution': 'Command Execution',
-
-  // ── Project Management ──────────────────────────────────────────────────────
-  '--- manage ---': { type: 'separator', title: 'Project Management' },
-  'copy-project': 'Copy Project',
-  'export-project': 'Export Project',
-  'migrate-project': 'Migrate Project',
-  'update-image-reference': 'Update Image Reference',
-
-  // ── Networking ──────────────────────────────────────────────────────────────
-  '--- networking ---': { type: 'separator', title: 'Networking' },
-  'public-networking': 'Public Networking',
-  'private-networking': 'Private Networking',
-  'high-availability': 'High Availability',
-  'edge-caching': 'Edge Caching',
+  // ── Hidden: old flat files (now in sub-folders) ──────────────────────────
+  'create-project':              { display: 'hidden' },
+  'create-service':              { display: 'hidden' },
+  dockerfile:                    { display: 'hidden' },
+  'custom-docker-image':         { display: 'hidden' },
+  'github-integration':          { display: 'hidden' },
+  'deploy-button':               { display: 'hidden' },
+  'deploy-with-chrome-extension': { display: 'hidden' },
+  'deploy-with-vscode-extension': { display: 'hidden' },
+  'deploy-with-raycast-extension': { display: 'hidden' },
+  'environment-variables':       { display: 'hidden' },
+  'root-directory':              { display: 'hidden' },
+  'watch-paths':                 { display: 'hidden' },
+  'command-execution':           { display: 'hidden' },
+  'copy-project':                { display: 'hidden' },
+  'export-project':              { display: 'hidden' },
+  'migrate-project':             { display: 'hidden' },
+  'update-image-reference':      { display: 'hidden' },
+  'public-networking':           { display: 'hidden' },
+  'private-networking':          { display: 'hidden' },
+  'high-availability':           { display: 'hidden' },
+  'edge-caching':                { display: 'hidden' },
 }

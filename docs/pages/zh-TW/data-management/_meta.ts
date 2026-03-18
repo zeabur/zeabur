@@ -1,7 +1,8 @@
 export default {
-    'volumes': '持久儲存空間（硬碟）',
-    'config-edit': '編輯設定檔',
-    'file-management': '檔案管理',
-    backup: '備份服務',
-    restore: '還原備份',
+  index:            { display: 'hidden' },
+  volumes:          '儲存空間',
+  'file-management': '檔案管理',
+  'config-edit':    '設定檔管理',
+  backup:           '備份',
+  restore:          '還原備份',
 }

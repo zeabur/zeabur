@@ -1,31 +1,25 @@
 export default {
-  // ── Team Management ─────────────────────────────────────────────────────────
-  '--- team ---': { type: 'separator', title: 'Team Management' },
-  'invite-member': 'Invite Member',
-  'security-report': 'Security Report',
+  index:      { display: 'hidden' },
+  team:       'Team Management',
+  resources:  'Resource Configuration',
+  deployment: 'Deployment Management',
+  monitoring: 'Monitoring',
+  data:       'Data Management',
 
-  // ── Resource Configuration ──────────────────────────────────────────────────
-  '--- resources ---': { type: 'separator', title: 'Resource Configuration' },
-  'service-usage': 'Service Usage',
-  'project-budget': 'Project Budget',
-  scaling: 'Scaling',
-
-  // ── Deployment Management ───────────────────────────────────────────────────
-  '--- deployment ---': { type: 'separator', title: 'Deployment Management' },
-  previews: 'Service Previews',
-  rollbacks: 'Rollbacks',
-  'maintenance-mode': 'Maintenance Mode',
-
-  // ── Monitoring ──────────────────────────────────────────────────────────────
-  '--- monitoring ---': { type: 'separator', title: 'Monitoring' },
-  'health-checks': 'Health Checks',
-  logging: 'Logging & Streaming',
-  metrics: 'Metrics',
-
-  // ── Data Management ─────────────────────────────────────────────────────────
-  '--- data ---': { type: 'separator', title: 'Data Management' },
-  volumes: 'Volumes',
-  'file-management': 'File Management',
-  'backup-restore': 'Backup & Restore',
-  'config-file-management': 'Config File Management',
+  // ── Hidden: old flat files (now in sub-folders) ──────────────────────────
+  'invite-member':          { display: 'hidden' },
+  'security-report':        { display: 'hidden' },
+  'service-usage':          { display: 'hidden' },
+  'project-budget':         { display: 'hidden' },
+  scaling:                  { display: 'hidden' },
+  previews:                 { display: 'hidden' },
+  rollbacks:                { display: 'hidden' },
+  'maintenance-mode':       { display: 'hidden' },
+  'health-checks':          { display: 'hidden' },
+  logging:                  { display: 'hidden' },
+  metrics:                  { display: 'hidden' },
+  volumes:                  { display: 'hidden' },
+  'file-management':        { display: 'hidden' },
+  'backup-restore':         { display: 'hidden' },
+  'config-file-management': { display: 'hidden' },
 }

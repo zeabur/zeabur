@@ -1,0 +1,97 @@
+---
+title: Create Service
+ogImageTitle: Create Service
+ogImageSubtitle: Deploy services to your Zeabur project
+---
+
+import { Callout } from 'nextra/components';
+
+# Create Service
+
+After [creating a project](./create-project), you can start deploying services. Click the **Deploy New Service** button (or press `CMD + K` / `Ctrl + K` and select **Deploy New Service**), and you'll see a menu with various deployment options:
+
+![Add Service](/start/project-page-with-add-service.webp)
+
+## Template
+
+Zeabur provides a rich library of pre-configured templates for popular open-source projects like WordPress, n8n, Ghost, and many more. These templates are ready to deploy with one click.
+
+1. Click **Template** to browse available templates.
+2. Search or browse for the template you need.
+3. Click on the template and follow the prompts to deploy.
+
+![Template services](/start/template-services.webp)
+
+For more details, see [Deploy from Template](/template/deploy-template).
+
+## GitHub
+
+Deploy directly from your GitHub repository. This is the most common way to deploy your own applications.
+
+1. Click **GitHub** to connect your GitHub account if you haven't already.
+2. Once connected, search for the repository you want to deploy.
+3. Click on the repository, and Zeabur will automatically analyze your code and select the most suitable build method.
+4. Click **Deploy** to start the deployment.
+
+![Search repository](/start/search-repository.webp)
+
+For more details, see [Integrating with GitHub](./github).
+
+## Databases
+
+Quickly deploy common databases without any configuration.
+
+1. Click **Databases** to see the list of available databases.
+2. Select the database you need (PostgreSQL, MySQL, MongoDB, Redis, etc.).
+3. The database will be deployed instantly and ready to use.
+
+![Database services](/start/database-services.webp)
+
+## Functions
+
+Write, run, and iterate your code instantly with Zeabur Functions. This is perfect for quick scripts, APIs, or serverless functions.
+
+1. Click **Functions** to create a new function.
+2. Choose between **JavaScript** or **Python** as your function language.
+3. Write your code directly in the editor.
+4. Your function will be deployed and accessible via the dashboard.
+
+![Simple Function](/deploy/create-service/simple-function.png)
+
+## Local Project
+
+Upload your local source code directly to Zeabur without needing a Git repository.
+
+1. Click **Local Project**.
+2. Drag and drop your project folder, or click to browse and select your folder.
+3. Zeabur will analyze and deploy your project.
+
+![Local Project](/deploy/create-service/local-project.png)
+
+This is useful for quick deployments or when you don't want to push your code to a repository first.
+
+<Callout type="warning">
+  The `/dist/*` directory will be automatically ignored during upload.
+</Callout>
+
+## Docker Image
+
+Deploy any prebuilt Docker container image from Docker Hub or other container registries.
+
+1. Click **Docker Image**.
+2. Enter the image name (e.g., `nginx:latest` or `ghcr.io/owner/image:tag`).
+3. Configure any required environment variables or ports.
+4. Click **Deploy**.
+
+For more details, see [Deploy with Docker Image](./customize-prebuilt).
+
+## Cursor
+
+Deploy directly from the Cursor IDE using the Zeabur extension.
+
+1. Click **Cursor** to open the Cursor IDE with your project.
+2. If you haven't installed the Zeabur extension, you'll be prompted to install it.
+3. Use the extension to deploy your current project directly from Cursor.
+
+This provides a seamless experience for developers who use Cursor as their primary IDE.
+

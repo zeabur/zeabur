@@ -158,10 +158,10 @@ article p, article li {
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   LAYOUT
+   LAYOUT — align content top with sidebar & TOC
    ───────────────────────────────────────────────────────────────── */
 main {
-  padding-top: 64px !important;
+  padding-top: 1rem !important;
 }
 
 /* ─────────────────────────────────────────────────────────────────
@@ -344,10 +344,10 @@ article blockquote {
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   PREV / NEXT NAVIGATION — compact muted CTA
+   PREV / NEXT NAVIGATION — Vercel-style with label + title
    ───────────────────────────────────────────────────────────────── */
 main > ._mb-8._flex._border-t {
-  padding-top: 1.25rem !important;
+  padding-top: 1.5rem !important;
   margin-bottom: 1.5rem !important;
   border-color: rgba(0, 0, 0, 0.06) !important;
 }
@@ -355,13 +355,284 @@ main > ._mb-8._flex._border-t {
   border-color: rgba(255, 255, 255, 0.06) !important;
 }
 main > ._mb-8._flex._border-t > a {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 0.15rem !important;
   font-size: var(--zb-fs-small) !important;
-  font-weight: 400 !important;
-  color: var(--zb-text-muted) !important;
+  font-weight: 500 !important;
+  color: var(--zb-text-2) !important;
   padding-top: 0.25rem !important;
   padding-bottom: 0.25rem !important;
   transition: color 0.12s ease !important;
 }
+/* Next link — align right */
+main > ._mb-8._flex._border-t > a[class*="ltr:_ml-auto"],
+main > ._mb-8._flex._border-t > a:last-child:not(:first-child) {
+  align-items: flex-end !important;
+}
 main > ._mb-8._flex._border-t > a:hover {
   color: var(--zb-purple) !important;
+}
+/* Hide the arrow SVGs */
+main > ._mb-8._flex._border-t > a > svg {
+  display: none !important;
+}
+/* "Previous" / "Next" label */
+main > ._mb-8._flex._border-t > a::before {
+  content: "Previous";
+  font-size: 0.6875rem !important;
+  font-weight: 400 !important;
+  color: var(--zb-text-muted) !important;
+  letter-spacing: 0.02em;
+}
+main > ._mb-8._flex._border-t > a[class*="ltr:_ml-auto"]::before,
+main > ._mb-8._flex._border-t > a:last-child:not(:first-child)::before {
+  content: "Next";
+}
+/* When only one link exists (next only), it's also :first-child */
+main > ._mb-8._flex._border-t > a:only-child::before {
+  content: "Next";
+}
+/* Localized labels — zh-TW */
+:lang(zh-TW) main > ._mb-8._flex._border-t > a::before,
+:lang(zh-Hant) main > ._mb-8._flex._border-t > a::before { content: "上一篇"; }
+:lang(zh-TW) main > ._mb-8._flex._border-t > a[class*="ltr:_ml-auto"]::before,
+:lang(zh-TW) main > ._mb-8._flex._border-t > a:last-child:not(:first-child)::before,
+:lang(zh-TW) main > ._mb-8._flex._border-t > a:only-child::before,
+:lang(zh-Hant) main > ._mb-8._flex._border-t > a[class*="ltr:_ml-auto"]::before,
+:lang(zh-Hant) main > ._mb-8._flex._border-t > a:last-child:not(:first-child)::before,
+:lang(zh-Hant) main > ._mb-8._flex._border-t > a:only-child::before { content: "下一篇"; }
+/* zh-CN */
+:lang(zh-CN) main > ._mb-8._flex._border-t > a::before,
+:lang(zh-Hans) main > ._mb-8._flex._border-t > a::before { content: "上一篇"; }
+:lang(zh-CN) main > ._mb-8._flex._border-t > a[class*="ltr:_ml-auto"]::before,
+:lang(zh-CN) main > ._mb-8._flex._border-t > a:last-child:not(:first-child)::before,
+:lang(zh-CN) main > ._mb-8._flex._border-t > a:only-child::before,
+:lang(zh-Hans) main > ._mb-8._flex._border-t > a[class*="ltr:_ml-auto"]::before,
+:lang(zh-Hans) main > ._mb-8._flex._border-t > a:last-child:not(:first-child)::before,
+:lang(zh-Hans) main > ._mb-8._flex._border-t > a:only-child::before { content: "下一篇"; }
+/* ja-JP */
+:lang(ja) main > ._mb-8._flex._border-t > a::before { content: "前へ"; }
+:lang(ja) main > ._mb-8._flex._border-t > a[class*="ltr:_ml-auto"]::before,
+:lang(ja) main > ._mb-8._flex._border-t > a:last-child:not(:first-child)::before,
+:lang(ja) main > ._mb-8._flex._border-t > a:only-child::before { content: "次へ"; }
+/* es-ES */
+:lang(es) main > ._mb-8._flex._border-t > a::before { content: "Anterior"; }
+:lang(es) main > ._mb-8._flex._border-t > a[class*="ltr:_ml-auto"]::before,
+:lang(es) main > ._mb-8._flex._border-t > a:last-child:not(:first-child)::before,
+:lang(es) main > ._mb-8._flex._border-t > a:only-child::before { content: "Siguiente"; }
+
+/* ─────────────────────────────────────────────────────────────────
+   FEEDBACK WIDGET
+   ───────────────────────────────────────────────────────────────── */
+
+/* mobile-only variant: visible below xl, hidden at xl+ (TOC sidebar takes over) */
+.feedback-mobile-only {
+	display: block;
+}
+
+@media (min-width: 1280px) {
+	.feedback-mobile-only {
+		display: none;
+	}
+}
+
+.feedback-widget {
+	margin-top: 1.5rem;
+	padding: 1rem 1.25rem;
+	border: 1px solid rgba(128, 128, 128, 0.2);
+	border-radius: 12px;
+	background: rgba(128, 128, 128, 0.04);
+}
+
+/* inline (mobile) variant gets more spacing */
+.feedback-mobile-only.feedback-widget {
+	margin-top: 3rem;
+	padding: 1.25rem 1.5rem;
+}
+
+html.dark .feedback-widget {
+	background: rgba(255, 255, 255, 0.03);
+	border-color: rgba(255, 255, 255, 0.1);
+}
+
+.feedback-heading {
+	margin: 0 0 0.75rem;
+	font-size: 0.875rem;
+	font-weight: 500;
+	color: #374151;
+}
+
+html.dark .feedback-heading {
+	color: #d1d5db;
+}
+
+.feedback-emojis {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.feedback-emoji {
+	font-size: 1.25rem;
+	line-height: 1;
+	padding: 0.3rem 0.4rem;
+	border: 1px solid rgba(128, 128, 128, 0.2);
+	border-radius: 8px;
+	background: transparent;
+	cursor: pointer;
+	transition: all 0.15s ease;
+	opacity: 0.6;
+}
+
+.feedback-mobile-only .feedback-emoji {
+	font-size: 1.5rem;
+	padding: 0.375rem 0.5rem;
+}
+
+.feedback-emoji:hover {
+	opacity: 1;
+	transform: scale(1.15);
+	border-color: rgba(128, 128, 128, 0.4);
+}
+
+.feedback-emoji.active {
+	opacity: 1;
+	border-color: #7c3aed;
+	background: rgba(124, 58, 237, 0.08);
+	transform: scale(1.1);
+}
+
+html.dark .feedback-emoji {
+	border-color: rgba(255, 255, 255, 0.15);
+}
+
+html.dark .feedback-emoji:hover {
+	border-color: rgba(255, 255, 255, 0.3);
+}
+
+html.dark .feedback-emoji.active {
+	border-color: #a78bfa;
+	background: rgba(167, 139, 250, 0.15);
+}
+
+.feedback-form {
+	margin-top: 0.75rem;
+}
+
+.feedback-textarea {
+	width: 100%;
+	padding: 0.625rem 0.75rem;
+	border: 1px solid rgba(128, 128, 128, 0.25);
+	border-radius: 8px;
+	background: white;
+	color: #1f2937;
+	font-size: 0.875rem;
+	font-family: inherit;
+	resize: vertical;
+	min-height: 4.5rem;
+	outline: none;
+	transition: border-color 0.15s ease;
+}
+
+.feedback-textarea:focus {
+	border-color: #7c3aed;
+}
+
+html.dark .feedback-textarea {
+	background: rgba(255, 255, 255, 0.05);
+	border-color: rgba(255, 255, 255, 0.15);
+	color: #e5e7eb;
+}
+
+html.dark .feedback-textarea:focus {
+	border-color: #a78bfa;
+}
+
+.feedback-actions {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 0.75rem;
+	margin-top: 0.5rem;
+}
+
+.feedback-login-hint {
+	font-size: 0.8125rem;
+	color: #6b7280;
+}
+
+.feedback-login-hint a {
+	color: #7c3aed;
+	text-decoration: underline;
+}
+
+html.dark .feedback-login-hint a {
+	color: #a78bfa;
+}
+
+.feedback-error {
+	font-size: 0.8125rem;
+	color: #ef4444;
+}
+
+.feedback-send {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 4.5rem;
+	padding: 0.375rem 1rem;
+	border: none;
+	border-radius: 6px;
+	background: #7c3aed;
+	color: white;
+	font-size: 0.8125rem;
+	font-weight: 500;
+	cursor: pointer;
+	transition: background 0.15s ease;
+}
+
+.feedback-send:hover:not(:disabled) {
+	background: #6d28d9;
+}
+
+.feedback-send:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.feedback-spinner {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	border: 2px solid rgba(255, 255, 255, 0.3);
+	border-top-color: white;
+	border-radius: 50%;
+	animation: feedback-spin 0.6s linear infinite;
+}
+
+@keyframes feedback-spin {
+	to { transform: rotate(360deg); }
+}
+
+.feedback-success {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.875rem;
+	color: #059669;
+}
+
+html.dark .feedback-success {
+	color: #34d399;
+}
+
+.feedback-link {
+	color: #7c3aed;
+	text-decoration: underline;
+	font-size: 0.8125rem;
+	margin-left: 0.25rem;
+}
+
+html.dark .feedback-link {
+	color: #a78bfa;
 }

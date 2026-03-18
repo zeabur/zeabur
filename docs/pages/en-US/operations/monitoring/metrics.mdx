@@ -1,0 +1,67 @@
+---
+title: Metrics
+ogImageTitle: Metrics
+ogImageSubtitle: View service performance metrics
+---
+
+import { Callout } from 'nextra/components'
+
+# Metrics
+
+Zeabur provides real-time resource usage metrics for every service, helping you monitor performance and make informed scaling decisions.
+
+## Viewing Metrics
+
+To view metrics for a service:
+
+1. Open your project in the Zeabur dashboard.
+2. Select the service you want to monitor.
+3. Click the **Metrics** tab.
+
+The metrics dashboard displays real-time charts for:
+
+- **CPU usage** — Current and historical CPU consumption.
+- **Memory usage** — Current and historical RAM consumption, including the configured limit.
+- **Network traffic** — Inbound and outbound data transfer.
+
+## Understanding Resource Usage
+
+### CPU
+
+CPU usage is displayed as a percentage of the allocated CPU resources. Spikes in CPU usage may indicate:
+
+- High request volume
+- Computationally expensive operations
+- Inefficient code paths that could benefit from optimization
+
+### Memory
+
+Memory usage shows how much RAM your service is consuming relative to its configured limit. If your service consistently approaches its memory limit, consider increasing the allocation in [service settings](/operations/scaling) to avoid out-of-memory (OOM) restarts.
+
+### Network
+
+Network metrics show the volume of data transferred in and out of your service. This is useful for understanding traffic patterns and estimating bandwidth costs.
+
+## Service Usage and Billing
+
+For a detailed breakdown of resource consumption and associated costs, visit the **Service Usage** page in your project settings. This page shows:
+
+- Cumulative CPU and memory usage over the billing period
+- Network egress charges
+- Per-service cost breakdown
+
+See [Service Usage](/operations/service-usage) for more details on how usage translates to billing.
+
+<Callout>
+  Zeabur uses a usage-based pricing model. Monitoring your metrics regularly helps you stay aware of resource consumption and avoid unexpected charges. See [Pricing](/pricing) for the full pricing details.
+</Callout>
+
+## Using Metrics to Guide Scaling
+
+Metrics are essential for deciding when and how to scale:
+
+- **CPU consistently above 80%** — Consider increasing CPU allocation or optimizing your application.
+- **Memory near the limit** — Increase the memory allocation to prevent OOM crashes.
+- **Steady traffic growth** — Plan ahead by adjusting resources before usage spikes cause degraded performance.
+
+For information on adjusting service resources, see [Scaling](/operations/scaling).

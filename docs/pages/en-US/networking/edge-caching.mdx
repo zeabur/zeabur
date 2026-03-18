@@ -1,0 +1,70 @@
+---
+title: Edge Caching
+ogImageTitle: Edge Caching
+ogImageSubtitle: CDN and edge caching features on Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+{/* Edge Caching */}
+
+# Edge Caching
+
+Edge Caching is a CDN-level caching mechanism that stores static assets and API responses on edge nodes closest to your users, significantly reducing latency and improving load times.
+
+## How It Works
+
+When users access your service through Zeabur's domain, requests pass through Zeabur's global CDN network. The edge caching flow works as follows:
+
+1. **User sends a request** — The request is routed to the nearest edge node.
+2. **Cache hit** — If the edge node has a cached response, it is returned directly to the user without contacting the origin server.
+3. **Cache miss** — If there is no cache, the request is forwarded to your origin service. The response is then cached at the edge node and returned to the user.
+
+### Automatic Caching
+
+Zeabur automatically enables edge caching for static files, including:
+
+- Images (`.png`, `.jpg`, `.webp`, `.svg`, etc.)
+- Stylesheets (`.css`)
+- JavaScript files (`.js`)
+- Font files (`.woff`, `.woff2`, `.ttf`)
+
+These static assets require no additional configuration — they are automatically accelerated via CDN after deployment.
+
+### Dynamic Content Caching
+
+For dynamic content such as API responses, you can control caching behavior by setting `Cache-Control` headers:
+
+```
+Cache-Control: public, max-age=3600, s-maxage=86400
+```
+
+- `public` — Allows both CDN and browsers to cache the response.
+- `max-age` — Browser cache duration (in seconds).
+- `s-maxage` — CDN edge node cache duration (in seconds), takes priority over `max-age`.
+
+## How to Enable
+
+### Via Cache-Control Headers
+
+Set appropriate `Cache-Control` headers in your application, and Zeabur's CDN will automatically cache responses based on these headers.
+
+<Callout>
+If your response includes `Cache-Control: private` or `no-store`, the CDN will not cache that response.
+</Callout>
+
+### Via Zeabur Dashboard
+
+You can also adjust cache-related settings in the service configuration on the Zeabur Dashboard, in conjunction with [Public Networking](/deploy/public-networking).
+
+## Best Practices
+
+- **Set long TTL for static assets** — For rarely changing static files (e.g., images, fonts), set a long cache duration (e.g., `max-age=31536000`, i.e., one year) and use filename hashing for cache busting.
+- **Set appropriate TTL for API responses** — Configure a reasonable cache duration based on how frequently your data changes. For example, set `s-maxage=3600` (one hour) for infrequently updated list data.
+- **Use `stale-while-revalidate`** — This directive allows the CDN to serve a stale (but still usable) cached response while revalidating in the background, improving user experience.
+- **Cache invalidation** — When you redeploy your service, Zeabur automatically purges the associated edge cache. For manual cache purging, use the Dashboard.
+
+## Further Reading
+
+- [Public Networking](/deploy/public-networking) — Learn how to set up public access and domains for your service.
+

@@ -1,0 +1,73 @@
+---
+title: Rollbacks
+ogImageTitle: Rollbacks
+ogImageSubtitle: Roll back to a previous deployment version
+---
+
+import { Callout } from 'nextra/components'
+
+# Rollbacks
+
+Zeabur keeps a record of every deployment, allowing you to roll back to any previous successful version if a new deployment introduces issues.
+
+## How Rollbacks Work
+
+Each time you deploy a service, Zeabur creates a snapshot of that deployment (the built image). These snapshots are retained so you can revert to a known-good state at any time.
+
+When you trigger a rollback:
+
+1. Zeabur creates a **new deployment** using the snapshot from the selected previous version.
+2. The new deployment goes through the standard [health check](/operations/health-checks) process.
+3. Once the health check passes, traffic is routed to the rolled-back version.
+4. The failed deployment remains in your deployment history for reference.
+
+Because rollbacks follow the same deployment flow, they benefit from zero-downtime behavior — the old (broken) deployment continues serving traffic until the rolled-back version is confirmed healthy.
+
+## Rolling Back from the Dashboard
+
+To roll back a service:
+
+1. Open your service in the Zeabur dashboard.
+2. Go to the **Deployments** tab.
+3. Find the deployment you want to revert to in the deployment history.
+4. Click **Rollback** on that deployment.
+5. Zeabur will create a new deployment based on the selected snapshot.
+
+<Callout>
+  Rollback creates a new deployment entry in your history. It does not erase or modify any previous deployments.
+</Callout>
+
+## Rollback Methods by Service Type
+
+### Git-Deployed Services
+
+For services deployed from a Git repository, you have two options:
+
+- **Dashboard rollback** — Use the method described above to revert to a previous build snapshot.
+- **Git revert** — Push a revert commit to your repository. Zeabur will detect the new commit and trigger a fresh build, effectively rolling back your code through your normal CI/CD flow.
+
+### Docker Image Services
+
+For services deployed from a Docker image, you can roll back by specifying a previous image tag in your service settings. Update the image tag to the desired version, and Zeabur will redeploy using that image.
+
+### Prebuilt Services (Marketplace Templates)
+
+For services deployed from the Zeabur marketplace, rollbacks follow the same dashboard workflow. Select the desired deployment from the history and click **Rollback**.
+
+## What Rollbacks Do Not Restore
+
+Rollbacks restore the **application code and build artifacts** to a previous state. They do not affect:
+
+- **Environment variables** — Any changes to environment variables since the original deployment remain in place.
+- **Volumes** — Data stored in persistent volumes is not reverted.
+- **Database contents** — If your deployment included database migrations, rolling back the application does not reverse those migrations. You may need to manually address schema changes.
+
+<Callout type="warning">
+  If your deployment involved database migrations or other stateful changes, plan your rollback carefully. Consider restoring a [database backup](/operations/backup-restore) alongside the application rollback if needed.
+</Callout>
+
+## Best Practices
+
+- **Test before deploying to production.** Use [preview environments](/operations/previews) to catch issues before they reach your main deployment.
+- **Use small, incremental deployments.** Smaller changes are easier to diagnose and roll back.
+- **Monitor after deploying.** Watch [metrics](/operations/metrics) and [logs](/operations/logging) after each deployment to detect issues early.

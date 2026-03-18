@@ -7,6 +7,7 @@ import { useRouter } from 'nextra/hooks'
 import WorkingInProgress from './components/WorkingInProgress'
 import CreateProject from './components/CreateProject'
 import LastUpdated from './components/LastUpdated'
+import FeedbackWidget from './components/FeedbackWidget'
 import LogoBlack from './public/logo_b.svg'
 import LogoWhite from './public/logo_w.svg'
 
@@ -48,6 +49,12 @@ const config = {
     { locale: 'ja-JP', name: '日本語' },
     { locale: 'es-ES', name: 'Español' },
   ],
+  main: ({ children }) => (
+    <>
+      {children}
+      <FeedbackWidget variant="inline" />
+    </>
+  ),
   toc: {
     title: () => {
       const { locale } = useRouter()
@@ -57,6 +64,7 @@ const config = {
       const { locale } = useRouter()
       return t.backToTop[locale] || 'Scroll to top'
     },
+    extraContent: () => <FeedbackWidget variant="toc" />,
   },
   editLink: {
     content: () => {

@@ -1,5 +1,6 @@
 export default {
-  'pricing-plans': '方案總覽',
+  index:           { display: 'hidden' },
+  'pricing-plans': { display: 'hidden' },
   'free-plan':     'Free Plan',
   'dev-plan':      'Dev Plan',
   'team-plan':     'Team Plan',

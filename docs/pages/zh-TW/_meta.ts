@@ -39,10 +39,11 @@ export default {
   community:      { display: 'hidden' },
   'data-management': { display: 'hidden' },
   legal:          { display: 'hidden' },
+  monitoring:     { display: 'hidden' },
+  networking:     { display: 'hidden' },
   manage:         { display: 'hidden' },
   infrastructure: { display: 'hidden' },
   mesh:           { display: 'hidden' },
-  networking:     { display: 'hidden' },
   tutorials:      { display: 'hidden' },
   mcp:            { display: 'hidden' },
 

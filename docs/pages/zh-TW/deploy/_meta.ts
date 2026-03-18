@@ -1,40 +1,33 @@
 export default {
+  index:      { display: 'hidden' },
   'how-deploys-work': '部署流程概述',
+  create:     '建立專案與服務',
+  methods:    '部署方式',
+  templates:  '模板',
+  config:     '服務設定',
+  manage:     '專案管理',
+  networking: '網路',
 
-  // ── 建立專案與服務 ───────────────────────────────────────────────────────
-  '--- project ---': { type: 'separator', title: '建立專案與服務' },
-  'create-project': '建立專案',
-  'create-service': '建立服務',
-
-  // ── 部署方式 ─────────────────────────────────────────────────────────────
-  '--- methods ---': { type: 'separator', title: '部署方式' },
-  dockerfile: 'Dockerfile 部署',
-  'custom-docker-image': '自訂 Docker 映像檔',
-  'github-integration': '整合 GitHub/Git',
-  'deploy-button': '一鍵部署按鈕',
-  'deploy-with-chrome-extension': 'Chrome 擴充功能',
-  'deploy-with-vscode-extension': 'VS Code / Cursor 擴充功能',
-  'deploy-with-raycast-extension': 'Raycast 擴充功能',
-  templates: '模板',
-
-  // ── 服務設定 ─────────────────────────────────────────────────────────────
-  '--- config ---': { type: 'separator', title: '服務設定' },
-  'environment-variables': '環境變數',
-  'root-directory': '自訂根目錄',
-  'watch-paths': '觸發路徑',
-  'command-execution': '命令執行',
-
-  // ── 專案管理 ─────────────────────────────────────────────────────────────
-  '--- manage ---': { type: 'separator', title: '專案管理' },
-  'copy-project': '複製專案',
-  'export-project': '匯出專案',
-  'migrate-project': '搬遷專案',
-  'update-image-reference': '更新映像檔引用',
-
-  // ── 網路 ───────────────────────────────────────────────────────────────────
-  '--- networking ---': { type: 'separator', title: '網路' },
-  'public-networking': '公開網路',
-  'private-networking': '私有網路',
-  'high-availability': '高可用性',
-  'edge-caching': '邊緣快取',
+  // ── 隱藏：舊的平面檔案（已搬到子資料夾）──────────────────────────────
+  'create-project':              { display: 'hidden' },
+  'create-service':              { display: 'hidden' },
+  dockerfile:                    { display: 'hidden' },
+  'custom-docker-image':         { display: 'hidden' },
+  'github-integration':          { display: 'hidden' },
+  'deploy-button':               { display: 'hidden' },
+  'deploy-with-chrome-extension': { display: 'hidden' },
+  'deploy-with-vscode-extension': { display: 'hidden' },
+  'deploy-with-raycast-extension': { display: 'hidden' },
+  'environment-variables':       { display: 'hidden' },
+  'root-directory':              { display: 'hidden' },
+  'watch-paths':                 { display: 'hidden' },
+  'command-execution':           { display: 'hidden' },
+  'copy-project':                { display: 'hidden' },
+  'export-project':              { display: 'hidden' },
+  'migrate-project':             { display: 'hidden' },
+  'update-image-reference':      { display: 'hidden' },
+  'public-networking':           { display: 'hidden' },
+  'private-networking':          { display: 'hidden' },
+  'high-availability':           { display: 'hidden' },
+  'edge-caching':                { display: 'hidden' },
 }

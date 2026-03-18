@@ -1,5 +1,6 @@
 export default {
-  'pricing-plans': 'Resumen de Planes',
+  index:           { display: 'hidden' },
+  'pricing-plans': { display: 'hidden' },
   'free-plan':     'Plan Gratuito',
   'dev-plan':      'Plan Dev',
   'team-plan':     'Plan Team',

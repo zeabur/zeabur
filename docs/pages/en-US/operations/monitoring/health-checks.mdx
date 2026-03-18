@@ -1,0 +1,71 @@
+---
+title: Health Checks
+ogImageTitle: Health Checks
+ogImageSubtitle: Configure health checks for your service
+---
+
+import { Callout } from 'nextra/components'
+
+# Health Checks
+
+Zeabur automatically performs health checks on every service to ensure deployments are ready before receiving traffic. This enables zero-downtime deployments — if a new deployment fails its health check, the previous version continues serving requests.
+
+## How Health Checks Work
+
+When you deploy a service, Zeabur probes the service's listening port to verify that it is accepting connections. A deployment is only considered **ready** once the health check passes. Until then, the previous deployment remains active and continues handling traffic.
+
+This means:
+
+- **Successful health check** — Traffic is routed to the new deployment, and the old deployment is terminated.
+- **Failed health check** — The new deployment is marked as failed, and the old deployment stays active. No downtime occurs.
+
+<Callout>
+  For services with [volumes](/operations/volumes) attached, Zeabur uses a **Recreate** deployment strategy instead of rolling updates. This means the old deployment is stopped before the new one starts, resulting in a brief period of downtime during deployment. This is necessary to avoid data conflicts from two instances accessing the same volume simultaneously.
+</Callout>
+
+## Default Behavior
+
+By default, Zeabur checks whether your service's exposed port is accepting TCP connections. For most web applications, this is sufficient — once your HTTP server starts listening, the health check passes.
+
+The default configuration is:
+
+| Parameter | Default Value |
+| --- | --- |
+| Check type | TCP port probe |
+| Interval | 10 seconds |
+| Timeout | 5 seconds |
+| Failure threshold | 3 consecutive failures |
+
+## Custom Health Check Path
+
+For more precise health verification, you can configure a custom HTTP health check path. This is useful when your application needs additional startup time (for example, to warm caches or establish database connections) before it is truly ready to serve traffic.
+
+To configure a custom health check path:
+
+1. Open your service in the Zeabur dashboard.
+2. Go to **Settings**.
+3. Under the **Health Check** section, enter your custom path (e.g., `/healthz` or `/api/health`).
+
+Your application should return an HTTP `2xx` status code at that path when it is ready to receive traffic.
+
+```js
+// Example: Express.js health check endpoint
+app.get('/healthz', (req, res) => {
+  // Perform any readiness checks here
+  res.status(200).json({ status: 'ok' })
+})
+```
+
+## Troubleshooting
+
+### Deployment stuck in "Deploying" state
+
+If your deployment never passes the health check, verify that:
+
+- Your application is listening on the correct port. Zeabur sets the `PORT` environment variable — make sure your app binds to `0.0.0.0:$PORT`.
+- Your application starts up within the timeout window. If initialization takes a long time, consider adding a lightweight health endpoint that responds immediately.
+- If using a custom health check path, ensure the endpoint returns an HTTP `2xx` response.
+
+### Services with long startup times
+
+Some applications (such as Java services or applications loading large ML models) may need extra time to initialize. In these cases, configure a custom health check endpoint that returns a success response only after the application is fully ready, rather than relying on the default TCP probe.
