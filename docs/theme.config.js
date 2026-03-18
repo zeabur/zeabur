@@ -10,6 +10,8 @@ import LastUpdated from './components/LastUpdated'
 import FeedbackWidget from './components/FeedbackWidget'
 import LogoBlack from './public/logo_b.svg'
 import LogoWhite from './public/logo_w.svg'
+import IconBlack from './public/icon_b.svg'
+import IconWhite from './public/icon_w.svg'
 
 // base64 encoding that supports unicode strings
 function base64Encode(str) {
@@ -106,18 +108,12 @@ const config = {
     const { locale } = useRouter()
     return (
       <Link href={`/${locale}`}>
-        <img
-          src={LogoBlack.src}
-          style={{ height: 20, objectFit: 'contain' }}
-          alt="zeabur"
-          className="black-logo"
-        />
-        <img
-          src={LogoWhite.src}
-          style={{ height: 20, objectFit: 'contain' }}
-          alt="zeabur"
-          className="white-logo"
-        />
+        {/* Full wordmark — hidden on mobile */}
+        <img src={LogoBlack.src} style={{ height: 20, objectFit: 'contain' }} alt="zeabur" className="black-logo logo-full" />
+        <img src={LogoWhite.src} style={{ height: 20, objectFit: 'contain' }} alt="zeabur" className="white-logo logo-full" />
+        {/* Z icon — visible on mobile only */}
+        <img src={IconBlack.src} style={{ height: 22, objectFit: 'contain' }} alt="zeabur" className="black-logo logo-icon" />
+        <img src={IconWhite.src} style={{ height: 22, objectFit: 'contain' }} alt="zeabur" className="white-logo logo-icon" />
       </Link>
     )
   },

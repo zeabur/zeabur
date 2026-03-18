@@ -170,6 +170,14 @@ main {
 html.light .white-logo { display: none !important; }
 html.dark  .black-logo { display: none !important; }
 
+/* Responsive logo: full wordmark on desktop, Z icon on mobile (Vercel pattern) */
+.logo-icon { display: none !important; }
+.logo-full { display: block !important; }
+@media (max-width: 767px) {
+  .logo-full { display: none !important; }
+  .logo-icon { display: block !important; }
+}
+
 /* ─────────────────────────────────────────────────────────────────
    NAVBAR — frosted glass
    ───────────────────────────────────────────────────────────────── */
@@ -186,6 +194,16 @@ html.dark  .black-logo { display: none !important; }
 }
 .dark .nextra-nav-container-blur {
   background-color: rgba(17, 17, 17, 0.85) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SIDEBAR — HIDE SCROLLBAR  (Cursor-style clean sidebar)
+   ───────────────────────────────────────────────────────────────── */
+.nextra-sidebar-container {
+  scrollbar-width: none !important;          /* Firefox */
+}
+.nextra-sidebar-container::-webkit-scrollbar {
+  display: none !important;                  /* Chrome / Safari / Edge */
 }
 
 /* ─────────────────────────────────────────────────────────────────
@@ -325,6 +343,70 @@ article a:not([class]):hover {
    ───────────────────────────────────────────────────────────────── */
 article blockquote {
   border-left-color: var(--zb-orange) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   CALLOUT / ADMONITION  (Cursor-inspired, Zeabur brand colors)
+   Clean left-border style, no emoji icons, subtle tinted background.
+   ───────────────────────────────────────────────────────────────── */
+.nextra-callout {
+  border-width: 0 0 0 3px !important;
+  border-style: solid !important;
+  border-radius: 6px !important;
+  padding: 0.875rem 1rem !important;
+  font-size: var(--zb-fs-body) !important;
+  line-height: var(--zb-lh-body) !important;
+}
+
+/* Hide the default emoji icon — Cursor doesn't use them */
+.nextra-callout > .nextra-callout-icon,
+.nextra-callout > div:first-child:has(svg) {
+  display: none !important;
+}
+
+/* ── Default / Info — Zeabur purple ──────────────────────────── */
+.nextra-callout {
+  border-color: var(--zb-purple) !important;
+  background: var(--zb-purple-muted) !important;
+  color: var(--zb-text-2) !important;
+}
+
+/* ── Warning — amber ────────────────────────────────────────── */
+.nextra-callout[data-callout-type="warning"],
+.nextra-callout._border-orange-100,
+.nextra-callout[class*="bg-orange"] {
+  --callout-border: #d97706;
+  --callout-bg:     rgba(217, 119, 6, 0.08);
+  border-color: var(--callout-border) !important;
+  background:   var(--callout-bg) !important;
+}
+.dark .nextra-callout[data-callout-type="warning"],
+.dark .nextra-callout._border-orange-100,
+.dark .nextra-callout[class*="bg-orange"] {
+  --callout-border: #f59e0b;
+  --callout-bg:     rgba(245, 158, 11, 0.1);
+}
+
+/* ── Error — Zeabur orange / red ─────────────────────────────── */
+.nextra-callout[data-callout-type="error"],
+.nextra-callout._border-red-200,
+.nextra-callout[class*="bg-red"] {
+  --callout-border: var(--zb-orange);
+  --callout-bg:     rgba(255, 68, 0, 0.07);
+  border-color: var(--callout-border) !important;
+  background:   var(--callout-bg) !important;
+}
+.dark .nextra-callout[data-callout-type="error"],
+.dark .nextra-callout._border-red-200,
+.dark .nextra-callout[class*="bg-red"] {
+  --callout-border: #ff6b3d;
+  --callout-bg:     rgba(255, 107, 61, 0.1);
+}
+
+/* Callout inner text — inherit body color */
+.nextra-callout p {
+  color: var(--zb-text-2) !important;
+  margin: 0 !important;
 }
 
 /* ─────────────────────────────────────────────────────────────────
