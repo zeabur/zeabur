@@ -59,4 +59,9 @@ Just an internet connection. No public IP, no port forwarding, and no firewall c
 
 ### How do I access services deployed on my device?
 
-After deploying a service, open the **Networking** tab on the service page to find the LAN access address. You can then access the service from any device on the same local network. See the [Get Started guide](./get-started#step-6-start-deploying) for details on finding your device's LAN IP.
+You have two options:
+
+- **From the internet**: Bind a domain to your service just like any other Zeabur server. See [Public Networking](/networking/public) for details on domain binding and port forwarding.
+- **From your local network**: Open the **Networking** tab on the service page to find the LAN access address. See the [Get Started guide](./get-started#accessing-services-from-your-local-network) for details on finding your device's LAN IP.
+
+Services in the same project can also communicate with each other using internal hostnames. See [Private Networking](/networking/private) for details.
