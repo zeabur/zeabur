@@ -685,6 +685,15 @@
     <loc>https://zeabur.com/docs/es-ES/tutorials</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/es-ES/wonder-mesh/get-started</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/wonder-mesh</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/es-ES/wonder-mesh/install-script-details</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/ja-JP/advanced/builds</loc>
   </url>
   <url>
@@ -1022,6 +1031,15 @@
   </url>
   <url>
     <loc>https://zeabur.com/docs/ja-JP/tutorials</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/wonder-mesh/get-started</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/wonder-mesh</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/wonder-mesh/install-script-details</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-CN/advanced/builds</loc>
@@ -1366,6 +1384,15 @@
     <loc>https://zeabur.com/docs/zh-CN/tutorials</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/zh-CN/wonder-mesh/get-started</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/wonder-mesh</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-CN/wonder-mesh/install-script-details</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/zh-TW/advanced/builds</loc>
   </url>
   <url>
@@ -1703,6 +1730,15 @@
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-TW/tutorials</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/wonder-mesh/get-started</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/wonder-mesh</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/wonder-mesh/install-script-details</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/en-US/marketplace/dragonfly</loc>
