@@ -44,7 +44,7 @@ export function middleware(request: NextRequest) {
     const canonical = findCanonicalLocale(segment!)
     if (canonical) {
       const rest = pathname.slice(segment!.length + 1) // +1 for leading slash
-      const url = addBasePath(`/${canonical}${rest}`)
+      const url = addBasePath(`/${canonical}${rest}${request.nextUrl.search}`)
       return NextResponse.redirect(new URL(url, request.url))
     }
   }
