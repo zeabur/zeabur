@@ -12,8 +12,12 @@ Wonder Mesh lets you turn your own computer or server into a Zeabur compute node
 
 <Callout>
   Wonder Mesh is currently in **Beta**. You can apply for access from the [Servers page](https://zeabur.com/servers) in the Zeabur console.  
-  Already have access? See the [Get Started guide](./wonder-mesh/get-started) to set up your first Wonder Mesh server.
+  Already have access? See the [Get Started guide](./get-started) to set up your first Wonder Mesh server.
 </Callout>
+
+## How It Works
+
+Wonder Mesh creates a private, encrypted tunnel between your device and the Zeabur platform using [WireGuard](https://www.wireguard.com/). This tunnel works through NAT, firewalls, and dynamic IPs — your device gets a stable internal mesh IP address that Zeabur uses to manage deployments via SSH. You don't need to configure any networking yourself.
 
 ## Why Wonder Mesh?
 
@@ -53,6 +57,6 @@ Services deployed on that device will be temporarily unavailable. Once the devic
 
 Just an internet connection. No public IP, no port forwarding, and no firewall changes are needed.
 
-### Can I add multiple devices to my account?
+### How do I access services deployed on my device?
 
-Yes. Each device joins your mesh network independently, and you can choose which device to deploy each service to.
+After deploying a service, open the **Networking** tab on the service page to find the LAN access address. You can then access the service from any device on the same local network. See the [Get Started guide](./get-started#step-6-start-deploying) for details on finding your device's LAN IP.

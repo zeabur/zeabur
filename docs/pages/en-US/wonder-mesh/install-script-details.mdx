@@ -60,6 +60,10 @@ The script runs with root privileges (`sudo bash`) and performs the following st
 - Adds the user to the `sudo` (or `wheel`) group
 - Creates `/etc/sudoers.d/zeabur` granting passwordless sudo access
 
+<Callout type="warning">
+  Do not manually change the `zeabur` user's password. Zeabur uses this credential to manage your device via SSH. Changing it will break the connection and prevent deployments.
+</Callout>
+
 ### 6. Report Back to Zeabur
 
 - Retrieves the mesh IP (`tailscale ip -4`) and public IP (`curl ifconfig.me`)
@@ -131,44 +135,3 @@ The script runs as a **regular user** (do not use `sudo`). All mesh networking a
 | Port forwarding | Ports 30000–32767 | Forwarded from VM to `0.0.0.0` on the host |
 
 Your macOS SSH configuration, system users, and network settings are **not** modified.
-
----
-
-## Uninstallation
-
-If you need to completely remove Wonder Mesh from your device:
-
-### Linux
-
-```bash
-# Remove the zeabur user and its sudo config
-sudo userdel -r zeabur
-sudo rm -f /etc/sudoers.d/zeabur
-
-# Restore SSH configuration
-sudo rm -f /etc/ssh/sshd_config.d/00-zeabur-password-auth.conf
-# Manually review /etc/ssh/sshd_config for PasswordAuthentication setting
-sudo systemctl restart sshd
-
-# Disconnect and remove Tailscale
-sudo tailscale logout
-sudo systemctl disable --now tailscaled
-# Remove the tailscale package using your package manager
-
-# Remove the Wonder binary
-sudo rm -f /usr/local/bin/wonder
-
-# Clean up logs
-rm -f /tmp/zeabur-install.log
-```
-
-### macOS
-
-```bash
-# Stop and delete the virtual machine
-limactl stop zeabur-mesh
-limactl delete zeabur-mesh
-
-# Optionally uninstall Lima
-brew uninstall lima
-```

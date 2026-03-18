@@ -4,7 +4,7 @@ ogImageTitle: Get Started with Wonder Mesh
 ogImageSubtitle: Set up your device as a Zeabur server in minutes
 ---
 
-import { Callout } from 'nextra/components'
+import { Callout, Steps } from 'nextra/components'
 
 # Get Started
 
@@ -17,7 +17,7 @@ Follow these steps to turn your device into a Zeabur server using Wonder Mesh.
   If you have Tailscale or K3s already installed, the setup script may interfere with your existing configuration.
 </Callout>
 
-Your device must meet the following minimum requirements:
+Your device must meet the following minimum requirements. On macOS, these refer to the resources allocated to the virtual machine, not the Mac itself — make sure your Mac has enough headroom beyond these minimums.
 
 | Resource | Minimum |
 |----------|---------|
@@ -25,13 +25,22 @@ Your device must meet the following minimum requirements:
 | Memory | 2 GB |
 | Disk | 40 GB |
 
-## Step 1: Create a New Project
+Not sure about your device's architecture? Run the following command to check:
+
+```bash copy
+# x86_64 = amd64, aarch64 = arm64
+uname -m
+```
+
+<Steps>
+
+### Create a New Project
 
 Go to the [Zeabur Dashboard](https://zeabur.com/projects) and create a new project.
 
-## Step 2: Bind an External Server with Wonder Mesh
+### Bind an External Server with Wonder Mesh
 
-In your project, select **Bind External Server**, then choose **Wonder Mesh**. Configure your device's architecture (amd64 or arm64) and operating system (Linux or macOS).
+In "Create New Project" page, under "Select a Dedicated Server", select **Bind External Server**, then choose **Wonder Mesh**. Configure your device's architecture (amd64 or arm64) and operating system (Linux or macOS).
 
 For macOS, you will also need to specify the virtual machine resource allocation:
 - CPU cores
@@ -40,21 +49,26 @@ For macOS, you will also need to specify the virtual machine resource allocation
 
 After confirming, you will be redirected to the server page.
 
-## Step 3: Run the Install Script on Your Device
+### Run the Install Script on Your Device
 
 On the server page, click **View Install Command** to reveal the full install command. Copy it and run it in a terminal on the device you want to register.
 
-![View Install Command](/wonder-mesh/view-install-command.png)
+![Zeabur console showing the View Install Command button on the server page](/wonder-mesh/view-install-command.png)
 
 <Callout type="warning">
   On macOS, do **not** use `sudo`. The installer will request elevated permissions when needed.
 </Callout>
 
-![Install Script Running](/wonder-mesh/install-script.png)
+<Callout type="info">
+  The install script will install Tailscale, create a `zeabur` system user, and configure SSH on your device.
+  For a full breakdown, see [What Does the Install Script Do?](./install-script-details).
+</Callout>
+
+![Terminal showing the Wonder Mesh install script completing successfully](/wonder-mesh/install-script.png)
 
 When the script finishes successfully, you should see output similar to:
 
-``` {13-14}
+``` log {13-14}
 === Zeabur Mesh Server Setup ===
 Installing Tailscale...
 Tailscale installed: 1.94.2
@@ -71,27 +85,35 @@ Completing registration...
 Mesh IP: 100.x.x.x
 ```
 
-<Callout type="info">
-  Want to know exactly what the install script changes on your machine?  
-  See [What Does the Install Script Do?](./wonder-mesh/install-script-details)
-</Callout>
-
-## Step 4: Wait for the Server to Connect
+### Wait for the Server to Connect
 
 After the installation completes, your device will appear as connected in the console.
 
-![Server Connected](/wonder-mesh/server-connected.png)
+![Zeabur console showing the server connected with a mesh IP assigned](/wonder-mesh/server-connected.png)
 
-## Step 5: Install K3s
+### Install K3s
 
-Once the device has joined the mesh network, click **Install K3s** in the console. K3s is a lightweight Kubernetes distribution — after it is installed, your device is ready to receive and run service deployments.
+Once the device has joined the mesh network, click **Install K3s** in the console. K3s is the runtime engine Zeabur uses to manage and run services on your device. You don't need any Kubernetes knowledge — just click the button and wait for it to finish.
 
-## Step 6: Start Deploying
+### Start Deploying
 
 When the server shows a healthy status, you can deploy services to it just like any other Zeabur server.
 
-![Server Healthy](/wonder-mesh/server-healthy.png)
+![Server card showing SSH Connected and K3s healthy status](/wonder-mesh/server-healthy.png)
 
-## Reinstallation
+</Steps>
 
-If you need to re-setup a device, go to the server's page in the console, regenerate the install command, and run it again on the device.
+## Accessing Services from Your Local Network
+
+After deploying a service, go to the service page and open the **Networking** tab to find the LAN access information.
+
+![Networking tab showing LAN access address for the deployed service](/wonder-mesh/access-from-lan.png)
+
+<Callout type="info">
+  To find your device's LAN IP, run the following command on your **actual device's terminal** (not inside the service or Zeabur Server SSH):
+
+  - **Linux**: `hostname -I`
+  - **macOS**: `ipconfig getifaddr en0`
+
+  `en0` is typically the Wi-Fi interface on Mac. If you are connected via Ethernet and the command returns nothing, try `en1` instead.
+</Callout>
