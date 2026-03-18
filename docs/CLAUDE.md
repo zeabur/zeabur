@@ -6,7 +6,7 @@
 
 - **Source**: `components/WorkingInProgress/index.tsx`
 - Displays a locale-aware "work in progress" notice
-- Supports: en-US, zh-TW, zh-CN, ja-JP, es-ES
+- Supports: en-US, zh-TW, zh-CN, ja-JP
 
 ### `<CreateProject />`
 

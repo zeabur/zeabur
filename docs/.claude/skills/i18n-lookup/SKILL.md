@@ -28,7 +28,6 @@ Resolved from the docs project root, this is a sibling `dashboard` repository.
 | `zh-CN` | Simplified Chinese |
 | `ja-JP` | Japanese |
 | `es-ES` | Spanish |
-| `id-ID` | Indonesian |
 
 ### File Structure
 

@@ -80,7 +80,7 @@ If the dashboard i18n files are not available (the path does not exist), fall ba
 Each translation agent must:
 
 1. **Read the glossary** at `${CLAUDE_SKILL_DIR}/glossary.json` and use it throughout translation.
-2. **Look up dashboard UI translations** — scan the source file for UI element references (bold text like `**Button Label**`, quoted UI text like `"Tab Name"` or `「Menu Item」`). For each one, look up the official translation from the dashboard i18n files at `../../dashboard/public/assets/locales/{target-locale}/`. Check relevant JSON files (`common.json`, `service.json`, `servers.json`, `project.json`) by grepping for the English term. If the dashboard i18n path does not exist, skip this step silently and rely on the glossary and contextual translation.
+2. **Look up dashboard UI translations** — scan the source file for UI element references (bold text like `**Button Label**`, quoted UI text like `"Tab Name"` or `「Menu Item」`). For each one, first search the `en-US` dashboard i18n files at `../../dashboard/public/assets/locales/en-US/` to find the i18n key for the English term, then look up that key in the target locale's files at `../../dashboard/public/assets/locales/{target-locale}/`. Check relevant JSON files (`common.json`, `service.json`, `servers.json`, `project.json`). If the dashboard i18n path does not exist, skip this step silently and rely on the glossary and contextual translation.
 3. **Read the source file(s)** in full.
 4. **Read the corresponding `_meta.ts`** in the source locale for navigation labels.
 5. **If the file is `outdated (stale)`** (not missing):
