@@ -75,7 +75,7 @@ export default function Nextra({ Component, pageProps }: AppProps) {
     if (saved) {
       try {
         const { path, y } = JSON.parse(saved)
-        if (path === router.asPath && typeof y === 'number') {
+        if (path === router.asPath && typeof y === 'number' && Number.isFinite(y)) {
           requestAnimationFrame(() => {
             window.scrollTo(0, y)
           })
