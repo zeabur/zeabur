@@ -19,6 +19,7 @@ export default function Nextra({ Component, pageProps }) {
     let pendingHash = ''
 
     const handleStart = (url: string) => {
+      pendingHash = ''
       const hashIndex = url.indexOf('#')
       if (hashIndex !== -1) {
         pendingHash = url.slice(hashIndex)
@@ -30,7 +31,8 @@ export default function Nextra({ Component, pageProps }) {
       const hash = pendingHash
       pendingHash = ''
       requestAnimationFrame(() => {
-        const el = document.querySelector(hash)
+        const id = decodeURIComponent(hash.slice(1))
+        const el = document.getElementById(id)
         if (el) {
           el.scrollIntoView()
         }
@@ -40,11 +42,17 @@ export default function Nextra({ Component, pageProps }) {
       })
     }
 
+    const handleError = () => {
+      pendingHash = ''
+    }
+
     router.events.on('routeChangeStart', handleStart)
     router.events.on('routeChangeComplete', handleComplete)
+    router.events.on('routeChangeError', handleError)
     return () => {
       router.events.off('routeChangeStart', handleStart)
       router.events.off('routeChangeComplete', handleComplete)
+      router.events.off('routeChangeError', handleError)
     }
   }, [router.events])
 
@@ -53,13 +61,18 @@ export default function Nextra({ Component, pageProps }) {
     if (window.location.hash) return
     const saved = sessionStorage.getItem(SCROLL_KEY)
     if (saved) {
-      const { path, y } = JSON.parse(saved)
-      if (path === router.asPath) {
-        requestAnimationFrame(() => {
-          window.scrollTo(0, y)
-        })
+      try {
+        const { path, y } = JSON.parse(saved)
+        if (path === router.asPath && typeof y === 'number') {
+          requestAnimationFrame(() => {
+            window.scrollTo(0, y)
+          })
+        }
+      } catch {
+        // ignore malformed data
+      } finally {
+        sessionStorage.removeItem(SCROLL_KEY)
       }
-      sessionStorage.removeItem(SCROLL_KEY)
     }
   }, [router.asPath])
 
