@@ -46,7 +46,7 @@ export default function Nextra({ Component, pageProps }: AppProps) {
           el.scrollIntoView()
         }
         if (window.location.hash !== hash) {
-          history.replaceState(null, '', window.location.pathname + window.location.search + hash)
+          history.replaceState(history.state, '', window.location.pathname + window.location.search + hash)
         }
       })
     }
@@ -67,7 +67,10 @@ export default function Nextra({ Component, pageProps }: AppProps) {
 
   // restore scroll position on page refresh (non-hash pages only)
   useEffect(() => {
-    if (window.location.hash) return
+    if (window.location.hash) {
+      sessionStorage.removeItem(SCROLL_KEY)
+      return
+    }
     const saved = sessionStorage.getItem(SCROLL_KEY)
     if (saved) {
       try {
@@ -102,13 +105,21 @@ export default function Nextra({ Component, pageProps }: AppProps) {
     if (!window.location.hostname.endsWith('zeabur.cn')) return
 
     const rewriteLink = (a: HTMLAnchorElement) => {
-      if (a.href.includes('zeabur.com')) {
-        a.href = a.href.replace(/zeabur\.com/g, 'zeabur.cn')
+      try {
+        const url = new URL(a.href)
+        if (url.hostname === 'zeabur.com' || url.hostname.endsWith('.zeabur.com')) {
+          url.hostname = url.hostname.replace(/zeabur\.com$/, 'zeabur.cn')
+          a.href = url.href
+        }
+      } catch {
+        // ignore invalid URLs
       }
     }
 
     // initial pass
-    document.querySelectorAll<HTMLAnchorElement>('a[href*="zeabur.com"]').forEach(rewriteLink)
+    document.querySelectorAll<HTMLAnchorElement>('a[href]').forEach((a) => {
+      rewriteLink(a)
+    })
 
     // only scan newly added nodes instead of the entire DOM
     const observer = new MutationObserver((mutations) => {
@@ -118,7 +129,7 @@ export default function Nextra({ Component, pageProps }: AppProps) {
           if (node instanceof HTMLAnchorElement) {
             rewriteLink(node)
           }
-          node.querySelectorAll<HTMLAnchorElement>('a[href*="zeabur.com"]').forEach(rewriteLink)
+          node.querySelectorAll<HTMLAnchorElement>('a[href]').forEach(rewriteLink)
         })
       })
     })
