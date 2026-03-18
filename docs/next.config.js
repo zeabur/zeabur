@@ -340,6 +340,30 @@ export default withNextra({
       { source: '/:locale/networking',  destination: '/:locale/deploy',          permanent: true },
       { source: '/infrastructure',     destination: '/deploy',                  permanent: true },
       { source: '/:locale/infrastructure', destination: '/:locale/deploy',      permanent: true },
+
+      // ── Tutorials → Migration ──
+      { source: '/tutorials/replit',    destination: '/get-started/migration/replit',   permanent: true },
+      { source: '/:locale/tutorials/replit', destination: '/:locale/get-started/migration/replit', permanent: true },
+      { source: '/tutorials/lovable',   destination: '/get-started/migration/lovable',  permanent: true },
+      { source: '/:locale/tutorials/lovable', destination: '/:locale/get-started/migration/lovable', permanent: true },
+      { source: '/tutorials/bolt',      destination: '/get-started/migration/bolt',     permanent: true },
+      { source: '/:locale/tutorials/bolt', destination: '/:locale/get-started/migration/bolt', permanent: true },
+      { source: '/tutorials/emergent',  destination: '/get-started/migration/emergent', permanent: true },
+      { source: '/:locale/tutorials/emergent', destination: '/:locale/get-started/migration/emergent', permanent: true },
+      { source: '/tutorials/aistudio', destination: '/get-started/migration/aistudio',  permanent: true },
+      { source: '/:locale/tutorials/aistudio', destination: '/:locale/get-started/migration/aistudio', permanent: true },
+      { source: '/tutorials/v0',        destination: '/get-started/migration/vercel',   permanent: true },
+      { source: '/:locale/tutorials/v0', destination: '/:locale/get-started/migration/vercel', permanent: true },
+      { source: '/tutorials/github',    destination: '/deploy/github-integration',      permanent: true },
+      { source: '/:locale/tutorials/github', destination: '/:locale/deploy/github-integration', permanent: true },
+
+      // ── Template fork redirect ──
+      { source: '/template/fork-git-repo-from-template', destination: '/deploy/templates/fork-from-template', permanent: true },
+      { source: '/:locale/template/fork-git-repo-from-template', destination: '/:locale/deploy/templates/fork-from-template', permanent: true },
+
+      // ── Tutorials bare → get-started ──
+      { source: '/tutorials',           destination: '/get-started',                    permanent: true },
+      { source: '/:locale/tutorials',    destination: '/:locale/get-started',            permanent: true },
     ]);
   },
 })

@@ -1,29 +1,78 @@
 ---
-title: Referral
-ogImageTitle: Referral
-ogImageSubtitle: Invite to earn credits
+title: Referral Program
+ogImageTitle: Referral Program
+ogImageSubtitle: Invite friends to earn commissions and discounts!
 ---
 
-# Referral
+import { Callout } from 'nextra/components'
 
-Zeabur offers a referral program to all users. You can invite your friends to join Zeabur and earn credits.
+{/* Referral Program */}
 
-Once your friend signs up using your referral link, when they upgrade to a paid plan, you will receive US$ 5 credits in your account.
+# Referral Program
 
-## How to invite friends
+Zeabur offers a referral program to all users. By sharing your referral code, you can provide discounts to referred users while earning commission rewards.
 
-First of all, you need a referral link to invite your friends. You can find your referral link in the [Referral](https://dash.zeabur.com/account/referral) page.
+## Tier System
 
-Copy your referral link, and share it with your friends. You can share it via email, social media, or any other way you like.
+The referral program uses a five-tier system that automatically upgrades based on your cumulative referred revenue:
 
-## How to check your credits
+| Tier | Threshold | Referee Discount | Referrer Commission |
+|------|-----------|-----------------|-------------------|
+| Lv1 | $0 | 10% | 20% |
+| Lv2 | $100 | 20% | 40% |
+| Lv3 | $500 | 30% | 60% |
+| Lv4 | $1,000 | 40% | 80% |
+| Lv5 | $5,000 | 50% | 100% |
 
-You can check your credits in the [Referral](https://dash.zeabur.com/account/referral) page.
+- **Referee Discount**: The discount percentage the referred user receives on applicable products.
+- **Referrer Commission**: The commission percentage earned by the referrer (based on the referee's actual payment amount).
+
+## Applicable Products
+
+Referral codes currently apply to the following product types:
+
+- **RENT_SERVER** (Server Rental) — Triggered on first purchase only.
+- **AIHUB_TOPUP** (AI Hub Top-up) — One-time trigger only.
+
+<Callout>
+Each referred user can only use a referral code once per product type.
+</Callout>
+
+## Referral Code Rules
+
+The following conditions must be met when using a referral code:
+
+- **No self-referral**: You cannot use your own referral code.
+- **Referrer eligibility**: The referrer's account must have at least one Project containing a Service.
+- **Uniqueness**: The referee must not have previously used any referral code for that product type.
+
+## How to Invite Friends
+
+You can find your referral code and referral link on the [Referral page](https://dash.zeabur.com/account/referral). Copy and share it with friends via email, social media, or any other channel.
+
+## Referral Wallet
+
+Commissions earned through referrals accumulate in your Referral Wallet. Accumulated commissions can be converted to Stripe Credits, which can be used to pay for your Zeabur subscriptions and usage fees.
+
+## Check Referral Status
+
+You can view your current referral status and commission history on the [Referral page](https://dash.zeabur.com/account/referral).
 
 ![Referral](/referral/referral.png)
 
-As you can see, there are two sections of referral status in this page. One is **Pending**, which means your friend has signed up using your referral link, but has not upgraded to a paid plan yet. The other is **Credited**, which means your friend has upgraded to a paid plan, and you have received the credits.
+The page displays two types of referral status:
 
-## How to use your credits
+- **Pending**: The referred user has signed up using your referral code but has not yet completed a payment.
+- **Credited**: The referred user has completed a payment, and the commission has been added to your wallet.
 
-Your credits will be automatically used to pay for your subscription with the highest priority. If you have enough credits, you will not be charged for the subscription.
+## KOL Override
+
+For KOLs (Key Opinion Leaders) with significant reach, Zeabur administrators can set custom discount and commission percentages that override the tier system. If you are interested, please contact us via [Discord](https://zeabur.com/dc).
+
+## How to Use Your Credits
+
+Your credits are used with the highest priority when paying. Usage fees and subscription costs will be deducted from your credits first. Only after credits are exhausted will charges be applied to your linked payment method.
+
+<Callout type="info">
+**Legacy Referral System**: Under the previous referral program, each successful referral that upgraded to a paid plan earned $5 USD in Credits. This legacy system is expected to be consolidated with the new tier system by Q2 2026. Both systems operate in parallel until the consolidation is complete.
+</Callout>

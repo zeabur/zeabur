@@ -10,12 +10,53 @@ ogImageSubtitle: Get help and support
 
 If you encounter issues while using Zeabur, there are several ways to get help:
 
-- [Discord Community](https://zeabur.com/dc) - Join our Discord server to interact with the community
-- [Forum](https://github.com/orgs/zeabur/discussions) - Ask questions in GitHub Discussions
-- [Community Verification](/get-started/faq-support/verify) - Learn how to verify your community identity
+- [Discord Community](https://zeabur.com/dc) — Join our Discord server to interact with the community
+- [Forum](https://github.com/orgs/zeabur/discussions) — Ask questions in GitHub Discussions
+- [Contact Support](/get-started/faq-support/help) — Learn about more support channels
+- [Community Verification](/get-started/faq-support/verify) — Learn how to verify your community identity
 
 ## Frequently Asked Questions
 
-We are collecting and organizing frequently asked questions. If you have specific questions, please contact our support team.
+### How do I reset my password?
 
+Zeabur uses third-party login (GitHub, Google, etc.), so there is no separate password to reset. If you cannot log in, try using the same login method you used when you signed up, or contact the support team via [Discord](https://zeabur.com/dc).
+
+### Why is my deployment failing?
+
+Deployment failures are usually caused by:
+
+- **Build errors** — Make sure your code builds successfully locally.
+- **Missing environment variables** — Verify that all required environment variables are properly configured.
+- **Incorrect port configuration** — Ensure your application listens on the correct port (Zeabur automatically injects the `PORT` environment variable).
+- **Insufficient memory** — The build or runtime may exceed your plan's resource limits.
+
+Check the service logs in your Dashboard for detailed error messages.
+
+### How does billing work?
+
+Zeabur uses a usage-based billing model, charging based on your CPU, memory, and network usage. For a detailed breakdown, see [Pricing Plans](/pricing/pricing-plans).
+
+### Can I use a custom domain?
+
+Yes. Zeabur supports binding your own domain name. You will need to add the appropriate CNAME record in your DNS settings. For step-by-step instructions, see [Public Networking](/deploy/public-networking).
+
+### How do I contact support?
+
+You can reach us through:
+
+- Join the [Discord Community](https://zeabur.com/dc) and ask in the support channel
+- Submit a question on [GitHub Discussions](https://github.com/orgs/zeabur/discussions)
+- For more details, see the [Support page](/get-started/faq-support/help)
+
+### What programming languages are supported?
+
+Zeabur supports a wide range of programming languages and frameworks, including Node.js, Python, Go, Rust, Java, .NET, PHP, Ruby, and more. For the full list and deployment guides, see [Guides](/guides).
+
+### How do I upgrade my plan?
+
+You can upgrade or change your subscription plan in the account settings of your Zeabur Dashboard. For detailed steps, see [Subscription](/subscription).
+
+### Is there a free tier?
+
+Yes. Zeabur offers a free plan that allows you to try out and deploy services at no cost. The free plan comes with certain resource limits. For details, see [Free Plan](/pricing/free-plan).
 

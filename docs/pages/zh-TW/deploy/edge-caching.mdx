@@ -4,9 +4,67 @@ ogImageTitle: 邊緣快取
 ogImageSubtitle: Zeabur 的 CDN 和邊緣快取功能
 ---
 
+import { Callout } from 'nextra/components'
+
+{/* 邊緣快取 */}
+
 # 邊緣快取
 
-本文檔即將推出。我們正在準備邊緣快取和 CDN 功能的詳細說明。
+邊緣快取（Edge Caching）是一種 CDN 層級的快取機制，將靜態資源和 API 回應快取到離使用者最近的邊緣節點，大幅降低延遲並提升載入速度。
 
-請先查看 [公網存取](/deploy/public-networking) 相關文檔。
+## 運作方式
+
+當使用者透過 Zeabur 的域名存取您的服務時，請求會經過 Zeabur 的全球 CDN 網路。邊緣快取的運作流程如下：
+
+1. **使用者發送請求** — 請求會被路由到最近的邊緣節點。
+2. **快取命中** — 如果邊緣節點已有快取的回應，會直接回傳給使用者，無需回源。
+3. **快取未命中** — 如果沒有快取，請求會轉發到您的原始服務，取得回應後快取到邊緣節點，再回傳給使用者。
+
+### 自動快取
+
+Zeabur 會自動為靜態檔案啟用邊緣快取，包括：
+
+- 圖片（`.png`、`.jpg`、`.webp`、`.svg` 等）
+- 樣式表（`.css`）
+- JavaScript 檔案（`.js`）
+- 字型檔案（`.woff`、`.woff2`、`.ttf`）
+
+這些靜態資源無需額外設定，部署後即自動享有 CDN 加速。
+
+### 動態內容快取
+
+對於 API 回應等動態內容，您可以透過設定 `Cache-Control` 標頭來控制快取行為：
+
+```
+Cache-Control: public, max-age=3600, s-maxage=86400
+```
+
+- `public` — 允許 CDN 和瀏覽器快取回應。
+- `max-age` — 瀏覽器快取時間（秒）。
+- `s-maxage` — CDN 邊緣節點快取時間（秒），優先於 `max-age`。
+
+## 啟用方式
+
+### 透過 Cache-Control 標頭
+
+在您的應用程式中設定適當的 `Cache-Control` 標頭，Zeabur 的 CDN 會自動依據這些標頭進行快取。
+
+<Callout>
+如果您的回應包含 `Cache-Control: private` 或 `no-store`，CDN 將不會快取該回應。
+</Callout>
+
+### 透過 Zeabur Dashboard
+
+您也可以在 Zeabur Dashboard 的服務設定中調整快取相關的配置，搭配 [公網存取](/deploy/public-networking) 一起使用。
+
+## 最佳實踐
+
+- **靜態資源設定長 TTL** — 對於不常變動的靜態檔案（如圖片、字型），建議設定較長的快取時間（如 `max-age=31536000`，即一年），並搭配檔名 hash 來實現快取破壞。
+- **API 回應設定適當 TTL** — 根據資料更新頻率設定合理的快取時間。例如，不常變動的列表資料可設定 `s-maxage=3600`（一小時）。
+- **善用 `stale-while-revalidate`** — 搭配 `stale-while-revalidate` 可讓 CDN 在背景更新快取的同時，先回傳過期但仍可用的快取內容，提升使用者體驗。
+- **快取失效** — 當您重新部署服務時，Zeabur 會自動清除相關的邊緣快取。若需手動清除快取，可在 Dashboard 中操作。
+
+## 延伸閱讀
+
+- [公網存取](/deploy/public-networking) — 了解如何為服務設定公網存取和域名。
 

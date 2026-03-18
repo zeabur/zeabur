@@ -10,12 +10,53 @@ ogImageSubtitle: 獲取幫助和支援
 
 如果您在使用 Zeabur 時遇到問題，有多種方式可以獲取幫助：
 
-- [Discord 社群](https://zeabur.com/dc) - 加入我們的 Discord 伺服器與社群互動
-- [論壇](https://github.com/orgs/zeabur/discussions) - 在 GitHub Discussions 中提問
-- [社群驗證](/get-started/faq-support/verify) - 了解如何驗證您的社群身份
+- [Discord 社群](https://zeabur.com/dc) — 加入我們的 Discord 伺服器與社群互動
+- [論壇](https://github.com/orgs/zeabur/discussions) — 在 GitHub Discussions 中提問
+- [聯繫支援](/get-started/faq-support/help) — 了解更多支援管道
+- [社群驗證](/get-started/faq-support/verify) — 了解如何驗證您的社群身份
 
 ## 常見問題
 
-我們正在收集和整理常見問題。如果您有具體問題，請聯繫我們的支援團隊。
+### 如何重設密碼？
 
+Zeabur 使用第三方登入（GitHub、Google 等），因此不需要單獨的密碼。如果您無法登入，請嘗試使用您註冊時所用的登入方式，或透過 [Discord 社群](https://zeabur.com/dc) 聯繫支援團隊。
+
+### 為什麼我的部署失敗了？
+
+部署失敗通常有以下原因：
+
+- **建置錯誤** — 請檢查您的程式碼是否能在本地正常建置。
+- **缺少環境變數** — 確認服務所需的環境變數已正確設定。
+- **埠號設定錯誤** — 確認您的應用程式監聽正確的埠號（Zeabur 會自動注入 `PORT` 環境變數）。
+- **記憶體不足** — 建置或執行時超出方案的資源限制。
+
+您可以在 Dashboard 的服務日誌中查看詳細的錯誤訊息。
+
+### 計費方式是什麼？
+
+Zeabur 採用按用量計費的模式，根據您的 CPU、記憶體和網路使用量收費。詳細的計費說明請參閱 [定價方案](/pricing/pricing-plans)。
+
+### 可以使用自訂域名嗎？
+
+可以。Zeabur 支援綁定您自己的域名，您需要在 DNS 設定中新增相應的 CNAME 記錄。詳細步驟請參閱 [公網存取](/deploy/public-networking)。
+
+### 如何聯繫支援團隊？
+
+您可以透過以下方式聯繫我們：
+
+- 加入 [Discord 社群](https://zeabur.com/dc) 並在支援頻道發問
+- 在 [GitHub Discussions](https://github.com/orgs/zeabur/discussions) 提交問題
+- 詳細資訊請參閱 [支援頁面](/get-started/faq-support/help)
+
+### 支援哪些程式語言？
+
+Zeabur 支援多種主流程式語言和框架，包括 Node.js、Python、Go、Rust、Java、.NET、PHP、Ruby 等。完整清單和部署指南請參閱 [部署指南](/guides)。
+
+### 如何升級方案？
+
+您可以在 Zeabur Dashboard 的帳戶設定中升級或變更您的訂閱方案。詳細步驟請參閱 [訂閱方案](/subscription)。
+
+### 有免費方案嗎？
+
+有。Zeabur 提供免費方案，讓您可以免費體驗和部署服務。免費方案的資源有一定限制，詳細說明請參閱 [免費方案](/pricing/free-plan)。
 
