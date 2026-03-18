@@ -41,6 +41,14 @@ Before translating, read the glossary file at `${CLAUDE_SKILL_DIR}/glossary.json
 - Terms with locale-specific values must use the exact translation provided (e.g. "server" → "伺服器" in zh-TW, "服务器" in zh-CN)
 - This ensures terminology consistency across the entire documentation site
 
+### Dashboard UI Term Translations
+
+When translating text that references **platform UI elements** (button labels, tab names, menu items, dialog titles), use the `/i18n-lookup` skill to find the exact translations from the Zeabur dashboard's i18n files. The dashboard i18n source is located at `../../dashboard/public/assets/locales/{locale}/`.
+
+**Why this matters**: Users reading docs in their language should see the same UI terms they see in the dashboard. For example, the "Networking" tab should appear as "網路" in zh-TW docs because that's what the dashboard displays.
+
+If the dashboard i18n files are not available (the path does not exist), fall back to the glossary and contextual translation.
+
 ## Instructions
 
 ### Phase 1: Detect Missing & Outdated Translations
@@ -72,17 +80,19 @@ Before translating, read the glossary file at `${CLAUDE_SKILL_DIR}/glossary.json
 Each translation agent must:
 
 1. **Read the glossary** at `${CLAUDE_SKILL_DIR}/glossary.json` and use it throughout translation.
-2. **Read the source file(s)** in full.
-3. **Read the corresponding `_meta.ts`** in the source locale for navigation labels.
-4. **If the file is `outdated (stale)`** (not missing):
+2. **Look up dashboard UI translations** — scan the source file for UI element references (bold text like `**Button Label**`, quoted UI text like `"Tab Name"` or `「Menu Item」`). For each one, look up the official translation from the dashboard i18n files at `../../dashboard/public/assets/locales/{target-locale}/`. Check relevant JSON files (`common.json`, `service.json`, `servers.json`, `project.json`) by grepping for the English term. If the dashboard i18n path does not exist, skip this step silently and rely on the glossary and contextual translation.
+3. **Read the source file(s)** in full.
+4. **Read the corresponding `_meta.ts`** in the source locale for navigation labels.
+5. **If the file is `outdated (stale)`** (not missing):
    - Read the existing translation file
    - Use `git diff <old-commit>..<new-commit> -- <source-file>` to see what changed in the source
    - Update only the sections that changed, preserving the rest of the existing translation
    - This is more efficient and preserves any manual translation adjustments
-5. **If the file is `missing` or `outdated (stub)`**: Translate the full source file.
-6. **Translate all content** into the target language:
+6. **If the file is `missing` or `outdated (stub)`**: Translate the full source file.
+7. **Translate all content** into the target language:
    - Translate all prose, headings, callouts, and UI text
    - Consult the glossary for all terminology — use the exact translations specified
+   - For **UI element references** (button labels, tab names, menu items rendered in bold or quotes), use the translations found in step 2 from the dashboard i18n files. These take precedence over the glossary for UI-specific terms, since they reflect what users actually see in the platform
    - Keep **all MDX imports** unchanged (e.g. `import { Callout } from 'nextra/components'`)
    - Keep **all image paths** unchanged (e.g. `![...](/wonder-mesh/install-script.png)`)
    - Keep **all URLs/links** unchanged unless they are locale-specific documentation links
@@ -90,8 +100,8 @@ Each translation agent must:
    - Keep **frontmatter keys** unchanged (`title`, `ogImageTitle`, `ogImageSubtitle`) but translate their **values**
    - For `_meta.ts`: translate the display labels but keep the keys unchanged
    - Preserve the original file structure and formatting exactly
-7. **Write the translated files** to the correct locale directory.
-8. If the locale's **parent `_meta.ts`** does not have an entry for this section, add it with the translated label (consulting the glossary for the label).
+8. **Write the translated files** to the correct locale directory.
+9. If the locale's **parent `_meta.ts`** does not have an entry for this section, add it with the translated label (consulting the glossary for the label).
 
 ### Translation Quality Guidelines
 
