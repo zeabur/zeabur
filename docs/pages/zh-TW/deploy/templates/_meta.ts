@@ -1,4 +1,4 @@
 export default {
   'template-catalog': '模板目錄',
-  'fork-from-template': '從模板 Fork 程式碼',
+  'fork-from-template': '從 YAML 建立模板',
 }

@@ -29,18 +29,6 @@ Zeabur offers several resource tiers. The default allocation is suitable for mos
   Resource allocation directly affects billing. Higher CPU and memory limits result in higher costs. See [Pricing](/pricing) for details on per-unit pricing.
 </Callout>
 
-## Auto-Sleep and Always-On
-
-### Free Plan
-
-Services on the Free plan automatically enter a **sleep** state after a period of inactivity. When a new request arrives, the service wakes up automatically. This may cause a brief delay on the first request (cold start).
-
-### Paid Plans
-
-Services on paid plans run in **always-on** mode by default. They remain active continuously and do not enter a sleep state, ensuring consistent response times.
-
-If you want to temporarily stop a service to save costs, you can manually [suspend it](/operations/maintenance-mode).
-
 ## Dedicated Servers
 
 For workloads that require guaranteed resources, predictable performance, or compliance with data residency requirements, Zeabur offers **Dedicated Servers**. A dedicated server gives you an isolated compute environment that is not shared with other users.
@@ -60,7 +48,7 @@ See [Dedicated Servers](/dedicated-server) for setup instructions and available 
 | Occasional traffic spikes | Increase CPU/memory to handle peak load |
 | Consistent high traffic | Use a dedicated server for predictable performance |
 | Cost optimization | Right-size resources based on [metrics](/operations/metrics) |
-| Temporary inactivity | [Suspend](/operations/maintenance-mode) the service to stop billing |
+| Temporary inactivity | [Suspend](/operations/suspend-service) the service to stop billing |
 
 ## Monitoring Resource Usage
 

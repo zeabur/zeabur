@@ -99,7 +99,7 @@ If you're running Fly.io Postgres:
    pg_dump -h localhost -p 15432 -U postgres -d my_database > backup.sql
    ```
 
-2. **Create a database on Zeabur**: click **Add Service** → **Marketplace** → **PostgreSQL**.
+2. **Create a database on Zeabur**: click **Add Service** → **Database** → **PostgreSQL**.
 
 3. **Import your data**: use the connection string from Zeabur's PostgreSQL service:
 
@@ -124,7 +124,7 @@ If you're running Fly.io Postgres:
 | Configuration | `fly.toml` + CLI | Auto-detect + dashboard |
 | Deployment | `fly deploy` CLI command | Git push (auto-deploy) |
 | Scaling | Machines API, manual config | One-click scaling in dashboard |
-| Databases | Fly Postgres (self-managed) | Marketplace (managed PostgreSQL, MySQL, Redis, etc.) |
+| Databases | Fly Postgres (self-managed) | Database services (managed PostgreSQL, MySQL, Redis, etc.) |
 | Networking | Anycast IPs, WireGuard | Automatic HTTPS, custom domains |
 | Persistent storage | Fly Volumes (region-locked) | Zeabur Volumes (managed) |
 | Pricing model | Per-VM + bandwidth | Usage-based, pay for what you use |

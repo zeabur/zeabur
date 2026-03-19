@@ -50,9 +50,9 @@ For services deployed from a Git repository, you have two options:
 
 For services deployed from a Docker image, you can roll back by specifying a previous image tag in your service settings. Update the image tag to the desired version, and Zeabur will redeploy using that image.
 
-### Prebuilt Services (Marketplace Templates)
+### Prebuilt Services (Templates)
 
-For services deployed from the Zeabur marketplace, rollbacks follow the same dashboard workflow. Select the desired deployment from the history and click **Rollback**.
+For services deployed from a Zeabur template, rollbacks follow the same dashboard workflow. Select the desired deployment from the history and click **Rollback**.
 
 ## What Rollbacks Do Not Restore
 
@@ -68,6 +68,6 @@ Rollbacks restore the **application code and build artifacts** to a previous sta
 
 ## Best Practices
 
-- **Test before deploying to production.** Use [preview environments](/operations/previews) to catch issues before they reach your main deployment.
+- **Test before deploying to production.** Use a staging project to catch issues before they reach your main deployment.
 - **Use small, incremental deployments.** Smaller changes are easier to diagnose and roll back.
 - **Monitor after deploying.** Watch [metrics](/operations/metrics) and [logs](/operations/logging) after each deployment to detect issues early.

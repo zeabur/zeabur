@@ -49,7 +49,7 @@ If you're using Railway's database services:
    pg_dump "your-railway-postgres-url" > backup.sql
    ```
 
-2. **Create on Zeabur**: click **Add Service** → **Marketplace** → **PostgreSQL**.
+2. **Create on Zeabur**: click **Add Service** → **Database** → **PostgreSQL**.
 
 3. **Import**:
 
@@ -65,7 +65,7 @@ If you're using Railway's database services:
    mysqldump -h railway-host -u root -p railway_db > backup.sql
    ```
 
-2. **Create on Zeabur**: click **Add Service** → **Marketplace** → **MySQL**.
+2. **Create on Zeabur**: click **Add Service** → **Database** → **MySQL**.
 
 3. **Import**:
 
@@ -81,7 +81,7 @@ If you're using Railway's database services:
    redis-cli -u "your-railway-redis-url" --rdb dump.rdb
    ```
 
-2. **Create on Zeabur**: click **Add Service** → **Marketplace** → **Redis**.
+2. **Create on Zeabur**: click **Add Service** → **Database** → **Redis**.
 
 3. For most use cases, Redis is used as a cache and can be started fresh without importing data.
 
@@ -119,11 +119,11 @@ There is no direct volume-to-volume transfer between Railway and Zeabur. You'll 
 |---|---|---|
 | Deployment | Git push (auto-deploy) | Git push (auto-deploy) |
 | Variable references | `${{Service.VAR}}` | `${VAR}` |
-| Databases | Built-in Postgres, MySQL, Redis, MongoDB | Marketplace with the same options + more |
+| Databases | Built-in Postgres, MySQL, Redis, MongoDB | Database services with the same options + more |
 | Volumes | Per-service volumes | Per-service volumes |
 | Scaling | Manual replica count | Auto-scaling + manual options |
 | Dedicated servers | Not available | Available (bare-metal options) |
-| Templates | Railway templates | [Zeabur Templates Marketplace](https://zeabur.com/templates) |
+| Templates | Railway templates | [Zeabur Templates](https://zeabur.com/templates) |
 | AI services | Not available | [AI Hub](https://zeabur.com/ai) for model inference |
 | Pricing | Usage-based + subscription | Usage-based, pay for what you use |
 

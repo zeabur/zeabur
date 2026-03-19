@@ -29,5 +29,4 @@ export default {
   'public-networking':           { display: 'hidden' },
   'private-networking':          { display: 'hidden' },
   'high-availability':           { display: 'hidden' },
-  'edge-caching':                { display: 'hidden' },
 }

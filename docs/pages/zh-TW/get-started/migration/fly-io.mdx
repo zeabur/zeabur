@@ -99,7 +99,7 @@ Fly.io 的磁碟區無法自動匯出。您需要透過 SSH 連線到 Fly.io 機
    pg_dump -h localhost -p 15432 -U postgres -d my_database > backup.sql
    ```
 
-2. **在 Zeabur 上建立資料庫**：點選 **Add Service** → **Marketplace** → **PostgreSQL**。
+2. **在 Zeabur 上建立資料庫**：點選 **Add Service** → **資料庫** → **PostgreSQL**。
 
 3. **匯入資料**：使用 Zeabur PostgreSQL 服務提供的連線字串：
 
@@ -124,7 +124,7 @@ Fly.io 的磁碟區無法自動匯出。您需要透過 SSH 連線到 Fly.io 機
 | 設定方式 | `fly.toml` + CLI | 自動偵測 + 主控台 |
 | 部署方式 | `fly deploy` CLI 指令 | Git push（自動部署） |
 | 擴展 | Machines API，手動設定 | 主控台一鍵擴展 |
-| 資料庫 | Fly Postgres（自行管理） | Marketplace（受管理的 PostgreSQL、MySQL、Redis 等） |
+| 資料庫 | Fly Postgres（自行管理） | 內建資料庫（受管理的 PostgreSQL、MySQL、Redis 等） |
 | 網路 | Anycast IP、WireGuard | 自動 HTTPS、自訂網域 |
 | 持久化儲存 | Fly Volumes（區域鎖定） | Zeabur Volumes（受管理） |
 | 計價模式 | 按 VM + 頻寬計費 | 按使用量計費，用多少付多少 |

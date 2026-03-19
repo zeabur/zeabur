@@ -68,7 +68,7 @@ Vercel 將變數依環境區分（Production、Preview、Development）。在 Ze
 |---|---|
 | Serverless Functions | 作為持久化伺服器運行（更佳的冷啟動效能） |
 | Edge Functions | 在基礎架構層級處理（內建邊緣快取） |
-| Vercel Postgres / KV / Blob | Marketplace → PostgreSQL、Redis 或物件儲存 |
+| Vercel Postgres / KV / Blob | 資料庫 → PostgreSQL、Redis 或物件儲存 |
 | Cron Jobs（`vercel.json`） | 使用框架內建的 cron 或獨立的 worker 服務 |
 | `vercel.json` rewrites/redirects | 使用框架層級的設定（例如 `next.config.js` rewrites） |
 | Preview Deployments | 自動為 pull request 建立預覽部署 |
@@ -82,8 +82,8 @@ Vercel 將變數依環境區分（Production、Preview、Development）。在 Ze
 
 從 Vercel 遷移的主要原因之一，是將整個技術堆疊整合到單一平台。在 Zeabur 上，您可以在前端旁邊新增資料庫和後端服務：
 
-- **PostgreSQL、MySQL、MongoDB**：點選 **Add Service** → **Marketplace** 並選擇您的資料庫。
-- **Redis**：在 Marketplace 中提供，可用於快取和 session 儲存。
+- **PostgreSQL、MySQL、MongoDB**：點選 **Add Service** → **資料庫** 並選擇您的資料庫。
+- **Redis**：在內建資料庫中提供，可用於快取和 session 儲存。
 - **後端 API**：在同一個專案中部署獨立的後端服務（Node.js、Python、Go 等）。同專案中的服務可以透過[私有網路](/deploy/private-networking)互相通訊。
 
 ## 步驟 6：設定自訂網域
@@ -111,7 +111,7 @@ Vercel 將變數依環境區分（Production、Preview、Development）。在 Ze
 |---|---|---|
 | 定位 | 前端 / Jamstack / Serverless | 全端（前端 + 後端 + 資料庫） |
 | 執行模式 | Serverless functions（有冷啟動） | 持久化伺服器（無冷啟動） |
-| 資料庫 | Vercel Postgres、KV、Blob（有限） | 完整 Marketplace（PostgreSQL、MySQL、MongoDB、Redis 等） |
+| 資料庫 | Vercel Postgres、KV、Blob（有限） | 內建資料庫（PostgreSQL、MySQL、MongoDB、Redis 等） |
 | 後端服務 | 原生不支援 | 可在前端旁部署任何後端 |
 | 建置系統 | Vercel Build | 自動偵測（Nixpacks / Dockerfile） |
 | 計價模式 | 按 function 呼叫次數 + 頻寬計費 | 按使用量計算運算資源 + 儲存空間 |

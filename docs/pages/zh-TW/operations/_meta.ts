@@ -12,7 +12,6 @@ export default {
   'service-usage':          { display: 'hidden' },
   'project-budget':         { display: 'hidden' },
   scaling:                  { display: 'hidden' },
-  previews:                 { display: 'hidden' },
   rollbacks:                { display: 'hidden' },
   'maintenance-mode':       { display: 'hidden' },
   'health-checks':          { display: 'hidden' },

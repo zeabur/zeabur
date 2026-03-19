@@ -68,7 +68,7 @@ Some Vercel features map differently on Zeabur:
 |---|---|
 | Serverless Functions | Runs as a persistent server (better cold-start performance) |
 | Edge Functions | Handled at infrastructure level (edge caching built-in) |
-| Vercel Postgres / KV / Blob | Marketplace → PostgreSQL, Redis, or object storage |
+| Vercel Postgres / KV / Blob | Database services → PostgreSQL, Redis, or object storage |
 | Cron Jobs (`vercel.json`) | Use your framework's built-in cron or a separate worker service |
 | `vercel.json` rewrites/redirects | Use framework-level config (e.g., `next.config.js` rewrites) |
 | Preview Deployments | Automatic preview deployments for pull requests |
@@ -82,8 +82,8 @@ On Vercel, each API route runs as an isolated serverless function with cold star
 
 One of the main reasons to migrate from Vercel is to consolidate your entire stack in one platform. On Zeabur, you can add databases and backend services alongside your frontend:
 
-- **PostgreSQL, MySQL, MongoDB**: Click **Add Service** → **Marketplace** and select your database.
-- **Redis**: Available in the marketplace for caching and session storage.
+- **PostgreSQL, MySQL, MongoDB**: Click **Add Service** → **Database** and select your database.
+- **Redis**: Available as a prebuilt service for caching and session storage.
 - **Backend APIs**: Deploy a separate backend service (Node.js, Python, Go, etc.) in the same project. Services within a project can communicate via [private networking](/deploy/private-networking).
 
 ## Step 6: Set Up Custom Domains
@@ -111,7 +111,7 @@ If you're using Vercel's nameservers for your domain, you'll need to transfer DN
 |---|---|---|
 | Focus | Frontend / Jamstack / Serverless | Full-stack (frontend + backend + databases) |
 | Execution model | Serverless functions (cold starts) | Persistent server (no cold starts) |
-| Databases | Vercel Postgres, KV, Blob (limited) | Full marketplace (PostgreSQL, MySQL, MongoDB, Redis, etc.) |
+| Databases | Vercel Postgres, KV, Blob (limited) | Database services (PostgreSQL, MySQL, MongoDB, Redis, etc.) |
 | Backend services | Not natively supported | Deploy any backend alongside your frontend |
 | Build system | Vercel Build | Auto-detect (Nixpacks / Dockerfile) |
 | Pricing | Per-function invocation + bandwidth | Usage-based compute + storage |

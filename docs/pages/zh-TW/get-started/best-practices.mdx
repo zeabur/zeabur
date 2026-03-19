@@ -37,9 +37,9 @@ Zeabur 支援服務間的變數參照（例如 `${MYSQL_HOST}`），可以自動
 - 部署前先用[定價計算器](https://zeabur.com/pricing)估算費用。
 - 定期到 [Dashboard](https://dash.zeabur.com) 查看用量指標。
 
-## 使用 Marketplace 服務取代自建資料庫
+## 使用平台內建資料庫服務
 
-與其自己跑資料庫容器，不如使用 Zeabur [Marketplace](/marketplace) 提供的服務。它們已預先設定好，會自動注入連線變數，並針對平台做過最佳化。
+與其自己跑資料庫容器，不如在建立服務時選擇「資料庫」類別，直接部署 Zeabur 提供的託管資料庫。它們已預先設定好，會自動注入連線變數，並針對平台做過最佳化。
 
 常用選項包括 PostgreSQL、MySQL、MongoDB 和 Redis，全部一鍵即可部署。
 
@@ -57,7 +57,7 @@ Zeabur 支援服務間的變數參照（例如 `${MYSQL_HOST}`），可以自動
 
 - 無需額外工具的完整 CI/CD 自動化。
 - 透過還原 commit 即可自動回滾。
-- 基於分支的 [Preview 環境](/deploy/preview)，方便在 Pull Request 階段測試。
+- 自動 CI/CD：推送程式碼後自動重新部署。
 
 <Callout type="info">
 如果專案不在 Git 儲存庫中，也可以透過 [CLI](/deploy/command-line) 或 Docker 映像檔部署。
@@ -77,12 +77,6 @@ Zeabur 會為所有自訂網域自動簽發 TLS 憑證。只要把 DNS 指向 Ze
 - 移除不再使用的服務和專案 — 閒置資源仍會產生費用（Free Plan 會自動休眠除外）。
 - 透過[訂閱管理](/subscription)追蹤額度與帳單。
 
-## 使用 Preview 環境進行測試
-
-啟用 [Preview 部署](/deploy/preview)，讓每個 Pull Request 都能取得獨立的測試環境。這讓你的團隊在合併前就能在接近正式環境的條件下測試變更。
-
-Preview 環境會在分支刪除或 PR 關閉時自動清理。
-
 ## 定期備份重要資料
 
 雖然 Zeabur 提供基礎設施層級的可靠性，你仍應為關鍵資料維護自己的備份：
@@ -92,5 +86,5 @@ Preview 環境會在分支刪除或 PR 關閉時自動清理。
 - 將備份存放到外部儲存空間（例如物件儲存），以備災難復原之需。
 
 <Callout type="info">
-將這些做法與 Zeabur 內建功能搭配使用 — 例如[高可用性](/deploy/high-availability)和[邊緣快取](/deploy/edge-caching) — 就能為正式工作負載打下穩固的基礎。
+將這些做法與 Zeabur 內建功能搭配使用 — 例如[高可用性架構](/deploy/networking/high-availability) — 就能為正式工作負載打下穩固的基礎。
 </Callout>

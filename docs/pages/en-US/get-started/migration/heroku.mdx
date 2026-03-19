@@ -68,7 +68,7 @@ If you're using Heroku Postgres:
 
    This downloads a `latest.dump` file in the custom Postgres format.
 
-2. **Create a database on Zeabur**: click **Add Service** → **Marketplace** → **PostgreSQL**.
+2. **Create a database on Zeabur**: click **Add Service** → **Database** → **PostgreSQL**.
 
 3. **Import your data** using the Zeabur PostgreSQL connection string:
 
@@ -76,20 +76,20 @@ If you're using Heroku Postgres:
    pg_restore -d "your-zeabur-postgres-connection-string" --no-owner latest.dump
    ```
 
-4. **Update your app's database URL**: set `DATABASE_URL` in the Zeabur **Variables** tab. You can use Zeabur's variable reference `${POSTGRES_URI}` to automatically inject the connection string from the marketplace service.
+4. **Update your app's database URL**: set `DATABASE_URL` in the Zeabur **Variables** tab. You can use Zeabur's variable reference `${POSTGRES_URI}` to automatically inject the connection string from the database service.
 
 <Callout>
-For Heroku Redis, use `redis-cli --rdb` to export and import into a Zeabur Redis instance from the marketplace.
+For Heroku Redis, use `redis-cli --rdb` to export and import into a Zeabur Redis instance.
 </Callout>
 
 ## Step 4: Replace Heroku Add-ons
 
-Heroku add-ons have equivalents in Zeabur's marketplace or can be connected as external services:
+Heroku add-ons have equivalents on Zeabur or can be connected as external services:
 
 | Heroku Add-on | Zeabur Equivalent |
 |---|---|
-| Heroku Postgres | Marketplace → PostgreSQL |
-| Heroku Redis | Marketplace → Redis |
+| Heroku Postgres | **Database** → PostgreSQL |
+| Heroku Redis | **Database** → Redis |
 | Heroku Scheduler | Use system cron or a scheduled service |
 | Papertrail (logs) | Built-in log viewer in dashboard |
 | SendGrid | Connect via environment variables |
@@ -121,8 +121,8 @@ For add-ons that are external SaaS products (SendGrid, Cloudinary, etc.), simply
 | Scaling | Dyno types (Basic, Standard, Performance) | Usage-based, auto-scaling |
 | Sleep behavior | Free/Basic dynos sleep after 30 min | No sleep — always running |
 | Slug size limit | 500 MB compressed | No slug size limit |
-| Databases | Heroku Postgres (managed) | Marketplace (PostgreSQL, MySQL, MongoDB, Redis, etc.) |
-| Add-ons | Heroku Add-on marketplace | Zeabur Marketplace + external services |
+| Databases | Heroku Postgres (managed) | Database services (PostgreSQL, MySQL, MongoDB, Redis, etc.) |
+| Add-ons | Heroku Add-on marketplace | Zeabur prebuilt services + external services |
 | Pricing | Per-dyno monthly pricing | Usage-based, pay for what you use |
 
 <Callout>
