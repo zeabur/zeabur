@@ -1,0 +1,137 @@
+---
+title: What Does the Install Script Do?
+ogImageTitle: Wonder Mesh Install Script
+ogImageSubtitle: A detailed breakdown of what the install script changes on your machine
+---
+
+import { Callout } from 'nextra/components'
+
+# What Does the Install Script Do?
+
+<Callout type="error">
+  This page is for **informational purposes only**.  
+  Do not manually run any of the commands listed here — always use the install script provided in the Zeabur console.  
+  Running individual commands out of order may leave your machine in a broken state.
+</Callout>
+
+This page explains exactly what the Wonder Mesh install script does to your machine. We believe in full transparency — you should know what runs on your hardware before you execute it.
+
+## Linux
+
+The script runs with root privileges (`sudo bash`) and performs the following steps:
+
+### 1. Install Tailscale
+
+- Downloads and runs the [official Tailscale install script](https://tailscale.com/download)
+- Installs the `tailscale` package via your system's package manager (apt, dnf, yum, etc.)
+- Enables and starts the `tailscaled` systemd service (starts on boot)
+
+<Callout type="warning">
+  If you already have Tailscale installed and connected to another network, this step will override your existing Tailscale configuration.
+</Callout>
+
+### 2. Download the Wonder Binary
+
+- Downloads the Wonder Mesh client from `cdn.zeabur.com`
+- Places it at `/usr/local/bin/wonder` and marks it as executable
+
+### 3. Join the Mesh Network
+
+- Runs `wonder worker join` to connect your device to a private [WireGuard](https://www.wireguard.com/)-based mesh network
+- The mesh network is managed by a [Headscale](https://headscale.net/) coordination server hosted by Zeabur
+- Your device receives a mesh IP address in the `100.x.x.x` range
+
+### 4. Install and Configure SSH
+
+- Installs `openssh-server` if it is not already installed
+- Enables and starts the `sshd` systemd service
+- Modifies SSH configuration to enable password authentication:
+  - Edits `/etc/ssh/sshd_config` to set `PasswordAuthentication yes`
+  - Creates `/etc/ssh/sshd_config.d/00-zeabur-password-auth.conf` as a drop-in override
+
+<Callout type="warning">
+  If you have previously disabled SSH password authentication (key-only login), this change will re-enable it. The SSH port is only reachable over the mesh network, not the public internet.
+</Callout>
+
+### 5. Create a System User
+
+- Creates a `zeabur` user (if it does not exist) with `/bin/bash` as the shell
+- Sets a randomly generated password for the user
+- Adds the user to the `sudo` (or `wheel`) group
+- Creates `/etc/sudoers.d/zeabur` granting passwordless sudo access
+
+<Callout type="warning">
+  Do not manually change the `zeabur` user's password. Zeabur uses this credential to manage your device via SSH. Changing it will break the connection and prevent deployments.
+</Callout>
+
+### 6. Report Back to Zeabur
+
+- Retrieves the mesh IP (`tailscale ip -4`) and public IP (`curl ifconfig.me`)
+- Sends the mesh IP, SSH credentials, and public IP to the Zeabur API
+- This allows Zeabur to manage deployments on your device via SSH over the mesh network
+
+### 7. Progress Reporting
+
+Each step reports its progress to the Zeabur API in real time, so you can monitor the installation from the console. If an error occurs, the last few lines of the error output are reported.
+
+### Files and Services Added (Linux)
+
+| Type | Path / Name | Description |
+|------|-------------|-------------|
+| Binary | `/usr/local/bin/wonder` | Wonder Mesh client |
+| Package | `tailscale` | Mesh networking (WireGuard) |
+| Package | `openssh-server` (if not installed) | SSH server |
+| Config | `/etc/ssh/sshd_config.d/00-zeabur-password-auth.conf` | Enables password authentication |
+| Config | `/etc/sudoers.d/zeabur` | Passwordless sudo for `zeabur` user |
+| Log | `/tmp/zeabur-install.log` | Installation log |
+| System service | `tailscaled` | Tailscale daemon (starts on boot) |
+| System service | `sshd` | SSH daemon (starts on boot) |
+| System user | `zeabur` | User with sudo access |
+
+### Network Changes (Linux)
+
+| Change | Description |
+|--------|-------------|
+| WireGuard tunnel | Adds a mesh network interface with a `100.x.x.x` IP |
+| Tailscale control server | Points to Zeabur's Headscale instance (not the official Tailscale service) |
+| SSH port 22 | Accessible over the mesh network with password authentication |
+| Outbound connections | Connects to `tailscale.com`, `cdn.zeabur.com`, `wonder-net.strrl.dev`, `api.zeabur.com`, `ifconfig.me` during installation. After setup, ongoing connections are maintained to the Tailscale coordination server and `api.zeabur.com` for mesh networking and platform communication. |
+
+---
+
+## macOS
+
+The script runs as a **regular user** (do not use `sudo`). Mesh-specific changes (Tailscale, SSH, `zeabur` user, sudoers) are applied inside a virtual machine — your macOS system configuration is not modified directly. However, Homebrew/Lima are installed on the host, and Lima creates host-side port forwarding (see below).
+
+### 1. Install Homebrew
+
+- Downloads and runs the [official Homebrew install script](https://brew.sh/) if Homebrew is not already installed
+- May also install Xcode Command Line Tools
+
+### 2. Install Lima
+
+- Runs `brew install lima`
+- Lima is a lightweight virtual machine manager; it depends on QEMU, which Homebrew installs automatically
+
+### 3. Create the Virtual Machine
+
+- Creates a Lima VM named `zeabur-mesh` based on Ubuntu 24.04
+- Configures the VM with the CPU, memory, and disk resources you specified when creating the server
+- Sets up port forwarding from the VM to the host for ports 30000–32767 (used by services)
+
+### 4. Run the Linux Install Script Inside the VM
+
+- Executes the same Linux install script (described above) inside the VM via `limactl shell`
+- All Tailscale, SSH, user creation, and mesh network changes happen inside the VM
+
+### What Changes on the macOS Host
+
+| Type | Path / Name | Description |
+|------|-------------|-------------|
+| Package | `lima` (via Homebrew) | VM manager |
+| Package | `qemu` (via Homebrew) | VM runtime |
+| Package | Homebrew itself (if not installed) | Package manager |
+| VM data | `~/.lima/zeabur-mesh/` | VM disk image and configuration |
+| Port forwarding | Ports 30000–32767 | Forwarded from VM to `0.0.0.0` on the host |
+
+Your macOS SSH configuration, system users, and network settings are **not** modified. Note that Lima forwards service ports (30000–32767) to `0.0.0.0` on the host, making them reachable from your local network.

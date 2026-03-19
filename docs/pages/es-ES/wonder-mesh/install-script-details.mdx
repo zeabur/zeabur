@@ -1,0 +1,137 @@
+---
+title: ¿Qué hace el script de instalación?
+ogImageTitle: Script de instalación de Wonder Mesh
+ogImageSubtitle: Desglose detallado de los cambios del script de instalación en tu máquina
+---
+
+import { Callout } from 'nextra/components'
+
+# ¿Qué hace el script de instalación?
+
+<Callout type="error">
+  Esta página es solo con **fines informativos**.
+  No ejecutes manualmente ninguno de los comandos listados aquí — utiliza siempre el script de instalación proporcionado en la consola de Zeabur.
+  Ejecutar comandos individuales fuera de orden puede dejar tu máquina en un estado inconsistente.
+</Callout>
+
+Esta página explica exactamente qué hace el script de instalación de Wonder Mesh en tu máquina. Creemos en la total transparencia — debes saber qué se ejecuta en tu hardware antes de ejecutarlo.
+
+## Linux
+
+El script se ejecuta con privilegios de root (`sudo bash`) y realiza los siguientes pasos:
+
+### 1. Instalar Tailscale
+
+- Descarga y ejecuta el [script oficial de instalación de Tailscale](https://tailscale.com/download)
+- Instala el paquete `tailscale` a través del gestor de paquetes de tu sistema (apt, dnf, yum, etc.)
+- Habilita e inicia el servicio de systemd `tailscaled` (se inicia con el arranque)
+
+<Callout type="warning">
+  Si ya tienes Tailscale instalado y conectado a otra red, este paso sobrescribirá tu configuración existente de Tailscale.
+</Callout>
+
+### 2. Descargar el binario Wonder
+
+- Descarga el cliente Wonder Mesh desde `cdn.zeabur.com`
+- Lo coloca en `/usr/local/bin/wonder` y lo marca como ejecutable
+
+### 3. Unirse a la red mesh
+
+- Ejecuta `wonder worker join` para conectar tu dispositivo a una red mesh privada basada en [WireGuard](https://www.wireguard.com/)
+- La red mesh es gestionada por un servidor de coordinación [Headscale](https://headscale.net/) alojado por Zeabur
+- Tu dispositivo recibe una dirección IP mesh en el rango `100.x.x.x`
+
+### 4. Instalar y configurar SSH
+
+- Instala `openssh-server` si no está ya instalado
+- Habilita e inicia el servicio de systemd `sshd`
+- Modifica la configuración de SSH para habilitar la autenticación por contraseña:
+  - Edita `/etc/ssh/sshd_config` para establecer `PasswordAuthentication yes`
+  - Crea `/etc/ssh/sshd_config.d/00-zeabur-password-auth.conf` como un archivo de configuración adicional
+
+<Callout type="warning">
+  Si has deshabilitado previamente la autenticación por contraseña de SSH (inicio de sesión solo con clave), este cambio la reactivará. El puerto SSH solo es accesible a través de la red mesh, no desde Internet público.
+</Callout>
+
+### 5. Crear un usuario del sistema
+
+- Crea un usuario `zeabur` (si no existe) con `/bin/bash` como shell
+- Establece una contraseña generada aleatoriamente para el usuario
+- Añade el usuario al grupo `sudo` (o `wheel`)
+- Crea `/etc/sudoers.d/zeabur` otorgando acceso sudo sin contraseña
+
+<Callout type="warning">
+  No cambies manualmente la contraseña del usuario `zeabur`. Zeabur usa esta credencial para gestionar tu dispositivo a través de SSH. Cambiarla romperá la conexión e impedirá los despliegues.
+</Callout>
+
+### 6. Informar a Zeabur
+
+- Obtiene la IP mesh (`tailscale ip -4`) y la IP pública (`curl ifconfig.me`)
+- Envía la IP mesh, las credenciales SSH y la IP pública a la API de Zeabur
+- Esto permite a Zeabur gestionar los despliegues en tu dispositivo a través de SSH sobre la red mesh
+
+### 7. Informe de progreso
+
+Cada paso informa de su progreso a la API de Zeabur en tiempo real, para que puedas monitorizar la instalación desde la consola. Si ocurre un error, las últimas líneas de la salida de error se reportan.
+
+### Archivos y servicios añadidos (Linux)
+
+| Tipo | Ruta / Nombre | Descripción |
+|------|---------------|-------------|
+| Binario | `/usr/local/bin/wonder` | Cliente Wonder Mesh |
+| Paquete | `tailscale` | Red mesh (WireGuard) |
+| Paquete | `openssh-server` (si no está instalado) | Servidor SSH |
+| Configuración | `/etc/ssh/sshd_config.d/00-zeabur-password-auth.conf` | Habilita la autenticación por contraseña |
+| Configuración | `/etc/sudoers.d/zeabur` | Sudo sin contraseña para el usuario `zeabur` |
+| Registro | `/tmp/zeabur-install.log` | Registro de instalación |
+| Servicio del sistema | `tailscaled` | Demonio de Tailscale (se inicia con el arranque) |
+| Servicio del sistema | `sshd` | Demonio SSH (se inicia con el arranque) |
+| Usuario del sistema | `zeabur` | Usuario con acceso sudo |
+
+### Cambios de red (Linux)
+
+| Cambio | Descripción |
+|--------|-------------|
+| Túnel WireGuard | Añade una interfaz de red mesh con una IP `100.x.x.x` |
+| Servidor de control Tailscale | Apunta a la instancia de Headscale de Zeabur (no al servicio oficial de Tailscale) |
+| Puerto SSH 22 | Accesible a través de la red mesh con autenticación por contraseña |
+| Conexiones salientes | Se conecta a `tailscale.com`, `cdn.zeabur.com`, `wonder-net.strrl.dev`, `api.zeabur.com`, `ifconfig.me` durante la instalación. Después de la configuración, se mantienen conexiones continuas con el servidor de coordinación de Tailscale y `api.zeabur.com` para la red mesh y la comunicación con la plataforma. |
+
+---
+
+## macOS
+
+El script se ejecuta como **usuario regular** (no uses `sudo`). Los cambios específicos de la red mesh (Tailscale, SSH, usuario `zeabur`, sudoers) se aplican dentro de una máquina virtual — la configuración del sistema macOS no se modifica directamente. Sin embargo, Homebrew/Lima se instalan en el host y Lima crea el reenvío de puertos del lado del host (ver más abajo).
+
+### 1. Instalar Homebrew
+
+- Descarga y ejecuta el [script oficial de instalación de Homebrew](https://brew.sh/) si Homebrew no está ya instalado
+- También puede instalar las Xcode Command Line Tools
+
+### 2. Instalar Lima
+
+- Ejecuta `brew install lima`
+- Lima es un gestor de máquinas virtuales ligero; depende de QEMU, que Homebrew instala automáticamente
+
+### 3. Crear la máquina virtual
+
+- Crea una VM de Lima llamada `zeabur-mesh` basada en Ubuntu 24.04
+- Configura la VM con los recursos de CPU, memoria y disco que especificaste al crear el servidor
+- Configura el reenvío de puertos desde la VM al host para los puertos 30000–32767 (usados por los servicios)
+
+### 4. Ejecutar el script de instalación de Linux dentro de la VM
+
+- Ejecuta el mismo script de instalación de Linux (descrito anteriormente) dentro de la VM mediante `limactl shell`
+- Todos los cambios de Tailscale, SSH, creación de usuario y red mesh ocurren dentro de la VM
+
+### Qué cambia en el macOS anfitrión
+
+| Tipo | Ruta / Nombre | Descripción |
+|------|---------------|-------------|
+| Paquete | `lima` (vía Homebrew) | Gestor de VM |
+| Paquete | `qemu` (vía Homebrew) | Motor de ejecución de VM |
+| Paquete | Homebrew (si no está instalado) | Gestor de paquetes |
+| Datos de VM | `~/.lima/zeabur-mesh/` | Imagen de disco y configuración de la VM |
+| Reenvío de puertos | Puertos 30000–32767 | Reenviados desde la VM a `0.0.0.0` en el host |
+
+Tu configuración de SSH de macOS, usuarios del sistema y ajustes de red **no** se modifican. Ten en cuenta que Lima reenvía los puertos de servicio (30000–32767) a `0.0.0.0` en el host, haciéndolos accesibles desde tu red local.

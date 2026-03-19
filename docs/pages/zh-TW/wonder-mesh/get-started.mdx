@@ -1,0 +1,172 @@
+---
+title: Wonder Mesh 快速開始
+ogImageTitle: Wonder Mesh 快速開始
+ogImageSubtitle: 幾分鐘內將裝置設定為 Zeabur 伺服器
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# 快速開始
+
+按照以下步驟，使用 Wonder Mesh 將你的裝置變成 Zeabur 伺服器。
+
+## 前置條件
+
+<Callout type="warning">
+  我們建議使用**全新的機器**以避免與現有軟體衝突。
+  如果你已經安裝了 Tailscale 或 K3s，設定腳本可能會干擾你現有的設定。
+</Callout>
+
+你的裝置必須滿足以下最低需求。在 macOS 上，這些是指分配給虛擬機的資源，而非 Mac 本身——請確保你的 Mac 在這些最低需求之外仍有足夠的餘裕。
+
+| 資源 | 最低需求 |
+|------|---------|
+| CPU | 2 核心 |
+| 記憶體 | 2 GB |
+| 磁碟 | 40 GB |
+
+不確定你的裝置架構？執行以下指令檢查：
+
+```bash copy
+# x86_64 = amd64, aarch64 = arm64
+uname -m
+```
+
+<Steps>
+
+### 建立新專案
+
+前往 [Zeabur 控制台](https://zeabur.com/projects) 並建立一個新專案。
+
+### 將你的裝置新增為 Wonder Mesh 伺服器
+
+在「建立新專案」頁面中，在「選擇您的伺服器」下方選擇 **綁定外部伺服器**，然後選擇 **Wonder Mesh**。設定你裝置的架構（amd64 或 arm64）和作業系統（Linux 或 macOS）。
+
+對於 macOS，你還需要指定虛擬機的資源配置：
+- **CPU 核心數** — 至少 2 核；如果你的 Mac 有 8 核以上，建議設定 4 核
+- **記憶體（GB）** — 至少 2 GB；如果你計劃執行多個服務，建議設定 4 GB
+- **磁碟大小（GB）** — 至少 40 GB；如果你使用大型容器映像檔或需要持久儲存空間，請增加容量
+
+<Callout type="info">
+  這些資源會被 Wonder Mesh 虛擬機**保留**，在虛擬機運行期間將不可供你的 macOS 主機使用。請選擇在日常工作之外仍有足夠餘裕的數值。
+</Callout>
+
+確認後，你將被重新導向到伺服器頁面。
+
+### 在你的裝置上執行安裝腳本
+
+在伺服器頁面上，點擊 **查看安裝指令** 以顯示完整的安裝指令。複製並在你想要註冊的裝置終端機中執行它。
+
+![Zeabur console showing the View Install Command button on the server page](/wonder-mesh/view-install-command.png)
+
+<Callout type="warning">
+  在 macOS 上，**不要**使用 `sudo`。安裝程式會在需要時請求提升的權限。
+</Callout>
+
+<Callout type="info">
+  安裝腳本會在你的裝置上安裝 Tailscale、建立 `zeabur` 系統使用者，並設定 SSH。
+  完整的詳細說明請參閱[安裝腳本做了什麼？](./install-script-details)。
+</Callout>
+
+![Terminal showing the Wonder Mesh install script completing successfully](/wonder-mesh/install-script.png)
+
+當腳本成功完成時，你應該會看到類似以下的輸出：
+
+``` log {13-14}
+=== Zeabur Mesh Server Setup ===
+Installing Tailscale...
+Tailscale installed: 1.94.2
+Ensuring tailscaled is running...
+Downloading wonder binary...
+Joining Wonder Mesh Network...
+Connecting to Wonder Mesh Net...
+Successfully joined Wonder Mesh Net!
+SSH server already running, skipping installation...
+Enabling SSH password authentication...
+Configuring SSH user...
+Completing registration...
+=== Zeabur Mesh Server Setup Complete ===
+Mesh IP: 100.x.x.x
+```
+
+### 等待伺服器連線
+
+安裝完成後，你的裝置將在控制台中顯示為已連線。
+
+![Zeabur console showing the server connected with a mesh IP assigned](/wonder-mesh/server-connected.png)
+
+### 安裝 K3s
+
+裝置加入網狀網路後，在控制台點擊 **安裝 K3s**。K3s 是 Zeabur 用來在你的裝置上管理和執行服務的執行引擎。你不需要任何 Kubernetes 知識——只需點擊按鈕並等待完成即可。
+
+### 開始部署
+
+當伺服器顯示為健康狀態時，你可以像使用其他 Zeabur 伺服器一樣將服務部署到上面。
+
+![Server card showing SSH Connected and K3s healthy status](/wonder-mesh/server-healthy.png)
+
+</Steps>
+
+## 疑難排解
+
+### 安裝卡住或失敗
+
+- 檢查安裝日誌中的錯誤：
+  ```bash copy
+  cat /tmp/zeabur-install.log
+  ```
+- 確保你的裝置有穩定的網際網路連線。
+- 確認 Tailscale 常駐程式正在執行：
+  ```bash copy
+  sudo systemctl status tailscaled   # Linux
+  ```
+- 如果 Tailscale 看起來卡住了，重新啟動它並重新執行安裝指令：
+  ```bash copy
+  sudo systemctl restart tailscaled  # Linux
+  ```
+
+### 伺服器顯示為已斷線
+
+- 確認 Tailscale 常駐程式仍在運行：
+  ```bash copy
+  tailscale status
+  ```
+- 如果顯示為已停止，重新啟動它：
+  ```bash copy
+  sudo systemctl restart tailscaled  # Linux
+  ```
+- 在 macOS 上，確保 Lima 虛擬機正在運行：
+  ```bash copy
+  limactl list
+  ```
+
+如果問題持續存在，請將 `/tmp/zeabur-install.log` 的內容提供給 [Zeabur 支援](https://zeabur.com/support)。
+
+## 存取服務
+
+部署在 Wonder Mesh 伺服器上的服務與其他 Zeabur 伺服器上的服務運作方式相同——你可以綁定網域、設定通訊埠轉發，並將它們暴露到網際網路。詳情請參閱[公網存取](/networking/public)。
+
+同一專案中的服務也可以使用內部主機名稱互相通訊。詳情請參閱[服務內網](/networking/private)。
+
+### 從區域網路存取
+
+你可以從同一區域網路（Wi-Fi 或乙太網路）上的任何裝置直接存取服務。請按照以下步驟操作：
+
+1. **找到通訊埠號碼** — 在 Zeabur 控制台中打開你的服務頁面，前往 **網路** 分頁。找到分配給你服務的通訊埠號碼（例如 `32518`）。
+
+   ![Networking tab showing LAN access address for the deployed service](/wonder-mesh/access-from-lan.png)
+
+2. **找到你裝置的區域網路 IP** — 在你的**實際裝置終端機**上執行以下指令（不是在服務或 Zeabur 伺服器 SSH 中）：
+   - **Linux**：`hostname -I`
+   - **macOS**：`ipconfig getifaddr en0`（如果沒有回傳結果，請執行 `route -n get default | grep interface` 找到使用中的介面名稱，再使用 `ipconfig getifaddr <介面名稱>`）
+
+3. **開啟服務** — 從同一網路上的任何裝置，在瀏覽器或用戶端中開啟 `http://<lan-ip>:<port>`。
+
+   例如，如果你的區域網路 IP 是 `192.168.1.42`，分配的通訊埠是 `32518`：
+   ```
+   http://192.168.1.42:32518
+   ```
+
+<Callout type="info">
+  在 **macOS** 上，Lima 虛擬機會將通訊埠 30000–32767 轉發到主機。在這些通訊埠上的服務可以使用你 Mac 的 IP 位址從區域網路存取——不需要額外設定。
+</Callout>

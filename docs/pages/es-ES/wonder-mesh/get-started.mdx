@@ -1,0 +1,172 @@
+---
+title: Empezar con Wonder Mesh
+ogImageTitle: Empezar con Wonder Mesh
+ogImageSubtitle: Configura tu dispositivo como servidor Zeabur en minutos
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Empezar
+
+Sigue estos pasos para convertir tu dispositivo en un servidor Zeabur usando Wonder Mesh.
+
+## Requisitos previos
+
+<Callout type="warning">
+  Recomendamos usar una **máquina limpia** para evitar conflictos con software existente.
+  Si ya tienes Tailscale o K3s instalados, el script de configuración puede interferir con tu configuración actual.
+</Callout>
+
+Tu dispositivo debe cumplir con los siguientes requisitos mínimos. En macOS, estos se refieren a los recursos asignados a la máquina virtual, no al Mac en sí — asegúrate de que tu Mac tenga suficiente margen por encima de estos mínimos.
+
+| Recurso | Mínimo |
+|---------|--------|
+| CPU | 2 núcleos |
+| Memoria | 2 GB |
+| Disco | 40 GB |
+
+¿No estás seguro de la arquitectura de tu dispositivo? Ejecuta el siguiente comando para comprobarlo:
+
+```bash copy
+# x86_64 = amd64, aarch64 = arm64
+uname -m
+```
+
+<Steps>
+
+### Crear un nuevo proyecto
+
+Ve al [Panel de Zeabur](https://zeabur.com/projects) y crea un nuevo proyecto.
+
+### Añadir tu dispositivo como servidor Wonder Mesh
+
+En la página "Crear nuevo proyecto", en "Seleccionar un Host Dedicado", selecciona **Vincular servidor externo** y luego elige **Wonder Mesh**. Configura la arquitectura de tu dispositivo (amd64 o arm64) y el sistema operativo (Linux o macOS).
+
+Para macOS, también necesitarás especificar la asignación de recursos de la máquina virtual:
+- **Núcleos de CPU** — al menos 2; se recomiendan 4 si tu Mac tiene 8 o más núcleos
+- **Memoria (GB)** — al menos 2 GB; se recomiendan 4 GB si planeas ejecutar varios servicios
+- **Tamaño de disco (GB)** — al menos 40 GB; auméntalo si usas imágenes de contenedor grandes o necesitas almacenamiento persistente
+
+<Callout type="info">
+  Estos recursos están **reservados** para la máquina virtual de Wonder Mesh y no estarán disponibles para tu sistema macOS mientras la VM esté en ejecución. Elige valores que dejen suficiente margen para tu trabajo diario.
+</Callout>
+
+Después de confirmar, serás redirigido a la página del servidor.
+
+### Ejecutar el script de instalación en tu dispositivo
+
+En la página del servidor, haz clic en **Ver comando de instalación** para mostrar el comando de instalación completo. Cópialo y ejecútalo en una terminal del dispositivo que deseas registrar.
+
+![Consola de Zeabur mostrando el botón Ver comando de instalación en la página del servidor](/wonder-mesh/view-install-command.png)
+
+<Callout type="warning">
+  En macOS, **no** uses `sudo`. El instalador solicitará permisos elevados cuando sea necesario.
+</Callout>
+
+<Callout type="info">
+  El script de instalación instalará Tailscale, creará un usuario del sistema `zeabur` y configurará SSH en tu dispositivo.
+  Para un desglose completo, consulta [¿Qué hace el script de instalación?](./install-script-details).
+</Callout>
+
+![Terminal mostrando el script de instalación de Wonder Mesh completándose correctamente](/wonder-mesh/install-script.png)
+
+Cuando el script finalice correctamente, deberías ver una salida similar a:
+
+``` log {13-14}
+=== Zeabur Mesh Server Setup ===
+Installing Tailscale...
+Tailscale installed: 1.94.2
+Ensuring tailscaled is running...
+Downloading wonder binary...
+Joining Wonder Mesh Network...
+Connecting to Wonder Mesh Net...
+Successfully joined Wonder Mesh Net!
+SSH server already running, skipping installation...
+Enabling SSH password authentication...
+Configuring SSH user...
+Completing registration...
+=== Zeabur Mesh Server Setup Complete ===
+Mesh IP: 100.x.x.x
+```
+
+### Esperar a que el servidor se conecte
+
+Después de que se complete la instalación, tu dispositivo aparecerá como conectado en la consola.
+
+![Consola de Zeabur mostrando el servidor conectado con una IP mesh asignada](/wonder-mesh/server-connected.png)
+
+### Instalar K3s
+
+Una vez que el dispositivo se haya unido a la red mesh, haz clic en **Instalar K3s** en la consola. K3s es el motor de ejecución que Zeabur usa para gestionar y ejecutar servicios en tu dispositivo. No necesitas ningún conocimiento de Kubernetes — simplemente haz clic en el botón y espera a que termine.
+
+### Empezar a desplegar
+
+Cuando el servidor muestre un estado saludable, puedes desplegar servicios en él igual que en cualquier otro servidor de Zeabur.
+
+![Tarjeta de servidor mostrando SSH conectado y K3s en estado saludable](/wonder-mesh/server-healthy.png)
+
+</Steps>
+
+## Solución de problemas
+
+### La instalación se queda atascada o falla
+
+- Revisa el registro de instalación en busca de errores:
+  ```bash copy
+  cat /tmp/zeabur-install.log
+  ```
+- Asegúrate de que tu dispositivo tenga una conexión a Internet estable.
+- Verifica que el demonio de Tailscale esté en ejecución:
+  ```bash copy
+  sudo systemctl status tailscaled   # Linux
+  ```
+- Si Tailscale parece atascado, reinícialo y vuelve a ejecutar el comando de instalación:
+  ```bash copy
+  sudo systemctl restart tailscaled  # Linux
+  ```
+
+### El servidor aparece como desconectado
+
+- Confirma que el demonio de Tailscale sigue activo:
+  ```bash copy
+  tailscale status
+  ```
+- Si aparece como detenido, reinícialo:
+  ```bash copy
+  sudo systemctl restart tailscaled  # Linux
+  ```
+- En macOS, asegúrate de que la VM de Lima esté en ejecución:
+  ```bash copy
+  limactl list
+  ```
+
+Si el problema persiste, contacta con el [Soporte de Zeabur](https://zeabur.com/support) incluyendo el contenido de `/tmp/zeabur-install.log`.
+
+## Acceso a servicios
+
+Los servicios desplegados en un servidor Wonder Mesh funcionan igual que los servicios en cualquier otro servidor de Zeabur — puedes vincular dominios, configurar reenvío de puertos y exponerlos a Internet. Consulta [Red pública](/networking/public) para más detalles.
+
+Los servicios en el mismo proyecto también pueden comunicarse entre sí mediante nombres de host internos. Consulta [Red privada](/networking/private) para más detalles.
+
+### Desde tu red local
+
+Puedes acceder a los servicios directamente desde cualquier dispositivo en la misma red local (Wi-Fi o Ethernet). Sigue estos pasos:
+
+1. **Encontrar el número de puerto** — Abre la página de tu servicio en la consola de Zeabur y ve a la pestaña **Redes**. Busca el número de puerto asignado a tu servicio (por ejemplo, `32518`).
+
+   ![Pestaña de Redes mostrando la dirección de acceso LAN para el servicio desplegado](/wonder-mesh/access-from-lan.png)
+
+2. **Encontrar la IP LAN de tu dispositivo** — Ejecuta uno de estos comandos en la **terminal de tu dispositivo real** (no dentro del servicio ni del SSH del servidor Zeabur):
+   - **Linux**: `hostname -I`
+   - **macOS**: `ipconfig getifaddr en0` (si no devuelve nada, ejecuta `route -n get default | grep interface` para encontrar el nombre de la interfaz activa, luego usa `ipconfig getifaddr <interfaz>`)
+
+3. **Abrir el servicio** — Desde cualquier dispositivo en la misma red, abre `http://<ip-lan>:<puerto>` en un navegador o cliente.
+
+   Por ejemplo, si tu IP LAN es `192.168.1.42` y el puerto asignado es `32518`:
+   ```
+   http://192.168.1.42:32518
+   ```
+
+<Callout type="info">
+  En **macOS**, la VM de Lima reenvía los puertos 30000–32767 al host. Los servicios en estos puertos son accesibles desde tu red LAN usando la dirección IP de tu Mac — no se necesita configuración adicional.
+</Callout>

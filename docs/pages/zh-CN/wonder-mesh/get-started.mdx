@@ -1,0 +1,172 @@
+---
+title: Wonder Mesh 快速开始
+ogImageTitle: Wonder Mesh 快速开始
+ogImageSubtitle: 几分钟内将设备设置为 Zeabur 服务器
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# 快速开始
+
+按照以下步骤，使用 Wonder Mesh 将你的设备变成 Zeabur 服务器。
+
+## 前提条件
+
+<Callout type="warning">
+  我们建议使用一台**全新的机器**，以避免与现有软件产生冲突。
+  如果你已经安装了 Tailscale 或 K3s，安装脚本可能会干扰你现有的配置。
+</Callout>
+
+你的设备必须满足以下最低要求。在 macOS 上，这些指的是分配给虚拟机的资源，而不是 Mac 本身——请确保你的 Mac 在这些最低要求之外还有足够的余量。
+
+| 资源 | 最低要求 |
+|------|---------|
+| CPU | 2 核 |
+| 内存 | 2 GB |
+| 磁盘 | 40 GB |
+
+不确定你设备的架构？运行以下命令检查：
+
+```bash copy
+# x86_64 = amd64, aarch64 = arm64
+uname -m
+```
+
+<Steps>
+
+### 创建新项目
+
+前往 [Zeabur 控制面板](https://zeabur.com/projects) 并创建一个新项目。
+
+### 将你的设备添加为 Wonder Mesh 服务器
+
+在"创建新项目"页面中，在"选择专用服务器"下选择 **绑定外部服务器**，然后选择 **Wonder Mesh**。配置你设备的架构（amd64 或 arm64）和操作系统（Linux 或 macOS）。
+
+对于 macOS，你还需要指定虚拟机的资源分配：
+- **CPU 核数** — 至少 2 核；如果你的 Mac 有 8 核以上，建议 4 核
+- **内存 (GB)** — 至少 2 GB；如果你计划运行多个服务，建议 4 GB
+- **磁盘大小 (GB)** — 至少 40 GB；如果你使用大型容器镜像或需要持久存储，请增加此值
+
+<Callout type="info">
+  这些资源是为 Wonder Mesh 虚拟机**预留**的，在虚拟机运行期间将不可用于你的 macOS 主机。请选择合适的值，为你的日常工作留出足够的余量。
+</Callout>
+
+确认后，你将被重定向到服务器页面。
+
+### 在设备上运行安装脚本
+
+在服务器页面上，点击 **查看安装命令** 以显示完整的安装命令。复制该命令并在你想要注册的设备终端中运行。
+
+![Zeabur console showing the View Install Command button on the server page](/wonder-mesh/view-install-command.png)
+
+<Callout type="warning">
+  在 macOS 上，请**不要**使用 `sudo`。安装程序会在需要时请求提升权限。
+</Callout>
+
+<Callout type="info">
+  安装脚本将安装 Tailscale，创建一个 `zeabur` 系统用户，并在你的设备上配置 SSH。
+  有关完整的详细说明，请参阅[安装脚本做了什么？](./install-script-details)。
+</Callout>
+
+![Terminal showing the Wonder Mesh install script completing successfully](/wonder-mesh/install-script.png)
+
+当脚本成功完成后，你应该会看到类似以下的输出：
+
+``` log {13-14}
+=== Zeabur Mesh Server Setup ===
+Installing Tailscale...
+Tailscale installed: 1.94.2
+Ensuring tailscaled is running...
+Downloading wonder binary...
+Joining Wonder Mesh Network...
+Connecting to Wonder Mesh Net...
+Successfully joined Wonder Mesh Net!
+SSH server already running, skipping installation...
+Enabling SSH password authentication...
+Configuring SSH user...
+Completing registration...
+=== Zeabur Mesh Server Setup Complete ===
+Mesh IP: 100.x.x.x
+```
+
+### 等待服务器连接
+
+安装完成后，你的设备将在控制台中显示为已连接。
+
+![Zeabur console showing the server connected with a mesh IP assigned](/wonder-mesh/server-connected.png)
+
+### 安装 K3s
+
+设备加入网状网络后，在控制台中点击 **安装 K3s**。K3s 是 Zeabur 用于管理和运行设备上服务的运行时引擎。你不需要任何 Kubernetes 知识——只需点击按钮并等待完成即可。
+
+### 开始部署
+
+当服务器显示健康状态时，你可以像其他任何 Zeabur 服务器一样将服务部署到该服务器上。
+
+![Server card showing SSH Connected and K3s healthy status](/wonder-mesh/server-healthy.png)
+
+</Steps>
+
+## 故障排除
+
+### 安装卡住或失败
+
+- 检查安装日志中的错误：
+  ```bash copy
+  cat /tmp/zeabur-install.log
+  ```
+- 确保你的设备有稳定的互联网连接。
+- 验证 Tailscale 守护进程是否正在运行：
+  ```bash copy
+  sudo systemctl status tailscaled   # Linux
+  ```
+- 如果 Tailscale 似乎卡住了，重启它并重新运行安装命令：
+  ```bash copy
+  sudo systemctl restart tailscaled  # Linux
+  ```
+
+### 服务器显示为已断开
+
+- 确认 Tailscale 守护进程仍然活跃：
+  ```bash copy
+  tailscale status
+  ```
+- 如果显示已停止，请重启它：
+  ```bash copy
+  sudo systemctl restart tailscaled  # Linux
+  ```
+- 在 macOS 上，确保 Lima 虚拟机正在运行：
+  ```bash copy
+  limactl list
+  ```
+
+如果问题仍然存在，请将 `/tmp/zeabur-install.log` 的内容发送给 [Zeabur 支持](https://zeabur.com/support)。
+
+## 访问服务
+
+部署在 Wonder Mesh 服务器上的服务与其他任何 Zeabur 服务器上的服务一样——你可以绑定域名、设置端口转发并将其暴露到互联网。详情请参阅[公网存取](/networking/public)。
+
+同一项目中的服务也可以使用内部主机名相互通信。详情请参阅[服务内网](/networking/private)。
+
+### 从局域网访问
+
+你可以从同一局域网（Wi-Fi 或以太网）上的任何设备直接访问服务。请按照以下步骤操作：
+
+1. **找到端口号** — 在 Zeabur 控制台中打开你的服务页面，进入 **网络** 标签页。找到分配给你服务的端口号（例如 `32518`）。
+
+   ![Networking tab showing LAN access address for the deployed service](/wonder-mesh/access-from-lan.png)
+
+2. **找到设备的局域网 IP** — 在你的**实际设备终端**（不是在服务或 Zeabur 服务器 SSH 内）上运行以下命令之一：
+   - **Linux**：`hostname -I`
+   - **macOS**：`ipconfig getifaddr en0`（如果没有返回结果，请运行 `route -n get default | grep interface` 找到当前使用的接口名称，再使用 `ipconfig getifaddr <接口名称>`）
+
+3. **打开服务** — 从同一网络上的任何设备，在浏览器或客户端中打开 `http://<lan-ip>:<port>`。
+
+   例如，如果你的局域网 IP 是 `192.168.1.42`，分配的端口是 `32518`：
+   ```
+   http://192.168.1.42:32518
+   ```
+
+<Callout type="info">
+  在 **macOS** 上，Lima 虚拟机会将端口 30000–32767 转发到主机。这些端口上的服务可以使用你 Mac 的 IP 地址从局域网访问——无需额外配置。
+</Callout>
