@@ -41,11 +41,13 @@ export function middleware(request: NextRequest) {
   // Handle case-insensitive locale match (e.g. /en-us → /en-US)
   if (!pathnameHasLocale && HAS_LOCALE_CI_RE.test(pathname)) {
     const [, segment] = pathname.split('/', 2)
-    const canonical = findCanonicalLocale(segment!)
-    if (canonical) {
-      const rest = pathname.slice(segment!.length + 1) // +1 for leading slash
-      const url = addBasePath(`/${canonical}${rest}${request.nextUrl.search}`)
-      return NextResponse.redirect(new URL(url, request.url))
+    if (segment) {
+      const canonical = findCanonicalLocale(segment)
+      if (canonical) {
+        const rest = pathname.slice(segment.length + 1) // +1 for leading slash
+        const url = addBasePath(`/${canonical}${rest}${request.nextUrl.search}`)
+        return NextResponse.redirect(new URL(url, request.url))
+      }
     }
   }
 
