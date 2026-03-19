@@ -12,7 +12,7 @@ import { Callout } from 'nextra/components'
 
 ## 使用環境變數管理設定
 
-所有設定值 — API 金鑰、資料庫連線字串、功能開關 — 都應存放在[環境變數](/deploy/variable)中。絕對不要把機密資訊寫死在原始碼或 Docker 映像檔裡。
+所有設定值 — API 金鑰、資料庫連線字串、功能開關 — 都應存放在[環境變數](/deploy/environment-variables)中。絕對不要把機密資訊寫死在原始碼或 Docker 映像檔裡。
 
 <Callout type="warning">
 一旦把機密提交到 Git，就會永久留在版本歷史中。請務必使用 Zeabur 的環境變數管理功能。
@@ -60,12 +60,12 @@ Zeabur 支援服務間的變數參照（例如 `${MYSQL_HOST}`），可以自動
 - 自動 CI/CD：推送程式碼後自動重新部署。
 
 <Callout type="info">
-如果專案不在 Git 儲存庫中，也可以透過 [CLI](/deploy/command-line) 或 Docker 映像檔部署。
+如果專案不在 Git 儲存庫中，也可以透過 [CLI](/developer/cli) 或 Docker 映像檔部署。
 </Callout>
 
 ## 啟用自訂網域與 HTTPS
 
-Zeabur 會為所有自訂網域自動簽發 TLS 憑證。只要把 DNS 指向 Zeabur，HTTPS 就會零設定自動啟用 — 詳情請參閱[自訂網域](/deploy/domain-bindling)設定說明。
+Zeabur 會為所有自訂網域自動簽發 TLS 憑證。只要把 DNS 指向 Zeabur，HTTPS 就會零設定自動啟用 — 詳情請參閱[自訂網域](/deploy/networking/public-networking)設定說明。
 
 正式服務建議使用自己的網域，維持專業形象，避免與他人共用預設的 `*.zeabur.app` 子網域。
 

@@ -1,5 +1,5 @@
 export default {
   index: { display: 'hidden' },
-  rollbacks: '部署版本回溯',
+  rollbacks: '版本回滾',
   'suspend-service': '暫停服務',
 }

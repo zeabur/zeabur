@@ -38,7 +38,7 @@ Zeabur 原生支援所有主流框架，包括 **Next.js**、**Nuxt**、**Astro*
 3. 新增您的變數。使用 **Bulk Edit** 一次貼上多組鍵值對。
 
 <Callout>
-Vercel 將變數依環境區分（Production、Preview、Development）。在 Zeabur 上，變數預設會套用到所有部署。如果您需要為預覽部署設定不同的值，可以按分支進行設定。
+Vercel 將變數依環境區分（Production、Preview、Development）。在 Zeabur 上，變數預設會套用到所有部署。如果您需要區分不同環境的值，可以建立多個[環境](/operations/team/environments)來管理。
 </Callout>
 
 ## 步驟 3：處理框架特定設定
@@ -67,11 +67,11 @@ Vercel 將變數依環境區分（Production、Preview、Development）。在 Ze
 | Vercel 功能 | Zeabur 對應方案 |
 |---|---|
 | Serverless Functions | 作為持久化伺服器運行（更佳的冷啟動效能） |
-| Edge Functions | 在基礎架構層級處理（內建邊緣快取） |
+| Edge Functions | 作為伺服器端程式碼運行 |
 | Vercel Postgres / KV / Blob | 資料庫 → PostgreSQL、Redis 或物件儲存 |
 | Cron Jobs（`vercel.json`） | 使用框架內建的 cron 或獨立的 worker 服務 |
 | `vercel.json` rewrites/redirects | 使用框架層級的設定（例如 `next.config.js` rewrites） |
-| Preview Deployments | 自動為 pull request 建立預覽部署 |
+| Preview Deployments | 建立獨立的測試[環境](/operations/team/environments)來預覽變更 |
 | Analytics | 使用第三方分析工具（例如 Plausible、PostHog） |
 
 <Callout>

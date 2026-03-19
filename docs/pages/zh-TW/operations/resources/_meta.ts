@@ -1,6 +1,6 @@
 export default {
   index: { display: 'hidden' },
-  'service-usage': '服務使用情況',
+  'service-usage': '使用量分析',
   'project-budget': '專案預算',
-  scaling: '服務擴展',
+  scaling: '擴展',
 }

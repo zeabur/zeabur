@@ -112,7 +112,7 @@ import { Callout, Steps, Tabs } from 'nextra/components'
 
 **收錄基準**：
 - 文件描述的是**服務已部署後**的操作
-- 通常是重複性的日常任務（查 Log、調整預算、回溯版本）
+- 通常是重複性的日常任務（查 Log、調整預算、回滾版本）
 - 不包含「如何部署服務」（那在 `deploy/`）
 
 **子分組**：
@@ -121,7 +121,7 @@ import { Callout, Steps, Tabs } from 'nextra/components'
 |-----|------|---------|
 | 團隊管理 | 邀請成員、安全報告 | 以「人」和「權限」為主題 |
 | 資源配置 | 使用量查看、預算設定、擴展 | 以「費用」和「規格調整」為主題 |
-| 部署管理 | Preview、版本回溯、維護模式 | 以「部署版本的生命週期」為主題 |
+| 部署管理 | 版本回滾、暫停服務 | 以「部署版本的生命週期」為主題 |
 | 監控 | 健康檢查、日誌、效能指標 | 以「可觀測性」為主題 |
 
 ---
@@ -241,16 +241,16 @@ import { Callout, Steps, Tabs } from 'nextra/components'
 
 | 新路徑 | 說明 |
 |-------|------|
-| `infrastructure/edge-caching.mdx` | CDN/邊緣快取功能文件（全新） |
+| `infrastructure/edge-caching.mdx` | ❌ 已移除（Zeabur 無此功能） |
 | `billing-legal/rewards/reward.mdx` | 獎勵計劃文件（全新） |
 | `get-started/migration/heroku.mdx` | Heroku 遷移指南（全新） |
 | `get-started/migration/railway.mdx` | Railway 遷移指南（全新） |
 | `get-started/migration/vercel.mdx` | Vercel 遷移指南（全新） |
 | `get-started/migration/fly-io.mdx` | Fly.io 遷移指南（全新） |
 | `operations/scaling.mdx` | 服務擴展（確認是否為新增） |
-| `operations/previews.mdx` | 服務預覽（確認是否為新增） |
-| `operations/rollbacks.mdx` | 版本回溯（確認是否為新增） |
-| `operations/maintenance-mode.mdx` | 維護模式（確認是否為新增） |
+| `operations/previews.mdx` | ❌ 已移除（Zeabur 無此功能） |
+| `operations/rollbacks.mdx` | 版本回滾（確認是否為新增） |
+| `operations/suspend-service.mdx` | 暫停服務 |
 | `operations/health-checks.mdx` | 健康檢查（確認是否為新增） |
 | `operations/logging.mdx` | 日誌（確認是否為新增） |
 | `operations/metrics.mdx` | 效能指標（確認是否為新增） |

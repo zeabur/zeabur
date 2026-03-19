@@ -63,7 +63,7 @@ php artisan key:generate
 
     然後 commit 新的 `composer.json` 和 lock 檔案，接著 push 到你的 GitHub 上。
 
-2. [建立 MySQL 服務](/marketplace/mysql)，然後在你的本機環境執行以下命令將 table 等 migrate 到 Zeabur 上。
+2. 建立 MySQL 服務，然後在你的本機環境執行以下命令將 table 等 migrate 到 Zeabur 上。
 
     ```shell
     export DATABASE_URL=mysql://<username>:<password>@<host>:<port>/<database>
@@ -79,7 +79,7 @@ php artisan key:generate
     mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}
     ```
 
-    `${MYSQL_USER}` 等變數的意義可以參考 [MySQL 文件的環境變數一章](/marketplace/mysql#環境變數)。
+    `${MYSQL_USER}` 等變數的意義可以參考 MySQL 服務的環境變數說明。
 
 ## 自動最佳化
 
