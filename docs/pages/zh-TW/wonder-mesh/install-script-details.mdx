@@ -4,7 +4,7 @@ ogImageTitle: Wonder Mesh 安裝腳本
 ogImageSubtitle: 安裝腳本在您的機器上所做變更的詳細說明
 ---
 
-import { Callout } from 'nextra/components'
+import { Callout, Tabs } from 'nextra/components'
 
 # 安裝腳本做了什麼？
 
@@ -16,7 +16,8 @@ import { Callout } from 'nextra/components'
 
 此頁面詳細說明了 Wonder Mesh 安裝腳本對你的機器所做的操作。我們相信完全透明——你應該在執行之前知道在你的硬體上運行了什麼。
 
-## Linux
+<Tabs storageKey="wonder-mesh-os" items={['Linux', 'macOS']}>
+<Tabs.Tab>
 
 該腳本以 root 權限（`sudo bash`）執行，並進行以下步驟：
 
@@ -97,9 +98,8 @@ import { Callout } from 'nextra/components'
 | SSH 通訊埠 22 | 可透過網狀網路以密碼驗證存取 |
 | 對外連線 | 安裝期間連線至 `tailscale.com`、`cdn.zeabur.com`、`wonder-net.strrl.dev`、`api.zeabur.com`、`ifconfig.me`。設定完成後，會維持與 Tailscale 協調伺服器和 `api.zeabur.com` 的持續連線，用於網狀網路和平台通訊。 |
 
----
-
-## macOS
+</Tabs.Tab>
+<Tabs.Tab>
 
 該腳本以**一般使用者**身分執行（請勿使用 `sudo`）。網狀網路相關變更（Tailscale、SSH、`zeabur` 使用者、sudoers）會在虛擬機內部進行——你的 macOS 系統設定不會被直接修改。但 Homebrew/Lima 會安裝在主機上，且 Lima 會建立主機端的通訊埠轉發（詳見下方）。
 
@@ -135,3 +135,8 @@ import { Callout } from 'nextra/components'
 | 通訊埠轉發 | 通訊埠 30000–32767 | 從虛擬機轉發到主機的 `0.0.0.0` |
 
 你的 macOS SSH 設定、系統使用者和網路設定**不會**被修改。請注意，Lima 會將服務通訊埠（30000–32767）轉發到主機的 `0.0.0.0`，使其可從區域網路存取。
+
+若要還原這些變更，請參閱[解除安裝](./uninstall)。
+
+</Tabs.Tab>
+</Tabs>

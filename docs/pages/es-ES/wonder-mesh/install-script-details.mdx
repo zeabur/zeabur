@@ -4,7 +4,7 @@ ogImageTitle: Script de instalación de Wonder Mesh
 ogImageSubtitle: Desglose detallado de los cambios del script de instalación en tu máquina
 ---
 
-import { Callout } from 'nextra/components'
+import { Callout, Tabs } from 'nextra/components'
 
 # ¿Qué hace el script de instalación?
 
@@ -16,7 +16,8 @@ import { Callout } from 'nextra/components'
 
 Esta página explica exactamente qué hace el script de instalación de Wonder Mesh en tu máquina. Creemos en la total transparencia — debes saber qué se ejecuta en tu hardware antes de ejecutarlo.
 
-## Linux
+<Tabs storageKey="wonder-mesh-os" items={['Linux', 'macOS']}>
+<Tabs.Tab>
 
 El script se ejecuta con privilegios de root (`sudo bash`) y realiza los siguientes pasos:
 
@@ -97,9 +98,8 @@ Cada paso informa de su progreso a la API de Zeabur en tiempo real, para que pue
 | Puerto SSH 22 | Accesible a través de la red mesh con autenticación por contraseña |
 | Conexiones salientes | Se conecta a `tailscale.com`, `cdn.zeabur.com`, `wonder-net.strrl.dev`, `api.zeabur.com`, `ifconfig.me` durante la instalación. Después de la configuración, se mantienen conexiones continuas con el servidor de coordinación de Tailscale y `api.zeabur.com` para la red mesh y la comunicación con la plataforma. |
 
----
-
-## macOS
+</Tabs.Tab>
+<Tabs.Tab>
 
 El script se ejecuta como **usuario regular** (no uses `sudo`). Los cambios específicos de la red mesh (Tailscale, SSH, usuario `zeabur`, sudoers) se aplican dentro de una máquina virtual — la configuración del sistema macOS no se modifica directamente. Sin embargo, Homebrew/Lima se instalan en el host y Lima crea el reenvío de puertos del lado del host (ver más abajo).
 
@@ -135,3 +135,8 @@ El script se ejecuta como **usuario regular** (no uses `sudo`). Los cambios espe
 | Reenvío de puertos | Puertos 30000–32767 | Reenviados desde la VM a `0.0.0.0` en el host |
 
 Tu configuración de SSH de macOS, usuarios del sistema y ajustes de red **no** se modifican. Ten en cuenta que Lima reenvía los puertos de servicio (30000–32767) a `0.0.0.0` en el host, haciéndolos accesibles desde tu red local.
+
+Para revertir estos cambios, consulta [Desinstalar](./uninstall).
+
+</Tabs.Tab>
+</Tabs>

@@ -4,7 +4,7 @@ ogImageTitle: Wonder Mesh インストールスクリプト
 ogImageSubtitle: インストールスクリプトがマシンに加える変更の詳細
 ---
 
-import { Callout } from 'nextra/components'
+import { Callout, Tabs } from 'nextra/components'
 
 # インストールスクリプトの内容
 
@@ -16,7 +16,8 @@ import { Callout } from 'nextra/components'
 
 このページでは、Wonder Mesh インストールスクリプトがマシンに対して行う処理を正確に説明します。私たちは完全な透明性を信条としています。実行前に、ハードウェア上で何が動作するかを把握しておくべきです。
 
-## Linux
+<Tabs storageKey="wonder-mesh-os" items={['Linux', 'macOS']}>
+<Tabs.Tab>
 
 スクリプトは root 権限（`sudo bash`）で実行され、以下の手順を行います：
 
@@ -97,9 +98,8 @@ import { Callout } from 'nextra/components'
 | SSH ポート 22 | メッシュネットワーク経由でパスワード認証によりアクセス可能 |
 | アウトバウンド接続 | インストール中に `tailscale.com`、`cdn.zeabur.com`、`wonder-net.strrl.dev`、`api.zeabur.com`、`ifconfig.me` に接続。セットアップ後は、メッシュネットワーキングとプラットフォーム通信のために Tailscale コーディネーションサーバーと `api.zeabur.com` への継続的な接続が維持されます。 |
 
----
-
-## macOS
+</Tabs.Tab>
+<Tabs.Tab>
 
 スクリプトは**一般ユーザー**として実行します（`sudo` を使用しないでください）。メッシュ固有の変更（Tailscale、SSH、`zeabur` ユーザー、sudoers）は仮想マシン内で適用されます。macOS のシステム設定は直接変更されません。ただし、Homebrew/Lima はホストにインストールされ、Lima はホスト側のポートフォワーディングを作成します（下記参照）。
 
@@ -135,3 +135,8 @@ import { Callout } from 'nextra/components'
 | ポートフォワーディング | ポート 30000〜32767 | VM からホストの `0.0.0.0` にフォワード |
 
 macOS の SSH 設定、システムユーザー、ネットワーク設定は**変更されません**。なお、Lima はサービスポート（30000〜32767）をホストの `0.0.0.0` にフォワードするため、ローカルネットワークからアクセス可能になります。
+
+これらの変更を元に戻すには、[アンインストール](./uninstall)を参照してください。
+
+</Tabs.Tab>
+</Tabs>

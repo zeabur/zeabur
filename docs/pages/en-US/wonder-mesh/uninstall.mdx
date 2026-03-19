@@ -1,0 +1,92 @@
+---
+title: Uninstall Wonder Mesh
+ogImageTitle: Uninstall Wonder Mesh
+ogImageSubtitle: How to completely remove Wonder Mesh from your server
+---
+
+import { Callout, Tabs, Steps } from 'nextra/components'
+
+# Uninstall Wonder Mesh
+
+<Steps>
+
+### Delete All Projects
+
+Remove all projects deployed on the mesh server from the [Zeabur dashboard](https://dash.zeabur.com).
+
+### Run the Uninstall Script
+
+Run the appropriate one-liner for your operating system. This will remove all changes made by the install script.
+
+<Tabs storageKey="wonder-mesh-os" items={['Linux', 'macOS']}>
+  <Tabs.Tab>
+    ```bash copy
+    curl -fsSL https://cdn.zeabur.com/wonder/mesh-server-uninstall-linux.sh | sudo bash
+    ```
+
+    Add the `-f` flag to skip the confirmation prompt:
+
+    ```bash copy
+    curl -fsSL https://cdn.zeabur.com/wonder/mesh-server-uninstall-linux.sh | sudo bash -s -- --force
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    curl -fsSL https://cdn.zeabur.com/wonder/mesh-server-uninstall-darwin.sh | bash
+    ```
+
+    Add the `-f` flag to skip the confirmation prompt:
+
+    ```bash copy
+    curl -fsSL https://cdn.zeabur.com/wonder/mesh-server-uninstall-darwin.sh | bash -s -- --force
+    ```
+
+    <Callout type="info">
+      Do **not** use `sudo` — the macOS script must run as your normal user.
+    </Callout>
+  </Tabs.Tab>
+</Tabs>
+
+### Delete the Server
+
+Delete the server from the [Zeabur dashboard](https://dash.zeabur.com).
+
+### Optional Cleanup
+
+The uninstall script does not remove the following software that may have been installed alongside Wonder Mesh. Only remove them if you no longer need them.
+
+<Tabs storageKey="wonder-mesh-os" items={['Linux', 'macOS']}>
+  <Tabs.Tab>
+    **K3s** (server):
+
+    ```bash copy
+    /usr/local/bin/k3s-uninstall.sh
+    ```
+
+    **K3s** (agent):
+
+    ```bash copy
+    /usr/local/bin/k3s-agent-uninstall.sh
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    **Lima**:
+
+    ```bash copy
+    brew uninstall lima
+    ```
+
+    **Homebrew**:
+
+    ```bash copy
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+</Steps>
+
+## Notes
+
+- **macOS VM isolation** — on macOS, Tailscale, Wonder, the SSH user, and all network changes exist only inside the Lima VM. Deleting the VM removes them all. Your macOS system configuration is not affected.
+- **Tailscale network interface** — the `tailscale0` / `ts0` interface is automatically removed when `tailscaled` stops.

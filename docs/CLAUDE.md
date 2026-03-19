@@ -1,6 +1,9 @@
-# Available MDX Components
+# Locale Structure
 
-## Custom Components (auto-registered via `theme.config.js` — no import needed)
+- Docs exist in 5 locales: `en-US`, `zh-TW`, `zh-CN`, `ja-JP`, `es-ES` (under `pages/<locale>/`)
+- All locales share identical MDX structure — component/prop changes must be applied to all locales
+
+## Available MDX Custom Components
 
 ### `<WorkingInProgress />`
 
@@ -43,6 +46,8 @@ import { Tabs } from 'nextra/components'
   <Tabs.Tab>yarn content</Tabs.Tab>
 </Tabs>
 ```
+
+- **Tab sync**: Use `storageKey` prop to sync selection across multiple `<Tabs>` on the same page. Namespace the key to avoid collisions with other pages (e.g., `<Tabs storageKey="wonder-mesh-os" items={['Linux', 'macOS']}>`)
 
 ### `<Steps>`
 

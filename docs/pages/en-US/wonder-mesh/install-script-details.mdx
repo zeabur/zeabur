@@ -4,7 +4,7 @@ ogImageTitle: Wonder Mesh Install Script
 ogImageSubtitle: A detailed breakdown of what the install script changes on your machine
 ---
 
-import { Callout } from 'nextra/components'
+import { Callout, Tabs } from 'nextra/components'
 
 # What Does the Install Script Do?
 
@@ -16,7 +16,8 @@ import { Callout } from 'nextra/components'
 
 This page explains exactly what the Wonder Mesh install script does to your machine. We believe in full transparency — you should know what runs on your hardware before you execute it.
 
-## Linux
+<Tabs storageKey="wonder-mesh-os" items={['Linux', 'macOS']}>
+<Tabs.Tab>
 
 The script runs with root privileges (`sudo bash`) and performs the following steps:
 
@@ -97,9 +98,8 @@ Each step reports its progress to the Zeabur API in real time, so you can monito
 | SSH port 22 | Accessible over the mesh network with password authentication |
 | Outbound connections | Connects to `tailscale.com`, `cdn.zeabur.com`, `wonder-net.strrl.dev`, `api.zeabur.com`, `ifconfig.me` during installation. After setup, ongoing connections are maintained to the Tailscale coordination server and `api.zeabur.com` for mesh networking and platform communication. |
 
----
-
-## macOS
+</Tabs.Tab>
+<Tabs.Tab>
 
 The script runs as a **regular user** (do not use `sudo`). Mesh-specific changes (Tailscale, SSH, `zeabur` user, sudoers) are applied inside a virtual machine — your macOS system configuration is not modified directly. However, Homebrew/Lima are installed on the host, and Lima creates host-side port forwarding (see below).
 
@@ -135,3 +135,8 @@ The script runs as a **regular user** (do not use `sudo`). Mesh-specific changes
 | Port forwarding | Ports 30000–32767 | Forwarded from VM to `0.0.0.0` on the host |
 
 Your macOS SSH configuration, system users, and network settings are **not** modified. Note that Lima forwards service ports (30000–32767) to `0.0.0.0` on the host, making them reachable from your local network.
+
+To revert these changes, see [Uninstall](./uninstall).
+
+</Tabs.Tab>
+</Tabs>
