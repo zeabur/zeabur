@@ -8,5 +8,6 @@ export default {
   "customize-prebuilt": "Custom Docker Image",
   "github": "Integrating with GitHub",
   "deploy-in-cli": "Deploy in CLI",
+  "large-files": "Large File Handling",
   "variables": "Environment Variables",
 }

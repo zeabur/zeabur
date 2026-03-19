@@ -8,5 +8,6 @@ export default {
     "customize-prebuilt": "カスタム Docker イメージ",
     "github": "GitHub との統合",
     "deploy-in-cli": "CLI でデプロイ",
+    "large-files": "大容量ファイルの取り扱い",
     "variables": "変数",
 }
