@@ -13,7 +13,7 @@ This guide walks you through migrating your application from Vercel to Zeabur. I
 ## Before You Begin
 
 - A [Zeabur](https://zeabur.com/) account.
-- Your application source code in a Git repository (GitHub, GitLab, or Bitbucket).
+- Your application source code in a Git repository (GitHub).
 - Access to your Vercel dashboard.
 
 ## Step 1: Connect Your Git Repository
@@ -21,8 +21,8 @@ This guide walks you through migrating your application from Vercel to Zeabur. I
 Your Vercel project is already connected to a Git repository. Connect the same repo to Zeabur:
 
 1. Log in to the [Zeabur dashboard](https://dash.zeabur.com/).
-2. Create a new project and select a deployment region.
-3. Click **Add Service** → **Git** and connect your GitHub, GitLab, or Bitbucket account.
+2. Create a new project and select a dedicated server (or purchase a new one).
+3. Click **Add Service** → **Git** and connect your GitHub account.
 4. Select the same repository your Vercel project uses.
 
 Zeabur natively supports all major frameworks including **Next.js**, **Nuxt**, **Astro**, **Remix**, **SvelteKit**, **Vite**, and static sites.
@@ -38,7 +38,7 @@ Your `next.config.js` (or `next.config.mjs`) works as-is on Zeabur. No changes n
 3. Add your variables. Use **Bulk Edit** to paste multiple key-value pairs at once.
 
 <Callout>
-Vercel scopes variables by environment (Production, Preview, Development). On Zeabur, variables apply to all deployments by default. If you need different values for preview deployments, you can configure them per branch.
+Vercel scopes variables by environment (Production, Preview, Development). On Zeabur, variables apply to all deployments by default. If you need different values for preview deployments, you can create multiple environments to manage them.
 </Callout>
 
 ## Step 3: Handle Framework-Specific Settings
@@ -67,11 +67,11 @@ Some Vercel features map differently on Zeabur:
 | Vercel Feature | Zeabur Equivalent |
 |---|---|
 | Serverless Functions | Runs as a persistent server (better cold-start performance) |
-| Edge Functions | Handled at infrastructure level (edge caching built-in) |
+| Edge Functions | Runs as server-side code |
 | Vercel Postgres / KV / Blob | Database services → PostgreSQL, Redis, or object storage |
 | Cron Jobs (`vercel.json`) | Use your framework's built-in cron or a separate worker service |
 | `vercel.json` rewrites/redirects | Use framework-level config (e.g., `next.config.js` rewrites) |
-| Preview Deployments | Automatic preview deployments for pull requests |
+| Preview Deployments | Create separate environments to preview changes |
 | Analytics | Use third-party analytics (e.g., Plausible, PostHog) |
 
 <Callout>

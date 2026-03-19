@@ -121,13 +121,16 @@ code, pre, kbd, samp {
   font-family: var(--font-code) !important;
 }
 
-/* Headings: tighter tracking + lower line-height at larger sizes */
+/* Headings: tighter tracking + lower line-height at larger sizes
+   Generous vertical rhythm (Cursor-inspired breathing room) */
 h1 {
   font-size: var(--zb-fs-h1) !important;
   letter-spacing: -0.025em !important;
   line-height: var(--zb-lh-h1) !important;
   font-weight: 700 !important;
   color: var(--zb-text) !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.25rem !important;
 }
 h2 {
   font-size: var(--zb-fs-h2) !important;
@@ -135,6 +138,8 @@ h2 {
   line-height: var(--zb-lh-h2) !important;
   font-weight: 600 !important;
   color: var(--zb-text) !important;
+  margin-top: 2.75rem !important;
+  margin-bottom: 0.875rem !important;
 }
 h3 {
   font-size: var(--zb-fs-h3) !important;
@@ -142,6 +147,8 @@ h3 {
   line-height: var(--zb-lh-h3) !important;
   font-weight: 600 !important;
   color: var(--zb-text) !important;
+  margin-top: 2.25rem !important;
+  margin-bottom: 0.625rem !important;
 }
 h4 {
   font-size: var(--zb-fs-h4) !important;
@@ -149,6 +156,8 @@ h4 {
   line-height: var(--zb-lh-h4) !important;
   font-weight: 600 !important;
   color: var(--zb-text) !important;
+  margin-top: 1.75rem !important;
+  margin-bottom: 0.5rem !important;
 }
 
 /* Body prose */

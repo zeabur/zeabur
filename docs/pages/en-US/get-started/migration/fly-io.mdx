@@ -13,7 +13,7 @@ This guide walks you through migrating your application from Fly.io to Zeabur. W
 ## Before You Begin
 
 - A [Zeabur](https://zeabur.com/) account.
-- Your application source code in a Git repository (GitHub, GitLab, or Bitbucket).
+- Your application source code in a Git repository (GitHub).
 - Access to your Fly.io dashboard and CLI (`flyctl`).
 
 <Callout>
@@ -58,8 +58,8 @@ This shows the secret names (values are hidden). For each secret, you'll need to
 ## Step 3: Connect Your Git Repository to Zeabur
 
 1. Log in to the [Zeabur dashboard](https://dash.zeabur.com/).
-2. Create a new project and select a deployment region.
-3. Click **Add Service** → **Git** and connect your GitHub, GitLab, or Bitbucket account.
+2. Create a new project and select a dedicated server (or purchase a new one).
+3. Click **Add Service** → **Git** and connect your GitHub account.
 4. Select the repository containing your application code.
 
 Zeabur automatically detects your project's language and framework — no `fly.toml` or `Dockerfile` required in most cases.

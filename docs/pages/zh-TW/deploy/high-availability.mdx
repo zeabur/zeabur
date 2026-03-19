@@ -82,7 +82,7 @@ flowchart LR
     DNS --流量--> Ingress2
 ```
 
-這種方法的一個最大優勢，是它與 Zeabur 的 ingress controller 無縫協作。您可以使用標準的 `X-Forwarded-For` 標頭取回用戶端的真實 IP 位址，而無需修改您的應用程式邏輯。
+這種方法的一個最大優勢，是它與 Zeabur 的 ingress controller 無縫協作。您可以使用標準的 `X-Forwarded-For` 標頭取回客戶端的真實 IP 位址，而無需修改您的應用程式邏輯。
 
 ### 選項 2：外部 L7 代理
 
@@ -122,7 +122,7 @@ flowchart LR
 
 雖然這種方法可能看起來更簡單，因為您不需要管理內部 Caddy 服務，但它伴隨著幾個限制：
 
-- **真實 IP 標頭**：您必須配置您的 ALB 以在自訂標頭中傳遞用戶端的真實 IP（例如，`X-LoadBalancer-IP`），並修改您的應用程式來從這個自訂標頭讀取。
+- **真實 IP 標頭**：您必須配置您的 ALB 以在自訂標頭中傳遞客戶端的真實 IP（例如，`X-LoadBalancer-IP`），並修改您的應用程式來從這個自訂標頭讀取。
 - **安全風險**：您需要設定 Zeabur 的防火牆，僅允許來自 ALB 的 IP 位址的流量。如果您不這樣做，惡意行為者可能會繞過您的 ALB 並將偽造的 `X-LoadBalancer-IP` 標頭直接傳送到您的應用程式。
 - **速率限制**：因為所有請求都源自 ALB 的 IP 位址，Zeabur 的速率限制可能會意外觸發，可能會阻擋合法流量。
 

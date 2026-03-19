@@ -13,7 +13,7 @@ This guide walks you through migrating your application from Railway to Zeabur. 
 ## Before You Begin
 
 - A [Zeabur](https://zeabur.com/) account.
-- Your application source code in a Git repository (GitHub, GitLab, or Bitbucket).
+- Your application source code in a Git repository (GitHub).
 - Access to your Railway dashboard.
 
 ## Step 1: Connect Your Git Repository
@@ -21,8 +21,8 @@ This guide walks you through migrating your application from Railway to Zeabur. 
 Since Railway apps are typically connected to a Git repository, you can connect the same repo to Zeabur:
 
 1. Log in to the [Zeabur dashboard](https://dash.zeabur.com/).
-2. Create a new project and select a deployment region.
-3. Click **Add Service** → **Git** and connect your GitHub, GitLab, or Bitbucket account.
+2. Create a new project and select a dedicated server (or purchase a new one).
+3. Click **Add Service** → **Git** and connect your GitHub account.
 4. Select the same repository your Railway service uses.
 
 Zeabur auto-detects your project's language, framework, and build configuration.
@@ -121,7 +121,7 @@ There is no direct volume-to-volume transfer between Railway and Zeabur. You'll 
 | Variable references | `${{Service.VAR}}` | `${VAR}` |
 | Databases | Built-in Postgres, MySQL, Redis, MongoDB | Database services with the same options + more |
 | Volumes | Per-service volumes | Per-service volumes |
-| Scaling | Manual replica count | Auto-scaling + manual options |
+| Scaling | Manual replica count | Manual resource allocation |
 | Dedicated servers | Not available | Available (bare-metal options) |
 | Templates | Railway templates | [Zeabur Templates](https://zeabur.com/templates) |
 | AI services | Not available | [AI Hub](https://zeabur.com/ai) for model inference |

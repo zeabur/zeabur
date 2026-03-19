@@ -13,7 +13,7 @@ import { Callout } from 'nextra/components'
 ## 開始之前
 
 - 一個 [Zeabur](https://zeabur.com/) 帳號。
-- 您的應用程式原始碼存放在 Git 儲存庫中（GitHub、GitLab 或 Bitbucket）。
+- 您的應用程式原始碼存放在 Git 儲存庫中（GitHub）。
 - 可存取您的 Fly.io 主控台與 CLI（`flyctl`）。
 
 <Callout>
@@ -58,8 +58,8 @@ fly secrets list -a my-app
 ## 步驟 3：將 Git 儲存庫連結到 Zeabur
 
 1. 登入 [Zeabur 主控台](https://dash.zeabur.com/)。
-2. 建立新專案並選擇部署區域。
-3. 點選 **Add Service** → **Git**，連結您的 GitHub、GitLab 或 Bitbucket 帳號。
+2. 建立新專案並選擇專用伺服器（或購買新伺服器）。
+3. 點選 **Add Service** → **Git**，連結您的 GitHub 帳號。
 4. 選擇包含應用程式程式碼的儲存庫。
 
 Zeabur 會自動偵測您的專案語言與框架——在大多數情況下不需要 `fly.toml` 或 `Dockerfile`。

@@ -21,8 +21,8 @@ import { Callout } from 'nextra/components'
 大多數 Heroku 應用程式已經有對應的 Git 儲存庫。如果您的應用程式也是如此：
 
 1. 登入 [Zeabur 主控台](https://dash.zeabur.com/)。
-2. 建立新專案並選擇部署區域。
-3. 點選 **Add Service** → **Git**，連結您的 GitHub、GitLab 或 Bitbucket 帳號。
+2. 建立新專案並選擇專用伺服器（或購買新伺服器）。
+3. 點選 **Add Service** → **Git**，連結您的 GitHub 帳號。
 4. 選擇您的應用程式所在的儲存庫。
 
 Zeabur 會自動偵測 Node.js、Python、Ruby、Go、Java、PHP 及許多其他語言——不需要 `Procfile`。
@@ -119,7 +119,7 @@ Heroku 的 add-on 在 Zeabur 中有對應的替代方案，或可作為外部服
 | 設定方式 | `Procfile` + buildpack | 自動偵測（零設定） |
 | 部署方式 | `git push heroku main` | Git push 到 GitHub（自動部署） |
 | 擴展 | Dyno 類型（Basic、Standard、Performance） | 按使用量計費，自動擴展 |
-| 休眠行為 | Free/Basic dyno 閒置 30 分鐘後休眠 | 不休眠——持續運行 |
+| 休眠行為 | Eco dyno 閒置 30 分鐘後休眠 | 不休眠——持續運行 |
 | Slug 大小限制 | 壓縮後 500 MB | 無 slug 大小限制 |
 | 資料庫 | Heroku Postgres（受管理） | 內建資料庫（PostgreSQL、MySQL、MongoDB、Redis 等） |
 | 附加服務 | Heroku Add-on 市集 | 內建服務 + 外部服務 |

@@ -52,9 +52,6 @@
     <loc>https://zeabur.com/docs/en-US/compliance/fair-use-guidelines</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/en-US/compliance</loc>
-  </url>
-  <url>
     <loc>https://zeabur.com/docs/en-US/data-management/backup</loc>
   </url>
   <url>
@@ -62,6 +59,9 @@
   </url>
   <url>
     <loc>https://zeabur.com/docs/en-US/data-management/file-management</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/data-management</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/en-US/data-management/restore</loc>
@@ -88,7 +88,31 @@
     <loc>https://zeabur.com/docs/en-US/deploy/command-execution</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/config/command-execution</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/config/environment-variables</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/config</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/config/root-directory</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/config/watch-paths</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/en-US/deploy/copy-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/create/create-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/create/create-service</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/create</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/en-US/deploy/create-project</loc>
@@ -139,7 +163,61 @@
     <loc>https://zeabur.com/docs/en-US/deploy</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/manage/copy-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/manage/export-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/manage</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/manage/migrate-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/manage/update-image-reference</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/methods/custom-docker-image</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/methods/deploy-button</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/methods/deploy-with-chrome-extension/gemini</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/methods/deploy-with-raycast-extension</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/methods/deploy-with-vscode-extension</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/methods/dockerfile</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/methods/github-integration</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/methods</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/en-US/deploy/migrate-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/networking/edge-caching</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/networking/high-availability</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/networking</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/networking/private-networking</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/deploy/networking/public-networking</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/en-US/deploy/private-networking</loc>
@@ -403,7 +481,25 @@
     <loc>https://zeabur.com/docs/en-US/mesh</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/en-US/monitoring/health-checks</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/monitoring</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/monitoring/logging</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/monitoring/metrics</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/networking/edge-caching</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/en-US/networking/high-availability</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/networking</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/en-US/networking/private</loc>
@@ -416,6 +512,33 @@
   </url>
   <url>
     <loc>https://zeabur.com/docs/en-US/operations/config-file-management</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/operations/data/backup-restore</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/operations/data/config-file-management</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/operations/data/file-management</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/operations/data</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/operations/data/volumes</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/operations/deployment</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/operations/deployment/maintenance-mode</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/operations/deployment/previews</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/operations/deployment/rollbacks</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/en-US/operations/file-management</loc>
@@ -439,10 +562,34 @@
     <loc>https://zeabur.com/docs/en-US/operations/metrics</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/en-US/operations/monitoring/health-checks</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/operations/monitoring</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/operations/monitoring/logging</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/operations/monitoring/metrics</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/en-US/operations/previews</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/en-US/operations/project-budget</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/operations/resources</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/operations/resources/project-budget</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/operations/resources/scaling</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/operations/resources/service-usage</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/en-US/operations/rollbacks</loc>
@@ -455,6 +602,15 @@
   </url>
   <url>
     <loc>https://zeabur.com/docs/en-US/operations/service-usage</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/operations/team</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/operations/team/invite-member</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/en-US/operations/team/security-report</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/en-US/operations/volumes</loc>
@@ -910,6 +1066,9 @@
     <loc>https://zeabur.com/docs/es-ES/pricing/free-plan</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/es-ES/pricing</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/es-ES/pricing/pricing-plans</loc>
   </url>
   <url>
@@ -1295,6 +1454,9 @@
   </url>
   <url>
     <loc>https://zeabur.com/docs/ja-JP/pricing/free-plan</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/ja-JP/pricing</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/ja-JP/pricing/pricing-plans</loc>
@@ -1687,6 +1849,9 @@
     <loc>https://zeabur.com/docs/zh-CN/pricing/free-plan</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/zh-CN/pricing</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/zh-CN/pricing/pricing-plans</loc>
   </url>
   <url>
@@ -1792,9 +1957,6 @@
     <loc>https://zeabur.com/docs/zh-TW/compliance/fair-use-guidelines</loc>
   </url>
   <url>
-    <loc>https://zeabur.com/docs/zh-TW/compliance</loc>
-  </url>
-  <url>
     <loc>https://zeabur.com/docs/zh-TW/data-management/backup</loc>
   </url>
   <url>
@@ -1802,6 +1964,9 @@
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-TW/data-management/file-management</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/data-management</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-TW/data-management/restore</loc>
@@ -1828,7 +1993,31 @@
     <loc>https://zeabur.com/docs/zh-TW/deploy/command-execution</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/config/command-execution</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/config/environment-variables</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/config</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/config/root-directory</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/config/watch-paths</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/zh-TW/deploy/copy-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/create/create-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/create/create-service</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/create</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-TW/deploy/create-project</loc>
@@ -1879,7 +2068,61 @@
     <loc>https://zeabur.com/docs/zh-TW/deploy</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/manage/copy-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/manage/export-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/manage</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/manage/migrate-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/manage/update-image-reference</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/methods/custom-docker-image</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/methods/deploy-button</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/methods/deploy-with-chrome-extension/gemini</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/methods/deploy-with-raycast-extension</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/methods/deploy-with-vscode-extension</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/methods/dockerfile</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/methods/github-integration</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/methods</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/zh-TW/deploy/migrate-project</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/networking/edge-caching</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/networking/high-availability</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/networking</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/networking/private-networking</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/deploy/networking/public-networking</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-TW/deploy/private-networking</loc>
@@ -2140,7 +2383,25 @@
     <loc>https://zeabur.com/docs/zh-TW/migration-script</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/zh-TW/monitoring/health-checks</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/monitoring</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/monitoring/logging</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/monitoring/metrics</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/networking/edge-caching</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/zh-TW/networking/high-availability</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/networking</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-TW/networking/private</loc>
@@ -2153,6 +2414,33 @@
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-TW/operations/config-file-management</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/operations/data/backup-restore</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/operations/data/config-file-management</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/operations/data/file-management</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/operations/data</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/operations/data/volumes</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/operations/deployment</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/operations/deployment/maintenance-mode</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/operations/deployment/previews</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/operations/deployment/rollbacks</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-TW/operations/file-management</loc>
@@ -2176,10 +2464,34 @@
     <loc>https://zeabur.com/docs/zh-TW/operations/metrics</loc>
   </url>
   <url>
+    <loc>https://zeabur.com/docs/zh-TW/operations/monitoring/health-checks</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/operations/monitoring</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/operations/monitoring/logging</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/operations/monitoring/metrics</loc>
+  </url>
+  <url>
     <loc>https://zeabur.com/docs/zh-TW/operations/previews</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-TW/operations/project-budget</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/operations/resources</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/operations/resources/project-budget</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/operations/resources/scaling</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/operations/resources/service-usage</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-TW/operations/rollbacks</loc>
@@ -2192,6 +2504,15 @@
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-TW/operations/service-usage</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/operations/team</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/operations/team/invite-member</loc>
+  </url>
+  <url>
+    <loc>https://zeabur.com/docs/zh-TW/operations/team/security-report</loc>
   </url>
   <url>
     <loc>https://zeabur.com/docs/zh-TW/operations/volumes</loc>

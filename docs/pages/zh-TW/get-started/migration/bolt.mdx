@@ -4,7 +4,7 @@ ogImageTitle: 匯入 Bolt
 ogImageSubtitle: 匯入你的 Bolt 專案
 ---
 
-## 如何使用 Zeabur 將 Bolt.new 專案部署到網絡
+## 如何使用 Zeabur 將 Bolt.new 專案部署到網路
 
 本指南是獲取 Bolt.new 產生的程式碼並將其轉換為真實、在線網站的最簡單方法，你可以與朋友或客戶分享。
 
@@ -50,7 +50,7 @@ ogImageSubtitle: 匯入你的 Bolt 專案
     ![Bolt.new github part 2.png](https://cdn.zeabur.com/bolt.new%20migration/Bolt.new%20github%20part%202%20.png)
 
 3. **建立儲存庫：**
-    - 在強制回應中，輸入儲存庫名稱（例如 `my-bolt-app`）。
+    - 在對話框中，輸入儲存庫名稱（例如 `my-bolt-app`）。
     - 選擇可見性（公開或私有）。
     - 點擊 **建立儲存庫**。
     ![bolt.new github part 3.png](https://cdn.zeabur.com/bolt.new%20migration/bolt.new%20github%20part%203.png)
@@ -61,7 +61,7 @@ ogImageSubtitle: 匯入你的 Bolt 專案
 
 ## 第 2 步：設定本機環境（Cursor）
 
-現在程式碼已在 GitHub 上，你將在本機設定它以驗證依賴項並進行生產調整。
+現在程式碼已在 GitHub 上，你將在本機設定它以驗證相依套件並進行生產調整。
 
 1. **複製儲存庫：**
 打開 Cursor，打開命令調板（`Cmd+Shift+P` 或 `Ctrl+Shift+P`），然後輸入 `> Git: Clone`。貼上你的新儲存庫 URL。
@@ -72,7 +72,7 @@ ogImageSubtitle: 匯入你的 Bolt 專案
     cd your-repo-name
     ```
 
-2. **安裝依賴項：**
+2. **安裝相依套件：**
 Bolt 專案通常會自動偵測套件管理器。檢查鎖定檔案（`pnpm-lock.yaml`、`package-lock.json` 或 `yarn.lock`）。
 
     ```bash
@@ -116,19 +116,19 @@ Bolt 專案通常會自動偵測套件管理器。檢查鎖定檔案（`pnpm-loc
 
 ### 第 5 步：讓 Zeabur AI 代理處理其餘的
 
-重定向到 Zeabur 後，平台的 AI 代理接管。它分析你的程式碼以理解專案的結構、依賴項和構建要求。
+重新導向到 Zeabur 後，平台的 AI 代理接管。它分析你的程式碼以理解專案的結構、相依套件和建置要求。
 
 Zeabur 代理將：
 
-- 識別你有一個全棧應用（例如 React 前端和 Express 後端）。
-- 自動設定構建和啟動命令。
-- 配置所有必要的服務。
+- 識別你有一個全端應用（例如 React 前端和 Express 後端）。
+- 自動設定建置和啟動命令。
+- 設定所有必要的服務。
 
 ![Zeabur 代理處理其餘的](https://cdn.zeabur.com/new%20agent.png)
 
 你將被提示選擇一個專案和一個部署區域。之後，Zeabur 處理其餘的一切。
 
-你可以即時觀看你的服務構建並變得完全可運作。Zeabur 甚至在部署成功後立即為你提供一個即時網域。
+你可以即時觀看你的服務建置並變得完全可運作。Zeabur 甚至在部署成功後立即為你提供一個即時網域。
 
 ## 第 6 步：網域和網路
 
@@ -149,4 +149,4 @@ Zeabur 代理將：
 
 ---
 
-就是這樣！你已成功將專案從 Bolt.new 上的原型遷移到 Zeabur 上的即時、生產就緒應用，無需編寫任何一行設定程式碼。這種無縫工作流讓你可以專注於最重要的事情：構建優秀的軟體。
+就是這樣！你已成功將專案從 Bolt.new 上的原型遷移到 Zeabur 上的即時、生產就緒應用，無需編寫任何一行設定程式碼。這種無縫工作流讓你可以專注於最重要的事情：建置優秀的軟體。

@@ -1,0 +1,19 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "docs",
+      "runtimeExecutable": "/Users/ling/.nvm/versions/node/v24.11.1/lib/node_modules/corepack/shims/pnpm",
+      "runtimeArgs": ["dev"],
+      "cwd": "docs",
+      "port": 3000,
+      "url": "http://localhost:3000/docs/en-US"
+    },
+    {
+      "name": "partner-portal",
+      "runtimeExecutable": "/Users/ling/Code/zeabur/scripts/partner-dev.sh",
+      "runtimeArgs": [],
+      "port": 3001
+    }
+  ]
+}

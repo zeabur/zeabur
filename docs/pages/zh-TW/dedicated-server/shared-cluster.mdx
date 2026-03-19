@@ -1,15 +1,15 @@
 ---
-title: 共享叢集（已停止服務）
-ogImageTitle: 共享叢集（已停止服務）
+title: 共享叢集（即將停止服務）
+ogImageTitle: 共享叢集（即將停止服務）
 ogImageSubtitle: Shared Cluster (Deprecated)
 ---
 
 import { Callout } from 'nextra/components'
 
-# 共享叢集（已停止服務）
+# 共享叢集（即將停止服務）
 
 <Callout type="error">
-共享叢集已於 **2026 年停止服務**，所有新專案請使用[專用伺服器](/dedicated-server)。
+共享叢集正在逐步退場。新專案已無法在共享叢集上建立，現有共享叢集專案將於 **2026 年 4 月 1 日**起停止接受新服務，所有新專案請使用[專用伺服器](/dedicated-server)。
 </Callout>
 
 ## 什麼是共享叢集
@@ -18,11 +18,11 @@ import { Callout } from 'nextra/components'
 
 ## 與專用伺服器的差異
 
-| 項目 | 共享叢集（已停止） | 專用伺服器 |
+| 項目 | 共享叢集（即將停止） | 專用伺服器 |
 | --- | --- | --- |
 | 資源隔離 | 多租戶共用硬體 | 完整獨享硬體 |
 | 計費方式 | 按用量計費（vCPU / 記憶體 / 流量） | 按月固定費用 |
-| 伺服器位置 | 固定區域（AWS） | 自攜主機（BYOH），區域不限 |
+| 伺服器位置 | 固定區域（AWS、GCP） | 自攜主機（BYOH），區域不限 |
 | 效能穩定性 | 可能受鄰居影響 | 資源穩定可預測 |
 | 適用場景 | 小型專案、開發測試 | 生產環境、高穩定性需求 |
 

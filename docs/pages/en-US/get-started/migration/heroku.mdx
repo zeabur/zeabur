@@ -21,8 +21,8 @@ This guide walks you through migrating your application from Heroku to Zeabur. M
 Most Heroku apps are already backed by a Git repository. If yours is:
 
 1. Log in to the [Zeabur dashboard](https://dash.zeabur.com/).
-2. Create a new project and select a deployment region.
-3. Click **Add Service** → **Git** and connect your GitHub, GitLab, or Bitbucket account.
+2. Create a new project and select a dedicated server (or purchase a new one).
+3. Click **Add Service** → **Git** and connect your GitHub account.
 4. Select the repository for your application.
 
 Zeabur automatically detects Node.js, Python, Ruby, Go, Java, PHP, and many other languages — no `Procfile` required.
@@ -119,7 +119,7 @@ For add-ons that are external SaaS products (SendGrid, Cloudinary, etc.), simply
 | Configuration | `Procfile` + buildpacks | Auto-detect (zero config) |
 | Deployment | `git push heroku main` | Git push to GitHub (auto-deploy) |
 | Scaling | Dyno types (Basic, Standard, Performance) | Usage-based, auto-scaling |
-| Sleep behavior | Free/Basic dynos sleep after 30 min | No sleep — always running |
+| Sleep behavior | Eco dynos sleep after 30 min of inactivity | No sleep — always running |
 | Slug size limit | 500 MB compressed | No slug size limit |
 | Databases | Heroku Postgres (managed) | Database services (PostgreSQL, MySQL, MongoDB, Redis, etc.) |
 | Add-ons | Heroku Add-on marketplace | Zeabur prebuilt services + external services |
