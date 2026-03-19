@@ -14,5 +14,8 @@ tsconfig.tsbuildinfo
 # Claude Code worktrees
 .claude/worktrees
 
+# Generated files
+public/sitemap.xml
+
 # Temporary files
 /tmp
