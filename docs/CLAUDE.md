@@ -47,7 +47,7 @@ import { Tabs } from 'nextra/components'
 </Tabs>
 ```
 
-- **Tab sync**: Use `storageKey` prop to sync selection across multiple `<Tabs>` on the same page (e.g., `<Tabs storageKey="os" items={['Linux', 'macOS']}>`)
+- **Tab sync**: Use `storageKey` prop to sync selection across multiple `<Tabs>` on the same page. Namespace the key to avoid collisions with other pages (e.g., `<Tabs storageKey="wonder-mesh-os" items={['Linux', 'macOS']}>`)
 
 ### `<Steps>`
 
