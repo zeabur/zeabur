@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { useRouter } from 'nextra/hooks'
 import type { AppProps } from 'next/app'
 import { LOCALE_LOCAL_STORAGE_KEY } from '../i18n-config'
@@ -9,9 +9,6 @@ const SCROLL_KEY = 'zeabur-docs-scroll'
 export default function Nextra({ Component, pageProps }: AppProps) {
   const router = useRouter()
   const { locale } = router
-  const asPathRef = useRef(router.asPath)
-  asPathRef.current = router.asPath
-
   // sync locale to localStorage when it changes
   useEffect(() => {
     if (window.localStorage.getItem(LOCALE_LOCAL_STORAGE_KEY) === locale) return
@@ -93,12 +90,12 @@ export default function Nextra({ Component, pageProps }: AppProps) {
     const onBeforeUnload = () => {
       sessionStorage.setItem(
         SCROLL_KEY,
-        JSON.stringify({ path: asPathRef.current, y: window.scrollY })
+        JSON.stringify({ path: router.asPath, y: window.scrollY })
       )
     }
     window.addEventListener('beforeunload', onBeforeUnload)
     return () => window.removeEventListener('beforeunload', onBeforeUnload)
-  }, [])
+  }, [router.asPath])
 
   // rewrite zeabur.com links to zeabur.cn when served from zeabur.cn
   useEffect(() => {
