@@ -1,0 +1,92 @@
+---
+title: 卸载 Wonder Mesh
+ogImageTitle: 卸载 Wonder Mesh
+ogImageSubtitle: 如何从服务器完整移除 Wonder Mesh
+---
+
+import { Callout, Tabs, Steps } from 'nextra/components'
+
+# 卸载 Wonder Mesh
+
+<Steps>
+
+### 删除所有项目
+
+从 [Zeabur 控制台](https://dash.zeabur.com) 移除部署在该 Mesh 服务器上的所有项目。
+
+### 运行卸载脚本
+
+根据你的操作系统执行以下命令，即可移除安装脚本所做的所有更改。
+
+<Tabs storageKey="uninstall-os" items={['Linux', 'macOS']}>
+  <Tabs.Tab>
+    ```bash copy
+    curl -fsSL https://cdn.zeabur.com/wonder/mesh-server-uninstall-linux.sh | sudo bash
+    ```
+
+    加上 `-f` 标志以跳过确认提示：
+
+    ```bash copy
+    curl -fsSL https://cdn.zeabur.com/wonder/mesh-server-uninstall-linux.sh | sudo bash -s -- --force
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    curl -fsSL https://cdn.zeabur.com/wonder/mesh-server-uninstall-darwin.sh | bash
+    ```
+
+    加上 `-f` 标志以跳过确认提示：
+
+    ```bash copy
+    curl -fsSL https://cdn.zeabur.com/wonder/mesh-server-uninstall-darwin.sh | bash -s -- --force
+    ```
+
+    <Callout type="info">
+      请**不要**使用 `sudo` — macOS 脚本必须以普通用户身份运行。
+    </Callout>
+  </Tabs.Tab>
+</Tabs>
+
+### 删除服务器
+
+从 [Zeabur 控制台](https://dash.zeabur.com) 删除该服务器。
+
+### 可选清理
+
+卸载脚本不会移除以下可能与 Wonder Mesh 一起安装的软件。仅在你不再需要时才移除。
+
+<Tabs storageKey="uninstall-os" items={['Linux', 'macOS']}>
+  <Tabs.Tab>
+    **K3s**（服务器）：
+
+    ```bash copy
+    /usr/local/bin/k3s-uninstall.sh
+    ```
+
+    **K3s**（代理）：
+
+    ```bash copy
+    /usr/local/bin/k3s-agent-uninstall.sh
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    **Lima**：
+
+    ```bash copy
+    brew uninstall lima
+    ```
+
+    **Homebrew**：
+
+    ```bash copy
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+</Steps>
+
+## 注意事项
+
+- **macOS 虚拟机隔离** — 在 macOS 上，Tailscale、Wonder、SSH 用户及所有网络更改都只存在于 Lima 虚拟机内。删除虚拟机即可全部移除，你的 macOS 系统配置不受影响。
+- **Tailscale 网络接口** — `tailscale0` / `ts0` 接口会在 `tailscaled` 停止时自动移除。
