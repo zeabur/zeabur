@@ -16,7 +16,7 @@ import { Callout, Tabs } from 'nextra/components'
 
 This page explains exactly what the Wonder Mesh install script does to your machine. We believe in full transparency — you should know what runs on your hardware before you execute it.
 
-<Tabs storageKey="os" items={['Linux', 'macOS']}>
+<Tabs storageKey="wonder-mesh-os" items={['Linux', 'macOS']}>
 <Tabs.Tab>
 
 The script runs with root privileges (`sudo bash`) and performs the following steps:
@@ -135,6 +135,8 @@ The script runs as a **regular user** (do not use `sudo`). Mesh-specific changes
 | Port forwarding | Ports 30000–32767 | Forwarded from VM to `0.0.0.0` on the host |
 
 Your macOS SSH configuration, system users, and network settings are **not** modified. Note that Lima forwards service ports (30000–32767) to `0.0.0.0` on the host, making them reachable from your local network.
+
+To revert these changes, see [Uninstall](./uninstall).
 
 </Tabs.Tab>
 </Tabs>
