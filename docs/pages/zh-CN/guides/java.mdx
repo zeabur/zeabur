@@ -4,6 +4,8 @@ ogImageTitle: 部署 Java 项目
 ogImageSubtitle: 在 Zeabur 部署 Java 项目
 ---
 
+import { Callout } from 'nextra/components'
+
 # 部署 Java 项目
 
 Zeabur 支持部署使用 Maven 或 Gradle 构建系统，原生或 Spring Boot 框架的 Java 项目。
@@ -14,8 +16,8 @@ Zeabur 支持部署使用 Maven 或 Gradle 构建系统，原生或 Spring Boot 
 
 默认情况下，Zeabur 会自动在标准构建输出目录中查找你的 JAR（或 WAR）文件：
 
-- **Maven**：`target/*.jar`
-- **Gradle**：`build/libs/*.jar`
+- **Maven**：`target/*.jar`（或 `target/*.war`）
+- **Gradle**：`build/libs/*.jar`（或 `build/libs/*.war`）
 
 对于标准的单模块项目，无需额外配置即可正常工作。
 
@@ -37,7 +39,6 @@ Zeabur 支持部署使用 Maven 或 Gradle 构建系统，原生或 Spring Boot 
 }
 ```
 
-{/* prettier-ignore */}
 <Callout>
   设置 `javaArgs` 后，它会**完全替换**默认的启动命令。你必须自行包含 `-jar path/to/your.jar`。
 </Callout>

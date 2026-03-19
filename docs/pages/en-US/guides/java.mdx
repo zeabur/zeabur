@@ -4,6 +4,8 @@ ogImageTitle: Deploying Java Projects
 ogImageSubtitle: Deploying Java Projects on Zeabur
 ---
 
+import { Callout } from 'nextra/components'
+
 # Deploying Java Projects
 
 Zeabur supports deploying Java projects that use the Maven or Gradle build systems, with either native or Spring Boot frameworks.
@@ -14,8 +16,8 @@ Zeabur supports deploying Java projects that use the Maven or Gradle build syste
 
 By default, Zeabur automatically finds your JAR (or WAR) file in the standard build output directory:
 
-- **Maven**: `target/*.jar`
-- **Gradle**: `build/libs/*.jar`
+- **Maven**: `target/*.jar` (or `target/*.war`)
+- **Gradle**: `build/libs/*.jar` (or `build/libs/*.war`)
 
 This works out of the box for standard single-module projects.
 
@@ -37,7 +39,6 @@ For Spring Boot projects, remember to include the port binding so Zeabur can rou
 }
 ```
 
-{/* prettier-ignore */}
 <Callout>
   When `javaArgs` is set, it **completely replaces** the default startup command. You must include `-jar path/to/your.jar` yourself.
 </Callout>
