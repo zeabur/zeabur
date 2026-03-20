@@ -4,13 +4,13 @@ export default {
   // ── Infraestructura ──────────────────────────────────────────────────────
   '---1---': { type: 'separator' },
   'dedicated-server': 'Servidores',
-  'wonder-mesh':      'Wonder Mesh',
   deploy:             'Implementar',
 
   // ── Productos ────────────────────────────────────────────────────────────
   '---2---': { type: 'separator' },
   'ai-hub':           'AI Hub',
   email:              'Email',
+  'wonder-mesh':      'Wonder Mesh',
   template:           'Plantillas',
   integrations:       'Integraciones',
 
@@ -37,6 +37,7 @@ export default {
   manage:          { display: 'hidden' },
   networking:      { display: 'hidden' },
   tutorials:       { display: 'hidden' },
+  mcp:             { display: 'hidden' },
 
   // ── Root index ────────────────────────────────────────────────────────────
   index: { display: 'hidden' },

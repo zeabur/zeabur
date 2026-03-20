@@ -1,33 +1,141 @@
 ---
-title: 使用 CLI 部署服務
-ogImageTitle: 使用 CLI 部署服務
-ogImageSubtitle: 使用 CLI 部署本機程式碼
+title: Zeabur CLI
+ogImageTitle: Zeabur CLI
+ogImageSubtitle: 在終端中管理 Zeabur 資源
 ---
 
-# 使用 CLI 部署服務
+import { Callout } from 'nextra/components'
 
-在控制台中一鍵部署服務很簡單，但是如果你想在終端中使用一條指令部署服務，我們也為你提供了這一方案。
+# Zeabur CLI
 
-本篇文章將會介紹如何使用 Zeabur CLI 在終端中部署服務。
+Zeabur CLI 讓你在終端中管理所有 Zeabur 資源——部署服務、查看日誌、管理專案，無需打開 Dashboard。
 
 ## 登入帳號
 
-你需要登入帳號才能部署服務。
+### 瀏覽器登入
 
-```bash
+```bash copy
 npx zeabur@latest auth login
 ```
 
-點選 `Enter` 打開瀏覽器登入頁面，然後點選 `Confirm` 按鈕，你將會被重定向到終端並且看到登入成功的消息。
+按下 `Enter` 打開瀏覽器登入頁面，點選 `Confirm` 按鈕後，你會被重新導向到終端並看到登入成功的訊息。
+
+### Token 登入
+
+適合 CI/CD 或無法打開瀏覽器的環境：
+
+```bash copy
+npx zeabur@latest auth login --token <your-token>
+```
 
 ## 部署服務
 
-現在你已經準備好部署服務了，只需要在你的服務目錄中運作以下指令。
+在你的專案目錄中執行：
 
-```bash
+```bash copy
 npx zeabur@latest deploy
 ```
 
-然後你需要按照指引選擇或者建立一個專案，你的服務將會被部署到這個專案中。
+CLI 會自動偵測框架，並引導你選擇或建立一個專案。部署完成後，終端會顯示服務的 URL。
 
-選擇好專案以後，你將會在終端中看到部署進度。等待幾秒鐘，你的服務將會被自動部署，你將會在終端中看到服務的 URL。
+## 專案管理
+
+### 列出專案
+
+```bash copy
+npx zeabur@latest project ls
+```
+
+### 設定當前專案 Context
+
+```bash copy
+npx zeabur@latest context set project
+```
+
+互動模式下會列出你的所有專案供選擇。設定後，後續指令會自動套用到該專案。
+
+## 服務管理
+
+### 列出服務
+
+```bash copy
+npx zeabur@latest service ls
+```
+
+### 設定當前服務 Context
+
+```bash copy
+npx zeabur@latest context set service
+```
+
+### 重啟服務
+
+```bash copy
+npx zeabur@latest service restart
+```
+
+## 部署資訊與日誌
+
+### 查看部署狀態
+
+```bash copy
+npx zeabur@latest deployment get
+```
+
+### 查看 Runtime 日誌
+
+```bash copy
+npx zeabur@latest deployment log -t=runtime
+```
+
+### 查看 Build 日誌
+
+```bash copy
+npx zeabur@latest deployment log -t=build
+```
+
+## 環境切換
+
+```bash copy
+npx zeabur@latest context set env
+```
+
+切換到不同的部署環境（例如 production、staging）。
+
+## Non-Interactive 模式
+
+在 CI/CD 管線或自動化腳本中，你可以加上 `-i=false` 停用互動模式，並直接傳入參數：
+
+### 透過名稱指定專案和服務
+
+```bash copy
+npx zeabur@latest context set project --name <project-name>
+npx zeabur@latest context set service --name <service-name>
+npx zeabur@latest context set env --id <env-id>
+```
+
+### 透過 ID 指定
+
+```bash copy
+npx zeabur@latest context set project --id <project-id>
+npx zeabur@latest context set service --id <service-id>
+```
+
+### 一行完成操作
+
+不設定 context，直接在指令中傳入所有參數：
+
+```bash copy
+npx zeabur@latest service restart --env-id <env-id> --service-name <service-name>
+npx zeabur@latest deployment get --env-id <env-id> --service-name <service-name>
+npx zeabur@latest deployment log -t=runtime --env-id <env-id> --service-name <service-name>
+```
+
+## 取得指令說明
+
+任何指令都可以加上 `--help` 查看用法：
+
+```bash copy
+npx zeabur@latest --help
+npx zeabur@latest deployment --help
+```

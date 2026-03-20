@@ -4,7 +4,6 @@ export default {
   // ── 基礎設施 ──────────────────────────────────────────────────────────
   '---1---': { type: 'separator' },
   'dedicated-server': '伺服器',
-  'wonder-mesh':      'Wonder Mesh',
   deploy:             '部署',
   operations:         '維運',
 
@@ -12,6 +11,7 @@ export default {
   '---2---': { type: 'separator' },
   'ai-hub':           'AI Hub',
   email:              'Email',
+  'wonder-mesh':      'Wonder Mesh',
   template:           '模板',
   integrations:       '整合',
 
@@ -47,10 +47,6 @@ export default {
   mesh:           { display: 'hidden' },
   tutorials:      { display: 'hidden' },
   mcp:            { display: 'hidden' },
-
-  // ── 內部文件（直連可看，不出現在 sidebar）──────────────────────────
-  'ia-overview':     { display: 'hidden' },
-  'migration-script': { display: 'hidden' },
 
   // ── Root index — served at /zh-TW, hidden from sidebar ─────────
   index: { display: 'hidden' },

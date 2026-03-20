@@ -1,31 +1,141 @@
 ---
-title: Deploy in CLI
-ogImageTitle: Deploy in CLI
-ogImageSubtitle: Deploy local codes in CLI
+title: Zeabur CLI
+ogImageTitle: Zeabur CLI
+ogImageSubtitle: Manage Zeabur resources from your terminal
 ---
 
-# Deploy Service in Zeabur CLI
+import { Callout } from 'nextra/components'
 
-Deploy services with one click in dashboard is easy, but if you want to deploy services in your terminal with one command, we've got you covered.
+# Zeabur CLI
 
-## Login your account
+Zeabur CLI lets you manage all Zeabur resources from your terminal — deploy services, view logs, manage projects, without opening the Dashboard.
 
-After the installation is complete, you need to login your account to deploy services.
+## Login
 
-```bash
+### Browser login
+
+```bash copy
 npx zeabur@latest auth login
 ```
 
-Press `Enter` to open the login page in your browser, and then click on the `Confirm` button, you will be redirected to the terminal and see the login success message.
+Press `Enter` to open the login page in your browser, then click `Confirm`. You will be redirected back to the terminal with a login success message.
 
-## Deploy service
+### Token login
 
-Now you are ready to deploy your service, just run the following command in your service directory.
+For CI/CD or headless environments:
 
-```bash
+```bash copy
+npx zeabur@latest auth login --token <your-token>
+```
+
+## Deploy a service
+
+Run the following command in your project directory:
+
+```bash copy
 npx zeabur@latest deploy
 ```
 
-Then you need to follow the guide to select or create a project where your service will be deployed.
+The CLI automatically detects your framework and guides you to select or create a project. Once deployed, the service URL will be displayed in the terminal.
 
-After that, you will see the deployment progress in your terminal. Wait for a few seconds, your service will be automatically deployed, and you will get the service URL in the terminal.
+## Project management
+
+### List projects
+
+```bash copy
+npx zeabur@latest project ls
+```
+
+### Set project context
+
+```bash copy
+npx zeabur@latest context set project
+```
+
+In interactive mode, this lists all your projects for selection. Subsequent commands will automatically apply to the selected project.
+
+## Service management
+
+### List services
+
+```bash copy
+npx zeabur@latest service ls
+```
+
+### Set service context
+
+```bash copy
+npx zeabur@latest context set service
+```
+
+### Restart a service
+
+```bash copy
+npx zeabur@latest service restart
+```
+
+## Deployment info and logs
+
+### View deployment status
+
+```bash copy
+npx zeabur@latest deployment get
+```
+
+### View runtime logs
+
+```bash copy
+npx zeabur@latest deployment log -t=runtime
+```
+
+### View build logs
+
+```bash copy
+npx zeabur@latest deployment log -t=build
+```
+
+## Switch environments
+
+```bash copy
+npx zeabur@latest context set env
+```
+
+Switch between deployment environments (e.g., production, staging).
+
+## Non-interactive mode
+
+For CI/CD pipelines or automation scripts, add `-i=false` to disable interactive prompts and pass parameters directly:
+
+### Specify project and service by name
+
+```bash copy
+npx zeabur@latest context set project --name <project-name>
+npx zeabur@latest context set service --name <service-name>
+npx zeabur@latest context set env --id <env-id>
+```
+
+### Specify by ID
+
+```bash copy
+npx zeabur@latest context set project --id <project-id>
+npx zeabur@latest context set service --id <service-id>
+```
+
+### One-liner operations
+
+Skip context setup and pass all parameters inline:
+
+```bash copy
+npx zeabur@latest service restart --env-id <env-id> --service-name <service-name>
+npx zeabur@latest deployment get --env-id <env-id> --service-name <service-name>
+npx zeabur@latest deployment log -t=runtime --env-id <env-id> --service-name <service-name>
+```
+
+## Get help
+
+Add `--help` to any command to view its usage:
+
+```bash copy
+npx zeabur@latest --help
+npx zeabur@latest deployment --help
+```
