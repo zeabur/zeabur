@@ -1,5 +1,8 @@
 export default {
-  "template-in-code": "Crear Plantilla desde YAML",
-  "fork-git-repo-from-template": "Fork Repositorio Git desde Plantilla",
-  "maintain-template": "Mantener y Actualizar Plantillas",
+  index:                         { display: 'hidden' },
+  'template-catalog':            'Catálogo de Plantillas',
+  'template-format':             'Formato de Plantilla',
+  'fork-git-repo-from-template': 'Fork Repositorio Git desde Plantilla',
+  'maintain-template':           'Mantener y Actualizar Plantillas',
+  'template-in-code':            { display: 'hidden' },
 }
