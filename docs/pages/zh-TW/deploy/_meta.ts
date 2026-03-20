@@ -7,5 +7,6 @@ export default {
   "deploy-button": "一鍵部署按鈕",
   "customize-prebuilt": "自訂 Docker 映像檔",
   "github": "整合 GitHub",
+  "large-files": "大型檔案處理",
   "variables": "變數",
 }
