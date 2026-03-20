@@ -4,13 +4,13 @@ export default {
   // ── 基础设施 ─────────────────────────────────────────────────────────────
   '---1---': { type: 'separator' },
   'dedicated-server': '服务器',
+  'wonder-mesh':      'Wonder Mesh',
   deploy:             '部署',
 
   // ── 产品 ─────────────────────────────────────────────────────────────────
   '---2---': { type: 'separator' },
   'ai-hub':           'AI Hub',
   email:              'Email',
-  'wonder-mesh':      'Wonder Mesh',
   template:           '模板',
   integrations:       '集成',
 

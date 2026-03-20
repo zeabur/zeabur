@@ -4,6 +4,7 @@ export default {
   // ── Infrastructure ────────────────────────────────────────────────────
   '---1---': { type: 'separator' },
   'dedicated-server': 'Servers',
+  'wonder-mesh':      'Wonder Mesh',
   deploy:             'Deploy',
   operations:         'Operations',
 
@@ -11,7 +12,6 @@ export default {
   '---2---': { type: 'separator' },
   'ai-hub':           'AI Hub',
   email:              'Email',
-  'wonder-mesh':      'Wonder Mesh',
   template:           'Templates',
   integrations:       'Integrations',
 

@@ -4,13 +4,13 @@ export default {
   // ── インフラストラクチャ ─────────────────────────────────────────────────
   '---1---': { type: 'separator' },
   'dedicated-server': 'サーバー',
+  'wonder-mesh':      'Wonder Mesh',
   deploy:             'デプロイ',
 
   // ── プロダクト ───────────────────────────────────────────────────────────
   '---2---': { type: 'separator' },
   'ai-hub':           'AI Hub',
   email:              'Email',
-  'wonder-mesh':      'Wonder Mesh',
   template:           'テンプレート',
   integrations:       'インテグレーション',
 

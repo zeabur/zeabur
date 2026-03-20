@@ -4,6 +4,7 @@ export default {
   // ── 基礎設施 ──────────────────────────────────────────────────────────
   '---1---': { type: 'separator' },
   'dedicated-server': '伺服器',
+  'wonder-mesh':      'Wonder Mesh',
   deploy:             '部署',
   operations:         '維運',
 
@@ -11,7 +12,6 @@ export default {
   '---2---': { type: 'separator' },
   'ai-hub':           'AI Hub',
   email:              'Email',
-  'wonder-mesh':      'Wonder Mesh',
   template:           '模板',
   integrations:       '整合',
 
