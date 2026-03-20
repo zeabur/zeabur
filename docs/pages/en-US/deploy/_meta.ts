@@ -3,7 +3,7 @@ export default {
   'how-deploys-work': 'How Deploys Work',
   create:     'Create Projects & Services',
   methods:    'Deployment Methods',
-  templates:  'Templates',
+  templates:  { display: 'hidden' },
   config:     'Service Configuration',
   manage:     'Project Management',
   networking: 'Networking',

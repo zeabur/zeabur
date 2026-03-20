@@ -77,13 +77,13 @@ export default withNextra({
       // since it is unmaintained. We may add it back in the future.
       {
         source: '/template/create-template',
-        destination: '/template/template-in-code',
-        permanent: false,
+        destination: '/template/template-format',
+        permanent: true,
       },
       {
         source: '/:locale/template/create-template',
-        destination: '/:locale/template/template-in-code',
-        permanent: false,
+        destination: '/:locale/template/template-format',
+        permanent: true,
       },
 
       // deploy flat → deploy sub-folders
@@ -191,12 +191,12 @@ export default withNextra({
       },
       {
         source: '/billing/reward',
-        destination: '/rewards/reward',
+        destination: '/rewards/contribution',
         permanent: true,
       },
       {
         source: '/:locale/billing/reward',
-        destination: '/:locale/rewards/reward',
+        destination: '/:locale/rewards/contribution',
         permanent: true,
       },
 
@@ -349,8 +349,8 @@ export default withNextra({
       // community → rewards / faq-support
       { source: '/community/referral',                    destination: '/rewards/referral', permanent: true },
       { source: '/:locale/community/referral',             destination: '/:locale/rewards/referral', permanent: true },
-      { source: '/community/contribution',                destination: '/rewards/reward', permanent: true },
-      { source: '/:locale/community/contribution',         destination: '/:locale/rewards/reward', permanent: true },
+      { source: '/community/contribution',                destination: '/rewards/contribution', permanent: true },
+      { source: '/:locale/community/contribution',         destination: '/:locale/rewards/contribution', permanent: true },
       { source: '/community/verify',                      destination: '/get-started/faq-support/verify', permanent: true },
       { source: '/:locale/community/verify',               destination: '/:locale/get-started/faq-support/verify', permanent: true },
       { source: '/community/help',                        destination: '/get-started/faq-support/help', permanent: true },
@@ -387,11 +387,43 @@ export default withNextra({
       { source: '/tutorials/github',    destination: '/deploy/methods/github-integration', permanent: true },
       { source: '/:locale/tutorials/github', destination: '/:locale/deploy/methods/github-integration', permanent: true },
 
+      // ── rewards/reward → rewards/contribution (renamed) ──
+      { source: '/rewards/reward',                         destination: '/rewards/contribution', permanent: true },
+      { source: '/:locale/rewards/reward',                  destination: '/:locale/rewards/contribution', permanent: true },
+
+      // ── pricing old hidden pages → rewards canonical ──
+      { source: '/pricing/referral',                       destination: '/rewards/referral', permanent: true },
+      { source: '/:locale/pricing/referral',                destination: '/:locale/rewards/referral', permanent: true },
+      { source: '/pricing/reward',                         destination: '/rewards/contribution', permanent: true },
+      { source: '/:locale/pricing/reward',                  destination: '/:locale/rewards/contribution', permanent: true },
+      { source: '/pricing/sponsor',                        destination: '/rewards/sponsor', permanent: true },
+      { source: '/:locale/pricing/sponsor',                 destination: '/:locale/rewards/sponsor', permanent: true },
+      { source: '/pricing/redeem-card',                    destination: '/rewards/redeem-card', permanent: true },
+      { source: '/:locale/pricing/redeem-card',             destination: '/:locale/rewards/redeem-card', permanent: true },
+      { source: '/pricing/redeem',                         destination: '/rewards/redeem-card', permanent: true },
+      { source: '/:locale/pricing/redeem',                  destination: '/:locale/rewards/redeem-card', permanent: true },
+
+      // ── template-in-code → template/template-format (replaced) ──
+      { source: '/template/template-in-code',              destination: '/template/template-format', permanent: true },
+      { source: '/:locale/template/template-in-code',       destination: '/:locale/template/template-format', permanent: true },
+      { source: '/deploy/template-in-code',                destination: '/template/template-format', permanent: true },
+      { source: '/:locale/deploy/template-in-code',         destination: '/:locale/template/template-format', permanent: true },
+
+      // ── deploy/templates → template (canonical moved) ──
+      { source: '/deploy/templates/template-catalog',      destination: '/template/template-catalog', permanent: true },
+      { source: '/:locale/deploy/templates/template-catalog', destination: '/:locale/template/template-catalog', permanent: true },
+      { source: '/deploy/templates/template-format',       destination: '/template/template-format', permanent: true },
+      { source: '/:locale/deploy/templates/template-format', destination: '/:locale/template/template-format', permanent: true },
+      { source: '/deploy/templates/maintain-template',     destination: '/template/maintain-template', permanent: true },
+      { source: '/:locale/deploy/templates/maintain-template', destination: '/:locale/template/maintain-template', permanent: true },
+      { source: '/deploy/templates',                       destination: '/template', permanent: true },
+      { source: '/:locale/deploy/templates',                destination: '/:locale/template', permanent: true },
+
       // ── Template fork redirect ──
-      { source: '/template/fork-git-repo-from-template', destination: '/deploy/templates/template-format', permanent: true },
-      { source: '/:locale/template/fork-git-repo-from-template', destination: '/:locale/deploy/templates/template-format', permanent: true },
-      { source: '/deploy/templates/fork-from-template', destination: '/deploy/templates/template-format', permanent: true },
-      { source: '/:locale/deploy/templates/fork-from-template', destination: '/:locale/deploy/templates/template-format', permanent: true },
+      { source: '/template/fork-git-repo-from-template', destination: '/template/template-format', permanent: true },
+      { source: '/:locale/template/fork-git-repo-from-template', destination: '/:locale/template/template-format', permanent: true },
+      { source: '/deploy/templates/fork-from-template', destination: '/template/template-format', permanent: true },
+      { source: '/:locale/deploy/templates/fork-from-template', destination: '/:locale/template/template-format', permanent: true },
 
       // ── Tutorials bare → get-started ──
       { source: '/tutorials',           destination: '/get-started',                    permanent: true },

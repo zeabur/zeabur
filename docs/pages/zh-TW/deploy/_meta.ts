@@ -3,7 +3,7 @@ export default {
   'how-deploys-work': '部署流程概述',
   create:     '建立專案與服務',
   methods:    '部署方式',
-  templates:  '模板',
+  templates:  { display: 'hidden' },
   config:     '服務設定',
   manage:     '專案管理',
   networking: '網路',
