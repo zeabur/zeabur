@@ -1,0 +1,40 @@
+---
+title: Plantillas
+ogImageTitle: Plantillas de Zeabur
+ogImageSubtitle: Despliega servicios populares con un clic
+---
+
+import { Callout } from 'nextra/components'
+
+# Plantillas
+
+Zeabur ofrece un amplio catálogo de **plantillas de despliegue con un clic**, para que puedas lanzar WordPress, Postgres, Redis, n8n, Ghost y cientos de otros servicios populares sin ninguna configuración manual.
+
+## Explorar Plantillas
+
+Visita [zeabur.com/templates](https://zeabur.com/templates) para explorar el catálogo completo. Haz clic en cualquier plantilla para desplegarla directamente en tu proyecto.
+
+## Cómo Funcionan las Plantillas
+
+Cada plantilla predefine:
+
+- Servicios requeridos y versiones
+- Variables de entorno y configuración predeterminada
+- Relaciones de conexión entre servicios
+
+Al desplegar, Zeabur crea automáticamente todos los servicios definidos en la plantilla, los conecta entre sí y deja tu aplicación lista para usar de inmediato.
+
+## Usar Plantillas en el Flujo de Despliegue
+
+Al crear un servicio, selecciona "Desplegar desde Plantilla" para buscar y aplicar una plantilla directamente desde la página de despliegue.
+
+<Callout type="info">
+  Desplegar una plantilla crea un proyecto completo que contiene todos los servicios definidos. Puedes modificar libremente las variables de entorno y la configuración después del despliegue.
+</Callout>
+
+## Crea Tu Propia Plantilla
+
+Si tienes una arquitectura reutilizable, puedes empaquetarla como plantilla y compartirla con otros:
+
+- [Crear una Plantilla desde YAML](/es-ES/template/template-format) — define la estructura de tu plantilla en código
+- [Fork de Repositorio Git desde Plantilla](/es-ES/template/fork-git-repo-from-template) — despliegue de plantillas con integración de repositorio Git
