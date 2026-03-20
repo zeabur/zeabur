@@ -11,6 +11,7 @@ export default {
   '---2---': { type: 'separator' },
   'ai-hub':           'AI Hub',
   email:              'Email',
+  'wonder-mesh':      'Wonder Mesh',
   template:           'Templates',
   integrations:       'Integrations',
 

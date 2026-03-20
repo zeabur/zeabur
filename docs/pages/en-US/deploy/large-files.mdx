@@ -1,0 +1,80 @@
+---
+title: Large File Handling
+ogImageTitle: Large File Handling
+ogImageSubtitle: Best practices for deploying projects with large files
+---
+
+import { Callout } from 'nextra/components'
+
+# Large File Handling
+
+When you deploy a project on Zeabur via Git, your repository is downloaded and used as build context. Large files in the repository — such as binaries, datasets, media files, or machine learning models — can significantly increase build time or even cause the build to fail.
+
+This guide explains why large files cause issues and how to handle them.
+
+## Why Large Files Cause Issues
+
+### Build Context Size Limit
+
+When deploying from GitHub, Zeabur downloads your repository as a ZIP archive. This archive has a **1 GiB size limit** — if your repository exceeds this limit, the build will fail. Even below this limit, large repositories will result in slower builds due to the increased download and extraction time.
+
+### Git LFS Not Supported
+
+<Callout type="warning">
+Zeabur does not currently support Git Large File Storage (Git LFS). Files tracked by Git LFS will **not** be fetched during the build process, which will result in missing file errors at build time or runtime.
+</Callout>
+
+If your repository uses Git LFS, the build server will only receive the LFS pointer files instead of the actual file contents. You will need to move these files to an external storage solution.
+
+### Container Image Size
+
+Large files that are included in the final container image will increase the time needed to deploy, scale, and restart your service. Keeping the image lean ensures faster cold starts and more efficient resource usage.
+
+## Recommended Practices
+
+### Remove Large Files from Your Repository
+
+Since Zeabur downloads the entire repository for building, large files cannot be excluded via `.dockerignore` or similar mechanisms. Instead, you should remove large files from the repository itself.
+
+Use `.gitignore` to prevent large files from being committed:
+
+```txt filename=".gitignore" copy
+# Datasets and large media
+*.csv
+*.parquet
+data/
+assets/videos/
+
+# Build artifacts
+dist/
+*.log
+
+# Machine learning models
+*.bin
+*.h5
+*.onnx
+```
+
+<Callout type="info">
+If you have already committed large files and want to remove them from Git history to reduce the repository size, you can use tools like [git filter-repo](https://github.com/newren/git-filter-repo) or [BFG Repo-Cleaner](https://rtyley.github.io/bfg-repo-cleaner/). Simply deleting the file in a new commit does not reduce the repository size since Git retains the file in its history.
+</Callout>
+
+### Use External Object Storage for Large Assets
+
+For large static assets such as images, videos, or machine learning models, store them in an external object storage service (e.g., AWS S3, Cloudflare R2, or any S3-compatible service) and reference them by URL in your application.
+
+This keeps your repository and container image small while allowing your application to access the files it needs at runtime.
+
+### Use Volumes for Runtime Data
+
+If your application generates or requires large files at runtime — such as user uploads, cache files, or databases — use [Persistent Volumes](/data-management/volumes) instead of baking them into the container image.
+
+Files stored on volumes persist across deployments and service restarts, and they do not affect your build context size.
+
+### Keep Your Repository Lean
+
+Follow these general best practices to keep your repository small:
+
+- **Do not commit binaries** — compiled files, executables, and archives should be built in CI or downloaded at runtime.
+- **Use `.gitignore`** — exclude build artifacts, dependencies (`node_modules`, `venv`), and temporary files.
+- **Split large repositories** — if your repository contains many independent services, consider splitting them into separate repositories and using [Watch Paths](/deploy/watch-paths) or [Root Directory](/deploy/root-directory) to manage deployments.

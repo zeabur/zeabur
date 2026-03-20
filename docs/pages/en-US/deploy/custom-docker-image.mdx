@@ -4,6 +4,8 @@ ogImageTitle: Customize Docker image
 ogImageSubtitle: Deploy Docker image to Zeabur
 ---
 
+import { Callout } from 'nextra/components'
+
 # Custom Docker image
 
 While Zeabur already includes numerous templates provided by the community, you might need to deploy your own Docker images, configure persistent storage, set start command, and more. For this need, Zeabur offers customizable Prebuilt functionality.
@@ -38,6 +40,17 @@ services:
 ```
 
 After setting up, you can proceed to configure environment variables, ports, etc.
+
+<Callout type="warning">
+If you build your Docker image locally on an Apple Silicon Mac (M1/M2/M3/M4), the image defaults to the `linux/arm64` platform.
+Zeabur's servers run on `linux/amd64`, so deploying an ARM-only image will fail with the error **"no match for platform in manifest"**.
+
+To avoid this, build your image with the `--platform linux/amd64` flag:
+
+```bash
+docker buildx build --platform linux/amd64 -t <your-image> --push .
+```
+</Callout>
 
 ### Environment Variable
 

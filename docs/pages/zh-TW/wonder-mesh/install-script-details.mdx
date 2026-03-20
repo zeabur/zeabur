@@ -1,0 +1,142 @@
+---
+title: 安裝腳本做了什麼？
+ogImageTitle: Wonder Mesh 安裝腳本
+ogImageSubtitle: 安裝腳本在您的機器上所做變更的詳細說明
+---
+
+import { Callout, Tabs } from 'nextra/components'
+
+# 安裝腳本做了什麼？
+
+<Callout type="error">
+  此頁面僅供**參考資訊**。
+  請勿手動執行此處列出的任何指令——請始終使用 Zeabur 控制台中提供的安裝腳本。
+  不按順序執行個別指令可能會導致你的機器處於異常狀態。
+</Callout>
+
+此頁面詳細說明了 Wonder Mesh 安裝腳本對你的機器所做的操作。我們相信完全透明——你應該在執行之前知道在你的硬體上運行了什麼。
+
+<Tabs storageKey="wonder-mesh-os" items={['Linux', 'macOS']}>
+<Tabs.Tab>
+
+該腳本以 root 權限（`sudo bash`）執行，並進行以下步驟：
+
+### 1. 安裝 Tailscale
+
+- 下載並執行[官方 Tailscale 安裝腳本](https://tailscale.com/download)
+- 透過你的系統套件管理器（apt、dnf、yum 等）安裝 `tailscale` 套件
+- 啟用並啟動 `tailscaled` systemd 服務（開機時自動啟動）
+
+<Callout type="warning">
+  如果你已經安裝了 Tailscale 並連接到另一個網路，此步驟將覆蓋你現有的 Tailscale 設定。
+</Callout>
+
+### 2. 下載 Wonder 二進位檔
+
+- 從 `cdn.zeabur.com` 下載 Wonder Mesh 用戶端
+- 放置在 `/usr/local/bin/wonder` 並標記為可執行
+
+### 3. 加入網狀網路
+
+- 執行 `wonder worker join` 將你的裝置連接到基於 [WireGuard](https://www.wireguard.com/) 的私有網狀網路
+- 該網狀網路由 Zeabur 託管的 [Headscale](https://headscale.net/) 協調伺服器管理
+- 你的裝置會收到一個 `100.x.x.x` 範圍的 Mesh IP 位址
+
+### 4. 安裝和設定 SSH
+
+- 如果尚未安裝，則安裝 `openssh-server`
+- 啟用並啟動 `sshd` systemd 服務
+- 修改 SSH 設定以啟用密碼驗證：
+  - 編輯 `/etc/ssh/sshd_config` 設定 `PasswordAuthentication yes`
+  - 建立 `/etc/ssh/sshd_config.d/00-zeabur-password-auth.conf` 作為附加覆寫
+
+<Callout type="warning">
+  如果你之前已停用 SSH 密碼驗證（僅限金鑰登入），此變更將重新啟用它。SSH 通訊埠僅可透過網狀網路連線，無法從公開網際網路存取。
+</Callout>
+
+### 5. 建立系統使用者
+
+- 建立 `zeabur` 使用者（如果不存在），shell 設定為 `/bin/bash`
+- 為該使用者設定隨機產生的密碼
+- 將使用者新增到 `sudo`（或 `wheel`）群組
+- 建立 `/etc/sudoers.d/zeabur` 授予免密碼 sudo 存取權限
+
+<Callout type="warning">
+  請勿手動更改 `zeabur` 使用者的密碼。Zeabur 使用此憑證透過 SSH 管理你的裝置。更改密碼將中斷連線並阻止部署。
+</Callout>
+
+### 6. 回報給 Zeabur
+
+- 取得 Mesh IP（`tailscale ip -4`）和公開 IP（`curl ifconfig.me`）
+- 將 Mesh IP、SSH 憑證和公開 IP 傳送至 Zeabur API
+- 這讓 Zeabur 能夠透過網狀網路的 SSH 管理你裝置上的部署
+
+### 7. 進度回報
+
+每個步驟都會即時向 Zeabur API 回報進度，讓你可以從控制台監控安裝過程。如果發生錯誤，會回報錯誤輸出的最後幾行。
+
+### 新增的檔案和服務（Linux）
+
+| 類型 | 路徑／名稱 | 說明 |
+|------|-----------|------|
+| 二進位檔 | `/usr/local/bin/wonder` | Wonder Mesh 用戶端 |
+| 套件 | `tailscale` | 網狀網路（WireGuard） |
+| 套件 | `openssh-server`（如未安裝） | SSH 伺服器 |
+| 設定 | `/etc/ssh/sshd_config.d/00-zeabur-password-auth.conf` | 啟用密碼驗證 |
+| 設定 | `/etc/sudoers.d/zeabur` | `zeabur` 使用者的免密碼 sudo |
+| 日誌 | `/tmp/zeabur-install.log` | 安裝日誌 |
+| 系統服務 | `tailscaled` | Tailscale 常駐程式（開機時啟動） |
+| 系統服務 | `sshd` | SSH 常駐程式（開機時啟動） |
+| 系統使用者 | `zeabur` | 具有 sudo 存取權限的使用者 |
+
+### 網路變更（Linux）
+
+| 變更 | 說明 |
+|------|------|
+| WireGuard 通道 | 新增一個帶有 `100.x.x.x` IP 的網狀網路介面 |
+| Tailscale 控制伺服器 | 指向 Zeabur 的 Headscale 實例（非官方 Tailscale 服務） |
+| SSH 通訊埠 22 | 可透過網狀網路以密碼驗證存取 |
+| 對外連線 | 安裝期間連線至 `tailscale.com`、`cdn.zeabur.com`、`wonder-net.strrl.dev`、`api.zeabur.com`、`ifconfig.me`。設定完成後，會維持與 Tailscale 協調伺服器和 `api.zeabur.com` 的持續連線，用於網狀網路和平台通訊。 |
+
+</Tabs.Tab>
+<Tabs.Tab>
+
+該腳本以**一般使用者**身分執行（請勿使用 `sudo`）。網狀網路相關變更（Tailscale、SSH、`zeabur` 使用者、sudoers）會在虛擬機內部進行——你的 macOS 系統設定不會被直接修改。但 Homebrew/Lima 會安裝在主機上，且 Lima 會建立主機端的通訊埠轉發（詳見下方）。
+
+### 1. 安裝 Homebrew
+
+- 如果尚未安裝 Homebrew，則下載並執行[官方 Homebrew 安裝腳本](https://brew.sh/)
+- 可能也會安裝 Xcode Command Line Tools
+
+### 2. 安裝 Lima
+
+- 執行 `brew install lima`
+- Lima 是一個輕量級虛擬機管理器；它依賴 QEMU，Homebrew 會自動安裝
+
+### 3. 建立虛擬機
+
+- 建立一個名為 `zeabur-mesh` 的 Lima 虛擬機，基於 Ubuntu 24.04
+- 使用你建立伺服器時指定的 CPU、記憶體和磁碟資源來設定虛擬機
+- 設定虛擬機到主機的通訊埠轉發，範圍為 30000–32767（供服務使用）
+
+### 4. 在虛擬機內執行 Linux 安裝腳本
+
+- 透過 `limactl shell` 在虛擬機內執行相同的 Linux 安裝腳本（如上所述）
+- 所有 Tailscale、SSH、使用者建立和網狀網路變更都在虛擬機內部進行
+
+### macOS 主機上的變更
+
+| 類型 | 路徑／名稱 | 說明 |
+|------|-----------|------|
+| 套件 | `lima`（透過 Homebrew） | 虛擬機管理器 |
+| 套件 | `qemu`（透過 Homebrew） | 虛擬機執行環境 |
+| 套件 | Homebrew 本身（如未安裝） | 套件管理器 |
+| 虛擬機資料 | `~/.lima/zeabur-mesh/` | 虛擬機磁碟映像和設定 |
+| 通訊埠轉發 | 通訊埠 30000–32767 | 從虛擬機轉發到主機的 `0.0.0.0` |
+
+你的 macOS SSH 設定、系統使用者和網路設定**不會**被修改。請注意，Lima 會將服務通訊埠（30000–32767）轉發到主機的 `0.0.0.0`，使其可從區域網路存取。
+
+若要還原這些變更，請參閱[解除安裝](./uninstall)。
+
+</Tabs.Tab>
+</Tabs>

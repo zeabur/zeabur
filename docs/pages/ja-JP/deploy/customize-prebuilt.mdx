@@ -4,6 +4,8 @@ ogImageTitle: カスタム Docker イメージ
 ogImageSubtitle: Zeabur への Docker イメージのデプロイ
 ---
 
+import { Callout } from 'nextra/components'
+
 # カスタム Docker イメージ
 
 Zeabur にはすでにコミュニティ提供の多くのテンプレートが含まれていますが、独自の Docker イメージをデプロイしたり、永続ストレージを設定したり、起動コマンドを設定したりする必要があるかもしれません。このニーズに応えるため、Zeabur はカスタマイズ可能なプリビルド機能を提供しています。
@@ -38,6 +40,17 @@ services:
 ```
 
 設定が完了したら、環境変数、ポートなどのプリビルド起動設定を続行できます。
+
+<Callout type="warning">
+Apple Silicon Mac（M1/M2/M3/M4）でローカルに Docker イメージをビルドした場合、イメージはデフォルトで `linux/arm64` プラットフォームになります。
+Zeabur のサーバーは `linux/amd64` で動作しているため、ARM アーキテクチャのみのイメージをデプロイすると **「no match for platform in manifest」** というエラーで失敗します。
+
+この問題を避けるには、ビルド時に `--platform linux/amd64` フラグを追加してください：
+
+```bash
+docker buildx build --platform linux/amd64 -t <your-image> --push .
+```
+</Callout>
 
 ### 環境変数
 

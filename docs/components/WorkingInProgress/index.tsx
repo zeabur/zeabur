@@ -9,7 +9,7 @@ export default function WorkingInProgress() {
   const router = useRouter()
 
   switch (router.locale) {
-    case 'ja_JP':
+    case 'ja-JP':
       return <JaJP />
     case 'zh-TW':
       return <ZhTW />

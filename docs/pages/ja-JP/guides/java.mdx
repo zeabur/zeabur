@@ -4,11 +4,48 @@ ogImageTitle: Java プロジェクトのデプロイ
 ogImageSubtitle: Zeabur で Java プロジェクトをデプロイする
 ---
 
+import { Callout } from 'nextra/components'
+
 # Java プロジェクトのデプロイ
 
 Zeabur は、Maven または Gradle ビルドシステムを使用し、ネイティブまたは Spring Boot フレームワークの Java プロジェクトのデプロイをサポートしています。
 
 - [Spring Boot のデプロイガイド](/guides/java/spring-boot)
+
+## JAR ファイルの検出
+
+デフォルトでは、Zeabur は標準のビルド出力ディレクトリから JAR（または WAR）ファイルを自動的に検出します：
+
+- **Maven**：`target/*.jar`（または `target/*.war`）
+- **Gradle**：`build/libs/*.jar`（または `build/libs/*.war`）
+
+標準的なシングルモジュールプロジェクトでは、追加の設定は不要です。
+
+### JAR ファイルがサブディレクトリにある場合
+
+JAR ファイルがデフォルトの場所にない場合——例えば、マルチモジュールプロジェクトで実行可能な JAR がサブモジュール内にビルドされる場合——`zbpack.json` の `javaArgs` でパスを明示的に指定する必要があります：
+
+```json
+{
+  "javaArgs": "-jar my-server/target/server.jar"
+}
+```
+
+Spring Boot プロジェクトの場合、Zeabur がサービスにトラフィックをルーティングできるよう、ポートバインディングも含めてください：
+
+```json
+{
+  "javaArgs": "-Dserver.port=$PORT -jar my-server/target/server.jar"
+}
+```
+
+<Callout>
+  `javaArgs` を設定すると、デフォルトの起動コマンドが**完全に置き換えられます**。`-jar path/to/your.jar` を自分で含める必要があります。
+</Callout>
+
+### プロジェクトがサブディレクトリにある場合
+
+Java プロジェクト全体（`pom.xml` や `build.gradle` を含む）が Git リポジトリのサブディレクトリにある場合は、代わりに[ルートディレクトリ](/deploy/root-directory)設定を使用してください。これにより、Zeabur はそのサブディレクトリをプロジェクトルートとして扱い、デフォルトの JAR 検出が正常に機能します。
 
 ## 環境設定
 
@@ -40,7 +77,8 @@ sourceCompatibility = 11
 
 ### JVM スタートアップパラメータの指定
 
-`zbpack.json` の `javaArgs` フィールドで Zeabur のデフォルトの JVM スタートアップパラメータを上書きできます。jar のパスは自分で追加する必要があります。
+`zbpack.json` の `javaArgs` フィールドで Zeabur のデフォルトの JVM スタートアップパラメータを上書きできます。
+`javaArgs` を使用する場合、`-jar` と JAR ファイルのパスを含む完全なコマンド引数を指定する必要があります。
 
 ```json
 {

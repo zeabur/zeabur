@@ -1,0 +1,92 @@
+---
+title: Wonder Mesh のアンインストール
+ogImageTitle: Wonder Mesh のアンインストール
+ogImageSubtitle: サーバーから Wonder Mesh を完全に削除する方法
+---
+
+import { Callout, Tabs, Steps } from 'nextra/components'
+
+# Wonder Mesh のアンインストール
+
+<Steps>
+
+### すべてのプロジェクトを削除
+
+[Zeabur ダッシュボード](https://dash.zeabur.com)から、Mesh サーバー上に展開されているすべてのプロジェクトを削除します。
+
+### アンインストールスクリプトを実行
+
+お使いの OS に合わせて以下のコマンドを実行してください。インストールスクリプトによるすべての変更が削除されます。
+
+<Tabs storageKey="wonder-mesh-os" items={['Linux', 'macOS']}>
+  <Tabs.Tab>
+    ```bash copy
+    curl -fsSL https://cdn.zeabur.com/wonder/mesh-server-uninstall-linux.sh | sudo bash
+    ```
+
+    `-f` フラグを追加すると確認プロンプトをスキップできます：
+
+    ```bash copy
+    curl -fsSL https://cdn.zeabur.com/wonder/mesh-server-uninstall-linux.sh | sudo bash -s -- --force
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    curl -fsSL https://cdn.zeabur.com/wonder/mesh-server-uninstall-darwin.sh | bash
+    ```
+
+    `-f` フラグを追加すると確認プロンプトをスキップできます：
+
+    ```bash copy
+    curl -fsSL https://cdn.zeabur.com/wonder/mesh-server-uninstall-darwin.sh | bash -s -- --force
+    ```
+
+    <Callout type="info">
+      `sudo` は**使用しないでください** — macOS スクリプトは通常のユーザーとして実行する必要があります。
+    </Callout>
+  </Tabs.Tab>
+</Tabs>
+
+### サーバーを削除
+
+[Zeabur ダッシュボード](https://dash.zeabur.com)からサーバーを削除します。
+
+### オプションのクリーンアップ
+
+アンインストールスクリプトは、Wonder Mesh と一緒にインストールされた可能性のある以下のソフトウェアを削除しません。不要な場合のみ削除してください。
+
+<Tabs storageKey="wonder-mesh-os" items={['Linux', 'macOS']}>
+  <Tabs.Tab>
+    **K3s**（サーバー）：
+
+    ```bash copy
+    /usr/local/bin/k3s-uninstall.sh
+    ```
+
+    **K3s**（エージェント）：
+
+    ```bash copy
+    /usr/local/bin/k3s-agent-uninstall.sh
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    **Lima**：
+
+    ```bash copy
+    brew uninstall lima
+    ```
+
+    **Homebrew**：
+
+    ```bash copy
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+</Steps>
+
+## 注意事項
+
+- **macOS VM 隔離** — macOS では、Tailscale、Wonder、SSH ユーザー、およびすべてのネットワーク変更は Lima 仮想マシン内にのみ存在します。VM を削除するとすべて削除されます。macOS のシステム設定には影響しません。
+- **Tailscale ネットワークインターフェース** — `tailscale0` / `ts0` インターフェースは `tailscaled` が停止すると自動的に削除されます。

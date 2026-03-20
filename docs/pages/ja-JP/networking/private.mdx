@@ -4,9 +4,15 @@ ogImageTitle: プライベートネットワーキング
 ogImageSubtitle: サービス同士が接続できるネットワーク
 ---
 
+import { Callout } from 'nextra/components'
+
 # プライベートネットワーキング
 
 プライベートネットワーキングを使用すると、サービスは同じプロジェクト内の他のサービスに接続するために固定されたホスト名を使用できます。
+
+<Callout type="info">
+  プライベートネットワーキングは、同じプロジェクト内の**サービス間通信**を目的としており、ローカルマシンからサービスにアクセスするためのものではありません。[Wonder Mesh](/wonder-mesh) を使用していてローカルネットワークからサービスにアクセスしたい場合は、[LAN からのサービスアクセス](/wonder-mesh/get-started#accessing-services)を参照してください。
+</Callout>
 
 ## ホスト名の検索
 

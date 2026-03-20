@@ -14,6 +14,7 @@ const locales = JSON.parse(process.env.NEXTRA_LOCALES!) as string[]
 const defaultLocale = process.env.NEXTRA_DEFAULT_LOCALE!
 
 const HAS_LOCALE_RE = new RegExp(`^\\/(${locales.join('|')})(\\/|$)`)
+const HAS_LOCALE_CI_RE = new RegExp(`^\\/(${locales.join('|')})(\\/|$)`, 'i')
 
 function getHeadersLocale(request: NextRequest): string {
   const headers = Object.fromEntries(request.headers.entries())
@@ -25,12 +26,30 @@ function getHeadersLocale(request: NextRequest): string {
   return locale
 }
 
+// Find the canonical locale for a case-insensitive match
+function findCanonicalLocale(segment: string): string | undefined {
+  return locales.find(l => l.toLowerCase() === segment.toLowerCase())
+}
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // Check if there is any supported locale in the pathname
   const pathnameHasLocale = HAS_LOCALE_RE.test(pathname)
   const cookieLocale = request.cookies.get(LOCALE_COOKIE_NAME)?.value
+
+  // Handle case-insensitive locale match (e.g. /en-us → /en-US)
+  if (!pathnameHasLocale && HAS_LOCALE_CI_RE.test(pathname)) {
+    const [, segment] = pathname.split('/', 2)
+    if (segment) {
+      const canonical = findCanonicalLocale(segment)
+      if (canonical) {
+        const rest = pathname.slice(segment.length + 1) // +1 for leading slash
+        const url = addBasePath(`/${canonical}${rest}${request.nextUrl.search}`)
+        return NextResponse.redirect(new URL(url, request.url))
+      }
+    }
+  }
 
   // Redirect if there is no locale
   if (!pathnameHasLocale) {

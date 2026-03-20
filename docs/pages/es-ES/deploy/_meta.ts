@@ -7,6 +7,7 @@ export default {
   "customize-prebuilt": "Personalizar imagen Docker",
   "github": "Integración con GitHub",
   "deploy-in-cli": "Implementar en CLI",
+  "large-files": "Manejo de Archivos Grandes",
   "variables": "Variables de Entorno",
   "migrate-project": "Migrar Proyecto",
 }
