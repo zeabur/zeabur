@@ -5,6 +5,7 @@ export default {
   '---1---': { type: 'separator' },
   'dedicated-server': 'Servidores',
   deploy:             'Implementar',
+  operations:         'Operaciones',
 
   // ── Productos ────────────────────────────────────────────────────────────
   '---2---': { type: 'separator' },
@@ -23,19 +24,27 @@ export default {
   '---4---': { type: 'separator' },
   pricing:            'Precios',
   subscription:       'Suscripción y Facturación',
+  rewards:            'Recompensas y Referidos',
   partner:            'Programa de Socios',
 
   // ── Legal ────────────────────────────────────────────────────────────────
   '---5---': { type: 'separator' },
-  legal:              'Legal y Políticas',
+  'privacy-policy':   'Política de Privacidad',
+  compliance:         'Cumplimiento',
+  'terms-of-service': 'Términos de Servicio',
 
   // ── Ocultos: directorios heredados ───────────────────────────────────────
   advanced:        { display: 'hidden' },
   billing:         { display: 'hidden' },
+  'billing-legal': { display: 'hidden' },
   community:       { display: 'hidden' },
   'data-management': { display: 'hidden' },
-  manage:          { display: 'hidden' },
+  legal:           { display: 'hidden' },
+  monitoring:      { display: 'hidden' },
   networking:      { display: 'hidden' },
+  manage:          { display: 'hidden' },
+  infrastructure:  { display: 'hidden' },
+  mesh:            { display: 'hidden' },
   tutorials:       { display: 'hidden' },
   mcp:             { display: 'hidden' },
 

@@ -1,6 +1,7 @@
 export default {
-  'redeem-card': 'Redeem Prepaid Card',
   referral: 'Referral Program',
-  reward: 'Contribution Reward Program',
-  sponsor: 'Sponsor',
+  partner: 'Partner Program',
+  contribution: 'Contribution Reward Program',
+  sponsor: 'Open Source Sponsorship',
+  'redeem-card': 'Redeem Prepaid Card',
 }

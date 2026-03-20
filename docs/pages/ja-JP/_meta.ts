@@ -5,6 +5,7 @@ export default {
   '---1---': { type: 'separator' },
   'dedicated-server': 'サーバー',
   deploy:             'デプロイ',
+  operations:         'オペレーション',
 
   // ── プロダクト ───────────────────────────────────────────────────────────
   '---2---': { type: 'separator' },
@@ -23,19 +24,27 @@ export default {
   '---4---': { type: 'separator' },
   pricing:            '料金プラン',
   subscription:       'サブスクリプションと請求',
+  rewards:            'リワードと紹介',
   partner:            'パートナープログラム',
 
   // ── 法律 ─────────────────────────────────────────────────────────────────
   '---5---': { type: 'separator' },
-  legal:              '法律とポリシー',
+  'privacy-policy':   'プライバシーポリシー',
+  compliance:         'コンプライアンス',
+  'terms-of-service': '利用規約',
 
   // ── 非表示：レガシーディレクトリ ──────────────────────────────────────────
   advanced:        { display: 'hidden' },
   billing:         { display: 'hidden' },
+  'billing-legal': { display: 'hidden' },
   community:       { display: 'hidden' },
   'data-management': { display: 'hidden' },
-  manage:          { display: 'hidden' },
+  legal:           { display: 'hidden' },
+  monitoring:      { display: 'hidden' },
   networking:      { display: 'hidden' },
+  manage:          { display: 'hidden' },
+  infrastructure:  { display: 'hidden' },
+  mesh:            { display: 'hidden' },
   tutorials:       { display: 'hidden' },
   mcp:             { display: 'hidden' },
 
