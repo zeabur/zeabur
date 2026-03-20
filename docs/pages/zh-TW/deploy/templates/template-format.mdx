@@ -1,10 +1,10 @@
 ---
-title: 從 YAML 建立模板
-ogImageTitle: 從 YAML 建立模板
-ogImageSubtitle: 在 Zeabur 從 YAML 建立模板
+title: 模板格式說明
+ogImageTitle: 模板格式說明
+ogImageSubtitle: Zeabur 模板 YAML 資源格式
 ---
 
-# 從 YAML 建立模板
+# 模板格式說明
 
 你可以用和 [Docker Compose](https://docs.docker.com/compose/) 或 [Kubernetes Object](https://kubernetes.io/docs/concepts/overview/working-with-objects/) 相似的形式，使用 `zeabur` CLI 從 YAML 部署、建立和管理模板。
 
@@ -228,79 +228,7 @@ gpu:
 
 留空欄位（或者是不寫）則會自動使用模板定義中的預設內容，如 `coverImage` 在上面的範例沒寫，則會使用模板定義中的 `coverImage`。
 
-## 使用 `zeabur` CLI 部署模板
+## 下一步
 
-假如你已經編寫好了 Template Resource YAML，想要測試部署效果，可以使用 `zeabur` CLI 來部署模板。
-
-```
-$ cat wp.yaml | head -n 10
-apiVersion: zeabur.com/v1
-kind: Template
-metadata:
-    name: WordPress
-spec:
-    description: A content management system (CMS) that allows you to host and build websites.
-    coverImage: https://kinsta.com/wp-content/uploads/2018/02/what-is-wordpress.png
-    icon: https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/wordpress.png
-    variables:
-        - key: WORDPRESS_DOMAIN
-
-$ npx zeabur@latest template deploy -f wp.yaml
-```
-
-首先 `zeabur` CLI 會先詢問你要部署在哪個專案上，接著會根據服務的 `variables` 詢問你要填入哪些變數，最後會部署模板到你指定的專案上。
-
-```
-$ npx zeabur@latest template deploy -f wp.yaml
-? Select project  [Use arrows to move, type to filter]
-  your-project
-> Create a new project
-? Select project region  [Use arrows to move, type to filter]
- DigitalOcean - sgp1 (Singapore)
-  HuaWei Cloud - cn-east-3 (Shanghai, China)
-  Vultr - ewr1 (New Jersey, United States)
-  Google Cloud Platform - asia-east1 (Taipei, Taiwan)
-> Amazon Web Services - ap-east-1 (Hong Kong)
-  Amazon Web Services - ap-northeast-1 (Tokyo, Japan)
-  Amazon Web Services - us-west-1 (California, United States)
-? What is the domain of your WordPress website? (For example, if you enter "myapp", the domain will be "myapp.zeabur.app") mywordpressdemo7c918e14
-INFO	Domain mywordpressdemo7c918e14.zeabur.app is available!
-m
-INFO	Template successfully deployed into project "aphylac" (https://dash.zeabur.com/projects/your-project-id).
-```
-
-## 使用 `zeabur` CLI 上架模板
-
-假如測試上沒有問題，你可以使用 `npx zeabur@latest template create` 命令將模板公開給其他人使用。同樣以上文的 `wp.yaml` 為例：
-
-```
-$ npx zeabur@latest template create -f wp.yaml
-INFO	Template "WordPress" (https://zeabur.com/templates/71HORL) created
-```
-
-基本上是一鍵完成的，可以點開連結查看部署完成的模板：
-
-![部署完成的模板](/template/template-in-code/created-template.webp)
-
-也可以在連結後加上 `.yaml` 查看模板的 Resource YAML 形式：`https://zeabur.com/templates/71HORL.yaml`。
-
-## 使用 `zeabur` CLI 更新模板
-
-如果你需要修改模板的內容，比如改名、更新 Image 版本，你可以在修改完成 Resource YAML 後，使用 `npx zeabur@latest template update` 命令更新：
-
-```
-$ npx zeabur@latest template update -c 71HORL -f wp.yaml
-INFO	Template updated.
-```
-
-## 使用 `zeabur` CLI 刪除模板
-
-如果你有重複的模板或不再需要某個模板，可以使用 `npx zeabur@latest template delete` 命令刪除它：
-
-```
-$ npx zeabur@latest template delete
-? Enter template code: 71HORL
-INFO	Template deleted successfully.
-```
-
-只需執行命令並在提示時輸入模板代碼。模板將從平台中永久刪除。
+- **測試與部署**你的模板 — 參閱[維護與更新模板](/deploy/templates/maintain-template)了解 CLI 使用方式。
+- **上架**你的模板到市集，讓其他人也能使用。

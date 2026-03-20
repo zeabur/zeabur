@@ -1,10 +1,10 @@
 ---
-title: Creating Templates from YAML
-ogImageTitle: Creating Templates from YAML
-ogImageSubtitle: Creating Templates from YAML in Zeabur
+title: Template Format
+ogImageTitle: Template Format
+ogImageSubtitle: YAML resource format for Zeabur templates
 ---
 
-# Creating Templates from YAML
+# Template Format
 
 You can use the `zeabur` CLI to deploy, create, and manage templates in a format similar to [Docker Compose](https://docs.docker.com/compose/) or [Kubernetes Object](https://kubernetes.io/docs/concepts/overview/working-with-objects/) from YAML.
 
@@ -227,79 +227,7 @@ You can localize your contents to `zh-TW`, `zh-CN`, `ja-JP`, and `es-ES`. Note t
 
 Leaving fields blank (or omitting them) will automatically use the default content from the template definition. In the above example, the `coverImage` is omitted, so Zeabur picks the `coverImage` from the template definition.
 
-## Deploying Templates with the `zeabur` CLI
+## Next Steps
 
-If you have finished writing the Template Resource YAML and want to test the deployment, you can use the `zeabur` CLI to deploy the template.
-
-```
-$ cat wp.yaml | head -n 10
-apiVersion: zeabur.com/v1
-kind: Template
-metadata:
-    name: WordPress
-spec:
-    description: A content management system (CMS) that allows you to host and build websites.
-    coverImage: https://kinsta.com/wp-content/uploads/2018/02/what-is-wordpress.png
-    icon: https://raw.githubusercontent.com/zeabur/service-icons/main/marketplace/wordpress.png
-    variables:
-        - key: WORDPRESS_DOMAIN
-
-$ npx zeabur@latest template deploy -f wp.yaml
-```
-
-First, the `zeabur` CLI will ask you which project you want to deploy to, then it will ask you to fill in the variables specified in the services' `variables`, and finally, it will deploy the template to the project you specified.
-
-```
-$ npx zeabur@latest template deploy -f wp.yaml
-? Select project  [Use arrows to move, type to filter]
-  your-project
-> Create a new project
-? Select project region  [Use arrows to move, type to filter]
- DigitalOcean - sgp1 (Singapore)
-  HuaWei Cloud - cn-east-3 (Shanghai, China)
-  Vultr - ewr1 (New Jersey, United States)
-  Google Cloud Platform - asia-east1 (Taipei, Taiwan)
-> Amazon Web Services - ap-east-1 (Hong Kong)
-  Amazon Web Services - ap-northeast-1 (Tokyo, Japan)
-  Amazon Web Services - us-west-1 (California, United States)
-? What is the domain of your WordPress website? (For example, if you enter "myapp", the domain will be "myapp.zeabur.app") mywordpressdemo7c918e14
-INFO	Domain mywordpressdemo7c918e14.zeabur.app is available!
-m
-INFO	Template successfully deployed into project "aphylac" (https://dash.zeabur.com/projects/your-project-id).
-```
-
-## Publishing Templates Using the `zeabur` CLI
-
-If testing is successful, you can use the `npx zeabur@latest template create` command to publish the template for others to use. For example, using the `wp.yaml` from above:
-
-```
-$ npx zeabur@latest template create -f wp.yaml
-INFO	Template "WordPress" (https://zeabur.com/templates/71HORL) created
-```
-
-It is a one-click command. You can click the link to view the deployed template:
-
-![Deployed template](/template/template-in-code/created-template.webp)
-
-You can also add `.yaml` to the end of link to view the Template's Resource YAML format: `https://zeabur.com/templates/71HORL.yaml`.
-
-## Updating Templates Using the `zeabur` CLI
-
-If you need to modify the template's content, such as renaming the template or updating the Image version, you can update it after modifying the Resource YAML by using the `npx zeabur@latest template update` command:
-
-```
-$ npx zeabur@latest template update -c 71HORL -f wp.yaml
-INFO	Template updated.
-```
-
-## Deleting Templates Using the `zeabur` CLI
-
-If you have duplicate templates or no longer need a template, you can delete it using the `npx zeabur@latest template delete` command:
-
-```
-$ npx zeabur@latest template delete
-? Enter template code: 71HORL
-INFO	Template deleted successfully.
-```
-
-Simply run the command and enter the template code when prompted. The template will be permanently removed from the platform.
+- **Test & deploy** your template with the CLI — see [Maintain & Update Templates](/deploy/templates/maintain-template) for CLI usage.
+- **Publish** your template to the marketplace for others to use.

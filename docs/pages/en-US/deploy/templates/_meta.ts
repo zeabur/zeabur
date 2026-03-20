@@ -1,4 +1,5 @@
 export default {
   'template-catalog': 'Template Catalog',
-  'fork-from-template': 'Creating Templates from YAML',
+  'template-format': 'Template Format',
+  'maintain-template': 'Maintain & Update Templates',
 }

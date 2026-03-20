@@ -388,8 +388,10 @@ export default withNextra({
       { source: '/:locale/tutorials/github', destination: '/:locale/deploy/methods/github-integration', permanent: true },
 
       // ── Template fork redirect ──
-      { source: '/template/fork-git-repo-from-template', destination: '/deploy/templates/fork-from-template', permanent: true },
-      { source: '/:locale/template/fork-git-repo-from-template', destination: '/:locale/deploy/templates/fork-from-template', permanent: true },
+      { source: '/template/fork-git-repo-from-template', destination: '/deploy/templates/template-format', permanent: true },
+      { source: '/:locale/template/fork-git-repo-from-template', destination: '/:locale/deploy/templates/template-format', permanent: true },
+      { source: '/deploy/templates/fork-from-template', destination: '/deploy/templates/template-format', permanent: true },
+      { source: '/:locale/deploy/templates/fork-from-template', destination: '/:locale/deploy/templates/template-format', permanent: true },
 
       // ── Tutorials bare → get-started ──
       { source: '/tutorials',           destination: '/get-started',                    permanent: true },
