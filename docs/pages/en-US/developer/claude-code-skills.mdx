@@ -1,0 +1,130 @@
+---
+title: Claude Code Skills
+ogImageTitle: Claude Code Skills
+ogImageSubtitle: Let your AI agent handle deployments and operations
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Claude Code Skills
+
+Zeabur's official Claude Code plugin converts natural language into infrastructure operations. Deploy services, rent servers, manage configurations — all without leaving your editor.
+
+<Callout type="info">
+  Claude Code Skills requires a [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview) environment. Make sure you have Claude Code installed and running.
+</Callout>
+
+## Installation
+
+<Steps>
+
+### Add the Zeabur plugin to your local registry
+
+Add the Zeabur plugin from the Claude Code marketplace:
+
+```bash copy
+claude plugin marketplace add zeabur/zeabur-claude-plugin
+```
+
+### Install and activate the skills
+
+Install and activate all Zeabur skills in Claude Code:
+
+```bash copy
+claude plugin install zeabur@zeabur
+```
+
+</Steps>
+
+Once installed, you can operate all Zeabur features through natural language in Claude Code.
+
+## Supported Skills
+
+### Rent a VPS
+
+Browse and rent servers from providers like AWS, Hetzner, and Linode.
+
+> "Help me find a cheap VPS with 2 cores and 4GB RAM"
+
+### Deploy Services
+
+Deploy local projects or templates to your servers with automatic framework detection.
+
+> "Deploy this project to my Hetzner server"
+
+### Enable AI Models
+
+Access GPT-4o, Claude, Gemini, and more through Zeabur AI Hub.
+
+> "I need AI in my app, set up the API"
+
+### Set Up Email
+
+Add transactional email to your app using Zeabur Email with auto-configured SMTP.
+
+> "Add email sending to my app"
+
+### Set Environment Variables
+
+Create, update, or link environment variables across services.
+
+> "Set DATABASE_URL for my backend"
+
+### Edit Config Files
+
+Modify nginx configurations, runtime parameters, and container settings.
+
+> "Update the nginx config to enable gzip"
+
+### Configure Ports
+
+Map and expose service ports; resolve port mismatch issues.
+
+> "My app listens on port 8080, fix the proxy"
+
+### Bind Domains
+
+Attach custom domains or free `.zeabur.app` subdomains with automatic SSL.
+
+> "Bind myapp.dev to this service"
+
+### Set Up Health Checks
+
+Configure health check endpoints for automatic restart of unhealthy services.
+
+> "Add a health check on /api/health"
+
+### Configure Firewall
+
+Set inbound and outbound traffic rules for dedicated servers.
+
+> "Only allow traffic from my office IP"
+
+### Set Container Image
+
+Deploy from custom Docker images or switch base images.
+
+> "Deploy using my private Docker image"
+
+### Buy Domains
+
+Search, register, and configure custom domains.
+
+> "Buy myapp.dev and point it to my app"
+
+### Manage Databases
+
+Deploy, inspect, query, seed data, and handle database migrations.
+
+> "What's in my database? Add a test user"
+
+### Debug & Troubleshoot
+
+Inspect containers, read logs, diagnose and fix issues.
+
+> "My app is returning 500 errors, figure out why"
+
+## Learn More
+
+- [Skills overview page](https://zeabur.com/en-US/skills)
+- [Zeabur CLI](/developer/cli)

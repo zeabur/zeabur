@@ -1,0 +1,40 @@
+---
+title: 模板
+ogImageTitle: Zeabur 模板
+ogImageSubtitle: 一键部署热门服务
+---
+
+import { Callout } from 'nextra/components'
+
+# 模板
+
+Zeabur 提供丰富的**一键部署模板**，让你无需手动配置即可快速启动 WordPress、Postgres、Redis、n8n、Ghost 等数百种热门服务。
+
+## 浏览模板
+
+访问 [zeabur.com/templates](https://zeabur.com/templates) 探索完整目录。点击任意模板即可直接部署到你的项目中。
+
+## 模板工作原理
+
+每个模板预先定义了：
+
+- 所需的服务及版本
+- 环境变量和默认配置
+- 服务之间的连接关系
+
+部署时，Zeabur 会自动创建模板中定义的所有服务，将它们相互连接，使你的应用立即可用。
+
+## 在部署流程中使用模板
+
+创建服务时，选择「从模板部署」即可直接在部署页面搜索并应用模板。
+
+<Callout type="info">
+  部署模板会创建一个包含所有已定义服务的完整项目。部署后你可以自由修改环境变量和设置。
+</Callout>
+
+## 创建你自己的模板
+
+如果你有可复用的架构，可以将其打包为模板并分享给其他人：
+
+- [从 YAML 创建模板](/zh-CN/template/template-format) — 用代码定义模板结构
+- [从模板 Fork Git 仓库](/zh-CN/template/fork-git-repo-from-template) — 结合 Git 仓库的模板部署

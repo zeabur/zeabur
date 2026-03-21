@@ -1,11 +1,13 @@
 import { Head, Html, Main, NextScript } from 'next/document'
+import { fontVariableClasses } from '../lib/fonts'
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html className={fontVariableClasses}>
       <Head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width" />
+
+        {/* Fonts loaded via next/font in lib/fonts.ts — no CDN needed */}
 
         <script
           async

@@ -1,5 +1,8 @@
 export default {
-  "use-api-key": "Create and Use API Keys",
-  "public-api": "Public API",
-  "websocket-guide": "WebSocket Connection Guide"
+  index: { display: 'hidden' },
+  cli: 'CLI',
+  'claude-code-skills': 'Claude Code Skills',
+  'public-api': 'GraphQL API',
+  'api-keys': 'API Keys',
+  'websocket-guide': 'WebSocket Subscriptions',
 }

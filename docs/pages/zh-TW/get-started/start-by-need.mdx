@@ -1,0 +1,80 @@
+---
+title: 依需求開始
+ogImageTitle: 依需求開始
+ogImageSubtitle: 根據你的使用情境，找到最適合的 Zeabur 入門路徑
+---
+
+# 依需求開始
+
+不確定從哪裡開始？根據你的情境選擇最適合的路徑。
+
+## 🧪 我想先試試看
+
+從模板一鍵部署，不需要寫任何程式碼就能體驗 Zeabur。
+
+1. 到 [模板市集](https://zeabur.com/templates) 挑選一個你感興趣的模板。
+2. 點選「部署」，選擇區域後等待幾秒鐘。
+3. 服務上線後，到「網域」分頁產生一個免費網址來測試。
+
+**推薦閱讀：** [快速入門](./quick-start) · [模板](/template)
+
+---
+
+## 💻 我有自己的專案想部署
+
+把你的程式碼從 GitHub 推上 Zeabur，支援大多數語言和框架。
+
+1. 在專案中點選 **新增服務** → **GitHub**，授權並選擇你的儲存庫。
+2. Zeabur 自動偵測語言、框架和建置方式。
+3. 若需要環境變數，到「配置」中設定。
+4. 綁定網域即可上線。
+
+**推薦閱讀：** [部署流程概述](/deploy/how-deploys-work) · [GitHub 整合](/deploy/github-integration) · [環境變數](/deploy/environment-variables)
+
+---
+
+## 🤖 我想使用 AI 功能
+
+Zeabur 提供 AI Hub，讓你直接呼叫各種大型語言模型的 API。
+
+1. 到 [AI Hub](/ai-hub) 取得 API Endpoint 和金鑰。
+2. 在你的應用程式中使用 OpenAI 相容的 SDK 即可呼叫。
+3. 支援 GPT-4o、Claude、Gemini 等多種模型。
+
+**推薦閱讀：** [AI Hub 總覽](/ai-hub) · [支援的模型](/ai-hub/model-list)
+
+---
+
+## 📧 我需要 Email 收發功能
+
+Zeabur Email 服務讓你用自己的網域發送和接收電子郵件。
+
+1. 前往 [Zeabur Email](/email) 建立帳號並驗證網域。
+2. 設定 DNS 記錄（MX、SPF、DKIM）。
+3. 透過 SMTP 或 REST API 收發郵件。
+
+**推薦閱讀：** [Email 服務](/email) · [Email API 金鑰](/email/email-api-keys) · [Email REST API](/email/email-rest-api)
+
+---
+
+## 🖥️ 我有自己的伺服器
+
+帶入你自己的機器（BYO Server），用 Zeabur 的介面來管理部署。
+
+1. 在 Dashboard 中[註冊專用伺服器](/dedicated-server)。
+2. 在你的伺服器上執行 Zeabur 提供的安裝指令。
+3. 在新建專案時選擇你的專用伺服器。
+
+**推薦閱讀：** [專用伺服器](/dedicated-server)
+
+---
+
+## 🔌 我想透過 API / CLI 自動化
+
+用 API 或 CLI 把 Zeabur 融入你的 CI/CD 流程。
+
+- **CLI**：`npx zeabur@latest deploy` 就能從終端部署。
+- **GraphQL API**：程式化控制專案、服務、部署。
+- **上傳 API**：直接上傳 ZIP 打包好的應用程式。
+
+**推薦閱讀：** [CLI 部署](/developer/cli) · [開放 API](/developer/public-api) · [API 金鑰](/developer/api-keys)

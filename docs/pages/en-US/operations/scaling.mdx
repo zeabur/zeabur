@@ -1,0 +1,55 @@
+---
+title: Scaling
+ogImageTitle: Scaling
+ogImageSubtitle: Scale your service to handle more traffic
+---
+
+import { Callout } from 'nextra/components'
+
+# Scaling
+
+Zeabur allows you to adjust the resources allocated to your services so they can handle varying workloads. You can scale vertically by increasing CPU and memory, and choose the right infrastructure tier for your needs.
+
+## Vertical Scaling
+
+Vertical scaling means increasing (or decreasing) the CPU and memory allocated to a single service instance.
+
+To adjust resources:
+
+1. Open your service in the Zeabur dashboard.
+2. Go to **Settings**.
+3. Under the **Resources** section, configure the desired CPU and memory limits.
+4. Save your changes. The new resource allocation takes effect on the next deployment.
+
+### Resource Plans
+
+Zeabur offers several resource tiers. The default allocation is suitable for most lightweight services, but you can increase resources for more demanding workloads such as databases, build servers, or AI inference.
+
+<Callout>
+  Resource allocation directly affects billing. Higher CPU and memory limits result in higher costs. See [Pricing](/pricing) for details on per-unit pricing.
+</Callout>
+
+## Dedicated Servers
+
+For workloads that require guaranteed resources, predictable performance, or compliance with data residency requirements, Zeabur offers **Dedicated Servers**. A dedicated server gives you an isolated compute environment that is not shared with other users.
+
+Benefits of dedicated servers include:
+
+- **Guaranteed resources** — No noisy-neighbor issues.
+- **Custom regions** — Deploy in specific geographic locations.
+- **Higher resource ceilings** — Run services that exceed shared cluster limits.
+
+See [Dedicated Servers](/dedicated-server) for setup instructions and available configurations.
+
+## Scaling Strategies
+
+| Scenario | Recommendation |
+| --- | --- |
+| Occasional traffic spikes | Increase CPU/memory to handle peak load |
+| Consistent high traffic | Use a dedicated server for predictable performance |
+| Cost optimization | Right-size resources based on [metrics](/operations/metrics) |
+| Temporary inactivity | [Suspend](/operations/suspend-service) the service to stop billing |
+
+## Monitoring Resource Usage
+
+Use the [Metrics](/operations/metrics) dashboard to monitor CPU, memory, and network usage in real time. This data helps you determine when to scale up or down. For cost analysis, check the [Service Usage](/operations/service-usage) page.

@@ -1,5 +1,6 @@
 export default {
-    "public": "公網存取",
-    "private": "內網存取",
-    "high-availability": "高可用性架構"
+  index:              { display: 'hidden' },
+  'public':           '公開網路',
+  'private':          '私有網路',
+  'high-availability': '高可用性',
 }

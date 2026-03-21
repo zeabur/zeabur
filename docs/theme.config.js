@@ -7,13 +7,25 @@ import { useRouter } from 'nextra/hooks'
 import WorkingInProgress from './components/WorkingInProgress'
 import CreateProject from './components/CreateProject'
 import LastUpdated from './components/LastUpdated'
+import FeedbackWidget from './components/FeedbackWidget'
 import LogoBlack from './public/logo_b.svg'
 import LogoWhite from './public/logo_w.svg'
+import IconBlack from './public/icon_b.svg'
+import IconWhite from './public/icon_w.svg'
 
 // base64 encoding that supports unicode strings
 function base64Encode(str) {
   const buffer = Buffer.from(str, 'utf-8')
   return buffer.toString('base64')
+}
+
+// ── i18n helper ────────────────────────────────────────────────────
+const t = {
+  tocTitle:       { 'zh-TW': '目錄', 'zh-CN': '目录', 'ja-JP': '目次', 'es-ES': 'En esta página' },
+  editLink:       { 'zh-TW': '編輯此頁面', 'zh-CN': '编辑此页面', 'ja-JP': 'このページを編集', 'es-ES': 'Editar esta página' },
+  feedback:       { 'zh-TW': '有問題嗎？給我們回饋 →', 'zh-CN': '有问题？给我们反馈 →', 'ja-JP': 'フィードバックを送る →', 'es-ES': '¿Preguntas? Danos tu opinión →' },
+  backToTop:      { 'zh-TW': '回到頂部', 'zh-CN': '回到顶部', 'ja-JP': 'トップに戻る', 'es-ES': 'Volver arriba' },
+  searchPlaceholder: { 'zh-TW': '搜尋文件…', 'zh-CN': '搜索文档…', 'ja-JP': 'ドキュメントを検索…', 'es-ES': 'Buscar documentación…' },
 }
 
 /**
@@ -39,6 +51,41 @@ const config = {
     { locale: 'ja-JP', name: '日本語' },
     { locale: 'es-ES', name: 'Español' },
   ],
+  main: ({ children }) => (
+    <>
+      {children}
+      <FeedbackWidget variant="inline" />
+    </>
+  ),
+  toc: {
+    title: () => {
+      const { locale } = useRouter()
+      return t.tocTitle[locale] || 'On This Page'
+    },
+    backToTop: () => {
+      const { locale } = useRouter()
+      return t.backToTop[locale] || 'Scroll to top'
+    },
+    extraContent: () => <FeedbackWidget variant="toc" />,
+  },
+  editLink: {
+    content: () => {
+      const { locale } = useRouter()
+      return t.editLink[locale] || 'Edit this page'
+    },
+  },
+  feedback: {
+    content: () => {
+      const { locale } = useRouter()
+      return t.feedback[locale] || 'Question? Give us feedback →'
+    },
+  },
+  search: {
+    placeholder: () => {
+      const { locale } = useRouter()
+      return t.searchPlaceholder[locale] || 'Search documentation…'
+    },
+  },
 
   navbar: {
     extraContent: (
@@ -61,18 +108,12 @@ const config = {
     const { locale } = useRouter()
     return (
       <Link href={`/${locale}`}>
-        <img
-          src={LogoBlack.src}
-          style={{ height: 20, objectFit: 'contain' }}
-          alt="zeabur"
-          className="black-logo"
-        />
-        <img
-          src={LogoWhite.src}
-          style={{ height: 20, objectFit: 'contain' }}
-          alt="zeabur"
-          className="white-logo"
-        />
+        {/* Full wordmark — hidden on mobile */}
+        <img src={LogoBlack.src} style={{ height: 20, objectFit: 'contain' }} alt="zeabur" className="black-logo logo-full" />
+        <img src={LogoWhite.src} style={{ height: 20, objectFit: 'contain' }} alt="zeabur" className="white-logo logo-full" />
+        {/* Z icon — visible on mobile only */}
+        <img src={IconBlack.src} style={{ height: 22, objectFit: 'contain' }} alt="zeabur" className="black-logo logo-icon" />
+        <img src={IconWhite.src} style={{ height: 22, objectFit: 'contain' }} alt="zeabur" className="white-logo logo-icon" />
       </Link>
     )
   },

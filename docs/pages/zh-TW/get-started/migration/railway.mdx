@@ -1,0 +1,132 @@
+---
+title: 從 Railway 遷移
+ogImageTitle: 從 Railway 遷移
+ogImageSubtitle: 將您的應用程式從 Railway 遷移到 Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# 從 Railway 遷移
+
+本指南將帶您逐步將應用程式從 Railway 遷移到 Zeabur。Railway 和 Zeabur 採用類似的 Git 部署模式，因此遷移過程非常簡單。
+
+## 開始之前
+
+- 一個 [Zeabur](https://zeabur.com/) 帳號。
+- 您的應用程式原始碼存放在 Git 儲存庫中（GitHub）。
+- 可存取您的 Railway 主控台。
+
+## 步驟 1：連結 Git 儲存庫
+
+由於 Railway 應用程式通常已連結到 Git 儲存庫，您可以將同一個儲存庫連結到 Zeabur：
+
+1. 登入 [Zeabur 主控台](https://dash.zeabur.com/)。
+2. 建立新專案並選擇專用伺服器（或購買新伺服器）。
+3. 點選 **Add Service** → **Git**，連結您的 GitHub 帳號。
+4. 選擇您的 Railway 服務所使用的相同儲存庫。
+
+Zeabur 會自動偵測您的專案語言、框架與建置設定。
+
+## 步驟 2：轉移環境變數
+
+1. 在 Railway 專案中，點選某個服務並前往 **Variables** 分頁。點選 **Raw Editor** 一次複製所有變數。
+2. 在 Zeabur 主控台中，點選您的服務並前往 **Variables** 分頁。
+3. 使用 **Bulk Edit** 一次貼上所有變數。
+
+<Callout>
+Railway 使用 `${{Postgres.DATABASE_URL}}` 這類變數參照來串接服務。在 Zeabur 上，對應的寫法是 `${POSTGRES_URI}`。請將 Railway 格式的參照替換為 Zeabur 的變數語法。
+</Callout>
+
+## 步驟 3：遷移資料庫
+
+如果您使用 Railway 的資料庫服務：
+
+### PostgreSQL
+
+1. **從 Railway 匯出**：開啟 Railway 資料庫服務，前往 **Data** 分頁，使用 **Dump** 功能。或使用 `pg_dump` 搭配 Railway 的連線字串：
+
+   ```bash
+   pg_dump "your-railway-postgres-url" > backup.sql
+   ```
+
+2. **在 Zeabur 上建立**：點選 **Add Service** → **資料庫** → **PostgreSQL**。
+
+3. **匯入**：
+
+   ```bash
+   psql "your-zeabur-postgres-connection-string" < backup.sql
+   ```
+
+### MySQL
+
+1. **從 Railway 匯出**：
+
+   ```bash
+   mysqldump -h railway-host -u root -p railway_db > backup.sql
+   ```
+
+2. **在 Zeabur 上建立**：點選 **Add Service** → **資料庫** → **MySQL**。
+
+3. **匯入**：
+
+   ```bash
+   mysql -h zeabur-host -u root -p zeabur_db < backup.sql
+   ```
+
+### Redis
+
+1. **從 Railway 匯出**：
+
+   ```bash
+   redis-cli -u "your-railway-redis-url" --rdb dump.rdb
+   ```
+
+2. **在 Zeabur 上建立**：點選 **Add Service** → **資料庫** → **Redis**。
+
+3. 在大多數使用情境中，Redis 作為快取使用，可以直接重新啟動而不需要匯入資料。
+
+## 步驟 4：遷移磁碟區
+
+如果您的 Railway 服務使用持久化磁碟區：
+
+1. 從 Railway 下載您的資料。您可以使用 Railway CLI 或透過服務的 shell 存取磁碟區。
+2. 在 Zeabur 主控台中，前往服務的 **Volumes** 分頁，點選 **Add Volume**。
+3. 指定掛載路徑（必須與應用程式預期的路徑一致）。
+4. 透過服務 shell 上傳您的資料，或讓應用程式重新產生資料。
+
+<Callout type="warning">
+Railway 和 Zeabur 之間無法直接進行磁碟區對磁碟區的傳輸。您需要手動匯出並匯入資料。
+</Callout>
+
+## 步驟 5：設定自訂網域
+
+1. 在 Zeabur 主控台中，點選您的服務並前往 **Networking** 分頁。
+2. 點選 **Generate Domain** 取得免費的 `.zeabur.app` 子網域，或點選 **Custom Domain** 新增您自己的網域。
+3. 更新您的 DNS 記錄：
+   - 移除舊的 Railway CNAME 記錄。
+   - 新增 CNAME 記錄，指向 Zeabur 提供的目標位址。
+
+## 步驟 6：驗證並上線
+
+1. 推送一個 commit 來觸發部署，或在主控台點選 **Redeploy**。
+2. 檢查 **Logs** 分頁，確認應用程式正常啟動。
+3. 測試資料庫連線及所有關鍵應用程式流程。
+4. 確認無誤後，將正式環境的 DNS 切換到 Zeabur。
+
+## 主要差異：Railway vs Zeabur
+
+| 功能 | Railway | Zeabur |
+|---|---|---|
+| 部署方式 | Git push（自動部署） | Git push（自動部署） |
+| 變數參照 | `${{Service.VAR}}` | `${VAR}` |
+| 資料庫 | 內建 Postgres、MySQL、Redis、MongoDB | 內建資料庫提供相同選項及更多 |
+| 磁碟區 | 每個服務獨立磁碟區 | 每個服務獨立磁碟區 |
+| 擴展 | 手動設定副本數量 | 手動設定資源分配 |
+| 專用伺服器 | 不提供 | 提供（裸機方案） |
+| 模板 | Railway 模板 | [Zeabur 模板市集](https://zeabur.com/templates) |
+| AI 服務 | 不提供 | [AI Hub](https://zeabur.com/ai) 提供模型推論 |
+| 計價模式 | 按使用量 + 訂閱制 | 按使用量計費，用多少付多少 |
+
+---
+
+完成了！您的 Railway 應用程式現在已在 Zeabur 上運行。兩個平台的開發者體驗非常相似，您應該很快就能上手。如果遇到任何問題，歡迎到我們的 [社群論壇](https://zeabur.com/forum) 尋求協助。

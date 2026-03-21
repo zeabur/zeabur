@@ -1,4 +1,4 @@
 export default {
-  index: '概覽',
+  index: { display: 'hidden' },
   insforge: 'InsForge',
 }

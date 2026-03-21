@@ -1,0 +1,56 @@
+---
+title: Core Deployment & Services
+ogImageTitle: Core Deployment & Services
+ogImageSubtitle: Deploy Your Applications and Services
+---
+
+import { Cards, Card } from 'nextra/components'
+
+# Core Deployment & Services
+
+This section covers all of Zeabur's deployment methods, service configuration, and project management features. Each heading answers a specific question for quick reference.
+
+## Where Does Deployment Start?
+
+All services on Zeabur live inside a "Project." A single project can contain your frontend, backend, databases, and more.
+
+- [Create Project](/deploy/create-project) — Create and manage projects
+- [Create Service](/deploy/create-service) — Add services to a project
+- [How Deploys Work](/deploy/how-deploys-work) — Learn how Zeabur auto-detects languages and builds
+
+## What Deployment Methods Are Available?
+
+| Method | Best For | Docs |
+|--------|----------|------|
+| **GitHub Integration** | Most common — push to deploy | [GitHub/Git Integration](/deploy/github-integration) |
+| **Templates** | One-click deploy of open-source apps | [Templates](/template) |
+| **Dockerfile** | Custom build processes | [Dockerfile](/deploy/dockerfile) |
+| **Docker Image** | Use an existing image | [Custom Docker Image](/deploy/custom-docker-image) |
+| **Deploy Button** | Let others one-click deploy your project | [Deploy Button](/deploy/deploy-button) |
+| **Chrome Extension** | Quick deploy from the browser | [Chrome Extension](/deploy/deploy-with-chrome-extension) |
+| **CLI** | Terminal deployment, great for CI/CD | [CLI Deployment](/developer/cli) |
+| **Upload API** | Upload a ZIP for automatic deployment | [Upload API](/developer/public-api#upload-api) |
+
+## What Triggers a Redeploy?
+
+- **GitHub Push**: By default, every push to the linked branch triggers a new deployment.
+- **Manual Trigger**: Click "Redeploy" in the Dashboard.
+- **Watch Paths**: Configure deployments to trigger only when specific paths change. See [Watch Paths](/deploy/watch-paths).
+
+## How Do I Set Environment Variables?
+
+In the service's "Configuration" tab, you can add, edit, and delete environment variables. Zeabur also supports referencing variables across services.
+
+→ [Environment Variables](/deploy/environment-variables)
+
+## How Do I Customize the Build?
+
+- [Root Directory](/deploy/root-directory) — Specify a subdirectory in a monorepo
+- [Watch Paths](/deploy/watch-paths) — Control which file changes trigger deploys
+- [Command Execution](/deploy/command-execution) — Customize the start command
+
+## How Do I Manage and Migrate Projects?
+
+- [Copy Project](/deploy/copy-project) — Duplicate an entire project to a new environment
+- [Export Project](/deploy/export-project) — Export project configuration
+- [Update Image Reference](/deploy/update-image-reference) — Update Docker image versions

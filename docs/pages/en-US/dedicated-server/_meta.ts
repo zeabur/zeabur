@@ -1,4 +1,7 @@
 export default {
-    "register": "Register Server",
-    "operate": "Maintain Server"
+  index:            { display: 'hidden' },
+  register:         'Add a Server',
+  operate:          'Manage Server',
+  'shared-cluster': 'Shared Cluster (Deprecated)',
+  firewall:         'Firewall & Security',
 }

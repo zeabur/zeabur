@@ -1,0 +1,52 @@
+---
+title: Free Plan
+ogImageTitle: Free Plan
+ogImageSubtitle: Zeabur 免費方案說明
+---
+
+import { Callout } from 'nextra/components'
+
+# Free Plan
+
+Free Plan 是 Zeabur 的免費方案，適合個人探索與學習使用。無需綁定信用卡，註冊即可開始部署。
+
+## 包含資源
+
+| 資源 | 限制 |
+| --- | --- |
+| 專案數量 | 有限制 |
+| 服務數量 | 有限制 |
+| 部署區域 | 共享叢集區域 |
+| 免費額度 | 每月重置（詳見[免費額度說明](/subscription/free-quota)） |
+| 自訂網域 | 不支援 |
+| 持久儲存 | 不支援 |
+
+### 服務費率
+
+Free Plan使用與付費方案相同的費率計算，只是扣減免費額度：
+
+- **vCPU** — 不計費（$0.0 / vCPU-分鐘）
+- **記憶體** — US$0.00025 / GB-分鐘（約 US$10.8 / GB-月）
+- **網路輸出** — US$0.1 / GB
+- **持久儲存** — US$0.2 / GB-月
+
+## 限制與注意事項
+
+- **服務自動暫停** — Free Plan的服務在一段時間無流量後會自動暫停（sleep），下次收到請求時自動喚醒。這可能導致首次請求有數秒延遲。
+- **容器化服務限制** — 無法部署需要持久儲存的服務（如資料庫）。
+- **無 SLA 保障** — 免費方案不提供服務等級協議。
+- **額度用盡** — 當月免費額度用盡後，服務會被暫停，下月重置後恢復。
+
+<Callout type="info">
+Free Plan的服務會在沒有流量時自動暫停以節省資源。如果你需要服務持續運行，建議升級到 [Dev Plan](/pricing/dev-plan)。
+</Callout>
+
+## 升級路徑
+
+當你的需求超過 Free Plan的範圍，可以升級到付費方案：
+
+- **[Dev Plan](/pricing/dev-plan)** — US$5/月，適合個人開發者的正式專案，包含自訂網域、持久儲存和更多專案配額。
+- **[Team Plan](/pricing/team-plan)** — 依用量計費，適合團隊協作，支援成員管理和發票功能。
+- **Enterprise** — 客製化方案，專屬支援與 SLA，詳情請[聯絡我們](https://zeabur.com/forum)。
+
+前往 [zeabur.com/pricing](https://zeabur.com/pricing) 比較各方案的完整功能。

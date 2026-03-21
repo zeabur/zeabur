@@ -13,7 +13,7 @@ Zeabur 的 API 主要使用 GraphQL 建置，同時提供為 Zeabur Dashboard、
 
 ## 認證
 
-您需要在 `Authorization` 中傳入 [API 金鑰](./use-api-key)，才能使用您的身分使用 Zeabur API。產生 API 金鑰的說明，請閱讀 [這篇文件](./use-api-key)。
+您需要在 `Authorization` 中傳入 [API 金鑰](./api-keys)，才能使用您的身分使用 Zeabur API。產生 API 金鑰的說明，請閱讀 [這篇文件](./api-keys)。
 
 傳入範例如下：
 
@@ -31,7 +31,7 @@ curl --request POST \
 
 如果您習慣在 IDE 上編寫 GraphQL，或者需要取得類型提示，可以到 Explorer 中的「Schema」→「SDL」來下載 Zeabur API 的完整 Schema。
 
-若您發現您需要的 API 不在這個 Schema 中，請到我們的 [Discord](https://zeabur.com/dc) 和我們告知。
+若您發現您需要的 API 不在這個 Schema 中，請到我們的 [community forum](https://zeabur.com/forum) 和我們告知。
 
 ## 本機專案上傳 API
 
@@ -50,7 +50,7 @@ Zeabur Upload API 會簽發給您一個預簽章 URL (Pre-signed URL)，這個 U
 
 ```mermaid
 sequenceDiagram
-  participant Client as 用戶端
+  participant Client as 客戶端
   participant ZeaburAPI as Zeabur API
   participant PresignURL as 預簽章 URL (S3)
 

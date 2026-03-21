@@ -1,0 +1,24 @@
+export default {
+  index:      { display: 'hidden' },
+  team:       'Team Management',
+  resources:  'Resource Configuration',
+  deployment: 'Deployment Management',
+  monitoring: 'Monitoring',
+  data:       'Data Management',
+
+  // ── Hidden: old flat files (now in sub-folders) ──────────────────────────
+  'invite-member':          { display: 'hidden' },
+  'security-report':        { display: 'hidden' },
+  'service-usage':          { display: 'hidden' },
+  'project-budget':         { display: 'hidden' },
+  scaling:                  { display: 'hidden' },
+  rollbacks:                { display: 'hidden' },
+  'suspend-service':        { display: 'hidden' },
+  'health-checks':          { display: 'hidden' },
+  logging:                  { display: 'hidden' },
+  metrics:                  { display: 'hidden' },
+  volumes:                  { display: 'hidden' },
+  'file-management':        { display: 'hidden' },
+  'backup-restore':         { display: 'hidden' },
+  'config-file-management': { display: 'hidden' },
+}

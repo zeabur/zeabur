@@ -1,0 +1,134 @@
+---
+title: Migrate from Heroku
+ogImageTitle: Migrate from Heroku
+ogImageSubtitle: Migrate your application from Heroku to Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Migrate from Heroku
+
+This guide walks you through migrating your application from Heroku to Zeabur. Most Heroku apps are Git-based and use standard language buildpacks, making the transition straightforward — Zeabur auto-detects your project with zero configuration.
+
+## Before You Begin
+
+- A [Zeabur](https://zeabur.com/) account.
+- Your application source code in a Git repository.
+- Access to your Heroku dashboard or CLI (`heroku`).
+
+## Step 1: Connect Your Git Repository
+
+Most Heroku apps are already backed by a Git repository. If yours is:
+
+1. Log in to the [Zeabur dashboard](https://dash.zeabur.com/).
+2. Create a new project and select a dedicated server (or purchase a new one).
+3. Click **Add Service** → **Git** and connect your GitHub account.
+4. Select the repository for your application.
+
+Zeabur automatically detects Node.js, Python, Ruby, Go, Java, PHP, and many other languages — no `Procfile` required.
+
+<Callout>
+If your code only exists in Heroku Git (not on GitHub), push it to a GitHub repository first:
+
+```bash
+heroku git:clone -a my-app
+cd my-app
+git remote add github https://github.com/your-username/my-app.git
+git push github main
+```
+</Callout>
+
+## Step 2: Transfer Environment Variables
+
+Heroku stores configuration in **Config Vars**. Export them and add them to Zeabur:
+
+1. **List your Heroku config vars:**
+
+   ```bash
+   heroku config -a my-app
+   ```
+
+2. In the Zeabur dashboard, click your service and go to the **Variables** tab.
+3. Add each variable. You can paste them one by one or use the **Bulk Edit** feature to paste multiple key-value pairs at once.
+
+<Callout>
+You do not need to set `PORT` on Zeabur. Zeabur automatically assigns and injects the port. If your app reads `PORT` from the environment (as most Heroku apps do), it will work out of the box.
+</Callout>
+
+## Step 3: Migrate Your Database
+
+If you're using Heroku Postgres:
+
+1. **Create a backup and download it:**
+
+   ```bash
+   heroku pg:backups:capture -a my-app
+   heroku pg:backups:download -a my-app
+   ```
+
+   This downloads a `latest.dump` file in the custom Postgres format.
+
+2. **Create a database on Zeabur**: click **Add Service** → **Database** → **PostgreSQL**.
+
+3. **Import your data** using the Zeabur PostgreSQL connection string:
+
+   ```bash
+   pg_restore -d "your-zeabur-postgres-connection-string" --no-owner latest.dump
+   ```
+
+4. **Update your app's database URL**: set `DATABASE_URL` in the Zeabur **Variables** tab. You can use Zeabur's variable reference `${POSTGRES_URI}` to automatically inject the connection string from the database service.
+
+<Callout>
+For Heroku Redis, use `redis-cli --rdb` to export and import into a Zeabur Redis instance.
+</Callout>
+
+## Step 4: Replace Heroku Add-ons
+
+Heroku add-ons have equivalents on Zeabur or can be connected as external services:
+
+| Heroku Add-on | Zeabur Equivalent |
+|---|---|
+| Heroku Postgres | **Database** → PostgreSQL |
+| Heroku Redis | **Database** → Redis |
+| Heroku Scheduler | Use system cron or a scheduled service |
+| Papertrail (logs) | Built-in log viewer in dashboard |
+| SendGrid | Connect via environment variables |
+| Cloudinary | Connect via environment variables |
+
+For add-ons that are external SaaS products (SendGrid, Cloudinary, etc.), simply keep using them — just transfer the API keys to Zeabur's **Variables** tab.
+
+## Step 5: Set Up Custom Domains
+
+1. In the Zeabur dashboard, click your service and go to the **Networking** tab.
+2. Click **Generate Domain** for a free `.zeabur.app` subdomain, or click **Custom Domain** to add your own.
+3. Update your DNS records:
+   - Remove the old Heroku DNS target (CNAME to `*.herokuapp.com` or Heroku SSL endpoint).
+   - Add a CNAME record pointing to the Zeabur-provided target.
+
+## Step 6: Verify and Go Live
+
+1. Trigger a deployment by pushing a commit to your connected repository (or click **Redeploy** in the dashboard).
+2. Check the **Logs** tab in Zeabur to confirm your app starts successfully.
+3. Test your application's key flows (authentication, database reads/writes, API calls).
+4. Once confirmed, update your production DNS to point to Zeabur.
+
+## Key Differences: Heroku vs Zeabur
+
+| Feature | Heroku | Zeabur |
+|---|---|---|
+| Configuration | `Procfile` + buildpacks | Auto-detect (zero config) |
+| Deployment | `git push heroku main` | Git push to GitHub (auto-deploy) |
+| Scaling | Dyno types (Basic, Standard, Performance) | Usage-based, auto-scaling |
+| Sleep behavior | Eco dynos sleep after 30 min of inactivity | No sleep — always running |
+| Slug size limit | 500 MB compressed | No slug size limit |
+| Databases | Heroku Postgres (managed) | Database services (PostgreSQL, MySQL, MongoDB, Redis, etc.) |
+| Add-ons | Heroku Add-on marketplace | Zeabur prebuilt services + external services |
+| Pricing | Per-dyno monthly pricing | Usage-based, pay for what you use |
+
+<Callout>
+Heroku's `Procfile` is not required on Zeabur. Zeabur auto-detects your start command. If you need to customize it, you can set it in the service settings under **Build & Deploy**.
+</Callout>
+
+---
+
+That's it. Your Heroku application is now running on Zeabur with no dynos, no Procfiles, and no slug size limits. If you run into any issues, reach out on our [community forum](https://zeabur.com/forum).

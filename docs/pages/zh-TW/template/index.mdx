@@ -1,0 +1,40 @@
+---
+title: 模板
+ogImageTitle: Zeabur 模板
+ogImageSubtitle: 一鍵部署現成服務
+---
+
+import { Callout } from 'nextra/components'
+
+# 模板
+
+Zeabur 提供豐富的**一鍵部署模板**，讓你無需手動設定環境，即可快速啟動 WordPress、Postgres、Redis、n8n、Ghost 等數百種常見服務。
+
+## 瀏覽模板
+
+前往 [zeabur.com/templates](https://zeabur.com/templates) 瀏覽全部模板。點擊任一模板即可直接部署到你的專案。
+
+## 模板的運作方式
+
+每個模板都預先定義了：
+
+- 所需服務與版本
+- 環境變數與預設設定
+- 服務之間的連線關係
+
+部署時，Zeabur 會自動建立模板中定義的所有服務，並完成相互連線，讓你的應用立即可用。
+
+## 在部署流程中使用模板
+
+在建立服務時，選擇「從模板部署」，即可在部署頁面直接搜尋並套用模板。
+
+<Callout type="info">
+  模板部署會建立一個包含所有定義服務的完整專案。你可以在部署後自由修改環境變數和設定。
+</Callout>
+
+## 建立自己的模板
+
+如果你有重複使用的架構，可以將其封裝成模板與他人共享：
+
+- [從 YAML 建立模板](/zh-TW/template/template-format) — 用程式碼定義模板結構
+- [從模板 Fork Git 倉庫](/zh-TW/template/fork-git-repo-from-template) — 結合 Git 倉庫的模板部署

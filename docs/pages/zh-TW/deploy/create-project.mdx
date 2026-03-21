@@ -4,8 +4,6 @@ ogImageTitle: 建立專案
 ogImageSubtitle: 在 Zeabur 上建立一個專案
 ---
 
-import { Callout } from 'nextra/components'
-
 # 建立專案
 
 在 Zeabur 上部署服務之前，你需要先建立一個專案。
@@ -17,27 +15,24 @@ import { Callout } from 'nextra/components'
 一個專案是一組一起部署的服務，同一專案中的服務可以透過內部網路相互通信。
 你可以在不同的區域建立多個專案，並在每個專案中部署各種服務。
 
-除此之外，你可以為專案[設定預算和管理用量](../manage/budget)，[邀請其他團隊成員](../manage/invite)來管理服務等。
+除此之外，你可以為專案[設定預算和管理用量](../operations/project-budget)，[邀請其他團隊成員](../operations/invite-member)來管理服務等。
 
 ## 如何建立專案
 
-<Callout type="warning">
-  Zeabur 正在逐步淘汰共享集群。新專案只能建立在專用伺服器上。詳情請參閱 [changelog](https://zeabur.com/changelogs/phasing-out-shared-cluster)。
-</Callout>
-
-首先，你需要導航到[控制台的專案頁面](https://zeabur.com/projects)。
+首先，你需要導航到[控制台的專案頁面](https://dash.zeabur.com/projects)。
 
 如果你是第一次使用 Zeabur，你會看到一個建立專案的引導頁面。
 
 ![Create project onboarding](/deploy/create-project/onboarding.png)
 
-如果你之前建立過專案，你可以直接點擊 **Create Project** 按鈕，或者按下 `CMD + K` 或 `Ctrl + K` 打開指令面板選擇 **Create Project**。選擇你已有的專用伺服器，或選擇 **Buy New Server** 購買新伺服器，或選擇 **Bind External Server** 透過 SSH 連接你自己的伺服器。然後點擊 **Create Project** 完成建立。
+如果你之前建立過專案，你可以直接點擊 **Create Project** 按鈕，或者按下 `CMD + K` 或 `Ctrl + K` 打開指令面板選擇 **Create Project**，
+然後選擇你想要建立專案的區域，專案將會自動建立並分配一個隨機名稱。
 
 ![Select Region](/deploy/create-project/select-region.png)
 
 ## 下一步
 
-建立完成後，你將看到一個空專案：
+你將會在區域選擇後看到一個空專案：
 
 ![Empty Project](/deploy/create-project/empty-project.png)
 

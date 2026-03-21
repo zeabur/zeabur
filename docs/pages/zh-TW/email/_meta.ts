@@ -1,5 +1,5 @@
 export default {
-  index: '概述',
+  index: { display: 'hidden' },
   'quick-start': '快速開始',
   'rest-api': 'REST API 參考',
   'domains': '網域管理',

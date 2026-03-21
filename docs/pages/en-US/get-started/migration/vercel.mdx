@@ -1,0 +1,123 @@
+---
+title: Migrate from Vercel
+ogImageTitle: Migrate from Vercel
+ogImageSubtitle: Migrate your application from Vercel to Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Migrate from Vercel
+
+This guide walks you through migrating your application from Vercel to Zeabur. If you're looking for a single platform that handles both frontend and backend services — databases, caches, background workers — alongside your web application, Zeabur is a natural fit.
+
+## Before You Begin
+
+- A [Zeabur](https://zeabur.com/) account.
+- Your application source code in a Git repository (GitHub).
+- Access to your Vercel dashboard.
+
+## Step 1: Connect Your Git Repository
+
+Your Vercel project is already connected to a Git repository. Connect the same repo to Zeabur:
+
+1. Log in to the [Zeabur dashboard](https://dash.zeabur.com/).
+2. Create a new project and select a dedicated server (or purchase a new one).
+3. Click **Add Service** → **Git** and connect your GitHub account.
+4. Select the same repository your Vercel project uses.
+
+Zeabur natively supports all major frameworks including **Next.js**, **Nuxt**, **Astro**, **Remix**, **SvelteKit**, **Vite**, and static sites.
+
+<Callout>
+Your `next.config.js` (or `next.config.mjs`) works as-is on Zeabur. No changes needed — Zeabur's build system is fully compatible with Next.js configuration including `output: 'standalone'`.
+</Callout>
+
+## Step 2: Transfer Environment Variables
+
+1. In your Vercel project, go to **Settings** → **Environment Variables**. Copy each variable's key and value.
+2. In the Zeabur dashboard, click your service and go to the **Variables** tab.
+3. Add your variables. Use **Bulk Edit** to paste multiple key-value pairs at once.
+
+<Callout>
+Vercel scopes variables by environment (Production, Preview, Development). On Zeabur, variables apply to all deployments by default. If you need different values for preview deployments, you can create multiple environments to manage them.
+</Callout>
+
+## Step 3: Handle Framework-Specific Settings
+
+### Next.js
+
+- **No changes required.** Zeabur auto-detects Next.js and builds it correctly.
+- `next.config.js` features like rewrites, redirects, headers, and image optimization work out of the box.
+- **API routes and Server Actions** work natively — Zeabur runs your Next.js app as a full server, not as serverless functions.
+- If you use `output: 'standalone'` in your Next.js config, Zeabur handles it automatically.
+
+### Nuxt / Astro / Remix / SvelteKit
+
+- These frameworks are auto-detected and built with their standard build commands.
+- No framework-specific configuration changes are needed.
+
+### Static Sites (Vite, Create React App, etc.)
+
+- Zeabur auto-detects static builds and serves them with a built-in web server.
+- If your project has a `vercel.json` with custom routing, you may need to configure equivalent redirects in your framework's config.
+
+## Step 4: Vercel-Specific Features Mapping
+
+Some Vercel features map differently on Zeabur:
+
+| Vercel Feature | Zeabur Equivalent |
+|---|---|
+| Serverless Functions | Runs as a persistent server (better cold-start performance) |
+| Edge Functions | Runs as server-side code |
+| Vercel Postgres / KV / Blob | Database services → PostgreSQL, Redis, or object storage |
+| Cron Jobs (`vercel.json`) | Use your framework's built-in cron or a separate worker service |
+| `vercel.json` rewrites/redirects | Use framework-level config (e.g., `next.config.js` rewrites) |
+| Preview Deployments | Create separate environments to preview changes |
+| Analytics | Use third-party analytics (e.g., Plausible, PostHog) |
+
+<Callout>
+On Vercel, each API route runs as an isolated serverless function with cold starts. On Zeabur, your app runs as a persistent server — meaning faster response times and no cold-start latency.
+</Callout>
+
+## Step 5: Add Backend Services (If Needed)
+
+One of the main reasons to migrate from Vercel is to consolidate your entire stack in one platform. On Zeabur, you can add databases and backend services alongside your frontend:
+
+- **PostgreSQL, MySQL, MongoDB**: Click **Add Service** → **Database** and select your database.
+- **Redis**: Available as a prebuilt service for caching and session storage.
+- **Backend APIs**: Deploy a separate backend service (Node.js, Python, Go, etc.) in the same project. Services within a project can communicate via [private networking](/deploy/private-networking).
+
+## Step 6: Set Up Custom Domains
+
+1. In the Zeabur dashboard, click your service and go to the **Networking** tab.
+2. Click **Generate Domain** for a free `.zeabur.app` subdomain, or click **Custom Domain** to add your own.
+3. Update your DNS records:
+   - Remove the old Vercel CNAME record (usually pointing to `cname.vercel-dns.com`).
+   - Add a CNAME record pointing to the Zeabur-provided target.
+
+<Callout type="warning">
+If you're using Vercel's nameservers for your domain, you'll need to transfer DNS management back to your registrar or another DNS provider before updating records.
+</Callout>
+
+## Step 7: Verify and Go Live
+
+1. Push a commit to trigger a deployment, or click **Redeploy** in the dashboard.
+2. Check the **Logs** tab to confirm your app builds and starts correctly.
+3. Test all routes, API endpoints, and server-side rendering.
+4. Once verified, switch your production DNS to Zeabur.
+
+## Key Differences: Vercel vs Zeabur
+
+| Feature | Vercel | Zeabur |
+|---|---|---|
+| Focus | Frontend / Jamstack / Serverless | Full-stack (frontend + backend + databases) |
+| Execution model | Serverless functions (cold starts) | Persistent server (no cold starts) |
+| Databases | Vercel Postgres, KV, Blob (limited) | Database services (PostgreSQL, MySQL, MongoDB, Redis, etc.) |
+| Backend services | Not natively supported | Deploy any backend alongside your frontend |
+| Build system | Vercel Build | Auto-detect (Nixpacks / Dockerfile) |
+| Pricing | Per-function invocation + bandwidth | Usage-based compute + storage |
+| Team features | Per-seat pricing | Flexible team plans |
+| Infrastructure | Serverless-only | Shared clusters + dedicated servers |
+
+---
+
+That's it. Your Vercel application is now running on Zeabur as a full-stack platform with databases, backend services, and your frontend — all in one place. If you run into any issues, reach out on our [community forum](https://zeabur.com/forum).

@@ -1,0 +1,133 @@
+---
+title: 備份與還原
+ogImageTitle: 備份與還原
+ogImageSubtitle: 在 Zeabur 上備份和還原您的服務
+---
+
+import { Callout } from 'nextra/components'
+
+# 備份與還原
+
+Zeabur 在 Dev Plan 等付費方案中，提供了 <abbr title="與您主機資料分開存放的備份">異地備份</abbr> 的功能——您的備份會被安全、限時儲存到我們位於 Amazon S3 的儲存空間上，不會佔用您現有主機的空間，並且不會額外收費。
+
+對於資料庫服務，Zeabur 支援線上備份和自動備份，讓您的資料庫可以不停機備份；對於其他 <abbr title="Stateful，有掛接硬碟的服務">有狀態</abbr> 的服務，我們也提供暫停後離線異地備份的功能。
+
+## 備份服務
+
+### 離線異地備份
+
+<Callout>
+    如果您沒有掛載 [持久儲存空間](/operations/volumes)，就不會顯示備份功能。「備份」也只會備份「持久儲存空間」內的資料，其餘服務中的檔案（如原始碼）不會跟著備份。
+</Callout>
+
+首先您需要先暫停服務。點選服務的「設定」→「暫停服務」，即可暫停服務運作。注意暫停不會造成資料遺失。
+
+接著，點選您服務的「備份」分頁，您會看到「備份」按鈕。
+
+![backup tab](/data-management/backup/backup-tab.webp)
+
+點下去後，Zeabur 會在背景自動備份，您可以稍待幾分鐘。備份完成後，您會看到下載按鈕，點選即可下載備份檔案。備份檔案的內容，就是您服務掛載的「持久儲存空間」所在資料夾的完整內容。
+
+![backup success](/data-management/backup/backup-success.webp)
+
+備份完成後，您可以到「服務狀態」點選「重新啟動服務」，讓您的服務恢復運作。
+
+### 線上異地備份
+
+Zeabur 支援不限於 PostgreSQL、MySQL、MariaDB、MongoDB 等資料庫的線上異地備份，不需要您暫停服務即可進行安全備份。另外「線上異地備份」的服務也會支援自動備份。
+
+![online backup](/data-management/backup/online-backup.webp)
+
+和〈離線異地備份〉相似，點選「備份」按鈕後，Zeabur 會在背景自動備份，您可以稍待幾分鐘。備份完成後，也會看到下載按鈕，點選即可下載備份檔案。
+
+備份檔案的內容，會是資料庫的標準傾印檔案（以 PostgreSQL、MySQL 來說，是 `.sql` 檔案；以 MongoDB 來說，是各種 `.bson` 檔案）。這些備份檔日後可以用資料庫內建的還原工具（如 `psql`、`mongoimport`）等工具來還原。
+
+### 自動備份
+
+Zeabur 也支援自動備份，目前支援每日固定時段備份。
+
+![auto backup](/data-management/backup/auto-backup.webp)
+
+打開「自動備份」後，您可以設定備份的 UTC 時段。通常來講，選擇您服務人潮最低的時段進行備份，會是比較好的。您可以參考旁邊的「At your local time」看看這個 UTC 時段是對應到您當地的幾點。
+
+## 備份保留時間和 API 取回方式
+
+Zeabur **只保留您備份 7 天時間**，超過這個時間的備份會自動刪除。如果您需要長時間儲存備份，請自行下載備份檔案後，儲存到其他地方。
+
+目前 Zeabur 尚未支援備份到您自己的 Amazon S3 儲存空間，但您可以撰寫一個程式，透過呼叫 [Zeabur 開放 API](/developer/public-api) 來取回備份並儲存到您自己的任意儲存空間：
+
+```graphql
+query Backups($environmentId: ObjectID!, $serviceId: ObjectID!) {
+  backups(environmentID: $environmentId, serviceID: $serviceId) {
+    createdAt
+    downloadURL
+    status
+  }
+}
+```
+
+回傳格式範例：
+
+```json
+{
+  "data": {
+    "backups": [
+      {
+        "createdAt": "2025-06-23T16:00:10.864Z",
+        "downloadURL": "https://backup.zeabur.com/XXXXXX",
+        "status": "SUCCESS"
+      }
+    ]
+  }
+}
+```
+
+您可以將其中的備份檔案下載連結 (`downloadURL`) 搭配備份時間 (`createdAt`) 來貯存備份檔案。
+
+## 還原備份
+
+這裡會提供或簡述各種服務的資料還原方式。
+
+### 資料庫
+
+#### PostgreSQL
+
+參見 [PostgreSQL 服務模板頁面](https://zeabur.com/templates/B20CX0) 的〈還原備份〉章節。
+
+#### MySQL 和 MariaDB
+
+參見 [MySQL 服務模板頁面](https://zeabur.com/templates/DGLGRG) 和 [MariaDB 服務模板頁面](https://zeabur.com/zh-TW/templates/46YKAR) 的〈還原備份〉章節。
+
+#### Redis
+
+可以使用 [Redis 的 `RESTORE` 指令](https://redis.io/commands/restore) 來還原備份。
+
+展開 Redis 服務「Command to connect to your Redis」的字串，您會看到類似這種內容：
+
+```bash
+redis-cli -h <host> -p <port> -a <password>
+```
+
+將上面的 `<host>`、`<port>` 和 `<password>` 放入以下的指令當中即可：
+
+```bash
+cat /path/to/backup.rdb | redis-cli -h <host> -p <port> -a <password> -x RESTORE <key> 0
+```
+
+#### MongoDB
+
+展開 MongoDB 服務「Command to connect to your MongoDB」的字串，您會看到類似這種內容：
+
+```bash
+mongosh "<連線字串>"
+```
+
+將 `<連線字串>` 複製到終端機中，然後執行 `mongorestore` 命令來還原備份：
+
+```bash
+mongorestore "<連線字串>" "<備份目錄>"
+```
+
+### 硬碟內容
+
+如果您要還原 [持久儲存空間](/operations/volumes) 內的資料，您可以參考 [檔案管理](/operations/file-management) 的方式，將備份檔案上傳至目標目錄並解壓縮。

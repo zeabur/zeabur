@@ -1,0 +1,97 @@
+---
+title: 建立服務
+ogImageTitle: 建立服務
+ogImageSubtitle: 在 Zeabur 專案中部署服務
+---
+
+import { Callout } from 'nextra/components';
+
+# 建立服務
+
+[建立專案](./create-project)後，你可以開始部署服務。點擊 **部署新服務** 按鈕（或按 `CMD + K` / `Ctrl + K` 並選擇 **部署新服務**），你將看到一個包含各種部署選項的選單：
+
+![新增服務](/start/project-page-with-add-service.webp)
+
+## 模板
+
+Zeabur 提供了豐富的預先設定模板庫，包括 WordPress、n8n、Ghost 等熱門開源專案。這些模板可以一鍵部署。
+
+1. 點擊 **模板** 瀏覽可用模板。
+2. 搜尋或瀏覽你需要的模板。
+3. 點擊模板並按照提示進行部署。
+
+![模板服務](/start/template-services.webp)
+
+更多詳情，請參閱[從模板部署](/template/deploy-template)。
+
+## GitHub
+
+直接從你的 GitHub 儲存庫部署。這是部署自己應用程式最常見的方式。
+
+1. 點擊 **GitHub** 連接你的 GitHub 帳戶（如果尚未連接）。
+2. 連接後，搜尋你想要部署的儲存庫。
+3. 點擊儲存庫，Zeabur 會自動分析你的程式碼並選擇最合適的建置方式。
+4. 點擊 **部署** 開始部署。
+
+![搜尋儲存庫](/start/search-repository.webp)
+
+更多詳情，請參閱[與 GitHub 整合](./github)。
+
+## 資料庫
+
+無需任何設定，快速部署常用資料庫。
+
+1. 點擊 **資料庫** 查看可用的資料庫列表。
+2. 選擇你需要的資料庫（PostgreSQL、MySQL、MongoDB、Redis 等）。
+3. 資料庫將立即部署並可以使用。
+
+![資料庫服務](/start/database-services.webp)
+
+## 函數
+
+使用 Zeabur Functions 即時編寫、執行和迭代你的程式碼。這非常適合快速腳本、API 或無伺服器函數。
+
+1. 點擊 **函數** 建立新函數。
+2. 選擇 **JavaScript** 或 **Python** 作為函數語言。
+3. 直接在編輯器中編寫程式碼。
+4. 你的函數將被部署，並可透過控制台存取。
+
+![簡單函數](/deploy/create-service/simple-function.png)
+
+## 本機專案
+
+直接將本機原始碼上傳到 Zeabur，無需 Git 儲存庫。
+
+1. 點擊 **本機專案**。
+2. 拖放你的專案資料夾，或點擊瀏覽並選擇資料夾。
+3. Zeabur 將分析並部署你的專案。
+
+![本機專案](/deploy/create-service/local-project.png)
+
+這對於快速部署或不想先將程式碼推送到儲存庫時非常有用。
+
+<Callout type="warning">
+  上傳時 `/dist/*` 目錄將被自動忽略。
+</Callout>
+
+## Docker 映像檔
+
+從 Docker Hub 或其他容器註冊表部署任何預先建置的 Docker 容器映像檔。
+
+1. 點擊 **Docker 映像檔**。
+2. 輸入映像檔名稱（例如 `nginx:latest` 或 `ghcr.io/owner/image:tag`）。
+3. 設定所需的環境變數或連接埠。
+4. 點擊 **部署**。
+
+更多詳情，請參閱[使用 Docker 映像檔部署](./customize-prebuilt)。
+
+## Cursor
+
+使用 Zeabur 擴充功能直接從 Cursor IDE 部署。
+
+1. 點擊 **Cursor** 在 Cursor IDE 中開啟你的專案。
+2. 如果你尚未安裝 Zeabur 擴充功能，系統會提示你安裝。
+3. 使用擴充功能直接從 Cursor 部署目前專案。
+
+這為使用 Cursor 作為主要 IDE 的開發者提供了無縫體驗。
+

@@ -1,24 +1,53 @@
 export default {
-  index: 'イントロダクション',
-  'get-started': 'スタート',
-  deploy: 'デプロイ',
-  template: 'テンプレート',
-  marketplace: {
-    title: 'Zeaburテンプレートカタログ',
-    href: 'https://zeabur.com/templates',
-  },
-  'ai-hub': 'Zeabur AI Hub',
-  'email': 'Zeabur Email',
-  'wonder-mesh': 'Wonder Mesh',
-  'integrations': 'インテグレーション',
-  'data-management': 'データ管理',
-  networking: 'ネットワーキング',
-  guides: 'ガイド',
-  manage: 'プロジェクト管理',
-  legal: '法律とポリシー',
-  billing: '支払いと請求',
-  community: 'コミュニティ',
-  advanced: '高度な内容',
-  developer: '開発者',
-  tutorials: 'インポートガイド',
+  'get-started': 'はじめに',
+
+  // ── インフラストラクチャ ─────────────────────────────────────────────────
+  '---1---': { type: 'separator' },
+  'dedicated-server': 'サーバー',
+  deploy:             'デプロイ',
+  operations:         'オペレーション',
+
+  // ── プロダクト ───────────────────────────────────────────────────────────
+  '---2---': { type: 'separator' },
+  'ai-hub':           'AI Hub',
+  email:              'Email',
+  'wonder-mesh':      'Wonder Mesh',
+  template:           'テンプレート',
+  integrations:       'インテグレーション',
+
+  // ── 開発者 ───────────────────────────────────────────────────────────────
+  '---3---': { type: 'separator' },
+  developer: '開発者ツール',
+  guides:    'フレームワーク',
+
+  // ── 商業 ─────────────────────────────────────────────────────────────────
+  '---4---': { type: 'separator' },
+  pricing:            '料金プラン',
+  subscription:       'サブスクリプションと請求',
+  rewards:            'リワードと紹介',
+  partner:            'パートナープログラム',
+
+  // ── 法律 ─────────────────────────────────────────────────────────────────
+  '---5---': { type: 'separator' },
+  'privacy-policy':   'プライバシーポリシー',
+  compliance:         'コンプライアンス',
+  'terms-of-service': '利用規約',
+
+  // ── 非表示：レガシーディレクトリ ──────────────────────────────────────────
+  advanced:        { display: 'hidden' },
+  billing:         { display: 'hidden' },
+  'billing-legal': { display: 'hidden' },
+  community:       { display: 'hidden' },
+  'data-management': { display: 'hidden' },
+  legal:           { display: 'hidden' },
+  monitoring:      { display: 'hidden' },
+  networking:      { display: 'hidden' },
+  manage:          { display: 'hidden' },
+  infrastructure:  { display: 'hidden' },
+  mesh:            { display: 'hidden' },
+  tutorials:       { display: 'hidden' },
+  mcp:             { display: 'hidden' },
+
+  // ── Root index ────────────────────────────────────────────────────────────
+  index: { display: 'hidden' },
 }

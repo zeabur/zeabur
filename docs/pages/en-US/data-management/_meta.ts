@@ -1,7 +1,8 @@
 export default {
-    'volumes': 'Volumes',
-    'config-edit': 'Config Edit',
-    'file-management': 'File Management',
-    backup: 'Backup',
-    restore: 'Restore Backup',
+  index:            { display: 'hidden' },
+  volumes:          'Volumes',
+  'file-management': 'File Management',
+  'config-edit':    'Config File Management',
+  backup:           'Backup',
+  restore:          'Restore Backup',
 }

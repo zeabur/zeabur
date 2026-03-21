@@ -1,0 +1,85 @@
+---
+title: 付款方式
+ogImageTitle: 付款方式
+ogImageSubtitle: 信用卡、Alipay 等付款方式说明
+---
+
+import { Callout } from 'nextra/components'
+
+# 付款方式
+
+Zeabur 的付款系统由 [Stripe](https://stripe.com/) 提供支持，支持多种付款方式。
+
+## 支持的付款方式
+
+### 信用卡 / 借记卡
+
+Zeabur 接受所有 Stripe 支持的信用卡与借记卡，以**美元（USD）**计价：
+
+- Visa
+- Mastercard
+- American Express
+- JCB
+- UnionPay（银联）
+
+### 支付宝（Alipay）
+
+如果你没有支持 Stripe 的信用卡，可以使用支付宝进行**充值**，以人民币支付。
+
+充值的金额会转换为 Zeabur Credits，用于抵扣订阅费与资源使用费。
+
+## 付款流程
+
+### 订阅付费方案
+
+1. 前往 [Zeabur 方案页面](https://zeabur.com/pricing) 或 [Dashboard 账单页面](https://dash.zeabur.com/account/billing)。
+2. 选择你要订阅的方案（[Dev Plan](/pricing/dev-plan) 或 [Team Plan](/pricing/team-plan)）。
+3. 输入信用卡信息（或使用已绑定的卡片），完成支付。
+4. 订阅成功后，方案立即生效。
+
+### 充值 Credits
+
+1. 前往 [Dashboard 账单页面](https://dash.zeabur.com/account/billing)。
+2. 在「充值」区域点击充值按钮。
+3. 选择充值金额，使用信用卡或支付宝完成付款。
+4. Credits 会即时加入你的账户余额。
+
+![充值 Credits](/billing/subscription/get-more-credits.png)
+
+## 管理付款方式
+
+### 绑定信用卡
+
+在 [账单页面](https://dash.zeabur.com/account/billing) 的「支付方式」区域，输入信用卡信息后点击「加入」。
+
+### 更换信用卡
+
+1. 在账单页面找到「**解除绑定**」按钮，解除当前信用卡。
+2. 重新绑定新的信用卡。
+
+### 解除绑定
+
+如果你已取消所有付费订阅，可以解除绑定信用卡。
+
+<Callout type="warning">
+如果你有进行中的付费订阅，解除绑定信用卡可能导致下次扣款失败。请先确认已取消订阅或改用其他付款方式。
+</Callout>
+
+## 常见问题
+
+### 信用卡被拒绝怎么办？
+
+- 确认卡片余额充足。
+- 确认卡片支持国际交易（USD）。
+- 联系发卡行确认是否有交易被拦截。
+- 尝试使用其他信用卡或改用支付宝充值。
+
+### 可以用 PayPal 付款吗？
+
+目前不支持 PayPal。请使用信用卡或支付宝。
+
+### 扣款币别是什么？
+
+所有费用以美元（USD）计价。信用卡公司可能会收取外币交易手续费，具体费率请咨询发卡行。
+
+如有其他付款问题，请到 [社群论坛](https://zeabur.com/forum) 联系我们。

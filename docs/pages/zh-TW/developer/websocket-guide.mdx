@@ -39,7 +39,7 @@ const token = document.cookie
   ?.split('=')[1];
 ```
 
-2. **使用 API 金鑰** - 對於程式化存取，你可以使用 [API 金鑰](./use-api-key) 作為身份驗證令牌。
+2. **使用 API 金鑰** - 對於程式化存取，你可以使用 [API 金鑰](./api-keys) 作為身份驗證令牌。
 
 ## 連線流程
 
@@ -449,7 +449,7 @@ subscription SubscribeProjectActivity($projectID: ObjectID!) {
 1. **內容安全政策 (CSP)** - 防止可能竊取令牌的 XSS 攻擊
 2. **短令牌過期時間** - 如果令牌洩露，限制損害
 3. **SameSite cookie 屬性** - 防止 CSRF 攻擊
-4. **伺服器端使用 API 金鑰** - 對於後端應用程式，使用 [API 金鑰](./use-api-key) 而不是會話令牌
+4. **伺服器端使用 API 金鑰** - 對於後端應用程式，使用 [API 金鑰](./api-keys) 而不是會話令牌
 
 ## 故障排除
 
@@ -464,7 +464,7 @@ subscription SubscribeProjectActivity($projectID: ObjectID!) {
 ## 相關資源
 
 - [開放 API](./public-api) - 所有 Zeabur API 概述
-- [建立和使用 API 金鑰](./use-api-key) - 如何產生 API 令牌
+- [建立和使用 API 金鑰](./api-keys) - 如何產生 API 令牌
 - [graphql-ws 協議](https://github.com/enisdenjo/graphql-ws/blob/master/PROTOCOL.md) - 官方協議規範
 - [Apollo Explorer](https://studio.apollographql.com/public/zeabur/variant/main/explorer) - 探索可用的 GraphQL 操作
 

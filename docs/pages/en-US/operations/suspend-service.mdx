@@ -1,0 +1,68 @@
+---
+title: Suspend Service
+ogImageTitle: Suspend Service
+ogImageSubtitle: Suspend and resume services
+---
+
+import { Callout } from 'nextra/components'
+
+# Suspend Service
+
+Zeabur allows you to suspend (pause) individual services directly from the dashboard. Suspended services stop running, stop consuming resources, and stop incurring charges — while retaining all their configuration for when you are ready to resume.
+
+## Suspending a Service
+
+To suspend a service:
+
+1. Open your service in the Zeabur dashboard.
+2. Go to **Settings**.
+3. Click **Suspend Service**.
+
+The service will stop immediately. While suspended:
+
+- The service container is shut down and no longer runs.
+- **No compute charges** are incurred for the service.
+- All configuration is preserved, including environment variables, domain bindings, and volume mounts.
+- Data in [volumes](/operations/volumes) is retained.
+
+## Resuming a Service
+
+To resume a suspended service:
+
+1. Open the suspended service in the dashboard.
+2. Go to **Overview**.
+3. Click **Restart Service**.
+
+Zeabur will start a new deployment using the most recent configuration. The service goes through the normal [health check](/operations/health-checks) process and begins accepting traffic once ready.
+
+## Use Cases
+
+### Temporary Maintenance
+
+Suspend a service when you need to perform maintenance on dependent infrastructure (such as a database migration) and want to ensure no traffic reaches the application during that window.
+
+### Cost Savings
+
+If you have services that are only needed during certain hours or for specific tasks (such as a staging environment or a batch processing service), suspending them when not in use can reduce costs.
+
+### Debugging
+
+Suspend a misbehaving service to stop it from processing requests while you investigate. Once you have identified and fixed the issue, redeploy and resume.
+
+## Suspension vs. Deletion
+
+| | Suspend | Delete |
+| --- | --- | --- |
+| Service stops running | Yes | Yes |
+| Configuration preserved | Yes | No (after grace period) |
+| Volumes preserved | Yes | No (after grace period) |
+| Can be reversed | Yes, instantly | Within 2-hour grace period only |
+| Billing | Stops | Stops |
+
+<Callout type="warning">
+  Deleting a service is a destructive operation. Zeabur provides a **2-hour grace period** after deletion during which you can contact support to recover the service. After the grace period, all data — including volumes — is permanently removed. If you only need to temporarily stop a service, use **Suspend** instead.
+</Callout>
+
+## Suspended Services and Domains
+
+While a service is suspended, any domains bound to it will return an error page. If you need to display a custom maintenance page, consider using a separate lightweight service (such as a static site) to serve a maintenance notice, and update your domain's DNS to point to that service during the maintenance window.

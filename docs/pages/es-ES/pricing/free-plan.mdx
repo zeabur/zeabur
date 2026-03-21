@@ -1,0 +1,52 @@
+---
+title: Plan Gratuito (Plan Serverless)
+ogImageTitle: Plan Gratuito
+ogImageSubtitle: Detalles del Plan Gratuito de Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Plan Gratuito (Plan Serverless)
+
+El Plan Serverless es el nivel gratuito de Zeabur, diseñado para exploración personal y aprendizaje. No se requiere tarjeta de crédito — simplemente regístrese y comience a desplegar.
+
+## Recursos incluidos
+
+| Recurso | Límite |
+| --- | --- |
+| Proyectos | 1 |
+| Servicios | Hasta 2 por proyecto |
+| Regiones de despliegue | Regiones de clúster compartido |
+| Credits gratuitos | Se reinician mensualmente (ver [Cuota Gratuita](/subscription/free-quota)) |
+| Dominios personalizados | No soportado |
+| Almacenamiento persistente | No soportado |
+
+### Tarifas de servicio
+
+El Plan Serverless utiliza las mismas tarifas que los planes de pago, descontadas de los Credits gratuitos:
+
+- **vCPU** — Gratis ($0.0 / minuto de vCPU)
+- **Memoria** — US$0.00025 / GB-minuto (~US$10.8 / GB-mes)
+- **Tráfico de red saliente** — US$0.1 / GB
+- **Almacenamiento persistente** — US$0.2 / GB-mes
+
+## Limitaciones
+
+- **Suspensión automática** — Los servicios en el Plan Serverless se suspenden automáticamente después de un período de inactividad. Se reactivan con la siguiente solicitud entrante, lo que puede causar unos segundos de latencia de arranque en frío.
+- **Sin almacenamiento persistente** — No se pueden desplegar servicios que requieran volúmenes persistentes (ej., bases de datos).
+- **Sin SLA** — El plan gratuito no incluye un Acuerdo de Nivel de Servicio.
+- **Credits agotados** — Cuando los Credits gratuitos mensuales se agotan, los servicios se suspenden hasta el reinicio del mes siguiente.
+
+<Callout type="info">
+Los servicios en el Plan Serverless se suspenden automáticamente cuando están inactivos para conservar recursos. Si necesita que los servicios se ejecuten continuamente, considere actualizar al [Plan Dev](/pricing/dev-plan).
+</Callout>
+
+## Ruta de actualización
+
+Cuando sus necesidades excedan el Plan Serverless, puede actualizar a un plan de pago:
+
+- **[Plan Dev](/pricing/dev-plan)** — US$5/mes, ideal para desarrolladores individuales con proyectos en producción. Incluye dominios personalizados, almacenamiento persistente y proyectos ilimitados.
+- **[Plan Team](/pricing/team-plan)** — Facturación basada en uso, diseñado para colaboración en equipo con gestión de miembros y soporte de facturación.
+- **Enterprise** — Planes personalizados con soporte dedicado y SLAs — [contáctenos](https://zeabur.com/forum) para más detalles.
+
+Visite [zeabur.com/pricing](https://zeabur.com/pricing) para comparar todos los planes.

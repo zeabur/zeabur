@@ -39,7 +39,7 @@ const token = document.cookie
   ?.split('=')[1];
 ```
 
-2. **Using API Key** - For programmatic access, you can use your [API key](./use-api-key) as the authentication token.
+2. **Using API Key** - For programmatic access, you can use your [API key](./api-keys) as the authentication token.
 
 ## Connection Flow
 
@@ -449,7 +449,7 @@ The authentication token accessed via `document.cookie` is stored in a non-HttpO
 1. **Content Security Policy (CSP)** - Prevent XSS attacks that could steal the token
 2. **Short token expiration** - Limit damage if token is compromised
 3. **SameSite cookie attribute** - Prevent CSRF attacks
-4. **Use API Keys for server-side** - For backend applications, use [API keys](./use-api-key) instead of session tokens
+4. **Use API Keys for server-side** - For backend applications, use [API keys](./api-keys) instead of session tokens
 
 ## Troubleshooting
 
@@ -464,7 +464,7 @@ The authentication token accessed via `document.cookie` is stored in a non-HttpO
 ## Related Resources
 
 - [Public API](./public-api) - Overview of all Zeabur APIs
-- [Create and Use API Keys](./use-api-key) - How to generate API tokens
+- [Create and Use API Keys](./api-keys) - How to generate API tokens
 - [graphql-ws Protocol](https://github.com/enisdenjo/graphql-ws/blob/master/PROTOCOL.md) - Official protocol specification
 - [Apollo Explorer](https://studio.apollographql.com/public/zeabur/variant/main/explorer) - Explore available GraphQL operations
 

@@ -1,24 +1,53 @@
 export default {
-  index: '基本介紹',
-  'get-started': '快速開始',
-  deploy: '部署',
-  template: '模板',
-  marketplace: {
-    title: 'Zeabur 模板目錄',
-    href: 'https://zeabur.com/templates',
-  },
-  'ai-hub': 'Zeabur AI Hub',
-  'email': 'Zeabur Email',
-  'wonder-mesh': 'Wonder Mesh',
-  'integrations': '整合',
-  'data-management': '資料管理',
-  networking: '網路',
-  guides: '教學',
-  manage: '專案管理',
-  legal: '法律及政策',
-  billing: '付款與帳單',
-  community: '社群',
-  advanced: '進階',
-  developer: '開發者',
-  tutorials: "導入指南",
+  'get-started': '入門',
+
+  // ── 基礎設施 ──────────────────────────────────────────────────────────
+  '---1---': { type: 'separator' },
+  'dedicated-server': '伺服器',
+  deploy:             '部署',
+  operations:         '維運',
+
+  // ── 產品 ──────────────────────────────────────────────────────────────
+  '---2---': { type: 'separator' },
+  'ai-hub':           'AI Hub',
+  email:              'Email',
+  'wonder-mesh':      'Wonder Mesh',
+  template:           '模板',
+  integrations:       '整合',
+
+  // ── 開發者 ─────────────────────────────────────────────────────────────
+  '---3---': { type: 'separator' },
+  developer: '開發者工具',
+  guides:    '語言與框架',
+
+  // ── 商業 ──────────────────────────────────────────────────────────────
+  '---4---': { type: 'separator' },
+  pricing:            '定價',
+  subscription:       '訂閱與帳單',
+  rewards:            '推薦與獎勵',
+  partner:            '合作夥伴計畫',
+
+  // ── 法律 ──────────────────────────────────────────────────────────────
+  '---5---': { type: 'separator' },
+  'privacy-policy':   '隱私權政策',
+  compliance:         '合規',
+  'terms-of-service': '服務條款',
+
+  // ── 隱藏：舊版目錄（不顯示在 sidebar）────────────────────────────
+  advanced:       { display: 'hidden' },
+  billing:        { display: 'hidden' },
+  'billing-legal': { display: 'hidden' },
+  community:      { display: 'hidden' },
+  'data-management': { display: 'hidden' },
+  legal:          { display: 'hidden' },
+  monitoring:     { display: 'hidden' },
+  networking:     { display: 'hidden' },
+  manage:         { display: 'hidden' },
+  infrastructure: { display: 'hidden' },
+  mesh:           { display: 'hidden' },
+  tutorials:      { display: 'hidden' },
+  mcp:            { display: 'hidden' },
+
+  // ── Root index — served at /zh-TW, hidden from sidebar ─────────
+  index: { display: 'hidden' },
 }

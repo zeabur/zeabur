@@ -1,0 +1,60 @@
+---
+title: Developer Resources
+ogImageTitle: Developer Resources
+ogImageSubtitle: APIs, CLI & Integration Docs
+---
+
+import { Callout } from 'nextra/components';
+
+# Developer Resources
+
+Zeabur provides a comprehensive set of APIs and developer tools for programmatic service management, deployment automation, and integration with your own applications.
+
+## API Overview
+
+Zeabur's API is built on **GraphQL**, powering the Dashboard, CLI, and all first-party products. REST endpoints are also available for specific operations (file uploads, container operations, etc.).
+
+| API | Purpose | Endpoint |
+|-----|---------|----------|
+| [GraphQL API](/en-US/developer/public-api) | Project / Service / Environment management, deployments, logs | `https://api.zeabur.com/graphql` |
+| [Upload API](https://schema.zeabur.app/upload-api/index.html) | Deploy ZIP archives via Pre-signed URL | `https://api.zeabur.com/v2/upload` |
+| [Email REST API](/en-US/email/rest-api) | Email sending & management | `https://api.zeabur.com/api/v1/zsend` |
+
+<Callout>
+Full non-GraphQL API specs (JSON Schema / OpenAPI) are available at the [Schema Repository](https://schema.zeabur.app/).
+</Callout>
+
+## Authentication
+
+All APIs use **Bearer Token** authentication. Generate a key at [Dashboard > Settings > API Keys](https://zeabur.com/account/api-keys), then include it in the `Authorization` header:
+
+```bash
+curl -X POST https://api.zeabur.com/graphql \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"query":"query { me { username } }"}'
+```
+
+See [API Keys](/en-US/developer/api-keys) for detailed instructions.
+
+## Real-Time Subscriptions
+
+Need to stream logs or listen for project activity? Zeabur provides WebSocket real-time subscriptions via the [graphql-ws](https://github.com/enisdenjo/graphql-ws) protocol.
+
+- **Global endpoint**: `wss://api.zeabur.com/graphql`
+- **China endpoint**: `wss://api.zeabur.cn/graphql`
+
+For connection details, authentication flow, and code examples, see [WebSocket Subscriptions](/en-US/developer/websocket-guide).
+
+## Tools
+
+- **[Zeabur CLI](/en-US/developer/cli)**: Log in and deploy services from your terminal with `npx zeabur`.
+- **[Apollo Explorer](https://studio.apollographql.com/public/zeabur/variant/main/explorer)**: Browse and test all GraphQL APIs online. You can also download the full Schema for IDE integration.
+
+## Product-Specific APIs
+
+Some Zeabur products have their own API documentation:
+
+- **[Zeabur Email REST API](/en-US/email/rest-api)** — Email sending API endpoint reference
+- **[Email API Keys](/en-US/email/api-keys)** — Email-specific API key management & permissions
+- **[Email Webhooks](/en-US/email/webhooks)** — Inbound / bounce event callback configuration

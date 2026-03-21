@@ -22,7 +22,7 @@ import { Callout } from 'nextra/components'
 
 ## 連線服務
 
-其他服務若要連線到這個服務（就此例來說是 PostgreSQL），則使用主機名稱連線。另外 [根據 PostgreSQL 的文件](/marketplace/postgresql)，它的 Port 會注入到 `POSTGRES_PORT` 環境變數，所以你的連線資訊可以這樣填寫：
+其他服務若要連線到這個服務（就此例來說是 PostgreSQL），則使用主機名稱連線。另外 根據 PostgreSQL 的文件，它的 Port 會注入到 `POSTGRES_PORT` 環境變數，所以你的連線資訊可以這樣填寫：
 
 - Hostname：你在上一步驟看到的主機名稱，此例是 `postgresql.zeabur.internal`。
 - Port：從 `POSTGRES_PORT` 環境變數取值，[預設是 5432](https://github.com/zeabur/zeabur/blob/bd565389cf1868a917333d0f74003b4aad6ef0ce/prebuilts/postgresql.toml#L14)。

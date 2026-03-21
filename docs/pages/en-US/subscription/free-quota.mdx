@@ -1,0 +1,71 @@
+---
+title: Free Quota
+ogImageTitle: Free Quota
+ogImageSubtitle: Understand Zeabur free tier quota and limits
+---
+
+import { Callout } from 'nextra/components'
+
+# Free Quota
+
+Zeabur provides free credits to all users, allowing you to try the platform without paying.
+
+## How Credits Are Calculated
+
+Free credits are **virtual credits that reset monthly**, used to offset resource usage on shared clusters. The amount varies by plan:
+
+| Plan | Monthly Free Credits |
+| --- | --- |
+| Serverless (Free Plan) | Limited (varies by account status) |
+| Dev Plan | US$5 (included in monthly fee) |
+| Team Plan | US$5 (included in monthly fee) |
+
+For paid plans, the "free credits" are the credits included in the monthly fee. For example, the Dev Plan's US$5 monthly fee includes US$5 in credits — if your resource usage stays under US$5, no additional charges apply.
+
+## What's Covered
+
+Free credits **only apply to shared cluster resource usage**, including:
+
+- Memory usage
+- Network egress
+- Persistent storage
+
+### Not Covered by Free Credits
+
+The following are **not** deducted from free credits and require separate payment:
+
+- **Dedicated server fees** — Monthly rental for dedicated servers is billed separately.
+- **AI Hub credits** — AI Hub uses its own credit system and requires separate top-ups.
+
+## When Credits Run Out
+
+### Serverless (Free Plan)
+
+When monthly free credits are exhausted:
+
+1. All services are **automatically suspended**.
+2. You'll receive a notification about the depleted credits.
+3. Services resume automatically when credits reset next month.
+4. To restore services immediately, upgrade to the [Dev Plan](/pricing/dev-plan) or add credits.
+
+### Paid Plans
+
+When the included monthly credits are exhausted:
+
+1. Overage is automatically charged to your **credit card or prepaid balance**.
+2. If the charge fails, services won't be suspended immediately, but you'll receive a payment reminder.
+3. Prolonged non-payment may result in service suspension.
+
+<Callout type="info">
+You can check your current month's credit usage on the [Dashboard billing page](https://dash.zeabur.com/account/billing).
+</Callout>
+
+## FAQ
+
+### Do unused credits roll over?
+
+No. Free credits reset monthly. Unused credits do not carry over to the next month.
+
+### How do I check my remaining credits?
+
+Go to the [Dashboard billing page](https://dash.zeabur.com/account/billing) to view your current month's usage and remaining credits.

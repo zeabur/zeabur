@@ -2,13 +2,25 @@ import { useEffect } from 'react'
 import { useRouter } from 'nextra/hooks'
 import type { AppProps } from 'next/app'
 import { LOCALE_LOCAL_STORAGE_KEY } from '../i18n-config'
+// Import fonts to ensure next/font CSS is included in the client bundle
+// (font classes are SSR'd on <html> via _document.js)
+import { fontVariableClasses as _fontVars } from '../lib/fonts'
 import './styles.css'
+
+// Prevent tree-shaking — font CSS must be in the client bundle
+void _fontVars
 
 const SCROLL_KEY = 'zeabur-docs-scroll'
 
 export default function Nextra({ Component, pageProps }: AppProps) {
   const router = useRouter()
   const { locale } = router
+
+  // Set lang attribute for :lang() CSS selectors (CJK font priority)
+  useEffect(() => {
+    document.documentElement.lang = locale || 'en-US'
+  }, [locale])
+
   // sync locale to localStorage when it changes
   useEffect(() => {
     if (window.localStorage.getItem(LOCALE_LOCAL_STORAGE_KEY) === locale) return

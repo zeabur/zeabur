@@ -1,24 +1,53 @@
 export default {
-  index: 'Introducción',
-  'get-started': 'Empezar',
-  deploy: 'Implementar',
-  template: 'Plantilla',
-  marketplace: {
-    title: 'Catálogo de Plantillas',
-    href: 'https://zeabur.com/templates',
-  },
-  'ai-hub': 'Zeabur AI Hub',
-  'email': 'Zeabur Email',
-  'wonder-mesh': 'Wonder Mesh',
-  'integrations': 'Integraciones',
-  'data-management': 'Gestión de Datos',
-  networking: 'Redes',
-  guides: 'Guías',
-  manage: 'Gestión de Proyectos',
-  legal: 'Legal y Políticas',
-  billing: 'Pagos y Facturación',
-  community: 'Comunidad',
-  advanced: 'Avanzado',
-  developer: 'Desarrollador',
-  tutorials: 'Guías de Importación',
+  'get-started': 'Comenzar',
+
+  // ── Infraestructura ──────────────────────────────────────────────────────
+  '---1---': { type: 'separator' },
+  'dedicated-server': 'Servidores',
+  deploy:             'Implementar',
+  operations:         'Operaciones',
+
+  // ── Productos ────────────────────────────────────────────────────────────
+  '---2---': { type: 'separator' },
+  'ai-hub':           'AI Hub',
+  email:              'Email',
+  'wonder-mesh':      'Wonder Mesh',
+  template:           'Plantillas',
+  integrations:       'Integraciones',
+
+  // ── Desarrollador ────────────────────────────────────────────────────────
+  '---3---': { type: 'separator' },
+  developer: 'Herramientas de Desarrollador',
+  guides:    'Frameworks',
+
+  // ── Comercial ────────────────────────────────────────────────────────────
+  '---4---': { type: 'separator' },
+  pricing:            'Precios',
+  subscription:       'Suscripción y Facturación',
+  rewards:            'Recompensas y Referidos',
+  partner:            'Programa de Socios',
+
+  // ── Legal ────────────────────────────────────────────────────────────────
+  '---5---': { type: 'separator' },
+  'privacy-policy':   'Política de Privacidad',
+  compliance:         'Cumplimiento',
+  'terms-of-service': 'Términos de Servicio',
+
+  // ── Ocultos: directorios heredados ───────────────────────────────────────
+  advanced:        { display: 'hidden' },
+  billing:         { display: 'hidden' },
+  'billing-legal': { display: 'hidden' },
+  community:       { display: 'hidden' },
+  'data-management': { display: 'hidden' },
+  legal:           { display: 'hidden' },
+  monitoring:      { display: 'hidden' },
+  networking:      { display: 'hidden' },
+  manage:          { display: 'hidden' },
+  infrastructure:  { display: 'hidden' },
+  mesh:            { display: 'hidden' },
+  tutorials:       { display: 'hidden' },
+  mcp:             { display: 'hidden' },
+
+  // ── Root index ────────────────────────────────────────────────────────────
+  index: { display: 'hidden' },
 }
