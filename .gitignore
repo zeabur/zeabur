@@ -8,3 +8,4 @@ packages
 DS_Store
 .idea
 .npmrc
+.env.local
