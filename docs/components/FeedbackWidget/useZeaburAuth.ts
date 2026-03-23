@@ -4,7 +4,6 @@ export interface ZeaburUser {
   _id: string
   name: string
   username: string
-  email: string
   avatarURL: string
 }
 
@@ -25,6 +24,8 @@ export function useZeaburAuth(): AuthState {
   const [state, setState] = useState<AuthState>({ user: null, loading: true })
 
   useEffect(() => {
+    let cancelled = false
+
     const token = getTokenFromCookie()
     if (!token) {
       setState({ user: null, loading: false })
@@ -36,11 +37,12 @@ export function useZeaburAuth(): AuthState {
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        query: '{ me { _id name username email avatarURL } }',
+        query: '{ me { _id name username avatarURL } }',
       }),
     })
       .then((res) => res.json())
       .then((json) => {
+        if (cancelled) return
         if (json.data?.me) {
           setState({ user: json.data.me, loading: false })
         } else {
@@ -48,8 +50,10 @@ export function useZeaburAuth(): AuthState {
         }
       })
       .catch(() => {
-        setState({ user: null, loading: false })
+        if (!cancelled) setState({ user: null, loading: false })
       })
+
+    return () => { cancelled = true }
   }, [])
 
   return state

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useRouter } from 'nextra/hooks'
-import { useZeaburAuth } from './useZeaburAuth'
 
 type Rating = 1 | 2 | 3 | 4
 type Status = 'idle' | 'expanded' | 'submitting' | 'success' | 'error'
@@ -84,8 +83,6 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
   const t = i18n[locale] || i18n['en-US']
   const ratingLabels = RATING_LABELS[locale] || RATING_LABELS['en-US']
 
-  const { user, loading: authLoading } = useZeaburAuth()
-
   const [rating, setRating] = useState<Rating | null>(null)
   const [feedback, setFeedback] = useState('')
   const [status, setStatus] = useState<Status>('idle')
@@ -103,25 +100,30 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
     setErrorMsg('')
 
     try {
-      const page = router.pathname.replace(/^\/[a-z]{2}-[A-Z]{2}/, '')
+      const page = router.asPath.replace(/^\/[a-z]{2}-[A-Z]{2}/, '').replace(/#.*$/, '')
 
-      const res = await fetch('/docs/api/feedback', {
+      const res = await fetch('https://api.zeabur.com/graphql', {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          page,
-          locale,
-          rating,
-          feedback: feedback.trim() || undefined,
-          userId: user?._id ?? null,
-          username: user?.username ?? null,
+          query: `mutation SubmitDocFeedback($input: DocFeedbackInput!) {
+            submitDocFeedback(input: $input)
+          }`,
+          variables: {
+            input: {
+              page,
+              locale,
+              rating,
+              feedback: feedback.trim() || null,
+            },
+          },
         }),
       })
 
-      if (!res.ok) {
-        const text = await res.text()
-        throw new Error(text || `HTTP ${res.status}`)
+      const json = await res.json()
+      if (json.errors) {
+        throw new Error(json.errors[0]?.message || t.error)
       }
 
       setStatus('success')

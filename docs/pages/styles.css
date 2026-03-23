@@ -551,11 +551,7 @@ html.dark .feedback-widget {
 	margin: 0 0 0.75rem;
 	font-size: 0.875rem;
 	font-weight: 500;
-	color: #374151;
-}
-
-html.dark .feedback-heading {
-	color: #d1d5db;
+	color: var(--zb-text-2);
 }
 
 .feedback-emojis {
@@ -588,8 +584,8 @@ html.dark .feedback-heading {
 
 .feedback-emoji.active {
 	opacity: 1;
-	border-color: #7c3aed;
-	background: rgba(124, 58, 237, 0.08);
+	border-color: var(--zb-purple);
+	background: var(--zb-purple-muted);
 	transform: scale(1.1);
 }
 
@@ -602,8 +598,8 @@ html.dark .feedback-emoji:hover {
 }
 
 html.dark .feedback-emoji.active {
-	border-color: #a78bfa;
-	background: rgba(167, 139, 250, 0.15);
+	border-color: var(--zb-purple);
+	background: var(--zb-purple-muted);
 }
 
 .feedback-form {
@@ -615,8 +611,8 @@ html.dark .feedback-emoji.active {
 	padding: 0.625rem 0.75rem;
 	border: 1px solid rgba(128, 128, 128, 0.25);
 	border-radius: 8px;
-	background: white;
-	color: #1f2937;
+	background: var(--zb-bg);
+	color: var(--zb-text);
 	font-size: 0.875rem;
 	font-family: inherit;
 	resize: vertical;
@@ -626,17 +622,17 @@ html.dark .feedback-emoji.active {
 }
 
 .feedback-textarea:focus {
-	border-color: #7c3aed;
+	border-color: var(--zb-purple);
 }
 
 html.dark .feedback-textarea {
-	background: rgba(255, 255, 255, 0.05);
+	background: var(--zb-bg-muted);
 	border-color: rgba(255, 255, 255, 0.15);
-	color: #e5e7eb;
+	color: var(--zb-text);
 }
 
 html.dark .feedback-textarea:focus {
-	border-color: #a78bfa;
+	border-color: var(--zb-purple);
 }
 
 .feedback-actions {
@@ -649,16 +645,12 @@ html.dark .feedback-textarea:focus {
 
 .feedback-login-hint {
 	font-size: 0.8125rem;
-	color: #6b7280;
+	color: var(--zb-text-muted);
 }
 
 .feedback-login-hint a {
-	color: #7c3aed;
+	color: var(--zb-purple);
 	text-decoration: underline;
-}
-
-html.dark .feedback-login-hint a {
-	color: #a78bfa;
 }
 
 .feedback-error {
@@ -674,8 +666,8 @@ html.dark .feedback-login-hint a {
 	padding: 0.375rem 1rem;
 	border: none;
 	border-radius: 6px;
-	background: #7c3aed;
-	color: white;
+	background: var(--zb-purple);
+	color: #fff;
 	font-size: 0.8125rem;
 	font-weight: 500;
 	cursor: pointer;
@@ -683,7 +675,7 @@ html.dark .feedback-login-hint a {
 }
 
 .feedback-send:hover:not(:disabled) {
-	background: #6d28d9;
+	filter: brightness(0.9);
 }
 
 .feedback-send:disabled {
@@ -718,12 +710,8 @@ html.dark .feedback-success {
 }
 
 .feedback-link {
-	color: #7c3aed;
+	color: var(--zb-purple);
 	text-decoration: underline;
 	font-size: 0.8125rem;
 	margin-left: 0.25rem;
-}
-
-html.dark .feedback-link {
-	color: #a78bfa;
 }
