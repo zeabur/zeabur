@@ -1,8 +1,9 @@
-import { useState, useCallback } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'nextra/hooks'
 import { useZeaburAuth } from './useZeaburAuth'
 
 type Rating = 1 | 2 | 3 | 4
+type Status = 'idle' | 'expanded' | 'submitting' | 'success' | 'error'
 
 const EMOJIS: { value: Rating; icon: string; label: string }[] = [
   { value: 1, icon: '😞', label: 'Not helpful' },
@@ -11,72 +12,105 @@ const EMOJIS: { value: Rating; icon: string; label: string }[] = [
   { value: 4, icon: '😃', label: 'Very helpful' },
 ]
 
-type Locale = 'en-US' | 'zh-TW' | 'zh-CN' | 'ja-JP' | 'es-ES'
-
-const i18n: Record<Locale, Record<string, string>> = {
+const i18n: Record<string, Record<string, string>> = {
   'en-US': {
     heading: 'Was this page helpful?',
-    placeholder: 'Any additional feedback? (optional)',
-    send: 'Send feedback',
-    thanks: 'Thanks for your feedback!',
-    error: 'Failed to send feedback. Please try again.',
+    placeholder: 'Your feedback (optional)...',
+    send: 'Send',
+    login: 'Please log in first',
+    thanks: 'Thank you for your feedback!',
+    viewPost: 'View on Forum',
+    error: 'Failed to send. Please try again.',
+    retry: 'Retry',
   },
   'zh-TW': {
     heading: '這個頁面有幫助嗎？',
-    placeholder: '其他意見回饋？（選填）',
-    send: '送出回饋',
+    placeholder: '您的回饋（可選）...',
+    send: '送出',
+    login: '請先登入',
     thanks: '感謝您的回饋！',
-    error: '送出失敗，請再試一次。',
+    viewPost: '在論壇查看',
+    error: '傳送失敗，請重試。',
+    retry: '重試',
   },
   'zh-CN': {
-    heading: '此页面有帮助吗？',
-    placeholder: '其他意见反馈？（选填）',
-    send: '提交反馈',
+    heading: '这个页面有帮助吗？',
+    placeholder: '您的反馈（可选）...',
+    send: '发送',
+    login: '请先登录',
     thanks: '感谢您的反馈！',
-    error: '提交失败，请重试。',
+    viewPost: '在论坛查看',
+    error: '发送失败，请重试。',
+    retry: '重试',
   },
   'ja-JP': {
     heading: 'このページは役に立ちましたか？',
-    placeholder: 'その他のフィードバック（任意）',
-    send: 'フィードバックを送信',
+    placeholder: 'フィードバック（任意）...',
+    send: '送信',
+    login: 'ログインしてください',
     thanks: 'フィードバックありがとうございます！',
+    viewPost: 'フォーラムで見る',
     error: '送信に失敗しました。もう一度お試しください。',
+    retry: '再試行',
   },
   'es-ES': {
-    heading: '¿Te resultó útil esta página?',
-    placeholder: '¿Algún comentario adicional? (opcional)',
-    send: 'Enviar comentario',
-    thanks: '¡Gracias por tu opinión!',
+    heading: '¿Fue útil esta página?',
+    placeholder: 'Tu comentario (opcional)...',
+    send: 'Enviar',
+    login: 'Inicia sesión primero',
+    thanks: '¡Gracias por tu comentario!',
+    viewPost: 'Ver en el foro',
     error: 'Error al enviar. Inténtalo de nuevo.',
+    retry: 'Reintentar',
   },
 }
 
-interface FeedbackWidgetProps {
-  variant?: 'inline' | 'toc'
+const RATING_LABELS: Record<string, string[]> = {
+  'en-US': ['Not helpful', 'Slightly helpful', 'Helpful', 'Very helpful'],
+  'zh-TW': ['沒有幫助', '稍有幫助', '有幫助', '非常有幫助'],
+  'zh-CN': ['没有帮助', '稍有帮助', '有帮助', '非常有帮助'],
+  'ja-JP': ['役に立たない', '少し役立つ', '役立つ', 'とても役立つ'],
+  'es-ES': ['No útil', 'Algo útil', 'Útil', 'Muy útil'],
 }
 
-export default function FeedbackWidget({ variant = 'inline' }: FeedbackWidgetProps) {
+/**
+ * variant:
+ *   - "toc": compact, rendered in the TOC sidebar (desktop only, hidden below xl)
+ *   - "inline": rendered below main content (mobile only, hidden at xl+)
+ */
+export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 'inline' }) {
   const router = useRouter()
-  const locale = (router.locale ?? 'en-US') as Locale
-  const t = i18n[locale] ?? i18n['en-US']
+  const locale = router.locale || 'en-US'
+  const t = i18n[locale] || i18n['en-US']
+  const ratingLabels = RATING_LABELS[locale] || RATING_LABELS['en-US']
 
-  const { user } = useZeaburAuth()
+  const { user, loading: authLoading } = useZeaburAuth()
 
   const [rating, setRating] = useState<Rating | null>(null)
   const [feedback, setFeedback] = useState('')
-  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+  const [status, setStatus] = useState<Status>('idle')
+  const [errorMsg, setErrorMsg] = useState('')
 
-  const handleSubmit = useCallback(async () => {
+  const handleRating = (value: Rating) => {
+    setRating(value)
+    if (status === 'idle') setStatus('expanded')
+  }
+
+  const handleSubmit = async () => {
     if (!rating) return
-    setStatus('sending')
+
+    setStatus('submitting')
+    setErrorMsg('')
 
     try {
+      const page = router.pathname.replace(/^\/[a-z]{2}-[A-Z]{2}/, '')
+
       const res = await fetch('/docs/api/feedback', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          page: router.pathname.replace(/^\/[a-z]{2}-[A-Z]{2}/, ''),
+          page,
           locale,
           rating,
           feedback: feedback.trim() || undefined,
@@ -85,41 +119,63 @@ export default function FeedbackWidget({ variant = 'inline' }: FeedbackWidgetPro
         }),
       })
 
-      if (!res.ok) throw new Error('Request failed')
-      setStatus('sent')
-    } catch {
+      if (!res.ok) {
+        const text = await res.text()
+        throw new Error(text || `HTTP ${res.status}`)
+      }
+
+      setStatus('success')
+    } catch (err: any) {
+      setErrorMsg(err.message || t.error)
       setStatus('error')
     }
-  }, [rating, feedback, router.pathname, locale, user])
+  }
 
-  if (status === 'sent') {
+  const handleRetry = () => {
+    setStatus('expanded')
+    setErrorMsg('')
+  }
+
+  const visibilityClass = variant === 'inline'
+    ? 'feedback-mobile-only'
+    : ''
+
+  if (status === 'success') {
     return (
-      <div className={`feedback-widget ${variant === 'toc' ? 'feedback-toc' : 'feedback-inline'}`}>
-        <p className="feedback-thanks">{t.thanks}</p>
+      <div className={`feedback-widget ${visibilityClass}`}>
+        <div className="feedback-success">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.7-10.3a.75.75 0 00-1.06-1.06L9 10.29 7.36 8.64a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.06 0l4.09-4.25z"
+              fill="currentColor"
+            />
+          </svg>
+          <span>{t.thanks}</span>
+        </div>
       </div>
     )
   }
 
   return (
-    <div className={`feedback-widget ${variant === 'toc' ? 'feedback-toc' : 'feedback-inline'}`}>
+    <div className={`feedback-widget ${visibilityClass}`}>
       <p className="feedback-heading">{t.heading}</p>
 
       <div className="feedback-emojis">
-        {EMOJIS.map((e) => (
+        {EMOJIS.map((emoji) => (
           <button
-            key={e.value}
+            key={emoji.value}
             type="button"
-            className={`feedback-emoji ${rating === e.value ? 'active' : ''}`}
-            onClick={() => setRating(e.value)}
-            title={e.label}
-            aria-label={e.label}
+            className={`feedback-emoji ${rating === emoji.value ? 'active' : ''}`}
+            onClick={() => handleRating(emoji.value)}
+            title={ratingLabels[emoji.value - 1]}
+            aria-label={ratingLabels[emoji.value - 1]}
           >
-            {e.icon}
+            {emoji.icon}
           </button>
         ))}
       </div>
 
-      {rating !== null && (
+      {(status === 'expanded' || status === 'submitting' || status === 'error') && (
         <div className="feedback-form">
           <textarea
             className="feedback-textarea"
@@ -127,18 +183,29 @@ export default function FeedbackWidget({ variant = 'inline' }: FeedbackWidgetPro
             value={feedback}
             onChange={(e) => setFeedback(e.target.value)}
             rows={3}
+            disabled={status === 'submitting'}
           />
-          <button
-            type="button"
-            className="feedback-send"
-            disabled={status === 'sending'}
-            onClick={handleSubmit}
-          >
-            {status === 'sending' ? '...' : t.send}
-          </button>
-          {status === 'error' && (
-            <p className="feedback-error">{t.error}</p>
-          )}
+
+          <div className="feedback-actions">
+            {status === 'error' && (
+              <span className="feedback-error">{errorMsg || t.error}</span>
+            )}
+
+            <button
+              type="button"
+              className="feedback-send"
+              onClick={status === 'error' ? handleRetry : handleSubmit}
+              disabled={status === 'submitting'}
+            >
+              {status === 'submitting' ? (
+                <span className="feedback-spinner" />
+              ) : status === 'error' ? (
+                t.retry
+              ) : (
+                t.send
+              )}
+            </button>
+          </div>
         </div>
       )}
     </div>

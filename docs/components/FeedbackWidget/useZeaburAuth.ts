@@ -2,48 +2,55 @@ import { useEffect, useState } from 'react'
 
 export interface ZeaburUser {
   _id: string
+  name: string
   username: string
   email: string
+  avatarURL: string
 }
 
-function getCookie(name: string): string | undefined {
+interface AuthState {
+  user: ZeaburUser | null
+  loading: boolean
+}
+
+function getTokenFromCookie(): string | undefined {
   if (typeof document === 'undefined') return undefined
-  const match = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`))
-  return match ? decodeURIComponent(match[1]) : undefined
+  return document.cookie
+    .split('; ')
+    .find((row) => row.startsWith('token='))
+    ?.split('=')[1]
 }
 
-export function useZeaburAuth() {
-  const [user, setUser] = useState<ZeaburUser | null>(null)
-  const [loading, setLoading] = useState(true)
+export function useZeaburAuth(): AuthState {
+  const [state, setState] = useState<AuthState>({ user: null, loading: true })
 
   useEffect(() => {
-    const token = getCookie('token')
+    const token = getTokenFromCookie()
     if (!token) {
-      setLoading(false)
+      setState({ user: null, loading: false })
       return
     }
 
     fetch('https://api.zeabur.com/graphql', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        query: '{ me { _id username email } }',
+        query: '{ me { _id name username email avatarURL } }',
       }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        if (data?.data?.me) {
-          setUser(data.data.me)
+      .then((json) => {
+        if (json.data?.me) {
+          setState({ user: json.data.me, loading: false })
+        } else {
+          setState({ user: null, loading: false })
         }
       })
       .catch(() => {
-        // ignore auth errors
+        setState({ user: null, loading: false })
       })
-      .finally(() => setLoading(false))
   }, [])
 
-  return { user, loading }
+  return state
 }
