@@ -14,6 +14,7 @@
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.6.2",
     "@theguild/remark-mermaid": "^0.3.0",
+    "mongodb": "^7.1.0",
     "negotiator": "^1.0.0",
     "next": "^15.5.10",
     "nextra": "^3.3.1",

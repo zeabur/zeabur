@@ -1,292 +1,125 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useState, useCallback } from 'react'
 import { useRouter } from 'nextra/hooks'
 import { useZeaburAuth } from './useZeaburAuth'
 
-const TURNSTILE_SITEKEY = '0x4AAAAAACCyo_1UnKEIQB-R'
-const FORUM_API = '/forum/api/posts'
-const LOGIN_URL = 'https://zeabur.com/login'
-
 type Rating = 1 | 2 | 3 | 4
-type Status = 'idle' | 'expanded' | 'submitting' | 'success' | 'error'
 
 const EMOJIS: { value: Rating; icon: string; label: string }[] = [
   { value: 1, icon: '😞', label: 'Not helpful' },
   { value: 2, icon: '🙁', label: 'Slightly helpful' },
-  { value: 3, icon: '😐', label: 'Helpful' },
-  { value: 4, icon: '🙂', label: 'Very helpful' },
+  { value: 3, icon: '🙂', label: 'Helpful' },
+  { value: 4, icon: '😃', label: 'Very helpful' },
 ]
 
-const i18n: Record<string, Record<string, string>> = {
+type Locale = 'en-US' | 'zh-TW' | 'zh-CN' | 'ja-JP' | 'es-ES'
+
+const i18n: Record<Locale, Record<string, string>> = {
   'en-US': {
     heading: 'Was this page helpful?',
-    placeholder: 'Your feedback (optional)...',
-    send: 'Send',
-    login: 'Please log in first',
-    thanks: 'Thank you for your feedback!',
-    viewPost: 'View on Forum',
-    error: 'Failed to send. Please try again.',
-    retry: 'Retry',
+    placeholder: 'Any additional feedback? (optional)',
+    send: 'Send feedback',
+    thanks: 'Thanks for your feedback!',
+    error: 'Failed to send feedback. Please try again.',
   },
   'zh-TW': {
     heading: '這個頁面有幫助嗎？',
-    placeholder: '您的回饋（可選）...',
-    send: '送出',
-    login: '請先登入',
+    placeholder: '其他意見回饋？（選填）',
+    send: '送出回饋',
     thanks: '感謝您的回饋！',
-    viewPost: '在論壇查看',
-    error: '傳送失敗，請重試。',
-    retry: '重試',
+    error: '送出失敗，請再試一次。',
   },
   'zh-CN': {
-    heading: '这个页面有帮助吗？',
-    placeholder: '您的反馈（可选）...',
-    send: '发送',
-    login: '请先登录',
+    heading: '此页面有帮助吗？',
+    placeholder: '其他意见反馈？（选填）',
+    send: '提交反馈',
     thanks: '感谢您的反馈！',
-    viewPost: '在论坛查看',
-    error: '发送失败，请重试。',
-    retry: '重试',
+    error: '提交失败，请重试。',
   },
   'ja-JP': {
     heading: 'このページは役に立ちましたか？',
-    placeholder: 'フィードバック（任意）...',
-    send: '送信',
-    login: 'ログインしてください',
+    placeholder: 'その他のフィードバック（任意）',
+    send: 'フィードバックを送信',
     thanks: 'フィードバックありがとうございます！',
-    viewPost: 'フォーラムで見る',
     error: '送信に失敗しました。もう一度お試しください。',
-    retry: '再試行',
   },
   'es-ES': {
-    heading: '¿Fue útil esta página?',
-    placeholder: 'Tu comentario (opcional)...',
-    send: 'Enviar',
-    login: 'Inicia sesión primero',
-    thanks: '¡Gracias por tu comentario!',
-    viewPost: 'Ver en el foro',
+    heading: '¿Te resultó útil esta página?',
+    placeholder: '¿Algún comentario adicional? (opcional)',
+    send: 'Enviar comentario',
+    thanks: '¡Gracias por tu opinión!',
     error: 'Error al enviar. Inténtalo de nuevo.',
-    retry: 'Reintentar',
   },
 }
 
-const RATING_LABELS: Record<string, string[]> = {
-  'en-US': ['Not helpful', 'Slightly helpful', 'Helpful', 'Very helpful'],
-  'zh-TW': ['沒有幫助', '稍有幫助', '有幫助', '非常有幫助'],
-  'zh-CN': ['没有帮助', '稍有帮助', '有帮助', '非常有帮助'],
-  'ja-JP': ['役に立たない', '少し役立つ', '役立つ', 'とても役立つ'],
-  'es-ES': ['No útil', 'Algo útil', 'Útil', 'Muy útil'],
+interface FeedbackWidgetProps {
+  variant?: 'inline' | 'toc'
 }
 
-function useTurnstile() {
-  const tokenRef = useRef<string | null>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const widgetIdRef = useRef<string | null>(null)
-
-  useEffect(() => {
-    if (typeof window !== 'undefined' && !(window as any).turnstile) {
-      const script = document.createElement('script')
-      script.src =
-        'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
-      script.async = true
-      document.head.appendChild(script)
-    }
-
-    const renderWidget = () => {
-      if (
-        containerRef.current &&
-        (window as any).turnstile &&
-        widgetIdRef.current === null
-      ) {
-        widgetIdRef.current = (window as any).turnstile.render(
-          containerRef.current,
-          {
-            sitekey: TURNSTILE_SITEKEY,
-            size: 'invisible',
-            callback: (token: string) => {
-              tokenRef.current = token
-            },
-          }
-        )
-      }
-    }
-
-    const interval = setInterval(() => {
-      if ((window as any).turnstile) {
-        renderWidget()
-        clearInterval(interval)
-      }
-    }, 200)
-
-    return () => clearInterval(interval)
-  }, [])
-
-  const getToken = useCallback(async (): Promise<string | null> => {
-    if (tokenRef.current) return tokenRef.current
-    if ((window as any).turnstile && widgetIdRef.current !== null) {
-      ;(window as any).turnstile.reset(widgetIdRef.current)
-      return new Promise((resolve) => {
-        let attempts = 0
-        const check = setInterval(() => {
-          attempts++
-          if (tokenRef.current) {
-            clearInterval(check)
-            resolve(tokenRef.current)
-          } else if (attempts > 50) {
-            clearInterval(check)
-            resolve(null)
-          }
-        }, 100)
-      })
-    }
-    return null
-  }, [])
-
-  const resetToken = useCallback(() => {
-    tokenRef.current = null
-    if ((window as any).turnstile && widgetIdRef.current !== null) {
-      ;(window as any).turnstile.reset(widgetIdRef.current)
-    }
-  }, [])
-
-  return { containerRef, getToken, resetToken }
-}
-
-/**
- * variant:
- *   - "toc": compact, rendered in the TOC sidebar (desktop only, hidden below xl)
- *   - "inline": rendered below main content (mobile only, hidden at xl+)
- */
-export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 'inline' }) {
+export default function FeedbackWidget({ variant = 'inline' }: FeedbackWidgetProps) {
   const router = useRouter()
-  const locale = router.locale || 'en-US'
-  const t = i18n[locale] || i18n['en-US']
-  const ratingLabels = RATING_LABELS[locale] || RATING_LABELS['en-US']
+  const locale = (router.locale ?? 'en-US') as Locale
+  const t = i18n[locale] ?? i18n['en-US']
 
-  const { user, loading: authLoading } = useZeaburAuth()
-  const { containerRef, getToken, resetToken } = useTurnstile()
+  const { user } = useZeaburAuth()
 
   const [rating, setRating] = useState<Rating | null>(null)
   const [feedback, setFeedback] = useState('')
-  const [status, setStatus] = useState<Status>('idle')
-  const [postUrl, setPostUrl] = useState<string | null>(null)
-  const [errorMsg, setErrorMsg] = useState('')
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
 
-  const pagePath = `${router.basePath}${router.pathname}`
-
-  const handleRating = (value: Rating) => {
-    setRating(value)
-    if (status === 'idle') setStatus('expanded')
-  }
-
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
     if (!rating) return
-
-    setStatus('submitting')
-    setErrorMsg('')
+    setStatus('sending')
 
     try {
-      const turnstileToken = await getToken()
-      if (!turnstileToken) {
-        setErrorMsg('Turnstile verification failed. Please refresh and try again.')
-        setStatus('error')
-        return
-      }
-
-      const ratingText = ratingLabels[rating - 1]
-      const title = `Docs Feedback: ${pagePath}`
-      const contentParts = [
-        `**Page:** https://zeabur.com${pagePath}`,
-        `**Rating:** ${EMOJIS[rating - 1].icon} ${ratingText} (${rating}/4)`,
-      ]
-      if (feedback.trim()) {
-        contentParts.push(`**Feedback:**\n${feedback.trim()}`)
-      }
-
-      const res = await fetch(FORUM_API, {
+      const res = await fetch('/docs/api/feedback', {
         method: 'POST',
-        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
-          title,
-          content: contentParts.join('\n\n'),
-          attachments: [],
-          templateType: 'misc',
-          turnstileToken,
+          page: router.pathname.replace(/^\/[a-z]{2}-[A-Z]{2}/, ''),
+          locale,
+          rating,
+          feedback: feedback.trim() || undefined,
+          userId: user?._id ?? null,
+          username: user?.username ?? null,
         }),
       })
 
-      if (!res.ok) {
-        const text = await res.text()
-        throw new Error(text || `HTTP ${res.status}`)
-      }
-
-      const data = await res.json()
-      if (data._id) {
-        setPostUrl(`/forum/posts/${data._id}`)
-      }
-      setStatus('success')
-    } catch (err: any) {
-      setErrorMsg(err.message || t.error)
+      if (!res.ok) throw new Error('Request failed')
+      setStatus('sent')
+    } catch {
       setStatus('error')
-      resetToken()
     }
-  }
+  }, [rating, feedback, router.pathname, locale, user])
 
-  const handleRetry = () => {
-    setStatus('expanded')
-    setErrorMsg('')
-  }
-
-  const visibilityClass = variant === 'inline'
-    ? 'feedback-mobile-only'
-    : ''
-
-  if (status === 'success') {
+  if (status === 'sent') {
     return (
-      <div className={`feedback-widget ${visibilityClass}`}>
-        <div className="feedback-success">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.7-10.3a.75.75 0 00-1.06-1.06L9 10.29 7.36 8.64a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.06 0l4.09-4.25z"
-              fill="currentColor"
-            />
-          </svg>
-          <span>{t.thanks}</span>
-          {postUrl && (
-            <a
-              href={postUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="feedback-link"
-            >
-              {t.viewPost} &rarr;
-            </a>
-          )}
-        </div>
+      <div className={`feedback-widget ${variant === 'toc' ? 'feedback-toc' : 'feedback-inline'}`}>
+        <p className="feedback-thanks">{t.thanks}</p>
       </div>
     )
   }
 
   return (
-    <div className={`feedback-widget ${visibilityClass}`}>
+    <div className={`feedback-widget ${variant === 'toc' ? 'feedback-toc' : 'feedback-inline'}`}>
       <p className="feedback-heading">{t.heading}</p>
 
       <div className="feedback-emojis">
-        {EMOJIS.map((emoji) => (
+        {EMOJIS.map((e) => (
           <button
-            key={emoji.value}
+            key={e.value}
             type="button"
-            className={`feedback-emoji ${rating === emoji.value ? 'active' : ''}`}
-            onClick={() => handleRating(emoji.value)}
-            title={ratingLabels[emoji.value - 1]}
-            aria-label={ratingLabels[emoji.value - 1]}
+            className={`feedback-emoji ${rating === e.value ? 'active' : ''}`}
+            onClick={() => setRating(e.value)}
+            title={e.label}
+            aria-label={e.label}
           >
-            {emoji.icon}
+            {e.icon}
           </button>
         ))}
       </div>
 
-      {(status === 'expanded' || status === 'submitting' || status === 'error') && (
+      {rating !== null && (
         <div className="feedback-form">
           <textarea
             className="feedback-textarea"
@@ -294,43 +127,20 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
             value={feedback}
             onChange={(e) => setFeedback(e.target.value)}
             rows={3}
-            disabled={status === 'submitting'}
           />
-
-          <div className="feedback-actions">
-            {!authLoading && !user ? (
-              <span className="feedback-login-hint">
-                <a href={LOGIN_URL} target="_blank" rel="noopener noreferrer">
-                  {t.login}
-                </a>
-              </span>
-            ) : null}
-
-            {status === 'error' && (
-              <span className="feedback-error">{errorMsg || t.error}</span>
-            )}
-
-            <button
-              type="button"
-              className="feedback-send"
-              onClick={status === 'error' ? handleRetry : handleSubmit}
-              disabled={
-                status === 'submitting' || (!authLoading && !user)
-              }
-            >
-              {status === 'submitting' ? (
-                <span className="feedback-spinner" />
-              ) : status === 'error' ? (
-                t.retry
-              ) : (
-                t.send
-              )}
-            </button>
-          </div>
+          <button
+            type="button"
+            className="feedback-send"
+            disabled={status === 'sending'}
+            onClick={handleSubmit}
+          >
+            {status === 'sending' ? '...' : t.send}
+          </button>
+          {status === 'error' && (
+            <p className="feedback-error">{t.error}</p>
+          )}
         </div>
       )}
-
-      <div ref={containerRef} style={{ display: 'none' }} />
     </div>
   )
 }
