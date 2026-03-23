@@ -1,48 +1,556 @@
+/* next/font handles font loading — no CDN @import needed */
 @import 'nextra-theme-docs/style.css' layer(nextra-base);
 
+/* ─────────────────────────────────────────────────────────────────
+   BRAND TOKENS
+   ───────────────────────────────────────────────────────────────── */
+:root {
+  /* Zeabur Purple — primary accent */
+  --zb-purple:       #6300FF;
+  --zb-purple-muted: rgba(99, 0, 255, 0.08);
+  /* Zeabur Orange — content accents only (code, blockquote) */
+  --zb-orange:       #FF4400;
+
+  /* Text hierarchy — 3-tier warm grays (Cursor-inspired) */
+  --zb-text:         #1f1f1f;   /* headings, primary */
+  --zb-text-2:       #37352f;   /* body text */
+  --zb-text-muted:   #787774;   /* captions, meta, labels */
+
+  /* Background */
+  --zb-bg:           #ffffff;
+  --zb-bg-muted:     #f7f7f5;
+}
+
+.dark {
+  --zb-purple:       #a370ff;
+  --zb-purple-muted: rgba(163, 112, 255, 0.12);
+  --zb-orange:       #ff6b3d;
+
+  --zb-text:         #ededec;
+  --zb-text-2:       #d4d4d2;
+  --zb-text-muted:   #9b9a97;
+
+  --zb-bg:           #111111;
+  --zb-bg-muted:     #191919;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   FONT STACKS — Geist (Latin) + Noto Sans CJK per locale
+   ───────────────────────────────────────────────────────────────── */
+:root {
+  --font-sans: var(--font-geist), var(--font-noto-tc), var(--font-noto-sc),
+               var(--font-noto-jp), ui-sans-serif, system-ui, sans-serif;
+  --font-code: var(--font-mono), ui-monospace, 'Cascadia Code',
+               'Fira Code', Menlo, Monaco, monospace;
+
+  /* Type scale — Cursor-inspired (base 15px) */
+  --zb-fs-body:  0.9375rem;  /* 15px */
+  --zb-fs-h1:    2rem;       /* 32px */
+  --zb-fs-h2:    1.5rem;     /* 24px */
+  --zb-fs-h3:    1.25rem;    /* 20px */
+  --zb-fs-h4:    1.0625rem;  /* 17px */
+  --zb-fs-small: 0.8125rem;  /* 13px — sidebar, captions */
+
+  /* Line-heights */
+  --zb-lh-body: 1.7;
+  --zb-lh-h1:   1.15;
+  --zb-lh-h2:   1.2;
+  --zb-lh-h3:   1.25;
+  --zb-lh-h4:   1.3;
+}
+
+/* Locale-specific CJK priority — ensures correct glyph variants
+   CJK glyphs fill more of the em-square and appear ~5-8% larger
+   than Latin at the same font-size. We compensate with slightly
+   smaller sizes and slightly more generous line-heights. */
+:lang(zh-Hant), :lang(zh-TW) {
+  --font-sans: var(--font-geist), var(--font-noto-tc), var(--font-noto-sc),
+               ui-sans-serif, system-ui, sans-serif;
+  --zb-fs-body:  0.9rem;     /* 14.4px (~97%) */
+  --zb-fs-h1:    1.875rem;   /* 30px */
+  --zb-fs-h2:    1.4375rem;  /* 23px */
+  --zb-fs-h3:    1.1875rem;  /* 19px */
+  --zb-fs-h4:    1rem;       /* 16px */
+  --zb-lh-body:  1.8;
+  --zb-lh-h1:    1.2;
+  --zb-lh-h2:    1.3;
+  --zb-lh-h3:    1.35;
+  --zb-lh-h4:    1.4;
+}
+:lang(zh-Hans), :lang(zh-CN) {
+  --font-sans: var(--font-geist), var(--font-noto-sc), var(--font-noto-tc),
+               ui-sans-serif, system-ui, sans-serif;
+  --zb-fs-body:  0.9rem;
+  --zb-fs-h1:    1.875rem;
+  --zb-fs-h2:    1.4375rem;
+  --zb-fs-h3:    1.1875rem;
+  --zb-fs-h4:    1rem;
+  --zb-lh-body:  1.8;
+  --zb-lh-h1:    1.2;
+  --zb-lh-h2:    1.3;
+  --zb-lh-h3:    1.35;
+  --zb-lh-h4:    1.4;
+}
+:lang(ja), :lang(ja-JP) {
+  --font-sans: var(--font-geist), var(--font-noto-jp),
+               ui-sans-serif, system-ui, sans-serif;
+  --zb-fs-body:  0.9rem;
+  --zb-fs-h1:    1.875rem;
+  --zb-fs-h2:    1.4375rem;
+  --zb-fs-h3:    1.1875rem;
+  --zb-fs-h4:    1rem;
+  --zb-lh-body:  1.8;
+  --zb-lh-h1:    1.2;
+  --zb-lh-h2:    1.3;
+  --zb-lh-h3:    1.35;
+  --zb-lh-h4:    1.4;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   GLOBAL TYPOGRAPHY
+   ───────────────────────────────────────────────────────────────── */
+body {
+  font-family: var(--font-sans) !important;
+  font-size: var(--zb-fs-body) !important;
+  color: var(--zb-text-2) !important;
+  -webkit-font-smoothing:  antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code, pre, kbd, samp {
+  font-family: var(--font-code) !important;
+}
+
+/* Headings: tighter tracking + lower line-height at larger sizes
+   Generous vertical rhythm (Cursor-inspired breathing room) */
+h1 {
+  font-size: var(--zb-fs-h1) !important;
+  letter-spacing: -0.025em !important;
+  line-height: var(--zb-lh-h1) !important;
+  font-weight: 700 !important;
+  color: var(--zb-text) !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.25rem !important;
+}
+h2 {
+  font-size: var(--zb-fs-h2) !important;
+  letter-spacing: -0.02em !important;
+  line-height: var(--zb-lh-h2) !important;
+  font-weight: 600 !important;
+  color: var(--zb-text) !important;
+  margin-top: 2.75rem !important;
+  margin-bottom: 0.875rem !important;
+}
+h3 {
+  font-size: var(--zb-fs-h3) !important;
+  letter-spacing: -0.015em !important;
+  line-height: var(--zb-lh-h3) !important;
+  font-weight: 600 !important;
+  color: var(--zb-text) !important;
+  margin-top: 2.25rem !important;
+  margin-bottom: 0.625rem !important;
+}
+h4 {
+  font-size: var(--zb-fs-h4) !important;
+  letter-spacing: -0.01em !important;
+  line-height: var(--zb-lh-h4) !important;
+  font-weight: 600 !important;
+  color: var(--zb-text) !important;
+  margin-top: 1.75rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* Body prose */
+article p, article li {
+  line-height: var(--zb-lh-body) !important;
+  color: var(--zb-text-2) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   LAYOUT — align content top with sidebar & TOC
+   ───────────────────────────────────────────────────────────────── */
 main {
-	padding-top: 64px !important;
+  padding-top: 1rem !important;
 }
 
-html.light .white-logo {
-	display: none !important;
+/* ─────────────────────────────────────────────────────────────────
+   LOGO — LIGHT / DARK TOGGLE
+   ───────────────────────────────────────────────────────────────── */
+html.light .white-logo { display: none !important; }
+html.dark  .black-logo { display: none !important; }
+
+/* Responsive logo: full wordmark on desktop, Z icon on mobile (Vercel pattern) */
+.logo-icon { display: none !important; }
+.logo-full { display: block !important; }
+@media (max-width: 767px) {
+  .logo-full { display: none !important; }
+  .logo-icon { display: block !important; }
 }
 
-html.dark .black-logo {
-	display: none !important;
+/* ─────────────────────────────────────────────────────────────────
+   NAVBAR — frosted glass
+   ───────────────────────────────────────────────────────────────── */
+.nextra-nav-container {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+.dark .nextra-nav-container {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+.nextra-nav-container-blur {
+  backdrop-filter:         blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  background-color: rgba(255, 255, 255, 0.85) !important;
+}
+.dark .nextra-nav-container-blur {
+  background-color: rgba(17, 17, 17, 0.85) !important;
 }
 
+/* ─────────────────────────────────────────────────────────────────
+   SIDEBAR — HIDE SCROLLBAR  (Cursor-style clean sidebar)
+   ───────────────────────────────────────────────────────────────── */
+.nextra-sidebar-container {
+  scrollbar-width: none !important;          /* Firefox */
+}
+.nextra-sidebar-container::-webkit-scrollbar {
+  display: none !important;                  /* Chrome / Safari / Edge */
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SIDEBAR — SECTION SEPARATOR LABELS
+   ───────────────────────────────────────────────────────────────── */
+.nextra-sidebar-container ul > li:not(:has(a, button)) {
+  font-size:      0.65rem !important;
+  font-weight:    600 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color:          var(--zb-text-muted) !important;
+  padding:        0 0.5rem !important;
+  margin-top:     1.25rem !important;
+  margin-bottom:  0.15rem !important;
+  line-height:    1.4 !important;
+  user-select:    none !important;
+}
+.nextra-sidebar-container ul > li:not(:has(a, button)):first-child {
+  margin-top: 0.5rem !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SIDEBAR — LINK COLOR  (use text hierarchy)
+   ───────────────────────────────────────────────────────────────── */
+.nextra-sidebar-container li:not(.active) > a,
+.nextra-sidebar-container button {
+  color: var(--zb-text-2) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SIDEBAR — ACTIVE LINK  (brand purple, no fill)
+   ───────────────────────────────────────────────────────────────── */
+.nextra-sidebar-container li.active {
+  border-left: none !important;
+  margin-left: 0 !important;
+}
+
+.nextra-sidebar-container li.active > a {
+  background-color: transparent !important;
+  color:            var(--zb-purple) !important;
+  font-weight:      600 !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SIDEBAR — LINK SIZES  (compact 13px)
+   ───────────────────────────────────────────────────────────────── */
+.nextra-sidebar-container a,
+.nextra-sidebar-container button {
+  font-size: 0.8125rem !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SIDEBAR — HOVER  (uniform subtle gray)
+   ───────────────────────────────────────────────────────────────── */
+.nextra-sidebar-container li:not(.active) a:hover,
+.nextra-sidebar-container button:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  transition: background-color 0.12s ease;
+}
+.dark .nextra-sidebar-container li:not(.active) a:hover,
+.dark .nextra-sidebar-container button:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SIDEBAR — VERTICAL GUIDE LINE  (very soft)
+   ───────────────────────────────────────────────────────────────── */
+.nextra-sidebar-container ul ul::before {
+  background-color: rgba(0, 0, 0, 0.06) !important;
+}
+.dark .nextra-sidebar-container ul ul::before {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SIDEBAR — FOLDER BUTTON  (regular weight, not semibold)
+   ───────────────────────────────────────────────────────────────── */
+.nextra-sidebar-container button._font-semibold {
+  font-weight: 500 !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   CONTENT — IMAGE CARDS  (lift-on-hover)
+   ───────────────────────────────────────────────────────────────── */
 main p:has(> img) {
-	border-radius: 12px;
-	box-shadow: 2px 2px 12px 2px rgba(0,0,0,0.3);
-	transition: all 0.2s ease-in-out;
-	overflow: hidden;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 14px rgba(0,0,0,0.07);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
 main p:has(> img):hover {
-	box-shadow: 2px 2px 12px 2px rgba(0,0,0,0.5);
-	transform: scale(1.01);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.10), 0 14px 36px rgba(0,0,0,0.10);
+  transform: translateY(-1px) scale(1.005);
 }
 
-/* Feedback Widget */
+/* ─────────────────────────────────────────────────────────────────
+   CONTENT — INLINE CODE  (Zeabur orange tint)
+   ───────────────────────────────────────────────────────────────── */
+article :not(pre) > code {
+  background-color: rgba(255, 68, 0, 0.07) !important;
+  color:            #c03800 !important;
+  border-radius:    4px !important;
+  padding:          0.13em 0.4em !important;
+  font-size:        0.875em !important;
+}
+.dark article :not(pre) > code {
+  background-color: rgba(255, 107, 61, 0.13) !important;
+  color:            #ff8155 !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   CONTENT — PROSE LINKS  (Zeabur purple underline)
+   ───────────────────────────────────────────────────────────────── */
+article a:not([class]) {
+  color:                  var(--zb-purple);
+  text-decoration:        underline;
+  text-decoration-color:  rgba(99, 0, 255, 0.3);
+  text-underline-offset:  2px;
+  transition: text-decoration-color 0.15s ease;
+}
+article a:not([class]):hover {
+  text-decoration-color: var(--zb-purple);
+}
+.dark article a:not([class]) {
+  color:                 #a370ff;
+  text-decoration-color: rgba(163, 112, 255, 0.35);
+}
+.dark article a:not([class]):hover {
+  text-decoration-color: #a370ff;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   CONTENT — BLOCKQUOTE  (Zeabur orange left border)
+   ───────────────────────────────────────────────────────────────── */
+article blockquote {
+  border-left-color: var(--zb-orange) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   CALLOUT / ADMONITION  (Cursor-inspired, Zeabur brand colors)
+   Clean left-border style, no emoji icons, subtle tinted background.
+   ───────────────────────────────────────────────────────────────── */
+.nextra-callout {
+  border-width: 0 0 0 3px !important;
+  border-style: solid !important;
+  border-radius: 6px !important;
+  padding: 0.875rem 1rem !important;
+  font-size: var(--zb-fs-body) !important;
+  line-height: var(--zb-lh-body) !important;
+}
+
+/* Hide the default emoji icon — Cursor doesn't use them */
+.nextra-callout > .nextra-callout-icon,
+.nextra-callout > div:first-child:has(svg) {
+  display: none !important;
+}
+
+/* ── Default / Info — Zeabur purple ──────────────────────────── */
+.nextra-callout {
+  border-color: var(--zb-purple) !important;
+  background: var(--zb-purple-muted) !important;
+  color: var(--zb-text-2) !important;
+}
+
+/* ── Warning — amber ────────────────────────────────────────── */
+.nextra-callout[data-callout-type="warning"],
+.nextra-callout._border-orange-100,
+.nextra-callout[class*="bg-orange"] {
+  --callout-border: #d97706;
+  --callout-bg:     rgba(217, 119, 6, 0.08);
+  border-color: var(--callout-border) !important;
+  background:   var(--callout-bg) !important;
+}
+.dark .nextra-callout[data-callout-type="warning"],
+.dark .nextra-callout._border-orange-100,
+.dark .nextra-callout[class*="bg-orange"] {
+  --callout-border: #f59e0b;
+  --callout-bg:     rgba(245, 158, 11, 0.1);
+}
+
+/* ── Error — Zeabur orange / red ─────────────────────────────── */
+.nextra-callout[data-callout-type="error"],
+.nextra-callout._border-red-200,
+.nextra-callout[class*="bg-red"] {
+  --callout-border: var(--zb-orange);
+  --callout-bg:     rgba(255, 68, 0, 0.07);
+  border-color: var(--callout-border) !important;
+  background:   var(--callout-bg) !important;
+}
+.dark .nextra-callout[data-callout-type="error"],
+.dark .nextra-callout._border-red-200,
+.dark .nextra-callout[class*="bg-red"] {
+  --callout-border: #ff6b3d;
+  --callout-bg:     rgba(255, 107, 61, 0.1);
+}
+
+/* Callout inner text — inherit body color */
+.nextra-callout p {
+  color: var(--zb-text-2) !important;
+  margin: 0 !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   TOC (right sidebar) — purple hover & active heading
+   ───────────────────────────────────────────────────────────────── */
+.nextra-toc a {
+  color: var(--zb-text-muted) !important;
+  transition: color 0.12s ease !important;
+}
+.nextra-toc a:hover,
+.nextra-toc a._text-primary-600 {
+  color: var(--zb-purple) !important;
+}
+.dark .nextra-toc a:hover,
+.dark .nextra-toc a._text-primary-600 {
+  color: var(--zb-purple) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   PREV / NEXT NAVIGATION — Vercel-style with label + title
+   ───────────────────────────────────────────────────────────────── */
+main > ._mb-8._flex._border-t {
+  padding-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+}
+.dark main > ._mb-8._flex._border-t {
+  border-color: rgba(255, 255, 255, 0.06) !important;
+}
+main > ._mb-8._flex._border-t > a {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 0.15rem !important;
+  font-size: var(--zb-fs-small) !important;
+  font-weight: 500 !important;
+  color: var(--zb-text-2) !important;
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
+  transition: color 0.12s ease !important;
+}
+/* Next link — align right */
+main > ._mb-8._flex._border-t > a[class*="ltr:_ml-auto"],
+main > ._mb-8._flex._border-t > a:last-child:not(:first-child) {
+  align-items: flex-end !important;
+}
+main > ._mb-8._flex._border-t > a:hover {
+  color: var(--zb-purple) !important;
+}
+/* Hide the arrow SVGs */
+main > ._mb-8._flex._border-t > a > svg {
+  display: none !important;
+}
+/* "Previous" / "Next" label */
+main > ._mb-8._flex._border-t > a::before {
+  content: "Previous";
+  font-size: 0.6875rem !important;
+  font-weight: 400 !important;
+  color: var(--zb-text-muted) !important;
+  letter-spacing: 0.02em;
+}
+main > ._mb-8._flex._border-t > a[class*="ltr:_ml-auto"]::before,
+main > ._mb-8._flex._border-t > a:last-child:not(:first-child)::before {
+  content: "Next";
+}
+/* When only one link exists (next only), it's also :first-child */
+main > ._mb-8._flex._border-t > a:only-child::before {
+  content: "Next";
+}
+/* Localized labels — zh-TW */
+:lang(zh-TW) main > ._mb-8._flex._border-t > a::before,
+:lang(zh-Hant) main > ._mb-8._flex._border-t > a::before { content: "上一篇"; }
+:lang(zh-TW) main > ._mb-8._flex._border-t > a[class*="ltr:_ml-auto"]::before,
+:lang(zh-TW) main > ._mb-8._flex._border-t > a:last-child:not(:first-child)::before,
+:lang(zh-TW) main > ._mb-8._flex._border-t > a:only-child::before,
+:lang(zh-Hant) main > ._mb-8._flex._border-t > a[class*="ltr:_ml-auto"]::before,
+:lang(zh-Hant) main > ._mb-8._flex._border-t > a:last-child:not(:first-child)::before,
+:lang(zh-Hant) main > ._mb-8._flex._border-t > a:only-child::before { content: "下一篇"; }
+/* zh-CN */
+:lang(zh-CN) main > ._mb-8._flex._border-t > a::before,
+:lang(zh-Hans) main > ._mb-8._flex._border-t > a::before { content: "上一篇"; }
+:lang(zh-CN) main > ._mb-8._flex._border-t > a[class*="ltr:_ml-auto"]::before,
+:lang(zh-CN) main > ._mb-8._flex._border-t > a:last-child:not(:first-child)::before,
+:lang(zh-CN) main > ._mb-8._flex._border-t > a:only-child::before,
+:lang(zh-Hans) main > ._mb-8._flex._border-t > a[class*="ltr:_ml-auto"]::before,
+:lang(zh-Hans) main > ._mb-8._flex._border-t > a:last-child:not(:first-child)::before,
+:lang(zh-Hans) main > ._mb-8._flex._border-t > a:only-child::before { content: "下一篇"; }
+/* ja-JP */
+:lang(ja) main > ._mb-8._flex._border-t > a::before { content: "前へ"; }
+:lang(ja) main > ._mb-8._flex._border-t > a[class*="ltr:_ml-auto"]::before,
+:lang(ja) main > ._mb-8._flex._border-t > a:last-child:not(:first-child)::before,
+:lang(ja) main > ._mb-8._flex._border-t > a:only-child::before { content: "次へ"; }
+/* es-ES */
+:lang(es) main > ._mb-8._flex._border-t > a::before { content: "Anterior"; }
+:lang(es) main > ._mb-8._flex._border-t > a[class*="ltr:_ml-auto"]::before,
+:lang(es) main > ._mb-8._flex._border-t > a:last-child:not(:first-child)::before,
+:lang(es) main > ._mb-8._flex._border-t > a:only-child::before { content: "Siguiente"; }
+
+/* ─────────────────────────────────────────────────────────────────
+   FEEDBACK WIDGET
+   ───────────────────────────────────────────────────────────────── */
+
+/* mobile-only variant: visible below xl, hidden at xl+ (TOC sidebar takes over) */
+.feedback-mobile-only {
+	display: block;
+}
+
+@media (min-width: 1280px) {
+	.feedback-mobile-only {
+		display: none;
+	}
+}
 
 .feedback-widget {
-	margin-top: 2rem;
-	padding: 1rem 0;
-	border-top: 1px solid rgba(0, 0, 0, 0.1);
+	margin-top: 1.5rem;
+	padding: 1rem 1.25rem;
+	border: 1px solid rgba(128, 128, 128, 0.2);
+	border-radius: 12px;
+	background: rgba(128, 128, 128, 0.04);
+}
+
+/* inline (mobile) variant gets more spacing */
+.feedback-mobile-only.feedback-widget {
+	margin-top: 3rem;
+	padding: 1.25rem 1.5rem;
 }
 
 html.dark .feedback-widget {
-	border-top-color: rgba(255, 255, 255, 0.1);
+	background: rgba(255, 255, 255, 0.03);
+	border-color: rgba(255, 255, 255, 0.1);
 }
 
 .feedback-heading {
+	margin: 0 0 0.75rem;
 	font-size: 0.875rem;
-	font-weight: 600;
-	margin: 0 0 0.5rem;
+	font-weight: 500;
 	color: #374151;
 }
 
@@ -56,24 +564,46 @@ html.dark .feedback-heading {
 }
 
 .feedback-emoji {
-	background: none;
-	border: 2px solid transparent;
-	border-radius: 8px;
-	font-size: 1.5rem;
-	cursor: pointer;
-	padding: 0.25rem 0.375rem;
-	transition: all 0.15s ease;
+	font-size: 1.25rem;
 	line-height: 1;
+	padding: 0.3rem 0.4rem;
+	border: 1px solid rgba(128, 128, 128, 0.2);
+	border-radius: 8px;
+	background: transparent;
+	cursor: pointer;
+	transition: all 0.15s ease;
+	opacity: 0.6;
+}
+
+.feedback-mobile-only .feedback-emoji {
+	font-size: 1.5rem;
+	padding: 0.375rem 0.5rem;
 }
 
 .feedback-emoji:hover {
-	background: rgba(124, 58, 237, 0.08);
-	border-color: rgba(124, 58, 237, 0.3);
+	opacity: 1;
+	transform: scale(1.15);
+	border-color: rgba(128, 128, 128, 0.4);
 }
 
 .feedback-emoji.active {
-	background: rgba(124, 58, 237, 0.12);
+	opacity: 1;
 	border-color: #7c3aed;
+	background: rgba(124, 58, 237, 0.08);
+	transform: scale(1.1);
+}
+
+html.dark .feedback-emoji {
+	border-color: rgba(255, 255, 255, 0.15);
+}
+
+html.dark .feedback-emoji:hover {
+	border-color: rgba(255, 255, 255, 0.3);
+}
+
+html.dark .feedback-emoji.active {
+	border-color: #a78bfa;
+	background: rgba(167, 139, 250, 0.15);
 }
 
 .feedback-form {
@@ -82,71 +612,118 @@ html.dark .feedback-heading {
 
 .feedback-textarea {
 	width: 100%;
-	padding: 0.5rem;
-	border: 1px solid #d1d5db;
-	border-radius: 6px;
+	padding: 0.625rem 0.75rem;
+	border: 1px solid rgba(128, 128, 128, 0.25);
+	border-radius: 8px;
+	background: white;
+	color: #1f2937;
 	font-size: 0.875rem;
-	resize: vertical;
-	background: #fff;
-	color: #111;
 	font-family: inherit;
-}
-
-html.dark .feedback-textarea {
-	background: #1f2937;
-	border-color: #4b5563;
-	color: #f3f4f6;
+	resize: vertical;
+	min-height: 4.5rem;
+	outline: none;
+	transition: border-color 0.15s ease;
 }
 
 .feedback-textarea:focus {
-	outline: none;
 	border-color: #7c3aed;
-	box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2);
+}
+
+html.dark .feedback-textarea {
+	background: rgba(255, 255, 255, 0.05);
+	border-color: rgba(255, 255, 255, 0.15);
+	color: #e5e7eb;
+}
+
+html.dark .feedback-textarea:focus {
+	border-color: #a78bfa;
+}
+
+.feedback-actions {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 0.75rem;
+	margin-top: 0.5rem;
+}
+
+.feedback-login-hint {
+	font-size: 0.8125rem;
+	color: #6b7280;
+}
+
+.feedback-login-hint a {
+	color: #7c3aed;
+	text-decoration: underline;
+}
+
+html.dark .feedback-login-hint a {
+	color: #a78bfa;
+}
+
+.feedback-error {
+	font-size: 0.8125rem;
+	color: #ef4444;
 }
 
 .feedback-send {
-	margin-top: 0.5rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 4.5rem;
 	padding: 0.375rem 1rem;
-	background: #7c3aed;
-	color: #fff;
 	border: none;
 	border-radius: 6px;
-	font-size: 0.875rem;
+	background: #7c3aed;
+	color: white;
+	font-size: 0.8125rem;
+	font-weight: 500;
 	cursor: pointer;
 	transition: background 0.15s ease;
 }
 
-.feedback-send:hover {
+.feedback-send:hover:not(:disabled) {
 	background: #6d28d9;
 }
 
 .feedback-send:disabled {
-	opacity: 0.6;
+	opacity: 0.5;
 	cursor: not-allowed;
 }
 
-.feedback-thanks {
+.feedback-spinner {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	border: 2px solid rgba(255, 255, 255, 0.3);
+	border-top-color: white;
+	border-radius: 50%;
+	animation: feedback-spin 0.6s linear infinite;
+}
+
+@keyframes feedback-spin {
+	to { transform: rotate(360deg); }
+}
+
+.feedback-success {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
 	font-size: 0.875rem;
 	color: #059669;
-	margin: 0;
 }
 
-.feedback-error {
-	font-size: 0.8rem;
-	color: #dc2626;
-	margin: 0.25rem 0 0;
+html.dark .feedback-success {
+	color: #34d399;
 }
 
-/* TOC variant: shown only on desktop */
-.feedback-toc {
-	display: none;
+.feedback-link {
+	color: #7c3aed;
+	text-decoration: underline;
+	font-size: 0.8125rem;
+	margin-left: 0.25rem;
 }
 
-@media (min-width: 1280px) {
-	.feedback-toc {
-		display: block;
-	}
-	.feedback-inline {
-		display: none;
-	}
+html.dark .feedback-link {
+	color: #a78bfa;
 }
