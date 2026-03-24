@@ -1,8 +1,87 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'nextra/hooks'
+
+const TURNSTILE_SITEKEY =
+  typeof window !== 'undefined' && window.location.hostname === 'localhost'
+    ? '1x00000000000000000000AA'
+    : '0x4AAAAAACCyo_1UnKEIQB-R'
 
 type Rating = 1 | 2 | 3 | 4
 type Status = 'idle' | 'expanded' | 'submitting' | 'success' | 'error'
+
+function useTurnstile() {
+  const tokenRef = useRef<string | null>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const widgetIdRef = useRef<string | null>(null)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !(window as any).turnstile) {
+      const script = document.createElement('script')
+      script.src =
+        'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+      script.async = true
+      document.head.appendChild(script)
+    }
+
+    const renderWidget = () => {
+      if (
+        containerRef.current &&
+        (window as any).turnstile &&
+        widgetIdRef.current === null
+      ) {
+        widgetIdRef.current = (window as any).turnstile.render(
+          containerRef.current,
+          {
+            sitekey: TURNSTILE_SITEKEY,
+            size: 'compact',
+            callback: (token: string) => {
+              tokenRef.current = token
+            },
+          }
+        )
+      }
+    }
+
+    const interval = setInterval(() => {
+      if ((window as any).turnstile) {
+        renderWidget()
+        clearInterval(interval)
+      }
+    }, 200)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  const getToken = useCallback(async (): Promise<string | null> => {
+    if (tokenRef.current) return tokenRef.current
+    if ((window as any).turnstile && widgetIdRef.current !== null) {
+      ;(window as any).turnstile.reset(widgetIdRef.current)
+      return new Promise((resolve) => {
+        let attempts = 0
+        const check = setInterval(() => {
+          attempts++
+          if (tokenRef.current) {
+            clearInterval(check)
+            resolve(tokenRef.current)
+          } else if (attempts > 50) {
+            clearInterval(check)
+            resolve(null)
+          }
+        }, 100)
+      })
+    }
+    return null
+  }, [])
+
+  const resetToken = useCallback(() => {
+    tokenRef.current = null
+    if ((window as any).turnstile && widgetIdRef.current !== null) {
+      ;(window as any).turnstile.reset(widgetIdRef.current)
+    }
+  }, [])
+
+  return { containerRef, getToken, resetToken }
+}
 
 const EMOJIS: { value: Rating; icon: string; label: string }[] = [
   { value: 1, icon: '😞', label: 'Not helpful' },
@@ -83,6 +162,8 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
   const t = i18n[locale] || i18n['en-US']
   const ratingLabels = RATING_LABELS[locale] || RATING_LABELS['en-US']
 
+  const { containerRef, getToken, resetToken } = useTurnstile()
+
   const [rating, setRating] = useState<Rating | null>(null)
   const [feedback, setFeedback] = useState('')
   const [status, setStatus] = useState<Status>('idle')
@@ -100,9 +181,16 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
     setErrorMsg('')
 
     try {
+      const turnstileToken = await getToken()
+      if (!turnstileToken) {
+        setErrorMsg('Turnstile verification failed. Please refresh and try again.')
+        setStatus('error')
+        return
+      }
+
       const page = router.asPath.replace(/^\/[a-z]{2}-[A-Z]{2}/, '').replace(/#.*$/, '')
 
-      const res = await fetch('https://api.zeabur.com/graphql', {
+      const res = await fetch('https://api.zeabur.dev/graphql', {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -116,6 +204,7 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
               locale,
               rating,
               feedback: feedback.trim() || null,
+              turnstileToken,
             },
           },
         }),
@@ -130,6 +219,7 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
     } catch (err: any) {
       setErrorMsg(err.message || t.error)
       setStatus('error')
+      resetToken()
     }
   }
 
@@ -210,6 +300,8 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
           </div>
         </div>
       )}
+
+      <div ref={containerRef} style={{ display: 'none' }} />
     </div>
   )
 }
