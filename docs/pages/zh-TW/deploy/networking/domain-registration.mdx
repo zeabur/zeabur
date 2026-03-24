@@ -1,0 +1,130 @@
+---
+title: 網域註冊
+ogImageTitle: 網域註冊
+ogImageSubtitle: 在 Zeabur 上直接購買和管理網域
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+## 網域註冊
+
+Zeabur 讓你可以直接在 Dashboard 或 CLI 搜尋、購買和管理網域名稱，無需使用其他網域註冊商。
+
+購買的網域會自動配置 Cloudflare DNS，並且可以一鍵綁定到你的服務。
+
+### 支援的頂級網域
+
+| 頂級網域 | 範例 |
+|---------|------|
+| `.com` | `example.com` |
+| `.net` | `example.net` |
+| `.org` | `example.org` |
+| `.io` | `example.io` |
+| `.dev` | `example.dev` |
+| `.app` | `example.app` |
+| `.co` | `example.co` |
+| `.me` | `example.me` |
+| `.xyz` | `example.xyz` |
+
+### 購買網域
+
+<Steps>
+
+### 建立註冊人資料
+
+在購買網域之前，你需要一份註冊人資料（Registrant Profile）— 這是 ICANN 要求的網域註冊聯絡資訊（WHOIS 資料）。
+
+前往 **Settings** → **Registrant Profiles**，填寫你的姓名、電子郵件、電話和地址。
+
+<Callout type="info">
+註冊人資料只需要建立一次，之後所有網域購買都可以重複使用。
+</Callout>
+
+### 搜尋網域
+
+前往 **Domains** → **Register Domain**，輸入你想要的網域名稱。Zeabur 會檢查可用性並顯示價格。
+
+你也可以使用 CLI 搜尋：
+
+```bash copy
+npx zeabur@latest domain search --domain example.com
+```
+
+### 購買
+
+點擊 **Purchase** 並確認付款。網域會被註冊，Cloudflare DNS zone 也會自動建立。
+
+使用 CLI：
+
+```bash copy
+npx zeabur@latest domain purchase --domain example.com --registrant-profile-id <profile-id>
+```
+
+<Callout type="warning">
+網域購買不可退款，請在確認前確保輸入了正確的網域名稱。
+</Callout>
+
+### 綁定到服務
+
+購買完成後，你可以將網域綁定到任何服務。前往服務的 **Domains** 分頁，選擇 **Custom Domain**，然後輸入你購買的網域。
+
+透過 Zeabur 購買的網域會自動配置 DNS 紀錄，不需要手動設定 CNAME。
+
+</Steps>
+
+### 管理 DNS 紀錄
+
+透過 Zeabur 購買的網域，DNS 由 Cloudflare 管理。你可以在 Dashboard 或 CLI 中新增、修改和刪除紀錄。
+
+支援的紀錄類型：`A`、`AAAA`、`CNAME`、`MX`、`TXT`、`SRV`、`CAA`、`NS`。
+
+使用 CLI：
+
+```bash copy
+# 列出紀錄
+npx zeabur@latest domain dns list --id <domain-id>
+
+# 新增紀錄
+npx zeabur@latest domain dns create --id <domain-id> --type A --name @ --content 1.2.3.4
+
+# 刪除紀錄
+npx zeabur@latest domain dns delete --id <domain-id> --record-id <record-id>
+```
+
+### 續約
+
+網域註冊期限為 1 年。你可以在 Dashboard 啟用**自動續約**，或手動續約。
+
+```bash copy
+# 啟用自動續約
+npx zeabur@latest domain auto-renew --id <domain-id> --enable
+
+# 手動續約
+npx zeabur@latest domain renew --id <domain-id>
+```
+
+### ICANN 註冊人驗證
+
+購買網域後，ICANN 要求你驗證註冊人電子郵件地址。你會收到一封驗證信 — **請在 15 天內點擊連結**，否則網域可能會被暫停。
+
+如果沒有收到驗證信或需要重新發送：
+
+```bash copy
+npx zeabur@latest domain verification resend --id <domain-id>
+```
+
+如果註冊時填錯了電子郵件，你可以更新註冊人聯絡資訊：
+
+```bash copy
+npx zeabur@latest domain verification update-contact --id <domain-id> --email correct@example.com --first-name John --last-name Doe --phone "+1.5551234567" --address1 "123 Main St" --city "San Francisco" --state CA --country US --postal-code 94105
+```
+
+<Callout type="warning">
+更改註冊人電子郵件會觸發新的驗證流程，並可能對網域施加 60 天的轉移鎖定。
+</Callout>
+
+查看目前的驗證狀態：
+
+```bash copy
+npx zeabur@latest domain verification status --id <domain-id>
+```
