@@ -1,13 +1,78 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'nextra/hooks'
 
-const TURNSTILE_SITEKEY =
-  typeof window !== 'undefined' && window.location.hostname === 'localhost'
-    ? '1x00000000000000000000AA'
-    : '0x4AAAAAACCyo_1UnKEIQB-R'
+const TURNSTILE_SITEKEY = '0x4AAAAAACCyo_1UnKEIQB-R'
 
 type Rating = 1 | 2 | 3 | 4
 type Status = 'idle' | 'expanded' | 'submitting' | 'success' | 'error'
+
+const EMOJIS: { value: Rating; icon: string; label: string }[] = [
+  { value: 1, icon: '😞', label: 'Not helpful' },
+  { value: 2, icon: '🙁', label: 'Slightly helpful' },
+  { value: 3, icon: '🙂', label: 'Helpful' },
+  { value: 4, icon: '😃', label: 'Very helpful' },
+]
+
+const i18n: Record<string, Record<string, string>> = {
+  'en-US': {
+    heading: 'Was this page helpful?',
+    placeholder: 'Your feedback (optional)...',
+    send: 'Send',
+    login: 'Please log in first',
+    thanks: 'Thank you for your feedback!',
+    viewPost: 'View on Forum',
+    error: 'Failed to send. Please try again.',
+    retry: 'Retry',
+  },
+  'zh-TW': {
+    heading: '這個頁面有幫助嗎？',
+    placeholder: '您的回饋（可選）...',
+    send: '送出',
+    login: '請先登入',
+    thanks: '感謝您的回饋！',
+    viewPost: '在論壇查看',
+    error: '傳送失敗，請重試。',
+    retry: '重試',
+  },
+  'zh-CN': {
+    heading: '这个页面有帮助吗？',
+    placeholder: '您的反馈（可选）...',
+    send: '发送',
+    login: '请先登录',
+    thanks: '感谢您的反馈！',
+    viewPost: '在论坛查看',
+    error: '发送失败，请重试。',
+    retry: '重试',
+  },
+  'ja-JP': {
+    heading: 'このページは役に立ちましたか？',
+    placeholder: 'フィードバック（任意）...',
+    send: '送信',
+    login: 'ログインしてください',
+    thanks: 'フィードバックありがとうございます！',
+    viewPost: 'フォーラムで見る',
+    error: '送信に失敗しました。もう一度お試しください。',
+    retry: '再試行',
+  },
+  'es-ES': {
+    heading: '¿Fue útil esta página?',
+    placeholder: 'Tu comentario (opcional)...',
+    send: 'Enviar',
+    login: 'Inicia sesión primero',
+    thanks: '¡Gracias por tu comentario!',
+    viewPost: 'Ver en el foro',
+    error: 'Error al enviar. Inténtalo de nuevo.',
+    retry: 'Reintentar',
+  },
+}
+
+const RATING_LABELS: Record<string, string[]> = {
+  'en-US': ['Not helpful', 'Slightly helpful', 'Helpful', 'Very helpful'],
+  'zh-TW': ['沒有幫助', '稍有幫助', '有幫助', '非常有幫助'],
+  'zh-CN': ['没有帮助', '稍有帮助', '有帮助', '非常有帮助'],
+  'ja-JP': ['役に立たない', '少し役立つ', '役立つ', 'とても役立つ'],
+  'es-ES': ['No útil', 'Algo útil', 'Útil', 'Muy útil'],
+}
 
 function useTurnstile() {
   const tokenRef = useRef<string | null>(null)
@@ -81,74 +146,6 @@ function useTurnstile() {
   }, [])
 
   return { containerRef, getToken, resetToken }
-}
-
-const EMOJIS: { value: Rating; icon: string; label: string }[] = [
-  { value: 1, icon: '😞', label: 'Not helpful' },
-  { value: 2, icon: '🙁', label: 'Slightly helpful' },
-  { value: 3, icon: '🙂', label: 'Helpful' },
-  { value: 4, icon: '😃', label: 'Very helpful' },
-]
-
-const i18n: Record<string, Record<string, string>> = {
-  'en-US': {
-    heading: 'Was this page helpful?',
-    placeholder: 'Your feedback (optional)...',
-    send: 'Send',
-    login: 'Please log in first',
-    thanks: 'Thank you for your feedback!',
-    viewPost: 'View on Forum',
-    error: 'Failed to send. Please try again.',
-    retry: 'Retry',
-  },
-  'zh-TW': {
-    heading: '這個頁面有幫助嗎？',
-    placeholder: '您的回饋（可選）...',
-    send: '送出',
-    login: '請先登入',
-    thanks: '感謝您的回饋！',
-    viewPost: '在論壇查看',
-    error: '傳送失敗，請重試。',
-    retry: '重試',
-  },
-  'zh-CN': {
-    heading: '这个页面有帮助吗？',
-    placeholder: '您的反馈（可选）...',
-    send: '发送',
-    login: '请先登录',
-    thanks: '感谢您的反馈！',
-    viewPost: '在论坛查看',
-    error: '发送失败，请重试。',
-    retry: '重试',
-  },
-  'ja-JP': {
-    heading: 'このページは役に立ちましたか？',
-    placeholder: 'フィードバック（任意）...',
-    send: '送信',
-    login: 'ログインしてください',
-    thanks: 'フィードバックありがとうございます！',
-    viewPost: 'フォーラムで見る',
-    error: '送信に失敗しました。もう一度お試しください。',
-    retry: '再試行',
-  },
-  'es-ES': {
-    heading: '¿Fue útil esta página?',
-    placeholder: 'Tu comentario (opcional)...',
-    send: 'Enviar',
-    login: 'Inicia sesión primero',
-    thanks: '¡Gracias por tu comentario!',
-    viewPost: 'Ver en el foro',
-    error: 'Error al enviar. Inténtalo de nuevo.',
-    retry: 'Reintentar',
-  },
-}
-
-const RATING_LABELS: Record<string, string[]> = {
-  'en-US': ['Not helpful', 'Slightly helpful', 'Helpful', 'Very helpful'],
-  'zh-TW': ['沒有幫助', '稍有幫助', '有幫助', '非常有幫助'],
-  'zh-CN': ['没有帮助', '稍有帮助', '有帮助', '非常有帮助'],
-  'ja-JP': ['役に立たない', '少し役立つ', '役立つ', 'とても役立つ'],
-  'es-ES': ['No útil', 'Algo útil', 'Útil', 'Muy útil'],
 }
 
 /**
