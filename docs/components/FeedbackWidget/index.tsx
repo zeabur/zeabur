@@ -187,7 +187,7 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
 
       const page = router.asPath.replace(/^\/[a-z]{2}-[A-Z]{2}/, '').replace(/#.*$/, '')
 
-      const res = await fetch('https://api.zeabur.dev/graphql', {
+      const res = await fetch('https://api.zeabur.com/graphql', {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
