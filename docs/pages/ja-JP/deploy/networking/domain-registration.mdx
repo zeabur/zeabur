@@ -1,0 +1,133 @@
+---
+title: ドメイン登録
+ogImageTitle: ドメイン登録
+ogImageSubtitle: Zeabur でドメインを直接購入・管理
+---
+
+import { Callout, Steps } from 'nextra/components'
+import LastUpdated from 'components/LastUpdated'
+
+## ドメイン登録
+
+<LastUpdated />
+
+Zeabur では、ダッシュボードや CLI から直接ドメイン名を検索、購入、管理できます。別のレジストラを使用する必要はありません。
+
+購入したドメインは自動的に Cloudflare DNS で構成され、ワンクリックでサービスにバインドできます。
+
+### 対応 TLD
+
+| TLD | 例 |
+|-----|------|
+| `.com` | `example.com` |
+| `.net` | `example.net` |
+| `.org` | `example.org` |
+| `.io` | `example.io` |
+| `.dev` | `example.dev` |
+| `.app` | `example.app` |
+| `.co` | `example.co` |
+| `.me` | `example.me` |
+| `.xyz` | `example.xyz` |
+
+### ドメインの購入
+
+<Steps>
+
+### 登録者プロフィールの作成
+
+ドメインを購入する前に、登録者プロフィール（Registrant Profile）が必要です。これは ICANN が要求するドメイン登録の連絡先情報（WHOIS データ）です。
+
+**Settings** → **Registrant Profiles** に移動し、氏名、メールアドレス、電話番号、住所を入力してください。
+
+<Callout type="info">
+登録者プロフィールは一度作成するだけで、以降のすべてのドメイン購入で再利用できます。
+</Callout>
+
+### ドメインの検索
+
+**Domains** → **Register Domain** に移動し、希望のドメイン名を入力します。Zeabur が利用可能性を確認し、価格を表示します。
+
+CLI からも検索できます：
+
+```bash copy
+npx zeabur@latest domain search --domain example.com
+```
+
+### 購入
+
+**Purchase** をクリックして支払いを確認します。ドメインが登録され、Cloudflare DNS ゾーンが自動的に作成されます。
+
+CLI の場合：
+
+```bash copy
+npx zeabur@latest domain purchase --domain example.com --registrant-profile-id <profile-id>
+```
+
+<Callout type="warning">
+ドメインの購入は返金できません。確認前に正しいドメイン名を入力したことを確認してください。
+</Callout>
+
+### サービスへのバインド
+
+購入後、ドメインを任意のサービスにバインドできます。サービスの **Domains** タブに移動し、**Custom Domain** を選択して、購入したドメインを入力します。
+
+Zeabur で購入したドメインは DNS レコードが自動的に設定されます。手動での CNAME 設定は不要です。
+
+</Steps>
+
+### DNS レコードの管理
+
+Zeabur で購入したドメインの DNS は Cloudflare で管理されます。ダッシュボードまたは CLI からレコードの追加、更新、削除ができます。
+
+対応レコードタイプ：`A`、`AAAA`、`CNAME`、`MX`、`TXT`、`SRV`、`CAA`、`NS`。
+
+CLI の場合：
+
+```bash copy
+# レコード一覧
+npx zeabur@latest domain dns list --id <domain-id>
+
+# レコード追加
+npx zeabur@latest domain dns create --id <domain-id> --type A --name @ --content 1.2.3.4
+
+# レコード削除
+npx zeabur@latest domain dns delete --id <domain-id> --record-id <record-id>
+```
+
+### 更新
+
+ドメインの登録期間は 1 年です。ダッシュボードで**自動更新**を有効にするか、手動で更新できます。
+
+```bash copy
+# 自動更新を有効化
+npx zeabur@latest domain auto-renew --id <domain-id> --enable
+
+# 手動更新
+npx zeabur@latest domain renew --id <domain-id>
+```
+
+### ICANN 登録者認証
+
+ドメイン購入後、ICANN は登録者のメールアドレス認証を要求します。認証メールが届きます — **15 日以内にリンクをクリック**してください。そうしないとドメインが停止される可能性があります。
+
+認証メールが届かない場合や再送信が必要な場合：
+
+```bash copy
+npx zeabur@latest domain verification resend --id <domain-id>
+```
+
+登録時にメールアドレスを間違えた場合、登録者の連絡先情報を更新できます：
+
+```bash copy
+npx zeabur@latest domain verification update-contact --id <domain-id> --email correct@example.com --first-name John --last-name Doe --phone "+1.5551234567" --address1 "123 Main St" --city "San Francisco" --state CA --country US --postal-code 94105
+```
+
+<Callout type="warning">
+登録者のメールアドレスを変更すると、新しい認証フローがトリガーされ、ドメインに 60 日間の移管ロックが課される場合があります。
+</Callout>
+
+現在の認証ステータスを確認：
+
+```bash copy
+npx zeabur@latest domain verification status --id <domain-id>
+```

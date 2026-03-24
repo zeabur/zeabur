@@ -1,0 +1,133 @@
+---
+title: Registro de Dominios
+ogImageTitle: Registro de Dominios
+ogImageSubtitle: Compra y gestiona dominios directamente en Zeabur
+---
+
+import { Callout, Steps } from 'nextra/components'
+import LastUpdated from 'components/LastUpdated'
+
+## Registro de Dominios
+
+<LastUpdated />
+
+Zeabur te permite buscar, comprar y gestionar nombres de dominio directamente desde el Dashboard o CLI, sin necesidad de usar un registrador externo.
+
+Los dominios comprados se configuran automáticamente con Cloudflare DNS y puedes vincularlos a tus servicios con un solo clic.
+
+### TLDs Soportados
+
+| TLD | Ejemplo |
+|-----|---------|
+| `.com` | `example.com` |
+| `.net` | `example.net` |
+| `.org` | `example.org` |
+| `.io` | `example.io` |
+| `.dev` | `example.dev` |
+| `.app` | `example.app` |
+| `.co` | `example.co` |
+| `.me` | `example.me` |
+| `.xyz` | `example.xyz` |
+
+### Comprar un Dominio
+
+<Steps>
+
+### Crear un Perfil de Registrante
+
+Antes de comprar un dominio, necesitas un perfil de registrante (Registrant Profile) — la información de contacto requerida por ICANN para el registro de dominios (datos WHOIS).
+
+Ve a **Settings** → **Registrant Profiles** y completa tu nombre, correo electrónico, teléfono y dirección.
+
+<Callout type="info">
+Solo necesitas crear un perfil de registrante una vez. Puede reutilizarse para todas las compras futuras de dominios.
+</Callout>
+
+### Buscar un Dominio
+
+Ve a **Domains** → **Register Domain** e ingresa el nombre de dominio que deseas. Zeabur verificará la disponibilidad y mostrará el precio.
+
+También puedes buscar desde el CLI:
+
+```bash copy
+npx zeabur@latest domain search --domain example.com
+```
+
+### Comprar
+
+Haz clic en **Purchase** y confirma el pago. El dominio será registrado y se creará automáticamente una zona DNS en Cloudflare.
+
+Desde el CLI:
+
+```bash copy
+npx zeabur@latest domain purchase --domain example.com --registrant-profile-id <profile-id>
+```
+
+<Callout type="warning">
+Las compras de dominios no son reembolsables. Asegúrate de haber ingresado el nombre de dominio correcto antes de confirmar.
+</Callout>
+
+### Vincular a un Servicio
+
+Una vez comprado, puedes vincular el dominio a cualquier servicio. Ve a la pestaña **Domains** de tu servicio, selecciona **Custom Domain** e ingresa tu dominio comprado.
+
+Los dominios comprados a través de Zeabur configuran automáticamente los registros DNS — no se requiere configuración manual de CNAME.
+
+</Steps>
+
+### Gestión de Registros DNS
+
+Para dominios comprados a través de Zeabur, el DNS se gestiona mediante Cloudflare. Puedes agregar, actualizar y eliminar registros desde el Dashboard o CLI.
+
+Tipos de registro soportados: `A`, `AAAA`, `CNAME`, `MX`, `TXT`, `SRV`, `CAA`, `NS`.
+
+Desde el CLI:
+
+```bash copy
+# Listar registros
+npx zeabur@latest domain dns list --id <domain-id>
+
+# Agregar un registro
+npx zeabur@latest domain dns create --id <domain-id> --type A --name @ --content 1.2.3.4
+
+# Eliminar un registro
+npx zeabur@latest domain dns delete --id <domain-id> --record-id <record-id>
+```
+
+### Renovación
+
+Los dominios se registran por 1 año. Puedes habilitar la **renovación automática** desde el Dashboard o renovar manualmente.
+
+```bash copy
+# Habilitar renovación automática
+npx zeabur@latest domain auto-renew --id <domain-id> --enable
+
+# Renovación manual
+npx zeabur@latest domain renew --id <domain-id>
+```
+
+### Verificación de Registrante ICANN
+
+Después de comprar un dominio, ICANN requiere que verifiques tu dirección de correo electrónico de registrante. Recibirás un correo de verificación — **haz clic en el enlace dentro de los 15 días**, o tu dominio podría ser suspendido.
+
+Si no recibiste el correo o necesitas reenviarlo:
+
+```bash copy
+npx zeabur@latest domain verification resend --id <domain-id>
+```
+
+Si ingresaste el correo electrónico incorrecto durante el registro, puedes actualizar tu información de contacto de registrante:
+
+```bash copy
+npx zeabur@latest domain verification update-contact --id <domain-id> --email correct@example.com --first-name John --last-name Doe --phone "+1.5551234567" --address1 "123 Main St" --city "San Francisco" --state CA --country US --postal-code 94105
+```
+
+<Callout type="warning">
+Cambiar el correo electrónico del registrante activa un nuevo flujo de verificación y puede imponer un bloqueo de transferencia de 60 días en el dominio.
+</Callout>
+
+Para verificar el estado actual de verificación:
+
+```bash copy
+npx zeabur@latest domain verification status --id <domain-id>
+```
