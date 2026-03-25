@@ -1,0 +1,83 @@
+---
+title: Purchase a Server
+ogImageTitle: Purchase a Server
+ogImageSubtitle: Buy a dedicated server from Zeabur
+---
+
+import { Callout } from 'nextra/components'
+import { Steps } from 'nextra/components'
+
+# Purchase a Server from Zeabur
+
+If you don't have your own server, you can purchase a dedicated server directly from Zeabur. Zeabur partners with major cloud providers (AWS, GCP, Hetzner, Linode, Digital Ocean, Aliyun, Tencent Cloud, Volcengine) to offer competitive pricing — often at a discount compared to buying directly from the provider.
+
+<Callout type="info">
+  Purchased servers are fully managed by Zeabur. You don't need to handle SSH access, OS updates, or infrastructure maintenance.
+</Callout>
+
+## Purchase Steps
+
+<Steps>
+
+### Open the Server List
+
+After logging in, click **Servers** in the left sidebar, or visit [https://zeabur.com/servers](https://zeabur.com/servers) directly.
+
+![My Servers page](/dedicated-server/purchase-servers-page.png)
+
+### Click "Create" and Select "Buy a Server from Zeabur"
+
+Click the **Create** button in the upper-right corner. In the dialog that appears, select **Buy a Server from Zeabur**.
+
+![Create Server dialog](/dedicated-server/purchase-create-dialog.png)
+
+You will also see other options:
+
+- **Fixed IP Server** — for connecting your own server with a fixed public IP via SSH (see [Add a Server](./register)).
+- **[Wonder Mesh](/wonder-mesh)** — for servers without a fixed public IP (currently in beta).
+
+### Select a Server Plan
+
+You will be redirected to the server selection page. Use the filters to narrow down the options:
+
+- **Provider** — Choose from AWS, GCP, Hetzner, Linode, Digital Ocean, Aliyun, Tencent, or Volcengine.
+- **Region** — Filter by continent (Asia, China, Europe, North America, South America, Oceania).
+- **CPU** — Filter by the number of vCPUs (1–32).
+- **Memory** — Filter by RAM size (2 GB–64 GB).
+- **Sort** — Sort results by Recommended, Price, CPU, RAM, or Egress.
+
+![Select a server plan](/dedicated-server/purchase-select-server.png)
+
+Each server plan shows the provider, city, vCPU count, RAM, storage, egress bandwidth, and monthly price. Some plans include a discount badge showing Zeabur's ongoing discount compared to the provider's official price.
+
+### Confirm and Pay
+
+Click on a server plan to proceed to checkout. The server will be provisioned automatically after payment. Once provisioning is complete (usually within a few minutes), the server will appear in your **My Servers** list with a **Running** status.
+
+</Steps>
+
+## After Purchase
+
+Once your server is online, you can:
+
+- **[Create a project](/en-US/deploy/creating-projects)** on your new server and start deploying services.
+- **[Manage your server](./operate)** — monitor resources, configure settings, and more.
+- **[Set up firewall rules](./firewall)** — control inbound and outbound traffic.
+
+## FAQ
+
+### Can I upgrade my server plan later?
+
+Yes, you can self-serve upgrade your server plan from the server's settings page. Note that upgrades are one-way — you cannot downgrade to a lower plan after upgrading.
+
+### What if the server doesn't meet my needs?
+
+For servers purchased from **Tencent Cloud**, **Aliyun**, or **Volcengine**, Zeabur allows one free refund. A second refund request for these providers must be submitted through the [community forum](https://zeabur.com/forum). For all other providers (AWS, GCP, Hetzner, Linode, Digital Ocean), you can request a refund directly from the server's settings page by clicking **Request Refund**.
+
+### How is billing handled?
+
+Purchased servers are billed monthly at a fixed rate. The price shown on the selection page is the monthly cost. Your server will auto-renew unless you cancel it.
+
+### What providers are available?
+
+Zeabur currently offers servers from AWS, GCP, Hetzner, Linode, Digital Ocean, Aliyun, Tencent Cloud, and Volcengine, with data centers across Asia, Europe, North America, South America, and Oceania.
