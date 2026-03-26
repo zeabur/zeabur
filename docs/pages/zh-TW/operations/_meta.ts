@@ -1,5 +1,4 @@
 export default {
-  index:      { display: 'hidden' },
   team:       '團隊管理',
   resources:  '資源配置',
   deployment: '部署管理',

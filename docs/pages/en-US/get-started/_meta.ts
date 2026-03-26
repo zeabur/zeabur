@@ -1,5 +1,4 @@
 export default {
-  index:             { display: 'hidden' },  // section landing — no sidebar link
   'platform-overview': 'Platform Overview',
   'quick-start':       'Quick Start',
   'start-by-need':     'Start by Need',

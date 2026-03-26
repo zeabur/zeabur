@@ -1,5 +1,4 @@
 export default {
-  index: '概述',
   'quick-start': '快速开始',
   'rest-api': 'REST API 参考',
   'domains': '域名管理',

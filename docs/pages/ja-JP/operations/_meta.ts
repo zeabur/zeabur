@@ -1,5 +1,4 @@
 export default {
-  index:      { display: 'hidden' },
   team:       'チーム管理',
   resources:  'リソース設定',
   deployment: 'デプロイ管理',
