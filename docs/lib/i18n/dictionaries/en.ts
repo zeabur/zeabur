@@ -27,7 +27,32 @@ const en = {
   wip: {
     message: 'This page is a work in progress.',
   },
-} as const
+}
 
-export type Dictionary = typeof en
+export type Dictionary = {
+  nav: {
+    home: string
+    search: string
+    tocTitle: string
+    editLink: string
+    backToTop: string
+    previous: string
+    next: string
+  }
+  feedback: {
+    question: string
+    helpful: string
+    yes: string
+    no: string
+    thankYou: string
+  }
+  translation: {
+    viewOriginal: string
+    viewTranslation: string
+    machineTranslated: string
+  }
+  wip: {
+    message: string
+  }
+}
 export default en
