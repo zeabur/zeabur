@@ -1,4 +1,5 @@
 export default {
+    index:            '',
     "purchase":       "サーバーを購入する",
     "register":       "専用サーバーを登録する",
     "operate":        "専用サーバーを維護する",

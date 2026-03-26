@@ -1,4 +1,5 @@
 export default {
+    index:            '',
     "purchase":       "购买服务器",
     "register":       "注册服务器",
     "operate":        "维护服务器",
