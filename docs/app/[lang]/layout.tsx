@@ -59,14 +59,6 @@ export default async function LocaleLayout({
             </span>
           </Footer>
         }
-        color={{ hue: { dark: 278, light: 265 } }}
-        search={{ placeholder: dictionary.nav.search }}
-        main={({ children: mainChildren }) => (
-          <>
-            {mainChildren}
-            <FeedbackWidget variant="inline" />
-          </>
-        )}
       >
         {children}
       </Layout>
