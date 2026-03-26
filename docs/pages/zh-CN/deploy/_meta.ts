@@ -18,7 +18,6 @@ export default {
   "deploy-button":               { display: 'hidden' },
   "customize-prebuilt":          { display: 'hidden' },
   "github":                      { display: 'hidden' },
-  "deploy-in-cli":               { display: 'hidden' },
   "deploy-with-chrome-extension": { display: 'hidden' },
   "deploy-with-vscode-extension": { display: 'hidden' },
   "deploy-with-raycast-extension": { display: 'hidden' },
@@ -28,4 +27,10 @@ export default {
   "migrate-project":             { display: 'hidden' },
   "update-image-reference":      { display: 'hidden' },
   "large-files":                 { display: 'hidden' },
+  "custom-docker-image":         { display: 'hidden' },
+  "github-integration":          { display: 'hidden' },
+  "environment-variables":       { display: 'hidden' },
+  "high-availability":           { display: 'hidden' },
+  "private-networking":          { display: 'hidden' },
+  "public-networking":           { display: 'hidden' },
 }

@@ -12,7 +12,7 @@ export default {
   'project-budget':         { display: 'hidden' },
   scaling:                  { display: 'hidden' },
   rollbacks:                { display: 'hidden' },
-  'maintenance-mode':       { display: 'hidden' },
+  'suspend-service':        { display: 'hidden' },
   'health-checks':          { display: 'hidden' },
   logging:                  { display: 'hidden' },
   metrics:                  { display: 'hidden' },
