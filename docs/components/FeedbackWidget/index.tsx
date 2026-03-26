@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { useRouter } from 'nextra/hooks'
 
 const TURNSTILE_SITEKEY = '0x4AAAAAACCyo_1UnKEIQB-R'
@@ -74,50 +74,56 @@ const RATING_LABELS: Record<string, string[]> = {
   'es-ES': ['No útil', 'Algo útil', 'Útil', 'Muy útil'],
 }
 
+function loadTurnstileScript(): Promise<void> {
+  if ((window as any).turnstile) return Promise.resolve()
+
+  const existing = document.querySelector(
+    'script[src*="challenges.cloudflare.com/turnstile"]'
+  )
+  if (existing) {
+    return new Promise((resolve) => {
+      const check = setInterval(() => {
+        if ((window as any).turnstile) { clearInterval(check); resolve() }
+      }, 100)
+    })
+  }
+
+  return new Promise((resolve) => {
+    const script = document.createElement('script')
+    script.src =
+      'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+    script.async = true
+    script.onload = () => {
+      const check = setInterval(() => {
+        if ((window as any).turnstile) { clearInterval(check); resolve() }
+      }, 100)
+    }
+    document.head.appendChild(script)
+  })
+}
+
 function useTurnstile() {
   const tokenRef = useRef<string | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const widgetIdRef = useRef<string | null>(null)
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && !(window as any).turnstile) {
-      const script = document.createElement('script')
-      script.src =
-        'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
-      script.async = true
-      document.head.appendChild(script)
+  const ensureReady = useCallback(async () => {
+    if (typeof window === 'undefined') return
+    await loadTurnstileScript()
+    if (containerRef.current && widgetIdRef.current === null) {
+      widgetIdRef.current = (window as any).turnstile.render(
+        containerRef.current,
+        {
+          sitekey: TURNSTILE_SITEKEY,
+          size: 'compact',
+          callback: (token: string) => { tokenRef.current = token },
+        }
+      )
     }
-
-    const renderWidget = () => {
-      if (
-        containerRef.current &&
-        (window as any).turnstile &&
-        widgetIdRef.current === null
-      ) {
-        widgetIdRef.current = (window as any).turnstile.render(
-          containerRef.current,
-          {
-            sitekey: TURNSTILE_SITEKEY,
-            size: 'compact',
-            callback: (token: string) => {
-              tokenRef.current = token
-            },
-          }
-        )
-      }
-    }
-
-    const interval = setInterval(() => {
-      if ((window as any).turnstile) {
-        renderWidget()
-        clearInterval(interval)
-      }
-    }, 200)
-
-    return () => clearInterval(interval)
   }, [])
 
   const getToken = useCallback(async (): Promise<string | null> => {
+    await ensureReady()
     if (tokenRef.current) return tokenRef.current
     if ((window as any).turnstile && widgetIdRef.current !== null) {
       ;(window as any).turnstile.reset(widgetIdRef.current)
@@ -136,7 +142,7 @@ function useTurnstile() {
       })
     }
     return null
-  }, [])
+  }, [ensureReady])
 
   const resetToken = useCallback(() => {
     tokenRef.current = null
@@ -145,7 +151,7 @@ function useTurnstile() {
     }
   }, [])
 
-  return { containerRef, getToken, resetToken }
+  return { containerRef, ensureReady, getToken, resetToken }
 }
 
 /**
@@ -159,7 +165,7 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
   const t = i18n[locale] || i18n['en-US']
   const ratingLabels = RATING_LABELS[locale] || RATING_LABELS['en-US']
 
-  const { containerRef, getToken, resetToken } = useTurnstile()
+  const { containerRef, ensureReady, getToken, resetToken } = useTurnstile()
 
   const [rating, setRating] = useState<Rating | null>(null)
   const [feedback, setFeedback] = useState('')
@@ -168,7 +174,10 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
 
   const handleRating = (value: Rating) => {
     setRating(value)
-    if (status === 'idle') setStatus('expanded')
+    if (status === 'idle') {
+      setStatus('expanded')
+      ensureReady()
+    }
   }
 
   const handleSubmit = async () => {
