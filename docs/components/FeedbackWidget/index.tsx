@@ -74,32 +74,52 @@ const RATING_LABELS: Record<string, string[]> = {
   'es-ES': ['No útil', 'Algo útil', 'Útil', 'Muy útil'],
 }
 
+const TURNSTILE_TIMEOUT = 10_000
+
+function waitForTurnstile(): Promise<void> {
+  if ((window as any).turnstile) return Promise.resolve()
+  return new Promise((resolve, reject) => {
+    const start = Date.now()
+    const check = setInterval(() => {
+      if ((window as any).turnstile) {
+        clearInterval(check)
+        resolve()
+      } else if (Date.now() - start > TURNSTILE_TIMEOUT) {
+        clearInterval(check)
+        reject(new Error('Turnstile timed out'))
+      }
+    }, 100)
+  })
+}
+
+let turnstileLoadPromise: Promise<void> | null = null
+
 function loadTurnstileScript(): Promise<void> {
   if ((window as any).turnstile) return Promise.resolve()
+  if (turnstileLoadPromise) return turnstileLoadPromise
 
   const existing = document.querySelector(
     'script[src*="challenges.cloudflare.com/turnstile"]'
   )
   if (existing) {
-    return new Promise((resolve) => {
-      const check = setInterval(() => {
-        if ((window as any).turnstile) { clearInterval(check); resolve() }
-      }, 100)
-    })
+    turnstileLoadPromise = waitForTurnstile()
+    return turnstileLoadPromise
   }
 
-  return new Promise((resolve) => {
+  turnstileLoadPromise = new Promise<void>((resolve, reject) => {
     const script = document.createElement('script')
     script.src =
       'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
     script.async = true
-    script.onload = () => {
-      const check = setInterval(() => {
-        if ((window as any).turnstile) { clearInterval(check); resolve() }
-      }, 100)
+    script.onload = () => waitForTurnstile().then(resolve, reject)
+    script.onerror = () => {
+      turnstileLoadPromise = null
+      reject(new Error('Failed to load Turnstile script'))
     }
     document.head.appendChild(script)
   })
+
+  return turnstileLoadPromise
 }
 
 function useTurnstile() {
@@ -176,7 +196,7 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
     setRating(value)
     if (status === 'idle') {
       setStatus('expanded')
-      ensureReady()
+      ensureReady().catch(() => {})
     }
   }
 
