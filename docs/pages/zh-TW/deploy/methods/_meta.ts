@@ -1,5 +1,4 @@
 export default {
-  index: { display: 'hidden' },
   dockerfile: 'Dockerfile 部署',
   'custom-docker-image': '自訂 Docker 映像檔',
   'github-integration': '整合 GitHub/Git',

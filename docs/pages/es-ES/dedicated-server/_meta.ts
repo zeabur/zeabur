@@ -1,5 +1,4 @@
 export default {
-    index:            '',
     "purchase": "Comprar Servidor",
     "register": "Registrar Servidor",
     "operate": "Mantener Servidor",
