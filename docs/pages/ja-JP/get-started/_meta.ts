@@ -1,5 +1,4 @@
 export default {
-  index:              { display: 'hidden' },
   'platform-overview': 'プラットフォーム概要',
   'quick-start':       'クイックスタート',
   'start-by-need':     'ニーズから始める',
