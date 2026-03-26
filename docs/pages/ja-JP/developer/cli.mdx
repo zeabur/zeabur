@@ -1,0 +1,141 @@
+---
+title: Zeabur CLI
+ogImageTitle: Zeabur CLI
+ogImageSubtitle: ターミナルから Zeabur リソースを管理
+---
+
+import { Callout } from 'nextra/components'
+
+# Zeabur CLI
+
+Zeabur CLI を使えば、ターミナルからすべての Zeabur リソースを管理できます。サービスのデプロイ、ログの確認、プロジェクトの管理を Dashboard を開かずに行えます。
+
+## ログイン
+
+### ブラウザログイン
+
+```bash copy
+npx zeabur@latest auth login
+```
+
+`Enter` を押すとブラウザのログインページが開きます。`Confirm` ボタンをクリックすると、ターミナルにリダイレクトされ、ログイン成功のメッセージが表示されます。
+
+### Token ログイン
+
+CI/CD やブラウザを開けない環境向け：
+
+```bash copy
+npx zeabur@latest auth login --token <your-token>
+```
+
+## サービスをデプロイ
+
+プロジェクトディレクトリで以下のコマンドを実行します：
+
+```bash copy
+npx zeabur@latest deploy
+```
+
+CLI がフレームワークを自動検出し、プロジェクトの選択または作成を案内します。デプロイ完了後、ターミナルにサービスの URL が表示されます。
+
+## プロジェクト管理
+
+### プロジェクト一覧
+
+```bash copy
+npx zeabur@latest project ls
+```
+
+### プロジェクト Context の設定
+
+```bash copy
+npx zeabur@latest context set project
+```
+
+インタラクティブモードでは、すべてのプロジェクトが一覧表示されます。設定後、以降のコマンドは選択したプロジェクトに自動適用されます。
+
+## サービス管理
+
+### サービス一覧
+
+```bash copy
+npx zeabur@latest service ls
+```
+
+### サービス Context の設定
+
+```bash copy
+npx zeabur@latest context set service
+```
+
+### サービスの再起動
+
+```bash copy
+npx zeabur@latest service restart
+```
+
+## デプロイ情報とログ
+
+### デプロイ状態の確認
+
+```bash copy
+npx zeabur@latest deployment get
+```
+
+### Runtime ログの確認
+
+```bash copy
+npx zeabur@latest deployment log -t=runtime
+```
+
+### Build ログの確認
+
+```bash copy
+npx zeabur@latest deployment log -t=build
+```
+
+## 環境の切り替え
+
+```bash copy
+npx zeabur@latest context set env
+```
+
+デプロイ環境（production、staging など）を切り替えます。
+
+## Non-Interactive モード
+
+CI/CD パイプラインや自動化スクリプトでは、`-i=false` を追加してインタラクティブモードを無効にし、パラメータを直接指定できます：
+
+### 名前でプロジェクトとサービスを指定
+
+```bash copy
+npx zeabur@latest context set project --name <project-name>
+npx zeabur@latest context set service --name <service-name>
+npx zeabur@latest context set env --id <env-id>
+```
+
+### ID で指定
+
+```bash copy
+npx zeabur@latest context set project --id <project-id>
+npx zeabur@latest context set service --id <service-id>
+```
+
+### ワンライナー操作
+
+Context を設定せず、すべてのパラメータをコマンドに直接渡します：
+
+```bash copy
+npx zeabur@latest service restart --env-id <env-id> --service-name <service-name>
+npx zeabur@latest deployment get --env-id <env-id> --service-name <service-name>
+npx zeabur@latest deployment log -t=runtime --env-id <env-id> --service-name <service-name>
+```
+
+## コマンドのヘルプ
+
+任意のコマンドに `--help` を追加して使い方を確認できます：
+
+```bash copy
+npx zeabur@latest --help
+npx zeabur@latest deployment --help
+```

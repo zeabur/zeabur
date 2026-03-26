@@ -8,7 +8,7 @@ export default {
   "deploy-button": "デプロイボタン",
   "customize-prebuilt": "カスタム Docker イメージ",
   "github": "GitHub との統合",
-  "deploy-in-cli": "CLI でデプロイ",
+  "deploy-in-cli": { display: 'hidden' },
   "deploy-with-chrome-extension": "Chrome 拡張機能でデプロイ",
   "deploy-with-vscode-extension": "VS Code 拡張機能でデプロイ",
   "deploy-with-raycast-extension": "Raycast 拡張機能でデプロイ",

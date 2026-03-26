@@ -1,0 +1,141 @@
+---
+title: Zeabur CLI
+ogImageTitle: Zeabur CLI
+ogImageSubtitle: 在终端中管理 Zeabur 资源
+---
+
+import { Callout } from 'nextra/components'
+
+# Zeabur CLI
+
+Zeabur CLI 让你在终端中管理所有 Zeabur 资源——部署服务、查看日志、管理项目，无需打开 Dashboard。
+
+## 登录账号
+
+### 浏览器登录
+
+```bash copy
+npx zeabur@latest auth login
+```
+
+按下 `Enter` 打开浏览器登录页面，点击 `Confirm` 按钮后，你会被重定向到终端并看到登录成功的消息。
+
+### Token 登录
+
+适合 CI/CD 或无法打开浏览器的环境：
+
+```bash copy
+npx zeabur@latest auth login --token <your-token>
+```
+
+## 部署服务
+
+在你的项目目录中执行：
+
+```bash copy
+npx zeabur@latest deploy
+```
+
+CLI 会自动检测框架，并引导你选择或创建一个项目。部署完成后，终端会显示服务的 URL。
+
+## 项目管理
+
+### 列出项目
+
+```bash copy
+npx zeabur@latest project ls
+```
+
+### 设置当前项目 Context
+
+```bash copy
+npx zeabur@latest context set project
+```
+
+交互模式下会列出你的所有项目供选择。设置后，后续命令会自动应用到该项目。
+
+## 服务管理
+
+### 列出服务
+
+```bash copy
+npx zeabur@latest service ls
+```
+
+### 设置当前服务 Context
+
+```bash copy
+npx zeabur@latest context set service
+```
+
+### 重启服务
+
+```bash copy
+npx zeabur@latest service restart
+```
+
+## 部署信息与日志
+
+### 查看部署状态
+
+```bash copy
+npx zeabur@latest deployment get
+```
+
+### 查看 Runtime 日志
+
+```bash copy
+npx zeabur@latest deployment log -t=runtime
+```
+
+### 查看 Build 日志
+
+```bash copy
+npx zeabur@latest deployment log -t=build
+```
+
+## 环境切换
+
+```bash copy
+npx zeabur@latest context set env
+```
+
+切换到不同的部署环境（例如 production、staging）。
+
+## Non-Interactive 模式
+
+在 CI/CD 管线或自动化脚本中，你可以加上 `-i=false` 停用交互模式，并直接传入参数：
+
+### 通过名称指定项目和服务
+
+```bash copy
+npx zeabur@latest context set project --name <project-name>
+npx zeabur@latest context set service --name <service-name>
+npx zeabur@latest context set env --id <env-id>
+```
+
+### 通过 ID 指定
+
+```bash copy
+npx zeabur@latest context set project --id <project-id>
+npx zeabur@latest context set service --id <service-id>
+```
+
+### 一行完成操作
+
+不设置 context，直接在命令中传入所有参数：
+
+```bash copy
+npx zeabur@latest service restart --env-id <env-id> --service-name <service-name>
+npx zeabur@latest deployment get --env-id <env-id> --service-name <service-name>
+npx zeabur@latest deployment log -t=runtime --env-id <env-id> --service-name <service-name>
+```
+
+## 获取命令说明
+
+任何命令都可以加上 `--help` 查看用法：
+
+```bash copy
+npx zeabur@latest --help
+npx zeabur@latest deployment --help
+```

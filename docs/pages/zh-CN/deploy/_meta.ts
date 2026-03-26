@@ -8,7 +8,7 @@ export default {
   "deploy-button": "一键部署按钮",
   "customize-prebuilt": "自定义 Docker 镜像",
   "github": "与 GitHub 集成",
-  "deploy-in-cli": "在 CLI 中部署",
+  "deploy-in-cli": { display: 'hidden' },
   "deploy-with-chrome-extension": "Chrome 扩展部署",
   "deploy-with-vscode-extension": "VS Code 扩展部署",
   "deploy-with-raycast-extension": "Raycast 扩展部署",

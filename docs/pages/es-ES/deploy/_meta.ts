@@ -7,7 +7,7 @@ export default {
   "deploy-button": "Botón de Implementación",
   "customize-prebuilt": "Personalizar imagen Docker",
   "github": "Integración con GitHub",
-  "deploy-in-cli": "Implementar en CLI",
+  "deploy-in-cli": { display: 'hidden' },
   "deploy-with-chrome-extension": "Implementar con extensión Chrome",
   "deploy-with-vscode-extension": "Implementar con extensión VS Code",
   "deploy-with-raycast-extension": "Implementar con extensión Raycast",
