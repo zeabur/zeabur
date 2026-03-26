@@ -1,16 +1,15 @@
 //@ts-check
-
-import nextra from 'nextra';
-import i18n from './i18n-config.js';
+import nextra from 'nextra'
 
 const withNextra = nextra({
-  theme: 'nextra-theme-docs',
-  themeConfig: './theme.config.js',
+  contentDirBasePath: '/',
+  search: {
+    codeblocks: false,
+  },
   defaultShowCopyCode: true,
 })
 
 export default withNextra({
-  i18n,
   basePath: '/docs',
   async redirects() {
     const templateDocsMap = {
