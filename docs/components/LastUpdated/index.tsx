@@ -1,4 +1,6 @@
-import { useRouter } from 'nextra/hooks'
+'use client'
+
+import { useLocale } from '../locale-provider'
 
 interface LastUpdatedProps {
   timestamp: Date
@@ -28,9 +30,8 @@ const translations: Record<string, { prefix: string; dateOptions: Intl.DateTimeF
 }
 
 export default function LastUpdated({ timestamp }: LastUpdatedProps) {
-  const router = useRouter()
-  const locale = router.locale || 'en-US'
-  
+  const { locale } = useLocale()
+
   const { prefix, dateOptions } = translations[locale] || translations['en-US']
   const formattedDate = timestamp.toLocaleDateString(locale, dateOptions)
 
@@ -40,4 +41,3 @@ export default function LastUpdated({ timestamp }: LastUpdatedProps) {
     </span>
   )
 }
-

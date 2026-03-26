@@ -1,5 +1,8 @@
+'use client'
+
 import { useCallback, useRef, useState } from 'react'
-import { useRouter } from 'nextra/hooks'
+import { usePathname } from 'next/navigation'
+import { useLocale } from '../locale-provider'
 
 const TURNSTILE_SITEKEY = '0x4AAAAAACCyo_1UnKEIQB-R'
 
@@ -189,8 +192,8 @@ function useTurnstile() {
  *   - "inline": rendered below main content (mobile only, hidden at xl+)
  */
 export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 'inline' }) {
-  const router = useRouter()
-  const locale = router.locale || 'en-US'
+  const { locale } = useLocale()
+  const pathname = usePathname()
   const t = i18n[locale] || i18n['en-US']
   const ratingLabels = RATING_LABELS[locale] || RATING_LABELS['en-US']
 
@@ -223,7 +226,7 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
         return
       }
 
-      const page = router.asPath.replace(/^\/[a-z]{2}-[A-Z]{2}/, '').replace(/#.*$/, '')
+      const page = pathname.replace(/^\/[a-z]{2}-[A-Z]{2}/, '').replace(/#.*$/, '')
 
       const res = await fetch('https://api.zeabur.com/graphql', {
         method: 'POST',
