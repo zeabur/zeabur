@@ -1,5 +1,4 @@
 export default {
-  index:      { display: 'hidden' },
   'how-deploys-work': 'How Deploys Work',
   create:     'Create Projects & Services',
   methods:    'Deployment Methods',

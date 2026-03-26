@@ -1,5 +1,4 @@
 export default {
-  index:            '',
   purchase:         '購買主機',
   register:         '新增主機',
   operate:          '管理伺服器',

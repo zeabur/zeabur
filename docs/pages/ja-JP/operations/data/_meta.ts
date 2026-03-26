@@ -1,5 +1,4 @@
 export default {
-  index: { display: 'hidden' },
   volumes: 'ストレージ',
   'file-management': 'ファイル管理',
   'backup-restore': 'バックアップと復元',

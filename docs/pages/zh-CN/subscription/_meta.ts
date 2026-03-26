@@ -1,5 +1,4 @@
 export default {
-  index:             { display: 'hidden' },
   'payment-methods': '付款方式',
   'free-quota':      '免费额度说明',
   'refund-policy':   '退款政策',

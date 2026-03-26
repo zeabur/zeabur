@@ -29,6 +29,49 @@ $ sudo k3s crictl rmi --prune
 
 K3sが各コンテナに対して記録しているログも、かなりの容量を占めることがあります。[K3sのlogsディレクトリ](https://docs.k3s.io/faq#where-are-the-k3s-logs)でこれらのログを清掃することができます。
 
+## OOMからの復旧（サーバーオフライン）
+
+サーバーのメモリが不足（OOM）すると、サーバーダッシュボードのK3sステータスインジケーターが赤色に変わり、Kubernetesが正常に動作していないことを示します。この場合、サービスにアクセスできなくなります。
+
+![K3sステータスを表示するサーバー情報](/dedicated-server/server-info.png)
+
+復旧するには、**Settings** に移動して **Reboot Server** をクリックします。
+
+![SettingsのReboot Serverボタン](/dedicated-server/reboot-server-button.png)
+
+再起動後に自動的に起動するすべてのサービスを一覧表示するダイアログが表示されます。**K3sが赤色（オフライン）の場合、すべてのサービスの選択を解除することをお勧めします**。これにより、再起動後にサーバーが再びメモリ不足になることを防ぎます。
+
+![Reboot Serverダイアログ（サービス一覧）](/dedicated-server/reboot-dialog.png)
+
+**Deselect All** をクリックしてすべてのサービスの自動起動を防止し、**Reboot** をクリックします。
+
+![Reboot Serverダイアログ（すべてのサービスを選択解除）](/dedicated-server/reboot-deselected.png)
+
+<Callout type="warning">
+    再起動プロセスには約3〜5分かかります。サーバーが再起動すると、K3sは緑色に戻るはずです。サーバーが正常であることを確認した後、**Projects** タブからサービスを一つずつ再有効化できます。
+</Callout>
+
+サーバーが頻繁にOOMになる場合は、より大きなサーバーへのアップグレードまたはデプロイするサービスの削減を検討してください。また、システムリソースが完全に枯渇するのを防ぐために、**リソース予約**（下記参照）を設定することもお勧めします。
+
+## リソース予約
+
+リソース予約を使用すると、KubernetesおよびシステムプロセスにCPUとメモリを予約でき、高負荷時でもサーバーにアクセスできるようになります。これにより、オペレーティングシステムやKubernetes自体がOOMで終了することを防ぎます。
+
+**Settings** > **Advanced Settings** > **Resource Reservation** に移動します。
+
+![リソース予約設定](/dedicated-server/resource-reservation.png)
+
+予約には2つのカテゴリがあります：
+
+- **Kubernetes Reserved**：Kubernetesシステムコンポーネント（kubelet、kube-proxyなど）用に予約されたリソース
+- **System Reserved**：OSレベルのプロセス（SSH、systemdなど）用に予約されたリソース
+
+<Callout type="info">
+    新しく購入したサーバーのデフォルトは、KubernetesとシステムそれぞれにCPU 500m / メモリ 512Miが予約されています。サーバーの安定性を確保するため、これらのデフォルト値を維持することをお勧めします。以前購入したサーバーにこれらのデフォルト値がない場合は、手動で設定することをお勧めします。
+</Callout>
+
+値を調整した後、**Save** をクリックして変更を適用します。
+
 ## DNSネームサーバーの変更
 
 デフォルトでは、Zeabur専用サーバーはクラスターのDNSネームサーバーとして[Cloudflare DNS](https://1.1.1.1/)を使用します（中国本土地域のマシンは[Alibaba Cloud Public DNS](https://www.alidns.com/)を使用）。

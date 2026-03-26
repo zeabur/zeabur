@@ -1,5 +1,4 @@
 export default {
-  index:                         { display: 'hidden' },
   'template-catalog':            'Zeabur 模板目录',
   'template-format':             '模板格式',
   'fork-git-repo-from-template': '从模板 Fork Git 仓库',
