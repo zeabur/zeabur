@@ -29,6 +29,49 @@ $ sudo k3s crictl rmi --prune
 
 A veces, los registros guardados por K3s para cada contenedor también pueden ocupar mucho espacio. Puedes intentar limpiar estos registros en el [directorio de registros de K3s](https://docs.k3s.io/faq#where-are-the-k3s-logs).
 
+## Recuperación de OOM (Servidor Fuera de Línea)
+
+Si tu servidor se queda sin memoria (OOM), el indicador de estado de K3s en el panel del servidor puede volverse rojo, lo que significa que Kubernetes ya no está funcionando correctamente. Cuando esto sucede, tus servicios serán inaccesibles.
+
+![Información del servidor mostrando el estado de K3s](/dedicated-server/server-info.png)
+
+Para recuperar, ve a **Settings** y haz clic en **Reboot Server**.
+
+![Botón Reboot Server en Settings](/dedicated-server/reboot-server-button.png)
+
+Aparecerá un diálogo que lista todos los servicios que se reiniciarán automáticamente después del reinicio. **Si K3s está en rojo (fuera de línea), recomendamos deseleccionar todos los servicios** para evitar que el servidor se quede sin memoria inmediatamente después de reiniciar.
+
+![Diálogo de Reboot Server con lista de servicios](/dedicated-server/reboot-dialog.png)
+
+Haz clic en **Deselect All** para evitar que cualquier servicio se inicie automáticamente, luego haz clic en **Reboot**.
+
+![Diálogo de Reboot Server con todos los servicios deseleccionados](/dedicated-server/reboot-deselected.png)
+
+<Callout type="warning">
+    El proceso de reinicio tarda aproximadamente 3–5 minutos. Una vez que el servidor se reinicie, K3s debería volver a verde. Después de confirmar que el servidor está saludable, puedes rehabilitar los servicios uno por uno desde la pestaña **Projects**.
+</Callout>
+
+Si tu servidor frecuentemente experimenta OOM, considera actualizar a un servidor más grande o reducir la cantidad de servicios desplegados. También deberías configurar la **Reserva de Recursos** (ver abajo) para evitar que el sistema se quede completamente sin recursos.
+
+## Reserva de Recursos
+
+La Reserva de Recursos te permite reservar CPU y memoria para Kubernetes y los procesos del sistema, asegurando que el servidor permanezca accesible incluso bajo carga pesada. Esto previene situaciones de OOM donde el sistema operativo o Kubernetes mismo es terminado.
+
+Ve a **Settings** > **Advanced Settings** > **Resource Reservation**.
+
+![Configuración de Reserva de Recursos](/dedicated-server/resource-reservation.png)
+
+Hay dos categorías de reserva:
+
+- **Kubernetes Reserved**: Recursos reservados para los componentes del sistema Kubernetes (kubelet, kube-proxy, etc.)
+- **System Reserved**: Recursos reservados para procesos a nivel de sistema operativo (SSH, systemd, etc.)
+
+<Callout type="info">
+    Los servidores recién comprados tienen un valor predeterminado de 500m CPU / 512Mi de memoria para las reservas de Kubernetes y del sistema. Recomendamos mantener estos valores predeterminados para asegurar la estabilidad del servidor. Si compraste un servidor anteriormente sin estos valores predeterminados, considera configurarlos manualmente.
+</Callout>
+
+Después de ajustar los valores, haz clic en **Save** para aplicar los cambios.
+
 ## Cambiar los Servidores DNS
 
 Por defecto, los servidores dedicados de Zeabur utilizan [Cloudflare DNS](https://1.1.1.1/) como servidores DNS para el clúster (las máquinas en China continental utilizan [DNS Público de Alibaba Cloud](https://www.alidns.com/)).

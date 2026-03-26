@@ -29,6 +29,49 @@ $ sudo k3s crictl rmi --prune
 
 Sometimes, the logs recorded by K3s for each container can also take up a lot of space. You can try cleaning these logs in the [K3s logs directory](https://docs.k3s.io/faq#where-are-the-k3s-logs).
 
+## Recovering from OOM (Server Offline)
+
+If your server runs out of memory (OOM), the K3s status indicator on the server dashboard may turn red, meaning Kubernetes is no longer running properly. When this happens, your services will become unreachable.
+
+![Server Info showing K3s status](/dedicated-server/server-info.png)
+
+To recover, go to **Settings** and click **Reboot Server**.
+
+![Reboot Server button in Settings](/dedicated-server/reboot-server-button.png)
+
+A dialog will appear listing all services that will automatically restart after the reboot. **If K3s is red (offline), we recommend deselecting all services** to prevent the server from immediately running out of memory again after restarting.
+
+![Reboot Server dialog with services listed](/dedicated-server/reboot-dialog.png)
+
+Click **Deselect All** to prevent any services from auto-starting, then click **Reboot**.
+
+![Reboot Server dialog with all services deselected](/dedicated-server/reboot-deselected.png)
+
+<Callout type="warning">
+    The reboot process takes about 3–5 minutes. Once the server restarts, K3s should return to green. After confirming the server is healthy, you can re-enable services one by one from the **Projects** tab.
+</Callout>
+
+If your server frequently goes OOM, consider upgrading to a larger server or reducing the number of services deployed. You should also configure **Resource Reservation** (see below) to prevent the system from being completely starved of resources.
+
+## Resource Reservation
+
+Resource Reservation allows you to reserve CPU and memory for Kubernetes and system processes, ensuring the server stays reachable even under heavy load. This prevents OOM situations where the operating system or Kubernetes itself gets killed.
+
+Go to **Settings** > **Advanced Settings** > **Resource Reservation**.
+
+![Resource Reservation settings](/dedicated-server/resource-reservation.png)
+
+There are two categories of reservation:
+
+- **Kubernetes Reserved**: Resources reserved for Kubernetes system components (kubelet, kube-proxy, etc.)
+- **System Reserved**: Resources reserved for OS-level processes (SSH, systemd, etc.)
+
+<Callout type="info">
+    Newly purchased servers default to 500m CPU / 512Mi memory for both Kubernetes and system reservations. We recommend keeping these defaults to ensure server stability. If you previously purchased a server without these defaults, consider setting them manually.
+</Callout>
+
+After adjusting the values, click **Save** to apply the changes.
+
 ## Changing DNS Nameservers
 
 By default, Zeabur's dedicated servers use [Cloudflare DNS](https://1.1.1.1/) as the DNS nameservers for the cluster (machines in mainland China use [Alibaba Cloud Public DNS](https://www.alidns.com/)).
