@@ -1,0 +1,141 @@
+---
+title: Zeabur CLI
+ogImageTitle: Zeabur CLI
+ogImageSubtitle: Gestiona recursos de Zeabur desde tu terminal
+---
+
+import { Callout } from 'nextra/components'
+
+# Zeabur CLI
+
+Zeabur CLI te permite gestionar todos los recursos de Zeabur desde tu terminal — despliega servicios, consulta logs, gestiona proyectos, sin abrir el Dashboard.
+
+## Iniciar sesión
+
+### Inicio de sesión por navegador
+
+```bash copy
+npx zeabur@latest auth login
+```
+
+Pulsa `Enter` para abrir la página de inicio de sesión en tu navegador, luego haz clic en `Confirm`. Serás redirigido de vuelta al terminal con un mensaje de inicio de sesión exitoso.
+
+### Inicio de sesión por token
+
+Para entornos CI/CD o sin interfaz gráfica:
+
+```bash copy
+npx zeabur@latest auth login --token <your-token>
+```
+
+## Desplegar un servicio
+
+Ejecuta el siguiente comando en el directorio de tu proyecto:
+
+```bash copy
+npx zeabur@latest deploy
+```
+
+El CLI detecta automáticamente tu framework y te guía para seleccionar o crear un proyecto. Una vez desplegado, la URL del servicio se mostrará en el terminal.
+
+## Gestión de proyectos
+
+### Listar proyectos
+
+```bash copy
+npx zeabur@latest project ls
+```
+
+### Establecer contexto de proyecto
+
+```bash copy
+npx zeabur@latest context set project
+```
+
+En modo interactivo, se listan todos tus proyectos para seleccionar. Los comandos posteriores se aplicarán automáticamente al proyecto seleccionado.
+
+## Gestión de servicios
+
+### Listar servicios
+
+```bash copy
+npx zeabur@latest service ls
+```
+
+### Establecer contexto de servicio
+
+```bash copy
+npx zeabur@latest context set service
+```
+
+### Reiniciar un servicio
+
+```bash copy
+npx zeabur@latest service restart
+```
+
+## Información de despliegue y logs
+
+### Ver estado del despliegue
+
+```bash copy
+npx zeabur@latest deployment get
+```
+
+### Ver logs de ejecución
+
+```bash copy
+npx zeabur@latest deployment log -t=runtime
+```
+
+### Ver logs de compilación
+
+```bash copy
+npx zeabur@latest deployment log -t=build
+```
+
+## Cambiar de entorno
+
+```bash copy
+npx zeabur@latest context set env
+```
+
+Cambia entre entornos de despliegue (por ejemplo, producción, staging).
+
+## Modo no interactivo
+
+Para pipelines CI/CD o scripts de automatización, añade `-i=false` para deshabilitar los prompts interactivos y pasar parámetros directamente:
+
+### Especificar proyecto y servicio por nombre
+
+```bash copy
+npx zeabur@latest context set project --name <project-name>
+npx zeabur@latest context set service --name <service-name>
+npx zeabur@latest context set env --id <env-id>
+```
+
+### Especificar por ID
+
+```bash copy
+npx zeabur@latest context set project --id <project-id>
+npx zeabur@latest context set service --id <service-id>
+```
+
+### Operaciones en una sola línea
+
+Omite la configuración de contexto y pasa todos los parámetros en línea:
+
+```bash copy
+npx zeabur@latest service restart --env-id <env-id> --service-name <service-name>
+npx zeabur@latest deployment get --env-id <env-id> --service-name <service-name>
+npx zeabur@latest deployment log -t=runtime --env-id <env-id> --service-name <service-name>
+```
+
+## Obtener ayuda
+
+Añade `--help` a cualquier comando para ver su uso:
+
+```bash copy
+npx zeabur@latest --help
+npx zeabur@latest deployment --help
+```

@@ -1,0 +1,123 @@
+---
+title: 从 Vercel 迁移
+ogImageTitle: 从 Vercel 迁移
+ogImageSubtitle: 将应用从 Vercel 迁移到 Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# 从 Vercel 迁移
+
+本指南将帮助你将应用从 Vercel 迁移到 Zeabur。如果你在寻找一个能同时处理前端和后端服务——数据库、缓存、后台 Worker——以及 Web 应用的单一平台，Zeabur 是一个理想选择。
+
+## 开始之前
+
+- 一个 [Zeabur](https://zeabur.com/) 账户。
+- 你的应用源代码在 Git 仓库（GitHub）中。
+- 可以访问 Vercel 控制面板。
+
+## 步骤 1：连接 Git 仓库
+
+你的 Vercel 项目已连接到 Git 仓库。将同一仓库连接到 Zeabur：
+
+1. 登录 [Zeabur 控制面板](https://dash.zeabur.com/)。
+2. 创建新项目并选择专用服务器（或购买新的）。
+3. 点击 **Add Service** → **Git** 并连接 GitHub 账户。
+4. 选择 Vercel 项目使用的同一仓库。
+
+Zeabur 原生支持所有主流框架，包括 **Next.js**、**Nuxt**、**Astro**、**Remix**、**SvelteKit**、**Vite** 和静态站点。
+
+<Callout>
+你的 `next.config.js`（或 `next.config.mjs`）在 Zeabur 上无需修改即可使用。Zeabur 的构建系统完全兼容 Next.js 配置，包括 `output: 'standalone'`。
+</Callout>
+
+## 步骤 2：迁移环境变量
+
+1. 在 Vercel 项目中，前往 **Settings** → **Environment Variables**。复制每个变量的键和值。
+2. 在 Zeabur 控制面板中，点击服务并前往 **Variables** 标签。
+3. 添加变量。使用 **Bulk Edit** 一次粘贴多个键值对。
+
+<Callout>
+Vercel 按环境（Production、Preview、Development）划分变量范围。在 Zeabur 上，变量默认适用于所有部署。如果需要为预览部署设置不同的值，可以创建多个环境来管理。
+</Callout>
+
+## 步骤 3：处理框架特定设置
+
+### Next.js
+
+- **无需更改。** Zeabur 自动检测 Next.js 并正确构建。
+- `next.config.js` 的 rewrites、redirects、headers 和图片优化功能开箱即用。
+- **API routes 和 Server Actions** 原生支持——Zeabur 将 Next.js 应用作为完整服务器运行，而非 Serverless Functions。
+- 如果你在 Next.js 配置中使用 `output: 'standalone'`，Zeabur 会自动处理。
+
+### Nuxt / Astro / Remix / SvelteKit
+
+- 这些框架会被自动检测并使用标准构建命令构建。
+- 不需要框架特定的配置更改。
+
+### 静态站点（Vite、Create React App 等）
+
+- Zeabur 自动检测静态构建并使用内置 Web 服务器提供服务。
+- 如果项目有带自定义路由的 `vercel.json`，你可能需要在框架配置中设置等效的重定向。
+
+## 步骤 4：Vercel 特定功能映射
+
+一些 Vercel 功能在 Zeabur 上的对应方式有所不同：
+
+| Vercel 功能 | Zeabur 替代方案 |
+|---|---|
+| Serverless Functions | 作为持久化服务器运行（更好的冷启动性能） |
+| Edge Functions | 作为服务器端代码运行 |
+| Vercel Postgres / KV / Blob | 数据库服务 → PostgreSQL、Redis 或对象存储 |
+| Cron Jobs（`vercel.json`） | 使用框架内置 cron 或单独的 Worker 服务 |
+| `vercel.json` rewrites/redirects | 使用框架级配置（如 `next.config.js` rewrites） |
+| Preview Deployments | 创建独立环境来预览变更 |
+| Analytics | 使用第三方分析（如 Plausible、PostHog） |
+
+<Callout>
+在 Vercel 上，每个 API route 作为独立的 Serverless Function 运行，有冷启动。在 Zeabur 上，你的应用作为持久化服务器运行——意味着更快的响应时间和零冷启动延迟。
+</Callout>
+
+## 步骤 5：添加后端服务（如需要）
+
+从 Vercel 迁移的主要原因之一是将整个技术栈整合到一个平台上。在 Zeabur 上，你可以在前端旁边添加数据库和后端服务：
+
+- **PostgreSQL、MySQL、MongoDB**：点击 **Add Service** → **Database** 并选择数据库。
+- **Redis**：作为预构建服务提供，用于缓存和会话存储。
+- **后端 API**：在同一项目中部署单独的后端服务（Node.js、Python、Go 等）。项目内的服务可通过[私有网络](/deploy/private-networking)通信。
+
+## 步骤 6：设置自定义域名
+
+1. 在 Zeabur 控制面板中，点击服务并前往 **Networking** 标签。
+2. 点击 **Generate Domain** 获取免费的 `.zeabur.app` 子域名，或点击 **Custom Domain** 添加自己的域名。
+3. 更新 DNS 记录：
+   - 删除旧的 Vercel CNAME 记录（通常指向 `cname.vercel-dns.com`）。
+   - 添加指向 Zeabur 提供的目标的 CNAME 记录。
+
+<Callout type="warning">
+如果你使用 Vercel 的 nameserver 管理域名，你需要先将 DNS 管理转移回你的注册商或其他 DNS 提供商，然后再更新记录。
+</Callout>
+
+## 步骤 7：验证并上线
+
+1. 推送一个提交来触发部署，或在控制面板中点击 **Redeploy**。
+2. 在 **Logs** 标签中确认应用构建并正确启动。
+3. 测试所有路由、API 端点和服务端渲染。
+4. 验证后，将生产 DNS 切换到 Zeabur。
+
+## 主要差异：Vercel vs Zeabur
+
+| 功能 | Vercel | Zeabur |
+|------|--------|--------|
+| 定位 | 前端 / Jamstack / Serverless | 全栈（前端 + 后端 + 数据库） |
+| 执行模式 | Serverless Functions（冷启动） | 持久化服务器（无冷启动） |
+| 数据库 | Vercel Postgres、KV、Blob（有限） | 数据库服务（PostgreSQL、MySQL、MongoDB、Redis 等） |
+| 后端服务 | 不原生支持 | 可在前端旁部署任何后端 |
+| 构建系统 | Vercel Build | 自动检测（Nixpacks / Dockerfile） |
+| 定价 | 按函数调用 + 带宽 | 按使用量计算 + 存储 |
+| 团队功能 | 按席位定价 | 灵活的团队计划 |
+| 基础设施 | 仅 Serverless | 共享集群 + 专用服务器 |
+
+---
+
+完成了。你的 Vercel 应用现在作为全栈平台在 Zeabur 上运行，数据库、后端服务和前端——都在同一个地方。如遇到任何问题，请在我们的[社区论坛](https://zeabur.com/forum)联系我们。

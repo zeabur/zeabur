@@ -1,0 +1,123 @@
+---
+title: Vercel からの移行
+ogImageTitle: Vercel からの移行
+ogImageSubtitle: アプリケーションを Vercel から Zeabur に移行
+---
+
+import { Callout } from 'nextra/components'
+
+# Vercel からの移行
+
+このガイドでは、アプリケーションを Vercel から Zeabur に移行する手順を説明します。フロントエンドとバックエンドサービス（データベース、キャッシュ、バックグラウンドワーカー）を Web アプリケーションと一緒に扱える単一プラットフォームをお探しなら、Zeabur が最適です。
+
+## 始める前に
+
+- [Zeabur](https://zeabur.com/) アカウント。
+- アプリケーションのソースコードが Git リポジトリ（GitHub）にあること。
+- Vercel ダッシュボードへのアクセス。
+
+## ステップ 1：Git リポジトリを接続
+
+Vercel プロジェクトはすでに Git リポジトリに接続されています。同じリポジトリを Zeabur に接続：
+
+1. [Zeabur ダッシュボード](https://dash.zeabur.com/)にログイン。
+2. 新しいプロジェクトを作成し、専用サーバーを選択（または新規購入）。
+3. **Add Service** → **Git** をクリックし、GitHub アカウントを接続。
+4. Vercel プロジェクトが使用している同じリポジトリを選択。
+
+Zeabur は **Next.js**、**Nuxt**、**Astro**、**Remix**、**SvelteKit**、**Vite**、静的サイトを含むすべての主要フレームワークをネイティブサポートしています。
+
+<Callout>
+`next.config.js`（または `next.config.mjs`）は Zeabur でそのまま動作します。変更不要です。Zeabur のビルドシステムは `output: 'standalone'` を含む Next.js 設定と完全互換です。
+</Callout>
+
+## ステップ 2：環境変数を移行
+
+1. Vercel プロジェクトで **Settings** → **Environment Variables** に移動。各変数のキーと値をコピー。
+2. Zeabur ダッシュボードでサービスをクリックし、**Variables** タブに移動。
+3. 変数を追加。**Bulk Edit** で複数のキーバリューペアを一括貼り付け。
+
+<Callout>
+Vercel は環境ごと（Production、Preview、Development）に変数のスコープを分けています。Zeabur では変数はデフォルトですべてのデプロイに適用されます。プレビューデプロイに異なる値が必要な場合は、複数の環境を作成して管理できます。
+</Callout>
+
+## ステップ 3：フレームワーク固有の設定を処理
+
+### Next.js
+
+- **変更不要。** Zeabur は Next.js を自動検出し、正しくビルドします。
+- `next.config.js` の rewrites、redirects、headers、画像最適化機能はそのまま動作します。
+- **API routes と Server Actions** はネイティブに動作します。Zeabur は Next.js アプリをフルサーバーとして実行し、Serverless Functions としてではありません。
+- Next.js 設定で `output: 'standalone'` を使用している場合、Zeabur が自動的に処理します。
+
+### Nuxt / Astro / Remix / SvelteKit
+
+- これらのフレームワークは自動検出され、標準ビルドコマンドでビルドされます。
+- フレームワーク固有の設定変更は不要です。
+
+### 静的サイト（Vite、Create React App など）
+
+- Zeabur は静的ビルドを自動検出し、内蔵 Web サーバーで提供します。
+- プロジェクトにカスタムルーティング付きの `vercel.json` がある場合、フレームワークの設定で同等のリダイレクトを設定する必要があるかもしれません。
+
+## ステップ 4：Vercel 固有機能のマッピング
+
+一部の Vercel 機能は Zeabur では異なる対応になります：
+
+| Vercel 機能 | Zeabur の代替 |
+|---|---|
+| Serverless Functions | 永続サーバーとして実行（コールドスタートなし） |
+| Edge Functions | サーバーサイドコードとして実行 |
+| Vercel Postgres / KV / Blob | データベースサービス → PostgreSQL、Redis、またはオブジェクトストレージ |
+| Cron Jobs（`vercel.json`） | フレームワーク内蔵の cron または別の Worker サービス |
+| `vercel.json` rewrites/redirects | フレームワークレベルの設定（例：`next.config.js` rewrites） |
+| Preview Deployments | 変更をプレビューする独立環境を作成 |
+| Analytics | サードパーティ分析（例：Plausible、PostHog） |
+
+<Callout>
+Vercel では各 API route が独立した Serverless Function として実行され、コールドスタートがあります。Zeabur ではアプリが永続サーバーとして実行されるため、より速い応答時間とゼロコールドスタート遅延を実現します。
+</Callout>
+
+## ステップ 5：バックエンドサービスを追加（必要な場合）
+
+Vercel から移行する主な理由の一つは、技術スタック全体を一つのプラットフォームに統合することです。Zeabur では、フロントエンドと並行してデータベースやバックエンドサービスを追加できます：
+
+- **PostgreSQL、MySQL、MongoDB**：**Add Service** → **Database** でデータベースを選択。
+- **Redis**：キャッシュとセッションストレージ用のプリビルトサービスとして利用可能。
+- **バックエンド API**：同じプロジェクトに別のバックエンドサービス（Node.js、Python、Go など）をデプロイ。プロジェクト内のサービスは[プライベートネットワーキング](/deploy/private-networking)で通信可能。
+
+## ステップ 6：カスタムドメインの設定
+
+1. Zeabur ダッシュボードでサービスをクリックし、**Networking** タブに移動。
+2. **Generate Domain** で無料の `.zeabur.app` サブドメインを取得、または **Custom Domain** で独自ドメインを追加。
+3. DNS レコードを更新：
+   - 古い Vercel の CNAME レコード（通常 `cname.vercel-dns.com` を指す）を削除。
+   - Zeabur が提供するターゲットを指す CNAME レコードを追加。
+
+<Callout type="warning">
+ドメインに Vercel のネームサーバーを使用している場合、レコードを更新する前に DNS 管理をレジストラまたは別の DNS プロバイダーに戻す必要があります。
+</Callout>
+
+## ステップ 7：確認して公開
+
+1. コミットをプッシュしてデプロイをトリガー、またはダッシュボードで **Redeploy** をクリック。
+2. **Logs** タブでアプリがビルドされ正しく起動することを確認。
+3. すべてのルート、API エンドポイント、サーバーサイドレンダリングをテスト。
+4. 確認後、本番 DNS を Zeabur に切り替え。
+
+## 主な違い：Vercel vs Zeabur
+
+| 機能 | Vercel | Zeabur |
+|------|--------|--------|
+| フォーカス | フロントエンド / Jamstack / Serverless | フルスタック（フロントエンド + バックエンド + データベース） |
+| 実行モデル | Serverless Functions（コールドスタート） | 永続サーバー（コールドスタートなし） |
+| データベース | Vercel Postgres、KV、Blob（限定的） | データベースサービス（PostgreSQL、MySQL、MongoDB、Redis 等） |
+| バックエンドサービス | ネイティブ非対応 | フロントエンドと並行して任意のバックエンドをデプロイ |
+| ビルドシステム | Vercel Build | 自動検出（Nixpacks / Dockerfile） |
+| 料金 | 関数呼び出し + 帯域幅 | 使用量ベースのコンピュート + ストレージ |
+| チーム機能 | シートごとの料金 | 柔軟なチームプラン |
+| インフラ | Serverless のみ | 共有クラスタ + 専用サーバー |
+
+---
+
+以上です。Vercel アプリケーションがフルスタックプラットフォームとして Zeabur で稼働しています。データベース、バックエンドサービス、フロントエンドがすべて一か所に。問題が発生した場合は、[コミュニティフォーラム](https://zeabur.com/forum)でお問い合わせください。

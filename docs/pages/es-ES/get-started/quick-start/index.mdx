@@ -1,0 +1,89 @@
+---
+title: Inicio Rápido
+ogImageTitle: Inicio Rápido
+ogImageSubtitle: Despliega tu primer servicio en Zeabur en 5 minutos
+---
+
+import { Callout } from 'nextra/components'
+
+# Inicio Rápido
+
+Esta guía te lleva a través de tu **primer despliegue en menos de 5 minutos**. Si no sabes por dónde empezar, consulta [Empezar según tu Necesidad](../start-by-need) para encontrar el mejor camino para ti.
+
+## Requisitos Previos
+
+| Elemento | Descripción |
+|----------|-------------|
+| **Cuenta Zeabur** | Regístrate en [zeabur.com](https://zeabur.com) con Email, GitHub o Google. Necesitarás verificar tu cuenta (número de teléfono, créditos pre-depositados o tarjeta de crédito) al crear tu primer proyecto. |
+| **Servidor Dedicado** (opcional) | Si necesitas una ubicación de centro de datos específica, [registra un servidor dedicado](/dedicated-server) primero. Omite esto si usas el clúster compartido. |
+
+## Ruta 1: Desplegar desde una Plantilla (tan rápido como 30 segundos)
+
+Zeabur ofrece cientos de plantillas preconfiguradas que cubren aplicaciones de código abierto populares y bases de datos.
+
+<Callout>
+Recomendamos a los nuevos usuarios comenzar con una plantilla para experimentar el flujo completo de despliegue a producción.
+</Callout>
+
+**Plantillas Populares**
+
+| Caso de Uso | Recomendado | Desplegar |
+|-------------|-------------|-----------|
+| Blog | WordPress, Ghost | [Marketplace de Plantillas](https://zeabur.com/templates) |
+| Automatización | n8n, Activepieces | [Marketplace de Plantillas](https://zeabur.com/templates) |
+| Base de datos | PostgreSQL, MySQL, Redis | Agregar directamente en tu proyecto |
+| Apps de IA | Dify, LobeChat | [Marketplace de Plantillas](https://zeabur.com/templates) |
+
+1. En tu proyecto, haz clic en **Add Service** → **Template**.
+2. Busca o explora la plantilla que deseas, luego haz clic para desplegar.
+3. Espera unos 30 segundos — tu servicio estará activo.
+
+![Lista de plantillas](/start/template-services.webp)
+
+## Ruta 2: Despliega tu Código desde GitHub
+
+La forma más común de desplegar tu propio proyecto es a través de GitHub.
+
+1. En tu proyecto, haz clic en **Add Service** → **GitHub**.
+2. Autoriza tu cuenta de GitHub en el primer uso, luego espera aproximadamente 1 minuto.
+3. Busca y selecciona el repositorio que deseas desplegar.
+
+![Buscar repositorio](/start/search-repository.webp)
+
+Zeabur detecta automáticamente tu lenguaje y framework, y selecciona la mejor estrategia de compilación.
+
+![Plan de compilación](/start/build-plan.webp)
+
+Haz clic en **Deploy** para comenzar. Si necesitas ajustar variables de entorno, ve a la pestaña "Configuration".
+
+## Ruta 3: Despliega con el Asistente IA
+
+¿No sabes qué hacer? Simplemente dile al Asistente IA de Zeabur lo que necesitas en lenguaje natural.
+
+![Zeabur Agent](/start/zeabur-agent.webp)
+
+Haz clic en **Agent** en la barra de navegación para iniciar una conversación. Por ejemplo:
+
+- "Despliega una base de datos PostgreSQL para mí"
+- "Quiero configurar un blog WordPress"
+- "Despliega mi repositorio next-app desde GitHub"
+
+## Vincula un Dominio para Publicar
+
+Una vez desplegado tu servicio, ve a la pestaña **Domains** para vincular un dominio.
+
+![Vincular dominio](/start/bind-domain.webp)
+
+- Zeabur proporciona subdominios `.zeabur.app` gratuitos para pruebas rápidas.
+- También puedes vincular tu propio dominio personalizado — Zeabur gestiona los certificados HTTPS automáticamente.
+- Para la configuración detallada, consulta la [guía de vinculación de dominios](/deploy/domain-binding).
+
+## Próximos Pasos
+
+¡Felicidades por tu primer despliegue! 🎉
+
+- [Empezar según tu Necesidad](../start-by-need) — Encuentra el mejor camino para tu caso de uso
+- [Visión General de la Plataforma](../platform-overview) — Entiende las capacidades principales de Zeabur
+- [Cómo Funcionan los Despliegues](/deploy/how-deploys-work) — Profundiza en el pipeline de despliegue
+- [Variables de Entorno](/deploy/environment-variables) — Configura el entorno de tu aplicación
+- [Foro de la comunidad Zeabur](https://zeabur.com/forum) — ¿Necesitas ayuda? Únete a nuestra comunidad

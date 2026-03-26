@@ -1,0 +1,100 @@
+---
+title: Implementación con Dockerfile
+ogImageTitle: Implementación con Dockerfile
+ogImageSubtitle: Implementa tu proyecto en Zeabur usando Dockerfile
+---
+
+import { Callout } from 'nextra/components'
+
+# Implementación con Dockerfile
+
+Normalmente, no necesitas escribir un `Dockerfile` por tu cuenta. Zeabur actualmente ofrece métodos de implementación rápida para varios frameworks populares, pero si tu proyecto no utiliza estos frameworks o deseas definir tu propio método de implementación, puedes usar un `Dockerfile` para implementarlo.
+
+## Creando un Dockerfile
+
+Crea un archivo llamado `Dockerfile` o `dockerfile` en el directorio raíz de tu proyecto y escribe en él tu método de implementación. Finalmente, asegúrate de haber expuesto el `PORT` correspondiente.
+
+Zeabur detectará automáticamente si tu proyecto tiene un `Dockerfile`. Si es así, implementará tu proyecto utilizando Docker.
+
+<Callout type="info">
+  Una vez que comience la implementación, podrás ver el icono de Docker arriba, lo que significa que tu proyecto ha sido implementado utilizando Docker.
+</Callout>
+
+![docker-deploy](/deploy/dockerfile/docker-deploy.png)
+
+## Implementación sin usar Dockerfile
+
+Si tu proyecto tiene un Dockerfile pero no deseas usar este Dockerfile en Zeabur (por ejemplo, dejar que Zeabur decida el mejor método de implementación para este proyecto), puedes configurar `ZBPACK_IGNORE_DOCKERFILE=true` en las variables de entorno, o agregar lo siguiente a `zbpack.json`:
+
+```json
+{
+  "ignore_dockerfile": true
+}
+```
+
+Zeabur entonces ignorará tu Dockerfile y determinará automáticamente el método de implementación.
+
+## Variables de entorno
+
+Si tu `Dockerfile` necesita usar variables de entorno, puedes hacer clic en **Variables de entorno** en la página del servicio para agregarlas. Para más configuraciones, consulta [Variables de entorno](/es-ES/environment/variables).
+
+![Environment Variables](/environment/add-variables.png)
+
+Si tu `Dockerfile` está escrito en una sola etapa, o si tus variables de entorno solo necesitan usarse en la etapa final, no necesitas escribir `ENV` manualmente. Zeabur lo agregará automáticamente por ti.
+
+### ARG
+
+Sin embargo, si tu `Dockerfile` está escrito en varias etapas ([multi-stage](https://docs.docker.com/build/building/multi-stage/)) y necesitas establecer variables de entorno antes de la construcción, puedes usar `ARG` para configurarlas.
+
+Aquí tomamos Node.js y Nginx como ejemplo para escribir un `Dockerfile` para la implementación.
+
+```docker {7-8} copy
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+COPY . .
+
+## El `BUILDTIME_ENV_EXAMPLE` aquí será configurado automáticamente antes de la construcción
+ARG BUILDTIME_ENV_EXAMPLE
+ENV BUILDTIME_ENV_EXAMPLE=${BUILDTIME_ENV_EXAMPLE}
+
+RUN npm install && \
+    npm run build
+
+FROM nginx:alpine
+
+COPY nginx.conf /etc/nginx/conf.d/configfile.template
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+ENV \
+    PORT=8080 \
+    HOST=0.0.0.0
+
+EXPOSE 8080
+
+CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+```
+
+## Especificar Dockerfile para implementar en Zeabur
+
+Para implementar un proyecto utilizando un Dockerfile específico, nombra el Dockerfile como `[service-name].Dockerfile` o `Dockerfile.[service-name]`. Por ejemplo, si tienes un archivo `Dockerfile.storage` en tu proyecto y el nombre de tu servicio es `storage`, Zeabur implementará el servicio `storage` utilizando este Dockerfile.
+
+![specify-service-name](/deploy/dockerfile/specify-service-name.png)
+
+También puedes especificar la variable de entorno `ZBPACK_DOCKERFILE_NAME` o agregar lo siguiente a `zbpack.json`:
+
+```json
+{
+  "dockerfile": {
+    "name": "storage"
+  }
+}
+```
+
+Por ejemplo, si configuras `ZBPACK_DOCKERFILE_NAME=storage` en tu servicio, Zeabur usará `Dockerfile.storage` como el Dockerfile para implementar el servicio `storage`.
+
+## Docker Compose
+
+Actualmente, Zeabur no admite la implementación desde un archivo YAML de Docker Compose.
+
+Puedes convertir tu archivo Docker Compose en un archivo YAML de plantilla de Zeabur. Para más detalles, consulta [Creando plantillas desde YAML](/template/template-format). Si necesitas ayuda, no dudes en contactarnos en [comunidad](/community/help).

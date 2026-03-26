@@ -1,0 +1,58 @@
+---
+title: Recursos para Desarrolladores
+ogImageTitle: Recursos para Desarrolladores
+ogImageSubtitle: APIs, CLI y Documentación de Integración
+---
+
+import { Callout } from 'nextra/components';
+
+# Recursos para Desarrolladores
+
+Zeabur proporciona un conjunto completo de APIs y herramientas para desarrolladores para la gestión programática de servicios, automatización de despliegues e integración con tus propias aplicaciones.
+
+## Resumen de APIs
+
+La API de Zeabur está construida sobre **GraphQL**, impulsando el Dashboard, CLI y todos los productos propios. También hay endpoints REST disponibles para operaciones específicas (carga de archivos, operaciones de contenedores, etc.).
+
+| API | Propósito | Endpoint |
+|-----|-----------|----------|
+| [GraphQL API](/es-ES/developer/public-api) | Gestión de proyectos/servicios/entornos, despliegues, logs | `https://api.zeabur.com/graphql` |
+| [API de Carga](https://schema.zeabur.app/upload-api/index.html) | Desplegar archivos ZIP via URL pre-firmada | `https://api.zeabur.com/v2/upload` |
+| [API REST de Email](/es-ES/email/rest-api) | Envío y gestión de emails | `https://api.zeabur.com/api/v1/zsend` |
+
+<Callout>
+Las especificaciones completas de APIs no-GraphQL (JSON Schema / OpenAPI) están disponibles en el [Repositorio de Schemas](https://schema.zeabur.app/).
+</Callout>
+
+## Autenticación
+
+Todas las APIs usan autenticación **Bearer Token**. Genera una clave en [Dashboard > Configuración > Claves API](https://zeabur.com/account/api-keys), luego inclúyela en el header `Authorization`:
+
+```bash
+curl -X POST https://api.zeabur.com/graphql \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"query":"query { me { username } }"}'
+```
+
+Consulta [Claves API](/es-ES/developer/api-keys) para instrucciones detalladas.
+
+## Suscripciones en Tiempo Real
+
+¿Necesitas transmitir logs o escuchar actividad del proyecto? Zeabur proporciona suscripciones WebSocket en tiempo real a través del protocolo [graphql-ws](https://github.com/enisdenjo/graphql-ws).
+
+- **Endpoint global**: `wss://api.zeabur.com/graphql`
+- **Endpoint China**: `wss://api.zeabur.cn/graphql`
+
+Para detalles de conexión, flujo de autenticación y ejemplos de código, consulta [Suscripciones WebSocket](/es-ES/developer/websocket-guide).
+
+## Herramientas
+
+- **[Zeabur CLI](/es-ES/developer/cli)**: Inicia sesión y despliega servicios desde tu terminal con `npx zeabur`.
+- **[Apollo Explorer](https://studio.apollographql.com/public/zeabur/variant/main/explorer)**: Explora y prueba todas las APIs GraphQL en línea.
+
+## APIs Específicas de Productos
+
+- **[API REST de Email de Zeabur](/es-ES/email/rest-api)** — Referencia de endpoints de envío de email
+- **[Claves API de Email](/es-ES/email/api-keys)** — Gestión de claves API específicas de email
+- **[Webhooks de Email](/es-ES/email/webhooks)** — Configuración de callbacks de eventos entrantes/rebotados

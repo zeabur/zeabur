@@ -1,0 +1,80 @@
+---
+title: ニーズから始める
+ogImageTitle: ニーズから始める
+ogImageSubtitle: あなたに最適な Zeabur の始め方を見つけよう
+---
+
+# ニーズから始める
+
+どこから始めればいいかわからない？あなたの状況に最も合ったパスを選んでください。
+
+## 🧪 とりあえず試してみたい
+
+テンプレートからワンクリックでデプロイ——コード不要。
+
+1. [テンプレートマーケットプレイス](https://zeabur.com/templates)を閲覧して、興味のあるものを選びます。
+2. 「Deploy」をクリックし、リージョンを選択して数秒待ちます。
+3. サービスが稼働したら、「Domains」タブでテスト用の無料 URL を生成します。
+
+**おすすめの記事：** [クイックスタート](./quick-start) · [テンプレート](/template)
+
+---
+
+## 💻 デプロイしたいプロジェクトがある
+
+GitHub からコードをプッシュして Zeabur にデプロイ——ほとんどの言語とフレームワークに対応。
+
+1. プロジェクトで **Add Service** → **GitHub** をクリックし、認証してリポジトリを選択。
+2. Zeabur が言語、フレームワーク、ビルド戦略を自動検出。
+3. 必要に応じて「Configuration」タブで環境変数を設定。
+4. ドメインをバインドして公開。
+
+**おすすめの記事：** [デプロイの仕組み](/deploy/how-deploys-work) · [GitHub 連携](/deploy/github-integration) · [環境変数](/deploy/environment-variables)
+
+---
+
+## 🤖 AI 機能を使いたい
+
+Zeabur の AI Hub で、さまざまな大規模言語モデルの API に直接アクセスできます。
+
+1. [AI Hub](/ai-hub) で API エンドポイントとキーを取得。
+2. アプリケーションで OpenAI 互換の SDK を使って呼び出し。
+3. GPT-4o、Claude、Gemini など多数のモデルに対応。
+
+**おすすめの記事：** [AI Hub 概要](/ai-hub) · [対応モデル一覧](/ai-hub/model-list)
+
+---
+
+## 📧 メールの送受信が必要
+
+Zeabur Email で独自ドメインを使ったメール送受信が可能です。
+
+1. [Zeabur Email](/email) でアカウントを作成し、ドメインを認証。
+2. DNS レコード（MX、SPF、DKIM）を設定。
+3. SMTP または REST API でメールを送受信。
+
+**おすすめの記事：** [メールサービス](/email) · [メール API キー](/email/email-api-keys) · [メール REST API](/email/email-rest-api)
+
+---
+
+## 🖥️ 自分のサーバーがある
+
+自分のマシン（BYO Server）を持ち込み、Zeabur のインターフェースでデプロイを管理。
+
+1. ダッシュボードで[専用サーバーを登録](/dedicated-server)。
+2. Zeabur が提供するインストールコマンドをサーバーで実行。
+3. 新しいプロジェクト作成時に専用サーバーを選択。
+
+**おすすめの記事：** [専用サーバー](/dedicated-server)
+
+---
+
+## 🔌 API / CLI で自動化したい
+
+Zeabur を CI/CD パイプラインに統合。
+
+- **CLI**：`npx zeabur@latest deploy` でターミナルからデプロイ。
+- **GraphQL API**：プロジェクト、サービス、デプロイをプログラムで制御。
+- **Upload API**：ZIP パッケージのアプリを直接アップロード。
+
+**おすすめの記事：** [CLI デプロイ](/developer/cli) · [Public API](/developer/public-api) · [API キー](/developer/api-keys)

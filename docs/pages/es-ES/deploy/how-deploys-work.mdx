@@ -1,0 +1,98 @@
+---
+title: Compilaciones
+ogImageTitle: Compilaciones
+ogImageSubtitle: ¿Cómo compila Zeabur tu código fuente en un servicio?
+---
+
+# Compilaciones
+
+Zeabur utiliza [zbpack](https://github.com/zeabur/zbpack) como herramienta interna para compilar los servicios de los usuarios, de modo que puedan desplegar servicios basados en cualquier lenguaje y framework con un clic sin necesidad de comprender los detalles complejos.
+
+Actualmente, [zbpack](https://github.com/zeabur/zbpack) soporta todos los lenguajes de programación principales para desarrollo web, y ha identificado y optimizado aún más para cada framework de desarrollo popular. Al mismo tiempo, se actualiza constantemente para nuevos lenguajes de programación y frameworks:
+
+- Node.js
+- Python
+- PHP
+- Ruby
+- Go
+- Java
+- .NET
+- Rust
+- Elixir
+
+Si el lenguaje o framework utilizado por tu servicio no está en la lista anterior, o si encuentras que zbpack tiene un problema durante el proceso de compilación, por favor contribuye un Pull Request a [GitHub](https://github.com/zeabur/zbpack/pulls) para ayudarnos a mejorar la funcionalidad de zbpack.
+
+Cuando usas zbpack para compilar un servicio en un proyecto, identifica automáticamente el lenguaje y framework utilizados por el servicio basándose en el código, archivos de configuración y otra información del proyecto, y según esta información, elige la forma apropiada de compilar el servicio.
+
+## Generar Plan de Compilación
+
+Por ejemplo, supongamos que has desarrollado una aplicación web basada en [Next.js](https://nextjs.org/):
+
+```bash
+git clone https://github.com/zeabur/nextjs-template
+cd nextjs-template
+```
+
+Cuando ejecutas el comando `zbpack` en la carpeta de este proyecto, puedes ver el plan de compilación personalizado:
+
+```bash
+zbpack .
+
+╔══════════════════════════════ Build Plan ═════════════════════════════╗
+║ provider         │ nodejs                                             ║
+║───────────────────────────────────────────────────────────────────────║
+║ nodeVersion      │ 18                                                 ║
+║───────────────────────────────────────────────────────────────────────║
+║ installCmd       │ pnpm install                                       ║
+║───────────────────────────────────────────────────────────────────────║
+║ buildCmd         │ pnpm run build                                     ║
+║───────────────────────────────────────────────────────────────────────║
+║ startCmd         │ pnpm start                                         ║
+║───────────────────────────────────────────────────────────────────────║
+║ packageManager   │ pnpm                                               ║
+║───────────────────────────────────────────────────────────────────────║
+║ framework        │ next.js                                            ║
+╚═══════════════════════════════════════════════════════════════════════╝
+```
+
+En la figura, podemos ver que `zbpack` elige usar el Provider `nodejs` como proveedor de solución para la compilación, lo que significa que hará lo siguiente en el plan posterior:
+
+1. Encontrar qué versión de Node.js usa el servicio
+2. Encontrar qué gestor de paquetes usa el servicio (`npm`, `yarn` o `pnpm`)
+3. Encontrar qué comando usa el servicio para instalar dependencias
+4. Encontrar qué comando usa el servicio para compilar
+5. Encontrar qué comando usa el servicio para iniciar
+6. Encontrar qué framework de Node.js usa el servicio
+
+## Compilar Servicio
+
+A continuación, zbpack generará un Dockerfile basado en este plan de compilación, y luego usará automáticamente este Dockerfile para compilar el servicio:
+
+```bash
+[+] Building 41.3s (12/12) FINISHED                                                                     docker:orbstack
+ => [internal] load build definition from Dockerfile                                                               0.0s
+ => => transferring dockerfile: 252B                                                                               0.0s
+ => [internal] load .dockerignore                                                                                  0.0s
+ => => transferring context: 2B                                                                                    0.0s
+ => [internal] load metadata for docker.io/library/node:18                                                         5.8s
+ => [auth] library/node:pull token for registry-1.docker.io                                                        0.0s
+ => [1/6] FROM docker.io/library/node:18@sha256:a6385a6bb2fdcb7c48fc871e35e32af8daaa82c518900be49b76d10c005864c2   6.9s
+ => [internal] load build context                                                                                  5.0s
+ => => transferring context: 171.44MB                                                                              5.0s
+ => [2/6] WORKDIR /src                                                                                             0.8s
+ => [3/6] RUN corepack enable && corepack prepare --all                                                            7.5s
+ => [4/6] COPY . .                                                                                                 2.4s
+ => [5/6] RUN pnpm install                                                                                         7.0s
+ => [6/6] RUN pnpm run build                                                                                       8.6s
+ => exporting to image                                                                                             2.3s
+ => => exporting layers                                                                                            2.3s
+ => => writing image sha256:d95f934faaefd82b38167ff158e8a31973edcd6a9ba7cc361999080345e80e38                       0.0s
+ => => naming to docker.io/library/nextjs-template                                                                 0.0s
+
+Build successful
+
+To run the image, use the following command:
+docker run -p 8080:8080 -it nextjs-template
+```
+
+Luego, podemos usar `docker run -p 8080:8080 -it nextjs-template` para iniciar el servicio, y abrir `http://localhost:8080` en el navegador para acceder al servicio.

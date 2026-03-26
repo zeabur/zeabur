@@ -1,0 +1,89 @@
+---
+title: クイックスタート
+ogImageTitle: クイックスタート
+ogImageSubtitle: 5 分で Zeabur に最初のサービスをデプロイ
+---
+
+import { Callout } from 'nextra/components'
+
+# クイックスタート
+
+このガイドでは、**5 分以内に最初のデプロイ**を完了できます。どこから始めればいいかわからない場合は、[ニーズから始める](../start-by-need)で最適なパスを見つけてください。
+
+## 前提条件
+
+| 項目 | 説明 |
+|------|------|
+| **Zeabur アカウント** | [zeabur.com](https://zeabur.com) で Email、GitHub、または Google でサインアップ。最初のプロジェクト作成時にアカウント認証（電話番号、プリデポジット、またはクレジットカード）が必要です。 |
+| **専用サーバー**（任意） | 特定のデータセンターロケーションが必要な場合は、先に[専用サーバーを登録](/dedicated-server)してください。共有クラスタを使用する場合はスキップ可能です。 |
+
+## パス 1：テンプレートからデプロイ（最短 30 秒）
+
+Zeabur は人気のオープンソースアプリやデータベースをカバーする数百の事前設定済みテンプレートを提供しています。
+
+<Callout>
+新規ユーザーにはテンプレートから始めて、デプロイから公開までの完全なワークフローを体験することをお勧めします。
+</Callout>
+
+**人気テンプレート**
+
+| 用途 | おすすめ | デプロイ |
+|------|---------|---------|
+| ブログ | WordPress, Ghost | [テンプレートマーケットプレイス](https://zeabur.com/templates) |
+| 自動化 | n8n, Activepieces | [テンプレートマーケットプレイス](https://zeabur.com/templates) |
+| データベース | PostgreSQL, MySQL, Redis | プロジェクト内で直接追加 |
+| AI アプリ | Dify, LobeChat | [テンプレートマーケットプレイス](https://zeabur.com/templates) |
+
+1. プロジェクトで **Add Service** → **Template** をクリック。
+2. 使いたいテンプレートを検索または閲覧し、クリックしてデプロイ。
+3. 約 30 秒待てば——サービスが稼働します。
+
+![テンプレート一覧](/start/template-services.webp)
+
+## パス 2：GitHub からコードをデプロイ
+
+自分のプロジェクトをデプロイする最も一般的な方法は GitHub 経由です。
+
+1. プロジェクトで **Add Service** → **GitHub** をクリック。
+2. 初回利用時は GitHub アカウントを認証し、約 1 分待ちます。
+3. デプロイしたいリポジトリを検索して選択。
+
+![リポジトリ検索](/start/search-repository.webp)
+
+Zeabur が自動的に言語とフレームワークを検出し、最適なビルド戦略を選択します。
+
+![ビルドプラン](/start/build-plan.webp)
+
+**Deploy** をクリックして開始。環境変数の調整が必要な場合は「Configuration」タブへ。
+
+## パス 3：AI アシスタントでデプロイ
+
+何をすればいいかわからない？Zeabur の AI アシスタントに自然言語で伝えるだけ。
+
+![Zeabur Agent](/start/zeabur-agent.webp)
+
+ナビゲーションバーの **Agent** をクリックして会話を開始。例えば：
+
+- 「PostgreSQL データベースをデプロイして」
+- 「WordPress ブログを立ち上げたい」
+- 「GitHub の next-app リポジトリをデプロイして」
+
+## ドメインをバインドして公開
+
+サービスがデプロイされたら、**Domains** タブでドメインをバインドします。
+
+![ドメインバインド](/start/bind-domain.webp)
+
+- Zeabur は無料の `.zeabur.app` サブドメインを提供しており、すぐにテストできます。
+- 独自のカスタムドメインもバインド可能——Zeabur が HTTPS 証明書を自動処理します。
+- 詳しい設定は[ドメインバインドガイド](/deploy/domain-binding)をご覧ください。
+
+## 次のステップ
+
+初めてのデプロイ完了おめでとうございます！🎉
+
+- [ニーズから始める](../start-by-need) — あなたに最適なパスを見つける
+- [プラットフォーム概要](../platform-overview) — Zeabur のコア機能を理解する
+- [デプロイの仕組み](/deploy/how-deploys-work) — デプロイパイプラインを深く理解する
+- [環境変数](/deploy/environment-variables) — アプリの環境を設定する
+- [Zeabur コミュニティフォーラム](https://zeabur.com/forum) — ヘルプが必要？コミュニティに参加

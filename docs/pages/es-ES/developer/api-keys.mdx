@@ -1,0 +1,43 @@
+---
+title: Crear y Usar Claves de API
+ogImageTitle: Crear y Usar Claves de API
+ogImageSubtitle: Crear y usar claves de API para interactuar con la API de Zeabur
+---
+
+# Crear y Usar Claves de API
+
+Necesitas una clave de API para interactuar con la [API Pública de Zeabur](./public-api).
+
+## Creando una Clave de API
+
+Abre [Panel de Control de Zeabur > Configuración > Claves de API](https://zeabur.com/account/api-keys) para ver todas las claves actualmente activas.
+
+![Panel de Desarrollador](/developer/api-key/developer.en-US.png)
+
+Haz clic en "Generar nueva clave de API" para crear una nueva clave de API con la marca de tiempo actual.
+
+![Generar Clave de API](/developer/api-key/generate-api-key.en-US.png)
+
+Haz clic en el botón del "ojo" para ver la clave de API.
+
+![Ver Clave de API](/developer/api-key/view-api-key.en-US.png)
+
+Haz clic en el botón de "copiar" para copiar la clave de API.
+
+![Copiar Clave de API](/developer/api-key/copy-api-key.en-US.png)
+
+## Revocar una Clave de API
+
+Abre [Panel de Control de Zeabur > Configuración > Claves de API](https://zeabur.com/account/api-keys) para ver todas las claves actualmente activas. Haz clic en el botón de "eliminar" para revocar inmediatamente la clave de API.
+
+## Usando una Clave de API
+
+Pasa `Bearer API_TOKEN` en el encabezado `Authorization` cuando llames a la API, como se muestra en el ejemplo a continuación:
+
+```bash
+curl --request POST \
+  --url https://api.zeabur.com/graphql \
+  --header 'Authorization: Bearer {TU_TOKEN_API}' \
+  --header 'Content-Type: application/json' \
+  --data '{"query":"query { me { username } }"}'
+```

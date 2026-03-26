@@ -1,0 +1,179 @@
+---
+title: Importar Emergent
+ogImageTitle: Importar Emergent
+ogImageSubtitle: Importa tus proyectos de Emergent
+---
+
+## Cómo migrar de Emergent a Zeabur
+
+Esta guía es la forma más sencilla de tomar el código que has construido en IDEs en la nube como Emergent y convertirlo en una aplicación lista para producción que esté en línea 24/7.
+
+### Descripción general
+
+[**Emergent**](https://emergent.sh) es increíble para hacer prototipos y ejecutar código rápidamente en el navegador. Sin embargo, cuando estés listo para compartir tu aplicación con el mundo sin instancias "dormidas" o límites de ancho de banda, necesitas hosting profesional.
+
+Recomendamos encarecidamente **Zeabur** porque simplifica la transición de prototipo a producción. Usando la extensión Zeabur para tu editor local, puedes desplegar tu aplicación sin necesidad de archivos de configuración complejos.
+
+**El flujo de trabajo:**
+
+- **Exportar:** Descarga tu base de código de Emergent.
+- **Configurar:** Abre el proyecto localmente en **VS Code** o **Cursor**.
+- **Desplegar:** Usa la **Extensión Zeabur** para poner tu aplicación en vivo con un clic.
+
+> 📝 Nota importante: Esta guía cubre la pila completa. Primero desplegaremos tu código de aplicación, y en el Paso 7, cubriremos específicamente cómo provisionar y conectar una base de datos MongoDB para aplicaciones que necesitan guardar datos de usuarios.
+
+### Requisitos previos
+
+- Acceso a tu proyecto de Emergent.
+- [VS Code](https://code.visualstudio.com/) o [Cursor](https://cursor.sh/) instalados en tu computadora.
+- Una cuenta de [Zeabur](https://zeabur.com/).
+- Node.js instalado localmente (se recomienda la versión 18+).
+
+### Descripción general de la migración
+
+Este plan te lleva de un entorno sandbox basado en navegador a un entorno de desarrollo local profesional alojado en una nube escalable.
+
+- **Origen:** Emergent (Node.js, Python, o Go).
+- **Editor:** VS Code / Cursor.
+- **Host:** Zeabur.
+
+## Paso 1: Exporta tu base de código
+
+### Opción 1: El método de descarga directa (Mejor para exportación simple)
+
+1. **Despierta tu agente:**
+Si tu proyecto ha estado inactivo, podrías ver un mensaje que dice "El agente se fue a dormir". Haz clic en tu proyecto para despertarlo.
+
+2. **Accede al visor de código:**
+Busca el botón **"Code"** (generalmente cerca de la esquina superior derecha de la interfaz del proyecto).
+    ![Emergent Vscode](https://cdn.zeabur.com/emergent%20/Emergent%20Vscode.png)
+
+3. **Obtén credenciales:**
+Cuando hagas clic en "Code", aparecerá una ventana emergente con dos cosas:
+    ![Haz clic en el enlace Vscode](https://cdn.zeabur.com/emergent%20/Click%20Vscode%20Link.png)
+    - Un **enlace** a un entorno de VS Code.
+    - Una **contraseña**.
+    **Copia la contraseña primero**, luego haz clic en el enlace para abrirlo en una nueva pestaña.
+
+4. **Desbloquea el editor:**
+Pega la contraseña que copiaste en el mensaje y presiona Entrar. Ahora verás una interfaz VS Code completa en tu navegador.
+
+5. **Descarga carpetas:**
+    - En la barra lateral izquierda (Explorador de archivos), verás las carpetas de tu proyecto (generalmente `frontend`, `backend`, o solo la raíz del proyecto).
+    - **Haz clic derecho** en la carpeta que desees guardar.
+    - Selecciona **Descargar**.
+    - Esto guardará la carpeta como un archivo `.zip` en tu computadora.
+
+---
+
+### Opción 2: El método de sincronización de GitHub (Mejor para migración, pero tienes que actualizar)
+
+Si planeas mudarte a Zeabur u otro host, empujar directamente a GitHub es a menudo más limpio que descargar un archivo zip.
+
+1. **Conecta GitHub:**
+En la interfaz de chat/panel principal de Emergent, busca el **icono de GitHub** o un botón "Conectar GitHub" en la configuración de tu perfil.
+
+2. **Autoriza:**
+Sigue las indicaciones para autorizar a Emergent a acceder a tu cuenta de GitHub.
+
+3. **Envía código:**
+En la interfaz de chat, escribe un comando como:
+    > "Empuja este código a un nuevo repositorio de GitHub llamado my-app-export"
+    >
+
+4. **Verifica:**
+Ve a tu cuenta de GitHub para confirmar que el repositorio ha sido creado. Luego puedes clonar este repositorio localmente usando `git clone`.
+
+## Paso 2: Configura el entorno local (Cursor)
+
+Ahora que el código está en GitHub, lo configurarás localmente para verificar las dependencias y realizar ajustes de producción.
+
+1. **Clona el repositorio:**
+Abre Cursor, abre la paleta de comandos (`Cmd+Shift+P` o `Ctrl+Shift+P`), y escribe `> Git: Clone`. Pega la URL de tu nuevo repositorio.
+
+    _Alternativamente, a través de la terminal:_
+    ```bash
+    git clone <https://github.com/your-username/your-repo-name.git>
+    cd your-repo-name
+    ```
+
+2. **Instala las dependencias:**
+Los proyectos de Emergent generalmente detectan el gestor de paquetes automáticamente. Verifica si hay un archivo de bloqueo (`pnpm-lock.yaml`, `package-lock.json`, o `yarn.lock`).
+
+    ```bash
+    # Si usas npm
+    npm install
+    # Si usas pnpm (común en Emergent)
+    pnpm install
+    ```
+
+3. **Configuración del entorno:**
+    - Busca el archivo `.env.example` (si existe) y duplicalo para crear un archivo `.env`.
+    - **Importante:** Si tu aplicación de Emergent usó claves API (OpenAI, Supabase, etc.), debes agregar manualmente estas claves a tu archivo `.env` local. Emergent no exporta tus secretos a GitHub por razones de seguridad.
+
+4. **Prueba local:**
+Ejecuta el servidor de desarrollo para asegurar que la aplicación funciona fuera de la caja de arena de Emergent.
+
+    ```bash
+    npm run dev
+    ```
+
+---
+
+## Paso 3: Abre en un editor local e instala la extensión Zeabur
+
+Descomprime el archivo y abre la carpeta del proyecto en un editor de código local como VS Code o Cursor. Para hacer el despliegue increíblemente simple, usarás la extensión Zeabur.
+
+1. Ve al Marketplace de extensiones en tu editor.
+2. Busca "Zeabur" y haz clic en **Instalar**.
+![Descargar extensiones de Zeabur.png](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
+
+## Paso 4: Implementa con un solo clic
+
+Ahora viene la magia. Con la extensión instalada, desplegar tu proyecto está a solo unos pocos clics.
+
+1. Haz clic en el nuevo icono de Zeabur en la barra de actividades de la izquierda.
+2. Haz clic en el botón **"Implementar"**.
+
+Tu editor te pedirá permiso para abrir un enlace en tu navegador. Haz clic en **"Abrir"**.
+
+![Haz clic en Implementar y Abrir.png](https://cdn.zeabur.com/replit%20migration%20/Click%20Deploy%20and%20Open%20.png)
+
+## Paso 5: Deja que el agente de IA de Zeabur haga el resto
+
+Una vez que se te redirige a Zeabur, el agente de IA de la plataforma toma el control. Analiza tu código para entender la estructura del proyecto, dependencias y requisitos de compilación.
+
+El agente de Zeabur hará:
+
+- Reconocer que tienes una aplicación de pila completa (p. ej., un frontend React y un backend Express).
+- Configurar automáticamente los comandos de compilación e inicio.
+- Provisionar todos los servicios necesarios.
+
+Se te pedirá que selecciones un proyecto y una región de despliegue. Después de eso, Zeabur maneja todo lo demás.
+
+![El agente de Zeabur maneja el resto.png](https://cdn.zeabur.com/new%20agent.png)
+
+Puedes ver en tiempo real cómo tu servicio se construye y se vuelve completamente operativo. Zeabur incluso te proporciona un dominio activo tan pronto como el despliegue es exitoso.
+
+## Paso 6: Dominio y red
+
+1. Haz clic en tu servicio en Zeabur.
+2. Ve a la pestaña **Red**.
+3. Haz clic en **Generar dominio** (para obtener un dominio `.zeabur.app`) o **Dominio personalizado** para conectar el tuyo.
+4. Visita la URL. Tu aplicación de Emergent ahora es una aplicación de producción completamente desplegada.
+
+## Paso 7: Conecta una base de datos (MongoDB)
+
+Si tu aplicación de Emergent necesita persistir datos de usuarios, aprovisiona un servicio de MongoDB y conéctalo a tu app.
+
+1. Despliega MongoDB en Zeabur usando la plantilla de MongoDB:
+   **👉 [Plantilla de MongoDB](https://zeabur.com/templates/KXL04P)**
+2. En la página del servicio de MongoDB, abre la pestaña **Connections** y copia el string de conexión (URI) haciendo clic en el ícono de ojo en la pestaña Connections.
+3. Configura la variable de entorno de tu app (comúnmente `MONGO_URI`) con ese URI:
+   - **Desarrollo local**: usa el string de conexión **Public**.
+   - **Apps desplegadas en Zeabur**: usa el string de conexión **Internal/Private** (más rápido y evita usar el ancho de banda público).
+
+---
+
+¡Eso es todo! Has movido exitosamente tu proyecto de un prototipo en Emergent a una aplicación lista para producción en vivo en Zeabur sin escribir una sola línea de configuración. Este flujo de trabajo perfecto te permite enfocarte en lo que más importa: construir un gran software.
+
