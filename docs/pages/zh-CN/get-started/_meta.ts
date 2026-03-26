@@ -1,5 +1,4 @@
 export default {
-  index:              { display: 'hidden' },
   'platform-overview': '平台概览',
   'quick-start':       '快速开始',
   'start-by-need':     '按需求开始',
