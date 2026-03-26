@@ -102,7 +102,11 @@ function loadTurnstileScript(): Promise<void> {
     'script[src*="challenges.cloudflare.com/turnstile"]'
   )
   if (existing) {
-    turnstileLoadPromise = waitForTurnstile()
+    turnstileLoadPromise = waitForTurnstile().catch((err) => {
+      turnstileLoadPromise = null
+      existing.remove()
+      throw err
+    })
     return turnstileLoadPromise
   }
 
@@ -111,9 +115,14 @@ function loadTurnstileScript(): Promise<void> {
     script.src =
       'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
     script.async = true
-    script.onload = () => waitForTurnstile().then(resolve, reject)
+    script.onload = () => waitForTurnstile().then(resolve, (err) => {
+      turnstileLoadPromise = null
+      script.remove()
+      reject(err)
+    })
     script.onerror = () => {
       turnstileLoadPromise = null
+      script.remove()
       reject(new Error('Failed to load Turnstile script'))
     }
     document.head.appendChild(script)
