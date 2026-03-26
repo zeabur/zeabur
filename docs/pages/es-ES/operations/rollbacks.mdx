@@ -1,0 +1,73 @@
+---
+title: Reversiones
+ogImageTitle: Reversiones
+ogImageSubtitle: Revertir a una versión de despliegue anterior
+---
+
+import { Callout } from 'nextra/components'
+
+# Reversiones
+
+Zeabur mantiene un registro de cada despliegue, permitiéndote revertir a cualquier versión exitosa anterior si un nuevo despliegue introduce problemas.
+
+## Cómo Funcionan las Reversiones
+
+Cada vez que despliegas un servicio, Zeabur crea una instantánea de ese despliegue (la imagen compilada). Estas instantáneas se conservan para que puedas volver a un estado conocido y funcional en cualquier momento.
+
+Cuando activas una reversión:
+
+1. Zeabur crea un **nuevo despliegue** usando la instantánea de la versión anterior seleccionada.
+2. El nuevo despliegue pasa por el proceso estándar de [verificación de salud](/operations/health-checks).
+3. Una vez que la verificación de salud pasa, el tráfico se dirige a la versión revertida.
+4. El despliegue fallido permanece en tu historial de despliegues como referencia.
+
+Debido a que las reversiones siguen el mismo flujo de despliegue, se benefician del comportamiento de cero tiempo de inactividad — el despliegue anterior (defectuoso) continúa sirviendo tráfico hasta que la versión revertida se confirme como saludable.
+
+## Revertir desde el Panel
+
+Para revertir un servicio:
+
+1. Abre tu servicio en el panel de Zeabur.
+2. Ve a la pestaña **Despliegues**.
+3. Encuentra el despliegue al que deseas revertir en el historial de despliegues.
+4. Haz clic en **Revertir** en ese despliegue.
+5. Zeabur creará un nuevo despliegue basado en la instantánea seleccionada.
+
+<Callout>
+  La reversión crea una nueva entrada de despliegue en tu historial. No borra ni modifica ningún despliegue anterior.
+</Callout>
+
+## Métodos de Reversión por Tipo de Servicio
+
+### Servicios Desplegados por Git
+
+Para servicios desplegados desde un repositorio Git, tienes dos opciones:
+
+- **Reversión desde el panel** — Usa el método descrito anteriormente para revertir a una instantánea de compilación anterior.
+- **Revert de Git** — Envía un commit de revert a tu repositorio. Zeabur detectará el nuevo commit y activará una compilación nueva, revirtiendo efectivamente tu código a través de tu flujo CI/CD normal.
+
+### Servicios de Imagen Docker
+
+Para servicios desplegados desde una imagen Docker, puedes revertir especificando una etiqueta de imagen anterior en la configuración de tu servicio. Actualiza la etiqueta de imagen a la versión deseada, y Zeabur volverá a desplegar usando esa imagen.
+
+### Servicios Precompilados (Plantillas)
+
+Para servicios desplegados desde una plantilla de Zeabur, las reversiones siguen el mismo flujo del panel. Selecciona el despliegue deseado del historial y haz clic en **Revertir**.
+
+## Qué No Restauran las Reversiones
+
+Las reversiones restauran el **código de la aplicación y los artefactos de compilación** a un estado anterior. No afectan:
+
+- **Variables de entorno** — Cualquier cambio en las variables de entorno desde el despliegue original permanece vigente.
+- **Volúmenes** — Los datos almacenados en volúmenes persistentes no se revierten.
+- **Contenido de base de datos** — Si tu despliegue incluyó migraciones de base de datos, revertir la aplicación no revierte esas migraciones. Es posible que necesites abordar manualmente los cambios de esquema.
+
+<Callout type="warning">
+  Si tu despliegue involucró migraciones de base de datos u otros cambios con estado, planifica tu reversión cuidadosamente. Considera restaurar una [copia de seguridad de la base de datos](/operations/backup-restore) junto con la reversión de la aplicación si es necesario.
+</Callout>
+
+## Mejores Prácticas
+
+- **Prueba antes de desplegar en producción.** Usa un proyecto de staging para detectar problemas antes de que lleguen a tu despliegue principal.
+- **Usa despliegues pequeños e incrementales.** Los cambios más pequeños son más fáciles de diagnosticar y revertir.
+- **Monitorea después de desplegar.** Observa las [métricas](/operations/metrics) y los [registros](/operations/logging) después de cada despliegue para detectar problemas tempranamente.

@@ -1,0 +1,139 @@
+---
+title: パブリックネットワーク
+ogImageTitle: パブリックネットワーク
+ogImageSubtitle: サービスをインターネットに公開
+---
+
+## パブリックネットワーク
+
+「パブリックネットワーク」を使用すると、サービスをインターネットに公開できます。
+
+Zeabur はサービスにアクセスするための2つの方法を提供しています：
+
+- **HTTP サービス：** Zeabur が提供するドメイン名またはカスタムドメインを使用してサービスにアクセスします。
+- **非 HTTP サービス：** 割り当てられたホスト名とポートを使用してサービスにアクセスします。
+
+## ドメインのバインド
+
+**ドメイン**はサービスの一意の識別子で、インターネットからアクセスできるようにします。例えば、このウェブサイトのドメイン名は `zeabur.com` です。
+
+サービスにドメインをバインドするには、Zeabur ダッシュボードでサービスに移動し、**ドメイン**タブを展開します。サービスのドメインを作成する2つのオプションがあります。
+
+![ドメインをバインドする2つのオプション](/networking/public/two-buttons-to-bind-domain.webp)
+
+### ドメインの生成
+
+「**ドメインの生成**」オプションでは、`zeabur.app` サフィックスのドメイン名（例：`your-service.zeabur.app`）を作成できます（利用可能な場合）。これはサービスを公開する最も簡単な方法です。
+
+![zeabur.app ドメインのバインド](/networking/public/binding-zeabur-app-domain.webp)
+
+`zeabur.app` ドメインが設定されると、Zeabur が提供するドメイン名を使用してサービスにアクセスできます。
+
+![バインドされた zeabur.app ドメイン](/networking/public/bound-zeabur-app-domain.webp)
+
+### カスタムドメイン
+
+独自のドメイン名を使用するには、「**カスタムドメイン**」オプションを選択します。
+
+まず、入力ボックスにドメイン名を入力し、「ドメインを作成」ボタンをクリックします。
+
+![カスタムドメインのバインド](/networking/public/binding-custom-domain.webp)
+
+ドメイン名を追加すると、ドメインの DNS 情報が表示されます。
+
+![ドメインの DNS 設定](/networking/public/custom-domain-setting-dns.webp)
+
+ドメインの DNS レコードを手動で設定する必要があります。例えば、Cloudflare を使用している場合、「DNS」→「レコード」セクションで Zeabur が提供する設定を使用して必要なレコードを追加できます。別の DNS プロバイダーを使用している場合は、CNAME レコードの追加方法についてそのプロバイダーのドキュメントを参照してください。
+
+![Cloudflare での DNS 設定](/networking/public/configure-dns-record-in-cloudflare.webp)
+
+Cloudflare の CDN（オレンジクラウド有効）を使用して、トラフィックコストを削減し、閲覧速度を向上させることができます。ただし、Cloudflare の [SSL/TLS 暗号化モード](https://developers.cloudflare.com/ssl/origin-configuration/ssl-modes/#custom-ssltls)では、自己署名証明書による接続障害が発生する可能性があるため、**Full (Strict) は選択できません**。また、Cloudflare は3レベル以上のカスタムドメインの SSL 証明書発行をサポートしていません（`*.example.com` はサポートされますが、`*.sub.example.com` はサポートされません）。この場合、Zeabur サーバーへの直接接続（オレンジクラウド無効）に切り替えることができます。
+
+DNS レコードを設定した後、変更が反映されるまで数分かかる場合があります。完了すると、カスタムドメインを使用してサービスにアクセスできます。
+
+![バインドされたカスタムドメイン](/networking/public/bound-custom-domain.webp)
+
+### ルートドメインの DNS 設定
+
+サブドメイン（`www.example.com`）ではなくルートドメイン（`example.com`）を使用する場合（[Zone apex レコード](https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-zone-apex/)とも呼ばれます）、Zeabur が提供する DNS レコードの変更が必要になる場合があります。
+
+**Cloudflare** を使用している場合、Cloudflare には組み込みの [CNAME Flattening](https://developers.cloudflare.com/dns/cname-flattening/) 機能があり、CNAME レコードをルートドメインで動作する A レコードに自動変換するため、**このセクションをスキップできます**。
+
+他の DNS プロバイダーを使用していて Zeabur が CNAME レコードを提供した場合、CNAME レコードを A レコードに変換する必要がある場合があります。
+
+1. ドメインをバインドすると、Zeabur は `hkg1.clusters.zeabur.com` のようなホスト名を指す `CNAME` を提供します。
+2. [Google Admin Toolbox - Dig](https://toolbox.googleapps.com/apps/dig/#A/) を開き、このホスト名を入力します。
+
+   ![Google Admin Toolbox - Dig](/networking/public/google-dig-tool.webp)
+   <br />
+
+3. `A` レコードの IP アドレスが表示されます。この IP アドレスを対応する DNS フィールドに入力します。
+
+Zeabur は CNAME が指す A レコードのアドレスを更新する場合があります。この設定方法を選択した場合、IP アドレスの変更が通知された際に DNS レコードの更新が必要になることがあります。
+
+## リダイレクトの設定
+
+ドメインを別の URL にリダイレクトするには、「**別のドメインにリダイレクト**」機能を使用します。これにより、ドメインが指定されたターゲットドメインに一時的（307）にリダイレクトされます。
+
+![リダイレクト用のカスタムドメインのバインド](/networking/public/binding-custom-domain-for-redirect.webp)
+
+## ドメインの削除
+
+ドメインを削除するには、ドメイン名の横にあるゴミ箱アイコンをクリックします。
+
+![削除ボタン](/networking/public/delete-button.webp)
+
+入力ボックスにドメイン名を入力し、「削除」ボタンをクリックして確認します。
+
+![ドメイン削除モーダル](/networking/public/deleting-domain-modal.webp)
+
+## 割り当てられたホスト名とポートの使用
+
+非 HTTP サービスの場合、割り当てられたホスト名とポートを使用してアクセスできます（一般に「ポートフォワーディング」と呼ばれます）。例えば、ポート `25565` で稼働している Minecraft サーバーは、`hkg1.clusters.zeabur.com:34567` のような割り当てられたホスト名とポートを使用してアクセスできます。
+
+![割り当てられたホスト名とポート](/networking/public/assigned-hostname-and-port.webp)
+
+ホスト名とポートは通常一貫していますが、まれに変更される場合があります。永続的に固定されていると想定しないことをお勧めします。サービス内でカスタムポートフォワーディングを設定することもできます。
+
+## ポート設定
+
+### Git サービス
+
+Git サービスは1つのポートのみ許可されます。これは Dockerfile で定義したポート、または Dockerfile を使用していない場合やポートを指定していない場合は `8080` です。ポートは将来変更される可能性があるため、コードに直接 `8080` と書くことは**推奨されません**。代わりに `$PORT` 環境変数を使用してください。
+
+`$PORT` 環境変数を使用するコード例：
+
+```js filename="server.js"
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+```
+
+```go filename="main.go"
+package main
+
+import (
+    "fmt"
+    "net/http"
+    "os"
+)
+
+func main() {
+    port := os.Getenv("PORT")
+    if port == "" {
+        port = "8080"
+    }
+
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprintf(w, "Hello, World!")
+    })
+
+    http.ListenAndServe(":"+port, nil)
+}
+```
+
+### Docker サービス
+
+[Docker サービスの設定](/deploy/customize-prebuilt)でポートを設定できます。詳細は Docker 設定ドキュメントの「ポート」セクションを参照してください。

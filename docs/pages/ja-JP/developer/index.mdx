@@ -1,0 +1,58 @@
+---
+title: 開発者リソース
+ogImageTitle: 開発者リソース
+ogImageSubtitle: API、CLI、統合ドキュメント
+---
+
+import { Callout } from 'nextra/components';
+
+# 開発者リソース
+
+Zeabur は、プログラマティックなサービス管理、デプロイ自動化、独自アプリケーションとの統合のための包括的な API と開発者ツールを提供しています。
+
+## API 概要
+
+Zeabur の API は **GraphQL** で構築されており、ダッシュボード、CLI、すべてのファーストパーティ製品を駆動しています。特定の操作（ファイルアップロード、コンテナ操作など）には REST エンドポイントも利用可能です。
+
+| API | 用途 | エンドポイント |
+|-----|------|------------|
+| [GraphQL API](/ja-JP/developer/public-api) | プロジェクト/サービス/環境管理、デプロイ、ログ | `https://api.zeabur.com/graphql` |
+| [アップロード API](https://schema.zeabur.app/upload-api/index.html) | 事前署名 URL 経由で ZIP アーカイブをデプロイ | `https://api.zeabur.com/v2/upload` |
+| [メール REST API](/ja-JP/email/rest-api) | メール送信と管理 | `https://api.zeabur.com/api/v1/zsend` |
+
+<Callout>
+非 GraphQL API の完全な仕様（JSON Schema / OpenAPI）は [Schema リポジトリ](https://schema.zeabur.app/) で確認できます。
+</Callout>
+
+## 認証
+
+すべての API は **Bearer Token** 認証を使用します。[ダッシュボード > 設定 > API キー](https://zeabur.com/account/api-keys) でキーを生成し、`Authorization` ヘッダーに含めてください：
+
+```bash
+curl -X POST https://api.zeabur.com/graphql \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"query":"query { me { username } }"}'
+```
+
+詳細は [API キー](/ja-JP/developer/api-keys) を参照してください。
+
+## リアルタイムサブスクリプション
+
+ログのストリーミングやプロジェクトアクティビティの監視が必要ですか？Zeabur は [graphql-ws](https://github.com/enisdenjo/graphql-ws) プロトコルを介して WebSocket リアルタイムサブスクリプションを提供しています。
+
+- **グローバルエンドポイント**：`wss://api.zeabur.com/graphql`
+- **中国エンドポイント**：`wss://api.zeabur.cn/graphql`
+
+接続の詳細、認証フロー、コード例については [WebSocket サブスクリプション](/ja-JP/developer/websocket-guide) を参照してください。
+
+## ツール
+
+- **[Zeabur CLI](/ja-JP/developer/cli)**：`npx zeabur` でターミナルからログインしてサービスをデプロイ。
+- **[Apollo Explorer](https://studio.apollographql.com/public/zeabur/variant/main/explorer)**：すべての GraphQL API をオンラインで閲覧・テスト。
+
+## 製品固有の API
+
+- **[Zeabur メール REST API](/ja-JP/email/rest-api)** — メール送信 API エンドポイントリファレンス
+- **[メール API キー](/ja-JP/email/api-keys)** — メール専用 API キー管理と権限
+- **[メール Webhooks](/ja-JP/email/webhooks)** — 受信/バウンスイベントコールバック設定

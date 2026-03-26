@@ -1,0 +1,130 @@
+---
+title: Claude Code Skills
+ogImageTitle: Claude Code Skills
+ogImageSubtitle: Deja que tu agente IA maneje despliegues y operaciones
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Claude Code Skills
+
+El plugin oficial de Zeabur para Claude Code convierte el lenguaje natural en operaciones de infraestructura. Despliega servicios, alquila servidores, gestiona configuraciones — todo sin salir de tu editor.
+
+<Callout type="info">
+  Claude Code Skills requiere un entorno de [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview). Asegúrate de tener Claude Code instalado y en ejecución.
+</Callout>
+
+## Instalación
+
+<Steps>
+
+### Añade el plugin de Zeabur a tu registro local
+
+Añade el plugin de Zeabur desde el marketplace de Claude Code:
+
+```bash copy
+claude plugin marketplace add zeabur/zeabur-claude-plugin
+```
+
+### Instala y activa los skills
+
+Instala y activa todos los skills de Zeabur en Claude Code:
+
+```bash copy
+claude plugin install zeabur@zeabur
+```
+
+</Steps>
+
+Una vez instalado, puedes operar todas las funciones de Zeabur mediante lenguaje natural en Claude Code.
+
+## Skills Soportados
+
+### Alquilar un VPS
+
+Busca y alquila servidores de proveedores como AWS, Hetzner y Linode.
+
+> "Ayúdame a encontrar un VPS barato con 2 cores y 4GB de RAM"
+
+### Desplegar Servicios
+
+Despliega proyectos locales o plantillas en tus servidores con detección automática de framework.
+
+> "Despliega este proyecto en mi servidor de Hetzner"
+
+### Habilitar Modelos de IA
+
+Accede a GPT-4o, Claude, Gemini y más a través de Zeabur AI Hub.
+
+> "Necesito IA en mi app, configura la API"
+
+### Configurar Email
+
+Añade email transaccional a tu app usando Zeabur Email con SMTP auto-configurado.
+
+> "Añade envío de email a mi app"
+
+### Establecer Variables de Entorno
+
+Crea, actualiza o enlaza variables de entorno entre servicios.
+
+> "Establece DATABASE_URL para mi backend"
+
+### Editar Archivos de Configuración
+
+Modifica configuraciones de nginx, parámetros de runtime y ajustes de contenedor.
+
+> "Actualiza la config de nginx para habilitar gzip"
+
+### Configurar Puertos
+
+Mapea y expón puertos de servicio; resuelve problemas de desajuste de puertos.
+
+> "Mi app escucha en el puerto 8080, arregla el proxy"
+
+### Vincular Dominios
+
+Adjunta dominios personalizados o subdominios `.zeabur.app` gratuitos con SSL automático.
+
+> "Vincula myapp.dev a este servicio"
+
+### Configurar Health Checks
+
+Configura endpoints de health check para reinicio automático de servicios no saludables.
+
+> "Añade un health check en /api/health"
+
+### Configurar Firewall
+
+Establece reglas de tráfico de entrada y salida para servidores dedicados.
+
+> "Solo permite tráfico desde la IP de mi oficina"
+
+### Establecer Imagen de Contenedor
+
+Despliega desde imágenes Docker personalizadas o cambia imágenes base.
+
+> "Despliega usando mi imagen Docker privada"
+
+### Comprar Dominios
+
+Busca, registra y configura dominios personalizados.
+
+> "Compra myapp.dev y apúntalo a mi app"
+
+### Gestionar Bases de Datos
+
+Despliega, inspecciona, consulta, carga datos y maneja migraciones de bases de datos.
+
+> "¿Qué hay en mi base de datos? Añade un usuario de prueba"
+
+### Depuración y Resolución de Problemas
+
+Inspecciona contenedores, lee logs, diagnostica y soluciona problemas.
+
+> "Mi app devuelve errores 500, averigua por qué"
+
+## Más Información
+
+- [Página de resumen de Skills](https://zeabur.com/en-US/skills)
+- [Zeabur CLI](/developer/cli)

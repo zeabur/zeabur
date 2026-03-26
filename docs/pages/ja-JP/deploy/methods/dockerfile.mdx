@@ -1,0 +1,102 @@
+---
+title: Dockerfile を使用したデプロイ
+ogImageTitle: Dockerfile を使用したデプロイ
+ogImageSubtitle: Dockerfile を使用してプロジェクトを Zeabur にデプロイする
+---
+
+import { Callout } from 'nextra/components'
+
+# Dockerfile を使用したデプロイ
+
+通常、自分で `Dockerfile` を書く必要はありません。Zeabur では現在、さまざまな人気のあるフレームワークに対する高速なデプロイ方法を提供していますが、もしあなたのプロジェクトがこれらのフレームワークを利用していない場合や独自のデプロイ方法を定義したい場合は、`Dockerfile` を使用してデプロイすることができます。
+
+## Dockerfile の作成
+
+プロジェクトのルートディレクトリに `Dockerfile` または `dockerfile` という名前のファイルを作成し、そこにデプロイ方法を記述します。最後に、対応する `PORT` を公開していることを確認してください。
+
+Zeabur は自動的にあなたのプロジェクトに `Dockerfile` があるかどうかを検出します。もし存在する場合は、Docker を使用してプロジェクトをデプロイします。
+
+<Callout type="info">
+  デプロイが開始されると、上に Docker
+  アイコンが表示されます。これはプロジェクトが Docker
+  を使用してデプロイされたことを意味します。
+</Callout>
+
+![docker-deploy](/deploy/dockerfile/docker-deploy.png)
+
+## Dockerfile を使用せずにデプロイする
+
+Zeabur で Dockerfile を使用しないようにする場合（例えば、Zeabur にこのプロジェクトの最適なデプロイ方法を決定させること）、環境変数に `ZBPACK_IGNORE_DOCKERFILE=true` を設定するか、`zbpack.json` に以下を追加することができます。
+
+```json
+{
+  "ignore_dockerfile": true
+}
+```
+
+すると、Zeabur は Dockerfile を無視し、自動的にデプロイメントの方法を決定します。
+
+## 環境変数
+
+あなたの `Dockerfile` が環境変数を使用する必要がある場合は、サービスページの **環境変数** をクリックして追加することができます。詳細な設定については、[環境変数](/en-US/environment/variables) を参照してください。
+
+![環境変数](/environment/add-variables.png)
+
+もしあなたの `Dockerfile` が 1 つの段階で書かれているか、あるいはあなたの環境変数が最終段階でのみ使用される必要がある場合は、手動で `ENV` を書く必要はありません。Zeabur は自動的に追加します。
+
+### ARG
+
+しかし、あなたの `Dockerfile` が複数の段階で書かれており（[マルチステージ](https://docs.docker.com/build/building/multi-stage/)）、ビルド前に環境変数を設定する必要がある場合は、`ARG` を使用して設定することができます。
+
+ここでは、nodejs と nginx を例に取り、デプロイ用の `Dockerfile` を書く方法を説明します。
+
+```docker {7-8} copy
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+COPY . .
+
+## ここで定義されている `BUILDTIME_ENV_EXAMPLE` はビルド前に自動的に設定されます
+ARG BUILDTIME_ENV_EXAMPLE
+ENV BUILDTIME_ENV_EXAMPLE=${BUILDTIME_ENV_EXAMPLE}
+
+RUN npm install && \
+    npm run build
+
+FROM nginx:alpine
+
+COPY nginx.conf /etc/nginx/conf.d/configfile.template
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+ENV \
+    PORT=8080 \
+    HOST=0.0.0.0
+
+EXPOSE 8080
+
+CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+```
+
+## デプロイする Dockerfile を指定する
+
+プロジェクトで使用する Dockerfile を指定する場合、Dockerfile を `[サービス名].Dockerfile` または `Dockerfile.[サービス名]` という名前にしてください。例えば、プロジェクト内に `Dockerfile.storage` というファイルがあり、サービス名が `storage` の場合、Zeabur はこの Dockerfile を使用して `storage` サービスをデプロイします。
+
+![specify-service-name](/deploy/dockerfile/specify-service-name.png)
+
+また、環境変数 `ZBPACK_DOCKERFILE_NAME` を指定するか、`zbpack.json` に以下の内容を追加することもできます：
+
+```json
+{
+  "dockerfile": {
+    "name": "storage"
+  }
+}
+```
+
+例えば、サービス内で `ZBPACK_DOCKERFILE_NAME=storage` を設定すると、Zeabur は `Dockerfile.storage` を Dockerfile として使用し、`storage` サービスをデプロイします。
+
+## Docker Compose
+
+現在、Zeabur は Docker Compose YAML を使用したデプロイに対応していません。
+
+Docker Compose ファイルを Zeabur テンプレート YAML に変換することができます。詳細については、[「YAML からテンプレートを作成する」](/template/template-format)をご参照ください。ヘルプが必要な場合は、[コミュニティ](https://discord.gg/zeabur) でお気軽にお問い合わせください。

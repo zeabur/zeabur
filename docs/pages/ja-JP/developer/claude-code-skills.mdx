@@ -1,0 +1,130 @@
+---
+title: Claude Code Skills
+ogImageTitle: Claude Code Skills
+ogImageSubtitle: AI エージェントにデプロイと運用を任せる
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Claude Code Skills
+
+Zeabur 公式の Claude Code プラグインは、自然言語をインフラ操作に変換します。サービスのデプロイ、サーバーのレンタル、設定の管理——すべてエディタを離れることなく実行できます。
+
+<Callout type="info">
+  Claude Code Skills には [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview) 環境が必要です。Claude Code がインストールされ、実行されていることを確認してください。
+</Callout>
+
+## インストール
+
+<Steps>
+
+### Zeabur プラグインをローカルレジストリに追加
+
+Claude Code マーケットプレイスから Zeabur プラグインを追加：
+
+```bash copy
+claude plugin marketplace add zeabur/zeabur-claude-plugin
+```
+
+### Skills をインストールして有効化
+
+Claude Code ですべての Zeabur Skills をインストールして有効化：
+
+```bash copy
+claude plugin install zeabur@zeabur
+```
+
+</Steps>
+
+インストール後、Claude Code で自然言語を使ってすべての Zeabur 機能を操作できます。
+
+## サポートされる Skills
+
+### VPS をレンタル
+
+AWS、Hetzner、Linode などのプロバイダーからサーバーを閲覧してレンタル。
+
+> "2 コア 4GB RAM の安い VPS を探して"
+
+### サービスをデプロイ
+
+ローカルプロジェクトやテンプレートをサーバーにデプロイ、フレームワークを自動検出。
+
+> "このプロジェクトを Hetzner サーバーにデプロイして"
+
+### AI モデルを有効化
+
+Zeabur AI Hub を通じて GPT-4o、Claude、Gemini などにアクセス。
+
+> "アプリに AI が必要、API をセットアップして"
+
+### メールを設定
+
+Zeabur Email と自動設定の SMTP を使ってアプリにトランザクションメールを追加。
+
+> "アプリにメール送信機能を追加して"
+
+### 環境変数を設定
+
+サービス間で環境変数を作成、更新、リンク。
+
+> "バックエンドに DATABASE_URL を設定して"
+
+### 設定ファイルを編集
+
+nginx 設定、ランタイムパラメータ、コンテナ設定を変更。
+
+> "nginx 設定を更新して gzip を有効にして"
+
+### ポートを設定
+
+サービスポートのマッピングと公開、ポート不一致の問題を解決。
+
+> "アプリがポート 8080 でリッスンしてる、プロキシを修正して"
+
+### ドメインをバインド
+
+カスタムドメインや無料の `.zeabur.app` サブドメインを自動 SSL でアタッチ。
+
+> "myapp.dev をこのサービスにバインドして"
+
+### ヘルスチェックを設定
+
+ヘルスチェックエンドポイントを設定し、異常なサービスを自動再起動。
+
+> "/api/health にヘルスチェックを追加して"
+
+### ファイアウォールを設定
+
+専用サーバーのインバウンドおよびアウトバウンドトラフィックルールを設定。
+
+> "オフィスの IP からのトラフィックのみ許可して"
+
+### コンテナイメージを設定
+
+カスタム Docker イメージからデプロイまたはベースイメージを切り替え。
+
+> "プライベート Docker イメージでデプロイして"
+
+### ドメインを購入
+
+カスタムドメインを検索、登録、設定。
+
+> "myapp.dev を購入してアプリに向けて"
+
+### データベースを管理
+
+デプロイ、検査、クエリ、シードデータ、データベースマイグレーション。
+
+> "データベースに何がある？テストユーザーを追加して"
+
+### デバッグとトラブルシューティング
+
+コンテナの検査、ログの読み取り、問題の診断と修正。
+
+> "アプリが 500 エラーを返してる、原因を調べて"
+
+## 詳細を見る
+
+- [Skills 概要ページ](https://zeabur.com/en-US/skills)
+- [Zeabur CLI](/developer/cli)

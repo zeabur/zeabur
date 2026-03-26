@@ -1,0 +1,134 @@
+---
+title: 从 Fly.io 迁移
+ogImageTitle: 从 Fly.io 迁移
+ogImageSubtitle: 将应用从 Fly.io 迁移到 Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# 从 Fly.io 迁移
+
+本指南将帮助你将应用从 Fly.io 迁移到 Zeabur。无论你运行的是基于 Docker 的应用、Web 服务还是带 Postgres 数据库的全栈应用，Zeabur 都能以最少的配置更改来处理。
+
+## 开始之前
+
+- 一个 [Zeabur](https://zeabur.com/) 账户。
+- 你的应用源代码在 Git 仓库（GitHub）中。
+- 可以访问 Fly.io 控制面板和 CLI（`flyctl`）。
+
+<Callout>
+如果你的应用仅使用 Docker 镜像部署在 Fly.io 上（没有 Git 仓库），你仍然可以将镜像推送到容器注册表，然后在 Zeabur 上作为 Docker 服务部署。
+</Callout>
+
+## 步骤 1：查看 Fly.io 配置
+
+打开项目的 `fly.toml` 文件。这包含你需要在 Zeabur 上重新创建的设置：
+
+```toml
+# fly.toml — 示例
+app = "my-app"
+
+[env]
+  NODE_ENV = "production"
+  PORT = "8080"
+
+[http_service]
+  internal_port = 8080
+
+[[vm]]
+  memory = "512mb"
+  cpu_kind = "shared"
+```
+
+注意以下内容：
+- `[env]` 下的**环境变量**以及通过 `fly secrets list` 设置的密钥。
+- 应用监听的**内部端口**。
+- 如果配置了 `[mounts]`，需要注意**存储卷**。
+
+## 步骤 2：导出 Fly.io 密钥
+
+列出所有密钥以便传输到 Zeabur：
+
+```bash
+fly secrets list -a my-app
+```
+
+这会显示密钥名称（值被隐藏）。对于每个密钥，你需要从原始来源（如数据库提供商、API 控制面板）检索或重新生成值。
+
+## 步骤 3：将 Git 仓库连接到 Zeabur
+
+1. 登录 [Zeabur 控制面板](https://dash.zeabur.com/)。
+2. 创建新项目并选择专用服务器（或购买新的）。
+3. 点击 **Add Service** → **Git** 并连接 GitHub 账户。
+4. 选择包含应用代码的仓库。
+
+Zeabur 自动检测项目的语言和框架——大多数情况下不需要 `fly.toml` 或 `Dockerfile`。
+
+<Callout>
+如果项目使用 Dockerfile，Zeabur 会自动检测并使用它。无需额外配置。
+</Callout>
+
+## 步骤 4：配置环境变量
+
+1. 在 Zeabur 控制面板中点击新创建的服务。
+2. 前往 **Variables** 标签。
+3. 添加 Fly.io 应用中的每个环境变量和密钥。
+
+你不需要设置 `PORT`——Zeabur 会自动分配和注入端口。
+
+## 步骤 5：设置持久化存储（如需要）
+
+如果 Fly.io 应用使用了存储卷（`fly.toml` 中的 `[mounts]`），你需要在 Zeabur 上创建存储卷：
+
+1. 在服务设置中，前往 **Volumes** 标签。
+2. 点击 **Add Volume** 并指定挂载路径（如 `/data`）。
+3. Zeabur 会配置在重新部署后仍然存在的持久化存储。
+
+<Callout type="warning">
+Fly.io 存储卷无法自动导出。你需要 SSH 进入 Fly.io 机器（`fly ssh console`），压缩数据，然后传输到 Zeabur 上的新存储卷。
+</Callout>
+
+## 步骤 6：迁移数据库
+
+如果你使用 Fly.io Postgres：
+
+1. **从 Fly.io Postgres 导出数据**：
+
+   ```bash
+   fly proxy 15432:5432 -a my-app-db &
+   pg_dump -h localhost -p 15432 -U postgres -d my_database > backup.sql
+   ```
+
+2. **在 Zeabur 上创建数据库**：点击 **Add Service** → **Database** → **PostgreSQL**。
+
+3. **导入数据**：使用 Zeabur PostgreSQL 服务的连接字符串：
+
+   ```bash
+   psql "your-zeabur-postgres-connection-string" < backup.sql
+   ```
+
+4. **更新应用的数据库 URL**：在 Zeabur **Variables** 标签中，将 `DATABASE_URL` 设置为 Zeabur PostgreSQL 连接字符串。你可以使用 Zeabur 内置的变量引用 `${POSTGRES_URI}` 自动注入连接字符串。
+
+## 步骤 7：设置自定义域名
+
+1. 在 Zeabur 控制面板中，点击服务并前往 **Networking** 标签。
+2. 点击 **Generate Domain** 获取免费的 `.zeabur.app` 子域名，或点击 **Custom Domain** 添加自己的域名。
+3. 如果使用自定义域名，更新 DNS 记录：
+   - 删除旧的 Fly.io CNAME 或 A 记录。
+   - 添加指向 Zeabur 提供的目标的 CNAME 记录。
+
+## 主要差异：Fly.io vs Zeabur
+
+| 功能 | Fly.io | Zeabur |
+|------|--------|--------|
+| 配置 | `fly.toml` + CLI | 自动检测 + 控制面板 |
+| 部署 | `fly deploy` CLI 命令 | Git push（自动部署） |
+| 扩展 | Machines API，手动配置 | 控制面板一键扩展 |
+| 数据库 | Fly Postgres（自管理） | 数据库服务（托管 PostgreSQL、MySQL、Redis 等） |
+| 网络 | Anycast IP，WireGuard | 自动 HTTPS，自定义域名 |
+| 持久化存储 | Fly Volumes（区域锁定） | Zeabur Volumes（托管） |
+| 定价模式 | 按 VM + 带宽 | 按使用量付费 |
+
+---
+
+完成了。你的 Fly.io 应用现在已在 Zeabur 上运行。如遇到任何问题，请在我们的[社区论坛](https://zeabur.com/forum)联系我们。

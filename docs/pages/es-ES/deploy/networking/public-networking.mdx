@@ -1,0 +1,139 @@
+---
+title: Red Pública
+ogImageTitle: Red Pública
+ogImageSubtitle: Expón tu servicio a Internet
+---
+
+## Red Pública
+
+"Red Pública" te permite exponer tu servicio a Internet.
+
+Zeabur ofrece dos métodos para acceder a tu servicio:
+
+- **Servicios HTTP:** Accede a tu servicio usando el nombre de dominio proporcionado por Zeabur o tu dominio personalizado.
+- **Servicios no HTTP:** Accede a tu servicio usando el nombre de host y puerto asignados.
+
+## Vincular Tus Dominios
+
+Un **dominio** es un identificador único para tu servicio, que permite acceder a él desde Internet. Por ejemplo, el nombre de dominio de este sitio web es `zeabur.com`.
+
+Para vincular un dominio a tu servicio, navega a tu servicio en el Panel de Zeabur y expande la pestaña **Dominios**. Tendrás dos opciones para crear un dominio para tu servicio.
+
+![Dos opciones para vincular un dominio](/networking/public/two-buttons-to-bind-domain.webp)
+
+### Generar Dominio
+
+La opción "**Generar Dominio**" te permite crear un nombre de dominio con el sufijo `zeabur.app`, como `your-service.zeabur.app`, siempre que esté disponible. Esta es la forma más sencilla de hacer tu servicio públicamente accesible.
+
+![Vincular un dominio zeabur.app](/networking/public/binding-zeabur-app-domain.webp)
+
+Una vez configurado tu dominio `zeabur.app`, puedes acceder a tu servicio usando el nombre de dominio proporcionado por Zeabur.
+
+![Dominio zeabur.app vinculado](/networking/public/bound-zeabur-app-domain.webp)
+
+### Dominio Personalizado
+
+Para usar tu propio nombre de dominio, selecciona la opción "**Dominio Personalizado**".
+
+Primero, ingresa tu nombre de dominio en el campo de entrada y haz clic en el botón "Crear Dominio".
+
+![Vincular un dominio personalizado](/networking/public/binding-custom-domain.webp)
+
+Después de agregar tu nombre de dominio, verás la información DNS para tu dominio.
+
+![Configurar DNS para tu dominio](/networking/public/custom-domain-setting-dns.webp)
+
+Necesitarás configurar manualmente los registros DNS para tu dominio. Por ejemplo, si usas Cloudflare, puedes agregar el registro requerido en la sección "DNS" → "Registro" usando la configuración proporcionada por Zeabur. Si usas un proveedor de DNS diferente, consulta su documentación para instrucciones sobre cómo agregar un registro CNAME.
+
+![Configurar DNS en Cloudflare](/networking/public/configure-dns-record-in-cloudflare.webp)
+
+Puedes usar el CDN de Cloudflare (nube naranja habilitada) para reducir costos de tráfico y mejorar la velocidad de navegación. Sin embargo, para el [modo de cifrado SSL/TLS](https://developers.cloudflare.com/ssl/origin-configuration/ssl-modes/#custom-ssltls) de Cloudflare, **no puedes seleccionar Full (Strict)**, ya que puede causar fallas de conexión debido a certificados autofirmados. Además, Cloudflare no soporta la emisión de certificados SSL para dominios personalizados más allá del tercer nivel (es decir, `*.example.com` es compatible, pero `*.sub.example.com` no). En este caso, puedes cambiar a conexión directa a los servidores de Zeabur (nube naranja deshabilitada).
+
+Después de configurar el registro DNS, puede tomar unos minutos para que los cambios se propaguen. Una vez completado, puedes acceder a tu servicio usando tu dominio personalizado.
+
+![Dominio personalizado vinculado](/networking/public/bound-custom-domain.webp)
+
+### Configuración DNS del Dominio Raíz
+
+Si deseas usar un dominio raíz (`example.com`) en lugar de un subdominio (`www.example.com`), también conocido como un [registro Zone apex](https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-zone-apex/), puede que necesites modificar los registros DNS proporcionados por Zeabur.
+
+Si estás usando **Cloudflare**, puedes **omitir esta sección** ya que Cloudflare tiene una funcionalidad integrada de [CNAME Flattening](https://developers.cloudflare.com/dns/cname-flattening/) que convierte automáticamente los registros CNAME a registros A que funcionan con dominios raíz.
+
+Si usas otros proveedores de DNS y Zeabur te proporciona un registro CNAME, puede que necesites convertir el registro CNAME proporcionado por Zeabur a un registro A.
+
+1. Cuando vinculas tu dominio, Zeabur te dará un `CNAME` apuntando a un nombre de host como `hkg1.clusters.zeabur.com`.
+2. Luego, abre [Google Admin Toolbox - Dig](https://toolbox.googleapps.com/apps/dig/#A/) e ingresa este nombre de host.
+
+   ![Google Admin Toolbox - Dig](/networking/public/google-dig-tool.webp)
+   <br />
+
+3. Verás una dirección IP para un registro `A`. Ingresa esta dirección IP en tu campo DNS correspondiente.
+
+Ten en cuenta que Zeabur puede actualizar la dirección del registro A al que apunta el CNAME. Si eliges este método de configuración, puede que necesites actualizar este registro DNS cuando te notifiquemos sobre próximos cambios de dirección IP o si la dirección IP cambia por cualquier motivo.
+
+## Configurar Redirecciones
+
+Para redirigir tu dominio a otra URL, usa la función "**Redirigir a otro dominio**". Esto redirigirá temporalmente (307) tu dominio al dominio de destino especificado.
+
+![Vincular dominio personalizado para redirección](/networking/public/binding-custom-domain-for-redirect.webp)
+
+## Eliminar Dominios
+
+Para eliminar un dominio, haz clic en el icono de papelera junto al nombre del dominio.
+
+![Botón de eliminar](/networking/public/delete-button.webp)
+
+Luego, ingresa tu nombre de dominio en el campo de entrada y haz clic en el botón "Eliminar" para confirmar.
+
+![Modal de eliminación de dominio](/networking/public/deleting-domain-modal.webp)
+
+## Usar el Nombre de Host y Puerto Asignados
+
+Para servicios no HTTP, puedes acceder a ellos a través del nombre de host y puerto asignados, comúnmente conocido como "reenvío de puertos". Por ejemplo, si tienes un servidor de Minecraft ejecutándose en el puerto `25565`, se puede acceder usando el nombre de host y puerto asignados, como `hkg1.clusters.zeabur.com:34567`.
+
+![Nombre de host y puerto asignados](/networking/public/assigned-hostname-and-port.webp)
+
+Aunque el nombre de host y el puerto son generalmente consistentes, puede haber casos raros en los que cambien. Es recomendable no asumir que son permanentemente fijos. También puedes configurar reenvío de puertos personalizado dentro de tu servicio.
+
+## Configuración de puertos
+
+### Servicio Git
+
+El servicio Git solo permite 1 puerto, que es el puerto que definiste en el Dockerfile o `8080` si no lo especificaste o no estás desplegando con Dockerfile. **No se recomienda** escribir `8080` directamente en tu código, ya que el puerto puede cambiar en el futuro. En su lugar, debes usar la variable de entorno `$PORT`.
+
+Algunos ejemplos de código usando la variable de entorno `$PORT`:
+
+```js filename="server.js"
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+```
+
+```go filename="main.go"
+package main
+
+import (
+    "fmt"
+    "net/http"
+    "os"
+)
+
+func main() {
+    port := os.Getenv("PORT")
+    if port == "" {
+        port = "8080"
+    }
+
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprintf(w, "Hello, World!")
+    })
+
+    http.ListenAndServe(":"+port, nil)
+}
+```
+
+### Servicios Docker
+
+Puedes configurar los puertos durante [la configuración del servicio Docker](/deploy/customize-prebuilt). Consulta la sección "Puertos" en la documentación de configuración de Docker para más detalles.
