@@ -1,0 +1,83 @@
+---
+title: Comprar Servidor
+ogImageTitle: Comprar Servidor
+ogImageSubtitle: Compra un servidor dedicado en Zeabur
+---
+
+import { Callout } from 'nextra/components'
+import { Steps } from 'nextra/components'
+
+# Comprar un Servidor en Zeabur
+
+Si no tienes tu propio servidor, puedes comprar un servidor dedicado directamente en Zeabur. Zeabur se asocia con los principales proveedores de nube (AWS, GCP, Hetzner, Linode, Digital Ocean, Aliyun, Tencent Cloud, Volcengine) para ofrecer precios competitivos, a menudo con descuento en comparación con la compra directa al proveedor.
+
+<Callout type="info">
+  Los servidores comprados son completamente gestionados por Zeabur. No necesitas manejar el acceso SSH, las actualizaciones del sistema operativo ni el mantenimiento de la infraestructura.
+</Callout>
+
+## Pasos de Compra
+
+<Steps>
+
+### Abre la Lista de Servidores
+
+Después de iniciar sesión, haz clic en **Servers** en la barra lateral izquierda, o visita directamente [https://zeabur.com/servers](https://zeabur.com/servers).
+
+![Página Mis Servidores](/dedicated-server/purchase-servers-page.png)
+
+### Haz clic en "Create" y selecciona "Comprar VPS Administrado"
+
+Haz clic en el botón **Create** en la esquina superior derecha. En el diálogo que aparece, selecciona **Comprar VPS Administrado**.
+
+![Diálogo de creación de servidor](/dedicated-server/purchase-create-dialog.png)
+
+También verás otras opciones:
+
+- **Servidor con IP Fija** — para conectar tu propio servidor con IP pública fija a través de SSH (ver [Registrar Servidor](./register)).
+- **[Wonder Mesh](/wonder-mesh)** — para servidores sin IP pública fija (actualmente en beta).
+
+### Selecciona un Plan de Servidor
+
+Serás redirigido a la página de selección de servidor. Usa los filtros para reducir las opciones:
+
+- **Provider** — Elige entre AWS, GCP, Hetzner, Linode, Digital Ocean, Aliyun, Tencent o Volcengine.
+- **Region** — Filtra por continente (Asia, China, Europa, América del Norte, América del Sur, Oceanía).
+- **CPU** — Filtra por número de vCPUs (1–32).
+- **Memory** — Filtra por tamaño de RAM (2 GB–64 GB).
+- **Sort** — Ordena los resultados por Recomendado, Precio, CPU, RAM o Ancho de banda.
+
+![Seleccionar un plan de servidor](/dedicated-server/purchase-select-server.png)
+
+Cada plan de servidor muestra el proveedor, la ciudad, la cantidad de vCPUs, RAM, almacenamiento, ancho de banda de salida y el precio mensual. Algunos planes incluyen una insignia de descuento que muestra el descuento permanente de Zeabur en comparación con el precio oficial del proveedor.
+
+### Confirma y Paga
+
+Haz clic en un plan de servidor para proceder al pago. El servidor se aprovisionará automáticamente después del pago. Una vez completado el aprovisionamiento (generalmente en pocos minutos), el servidor aparecerá en tu lista de **Mis Servidores** con el estado **Running**.
+
+</Steps>
+
+## Después de la Compra
+
+Una vez que tu servidor esté en línea, puedes:
+
+- **[Crear un proyecto](/es-ES/deploy/creating-projects)** en tu nuevo servidor y comenzar a desplegar servicios.
+- **[Gestionar tu servidor](./operate)** — monitorear recursos, configurar ajustes y más.
+- **[Configurar reglas de firewall](./firewall)** — controlar el tráfico entrante y saliente.
+
+## Preguntas Frecuentes
+
+### ¿Puedo actualizar mi plan de servidor después?
+
+Sí, puedes actualizar tu plan de servidor desde la página de configuración del servidor. Ten en cuenta que las actualizaciones son unidireccionales — no puedes degradar a un plan inferior después de actualizar.
+
+### ¿Qué pasa si el servidor no cumple con mis expectativas?
+
+Para servidores comprados de **Tencent Cloud**, **Aliyun** o **Volcengine**, Zeabur permite un reembolso gratuito la primera vez. Una segunda solicitud de reembolso para estos proveedores debe enviarse a través del [foro de la comunidad](https://zeabur.com/forum). Para todos los demás proveedores (AWS, GCP, Hetzner, Linode, Digital Ocean), puedes solicitar un reembolso directamente desde la página de configuración del servidor haciendo clic en **Solicitar Reembolso**.
+
+### ¿Cómo funciona la facturación?
+
+Los servidores comprados se facturan mensualmente a una tarifa fija. El precio que se muestra en la página de selección es el costo mensual. Tu servidor se renovará automáticamente a menos que lo canceles.
+
+### ¿Qué proveedores están disponibles?
+
+Zeabur actualmente ofrece servidores de AWS, GCP, Hetzner, Linode, Digital Ocean, Aliyun, Tencent Cloud y Volcengine, con centros de datos en Asia, Europa, América del Norte, América del Sur y Oceanía.
