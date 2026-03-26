@@ -1,0 +1,52 @@
+---
+title: Pre-ICP-Filing Subdomain
+ogImageTitle: Pre-ICP-Filing Subdomain
+ogImageSubtitle: Purchase a server in mainland China from Zeabur and use a preview domain without ICP filing
+---
+
+# Pre-ICP-Filing Subdomain
+
+Under the laws and regulations of mainland China, all services deployed on servers located within mainland China must complete ICP filing before they can be accessed. This can be inconvenient for projects that are still in development.
+
+Traditionally, if you purchased a server in mainland China, you could access your service using an IP address and port number without filing — but this approach means you cannot use a domain name or issue an SSL certificate.
+
+For this scenario, Zeabur offers the Pre-ICP-Filing Subdomain feature. After completing real-name verification, you can temporarily use a Zeabur-provided, already-filed domain to access your deployed service. This is very convenient for services in development or personal temporary testing environments, and is fully legal and compliant.
+
+## Requirements
+
+- Your server must be purchased through Zeabur.
+- Your server must be located in mainland China.
+- Your Zeabur account must have completed mainland China real-name verification.
+- Your server's cloud provider must already support Pre-ICP-Filing Subdomains on Zeabur:
+
+| Cloud Provider | Zeabur Shared Cluster | Zeabur Managed Server Available | Mainland China Region | Pre-ICP Subdomain Support |
+| --- | --- | --- | --- | --- |
+| Alibaba Cloud | ❌ | ✅ | ✅ | ✅ |
+| Tencent Cloud | ❌ | ✅ | ✅ | ✅ |
+| Volcengine | ✅ | ✅ | ✅ | ⌛️ |
+| Huawei Cloud | ✅ | ❌ | ✅ | ✅ |
+| Digital Ocean | ❌ | ✅ | ❌ | ❌ |
+| Hetzner | ❌ | ✅ | ❌ | ❌ |
+| AWS | ✅ | ✅ | ❌ | ❌ |
+| GCP | ✅ | ✅ | ❌ | ❌ |
+
+## How to Use
+
+1. Select the project on your Zeabur managed server located in mainland China, then choose the service you want to bind a Pre-ICP-Filing Subdomain to.
+2. Select the **Networking** tab.
+3. Click **Generate Domain** and enter your desired subdomain.
+
+![](https://cdn.zeabur.com/pre-icp-1.png)
+
+4. Click **Create Domain**. If you have not yet completed real-name verification, Zeabur will prompt you to do so.
+5. In the real-name verification window, enter your name and ID number, then click Submit. You will be automatically redirected to Alibaba Cloud's real-name verification service.
+
+![](https://cdn.zeabur.com/pre-icp-2.png)
+
+6. After completing real-name verification, click **Generate Domain** again to automatically generate and bind an already-filed domain.
+
+## Important Notes
+
+- By using a Pre-ICP-Filing Subdomain, you agree to the terms of service of the corresponding cloud provider.
+- Zeabur strictly prohibits using Pre-ICP-Filing Subdomains for any activities that violate local laws and regulations. If any violation is detected, Zeabur reserves the right to unilaterally terminate the service and hand over real-name information to the law enforcement authorities of the user's country or region.
+- It is not recommended to use a Pre-ICP-Filing Subdomain as the official domain for a commercial service. Once testing or development is complete, it is recommended to go through the formal ICP filing process to apply for your own domain. Zeabur provides free ICP filing application support.

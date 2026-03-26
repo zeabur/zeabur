@@ -1,0 +1,43 @@
+---
+title: GitHub 連携
+ogImageTitle: GitHub 連携
+ogImageSubtitle: GitHub でログインし、GitHub からコードを Zeabur に直接デプロイする
+---
+
+import { Callout } from 'nextra/components'
+
+## GitHub 連携
+
+Zeabur は GitHub との連携機能を提供しています。これにより、GitHub アカウントと Zeabur アカウントを連携させ、GitHub で Zeabur にログインしたり、GitHub からコードを Zeabur に直接デプロイしたりすることができます。
+
+GitHub を使用したコードのデプロイにより、サービスに CI/CD 機能が即座に有効になります。今後 GitHub にコードをプッシュするだけで、Zeabur が自動的に新しいコードをデプロイします。
+
+### GitHub アカウントの連携
+
+メールアドレスで Zeabur アカウントを登録した場合、まず GitHub アカウントと Zeabur アカウントを連携させる必要があります。これは[コンソール > 設定 > 連携](https://zeabur.com/account/general)から行えます。
+
+![GitHub アカウントの連携](/deploy/github/link-github.webp)
+
+一つの GitHub アカウントは一つの Zeabur アカウントにのみ連携できることにご注意ください。連携後は、Zeabur のログインページで GitHub ボタンを使用してログインできるようになります。
+
+### GitHub Apps の設定
+
+個人またはチームのリポジトリを Zeabur で選択できるようにするには、Zeabur がリポジトリにアクセスできるように GitHub に Zeabur のアプリケーションをインストールする必要があります。サービスを作成するとき、「GitHub」サービスタイプを選択し、「Configure GitHub」ボタンをクリックすると、GitHub のアプリケーションインストールページに移動します。ページの指示に従って、Zeabur App を個人アカウントまたは特定の組織にインストールしてください。
+
+![GitHub Apps のインストール](/deploy/github/install-github-app.webp)
+
+現在の組織の**メンバー**または**外部コラボレーター**（オーナーではない）である場合、その組織を連携するのに十分な権限がない可能性がありますが、あなたが権限を持つすべてのリポジトリを読み取ることができ、`GitHub` 認可ページであなたがそのリポジトリを既に設定したことが表示されます。
+
+認証が完了すると、検索ボックスが表示されます。そこにデプロイしたいリポジトリ名（または GitHub URL）を入力するとデプロイできます。
+
+![リポジトリの選択](/deploy/github/select-repo.webp)
+
+## GitHub Apps の削除
+
+Zeabur GitHub App を完全に削除する必要がある場合は、GitHub の Settings > Intergrations > Applications > Installed GitHub Apps で「Zeabur」を見つけ、「Configure」をクリックした後、ポップアップページの「Danger zone」で「Uninstall」をクリックします。
+
+![完全削除](/deploy/github/remove-github-app.webp)
+
+組織アカウントの場合は、Settings の「Switch to another account」で操作したい組織を選択する必要があります。
+
+![Switch to another account](/deploy/github/switch-settings-context.webp)
