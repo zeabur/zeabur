@@ -1,7 +1,17 @@
-import { GoogleGenAI } from '@google/genai'
+import OpenAI from 'openai'
 
-// Uses Zeabur AI Hub as proxy — set GOOGLE_GENAI_API_KEY env var
-const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_GENAI_API_KEY || '' })
+// Uses Zeabur AI Hub (LiteLLM) via OpenAI-compatible API
+// Lazy-init so env vars are available (scripts load .env.local before calling)
+let _client: OpenAI | null = null
+function getClient(): OpenAI {
+  if (!_client) {
+    _client = new OpenAI({
+      apiKey: process.env.GOOGLE_GENAI_API_KEY || '',
+      baseURL: process.env.GOOGLE_GENAI_BASE_URL || 'https://hnd1.aihub.zeabur.ai/v1',
+    })
+  }
+  return _client
+}
 
 const LOCALE_INSTRUCTIONS: Record<string, string> = {
   'zh-TW': 'Translate to Traditional Chinese (繁體中文). Use Taiwan-standard terminology.',
@@ -60,25 +70,19 @@ export async function translateMdx(
   }
 
   try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash',
-      contents: [
+    const response = await getClient().chat.completions.create({
+      model: process.env.TRANSLATION_MODEL || 'gemini-2.0-flash',
+      temperature: 0.1,
+      messages: [
+        { role: 'system', content: SYSTEM_PROMPT },
         {
           role: 'user',
-          parts: [
-            {
-              text: `${instruction}\n\nTranslate the following MDX document:\n\n${content}`,
-            },
-          ],
+          content: `${instruction}\n\nTranslate the following MDX document:\n\n${content}`,
         },
       ],
-      config: {
-        temperature: 0.1,
-        systemInstruction: SYSTEM_PROMPT,
-      },
     })
 
-    const text = response.text?.trim() || ''
+    const text = response.choices[0]?.message?.content?.trim() || ''
 
     // Strip markdown code fences if the model wrapped the output
     const cleaned = text.replace(/^```(?:mdx|markdown|md)?\n/, '').replace(/\n```$/, '')

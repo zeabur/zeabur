@@ -1,8 +1,31 @@
 import { readdir, readFile, writeFile, mkdir } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import { join, dirname, relative } from 'node:path'
-import { existsSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { translateMdx, TARGET_LOCALES } from '../lib/services/translation-service'
+
+// Load .env.local (tsx doesn't load it automatically like Next.js does)
+function loadEnvLocal() {
+  const envPath = join(process.cwd(), '.env.local')
+  if (!existsSync(envPath)) return
+  const lines = readFileSync(envPath, 'utf-8').split('\n')
+  for (const line of lines) {
+    const trimmed = line.trim()
+    if (!trimmed || trimmed.startsWith('#')) continue
+    const eqIndex = trimmed.indexOf('=')
+    if (eqIndex === -1) continue
+    const key = trimmed.slice(0, eqIndex)
+    let value = trimmed.slice(eqIndex + 1)
+    // Strip surrounding quotes
+    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+      value = value.slice(1, -1)
+    }
+    if (!process.env[key]) {
+      process.env[key] = value
+    }
+  }
+}
+loadEnvLocal()
 
 const CONTENT_DIR = join(process.cwd(), 'content')
 const TRANSLATIONS_DIR = join(process.cwd(), 'translations')
