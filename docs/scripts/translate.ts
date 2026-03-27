@@ -2,7 +2,7 @@ import { readdir, readFile, writeFile, mkdir } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import { join, dirname, relative } from 'node:path'
 import { existsSync, readFileSync } from 'node:fs'
-import { translateMdx, TARGET_LOCALES } from '../lib/services/translation-service'
+import { translateMdx, translateMeta, TARGET_LOCALES } from '../lib/services/translation-service'
 
 // Load .env.local (tsx doesn't load it automatically like Next.js does)
 function loadEnvLocal() {
@@ -102,6 +102,79 @@ async function translateFile(
   }
 }
 
+/**
+ * Find all _meta.ts files, extract translatable string labels,
+ * translate them, and save as JSON in translations/{locale}/_meta/{path}.json
+ */
+async function translateMetaFiles() {
+  const metaFiles: string[] = []
+
+  async function findMeta(dir: string) {
+    if (!existsSync(dir)) return
+    const entries = await readdir(dir, { withFileTypes: true })
+    for (const entry of entries) {
+      const fullPath = join(dir, entry.name)
+      if (entry.isDirectory()) {
+        await findMeta(fullPath)
+      } else if (entry.name === '_meta.ts') {
+        metaFiles.push(fullPath)
+      }
+    }
+  }
+
+  await findMeta(CONTENT_DIR)
+  if (metaFiles.length === 0) return
+
+  console.log(`\n📂 Translating ${metaFiles.length} _meta.ts sidebar files...`)
+
+  for (const metaPath of metaFiles) {
+    const relativePath = relative(CONTENT_DIR, dirname(metaPath))
+    const metaKey = relativePath || '_root'
+    console.log(`\n  📁 ${metaKey}/_meta.ts`)
+
+    // Read and parse _meta.ts to extract string values
+    const raw = await readFile(metaPath, 'utf-8')
+    const labels: Record<string, string> = {}
+
+    // Match patterns like: key: 'Value' or "key": "Value" or 'key': 'Value'
+    const lineRegex = /['"]?([^'":\s]+)['"]?\s*:\s*['"]([^'"]+)['"]/g
+    let match
+    while ((match = lineRegex.exec(raw)) !== null) {
+      const [, key, value] = match
+      // Skip separator keys (---N---) and common non-translatable values
+      if (key.startsWith('---') || key === 'type' || key === 'display') continue
+      labels[key] = value
+    }
+
+    if (Object.keys(labels).length === 0) continue
+
+    // Translate to all locales
+    const CONCURRENCY = 5
+    for (let i = 0; i < TARGET_LOCALES.length; i += CONCURRENCY) {
+      const batch = TARGET_LOCALES.slice(i, i + CONCURRENCY)
+      await Promise.all(
+        batch.map(async (locale) => {
+          try {
+            const result = await translateMeta(labels, locale)
+            if (!result.success) {
+              console.error(`    ✗ ${locale}: ${result.error}`)
+              return
+            }
+
+            const outDir = join(TRANSLATIONS_DIR, locale, '_meta')
+            await mkdir(outDir, { recursive: true })
+            const outFile = join(outDir, `${metaKey === '_root' ? 'root' : metaKey.replace(/\//g, '__')}.json`)
+            await writeFile(outFile, JSON.stringify(result.labels, null, 2))
+            console.log(`    ✓ ${locale}`)
+          } catch (err) {
+            console.error(`    ✗ ${locale}: ${err}`)
+          }
+        })
+      )
+    }
+  }
+}
+
 async function main() {
   // Skip translation if no API key is set
   if (!process.env.GOOGLE_GENAI_API_KEY) {
@@ -171,7 +244,12 @@ async function main() {
   }
   await saveHashes(finalHashes)
 
-  console.log(`\n✓ Translation complete: ${totalSuccess} succeeded, ${totalFail} failed`)
+  console.log(`\n✓ Content translation complete: ${totalSuccess} succeeded, ${totalFail} failed`)
+
+  // Translate sidebar _meta.ts labels
+  await translateMetaFiles()
+
+  console.log('\n✓ All translations complete')
 }
 
 main().catch((error) => {

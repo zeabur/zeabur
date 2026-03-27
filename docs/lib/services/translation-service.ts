@@ -122,4 +122,74 @@ export async function translateMdxToAll(
   })
 }
 
+/**
+ * Translate sidebar _meta labels.
+ * Input: { key: "English Label", ... } (only string values — objects like { display: 'hidden' } are skipped)
+ * Output: { key: "Translated Label", ... }
+ */
+export async function translateMeta(
+  labels: Record<string, string>,
+  targetLocale: string
+): Promise<{ success: boolean; labels: Record<string, string>; error?: string }> {
+  const instruction = LOCALE_INSTRUCTIONS[targetLocale]
+  if (!instruction) {
+    return { success: false, labels: {}, error: `Unsupported locale: ${targetLocale}` }
+  }
+
+  // Build a simple key=value block for translation
+  const entries = Object.entries(labels)
+  if (entries.length === 0) {
+    return { success: true, labels: {} }
+  }
+
+  const inputBlock = entries.map(([k, v]) => `${k}=${v}`).join('\n')
+
+  try {
+    const response = await getClient().chat.completions.create({
+      model: process.env.TRANSLATION_MODEL || 'gemini-2.0-flash',
+      temperature: 0.1,
+      messages: [
+        {
+          role: 'system',
+          content: `You translate sidebar navigation labels for a documentation site.
+Rules:
+- Output ONLY key=value pairs, one per line, in the same order as input
+- Translate the value (right side of =) to the target language
+- Keep the key (left side of =) exactly as-is
+- Do NOT translate brand names: Zeabur, GitHub, Docker, AI Hub, Wonder Mesh, etc.
+- Do NOT translate programming language/framework names: Node.js, Python, Go, Java, PHP, etc.
+- Keep translations concise — sidebar labels should be short
+- Output nothing else — no explanations, no code fences`,
+        },
+        {
+          role: 'user',
+          content: `${instruction}\n\n${inputBlock}`,
+        },
+      ],
+    })
+
+    const text = response.choices[0]?.message?.content?.trim() || ''
+    const result: Record<string, string> = {}
+
+    for (const line of text.split('\n')) {
+      const eqIdx = line.indexOf('=')
+      if (eqIdx > 0) {
+        const key = line.slice(0, eqIdx).trim()
+        const value = line.slice(eqIdx + 1).trim()
+        if (key && value) {
+          result[key] = value
+        }
+      }
+    }
+
+    return { success: true, labels: result }
+  } catch (error) {
+    return {
+      success: false,
+      labels: {},
+      error: error instanceof Error ? error.message : String(error),
+    }
+  }
+}
+
 export { TARGET_LOCALES }

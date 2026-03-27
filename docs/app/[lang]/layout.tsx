@@ -6,6 +6,7 @@ import { getDictionary } from '../../lib/i18n/dictionaries'
 import { localeNames } from '../../lib/i18n/locales'
 import type { Locale } from '../../lib/i18n/locales'
 import FeedbackWidget from '../../components/FeedbackWidget'
+import { localizePageMap } from '../../lib/i18n/localize-page-map'
 import '../globals.css'
 
 // Build i18n config for Nextra Layout
@@ -24,7 +25,8 @@ export default async function LocaleLayout({
   const { lang } = await params
   const locale = lang as Locale
   const dictionary = await getDictionary(locale)
-  const pageMap = await getPageMap()
+  const rawPageMap = await getPageMap()
+  const pageMap = await localizePageMap(rawPageMap, locale)
 
   return (
     <LocaleProvider locale={locale} dictionary={dictionary}>
