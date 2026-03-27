@@ -1,0 +1,78 @@
+---
+title: Precios
+ogImageTitle: Pricing
+ogImageSubtitle: Zeabur Pricing
+---
+
+import { Callout } from 'nextra/components'
+
+# Precios
+
+Zeabur ofrece un modelo de precios basado en el consumo para tus proyectos. No recibirás facturas por recursos que no utilices.
+
+En su lugar, Zeabur cobra por minuto por cada recurso que tus servicios utilicen realmente.
+
+## Tarifas de precios
+
+<Callout type="warning">
+  Zeabur está eliminando gradualmente los clústeres compartidos (shared clusters). Ya no se pueden crear nuevos proyectos en clústeres compartidos, y los proyectos existentes en clústeres compartidos dejarán de aceptar nuevos servicios a partir del 1 de abril de 2026. Los servicios existentes continuarán funcionando. Para más detalles, consulta el [changelog](https://zeabur.com/changelogs/phasing-out-shared-cluster).
+</Callout>
+
+Existen dos tipos de servidores en Zeabur: _clústeres compartidos_ (shared clusters) y [_servidores dedicados_](/dedicated-server) (dedicated servers). Estas tarifas de precios se aplican solo a los **clústeres compartidos**, y no cobramos una tarifa de uso por los servidores dedicados.
+
+Del mismo modo, la cuota gratuita mensual de 5 USD del Plan Developer se aplica solo al uso de clústeres compartidos y no puede utilizarse para las tarifas de alquiler de servidores dedicados.
+
+Las tarifas por el uso en los **clústeres compartidos** son las siguientes:
+
+- vCPU - Sin coste (0,00 USD / vCPU-minuto)
+
+- Memoria - **0,00025 USD** / GB-minuto (aprox. 10,80 USD / GB-mes)
+  - Solo se te cobrará por la memoria que tus servicios utilicen realmente. Si tu servicio falla o se suspende, no incurrirás en cargos por uso de memoria.
+
+- Salida de red (Network Egress) - **0,10 USD** / GB (10,00 USD / 100 GB)
+  - 1 GB permite aproximadamente 1.000 visitantes únicos accediendo a tu página de 1 MiB sin CDN o compresión.
+  - La [red privada](/networking/private) (private networking) no cuenta como ancho de banda de salida.
+
+- Volumen persistente (Persistent Volume) - **0,20 USD** / GB-mes
+
+## Reembolsos
+
+Para cualquier problema relacionado con reembolsos, por favor contáctanos en [nuestro foro de la comunidad](https://zeabur.com/forum).
+
+Para el **Plan Developer** o el **Plan Team**, puedes solicitar un reembolso del saldo restante si cancelas tu suscripción. Por ejemplo, si cancelas tu Plan Developer después de usarlo durante 10 días, puedes recibir un reembolso por los 20 días restantes. Si solicitas un reembolso dentro de las primeras 24 horas, recibirás un reembolso completo.
+
+Para los usuarios de **Servidores Dedicados** (Dedicated Server), Zeabur ya no admite reembolsos para servidores creados o renovados después del 21 de julio de 2025. Para evitar que se te cobre en el próximo ciclo de facturación, puedes desactivar la configuración de renovación automática.
+
+> Ten en cuenta que esto solo afecta a los servidores creados o renovados después del 21 de julio de 2025.
+
+![disable auto renewal](/billing/pricing/auto-renewal.png)
+
+Puedes elegir recibir tu reembolso como créditos de Zeabur o de vuelta a tu método de pago original. Si optas por créditos de Zeabur, el reembolso suele procesarse instantáneamente tras la aprobación. Si eliges el reembolso a tu método de pago original, puede tardar hasta 7 días en procesarse y deberás pagar la comisión de transacción de Stripe, que es aproximadamente el 30% del importe reembolsado.
+
+## Preguntas frecuentes
+
+### ¿Cuál es la relación entre el VPS y los planes de suscripción?
+
+El VPS es el servidor que compras a proveedores de la nube con precios descontados a través de Zeabur. Los planes de suscripción proporcionan servicios de gestión adicionales sobre tu VPS, incluyendo un panel de control unificado, monitorización, copias de seguridad, Agente de IA (AI Agent) y soporte técnico.
+
+### ¿Por qué debería comprar un VPS a través de Zeabur?
+
+Zeabur ofrece precios exclusivos con descuento de los principales proveedores de la nube, además de una plataforma de gestión unificada. Obtienes precios más bajos, configuración instantánea, monitorización integrada, copias de seguridad automáticas y soporte prioritario, todo en un solo lugar.
+
+### ¿Qué plan de suscripción es el adecuado para mí?
+
+El Plan Free es ideal para empezar con acceso básico al panel de control. El Plan Developer es ideal para desarrolladores individuales que necesitan monitorización completa, copias de seguridad y Agente de IA. El Plan Team está diseñado para equipos que gestionan múltiples servidores con requisitos personalizados.
+
+### ¿Puedo usar Zeabur sin tarjeta de crédito?
+
+Sí. Puedes comprar créditos prepago sin tarjeta de crédito. Alipay también está disponible como método de pago alternativo. Consulta la [página de suscripción](/billing/subscription) para más detalles.
+
+### ¿Recibiré un recibo?
+
+Cuando realices un pago, recibirás un correo electrónico con tu factura y recibo adjuntos. También puedes encontrar tu historial de facturación en la [página de facturación](https://zeabur.com/account/billing).
+
+Si necesitas información de facturación personalizada en tus facturas (por ejemplo, nombre de la empresa, ID fiscal o dirección), debes suscribirte al **Plan Developer** o superior. Si requieres una factura formal, debes suscribirte al **Plan Team**.
+
+### ¿Qué proveedores de la nube son compatibles?
+
+Actualmente admitimos AWS (Lightsail), Hetzner, DigitalOcean, Tencent Cloud, Linode, Alibaba Cloud y Google Cloud (GCP). Estamos añadiendo continuamente más proveedores.

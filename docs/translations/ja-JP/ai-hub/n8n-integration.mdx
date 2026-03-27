@@ -1,0 +1,73 @@
+---
+title: n8n で Zeabur AI Hub を使用する
+ogImageTitle: n8n で Zeabur AI Hub を使用する
+ogImageSubtitle: Zeabur AI Hub を n8n ワークフローに統合する
+---
+
+import { Callout } from 'nextra/components'
+
+# n8n で Zeabur AI Hub を使用する
+
+n8n は、さまざまな AI モデルとの統合をサポートする強力なワークフロー自動化ツールです。このチュートリアルでは、OpenAI モデルを例として、Zeabur AI Hub の API を n8n で使用する方法を説明します。他のモデルでもプロセスは同様です。
+
+## 前提条件
+
+開始する前に、以下が準備されていることを確認してください：
+
+1. Zeabur に n8n サービスをデプロイしていること（[n8n テンプレート](https://zeabur.com/templates/JP88UN)を使用して素早くデプロイできます）
+2. [Zeabur AI Hub](https://zeabur.com/ai-hub) にクレジットを追加していること
+3. API キーを作成していること
+
+## OpenAI 認証情報の設定
+
+### ステップ 1：認証情報の追加
+
+1. n8n のインターフェースを開きます
+2. 右上の「Credentials（認証情報）」をクリックします
+3. 「+ Add Credential」をクリックします
+4. 「OpenAI」を検索して選択します
+
+![Add OpenAI Credential](https://cdn.zeabur.com/n8n-tutorial/1.%20add%20credential.png)
+
+### ステップ 2：API キーとベース URL の設定
+
+認証情報の設定ページで：
+
+1. **API Key**: AI Hub で作成した API キーを貼り付けます
+2. **Base URL**: Zeabur AI Hub のエンドポイントを入力します
+
+```
+https://hnd1.aihub.zeabur.ai/v1
+```
+
+または、必要に応じて他のリージョンのエンドポイントを選択してください：
+- **HND1 - 東京、日本**: `https://hnd1.aihub.zeabur.ai/v1`
+- **SFO1 - サンフランシスコ、米国**: `https://sfo1.aihub.zeabur.ai/v1`
+
+3. 「Save」をクリックします
+
+![Configure API Key and Base URL](https://cdn.zeabur.com/n8n-tutorial/2.%20configure.png)
+
+### ステップ 3：ワークフローノードへの認証情報の紐付けと Use Responses API の無効化
+
+1. ワークフローに AI を使用するノード（例：OpenAI Chat Model）を追加します
+2. 「Credential to connect with」で、作成したばかりの認証情報を選択します
+3. 「Use Responses API」オプションを見つけてオフにします
+
+<Callout type="warning">
+  Zeabur AI Hub を使用する際は、必ず「Use Responses API」機能を無効にしてください。そうしないと、API 呼び出しが失敗する可能性があります。
+</Callout>
+
+![Disable Use Responses API](https://cdn.zeabur.com/n8n-tutorial/3.%20turn%20off%20use%20responses%20api.png)
+
+### ステップ 4：接続テスト
+
+設定後、ワークフローを実行して設定を確認します。正しく設定されていれば、AI からの応答が正常に表示されます。
+
+![Successful Call](https://cdn.zeabur.com/n8n-tutorial/4.%20success.png)
+
+エラーが発生した場合は、以下を確認してください：
+- API キーが正しいか（余分なスペースがないか）
+- Base URL が正しく設定されているか
+- 「Use Responses API」が無効になっているか
+- Zeabur AI Hub アカウントに十分なクレジットがあるか

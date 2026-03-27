@@ -20,8 +20,5 @@ public/sitemap.xml
 # Pagefind output
 _pagefind/
 
-# Translation output
-translations/
-
 # Temporary files
 /tmp

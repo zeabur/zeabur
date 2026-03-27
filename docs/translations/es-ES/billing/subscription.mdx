@@ -1,0 +1,67 @@
+---
+title: Suscripción
+ogImageTitle: Subscription
+ogImageSubtitle: Subscription on Zeabur
+---
+
+import { Callout } from 'nextra/components';
+
+# Suscripción
+
+## ¿Qué es la Suscripción?
+
+Existen 3 tipos de planes en Zeabur: **Free Plan** (Plan Gratuito), **Developer Plan** (Plan Desarrollador) y **Team Plan** (Plan de Equipo).
+Puedes consultar los detalles de cada plan en la página de [planes](/billing/plans).
+
+Si no te has suscrito a ningún plan, se te considerará usuario del **Free Plan** por defecto.
+
+## ¿Cómo suscribirse?
+
+La suscripción de Zeabur se basa en [Stripe](https://stripe.com/).
+
+Hay 2 formas de suscribirse a un plan: **Tarjeta de crédito** y **Créditos prepagados** (Prepaid Credits).
+
+### Suscribirse con tarjeta de crédito
+
+Puedes suscribirte a un plan con tu tarjeta de crédito, pagando en USD.
+
+- Configuración sin suscripción: Ve a la [página de facturación](https://zeabur.com/account/billing), puedes configurar tu tarjeta de crédito en la sección **Payment Method** (Método de pago). Después de haber introducido la información de tu tarjeta, haz clic en el botón **Add** para guardarla; luego, simplemente haz clic en el botón **Subscribe** en la [página de planes](https://zeabur.com/pricing#upgrade) para actualizar tu suscripción.
+- Configuración con suscripción: Ve a la [página de planes](https://zeabur.com/pricing#upgrade) en el panel de control (dashboard), elige un plan e introduce la información de tu tarjeta de crédito. Haz clic en el botón **Subscribe** y serás redirigido a la página de pago de Stripe; rellena el formulario y quedarás suscrito al plan con tu tarjeta de crédito guardada.
+
+### Suscribirse con créditos prepagados
+
+Si no tienes una tarjeta de crédito compatible con el servicio de Stripe, puedes suscribirte a un plan comprando algunos créditos.
+
+Ve a la [página de facturación](https://zeabur.com/account/billing) en el panel de control, pulsa el botón **Get More Credits** para comprar créditos; luego, puedes ir a la [página de planes](https://zeabur.com/pricing#upgrade) en el panel de control para mejorar tu plan con los créditos que has comprado.
+
+![Get More Credits](/billing/subscription/get-more-credits.png)
+
+## Cómo cambiar el método de pago
+
+Si tu tarjeta es rechazada o quieres cambiar tu método de pago, puedes hacerlo en la [página de facturación](https://zeabur.com/account/billing).
+
+Desplázate hacia abajo hasta encontrar **Unbind Payment Method** (Desvincular método de pago) para desvincular la tarjeta de crédito actual y luego podrás configurar una nueva.
+
+## Cómo bajar al Plan Gratuito
+
+Si te has suscrito a un plan de pago, puedes bajar al **Free Plan** (downgrade) en cualquier momento.
+
+Ve a la [página de facturación en tu panel de control](https://zeabur.com/account/billing), desplázate hacia abajo hasta la zona de peligro (danger zone) para cancelar la suscripción.
+
+![Unsubscribe Plan](/billing/subscription/unsubscribe.png)
+
+<Callout>
+    Al bajar al Plan Gratuito, ya no incurrirás en ningún cargo. Sin embargo, tus servicios contenedorizados (containerized services) actualmente desplegados serán suspendidos automáticamente por el sistema.
+</Callout>
+
+## Facturas y recibos
+
+Cuando realices un pago, recibirás un correo electrónico con tu factura y recibo adjuntos.
+
+También puedes ver tu historial de facturación y descargar facturas anteriores en la [página de facturación](https://zeabur.com/account/billing).
+
+Si necesitas información de facturación personalizada en tus facturas (por ejemplo, nombre de la empresa, ID fiscal o dirección), debes suscribirte al **Developer Plan** o superior. Si requieres una factura formal, debes suscribirte al **Team Plan**.
+
+## Contacta con nosotros
+
+Si tienes alguna pregunta sobre la suscripción, por favor contáctanos en [nuestro foro de la comunidad](https://zeabur.com/forum).

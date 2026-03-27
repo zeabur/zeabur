@@ -18,16 +18,17 @@ const LOCALE_INSTRUCTIONS: Record<string, string> = {
   'zh-CN': 'Translate to Simplified Chinese (简体中文). Use mainland China terminology.',
   'ja-JP': 'Translate to Japanese (日本語). Use polite/formal register (です/ます).',
   'es-ES': 'Translate to European Spanish (Español).',
-  'ko-KR': 'Translate to Korean (한국어). Use formal register (합니다/습니다).',
-  'id-ID': 'Translate to Indonesian (Bahasa Indonesia).',
-  'th-TH': 'Translate to Thai (ภาษาไทย).',
-  'fr-FR': 'Translate to French (Français). Use formal "vous" form.',
-  'de-DE': 'Translate to German (Deutsch). Use formal "Sie" form.',
-  'it-IT': 'Translate to Italian (Italiano).',
-  'ar-SA': 'Translate to Arabic (العربية). Preserve RTL text direction. Use Modern Standard Arabic.',
-  'pt-BR': 'Translate to Brazilian Portuguese (Português do Brasil).',
-  'vi-VN': 'Translate to Vietnamese (Tiếng Việt).',
-  'hi-IN': 'Translate to Hindi (हिन्दी). Use Devanagari script.',
+  // ── Backlog locales (uncomment when ready) ──
+  // 'ko-KR': 'Translate to Korean (한국어). Use formal register (합니다/습니다).',
+  // 'id-ID': 'Translate to Indonesian (Bahasa Indonesia).',
+  // 'th-TH': 'Translate to Thai (ภาษาไทย).',
+  // 'fr-FR': 'Translate to French (Français). Use formal "vous" form.',
+  // 'de-DE': 'Translate to German (Deutsch). Use formal "Sie" form.',
+  // 'it-IT': 'Translate to Italian (Italiano).',
+  // 'ar-SA': 'Translate to Arabic (العربية). Preserve RTL text direction. Use Modern Standard Arabic.',
+  // 'pt-BR': 'Translate to Brazilian Portuguese (Português do Brasil).',
+  // 'vi-VN': 'Translate to Vietnamese (Tiếng Việt).',
+  // 'hi-IN': 'Translate to Hindi (हिन्दी). Use Devanagari script.',
 }
 
 const TARGET_LOCALES = Object.keys(LOCALE_INSTRUCTIONS)

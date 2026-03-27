@@ -1,0 +1,78 @@
+---
+title: 計費
+ogImageTitle: Pricing
+ogImageSubtitle: Zeabur 計費
+---
+
+import { Callout } from 'nextra/components'
+
+# 計費
+
+Zeabur 為您的專案提供隨用隨付 (consumption-based) 的計費模式。您不需要為未使用的資源支付任何費用。
+
+相反地，Zeabur 會根據您的服務實際使用的資源按分鐘計費。
+
+## 計費費率
+
+<Callout type="warning">
+  Zeabur 正在逐步淘汰共享叢集 (shared clusters)。新專案將無法再於共享叢集上建立，現有的共享叢集專案將從 2026 年 4 月 1 日起停止接受新服務。現有服務將繼續運行。更多詳情請參閱 [更新日誌](https://zeabur.com/changelogs/phasing-out-shared-cluster)。
+</Callout>
+
+Zeabur 提供兩種伺服器：*共享叢集* 與 [*專屬伺服器*](/dedicated-server)。這些計費費率僅適用於 **共享叢集**，我們不對專屬伺服器收取使用費。
+
+同樣地，開發者方案 (Developer Plan) 每月 5 美元的免費額度僅適用於共享叢集的使用量，不能用於抵扣專屬伺服器的租用費用。
+
+**共享叢集** 的使用費率如下：
+
+- vCPU - 免費 ($0.00 / vCPU-分鐘)
+
+- 記憶體 - **US$0.00025** / GB-分鐘 (約為 US$10.80 / GB-月)
+  - 您只需為服務實際使用的記憶體付費。如果您的服務崩潰或暫停，將不會產生任何記憶體使用費用。
+
+- 網路流出流量 (Network Egress) - **US$0.10** / GB (US$10.00 / 100GB)
+  - 1GB 約可容納 1,000 位不重複訪客在不使用 CDN 或壓縮的情況下訪問您的 1MiB 頁面。
+  - [內網穿透](/networking/private) 不計入流出頻寬。
+
+- 持久化儲存磁碟 (Persistent Volume) - **US$0.20** / GB-月
+
+## 退款
+
+如有任何退款問題，請透過 [我們的社群論壇](https://zeabur.com/forum) 與我們聯繫。
+
+對於 **開發者方案 (Developer Plan)** 或 **團隊方案 (Team Plan)**，如果您取消訂閱，可以申請退還剩餘餘額。例如，如果您在使用開發者方案 10 天後取消，您可以獲得剩餘 20 天的退款。如果您在 24 小時內申請退款，將獲得全額退款。
+
+對於 **專屬伺服器 (Dedicated Server)** 用戶，Zeabur 不再支援 2025 年 7 月 21 日之後建立或續約的伺服器退款。為了避免在下一個計費週期被扣費，您可以停用自動續約設定。
+
+> 請注意，這僅影響 2025 年 7 月 21 日之後建立或續約的伺服器。
+
+![disable auto renewal](/billing/pricing/auto-renewal.png)
+
+您可以選擇將退款以 Zeabur 額度 (credits) 的形式接收，或退回到原支付方式。如果您選擇 Zeabur 額度，退款通常在批准後立即處理。如果您選擇退回到原支付方式，可能需要長達 7 天的處理時間，且您需要支付 Stripe 交易手續費，約為退款金額的 30%。
+
+## 常見問題
+
+### VPS 與訂閱方案之間的關係是什麼？
+
+VPS 是您透過 Zeabur 以優惠價格向雲端供應商購買的伺服器。訂閱方案在您的 VPS 之上提供額外的管理服務，包括統一的控制面板 (dashboard)、監控、備份、AI Agent 和技術支援。
+
+### 為什麼我應該透過 Zeabur 購買 VPS？
+
+Zeabur 提供來自頂級雲端供應商的獨家折扣價格，以及統一的管理平台。您可以在同一個地方獲得更低的價格、即時設定、內建監控、自動備份和優先支援。
+
+### 哪個訂閱方案適合我？
+
+免費方案 (Free Plan) 非常適合入門，提供基本的控制面板存取。開發者方案 (Developer Plan) 適合需要完整監控、備份和 AI Agent 的個人開發者。團隊方案 (Team Plan) 則是為管理多台伺服器且有自定義需求的團隊設計的。
+
+### 我可以在沒有信用卡的情況下使用 Zeabur 嗎？
+
+可以。您可以在沒有信用卡的情況下購買預付額度。支付寶 (Alipay) 也可以作為替代支付方式。詳情請參閱 [訂閱頁面](/billing/subscription)。
+
+### 我會收到收據嗎？
+
+當您付款時，您將收到一封附有發票和收據的電子郵件。您也可以在 [計費頁面](https://zeabur.com/account/billing) 找到您的帳單歷史記錄。
+
+如果您需要在發票上自定義帳單資訊（例如公司名稱、統一編號或地址），您必須訂閱 **開發者方案 (Developer Plan)** 或以上。如果您需要正式發票，則必須訂閱 **團隊方案 (Team Plan)**。
+
+### 支援哪些雲端供應商？
+
+我們目前支援 AWS (Lightsail)、Hetzner、DigitalOcean、騰訊雲 (Tencent Cloud)、Linode、阿里雲 (Alibaba Cloud) 和 Google Cloud (GCP)。我們正在持續增加更多供應商。

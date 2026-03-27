@@ -1,0 +1,108 @@
+---
+title: 建置 (Builds)
+ogImageTitle: 建置 (Builds)
+ogImageSubtitle: Zeabur 如何將您的原始碼建置為服務？
+---
+
+# 建置 (Builds)
+
+Zeabur 使用 [zbpack](https://github.com/zeabur/zbpack) 作為內部工具來建置使用者服務，讓使用者無需了解複雜的細節，即可一鍵部署基於任何語言和框架的服務。
+
+目前，[zbpack]((https://github.com/zeabur/zbpack)) 已經支援所有主流的網頁開發程式語言，並進一步針對各個熱門的開發框架進行了識別與優化。同時，它也在不斷更新以支援新的程式語言和框架：
+
+- Node.js
+- Python
+- PHP
+- Ruby
+- Go
+- Java
+- .NET
+- Rust
+- Elixir
+
+如果您服務所使用的語言或框架不在上述列表中，或者您發現 zbpack 在建置過程中出現問題，請向 [GitHub](https://github.com/zeabur/zbpack/pulls) 提交 Pull Request，幫助我們改進 zbpack 的功能。
+
+當您在專案中使用 zbpack 建置服務時，它會根據專案中的程式碼、設定檔和其他資訊，自動識別服務所使用的語言和框架，並根據這些資訊選擇合適的方式來建置服務。
+
+## 產生建置計畫 (Generate Build Plan)
+
+例如，假設您開發了一個基於 [Next.js](https://nextjs.org/) 的網頁應用程式：
+
+```bash
+git clone https://github.com/zeabur/nextjs-template
+cd nextjs-template
+```
+
+當您在該專案的資料夾中執行 `zbpack` 指令時，您可以看到為此產生的自定義建置計畫：
+
+```bash
+zbpack .
+
+╔══════════════════════════════ Build Plan ═════════════════════════════╗
+║ provider         │ nodejs                                             ║
+║───────────────────────────────────────────────────────────────────────║
+║ nodeVersion      │ 18                                                 ║
+║───────────────────────────────────────────────────────────────────────║
+║ installCmd       │ pnpm install                                       ║
+║───────────────────────────────────────────────────────────────────────║
+║ buildCmd         │ pnpm run build                                     ║
+║───────────────────────────────────────────────────────────────────────║
+║ startCmd         │ pnpm start                                         ║
+║───────────────────────────────────────────────────────────────────────║
+║ packageManager   │ pnpm                                               ║
+║───────────────────────────────────────────────────────────────────────║
+║ framework        │ next.js                                            ║
+╚═══════════════════════════════════════════════════════════════════════╝
+```
+
+從圖中我們可以看到，`zbpack` 選擇使用 `nodejs` Provider 作為建置的解決方案提供者，這意味著它在後續計畫中將執行以下操作：
+
+1. 找出服務使用的 Node.js 版本
+2. 找出服務使用的套件管理器（Package Manager），是 `npm`、`yarn` 還是 `pnpm`
+3. 找出服務用於安裝依賴項（Dependencies）的指令
+4. 找出服務用於建置的指令
+5. 找出服務用於啟動的指令
+6. 找出服務使用的 Node.js 框架
+
+## 建置服務 (Build Service)
+
+接下來，zbpack 會根據此建置計畫產生一個 Dockerfile，然後自動使用該 Dockerfile 來建置服務：
+
+```bash
+[+] Building 41.3s (12/12) FINISHED                                                                     docker:orbstack
+ => [internal] load build definition from Dockerfile                                                               0.0s
+ => => transferring dockerfile: 252B                                                                               0.0s
+ => [internal] load .dockerignore                                                                                  0.0s
+ => => transferring context: 2B                                                                                    0.0s
+ => [internal] load metadata for docker.io/library/node:18                                                         5.8s
+ => [auth] library/node:pull token for registry-1.docker.io                                                        0.0s
+ => [1/6] FROM docker.io/library/node:18@sha256:a6385a6bb2fdcb7c48fc871e35e32af8daaa82c518900be49b76d10c005864c2   6.9s
+ => => resolve docker.io/library/node:18@sha256:a6385a6bb2fdcb7c48fc871e35e32af8daaa82c518900be49b76d10c005864c2   0.0s
+ => => sha256:abbec5595b9537799df6eea6f93a1552661377f75687094e8d13ce9b179b497d 2.00kB / 2.00kB                     0.0s
+ => => sha256:51ee0b4fe8ca047eee5dc463d2afd1fcf9483b64fb061b6ef57e0fbb57f8d47d 2.21MB / 2.21MB                     0.9s
+ => => sha256:6624995c9b1fad1812193314b121f2972746999eaf1892d5c3924e26c09b9180 452B / 452B                         0.7s
+ => => sha256:a6385a6bb2fdcb7c48fc871e35e32af8daaa82c518900be49b76d10c005864c2 1.21kB / 1.21kB                     0.0s
+ => => sha256:5a1e5ca67f6be51d2a1eb5a0b7a03516b1435508ced93c081b17580ba61cdc5a 45.96MB / 45.96MB                   3.0s
+ => => sha256:c2f4195685ceb2cbafde4d0021de1de57bc969df15a0025ed371100f1cccf364 7.54kB / 7.54kB                     0.0s
+ => => extracting sha256:5a1e5ca67f6be51d2a1eb5a0b7a03516b1435508ced93c081b17580ba61cdc5a                          3.7s
+ => => extracting sha256:51ee0b4fe8ca047eee5dc463d2afd1fcf9483b64fb061b6ef57e0fbb57f8d47d                          0.0s
+ => => extracting sha256:6624995c9b1fad1812193314b121f2972746999eaf1892d5c3924e26c09b9180                          0.0s
+ => [internal] load build context                                                                                  5.0s
+ => => transferring context: 171.44MB                                                                              5.0s
+ => [2/6] WORKDIR /src                                                                                             0.8s
+ => [3/6] RUN corepack enable && corepack prepare --all                                                            7.5s
+ => [4/6] COPY . .                                                                                                 2.4s
+ => [5/6] RUN pnpm install                                                                                         7.0s
+ => [6/6] RUN pnpm run build                                                                                       8.6s
+ => exporting to image                                                                                             2.3s
+ => => exporting layers                                                                                            2.3s
+ => => writing image sha256:d95f934faaefd82b38167ff158e8a31973edcd6a9ba7cc361999080345e80e38                       0.0s
+ => => naming to docker.io/library/nextjs-template                                                                 0.0s
+
+Build successful
+
+To run the image, use the following command:
+docker run -p 8080:8080 -it nextjs-template
+```
+
+接著，我們可以使用 `docker run -p 8080:8080 -it nextjs-template` 來啟動服務，然後在瀏覽器中開啟 `http://localhost:8080` 來存取服務。

@@ -1,0 +1,73 @@
+---
+title: 在 SillyTavern 中使用 Zeabur AI Hub
+ogImageTitle: 在 SillyTavern 中使用 Zeabur AI Hub
+ogImageSubtitle: 将 Zeabur AI Hub 集成到 SillyTavern
+---
+
+import { Callout } from 'nextra/components'
+
+# 在 SillyTavern 中使用 Zeabur AI Hub
+
+SillyTavern 是一款功能强大的 AI 角色扮演聊天界面，支持多种 AI 模型。本教程将解释如何在 SillyTavern 中使用 Zeabur AI Hub。
+
+## 前提条件
+
+在开始之前，请确保你已经：
+
+1. 安装或部署了 SillyTavern（你可以使用 [Zeabur 模板](https://zeabur.com/templates/DX09NM) 进行快速部署）
+2. 为 [Zeabur AI Hub](https://zeabur.com/ai-hub) 充值了余额 (credits)
+3. 创建了 API 密钥 (API key)
+
+## 设置步骤
+
+### 第一步：配置 API 连接
+
+1. 打开 SillyTavern 界面
+2. 点击顶部导航栏中的 **API Connections** 图标（看起来像一个插头）
+3. 在 **API** 下拉菜单中，选择 **Chat Completion (OpenAI)**
+4. 在 **Chat Completion Source** 中，选择 **Custom (OpenAI-compatible)**
+5. 在 **Custom Endpoint (Base URL)** 中，输入 Zeabur AI Hub 的端点 (endpoint)：
+
+```
+https://hnd1.aihub.zeabur.ai/v1
+```
+
+根据你的地理位置，你也可以选择其他区域的端点以获得更好的延迟：
+- **HND1 - 日本东京**：`https://hnd1.aihub.zeabur.ai/v1`
+- **SFO1 - 美国旧金山**：`https://sfo1.aihub.zeabur.ai/v1`
+
+6. 在 **Custom API key** 中，粘贴你在 Zeabur AI Hub 中创建的 API 密钥
+7. 点击 **Connect** 按钮
+8. 如果配置正确，你会看到连接指示灯变为**绿色**并显示 "Valid"
+9. 在 **Model** 下拉菜单中，选择你想要使用的 AI 模型
+
+![Configure API Key](https://cdn.zeabur.com/silly-tavern-tutorial/1.%20configure%20api%20key.png)
+
+常用模型包括：
+- `gpt-4`：最强大的模型，适用于复杂的对话
+- `gpt-4-turbo`：性能与成本的平衡
+- `gpt-3.5-turbo`：快速且经济
+- `claude-3-5-sonnet`：来自 Anthropic 的高质量模型
+- `deepseek-chat`：DeepSeek V3 (V3.1/V3.2) 模型，极佳的性价比
+- `kimi-k2`：Kimi k2 模型，性能卓越
+- `glm-4.6`：GLM 4.6 模型，性能卓越
+
+<Callout type="info">
+  我们**强烈建议**使用 DeepSeek 模型 (V3.1/V3.2) 以获得最佳体验。如果预算充足，我们也推荐使用 Kimi k2 和 GLM 4.6。
+</Callout>
+
+
+<Callout>
+  不同模型的定价不同。我们建议访问 [Zeabur Models](https://zeabur.com/models) 查看每个模型的定价信息。
+</Callout>
+
+如果连接失败，请检查：
+- API 密钥是否正确（没有多余的空格）
+- API URL 是否正确
+- 你的 AI Hub 账户是否有足够的余额
+
+### 第二步：测试聊天
+
+选择或创建一个角色 (Character) 并在聊天框中输入消息进行测试。如果配置正确，你应该能看到 AI 的成功回复。
+
+![Successful Call](https://cdn.zeabur.com/silly-tavern-tutorial/2.%20success.png)

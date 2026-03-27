@@ -6,11 +6,7 @@ const contentDir = './content'
 const publicDir = './public'
 
 // All supported locales
-const locales = [
-  'en-US', 'zh-TW', 'zh-CN', 'ja-JP', 'es-ES',
-  'ko-KR', 'id-ID', 'th-TH', 'fr-FR', 'de-DE',
-  'it-IT', 'ar-SA', 'pt-BR', 'vi-VN', 'hi-IN',
-]
+const locales = ['en-US', 'zh-TW', 'zh-CN', 'ja-JP', 'es-ES']
 const defaultLocale = 'en-US'
 
 // Marketplace templates from next.config.mjs

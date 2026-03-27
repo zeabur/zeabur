@@ -1,0 +1,73 @@
+---
+title: SillyTavern で Zeabur AI Hub を使用する
+ogImageTitle: SillyTavern で Zeabur AI Hub を使用する
+ogImageSubtitle: Zeabur AI Hub を SillyTavern に統合する
+---
+
+import { Callout } from 'nextra/components'
+
+# SillyTavern で Zeabur AI Hub を使用する
+
+SillyTavern は、複数の AI モデルをサポートする強力な AI ロールプレイチャットインターフェースです。このチュートリアルでは、SillyTavern で Zeabur AI Hub を使用する方法を説明します。
+
+## 前提条件
+
+開始する前に、以下が準備されていることを確認してください：
+
+1. SillyTavern をインストールまたはデプロイ済みであること（迅速なデプロイには [Zeabur テンプレート](https://zeabur.com/templates/DX09NM) を使用できます）
+2. [Zeabur AI Hub](https://zeabur.com/ai-hub) にクレジットを追加済みであること
+3. API キーを作成済みであること
+
+## セットアップ手順
+
+### ステップ 1: API 接続の設定
+
+1. SillyTavern のインターフェースを開きます
+2. 上部ナビゲーションバーにある **API Connections** アイコン（プラグのような形）をクリックします
+3. **API** ドロップダウンで **Chat Completion (OpenAI)** を選択します
+4. **Chat Completion Source** で **Custom (OpenAI-compatible)** を選択します
+5. **Custom Endpoint (Base URL)** に Zeabur AI Hub のエンドポイントを入力します：
+
+```
+https://hnd1.aihub.zeabur.ai/v1
+```
+
+地理的な場所に基づいて、より低いレイテンシ（latency、遅延）のために他のリージョンエンドポイントを選択することもできます：
+- **HND1 - 東京、日本**: `https://hnd1.aihub.zeabur.ai/v1`
+- **SFO1 - サンフランシスコ、米国**: `https://sfo1.aihub.zeabur.ai/v1`
+
+6. **Custom API key** に Zeabur AI Hub で作成した API キーを貼り付けます
+7. **Connect** ボタンをクリックします
+8. 正しく設定されると、接続インジケーターが **緑色** に変わり、「Valid」と表示されます
+9. **Model** ドロップダウンで、使用したい AI モデルを選択します
+
+![Configure API Key](https://cdn.zeabur.com/silly-tavern-tutorial/1.%20configure%20api%20key.png)
+
+人気のあるモデルには以下が含まれます：
+- `gpt-4`: 最も強力で、複雑な会話に適しています
+- `gpt-4-turbo`: パフォーマンスとコストのバランスが取れています
+- `gpt-3.5-turbo`: 高速で経済的です
+- `claude-3-5-sonnet`: Anthropic 社による高品質なモデルです
+- `deepseek-chat`: DeepSeek V3 (V3.1/V3.2) モデル、優れたコストパフォーマンスを誇ります
+- `kimi-k2`: Kimi k2 モデル、優れたパフォーマンスを誇ります
+- `glm-4.6`: GLM 4.6 モデル、優れたパフォーマンスを誇ります
+
+<Callout type="info">
+  最高の体験のために、DeepSeek モデル (V3.1/V3.2) の使用を**強く推奨**します。また、予算に余裕がある場合は Kimi k2 や GLM 4.6 もお勧めします。
+</Callout>
+
+
+<Callout>
+  モデルによって価格が異なります。各モデルの価格情報を確認するには、[Zeabur Models](https://zeabur.com/models) をご覧いただくことをお勧めします。
+</Callout>
+
+接続に失敗した場合は、以下を確認してください：
+- API キーが正しいか（余分なスペースがないか）
+- API URL が正しいか
+- AI Hub アカウントに十分なクレジットがあるか
+
+### ステップ 2: チャットのテスト
+
+キャラクターを選択または作成し、チャットボックスにメッセージを入力してテストします。正しく設定されていれば、AI からの応答が正常に表示されます。
+
+![Successful Call](https://cdn.zeabur.com/silly-tavern-tutorial/2.%20success.png)

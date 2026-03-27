@@ -1,0 +1,67 @@
+---
+title: 订阅
+ogImageTitle: Subscription
+ogImageSubtitle: Subscription on Zeabur
+---
+
+import { Callout } from 'nextra/components';
+
+# 订阅
+
+## 什么是订阅？
+
+Zeabur 提供 3 种类型的方案：**免费版 (Free Plan)**、**开发者版 (Developer Plan)** 和 **团队版 (Team Plan)**。
+您可以在 [方案](/billing/plans) 页面查看每个方案的详细信息。
+
+如果您尚未订阅任何方案，默认情况下您将被视为 **免费版** 用户。
+
+## 如何订阅？
+
+Zeabur 的订阅基于 [Stripe](https://stripe.com/)。
+
+订阅方案有两种方式：**信用卡 (Credit Card)** 和 **预付额度 (Prepaid Credits)**。
+
+### 使用信用卡订阅
+
+您可以使用信用卡订阅方案，以美元 (USD) 支付。
+
+- 未订阅时设置：前往 [计费页面](https://zeabur.com/account/billing)，您可以在 **支付方式 (Payment Method)** 栏目中设置您的信用卡。输入信用卡信息后，点击 **添加 (Add)** 按钮保存信用卡，然后只需在 [方案页面](https://zeabur.com/pricing#upgrade) 点击 **订阅 (Subscribe)** 按钮即可更新您的订阅。
+- 订阅时设置：前往控制台中的 [方案页面](https://zeabur.com/pricing#upgrade)，选择一个方案，然后输入您的信用卡信息，点击 **订阅 (Subscribe)** 按钮，您将被重定向到 Stripe 的结账页面，填写表单后即可完成订阅并保存您的信用卡。
+
+### 使用预付额度订阅
+
+如果您没有与 Stripe 服务兼容的信用卡，可以通过购买额度来订阅方案。
+
+前往控制台中的 [计费页面](https://zeabur.com/account/billing)，点击 **获取更多额度 (Get More Credits)** 按钮购买额度，然后您可以前往控制台中的 [方案页面](https://zeabur.com/pricing#upgrade)，使用购买的额度升级您的方案。
+
+![获取更多额度](/billing/subscription/get-more-credits.png)
+
+## 如何更改支付方式
+
+如果您的卡被拒绝或您想更改支付方式，可以在 [计费页面](https://zeabur.com/account/billing) 进行操作。
+
+向下滚动找到 **解绑支付方式 (Unbind Payment Method)** 以解绑当前信用卡，然后您可以设置新的信用卡。
+
+## 如何降级到免费版
+
+如果您已订阅付费方案，可以随时降级到 **免费版 (Free Plan)**。
+
+前往 [控制台中的计费页面](https://zeabur.com/account/billing)，向下滚动到用于取消订阅的危险区域。
+
+![取消订阅方案](/billing/subscription/unsubscribe.png)
+
+<Callout>
+    降级到免费版后，您将不再产生任何费用。但是，您当前部署的容器化服务 (Containerized services) 将被系统自动暂停。
+</Callout>
+
+## 发票与收据
+
+当您完成支付后，您将收到一封附有发票 (Invoice) 和收据 (Receipt) 的电子邮件。
+
+您还可以在 [计费页面](https://zeabur.com/account/billing) 查看计费历史记录并下载过往发票。
+
+如果您需要在发票上自定义计费信息（例如公司名称、纳税人识别号或地址），您必须订阅 **开发者版** 或以上方案。如果您需要正式发票，则必须订阅 **团队版**。
+
+## 联系我们
+
+如果您对订阅有任何疑问，请通过 [我们的社区论坛](https://zeabur.com/forum) 与我们联系。

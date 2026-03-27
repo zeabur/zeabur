@@ -1,0 +1,151 @@
+---
+title: AI Hub
+ogImageTitle: AI Hub
+ogImageSubtitle: Integra fácilmente múltiples modelos de IA en tus aplicaciones
+---
+
+import { Callout } from 'nextra/components'
+
+# AI Hub
+
+AI Hub es una plataforma de servicios de IA unificada que te permite acceder a múltiples modelos de IA (como OpenAI, Claude, etc.) a través de una única interfaz, con un sistema de precios transparente de pago por uso (pay-as-you-go) basado en el consumo real.
+
+## Características principales
+
+- **Soporte multimodelo**: Accede a los principales modelos de IA como OpenAI y Anthropic Claude.
+- **Gestión unificada de claves API**: Accede a todos los modelos soportados con una única clave API.
+- **Facturación transparente**: Pago por uso con un seguimiento completo del historial de consumo.
+- **Endpoints multirregión**: Elige el endpoint de API más adecuado para un rendimiento óptimo.
+- **Integración sencilla**: Compatible con el formato de la API de OpenAI para una rápida integración en aplicaciones existentes.
+
+## Inicio rápido
+
+### Paso 1: Añadir créditos
+
+1. Inicia sesión en el [Zeabur Dashboard](https://zeabur.com/projects).
+2. Navega a la página de **AI Hub**.
+3. En la sección "Balance Management" (Gestión de saldo), selecciona la cantidad que deseas añadir.
+4. Tras completar el pago, los créditos se añadirán inmediatamente a tu cuenta.
+
+### Paso 2: Crear una clave API
+
+1. En la página de AI Hub, haz clic en "Create API Key".
+2. Nombra tu clave API (por ejemplo, "Mi Aplicación").
+3. Copia la clave API generada y guárdala de forma segura.
+
+<Callout type="warning">
+  La clave API solo se muestra una vez al ser creada. Por favor, cópiala y guárdala en un lugar seguro de inmediato. Si se pierde, tendrás que crear una nueva clave.
+</Callout>
+
+### Paso 3: Usar la API
+
+Usar la API de Zeabur AI Hub es igual que usar la API de OpenAI. Solo necesitas:
+
+1. Establecer la URL base de la API (API Base URL) al endpoint de Zeabur AI Hub.
+2. Usar la clave API que creaste en AI Hub.
+
+```bash
+curl https://hnd1.aihub.zeabur.ai/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_ZEABUR_API_KEY" \
+  -d '{
+    "model": "gpt-4",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello!"
+      }
+    ]
+  }'
+```
+
+## Modelos soportados
+
+Zeabur AI Hub soporta varios modelos de IA populares:
+
+| Familia de modelos | Proveedor | Modelos representativos | Docs oficiales |
+| --- | --- | --- | --- |
+| **GPT** | [OpenAI](https://openai.com) | GPT-4o, GPT-4o mini, o1, o3-mini | [Documentación del modelo](https://platform.openai.com/docs/models) |
+| **Claude** | [Anthropic](https://www.anthropic.com) | Claude 3.5 Sonnet, Claude 3 Opus | [Documentación del modelo](https://docs.anthropic.com/en/docs/about-claude/models) |
+| **Grok** | [xAI](https://x.ai) | Grok-2 | [Documentación del modelo](https://docs.x.ai/docs) |
+
+<Callout>
+  La lista de modelos se desarrolla continuamente. Visita [Zeabur Models](https://zeabur.com/en-US/models) para ver la lista completa de modelos soportados y los precios en tiempo real.
+</Callout>
+
+## Endpoints de la API
+
+Zeabur AI Hub proporciona endpoints de API en múltiples regiones:
+
+### HND1 - Tokio, Japón
+```
+https://hnd1.aihub.zeabur.ai/
+```
+
+### SFO1 - San Francisco, EE. UU.
+```
+https://sfo1.aihub.zeabur.ai/
+```
+
+Elige el endpoint más cercano a la ubicación de despliegue de tu aplicación para una latencia óptima.
+
+## Facturación
+
+AI Hub utiliza un **sistema de créditos prepago**:
+
+1. Primero, añade créditos a tu cuenta.
+2. Cada llamada a la API deduce los créditos correspondientes según el modelo utilizado y el recuento de tokens.
+3. Consulta los registros de uso detallados y los costes en "Usage History" (Historial de uso).
+
+### Ver registros de uso
+
+En la página de AI Hub:
+1. Ve a la pestaña "Usage History".
+2. Consulta la información detallada de cada llamada a la API:
+   - Marca de tiempo (Timestamp)
+   - Nombre del modelo
+   - Uso de tokens
+   - Créditos consumidos
+
+## Mejores prácticas de seguridad
+
+- **Protege tu clave API**: No subas las claves API a sistemas de control de versiones.
+- **Usa variables de entorno**: Almacena las claves API en variables de entorno.
+- **Rotación regular**: Revoca periódicamente las claves API antiguas y crea otras nuevas.
+- **Monitoriza el uso**: Revisa regularmente el historial de uso para detectar llamadas a la API inusuales.
+
+## Ejemplos de integración
+
+Zeabur AI Hub se puede integrar fácilmente en diversas aplicaciones y herramientas:
+
+- [Uso de Zeabur AI Hub en n8n](./ai-hub/n8n-integration): Automatización de flujos de trabajo.
+- [Uso de Zeabur AI Hub en SillyTavern](./ai-hub/sillytavern-integration): Conversaciones de juegos de rol.
+- O cualquier aplicación que soporte el formato de la API de OpenAI.
+
+## Preguntas frecuentes (FAQ)
+
+### ¿Cómo puedo consultar mis créditos restantes?
+
+Puedes ver tus créditos restantes actuales en la sección "Balance Management" de la página de AI Hub.
+
+### ¿Caducan los créditos?
+
+Actualmente, los créditos de AI Hub no caducan.
+
+### ¿Puedo obtener un reembolso?
+
+Los créditos añadidos a tu cuenta no son reembolsables actualmente. Por favor, añade créditos según tus necesidades reales.
+
+### ¿Qué lenguajes de programación son compatibles?
+
+Zeabur AI Hub utiliza el formato estándar de la API de OpenAI y es compatible con todos los lenguajes de programación principales:
+- Python (paquete openai)
+- JavaScript/TypeScript (paquete openai)
+- Java, Go, Ruby, PHP, etc.
+
+Solo necesitas configurar la URL base de la API (API Base URL) y la clave API con los valores de Zeabur AI Hub.
+
+## Recursos relacionados
+
+- [Guía de integración de n8n](./ai-hub/n8n-integration)
+- [Guía de integración de SillyTavern](./ai-hub/sillytavern-integration)

@@ -1,0 +1,108 @@
+---
+title: Compilaciones
+ogImageTitle: Compilaciones
+ogImageSubtitle: ¿Cómo compila Zeabur tu código fuente en un servicio?
+---
+
+# Compilaciones
+
+Zeabur utiliza [zbpack](https://github.com/zeabur/zbpack) como herramienta interna para compilar los servicios de los usuarios, de modo que estos puedan desplegar servicios basados en cualquier lenguaje y framework (entorno de trabajo) con un solo clic sin necesidad de entender los detalles complejos.
+
+Por ahora, [zbpack](https://github.com/zeabur/zbpack) es compatible con todos los lenguajes de programación principales para el desarrollo web, y se ha optimizado específicamente para cada framework de desarrollo popular. Al mismo tiempo, se actualiza constantemente para nuevos lenguajes de programación y frameworks:
+
+- Node.js
+- Python
+- PHP
+- Ruby
+- Go
+- Java
+- .NET
+- Rust
+- Elixir
+
+Si el lenguaje o framework utilizado por tu servicio no está en la lista anterior, o si encuentras que zbpack tiene algún problema durante el proceso de compilación (build), por favor contribuye con un Pull Request en [GitHub](https://github.com/zeabur/zbpack/pulls) para ayudarnos a mejorar la funcionalidad de zbpack.
+
+Cuando utilizas zbpack para compilar un servicio en un proyecto, este identificará automáticamente el lenguaje y el framework utilizados por el servicio basándose en el código, los archivos de configuración y otra información del proyecto, y de acuerdo con esta información, elegirá la forma adecuada de compilar el servicio.
+
+## Generar plan de compilación
+
+Por ejemplo, supongamos que has desarrollado una aplicación web basada en [Next.js](https://nextjs.org/):
+
+```bash
+git clone https://github.com/zeabur/nextjs-template
+cd nextjs-template
+```
+
+Cuando ejecutas el comando `zbpack` en la carpeta de este proyecto, puedes ver el plan de compilación (build plan) personalizado para el mismo:
+
+```bash
+zbpack .
+
+╔══════════════════════════════ Build Plan ═════════════════════════════╗
+║ provider         │ nodejs                                             ║
+║───────────────────────────────────────────────────────────────────────║
+║ nodeVersion      │ 18                                                 ║
+║───────────────────────────────────────────────────────────────────────║
+║ installCmd       │ pnpm install                                       ║
+║───────────────────────────────────────────────────────────────────────║
+║ buildCmd         │ pnpm run build                                     ║
+║───────────────────────────────────────────────────────────────────────║
+║ startCmd         │ pnpm start                                         ║
+║───────────────────────────────────────────────────────────────────────║
+║ packageManager   │ pnpm                                               ║
+║───────────────────────────────────────────────────────────────────────║
+║ framework        │ next.js                                            ║
+╚═══════════════════════════════════════════════════════════════════════╝
+```
+
+En la figura, podemos ver que `zbpack` elige utilizar el `nodejs` Provider (proveedor) como proveedor de la solución para la compilación, lo que significa que hará lo siguiente en el plan posterior:
+
+1. Averiguar qué versión de Node.js utiliza el servicio.
+2. Averiguar qué gestor de paquetes utiliza el servicio, ya sea `npm`, `yarn` o `pnpm`.
+3. Averiguar qué comando utiliza el servicio para instalar las dependencias.
+4. Averiguar qué comando utiliza el servicio para compilar.
+5. Averiguar qué comando utiliza el servicio para arrancar.
+6. Averiguar qué framework de Node.js utiliza el servicio.
+
+## Compilar el servicio
+
+A continuación, zbpack generará un Dockerfile basado en este plan de compilación y, después, utilizará automáticamente este Dockerfile para compilar el servicio:
+
+```bash
+[+] Building 41.3s (12/12) FINISHED                                                                     docker:orbstack
+ => [internal] load build definition from Dockerfile                                                               0.0s
+ => => transferring dockerfile: 252B                                                                               0.0s
+ => [internal] load .dockerignore                                                                                  0.0s
+ => => transferring context: 2B                                                                                    0.0s
+ => [internal] load metadata for docker.io/library/node:18                                                         5.8s
+ => [auth] library/node:pull token for registry-1.docker.io                                                        0.0s
+ => [1/6] FROM docker.io/library/node:18@sha256:a6385a6bb2fdcb7c48fc871e35e32af8daaa82c518900be49b76d10c005864c2   6.9s
+ => => resolve docker.io/library/node:18@sha256:a6385a6bb2fdcb7c48fc871e35e32af8daaa82c518900be49b76d10c005864c2   0.0s
+ => => sha256:abbec5595b9537799df6eea6f93a1552661377f75687094e8d13ce9b179b497d 2.00kB / 2.00kB                     0.0s
+ => => sha256:51ee0b4fe8ca047eee5dc463d2afd1fcf9483b64fb061b6ef57e0fbb57f8d47d 2.21MB / 2.21MB                     0.9s
+ => => sha256:6624995c9b1fad1812193314b121f2972746999eaf1892d5c3924e26c09b9180 452B / 452B                         0.7s
+ => => sha256:a6385a6bb2fdcb7c48fc871e35e32af8daaa82c518900be49b76d10c005864c2 1.21kB / 1.21kB                     0.0s
+ => => sha256:5a1e5ca67f6be51d2a1eb5a0b7a03516b1435508ced93c081b17580ba61cdc5a 45.96MB / 45.96MB                   3.0s
+ => => sha256:c2f4195685ceb2cbafde4d0021de1de57bc969df15a0025ed371100f1cccf364 7.54kB / 7.54kB                     0.0s
+ => => extracting sha256:5a1e5ca67f6be51d2a1eb5a0b7a03516b1435508ced93c081b17580ba61cdc5a                          3.7s
+ => => extracting sha256:51ee0b4fe8ca047eee5dc463d2afd1fcf9483b64fb061b6ef57e0fbb57f8d47d                          0.0s
+ => => extracting sha256:6624995c9b1fad1812193314b121f2972746999eaf1892d5c3924e26c09b9180                          0.0s
+ => [internal] load build context                                                                                  5.0s
+ => => transferring context: 171.44MB                                                                              5.0s
+ => [2/6] WORKDIR /src                                                                                             0.8s
+ => [3/6] RUN corepack enable && corepack prepare --all                                                            7.5s
+ => [4/6] COPY . .                                                                                                 2.4s
+ => [5/6] RUN pnpm install                                                                                         7.0s
+ => [6/6] RUN pnpm run build                                                                                       8.6s
+ => exporting to image                                                                                             2.3s
+ => => exporting layers                                                                                            2.3s
+ => => writing image sha256:d95f934faaefd82b38167ff158e8a31973edcd6a9ba7cc361999080345e80e38                       0.0s
+ => => naming to docker.io/library/nextjs-template                                                                 0.0s
+
+Build successful
+
+To run the image, use the following command:
+docker run -p 8080:8080 -it nextjs-template
+```
+
+Después, podemos usar `docker run -p 8080:8080 -it nextjs-template` para iniciar el servicio y luego abrir `http://localhost:8080` en el navegador para acceder al servicio.

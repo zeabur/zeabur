@@ -1,0 +1,67 @@
+---
+title: サブスクリプション
+ogImageTitle: サブスクリプション
+ogImageSubtitle: Zeabur でのサブスクリプション
+---
+
+import { Callout } from 'nextra/components';
+
+# サブスクリプション
+
+## サブスクリプションとは？
+
+Zeabur には、**Free Plan**（フリープラン）、**Developer Plan**（デベロッパープラン）、**Team Plan**（チームプラン）の 3 種類のプランがあります。
+各プランの詳細は [plans](/billing/plans) ページで確認できます。
+
+どのプランにもサブスクライブしていない場合、デフォルトで **Free Plan** ユーザーとして扱われます。
+
+## サブスクライブする方法
+
+Zeabur のサブスクリプションは [Stripe](https://stripe.com/) に基づいています。
+
+プランをサブスクライブするには、**クレジットカード**と**プリペイドクレジット**の 2 つの方法があります。
+
+### クレジットカードでサブスクライブする
+
+クレジットカードを使用して、米ドル（USD）でプランをサブスクライブできます。
+
+- サブスクリプションなしで設定する場合：[billing ページ](https://zeabur.com/account/billing)に移動し、**Payment Method**（支払い方法）セクションでクレジットカードを設定できます。クレジットカード情報を入力した後、**Add** ボタンをクリックしてカードを保存します。その後、[plan ページ](https://zeabur.com/pricing#upgrade)で **Subscribe** ボタンをクリックするだけで、サブスクリプションを更新できます。
+- サブスクリプションと同時に設定する場合：ダッシュボードの [plan ページ](https://zeabur.com/pricing#upgrade)に移動してプランを選択し、クレジットカード情報を入力して **Subscribe** ボタンをクリックします。Stripe のチェックアウトページにリダイレクトされるので、フォームに入力すると、クレジットカードが保存され、プランのサブスクライブが完了します。
+
+### プリペイドクレジットでサブスクライブする
+
+Stripe サービスに対応したクレジットカードをお持ちでない場合は、クレジットを購入してプランをサブスクライブできます。
+
+ダッシュボードの [billing ページ](https://zeabur.com/account/billing)に移動し、**Get More Credits** ボタンを押してクレジットを購入します。その後、ダッシュボードの [plan ページ](https://zeabur.com/pricing#upgrade)に移動し、購入したクレジットを使用してプランをアップグレードできます。
+
+![Get More Credits](/billing/subscription/get-more-credits.png)
+
+## 支払い方法を変更する方法
+
+カードが拒否された場合や、支払い方法を変更したい場合は、[billing ページ](https://zeabur.com/account/billing)で行うことができます。
+
+下にスクロールして **Unbind Payment Method** を見つけ、現在のクレジットカードの連携を解除します。その後、新しいクレジットカードを設定できます。
+
+## Free Plan にダウングレードする方法
+
+有料プランをサブスクライブしている場合、いつでも **Free Plan** にダウングレードできます。
+
+[ダッシュボードの billing ページ](https://zeabur.com/account/billing)に移動し、サブスクリプション解除のための危険地帯（Danger Zone）までスクロールします。
+
+![Unsubscribe Plan](/billing/subscription/unsubscribe.png)
+
+<Callout>
+    Free Plan にダウングレードすると、それ以降の料金は発生しません。ただし、現在デプロイされているコンテナ化されたサービスは、システムによって自動的に停止されます。
+</Callout>
+
+## 請求書と領収書
+
+支払いを行うと、請求書と領収書が添付されたメールが届きます。
+
+また、[billing ページ](https://zeabur.com/account/billing)で支払履歴の確認や過去の請求書のダウンロードが可能です。
+
+請求書にカスタマイズされた請求情報（会社名、納税者番号、住所など）が必要な場合は、**Developer Plan** 以上のサブスクライブが必要です。正式な請求書が必要な場合は、**Team Plan** をサブスクライブする必要があります。
+
+## お問い合わせ
+
+サブスクリプションに関するご質問がある場合は、[コミュニティフォーラム](https://zeabur.com/forum)までお問い合わせください。
