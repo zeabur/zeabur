@@ -3,7 +3,7 @@ import { getPageMap } from 'nextra/page-map'
 import { LocaleProvider } from '../../components/locale-provider'
 import { LocaleSwitcher } from '../../components/locale-switcher'
 import { getDictionary } from '../../lib/i18n/dictionaries'
-import { isRtl, localeNames } from '../../lib/i18n/locales'
+import { localeNames } from '../../lib/i18n/locales'
 import type { Locale } from '../../lib/i18n/locales'
 import FeedbackWidget from '../../components/FeedbackWidget'
 import '../globals.css'
@@ -12,7 +12,6 @@ import '../globals.css'
 const i18n = Object.entries(localeNames).map(([locale, name]) => ({
   locale,
   name,
-  direction: isRtl(locale as Locale) ? ('rtl' as const) : ('ltr' as const),
 }))
 
 export default async function LocaleLayout({
@@ -25,7 +24,7 @@ export default async function LocaleLayout({
   const { lang } = await params
   const locale = lang as Locale
   const dictionary = await getDictionary(locale)
-  const pageMap = await getPageMap(lang)
+  const pageMap = await getPageMap()
 
   return (
     <LocaleProvider locale={locale} dictionary={dictionary}>
