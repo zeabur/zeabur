@@ -1,0 +1,51 @@
+---
+title: Gestión de Dominios
+ogImageTitle: Gestión de Dominios
+ogImageSubtitle: Gestiona dominios registrados en Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Gestión de Dominios
+
+La página de gestión de dominios lista todos los dominios registrados bajo tu cuenta.
+
+## Estado del Dominio
+
+Cada dominio tiene uno de los siguientes estados:
+
+| Estado | Descripción |
+|--------|-------------|
+| **Active** | El dominio está registrado y funciona normalmente. |
+| **Pending** | El registro se está procesando. |
+| **Expired** | El dominio ha pasado su fecha de vencimiento. |
+| **Suspended** | El dominio está suspendido (ej., registrante no verificado). |
+| **Failed** | El registro falló. |
+
+Usa el filtro de estado para reducir la lista cuando tengas muchos dominios.
+
+Los dominios que vencen en menos de 30 días muestran una advertencia en la columna de vencimiento.
+
+## Renovación Automática
+
+Cada dominio tiene un interruptor de renovación automática en la tabla de gestión. Cuando está habilitado, Zeabur renueva automáticamente el dominio antes de que expire usando tu método de pago registrado.
+
+Activa o desactiva la renovación automática directamente desde la fila de la tabla — no es necesario abrir la página de detalles.
+
+## Renovación Manual
+
+Para renovar manualmente un dominio:
+
+1. Haz clic en un dominio para abrir su página de detalles.
+2. Haz clic en el botón **Renovar** en el encabezado. El botón muestra el precio de renovación.
+3. Completa el flujo de pago.
+
+<Callout type="info">
+  La página de detalles muestra tanto el precio de compra original como el precio de renovación como referencia.
+</Callout>
+
+## Integración con Zeabur Email
+
+Desde la página de detalles del dominio, puedes conectar tu dominio a **Zeabur Email** con un clic. Selecciona una región de envío y los registros DNS necesarios (DKIM, SPF, DMARC) se crean automáticamente.
+
+Consulta la documentación de [Gestión de Dominios de Zeabur Email](/email/domains) para más detalles.

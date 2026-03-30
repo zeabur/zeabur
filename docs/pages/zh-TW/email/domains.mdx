@@ -6,11 +6,15 @@ ogImageSubtitle: 驗證和管理發件網域
 
 # 網域管理
 
+import { Callout, Steps } from 'nextra/components'
+
 要使用 Zeabur Email 發送郵件，您需要先驗證發件網域。網域驗證確保您擁有該網域，並提高郵件送達率。
 
-## 為什麼需要驗證網域
+<Callout type="info">
+  **推薦透過 [Zeabur Domain](/domain) 註冊網域。** 透過 Zeabur Domain 註冊的網域，可以在網域詳情頁一鍵設定 Zeabur Email，所需的 DNS 記錄（DKIM、SPF、DMARC）會自動建立，無需手動設定。
+</Callout>
 
-import { Callout, Steps } from 'nextra/components'
+## 為什麼需要驗證網域
 
 <Callout type="info">
   未經驗證的網域無法用於發送郵件。網域驗證透過 DKIM、SPF 和 DMARC 記錄提高郵件的可信度。

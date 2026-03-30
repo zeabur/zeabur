@@ -6,11 +6,15 @@ ogImageSubtitle: 送信者ドメインの検証と管理
 
 # ドメイン管理
 
+import { Callout, Steps } from 'nextra/components'
+
 Zeabur Email でメールを送信するには、まず送信者ドメインを検証する必要があります。ドメイン検証により、ドメインの所有権が確認され、メールの配信性が向上します。
 
-## ドメイン検証が必要な理由
+<Callout type="info">
+  **推奨：[Zeabur Domain](/domain) でドメインを登録してください。** Zeabur Domain で登録したドメインは、ドメイン詳細ページからワンクリックで Zeabur Email を設定でき、必要な DNS レコード（DKIM、SPF、DMARC）が自動的に作成されます。手動設定は不要です。
+</Callout>
 
-import { Callout, Steps } from 'nextra/components'
+## ドメイン検証が必要な理由
 
 <Callout type="info">
   検証されていないドメインはメール送信に使用できません。ドメイン検証は、DKIM、SPF、DMARC レコードを通じてメールの信頼性を向上させます。

@@ -6,11 +6,15 @@ ogImageSubtitle: Verificar y Gestionar Dominios de Envío
 
 # Gestión de Dominios
 
+import { Callout, Steps } from 'nextra/components'
+
 Para enviar correos con Zeabur Email, primero debe verificar su dominio de envío. La verificación de dominio asegura que usted es el propietario del dominio y mejora la entregabilidad del correo.
 
-## Por Qué se Requiere la Verificación de Dominio
+<Callout type="info">
+  **Recomendado: Registre su dominio con [Zeabur Domain](/domain).** Los dominios registrados a través de Zeabur Domain se pueden configurar con Zeabur Email en un clic desde la página de detalles del dominio — todos los registros DNS necesarios (DKIM, SPF, DMARC) se crean automáticamente, sin configuración manual.
+</Callout>
 
-import { Callout, Steps } from 'nextra/components'
+## Por Qué se Requiere la Verificación de Dominio
 
 <Callout type="info">
   Los dominios no verificados no se pueden usar para enviar correos. La verificación de dominio mejora la credibilidad del correo a través de registros DKIM, SPF y DMARC.

@@ -10,6 +10,7 @@ export default {
   // ── 產品 ──────────────────────────────────────────────────────────────
   '---2---': { type: 'separator' },
   'ai-hub':           'AI Hub',
+  domain:             '網域',
   email:              'Email',
   'wonder-mesh':      'Wonder Mesh',
   template:           '模板',

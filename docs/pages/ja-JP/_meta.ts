@@ -10,6 +10,7 @@ export default {
   // ── プロダクト ───────────────────────────────────────────────────────────
   '---2---': { type: 'separator' },
   'ai-hub':           'AI Hub',
+  domain:             'ドメイン',
   email:              'Email',
   'wonder-mesh':      'Wonder Mesh',
   template:           'テンプレート',
