@@ -5,6 +5,7 @@ ogImageSubtitle: Search and purchase domains on Zeabur
 ---
 
 import { Callout, Steps } from 'nextra/components'
+import LastUpdated from 'components/LastUpdated'
 
 # Register a Domain
 
@@ -17,7 +18,7 @@ import { Callout, Steps } from 'nextra/components'
 
 Open the **Domains** section from the sidebar and enter the domain name you want. Zeabur checks availability across 9 TLDs (`.com`, `.net`, `.org`, `.io`, `.dev`, `.app`, `.co`, `.me`, `.xyz`) simultaneously.
 
-Results load progressively — popular TLDs (`.com`, `.dev`, `.app`, `.io`) appear first, followed by the rest. Pricing is displayed in real time next to each result.
+Results load progressively — popular TLDs (`.com`, `.dev`, `.app`, `.io`) appear first, followed by the rest. Pricing is displayed in real-time next to each result.
 
 If you type a full domain like `example.com`, a **Best Match** card appears at the top with the exact result.
 
@@ -46,9 +47,11 @@ After payment, the domain enters **Pending** status while registration is being 
 Some TLDs require the registrant to verify their email address after purchase. If verification is required:
 
 1. A verification email is sent to the email address in your registrant profile.
-2. The domain card in the management page shows a **Verification Pending** badge.
+2. The domain card in the management page shows a **Verification Pending** badge (a visual indicator shown on Active domains).
 3. Click the badge or go to the domain detail page to resend the verification email if needed.
 
 <Callout type="warning">
   Domains that remain unverified may be suspended by the registry. Complete verification promptly after purchase.
 </Callout>
+
+<LastUpdated />
