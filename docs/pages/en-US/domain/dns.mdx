@@ -1,0 +1,65 @@
+---
+title: DNS Records
+ogImageTitle: DNS Records
+ogImageSubtitle: Manage DNS records for your registered domain
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# DNS Records
+
+
+Each registered domain has a DNS editor on its detail page. Click any domain in the management list to access it.
+
+## Supported Record Types
+
+| Type | Description | Proxy Support |
+|------|-------------|---------------|
+| **A** | Maps a domain to an IPv4 address | Yes |
+| **AAAA** | Maps a domain to an IPv6 address | Yes |
+| **CNAME** | Alias to another domain name | Yes |
+| **MX** | Mail exchange server | No |
+| **TXT** | Arbitrary text (SPF, DKIM, verification, etc.) | No |
+| **SRV** | Service locator | No |
+| **CAA** | Certificate authority authorization | No |
+| **NS** | Nameserver delegation | No |
+
+## Adding a Record
+
+<Steps>
+
+### Open the DNS Editor
+
+Navigate to the domain detail page and click **Add Record** above the DNS records table.
+
+### Fill in the Record
+
+- **Type**: Select the record type from the dropdown.
+- **Name**: The subdomain or `@` for the root domain.
+- **Content**: The record value (IP address, hostname, text, etc.).
+- **TTL**: Time to live. Select from preset values (auto, 60s, 300s, 3600s, 86400s, etc.). When proxy is enabled, TTL is set to auto.
+- **Priority**: Required for MX and SRV records.
+- **Proxy**: Available for A, AAAA, and CNAME records only. See [Cloudflare Proxy](#cloudflare-proxy) below.
+
+### Save
+
+Click **Save** to create the record. Changes typically propagate within a few minutes.
+
+</Steps>
+
+## Editing and Deleting Records
+
+- Click the **edit icon** on a record row to modify its content, TTL, priority, or proxy setting. The record type and name cannot be changed after creation — delete and recreate the record if needed.
+- Click the **delete icon** to remove a record.
+
+## Cloudflare Proxy
+
+A, AAAA, and CNAME records have a proxy toggle. When enabled:
+
+- Traffic is routed through Cloudflare, providing DDoS protection, caching, and SSL termination.
+- TTL is automatically set to **Auto** and cannot be changed manually.
+- The actual origin IP address is hidden from DNS lookups.
+
+<Callout type="info">
+  Proxy is off by default. Enable it when you want Cloudflare's protection and performance features for that record.
+</Callout>

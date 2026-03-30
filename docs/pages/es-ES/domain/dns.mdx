@@ -1,0 +1,65 @@
+---
+title: Registros DNS
+ogImageTitle: Registros DNS
+ogImageSubtitle: Gestiona los registros DNS de tu dominio registrado
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Registros DNS
+
+
+Cada dominio registrado tiene un editor DNS en su página de detalle. Haz clic en cualquier dominio de la lista de gestión para acceder.
+
+## Tipos de registro compatibles
+
+| Tipo | Descripción | Soporte de proxy |
+|------|-------------|-----------------|
+| **A** | Asocia un dominio a una dirección IPv4 | Sí |
+| **AAAA** | Asocia un dominio a una dirección IPv6 | Sí |
+| **CNAME** | Alias hacia otro nombre de dominio | Sí |
+| **MX** | Servidor de intercambio de correo | No |
+| **TXT** | Texto arbitrario (SPF, DKIM, verificación, etc.) | No |
+| **SRV** | Localizador de servicios | No |
+| **CAA** | Autorización de autoridad de certificación | No |
+| **NS** | Delegación de servidor de nombres | No |
+
+## Añadir un registro
+
+<Steps>
+
+### Abrir el editor DNS
+
+Navega a la página de detalle del dominio y haz clic en **Añadir registro** encima de la tabla de registros DNS.
+
+### Completar el registro
+
+- **Tipo**: Selecciona el tipo de registro del menú desplegable.
+- **Nombre**: El subdominio o `@` para el dominio raíz.
+- **Contenido**: El valor del registro (dirección IP, nombre de host, texto, etc.).
+- **TTL**: Tiempo de vida. Selecciona entre los valores predefinidos (auto, 60s, 300s, 3600s, 86400s, etc.). Cuando el proxy está activado, el TTL se establece automáticamente en auto.
+- **Prioridad**: Obligatorio para registros MX y SRV.
+- **Proxy**: Disponible solo para registros A, AAAA y CNAME. Consulta [Proxy de Cloudflare](#proxy-de-cloudflare) a continuación.
+
+### Guardar
+
+Haz clic en **Guardar** para crear el registro. Los cambios normalmente se propagan en pocos minutos.
+
+</Steps>
+
+## Editar y eliminar registros
+
+- Haz clic en el **icono de edición** en la fila del registro para modificar su contenido, TTL, prioridad o configuración de proxy. El tipo y nombre del registro no se pueden cambiar después de la creación; elimina y recrea el registro si es necesario.
+- Haz clic en el **icono de eliminación** para borrar un registro.
+
+## Proxy de Cloudflare
+
+Los registros A, AAAA y CNAME tienen un interruptor de proxy. Cuando está activado:
+
+- El tráfico se enruta a través de Cloudflare, proporcionando protección DDoS, caché y terminación SSL.
+- El TTL se establece automáticamente en **Auto** y no se puede cambiar manualmente.
+- La dirección IP real del origen queda oculta en las consultas DNS.
+
+<Callout type="info">
+  El proxy está desactivado por defecto. Actívalo cuando quieras las funciones de protección y rendimiento de Cloudflare para ese registro.
+</Callout>

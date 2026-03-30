@@ -1,0 +1,52 @@
+---
+title: Domain Management
+ogImageTitle: Domain Management
+ogImageSubtitle: Manage registered domains on Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Domain Management
+
+
+The domain management page lists all domains registered under your account.
+
+## Domain Status
+
+Each domain has one of the following statuses:
+
+| Status | Description |
+|--------|-------------|
+| **Active** | Domain is registered and working normally. |
+| **Pending** | Registration is being processed. |
+| **Expired** | Domain has passed its expiration date. |
+| **Suspended** | Domain is suspended (e.g., due to unverified registrant). |
+| **Failed** | Registration failed. |
+
+Use the status filter dropdown to narrow the list when you have many domains.
+
+Domains expiring within 30 days display a warning in the expiration column.
+
+## Auto-Renewal
+
+Each domain has an auto-renewal toggle in the management table. When enabled, Zeabur automatically renews the domain before it expires using your payment method on file.
+
+Toggle auto-renewal on or off directly from the table row — no need to open the detail page.
+
+## Manual Renewal
+
+To manually renew a domain:
+
+1. Click a domain to open its detail page.
+2. Click the **Renew** button in the header. The button shows the renewal price.
+3. Complete the checkout flow.
+
+<Callout type="info">
+  The detail page displays both the original purchase price and the renewal price for reference.
+</Callout>
+
+## Zeabur Email Integration
+
+From the domain detail page, you can connect your domain to **Zeabur Email** in one click. Select a sending region and the required DNS records (DKIM, SPF, DMARC) are created automatically.
+
+See the [Zeabur Email Domain Management](/email/domains) documentation for more details on email domain verification.
