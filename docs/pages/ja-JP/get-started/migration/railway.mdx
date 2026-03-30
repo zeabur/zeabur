@@ -1,0 +1,132 @@
+---
+title: Railway からの移行
+ogImageTitle: Railway からの移行
+ogImageSubtitle: アプリケーションを Railway から Zeabur に移行
+---
+
+import { Callout } from 'nextra/components'
+
+# Railway からの移行
+
+このガイドでは、アプリケーションを Railway から Zeabur に移行する手順を説明します。Railway と Zeabur は同様の Git ベースデプロイモデルを共有しているため、移行は簡単です。
+
+## 始める前に
+
+- [Zeabur](https://zeabur.com/) アカウント。
+- アプリケーションのソースコードが Git リポジトリ（GitHub）にあること。
+- Railway ダッシュボードへのアクセス。
+
+## ステップ 1：Git リポジトリを接続
+
+Railway アプリは通常 Git リポジトリに接続されているため、同じリポジトリを Zeabur に接続できます：
+
+1. [Zeabur ダッシュボード](https://dash.zeabur.com/)にログイン。
+2. 新しいプロジェクトを作成し、専用サーバーを選択（または新規購入）。
+3. **Add Service** → **Git** をクリックし、GitHub アカウントを接続。
+4. Railway サービスが使用している同じリポジトリを選択。
+
+Zeabur はプロジェクトの言語、フレームワーク、ビルド設定を自動検出します。
+
+## ステップ 2：環境変数を移行
+
+1. Railway プロジェクトでサービスをクリックし、**Variables** タブに移動。**Raw Editor** をクリックしてすべての変数を一度にコピー。
+2. Zeabur ダッシュボードでサービスをクリックし、**Variables** タブに移動。
+3. **Bulk Edit** で一度にすべての変数を貼り付け。
+
+<Callout>
+Railway は `${{Postgres.DATABASE_URL}}` のような変数参照を使用してサービスをリンクします。Zeabur では `${POSTGRES_URI}` が同等です。Railway スタイルの参照を Zeabur の変数構文に置き換えてください。
+</Callout>
+
+## ステップ 3：データベースを移行
+
+Railway のデータベースサービスを使用している場合：
+
+### PostgreSQL
+
+1. **Railway からエクスポート**：Railway データベースサービスを開き、**Data** タブの **Dump** 機能を使用。または `pg_dump` と Railway 接続文字列を使用：
+
+   ```bash
+   pg_dump "your-railway-postgres-url" > backup.sql
+   ```
+
+2. **Zeabur で作成**：**Add Service** → **Database** → **PostgreSQL** をクリック。
+
+3. **インポート**：
+
+   ```bash
+   psql "your-zeabur-postgres-connection-string" < backup.sql
+   ```
+
+### MySQL
+
+1. **Railway からエクスポート**：
+
+   ```bash
+   mysqldump -h railway-host -u root -p railway_db > backup.sql
+   ```
+
+2. **Zeabur で作成**：**Add Service** → **Database** → **MySQL** をクリック。
+
+3. **インポート**：
+
+   ```bash
+   mysql -h zeabur-host -u root -p zeabur_db < backup.sql
+   ```
+
+### Redis
+
+1. **Railway からエクスポート**：
+
+   ```bash
+   redis-cli -u "your-railway-redis-url" --rdb dump.rdb
+   ```
+
+2. **Zeabur で作成**：**Add Service** → **Database** → **Redis** をクリック。
+
+3. ほとんどの場合、Redis はキャッシュとして使用されるため、データインポートなしで新規開始できます。
+
+## ステップ 4：ボリュームを移行
+
+Railway サービスが永続ボリュームを使用している場合：
+
+1. Railway からデータをダウンロード。Railway CLI またはサービスのシェル経由でボリュームにアクセス。
+2. Zeabur ダッシュボードでサービスの **Volumes** タブに移動し、**Add Volume** をクリック。
+3. マウントパスを指定（アプリケーションが期待するパスと一致させる必要あり）。
+4. サービスシェル経由でデータをアップロードするか、アプリケーションに再生成させる。
+
+<Callout type="warning">
+Railway と Zeabur 間の直接的なボリューム転送はありません。手動でデータをエクスポートおよびインポートする必要があります。
+</Callout>
+
+## ステップ 5：カスタムドメインの設定
+
+1. Zeabur ダッシュボードでサービスをクリックし、**Networking** タブに移動。
+2. **Generate Domain** で無料の `.zeabur.app` サブドメインを取得、または **Custom Domain** で独自ドメインを追加。
+3. DNS レコードを更新：
+   - 古い Railway の CNAME レコードを削除。
+   - Zeabur が提供するターゲットを指す CNAME レコードを追加。
+
+## ステップ 6：確認して公開
+
+1. コミットをプッシュしてデプロイをトリガー、またはダッシュボードで **Redeploy** をクリック。
+2. **Logs** タブでアプリが正しく起動することを確認。
+3. データベース接続とすべての主要アプリケーションフローをテスト。
+4. 確認後、本番 DNS を Zeabur に切り替え。
+
+## 主な違い：Railway vs Zeabur
+
+| 機能 | Railway | Zeabur |
+|------|---------|--------|
+| デプロイ | Git push（自動デプロイ） | Git push（自動デプロイ） |
+| 変数参照 | `${{Service.VAR}}` | `${VAR}` |
+| データベース | 内蔵 Postgres、MySQL、Redis、MongoDB | データベースサービス、同等 + それ以上 |
+| ボリューム | サービスごとのボリューム | サービスごとのボリューム |
+| スケーリング | 手動レプリカ数 | 手動リソース割り当て |
+| 専用サーバー | 利用不可 | 利用可能（ベアメタルオプション） |
+| テンプレート | Railway テンプレート | [Zeabur テンプレート](https://zeabur.com/templates) |
+| AI サービス | 利用不可 | [AI Hub](https://zeabur.com/ai) でモデル推論 |
+| 料金 | 使用量ベース + サブスクリプション | 使用量ベース |
+
+---
+
+以上です。Railway アプリケーションが Zeabur で稼働しています。両プラットフォームは非常に似た開発者体験を持っているため、すぐに慣れるはずです。問題が発生した場合は、[コミュニティフォーラム](https://zeabur.com/forum)でお問い合わせください。

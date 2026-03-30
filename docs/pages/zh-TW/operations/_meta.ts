@@ -1,5 +1,4 @@
 export default {
-  index:      { display: 'hidden' },
   team:       '團隊管理',
   resources:  '資源配置',
   deployment: '部署管理',
@@ -13,7 +12,7 @@ export default {
   'project-budget':         { display: 'hidden' },
   scaling:                  { display: 'hidden' },
   rollbacks:                { display: 'hidden' },
-  'maintenance-mode':       { display: 'hidden' },
+  'suspend-service':        { display: 'hidden' },
   'health-checks':          { display: 'hidden' },
   logging:                  { display: 'hidden' },
   metrics:                  { display: 'hidden' },

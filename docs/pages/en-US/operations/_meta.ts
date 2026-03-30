@@ -1,5 +1,4 @@
 export default {
-  index:      { display: 'hidden' },
   team:       'Team Management',
   resources:  'Resource Configuration',
   deployment: 'Deployment Management',

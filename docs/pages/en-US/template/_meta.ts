@@ -1,5 +1,4 @@
 export default {
-  index:                         { display: 'hidden' },
   'template-catalog':            'Template Catalog',
   'template-format':             'Template Format',
   'fork-git-repo-from-template': 'Fork Git Repo from Template',

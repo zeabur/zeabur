@@ -1,0 +1,141 @@
+---
+title: Zeabur CLI
+ogImageTitle: Zeabur CLI
+ogImageSubtitle: 从终端管理 Zeabur 资源
+---
+
+import { Callout } from 'nextra/components'
+
+# Zeabur CLI
+
+Zeabur CLI 让你从终端管理所有 Zeabur 资源——部署服务、查看日志、管理项目，无需打开控制面板。
+
+## 登录
+
+### 浏览器登录
+
+```bash copy
+npx zeabur@latest auth login
+```
+
+按 `Enter` 在浏览器中打开登录页面，然后点击 `Confirm`。你会被重定向回终端并看到登录成功消息。
+
+### Token 登录
+
+用于 CI/CD 或无界面环境：
+
+```bash copy
+npx zeabur@latest auth login --token <your-token>
+```
+
+## 部署服务
+
+在你的项目目录下运行以下命令：
+
+```bash copy
+npx zeabur@latest deploy
+```
+
+CLI 自动检测框架，引导你选择或创建项目。部署完成后，服务 URL 会显示在终端。
+
+## 项目管理
+
+### 列出项目
+
+```bash copy
+npx zeabur@latest project ls
+```
+
+### 设置项目上下文
+
+```bash copy
+npx zeabur@latest context set project
+```
+
+在交互模式下，会列出所有项目供选择。后续命令将自动应用到选定的项目。
+
+## 服务管理
+
+### 列出服务
+
+```bash copy
+npx zeabur@latest service ls
+```
+
+### 设置服务上下文
+
+```bash copy
+npx zeabur@latest context set service
+```
+
+### 重启服务
+
+```bash copy
+npx zeabur@latest service restart
+```
+
+## 部署信息和日志
+
+### 查看部署状态
+
+```bash copy
+npx zeabur@latest deployment get
+```
+
+### 查看运行时日志
+
+```bash copy
+npx zeabur@latest deployment log -t=runtime
+```
+
+### 查看构建日志
+
+```bash copy
+npx zeabur@latest deployment log -t=build
+```
+
+## 切换环境
+
+```bash copy
+npx zeabur@latest context set env
+```
+
+在部署环境（如生产、预发布）之间切换。
+
+## 非交互模式
+
+用于 CI/CD 流水线或自动化脚本，添加 `-i=false` 禁用交互提示并直接传递参数：
+
+### 按名称指定项目和服务
+
+```bash copy
+npx zeabur@latest context set project --name <project-name>
+npx zeabur@latest context set service --name <service-name>
+npx zeabur@latest context set env --id <env-id>
+```
+
+### 按 ID 指定
+
+```bash copy
+npx zeabur@latest context set project --id <project-id>
+npx zeabur@latest context set service --id <service-id>
+```
+
+### 一行命令操作
+
+跳过上下文设置，内联传递所有参数：
+
+```bash copy
+npx zeabur@latest service restart --env-id <env-id> --service-name <service-name>
+npx zeabur@latest deployment get --env-id <env-id> --service-name <service-name>
+npx zeabur@latest deployment log -t=runtime --env-id <env-id> --service-name <service-name>
+```
+
+## 获取帮助
+
+在任何命令后添加 `--help` 查看用法：
+
+```bash copy
+npx zeabur@latest --help
+npx zeabur@latest deployment --help
+```

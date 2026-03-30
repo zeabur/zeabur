@@ -1,0 +1,83 @@
+---
+title: サーバーを購入する
+ogImageTitle: サーバーを購入する
+ogImageSubtitle: Zeabur から専用サーバーを購入する
+---
+
+import { Callout } from 'nextra/components'
+import { Steps } from 'nextra/components'
+
+# Zeabur からサーバーを購入する
+
+自分のサーバーをお持ちでない場合、Zeabur から直接専用サーバーを購入できます。Zeabur は主要なクラウドプロバイダー（AWS、GCP、Hetzner、Linode、Digital Ocean、Aliyun、Tencent Cloud、Volcengine）と提携しており、プロバイダーから直接購入するよりもお得な価格で提供しています。
+
+<Callout type="info">
+  購入したサーバーは Zeabur が完全に管理します。SSH アクセス、OS アップデート、インフラストラクチャのメンテナンスを自分で行う必要はありません。
+</Callout>
+
+## 購入手順
+
+<Steps>
+
+### サーバー一覧を開く
+
+ログイン後、左側のサイドバーで **Servers** をクリックするか、[https://zeabur.com/servers](https://zeabur.com/servers) に直接アクセスしてください。
+
+![マイサーバーページ](/dedicated-server/purchase-servers-page.png)
+
+### 「Create」をクリックし「Zeabur からサーバーを購入」を選択
+
+右上の **Create** ボタンをクリックします。表示されるダイアログで **Zeabur からサーバーを購入**を選択してください。
+
+![サーバー作成ダイアログ](/dedicated-server/purchase-create-dialog.png)
+
+他にも以下のオプションが表示されます：
+
+- **固定 IP サーバー** — 固定パブリック IP を持つ自分のサーバーを SSH で接続する場合（[専用サーバーを登録する](./register)を参照）。
+- **[Wonder Mesh](/wonder-mesh)** — 固定パブリック IP を持たないサーバー向け（現在ベータ版）。
+
+### サーバープランを選択
+
+サーバー選択ページに移動します。フィルターを使って選択肢を絞り込みましょう：
+
+- **Provider** — AWS、GCP、Hetzner、Linode、Digital Ocean、Aliyun、Tencent、Volcengine から選択。
+- **Region** — 地域別にフィルタリング（アジア、中国、ヨーロッパ、北米、南米、オセアニア）。
+- **CPU** — vCPU 数でフィルタリング（1〜32）。
+- **Memory** — メモリサイズでフィルタリング（2 GB〜64 GB）。
+- **Sort** — おすすめ、価格、CPU、RAM、転送量で並べ替え。
+
+![サーバープランを選択](/dedicated-server/purchase-select-server.png)
+
+各サーバープランには、プロバイダー、都市、vCPU 数、メモリ、ストレージ、転送量、月額料金が表示されます。一部のプランには、プロバイダーの公式価格と比較した Zeabur の常時割引を示す割引バッジが表示されます。
+
+### 確認して支払い
+
+サーバープランをクリックして支払いに進みます。支払い完了後、サーバーは自動的にプロビジョニングされます。プロビジョニングが完了すると（通常数分以内）、サーバーが**マイサーバー**一覧に **Running** ステータスで表示されます。
+
+</Steps>
+
+## 購入後
+
+サーバーがオンラインになったら、以下のことができます：
+
+- **[プロジェクトを作成](/ja-JP/deploy/creating-projects)** して新しいサーバーにサービスをデプロイ。
+- **[サーバーを管理](./operate)** — リソースの監視、設定の変更など。
+- **[ファイアウォールルールの設定](./firewall)** — インバウンド・アウトバウンドトラフィックの制御。
+
+## よくある質問
+
+### 購入後にプランをアップグレードできますか？
+
+はい、サーバーの設定ページからセルフサービスでプランをアップグレードできます。ただし、アップグレードは一方向のみです — アップグレード後に下位プランにダウングレードすることはできません。
+
+### サーバーが期待に合わない場合はどうすればよいですか？
+
+**Tencent Cloud**、**Aliyun**、または **Volcengine** から購入したサーバーについては、Zeabur は初回の無料返金を提供しています。2回目の返金リクエストは[コミュニティフォーラム](https://zeabur.com/forum)を通じて提出する必要があります。その他のプロバイダー（AWS、GCP、Hetzner、Linode、Digital Ocean）については、サーバーの設定ページから**返金をリクエスト**をクリックして直接申請できます。
+
+### 課金方法は？
+
+購入したサーバーは月額固定料金で課金されます。選択ページに表示される価格が月額料金です。キャンセルしない限り、サーバーは自動更新されます。
+
+### どのプロバイダーが利用可能ですか？
+
+Zeabur は現在、AWS、GCP、Hetzner、Linode、Digital Ocean、Aliyun、Tencent Cloud、Volcengine のサーバーを提供しており、データセンターはアジア、ヨーロッパ、北米、南米、オセアニアに分布しています。

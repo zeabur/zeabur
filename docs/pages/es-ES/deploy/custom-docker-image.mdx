@@ -1,0 +1,168 @@
+---
+title: Personalizar imagen Docker
+ogImageTitle: Personalizar imagen Docker
+ogImageSubtitle: Desplegar imagen Docker en Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Imagen Docker personalizada
+
+Aunque Zeabur ya incluye numerosas plantillas proporcionadas por la comunidad, es posible que necesites desplegar tus propias imágenes Docker, configurar almacenamiento persistente, establecer el comando de inicio y más. Para esta necesidad, Zeabur ofrece la funcionalidad personalizable Prebuilt.
+
+## Abrir Interfaz
+
+Haz clic en "Añadir servicio" → "Imágenes Docker" para abrir esta página.
+
+![Abrir página de personalización de Docker](/deploy/customize-prebuilt/open-customize-page.gif)
+
+## Instrucciones de configuración
+
+### Imagen
+
+![Instrucciones de configuración de imagen](/deploy/customize-prebuilt/select-image.webp)
+
+"Imagen" es la imagen Docker que se extraerá, típicamente la etiqueta de la imagen que sigue a `docker pull` o `docker run`, como por ejemplo
+
+```bash
+docker pull mariadb      # la etiqueta es "mariadb"
+docker run mariadb:lts   # la etiqueta es "mariadb:lts"
+```
+
+O en Docker Compose
+
+```yaml
+version: '3.9'
+services:
+  db:
+    image: postgres      # la etiqueta es "postgres"
+    # ...
+```
+
+Tras configurarla, puedes proceder a configurar variables de entorno, puertos, etc.
+
+<Callout type="warning">
+Si construyes tu imagen Docker localmente en un Mac con Apple Silicon (M1/M2/M3/M4), la imagen se genera por defecto para la plataforma `linux/arm64`.
+Los servidores de Zeabur ejecutan `linux/amd64`, por lo que desplegar una imagen solo ARM fallará con el error **"no match for platform in manifest"**.
+
+Para evitar este problema, construye tu imagen con el flag `--platform linux/amd64`:
+
+```bash
+docker buildx build --platform linux/amd64 -t <your-image> --push .
+```
+</Callout>
+
+### Variable de entorno
+
+![Ejemplo de configuración de variable de entorno](/deploy/customize-prebuilt/environment-variable.webp)
+
+"Variable de entorno", como su nombre indica, es la variable de entorno que se pasa al servicio. Además de la configuración básica de variables de entorno, Zeabur también te permite exponer estas variables a otros servicios.
+
+"Clave" es la clave de la variable de entorno, que solo permite letras, números y guiones bajos, como `MARIADB_USER` o `DB_1_HOST`.
+
+"Valor" es el valor de la variable de entorno, que puede incluir referencias `${CLAVE}` a otras variables. Como se muestra arriba, `MARIADB_PASSWORD` hace referencia a `MARIADB_ROOT_PASSWORD`, por lo que su valor es igual a `123456`. De manera similar, si el valor de una variable es `password=${MARIADB_PASSWORD}`, se expande a `password=123456`. Este formato `${CLAVE}` se expande al inicio del servicio, por lo que la aplicación ve el valor expandido.
+
+"Exponer" hace que la variable esté disponible para otros servicios. Por ejemplo, `MARIADB_USERNAME` y `MARIADB_PASSWORD` están expuestas, lo que las hace accesibles para otros servicios en el mismo proyecto.
+
+Además de las variables expuestas por otros servicios, también puedes usar [variables especiales predefinidas de Zeabur](/deploy/special-variables), como usar `${ZEABUR_WEB_URL}` para obtener la URL establecida en el puerto `web`.
+
+Si estás escribiendo un Prebuilt según la documentación de una imagen Docker, las variables de entorno a menudo siguen a `docker run` con `--env` (o `-e`), como por ejemplo:
+
+```bash
+docker run --detach --name some-mariadb --env MARIADB_USER=example-user --env MARIADB_PASSWORD=my_cool_secret --env MARIADB_DATABASE=example-database --env MARIADB_ROOT_PASSWORD=my-secret-pw  mariadb:latest
+
+# MARIADB_USER          = example-user
+# MARIADB_PASSWORD      = my_cool_secret
+# MARIADB_DATABASE      = example-database
+# MARIADB_ROOT_PASSWORD = my-secret-pw
+```
+
+En Docker Compose:
+
+```yaml
+version: '3.9'
+services:
+  adminer:
+    image: adminer
+    restart: always
+    environment:
+      DEBUG: "true"   # (o) - DEBUG=true
+      # DEBUG = true
+```
+
+### Puertos
+
+![Ejemplo de configuración de puertos](/deploy/customize-prebuilt/ports.webp)
+
+Los "Puertos" funcionan como reglas de entrada de cortafuegos, permitiendo que solo los puertos declarados sean accedidos por otros servicios o la red externa.
+
+"Nombre del puerto" solo debe consistir en letras y guiones. "Puerto" es el puerto de escucha del servicio, como `3306` para MariaDB o `8080`, `3000`, `80` para servicios web.
+
+El "Tipo de puerto" puede ser `HTTP` o `TCP`. Para acceso externo, se puede acceder a los puertos `HTTP` con un dominio (ej. `my-service.zeabur.app`) que incluye la firma automática de certificados TLS por Zeabur, mientras que se puede acceder a los puertos `TCP` con un nombre de host y puerto asignados automáticamente (ej. `reg.clusters.zeabur.com:12345`). Para conexiones entre servicios, puedes acceder al puerto con [Red privada](/deploy/private-networking), lo que reduce costos de tráfico innecesarios. Para acceder a este puerto en otros servicios, usa el puerto declarado directamente (`mariadb.zeabur.internal:3306`, `backend.zeabur.internal:8080`).
+
+Si estás escribiendo un Prebuilt según la documentación de una imagen Docker, los puertos siguen a `docker run` con `-p`, como por ejemplo:
+
+```bash
+docker run -p 3306 mariadb:latest
+
+# Nombre del puerto = <Personalizado>; Puerto = 3306; Tipo de puerto = TCP
+# TCP porque MariaDB usa un protocolo personalizado basado en TCP.
+```
+
+En Docker Compose:
+
+```yaml
+version: '3.9'
+services:
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 80:8080
+      # Nombre del puerto = <Personalizado>; Puerto = 8080; Tipo de puerto = HTTP
+      # HTTP porque adminer es una interfaz web PHP para gestión de bases de datos.
+```
+
+### Volúmenes
+
+![Ejemplo de configuración de volúmenes](/deploy/customize-prebuilt/volumes.webp)
+
+Los "Volúmenes" son rutas para almacenamiento persistente.
+
+Por defecto, Zeabur restablece los datos del servicio al estado predeterminado de la imagen en cada reinicio (sin estado). Para almacenar datos a largo plazo en un contenedor, puedes configurar almacenamiento persistente y montarlo en el directorio deseado. Esto asegura que el directorio montado permanezca inalterado en reinicios o actualizaciones, hasta que elimines el servicio o modifiques el contenido del directorio. La función de "Copia de seguridad" también respalda este espacio. Consulta los [Precios de Zeabur](https://zeabur.com/pricing) para los cargos de almacenamiento persistente.
+
+"ID del volumen" es el identificador del espacio de almacenamiento, que solo consiste en letras, números y guiones. "Ruta" es la ruta de montaje, configurada según los ajustes de **Volume** de la imagen Docker.
+
+En la documentación de la imagen Docker, los volúmenes siguen a `docker run` con `-v`, como por ejemplo:
+
+```bash
+docker run -v your-storage:/var/lib/mysql mariadb:latest
+
+# ID del volumen = <Personalizado>; Ruta = /var/lib/mysql
+```
+
+En Docker Compose:
+
+```yaml
+version: '3.9'
+services:
+  mariadb:
+    image: mariadb
+    volumes:
+      - your-storage:/var/lib/mysql
+      # ID del volumen = <Personalizado>; Ruta = /var/lib/mysql
+```
+
+### Comando de inicio
+
+![Ejemplo de configuración de comando de inicio](/deploy/customize-prebuilt/start-command.webp)
+
+"Comando de inicio" te permite anular el punto de entrada y los argumentos predeterminados de la imagen Docker. Esta es una configuración avanzada y puede omitirse si no estás seguro de qué es.
+
+Al especificar desde la GUI, el punto de entrada predeterminado al configurar este campo es `/bin/sh`. Si tu imagen no proporciona `/bin/sh`, usa **Editar TOML** para cambiarlo o consulta [soporte](/community/help) para ayuda.
+
+## Escribe manualmente tu plantilla
+
+Aunque la GUI ofrece muchos parámetros necesarios para crear tus servicios Docker, es posible que desees añadir iconos personalizados, instrucciones de conexión o configuraciones detalladas. En este caso, [escribir tu plantilla en código](/template/template-format) es una mejor opción.
+
+Si tienes alguna pregunta sobre cómo escribir tu propia plantilla, no dudes en contactar con [soporte](/community/help).

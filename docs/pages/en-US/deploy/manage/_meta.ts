@@ -1,5 +1,4 @@
 export default {
-  index: { display: 'hidden' },
   'copy-project': 'Copy Project',
   'export-project': 'Export Project',
   'migrate-project': 'Migrate Project',

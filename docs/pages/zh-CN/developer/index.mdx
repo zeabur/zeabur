@@ -1,0 +1,58 @@
+---
+title: 开发者资源
+ogImageTitle: 开发者资源
+ogImageSubtitle: API、CLI 和集成文档
+---
+
+import { Callout } from 'nextra/components';
+
+# 开发者资源
+
+Zeabur 提供一整套 API 和开发者工具，用于编程式服务管理、部署自动化以及与您自己的应用程序集成。
+
+## API 概览
+
+Zeabur 的 API 基于 **GraphQL** 构建，驱动着仪表板、CLI 和所有第一方产品。特定操作（文件上传、容器操作等）还提供 REST 端点。
+
+| API | 用途 | 端点 |
+|-----|------|------|
+| [GraphQL API](/zh-CN/developer/public-api) | 项目/服务/环境管理、部署、日志 | `https://api.zeabur.com/graphql` |
+| [上传 API](https://schema.zeabur.app/upload-api/index.html) | 通过预签名 URL 部署 ZIP 归档 | `https://api.zeabur.com/v2/upload` |
+| [邮件 REST API](/zh-CN/email/rest-api) | 邮件发送与管理 | `https://api.zeabur.com/api/v1/zsend` |
+
+<Callout>
+完整的非 GraphQL API 规范（JSON Schema / OpenAPI）可在 [Schema 仓库](https://schema.zeabur.app/) 查看。
+</Callout>
+
+## 认证
+
+所有 API 使用 **Bearer Token** 认证。在 [仪表板 > 设置 > API 密钥](https://zeabur.com/account/api-keys) 生成密钥，然后在 `Authorization` 标头中包含它：
+
+```bash
+curl -X POST https://api.zeabur.com/graphql \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"query":"query { me { username } }"}'
+```
+
+详细说明请参见 [API 密钥](/zh-CN/developer/api-keys)。
+
+## 实时订阅
+
+需要流式传输日志或监听项目活动？Zeabur 通过 [graphql-ws](https://github.com/enisdenjo/graphql-ws) 协议提供 WebSocket 实时订阅。
+
+- **全球端点**：`wss://api.zeabur.com/graphql`
+- **中国端点**：`wss://api.zeabur.cn/graphql`
+
+有关连接详情、认证流程和代码示例，请参见 [WebSocket 订阅](/zh-CN/developer/websocket-guide)。
+
+## 工具
+
+- **[Zeabur CLI](/zh-CN/developer/cli)**：使用 `npx zeabur` 从终端登录和部署服务。
+- **[Apollo Explorer](https://studio.apollographql.com/public/zeabur/variant/main/explorer)**：在线浏览和测试所有 GraphQL API。
+
+## 产品特定 API
+
+- **[Zeabur 邮件 REST API](/zh-CN/email/rest-api)** — 邮件发送 API 端点参考
+- **[邮件 API 密钥](/zh-CN/email/api-keys)** — 邮件专用 API 密钥管理和权限
+- **[邮件 Webhooks](/zh-CN/email/webhooks)** — 入站/退信事件回调配置

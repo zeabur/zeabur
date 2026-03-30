@@ -1,5 +1,4 @@
 export default {
-  index:      { display: 'hidden' },
   'how-deploys-work': '部署流程概述',
   create:     '建立專案與服務',
   methods:    '部署方式',

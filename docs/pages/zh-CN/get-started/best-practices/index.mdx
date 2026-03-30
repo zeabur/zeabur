@@ -1,0 +1,96 @@
+---
+title: 最佳实践
+ogImageTitle: 最佳实践
+ogImageSubtitle: Zeabur 部署和管理的推荐实践
+---
+
+import { Callout } from 'nextra/components'
+
+# 最佳实践
+
+遵循这些实用建议，充分利用 Zeabur，同时保持部署可靠且成本高效。
+
+## 使用环境变量进行配置
+
+将所有配置值——API 密钥、数据库 URL、功能开关——存储在[环境变量](/deploy/variable)中。永远不要在源代码或 Docker 镜像中硬编码敏感信息。
+
+<Callout type="warning">
+提交到 Git 的密钥会永久暴露在仓库历史中。请始终使用 Zeabur 的环境变量管理。
+</Callout>
+
+Zeabur 支持服务间的变量引用（例如 `${MYSQL_HOST}`），自动保持凭据同步。
+
+## 谨慎使用持久化存储卷
+
+[持久化存储卷](/operations/volumes)对数据库和文件存储至关重要，但需要权衡：挂载了存储卷的服务无法执行零停机滚动部署。
+
+<Callout type="warning">
+只为真正需要持久化数据的服务（数据库、上传文件）挂载存储卷。无状态的应用服务器不应使用存储卷。
+</Callout>
+
+对于静态资源和构建产物，请使用对象存储或 CDN。
+
+## 设置资源限制控制成本
+
+为每个服务配置 CPU 和内存限制，防止成本失控。单个配置错误的服务可能消耗远超应用需求的资源。
+
+- 部署前使用[价格计算器](https://zeabur.com/pricing)估算成本。
+- 定期检查[控制面板](https://dash.zeabur.com)的使用指标。
+
+## 使用市场服务部署数据库
+
+不要自己运行数据库容器，使用 Zeabur 的[市场服务](/marketplace)。它们已预配置，包含自动连接变量注入，并针对平台优化。
+
+热门选项包括 PostgreSQL、MySQL、MongoDB 和 Redis——均可一键部署。
+
+## 合理组织项目结构
+
+用清晰的项目结构组织你的工作负载：
+
+- **一个应用一个项目** — 将相关服务（API、前端、数据库）放在同一项目中。
+- **分离环境** — 为生产、预发布和开发使用不同的项目。
+- **命名规范** — 使用描述性的项目和服务名称，方便团队快速导航。
+
+## 使用基于 Git 的部署
+
+连接 GitHub 或 GitLab 仓库，实现每次推送自动部署。这将带来：
+
+- 无需额外工具的完整 CI/CD 自动化。
+- 通过回滚提交实现自动回滚。
+- 基于分支的[预览环境](/deploy/preview)用于 Pull Request 测试。
+
+<Callout type="info">
+对于不在 Git 仓库中的项目，你也可以通过 [CLI](/deploy/command-line) 或 Docker 镜像部署。
+</Callout>
+
+## 启用自定义域名和 HTTPS
+
+Zeabur 为所有自定义域名提供自动 TLS 证书。将 DNS 指向 Zeabur，零配置即可启用 HTTPS——设置说明请参见[自定义域名](/deploy/domain-bindling)。
+
+为生产服务使用自己的域名，保持专业形象，避免共享默认的 `*.zeabur.app` 子域名。
+
+## 监控使用量优化成本
+
+定期查看账单面板了解你的开支：
+
+- 识别内存使用过高的服务并调整大小。
+- 删除未使用的服务和项目——空闲资源仍会产生费用，除非使用免费计划（自动休眠）。
+- 使用[订阅概览](/subscription)追踪额度和发票。
+
+## 使用预览环境进行测试
+
+启用[预览部署](/deploy/preview)，让每个 Pull Request 获得独立的隔离环境。这让团队可以在类生产环境中测试变更后再合并。
+
+预览环境在分支删除或 PR 关闭时自动清理。
+
+## 定期备份重要数据
+
+虽然 Zeabur 提供基础设施级别的可靠性，但你仍应为关键数据维护自己的备份：
+
+- 使用[备份和恢复](/operations/backup-restore)功能进行数据库快照。
+- 通过[配置文件管理](/operations/config-file-management)导出重要配置。
+- 将备份存储在外部（如对象存储）用于灾难恢复。
+
+<Callout type="info">
+将这些实践与 Zeabur 的内置功能（如[高可用](/deploy/high-availability)）相结合，为生产工作负载打下坚实基础。
+</Callout>

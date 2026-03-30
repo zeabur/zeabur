@@ -1,5 +1,8 @@
 export default {
-  "use-api-key": "Crear y Usar Claves de API",
-  "public-api": "API Pública",
-  "websocket-guide": "Guía de Conexión WebSocket"
+  index: { display: 'hidden' },
+  cli: 'CLI',
+  'claude-code-skills': 'Claude Code Skills',
+  'public-api': 'API Pública',
+  'api-keys': 'Claves de API',
+  'websocket-guide': 'Guía de WebSocket',
 }

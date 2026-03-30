@@ -1,5 +1,8 @@
 export default {
-  "use-api-key": "创建和使用 API 密钥", 
-  "public-api": "开放 API",
-  "websocket-guide": "WebSocket 连接指南"
+  index: { display: 'hidden' },
+  cli: 'CLI',
+  'claude-code-skills': 'Claude Code Skills',
+  'public-api': '开放 API',
+  'api-keys': 'API 密钥',
+  'websocket-guide': 'WebSocket 连接指南',
 }

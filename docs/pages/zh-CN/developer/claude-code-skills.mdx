@@ -1,0 +1,130 @@
+---
+title: Claude Code Skills
+ogImageTitle: Claude Code Skills
+ogImageSubtitle: 让你的 AI 代理处理部署和运维
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Claude Code Skills
+
+Zeabur 官方 Claude Code 插件将自然语言转换为基础设施操作。部署服务、租用服务器、管理配置——一切无需离开编辑器。
+
+<Callout type="info">
+  Claude Code Skills 需要 [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview) 环境。请确保已安装并运行 Claude Code。
+</Callout>
+
+## 安装
+
+<Steps>
+
+### 将 Zeabur 插件添加到本地注册表
+
+从 Claude Code 市场添加 Zeabur 插件：
+
+```bash copy
+claude plugin marketplace add zeabur/zeabur-claude-plugin
+```
+
+### 安装并激活 Skills
+
+在 Claude Code 中安装并激活所有 Zeabur Skills：
+
+```bash copy
+claude plugin install zeabur@zeabur
+```
+
+</Steps>
+
+安装完成后，你可以在 Claude Code 中通过自然语言操作所有 Zeabur 功能。
+
+## 支持的 Skills
+
+### 租用 VPS
+
+浏览并从 AWS、Hetzner、Linode 等提供商租用服务器。
+
+> "帮我找一个 2 核 4GB 内存的便宜 VPS"
+
+### 部署服务
+
+将本地项目或模板部署到你的服务器，自动检测框架。
+
+> "把这个项目部署到我的 Hetzner 服务器上"
+
+### 启用 AI 模型
+
+通过 Zeabur AI Hub 访问 GPT-4o、Claude、Gemini 等模型。
+
+> "我的应用需要 AI 功能，帮我设置 API"
+
+### 设置邮件
+
+使用 Zeabur Email 和自动配置的 SMTP 为你的应用添加事务性邮件。
+
+> "给我的应用添加邮件发送功能"
+
+### 设置环境变量
+
+创建、更新或链接跨服务的环境变量。
+
+> "为我的后端设置 DATABASE_URL"
+
+### 编辑配置文件
+
+修改 nginx 配置、运行时参数和容器设置。
+
+> "更新 nginx 配置启用 gzip"
+
+### 配置端口
+
+映射和暴露服务端口；解决端口不匹配问题。
+
+> "我的应用监听 8080 端口，修复代理配置"
+
+### 绑定域名
+
+附加自定义域名或免费 `.zeabur.app` 子域名，自动配置 SSL。
+
+> "把 myapp.dev 绑定到这个服务"
+
+### 设置健康检查
+
+配置健康检查端点，自动重启不健康的服务。
+
+> "在 /api/health 上添加健康检查"
+
+### 配置防火墙
+
+为专用服务器设置入站和出站流量规则。
+
+> "只允许来自我办公室 IP 的流量"
+
+### 设置容器镜像
+
+从自定义 Docker 镜像部署或切换基础镜像。
+
+> "使用我的私有 Docker 镜像部署"
+
+### 购买域名
+
+搜索、注册和配置自定义域名。
+
+> "购买 myapp.dev 并指向我的应用"
+
+### 管理数据库
+
+部署、检查、查询、填充数据和处理数据库迁移。
+
+> "我的数据库里有什么？添加一个测试用户"
+
+### 调试与排障
+
+检查容器、读取日志、诊断和修复问题。
+
+> "我的应用返回 500 错误，帮我查一下原因"
+
+## 了解更多
+
+- [Skills 概览页面](https://zeabur.com/en-US/skills)
+- [Zeabur CLI](/developer/cli)

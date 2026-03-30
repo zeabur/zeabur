@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { useRouter } from 'nextra/hooks'
 
 const TURNSTILE_SITEKEY = '0x4AAAAAACCyo_1UnKEIQB-R'
@@ -74,50 +74,85 @@ const RATING_LABELS: Record<string, string[]> = {
   'es-ES': ['No útil', 'Algo útil', 'Útil', 'Muy útil'],
 }
 
+const TURNSTILE_TIMEOUT = 10_000
+
+function waitForTurnstile(): Promise<void> {
+  if ((window as any).turnstile) return Promise.resolve()
+  return new Promise((resolve, reject) => {
+    const start = Date.now()
+    const check = setInterval(() => {
+      if ((window as any).turnstile) {
+        clearInterval(check)
+        resolve()
+      } else if (Date.now() - start > TURNSTILE_TIMEOUT) {
+        clearInterval(check)
+        reject(new Error('Turnstile timed out'))
+      }
+    }, 100)
+  })
+}
+
+let turnstileLoadPromise: Promise<void> | null = null
+
+function loadTurnstileScript(): Promise<void> {
+  if ((window as any).turnstile) return Promise.resolve()
+  if (turnstileLoadPromise) return turnstileLoadPromise
+
+  const existing = document.querySelector(
+    'script[src*="challenges.cloudflare.com/turnstile"]'
+  )
+  if (existing) {
+    turnstileLoadPromise = waitForTurnstile().catch((err) => {
+      turnstileLoadPromise = null
+      existing.remove()
+      throw err
+    })
+    return turnstileLoadPromise
+  }
+
+  turnstileLoadPromise = new Promise<void>((resolve, reject) => {
+    const script = document.createElement('script')
+    script.src =
+      'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+    script.async = true
+    script.onload = () => waitForTurnstile().then(resolve, (err) => {
+      turnstileLoadPromise = null
+      script.remove()
+      reject(err)
+    })
+    script.onerror = () => {
+      turnstileLoadPromise = null
+      script.remove()
+      reject(new Error('Failed to load Turnstile script'))
+    }
+    document.head.appendChild(script)
+  })
+
+  return turnstileLoadPromise
+}
+
 function useTurnstile() {
   const tokenRef = useRef<string | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const widgetIdRef = useRef<string | null>(null)
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && !(window as any).turnstile) {
-      const script = document.createElement('script')
-      script.src =
-        'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
-      script.async = true
-      document.head.appendChild(script)
+  const ensureReady = useCallback(async () => {
+    if (typeof window === 'undefined') return
+    await loadTurnstileScript()
+    if (containerRef.current && widgetIdRef.current === null) {
+      widgetIdRef.current = (window as any).turnstile.render(
+        containerRef.current,
+        {
+          sitekey: TURNSTILE_SITEKEY,
+          size: 'compact',
+          callback: (token: string) => { tokenRef.current = token },
+        }
+      )
     }
-
-    const renderWidget = () => {
-      if (
-        containerRef.current &&
-        (window as any).turnstile &&
-        widgetIdRef.current === null
-      ) {
-        widgetIdRef.current = (window as any).turnstile.render(
-          containerRef.current,
-          {
-            sitekey: TURNSTILE_SITEKEY,
-            size: 'compact',
-            callback: (token: string) => {
-              tokenRef.current = token
-            },
-          }
-        )
-      }
-    }
-
-    const interval = setInterval(() => {
-      if ((window as any).turnstile) {
-        renderWidget()
-        clearInterval(interval)
-      }
-    }, 200)
-
-    return () => clearInterval(interval)
   }, [])
 
   const getToken = useCallback(async (): Promise<string | null> => {
+    await ensureReady()
     if (tokenRef.current) return tokenRef.current
     if ((window as any).turnstile && widgetIdRef.current !== null) {
       ;(window as any).turnstile.reset(widgetIdRef.current)
@@ -136,7 +171,7 @@ function useTurnstile() {
       })
     }
     return null
-  }, [])
+  }, [ensureReady])
 
   const resetToken = useCallback(() => {
     tokenRef.current = null
@@ -145,7 +180,7 @@ function useTurnstile() {
     }
   }, [])
 
-  return { containerRef, getToken, resetToken }
+  return { containerRef, ensureReady, getToken, resetToken }
 }
 
 /**
@@ -159,7 +194,7 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
   const t = i18n[locale] || i18n['en-US']
   const ratingLabels = RATING_LABELS[locale] || RATING_LABELS['en-US']
 
-  const { containerRef, getToken, resetToken } = useTurnstile()
+  const { containerRef, ensureReady, getToken, resetToken } = useTurnstile()
 
   const [rating, setRating] = useState<Rating | null>(null)
   const [feedback, setFeedback] = useState('')
@@ -168,7 +203,10 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
 
   const handleRating = (value: Rating) => {
     setRating(value)
-    if (status === 'idle') setStatus('expanded')
+    if (status === 'idle') {
+      setStatus('expanded')
+      ensureReady().catch(() => {})
+    }
   }
 
   const handleSubmit = async () => {

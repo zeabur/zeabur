@@ -1,5 +1,4 @@
 export default {
-  index: 'Descripción General',
   'quick-start': 'Inicio Rápido',
   'rest-api': 'Referencia de API REST',
   'domains': 'Gestión de Dominios',

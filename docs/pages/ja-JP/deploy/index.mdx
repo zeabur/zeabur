@@ -1,0 +1,56 @@
+---
+title: デプロイとサービス
+ogImageTitle: デプロイとサービス
+ogImageSubtitle: アプリケーションとサービスのデプロイ
+---
+
+import { Cards, Card } from 'nextra/components'
+
+# デプロイとサービス
+
+このセクションでは、Zeabur のデプロイ方法、サービス設定、プロジェクト管理機能について説明します。各見出しは特定の質問に対応しています。
+
+## デプロイはどこから始まる？
+
+Zeabur のすべてのサービスは「プロジェクト」の中に存在します。1つのプロジェクトにフロントエンド、バックエンド、データベースなどを含めることができます。
+
+- [プロジェクトの作成](/deploy/create-project) — プロジェクトの作成と管理
+- [サービスの作成](/deploy/create-service) — プロジェクトにサービスを追加
+- [デプロイの仕組み](/deploy/how-deploys-work) — Zeabur が言語を自動検出してビルドする方法
+
+## どのデプロイ方法が利用可能？
+
+| 方法 | 最適な用途 | ドキュメント |
+|------|-----------|------------|
+| **GitHub 連携** | 最も一般的 — プッシュでデプロイ | [GitHub/Git 連携](/deploy/github-integration) |
+| **テンプレート** | オープンソースアプリのワンクリックデプロイ | [テンプレート](/template) |
+| **Dockerfile** | カスタムビルドプロセス | [Dockerfile](/deploy/dockerfile) |
+| **Docker イメージ** | 既存のイメージを使用 | [カスタム Docker イメージ](/deploy/custom-docker-image) |
+| **デプロイボタン** | 他の人にワンクリックデプロイを提供 | [デプロイボタン](/deploy/deploy-button) |
+| **Chrome 拡張機能** | ブラウザからクイックデプロイ | [Chrome 拡張機能](/deploy/deploy-with-chrome-extension) |
+| **CLI** | ターミナルデプロイ、CI/CD に最適 | [CLI デプロイ](/developer/cli) |
+| **アップロード API** | ZIP をアップロードして自動デプロイ | [アップロード API](/developer/public-api#upload-api) |
+
+## 再デプロイのトリガーは？
+
+- **GitHub プッシュ**：デフォルトでは、リンクされたブランチへのプッシュごとに新しいデプロイがトリガーされます。
+- **手動トリガー**：ダッシュボードで「再デプロイ」をクリックします。
+- **ウォッチパス**：特定のパスが変更された場合にのみデプロイをトリガーするように設定します。[ウォッチパス](/deploy/watch-paths)を参照。
+
+## 環境変数の設定方法は？
+
+サービスの「設定」タブで、環境変数の追加、編集、削除ができます。Zeabur はサービス間での変数参照もサポートしています。
+
+> [環境変数](/deploy/environment-variables)
+
+## ビルドのカスタマイズ方法は？
+
+- [ルートディレクトリ](/deploy/root-directory) — モノレポのサブディレクトリを指定
+- [ウォッチパス](/deploy/watch-paths) — デプロイをトリガーするファイル変更を制御
+- [コマンド実行](/deploy/command-execution) — 起動コマンドのカスタマイズ
+
+## プロジェクトの管理と移行方法は？
+
+- [プロジェクトのコピー](/deploy/copy-project) — プロジェクト全体を新しい環境に複製
+- [プロジェクトのエクスポート](/deploy/export-project) — プロジェクト設定のエクスポート
+- [イメージ参照の更新](/deploy/update-image-reference) — Docker イメージバージョンの更新

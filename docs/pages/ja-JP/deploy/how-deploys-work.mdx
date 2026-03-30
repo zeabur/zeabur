@@ -1,0 +1,98 @@
+---
+title: ビルド
+ogImageTitle: ビルド
+ogImageSubtitle: Zeabur はソースコードをどのようにサービスにビルドするか？
+---
+
+# ビルド
+
+Zeabur は内部ツールとして [zbpack](https://github.com/zeabur/zbpack) を使用してユーザーサービスをビルドします。これにより、ユーザーは複雑な詳細を理解せずに、あらゆる言語やフレームワークに基づくサービスをワンクリックでデプロイできます。
+
+現在、[zbpack](https://github.com/zeabur/zbpack) はウェブ開発のすべての主流プログラミング言語をサポートしており、各人気開発フレームワークに対してさらに識別と最適化を行っています。同時に、新しいプログラミング言語やフレームワークにも常に対応しています：
+
+- Node.js
+- Python
+- PHP
+- Ruby
+- Go
+- Java
+- .NET
+- Rust
+- Elixir
+
+サービスで使用している言語やフレームワークが上記のリストにない場合、またはビルドプロセス中に zbpack に問題がある場合は、[GitHub](https://github.com/zeabur/zbpack/pulls) に Pull Request を送信して、zbpack の機能向上にご協力ください。
+
+zbpack を使用してプロジェクト内のサービスをビルドする際、プロジェクト内のコード、設定ファイルなどの情報に基づいて、サービスが使用する言語とフレームワークを自動的に識別し、その情報に従って適切なビルド方法を選択します。
+
+## ビルドプランの生成
+
+例えば、[Next.js](https://nextjs.org/) ベースのウェブアプリケーションを開発したとします：
+
+```bash
+git clone https://github.com/zeabur/nextjs-template
+cd nextjs-template
+```
+
+このプロジェクトのフォルダで `zbpack` コマンドを実行すると、カスタマイズされたビルドプランが表示されます：
+
+```bash
+zbpack .
+
+╔══════════════════════════════ Build Plan ═════════════════════════════╗
+║ provider         │ nodejs                                             ║
+║───────────────────────────────────────────────────────────────────────║
+║ nodeVersion      │ 18                                                 ║
+║───────────────────────────────────────────────────────────────────────║
+║ installCmd       │ pnpm install                                       ║
+║───────────────────────────────────────────────────────────────────────║
+║ buildCmd         │ pnpm run build                                     ║
+║───────────────────────────────────────────────────────────────────────║
+║ startCmd         │ pnpm start                                         ║
+║───────────────────────────────────────────────────────────────────────║
+║ packageManager   │ pnpm                                               ║
+║───────────────────────────────────────────────────────────────────────║
+║ framework        │ next.js                                            ║
+╚═══════════════════════════════════════════════════════════════════════╝
+```
+
+この図から、`zbpack` がビルドのソリューションプロバイダーとして `nodejs` Provider を選択したことがわかります。これは、さらなるプランで以下を行うことを意味します：
+
+1. サービスが使用する Node.js のバージョンを特定
+2. サービスが使用するパッケージマネージャーを特定（`npm`、`yarn`、`pnpm`）
+3. 依存関係のインストールに使用するコマンドを特定
+4. ビルドに使用するコマンドを特定
+5. 起動に使用するコマンドを特定
+6. サービスが使用する Node.js フレームワークを特定
+
+## サービスのビルド
+
+次に、zbpack はこのビルドプランに基づいて Dockerfile を生成し、この Dockerfile を使用してサービスを自動的にビルドします：
+
+```bash
+[+] Building 41.3s (12/12) FINISHED                                                                     docker:orbstack
+ => [internal] load build definition from Dockerfile                                                               0.0s
+ => => transferring dockerfile: 252B                                                                               0.0s
+ => [internal] load .dockerignore                                                                                  0.0s
+ => => transferring context: 2B                                                                                    0.0s
+ => [internal] load metadata for docker.io/library/node:18                                                         5.8s
+ => [auth] library/node:pull token for registry-1.docker.io                                                        0.0s
+ => [1/6] FROM docker.io/library/node:18@sha256:a6385a6bb2fdcb7c48fc871e35e32af8daaa82c518900be49b76d10c005864c2   6.9s
+ => [internal] load build context                                                                                  5.0s
+ => => transferring context: 171.44MB                                                                              5.0s
+ => [2/6] WORKDIR /src                                                                                             0.8s
+ => [3/6] RUN corepack enable && corepack prepare --all                                                            7.5s
+ => [4/6] COPY . .                                                                                                 2.4s
+ => [5/6] RUN pnpm install                                                                                         7.0s
+ => [6/6] RUN pnpm run build                                                                                       8.6s
+ => exporting to image                                                                                             2.3s
+ => => exporting layers                                                                                            2.3s
+ => => writing image sha256:d95f934faaefd82b38167ff158e8a31973edcd6a9ba7cc361999080345e80e38                       0.0s
+ => => naming to docker.io/library/nextjs-template                                                                 0.0s
+
+Build successful
+
+To run the image, use the following command:
+docker run -p 8080:8080 -it nextjs-template
+```
+
+その後、`docker run -p 8080:8080 -it nextjs-template` を使用してサービスを起動し、ブラウザで `http://localhost:8080` を開いてサービスにアクセスできます。
