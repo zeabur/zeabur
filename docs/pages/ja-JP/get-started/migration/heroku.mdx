@@ -1,0 +1,134 @@
+---
+title: Heroku からの移行
+ogImageTitle: Heroku からの移行
+ogImageSubtitle: アプリケーションを Heroku から Zeabur に移行
+---
+
+import { Callout } from 'nextra/components'
+
+# Heroku からの移行
+
+このガイドでは、アプリケーションを Heroku から Zeabur に移行する手順を説明します。ほとんどの Heroku アプリは Git ベースで標準的な言語 buildpack を使用しているため、移行は簡単です。Zeabur はゼロ設定でプロジェクトを自動検出します。
+
+## 始める前に
+
+- [Zeabur](https://zeabur.com/) アカウント。
+- アプリケーションのソースコードが Git リポジトリにあること。
+- Heroku ダッシュボードまたは CLI（`heroku`）へのアクセス。
+
+## ステップ 1：Git リポジトリを接続
+
+ほとんどの Heroku アプリはすでに Git リポジトリに支えられています：
+
+1. [Zeabur ダッシュボード](https://dash.zeabur.com/)にログイン。
+2. 新しいプロジェクトを作成し、専用サーバーを選択（または新規購入）。
+3. **Add Service** → **Git** をクリックし、GitHub アカウントを接続。
+4. アプリケーションのリポジトリを選択。
+
+Zeabur は Node.js、Python、Ruby、Go、Java、PHP などを自動検出します。`Procfile` は不要です。
+
+<Callout>
+コードが Heroku Git にのみ存在する場合（GitHub にない場合）、まず GitHub リポジトリにプッシュしてください：
+
+```bash
+heroku git:clone -a my-app
+cd my-app
+git remote add github https://github.com/your-username/my-app.git
+git push github main
+```
+</Callout>
+
+## ステップ 2：環境変数を移行
+
+Heroku は設定を **Config Vars** に保存しています。エクスポートして Zeabur に追加：
+
+1. **Heroku の Config Vars をリストアップ：**
+
+   ```bash
+   heroku config -a my-app
+   ```
+
+2. Zeabur ダッシュボードでサービスをクリックし、**Variables** タブに移動。
+3. 各変数を追加。一つずつ貼り付けるか、**Bulk Edit** 機能で複数のキーバリューペアを一括貼り付け。
+
+<Callout>
+Zeabur で `PORT` を設定する必要はありません。Zeabur が自動的にポートを割り当て、注入します。アプリが環境から `PORT` を読み取る場合（ほとんどの Heroku アプリがそうです）、そのまま動作します。
+</Callout>
+
+## ステップ 3：データベースを移行
+
+Heroku Postgres を使用している場合：
+
+1. **バックアップを作成してダウンロード：**
+
+   ```bash
+   heroku pg:backups:capture -a my-app
+   heroku pg:backups:download -a my-app
+   ```
+
+   カスタム Postgres 形式の `latest.dump` ファイルがダウンロードされます。
+
+2. **Zeabur でデータベースを作成**：**Add Service** → **Database** → **PostgreSQL** をクリック。
+
+3. **データをインポート**：Zeabur の PostgreSQL 接続文字列を使用：
+
+   ```bash
+   pg_restore -d "your-zeabur-postgres-connection-string" --no-owner latest.dump
+   ```
+
+4. **アプリのデータベース URL を更新**：Zeabur の **Variables** タブで `DATABASE_URL` を設定。Zeabur の変数参照 `${POSTGRES_URI}` でデータベースサービスの接続文字列を自動注入できます。
+
+<Callout>
+Heroku Redis については、`redis-cli --rdb` でエクスポートし、Zeabur の Redis インスタンスにインポートしてください。
+</Callout>
+
+## ステップ 4：Heroku アドオンの置き換え
+
+Heroku アドオンには Zeabur の同等機能か外部サービスとして接続できます：
+
+| Heroku アドオン | Zeabur の代替 |
+|---|---|
+| Heroku Postgres | **Database** → PostgreSQL |
+| Heroku Redis | **Database** → Redis |
+| Heroku Scheduler | システム cron またはスケジュールサービス |
+| Papertrail（ログ） | ダッシュボード内蔵のログビューア |
+| SendGrid | 環境変数経由で接続 |
+| Cloudinary | 環境変数経由で接続 |
+
+外部 SaaS 製品タイプのアドオン（SendGrid、Cloudinary など）は、そのまま使い続けられます。API キーを Zeabur の **Variables** タブに転送するだけです。
+
+## ステップ 5：カスタムドメインの設定
+
+1. Zeabur ダッシュボードでサービスをクリックし、**Networking** タブに移動。
+2. **Generate Domain** で無料の `.zeabur.app` サブドメインを取得、または **Custom Domain** で独自ドメインを追加。
+3. DNS レコードを更新：
+   - 古い Heroku DNS ターゲット（`*.herokuapp.com` への CNAME または Heroku SSL エンドポイント）を削除。
+   - Zeabur が提供するターゲットを指す CNAME レコードを追加。
+
+## ステップ 6：確認して公開
+
+1. コミットをプッシュしてデプロイをトリガー（またはダッシュボードで **Redeploy** をクリック）。
+2. Zeabur の **Logs** タブでアプリが正常に起動することを確認。
+3. アプリケーションの主要フロー（認証、データベース読み書き、API 呼び出し）をテスト。
+4. 確認後、本番 DNS を Zeabur に向ける。
+
+## 主な違い：Heroku vs Zeabur
+
+| 機能 | Heroku | Zeabur |
+|------|--------|--------|
+| 設定 | `Procfile` + buildpacks | 自動検出（ゼロ設定） |
+| デプロイ | `git push heroku main` | GitHub への Git push（自動デプロイ） |
+| スケーリング | Dyno タイプ（Basic、Standard、Performance） | 使用量ベース、オートスケーリング |
+| スリープ動作 | Eco dyno は 30 分非アクティブでスリープ | スリープなし——常時稼働 |
+| Slug サイズ制限 | 500 MB 圧縮 | Slug サイズ制限なし |
+| データベース | Heroku Postgres（マネージド） | データベースサービス（PostgreSQL、MySQL、MongoDB、Redis 等） |
+| アドオン | Heroku Add-on マーケットプレイス | Zeabur プリビルトサービス + 外部サービス |
+| 料金 | Dyno 単位の月額課金 | 使用量ベース |
+
+<Callout>
+Heroku の `Procfile` は Zeabur では不要です。Zeabur は起動コマンドを自動検出します。カスタマイズが必要な場合は、サービス設定の **Build & Deploy** で設定できます。
+</Callout>
+
+---
+
+以上です。Heroku アプリケーションが Zeabur で稼働しています。dyno なし、Procfile なし、slug サイズ制限なし。問題が発生した場合は、[コミュニティフォーラム](https://zeabur.com/forum)でお問い合わせください。

@@ -1,0 +1,141 @@
+---
+title: Zeabur CLI
+ogImageTitle: Zeabur CLI
+ogImageSubtitle: ターミナルから Zeabur リソースを管理
+---
+
+import { Callout } from 'nextra/components'
+
+# Zeabur CLI
+
+Zeabur CLI を使えば、ターミナルからすべての Zeabur リソースを管理できます——サービスのデプロイ、ログの確認、プロジェクトの管理がダッシュボードを開かずに行えます。
+
+## ログイン
+
+### ブラウザログイン
+
+```bash copy
+npx zeabur@latest auth login
+```
+
+`Enter` を押してブラウザでログインページを開き、`Confirm` をクリックします。ターミナルにリダイレクトされ、ログイン成功メッセージが表示されます。
+
+### トークンログイン
+
+CI/CD やヘッドレス環境の場合：
+
+```bash copy
+npx zeabur@latest auth login --token <your-token>
+```
+
+## サービスをデプロイ
+
+プロジェクトディレクトリで以下のコマンドを実行：
+
+```bash copy
+npx zeabur@latest deploy
+```
+
+CLI がフレームワークを自動検出し、プロジェクトの選択または作成をガイドします。デプロイ完了後、サービス URL がターミナルに表示されます。
+
+## プロジェクト管理
+
+### プロジェクト一覧
+
+```bash copy
+npx zeabur@latest project ls
+```
+
+### プロジェクトコンテキストの設定
+
+```bash copy
+npx zeabur@latest context set project
+```
+
+インタラクティブモードでは、すべてのプロジェクトが一覧表示されて選択できます。以降のコマンドは選択したプロジェクトに自動的に適用されます。
+
+## サービス管理
+
+### サービス一覧
+
+```bash copy
+npx zeabur@latest service ls
+```
+
+### サービスコンテキストの設定
+
+```bash copy
+npx zeabur@latest context set service
+```
+
+### サービスの再起動
+
+```bash copy
+npx zeabur@latest service restart
+```
+
+## デプロイ情報とログ
+
+### デプロイステータスの確認
+
+```bash copy
+npx zeabur@latest deployment get
+```
+
+### ランタイムログの表示
+
+```bash copy
+npx zeabur@latest deployment log -t=runtime
+```
+
+### ビルドログの表示
+
+```bash copy
+npx zeabur@latest deployment log -t=build
+```
+
+## 環境の切り替え
+
+```bash copy
+npx zeabur@latest context set env
+```
+
+デプロイ環境（本番、ステージングなど）を切り替えます。
+
+## 非インタラクティブモード
+
+CI/CD パイプラインや自動化スクリプト用に、`-i=false` を追加してインタラクティブプロンプトを無効にし、パラメータを直接渡します：
+
+### 名前でプロジェクトとサービスを指定
+
+```bash copy
+npx zeabur@latest context set project --name <project-name>
+npx zeabur@latest context set service --name <service-name>
+npx zeabur@latest context set env --id <env-id>
+```
+
+### ID で指定
+
+```bash copy
+npx zeabur@latest context set project --id <project-id>
+npx zeabur@latest context set service --id <service-id>
+```
+
+### ワンライナー操作
+
+コンテキスト設定をスキップし、すべてのパラメータをインラインで渡す：
+
+```bash copy
+npx zeabur@latest service restart --env-id <env-id> --service-name <service-name>
+npx zeabur@latest deployment get --env-id <env-id> --service-name <service-name>
+npx zeabur@latest deployment log -t=runtime --env-id <env-id> --service-name <service-name>
+```
+
+## ヘルプを見る
+
+任意のコマンドに `--help` を追加して使い方を確認：
+
+```bash copy
+npx zeabur@latest --help
+npx zeabur@latest deployment --help
+```

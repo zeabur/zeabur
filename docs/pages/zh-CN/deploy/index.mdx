@@ -1,0 +1,56 @@
+---
+title: 部署与服务
+ogImageTitle: 部署与服务
+ogImageSubtitle: 部署您的应用程序和服务
+---
+
+import { Cards, Card } from 'nextra/components'
+
+# 部署与服务
+
+本部分涵盖 Zeabur 的所有部署方式、服务配置和项目管理功能。每个标题对应一个特定问题，方便快速参考。
+
+## 部署从哪里开始？
+
+Zeabur 上的所有服务都位于「项目」中。一个项目可以包含前端、后端、数据库等。
+
+- [创建项目](/deploy/create-project) — 创建和管理项目
+- [创建服务](/deploy/create-service) — 向项目添加服务
+- [部署原理](/deploy/how-deploys-work) — 了解 Zeabur 如何自动检测语言并构建
+
+## 有哪些部署方式？
+
+| 方式 | 最适合 | 文档 |
+|------|--------|------|
+| **GitHub 集成** | 最常用 — 推送即部署 | [GitHub/Git 集成](/deploy/github-integration) |
+| **模板** | 一键部署开源应用 | [模板](/template) |
+| **Dockerfile** | 自定义构建流程 | [Dockerfile](/deploy/dockerfile) |
+| **Docker 镜像** | 使用现有镜像 | [自定义 Docker 镜像](/deploy/custom-docker-image) |
+| **部署按钮** | 让他人一键部署你的项目 | [部署按钮](/deploy/deploy-button) |
+| **Chrome 扩展** | 从浏览器快速部署 | [Chrome 扩展](/deploy/deploy-with-chrome-extension) |
+| **CLI** | 终端部署，适合 CI/CD | [CLI 部署](/developer/cli) |
+| **上传 API** | 上传 ZIP 自动部署 | [上传 API](/developer/public-api#upload-api) |
+
+## 什么会触发重新部署？
+
+- **GitHub 推送**：默认情况下，每次推送到关联分支都会触发新的部署。
+- **手动触发**：在仪表板中点击「重新部署」。
+- **监听路径**：配置仅在特定路径更改时触发部署。参见[监听路径](/deploy/watch-paths)。
+
+## 如何设置环境变量？
+
+在服务的「配置」选项卡中，可以添加、编辑和删除环境变量。Zeabur 还支持跨服务引用变量。
+
+> [环境变量](/deploy/environment-variables)
+
+## 如何自定义构建？
+
+- [根目录](/deploy/root-directory) — 在 monorepo 中指定子目录
+- [监听路径](/deploy/watch-paths) — 控制哪些文件更改触发部署
+- [命令执行](/deploy/command-execution) — 自定义启动命令
+
+## 如何管理和迁移项目？
+
+- [复制项目](/deploy/copy-project) — 将整个项目复制到新环境
+- [导出项目](/deploy/export-project) — 导出项目配置
+- [更新镜像引用](/deploy/update-image-reference) — 更新 Docker 镜像版本

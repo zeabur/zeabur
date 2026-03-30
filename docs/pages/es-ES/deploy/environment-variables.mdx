@@ -1,0 +1,131 @@
+---
+title: Setting Environment Variables
+ogImageTitle: Setting Environment Variables
+ogImageSubtitle: Setting Environment Variables in Zeabur
+---
+
+<WorkingInProgress />
+
+# Setting Environment Variables
+
+Environment variables are used to configure your application.
+Zeabur provides a way to set environment variables for your service.
+
+## Add, Edit, Delete
+
+You can set environment variables in the **Variables** tab of your service, and you can **Add Variables** to your service.
+
+![environment variables](/environment/add-variables.en-US.png)
+
+Zeabur will automatically inject these environment variables into your service.
+
+- `<YOUR_SERVICE_NAME>_HOST`：The host of the service.
+
+- `PORT`：The port of the service
+
+- Other variables like database credentials([PostgreSQL](/marketplace/postgresql)) or [Redis](/marketplace/redis) connection string and so on.
+
+And you don't need to set the environment variables manually.
+
+![db env](/environment/db-env.en-US.png)
+
+When hovering over a variable, you can choose to start editing or delete the variable.
+
+![hovering](/environment/var-hover.png)
+
+Click the checkbox in the upper right corner to toggle the list view.
+
+![list view](/environment/var-list-view.png)
+
+Click the edit icon to edit the value of the variable.
+
+![edit variable](/environment/var-edit.png)
+
+## Edit as Raw
+
+If you want to add multiple variables at once, you can use the batch editing function.
+
+Click the **Edit as Raw** button to enter the batch editing mode, which will set the service environment variables in `.env` file.
+
+![edit-raw](/environment/var-raw-edit.png)
+
+## Variable Reference
+
+You can reference other variables in Zeabur.
+
+All you need to do is to reference other variables in the template syntax when setting the variable:
+
+```bash
+# For example, you can set the variable like this:
+AUTH_INFOR=${USERNAME}:${PASSWORD}
+```
+
+![reference](/environment/var-reference.png)
+
+By doing this, the value of `USERNAME` and `PASSWORD` will be automatically combined and injected into `AUTH_INFOR`.
+
+## Special Variables
+
+"Special Variables" are environment variables that are predefined by Zeabur and can be directly used.
+
+### Referencing
+
+- In the environment variable input box in Zeabur: Use the `${VARIABLE}` format to insert special variables.
+- In your own application: Use the same method as referencing an environment variables (`process.env.VARIABLE`).
+
+### Variable Priority Order
+
+The order of expansion for variables within a service is as follows:
+
+- Environment variables defined by the current service will be obtained first.
+- If not defined, environment variables exposed by other services will be obtained.
+- If not defined, special variables will be obtained.
+
+### Variables
+
+#### Hostname/Port
+
+- `${ZEABUR_[PORTNAME]_URL}`: The URL corresponding to a specific port.
+  - For example, `https://test.zeabur.app`.
+  - This URL is that one you set in the "Domain" section:
+
+    ![Domain Port Customization](/deploy/special-variables/domain-port-customization.png)
+
+  - For services deployed from Git repositories, the `PORTNAME` is always `web`.
+- `${ZEABUR_[PORTNAME]_DOMAIN}`: The domain corresponding to a specific port.
+  - For example, `test.zeabur.app`.
+  - This URL is that one you set in the "Domain" section.
+  - For services deployed from Git repositories, the `PORTNAME` is always `web`.
+- `${CONTAINER_HOSTNAME}`: The hostname of the current service in the Zeabur project.
+    - Usually, we create an environment variable with the Expose property (e.g., `${MYSQL_HOST}`),
+      and then fill in the value of `${CONTAINER_HOSTNAME}` in this environment variable.
+    - However, if you want to reference the hostname of another service within Zeabur, we recommend using the DNS feature that Zeabur will release in the future.
+- `${[PORTNAME]_PORT}`: The port defined in the Prebuilt service.
+    - For example, if you set `database / 3306 / TCP`, then `DATABASE_PORT` will be `3306`.
+    - Only visible within the current service.
+    - For services deployed from Git repositories, it is `8080`. You can read this port from `${PORT}`.
+
+#### Zeabur Information
+
+These variables are not commonly used, but if you need the unique identifiers of the current Zeabur service/project,
+these variables will be very helpful.
+
+- `${ZEABUR_SERVICE_ID}`: Service ID
+- `${ZEABUR_PROJECT_ID}`: Project ID
+- `${ZEABUR_ENVIRONMENT_ID}`: Service environment ID
+- `${ZEABUR_USER_ID}`: User ID who created this project
+
+#### Git Information
+
+These variables will only appear during the build phase of the Git service.
+
+- `${ZEABUR_GIT_COMMIT_SHA}`: The Git commit SHA value that the current deployment belongs to.
+- `${ZEABUR_GIT_AUTHOR}`: The Git commit author ID that the current deployment belongs to.
+- `${ZEABUR_GIT_BRANCH}`: The Git branch name that the current deployment belongs to.
+- `${ZEABUR_GIT_REPO_NAME}`: The Git repository name that the current deployment belongs to.
+- `${ZEABUR_GIT_REPO_OWNER}`: The Git repository owner ID that the current deployment belongs to.
+- `${ZEABUR_GIT_COMMIT_MESSAGE}`: The Git commit message that the current deployment belongs to.
+
+#### Utilities
+
+- `${PASSWORD}`: A random password generated by Zeabur for each service.

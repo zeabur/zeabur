@@ -1,0 +1,132 @@
+---
+title: 从 Railway 迁移
+ogImageTitle: 从 Railway 迁移
+ogImageSubtitle: 将应用从 Railway 迁移到 Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# 从 Railway 迁移
+
+本指南将帮助你将应用从 Railway 迁移到 Zeabur。Railway 和 Zeabur 共享相似的基于 Git 的部署模型，因此迁移非常简单。
+
+## 开始之前
+
+- 一个 [Zeabur](https://zeabur.com/) 账户。
+- 你的应用源代码在 Git 仓库（GitHub）中。
+- 可以访问 Railway 控制面板。
+
+## 步骤 1：连接 Git 仓库
+
+Railway 应用通常已连接到 Git 仓库，你可以将同一仓库连接到 Zeabur：
+
+1. 登录 [Zeabur 控制面板](https://dash.zeabur.com/)。
+2. 创建新项目并选择专用服务器（或购买新的）。
+3. 点击 **Add Service** → **Git** 并连接 GitHub 账户。
+4. 选择 Railway 服务使用的同一仓库。
+
+Zeabur 自动检测项目的语言、框架和构建配置。
+
+## 步骤 2：迁移环境变量
+
+1. 在 Railway 项目中，点击服务并前往 **Variables** 标签。点击 **Raw Editor** 一次性复制所有变量。
+2. 在 Zeabur 控制面板中，点击服务并前往 **Variables** 标签。
+3. 使用 **Bulk Edit** 一步粘贴所有变量。
+
+<Callout>
+Railway 使用 `${{Postgres.DATABASE_URL}}` 这样的变量引用来链接服务。在 Zeabur 上，等效写法是 `${POSTGRES_URI}`。将 Railway 风格的引用替换为 Zeabur 的变量语法。
+</Callout>
+
+## 步骤 3：迁移数据库
+
+如果你使用 Railway 的数据库服务：
+
+### PostgreSQL
+
+1. **从 Railway 导出**：打开 Railway 数据库服务，前往 **Data** 标签，使用 **Dump** 功能。或使用 `pg_dump` 和 Railway 连接字符串：
+
+   ```bash
+   pg_dump "your-railway-postgres-url" > backup.sql
+   ```
+
+2. **在 Zeabur 上创建**：点击 **Add Service** → **Database** → **PostgreSQL**。
+
+3. **导入**：
+
+   ```bash
+   psql "your-zeabur-postgres-connection-string" < backup.sql
+   ```
+
+### MySQL
+
+1. **从 Railway 导出**：
+
+   ```bash
+   mysqldump -h railway-host -u root -p railway_db > backup.sql
+   ```
+
+2. **在 Zeabur 上创建**：点击 **Add Service** → **Database** → **MySQL**。
+
+3. **导入**：
+
+   ```bash
+   mysql -h zeabur-host -u root -p zeabur_db < backup.sql
+   ```
+
+### Redis
+
+1. **从 Railway 导出**：
+
+   ```bash
+   redis-cli -u "your-railway-redis-url" --rdb dump.rdb
+   ```
+
+2. **在 Zeabur 上创建**：点击 **Add Service** → **Database** → **Redis**。
+
+3. 大多数情况下，Redis 用作缓存，可以全新启动而无需导入数据。
+
+## 步骤 4：迁移存储卷
+
+如果 Railway 服务使用了持久化存储卷：
+
+1. 从 Railway 下载数据。可以使用 Railway CLI 或通过服务 Shell 访问存储卷。
+2. 在 Zeabur 控制面板中，前往服务的 **Volumes** 标签并点击 **Add Volume**。
+3. 指定挂载路径（必须匹配应用期望的路径）。
+4. 通过服务 Shell 上传数据或让应用重新生成。
+
+<Callout type="warning">
+Railway 和 Zeabur 之间没有直接的存储卷传输。你需要手动导出和导入数据。
+</Callout>
+
+## 步骤 5：设置自定义域名
+
+1. 在 Zeabur 控制面板中，点击服务并前往 **Networking** 标签。
+2. 点击 **Generate Domain** 获取免费的 `.zeabur.app` 子域名，或点击 **Custom Domain** 添加自己的域名。
+3. 更新 DNS 记录：
+   - 删除旧的 Railway CNAME 记录。
+   - 添加指向 Zeabur 提供的目标的 CNAME 记录。
+
+## 步骤 6：验证并上线
+
+1. 推送一个提交来触发部署，或在控制面板中点击 **Redeploy**。
+2. 在 **Logs** 标签中确认应用正确启动。
+3. 测试数据库连接和所有关键应用流程。
+4. 验证后，将生产 DNS 切换到 Zeabur。
+
+## 主要差异：Railway vs Zeabur
+
+| 功能 | Railway | Zeabur |
+|------|---------|--------|
+| 部署 | Git push（自动部署） | Git push（自动部署） |
+| 变量引用 | `${{Service.VAR}}` | `${VAR}` |
+| 数据库 | 内置 Postgres、MySQL、Redis、MongoDB | 数据库服务，选择更多 |
+| 存储卷 | 按服务存储卷 | 按服务存储卷 |
+| 扩展 | 手动副本数 | 手动资源分配 |
+| 专用服务器 | 不可用 | 可用（裸金属选项） |
+| 模板 | Railway 模板 | [Zeabur 模板](https://zeabur.com/templates) |
+| AI 服务 | 不可用 | [AI Hub](https://zeabur.com/ai) 提供模型推理 |
+| 定价 | 按使用量 + 订阅 | 按使用量付费 |
+
+---
+
+完成了。你的 Railway 应用现在已在 Zeabur 上运行。两个平台有非常相似的开发者体验，你应该很快就能适应。如遇到任何问题，请在我们的[社区论坛](https://zeabur.com/forum)联系我们。

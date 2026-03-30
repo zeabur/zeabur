@@ -1,5 +1,5 @@
 export default {
-  index:            { display: 'hidden' },
+  purchase:         '購買主機',
   register:         '新增主機',
   operate:          '管理伺服器',
   'shared-cluster': '共享叢集（已停止服務）',

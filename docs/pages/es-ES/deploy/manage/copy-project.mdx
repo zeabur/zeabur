@@ -1,0 +1,59 @@
+---
+title: Copiar Proyecto
+ogImageTitle: Copiar Proyecto
+ogImageSubtitle: Copia tu proyecto a cualquier región con un clic en Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Copiar Proyecto
+
+Zeabur proporciona una **función de Copia de Proyecto** que te permite copiar fácilmente proyectos a cualquier región.
+
+Solo necesitas ir a la página de configuración del proyecto para encontrar la **función de copia de proyecto con un clic**. Esta función copiará automáticamente tu proyecto completo a cualquier región que elijas, incluyendo la arquitectura del proyecto, variables de entorno e incluso tus datos de disco. Todo el proceso toma solo unos minutos, ahorrando enormemente tu tiempo y esfuerzo.
+
+- **Proyectos sin disco:** Si tu proyecto no tiene disco montado, el proceso de copia puede incluso lograr **tiempo de inactividad cero**, con una experiencia tan fluida como reiniciar un servicio.
+- **Proyectos con disco:** Si tu proyecto tiene disco montado, el tiempo de copia dependerá del tamaño de los datos. Nuestro backend hará automáticamente respaldo de tus datos de disco al almacenamiento S3 y los restaurará al nuevo proyecto, asegurando que tus datos estén completos y seguros.
+
+## Descripción del Contenido de Copia
+
+<Callout>
+    La función de copia de proyecto copiará completamente tu proyecto, **incluyendo todos los datos**. Después de copiar, necesitas revincular dominios ya que no heredará automáticamente la configuración de dominio del proyecto original.
+</Callout>
+
+Al copiar un proyecto, el siguiente contenido será copiado completamente:
+- **Arquitectura del Proyecto**: Todas las configuraciones de servicios y relaciones
+- **Tipo de Servicio**: Imágenes Docker, repositorios Git, etc.
+- **Variables de Entorno**: Todas las variables de entorno configuradas
+- **Datos disco**: Todos los datos en el espacio de almacenamiento persistente
+- **Configuraciones de Red**: Configuraciones de puerto y reglas de red
+
+## Notas Importantes
+
+1. **Copia con Tiempo de Inactividad Cero**: Los proyectos sin disco pueden lograr copia con tiempo de inactividad cero, mientras que los proyectos con disco tienen tiempo de copia dependiendo del tamaño de los datos.
+
+2. **Integridad de Datos**: Durante el proceso de copia, todos los datos serán completamente respaldados y restaurados, asegurando la seguridad de los datos.
+
+3. **Revinculación de Dominio**: Los proyectos copiados necesitan revincular dominios y no heredarán automáticamente la configuración de dominio del proyecto original.
+
+4. **Consumo de Recursos**: El proceso de copia consumirá temporalmente espacio de almacenamiento adicional para el respaldo de datos.
+
+## Cómo Usar
+
+La función de copia de proyecto se encuentra en la configuración de tu proyecto.
+
+### 1. Ve a la configuración del proyecto y encuentra el botón "Copiar Proyecto"
+
+![step 1.1](https://cdn.zeabur.com/clone-project/step-1.1.png)
+
+![step 1.2](https://cdn.zeabur.com/clone-project/step-1.2.png)
+
+### 2. Selecciona la región objetivo
+
+![step 2.1](https://cdn.zeabur.com/clone-project/step-2.1.png)
+
+### 3. Espera unos minutos para la copia
+
+![step 3.1](https://cdn.zeabur.com/clone-project/step-3.1.png)
+
+![step 3.2](https://cdn.zeabur.com/clone-project/step-3.2.png)

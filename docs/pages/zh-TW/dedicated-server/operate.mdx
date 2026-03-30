@@ -29,6 +29,49 @@ $ sudo k3s crictl rmi --prune
 
 有時候 K3s 針對每個容器記錄的 Logs 也會佔用不少空間，您可以試著到 [K3s 的 logs 目錄](https://docs.k3s.io/faq#where-are-the-k3s-logs) 清理這些 Logs。
 
+## 從 OOM 恢復（伺服器離線）
+
+當伺服器記憶體不足（OOM）時，伺服器儀表板上的 K3s 狀態指示燈可能會變紅，表示 Kubernetes 已無法正常運作。此時您的服務將無法存取。
+
+![伺服器資訊顯示 K3s 狀態](/dedicated-server/server-info.png)
+
+要恢復伺服器，請前往 **Settings**，然後點擊 **Reboot Server**。
+
+![Settings 中的 Reboot Server 按鈕](/dedicated-server/reboot-server-button.png)
+
+系統會彈出一個對話框，列出重啟後會自動啟動的所有服務。**如果 K3s 顯示為紅色（離線），建議取消選取所有服務**，以避免伺服器重啟後立即再次記憶體不足。
+
+![Reboot Server 對話框，列出服務](/dedicated-server/reboot-dialog.png)
+
+點擊 **Deselect All** 以防止任何服務自動啟動，然後點擊 **Reboot**。
+
+![Reboot Server 對話框，所有服務已取消選取](/dedicated-server/reboot-deselected.png)
+
+<Callout type="warning">
+    重啟過程大約需要 3–5 分鐘。伺服器重啟後，K3s 應該會恢復為綠色。確認伺服器正常後，您可以從 **Projects** 標籤逐一重新啟用服務。
+</Callout>
+
+如果伺服器經常發生 OOM，請考慮升級到更大的伺服器或減少部署的服務數量。您也應該設定 **資源預留**（見下方說明）以防止系統資源被完全耗盡。
+
+## 資源預留
+
+資源預留功能可讓您為 Kubernetes 和系統程序保留 CPU 與記憶體，確保伺服器即使在高負載下仍然可存取。這可以防止作業系統或 Kubernetes 本身因 OOM 而被終止。
+
+前往 **Settings** > **Advanced Settings** > **Resource Reservation**。
+
+![資源預留設定](/dedicated-server/resource-reservation.png)
+
+有兩種預留類別：
+
+- **Kubernetes Reserved**：為 Kubernetes 系統元件（kubelet、kube-proxy 等）保留的資源
+- **System Reserved**：為作業系統層級程序（SSH、systemd 等）保留的資源
+
+<Callout type="info">
+    新購買的伺服器預設為 Kubernetes 和系統預留各 500m CPU / 512Mi 記憶體。建議保持這些預設值以確保伺服器穩定性。如果您之前購買的伺服器沒有這些預設值，建議手動設定。
+</Callout>
+
+調整數值後，點擊 **Save** 即可套用變更。
+
 ## 更改 DNS Nameservers
 
 預設 Zeabur 專用伺服器會使用 [Cloudflare DNS](https://1.1.1.1/) 作為叢集的 DNS Nameservers（中國大陸區域的機器，則是使用 [阿里雲公共 DNS](https://www.alidns.com/)）。

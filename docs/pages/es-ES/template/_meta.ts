@@ -1,5 +1,4 @@
 export default {
-  index:                         { display: 'hidden' },
   'template-catalog':            'Catálogo de Plantillas',
   'template-format':             'Formato de Plantilla',
   'fork-git-repo-from-template': 'Fork Repositorio Git desde Plantilla',

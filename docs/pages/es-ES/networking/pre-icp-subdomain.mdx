@@ -1,0 +1,52 @@
+---
+title: Subdominio previo al registro ICP
+ogImageTitle: Subdominio previo al registro ICP
+ogImageSubtitle: Compra un servidor en China continental a través de Zeabur y utiliza un dominio de vista previa sin necesidad de registro ICP
+---
+
+# Subdominio previo al registro ICP
+
+Según las leyes y regulaciones de China continental, todos los servicios desplegados en servidores ubicados dentro de China continental deben completar el registro ICP antes de ser accesibles. Esto puede resultar problemático para proyectos que aún se encuentran en fase de desarrollo.
+
+En el enfoque tradicional, si adquieres un servidor en China continental, puedes acceder al servicio mediante IP + número de puerto sin necesidad de registro ICP. Sin embargo, este método impide usar un dominio para acceder al servicio y no permite emitir certificados SSL.
+
+Para este tipo de situaciones, Zeabur ofrece la funcionalidad de subdominio previo al registro ICP. Con ella, una vez completada la verificación de identidad real, puedes usar temporalmente un dominio ya registrado proporcionado por Zeabur para acceder a tus servicios desplegados. Esto resulta muy conveniente para servicios personales temporales en fase de desarrollo o solo para pruebas, y es completamente legal y conforme a la normativa.
+
+## Requisitos de uso
+
+- Tu servidor debe haber sido adquirido a través de Zeabur.
+- Tu servidor debe estar ubicado en China continental.
+- Tu cuenta de Zeabur debe haber completado la verificación de identidad real de China continental.
+- Tu proveedor de servidor debe estar en la lista de proveedores compatibles con el subdominio pre-ICP en Zeabur:
+
+| Proveedor de nube | Clúster compartido Zeabur | Servidor gestionado Zeabur disponible | Región en China continental | Soporte de subdominio pre-ICP |
+| --- | --- | --- | --- | --- |
+| Alibaba Cloud | ❌ | ✅ | ✅ | ✅ |
+| Tencent Cloud | ❌ | ✅ | ✅ | ✅ |
+| Volcengine | ✅ | ✅ | ✅ | ⌛️ |
+| Huawei Cloud | ✅ | ❌ | ✅ | ✅ |
+| Digital Ocean | ❌ | ✅ | ❌ | ❌ |
+| Hetzner | ❌ | ✅ | ❌ | ❌ |
+| AWS | ✅ | ✅ | ❌ | ❌ |
+| GCP | ✅ | ✅ | ❌ | ❌ |
+
+## Cómo usarlo
+
+1. Selecciona el proyecto desplegado en el servidor gestionado por Zeabur en China continental y luego elige el servicio al que deseas vincular el subdominio previo al registro ICP.
+2. Selecciona la pestaña «Red».
+3. Haz clic en «Generar dominio» e introduce el subdominio que deseas.
+
+![](https://cdn.zeabur.com/pre-icp-1.png)
+
+4. Haz clic en «Crear dominio». Si aún no has completado la verificación de identidad real, Zeabur te pedirá que la completes.
+5. En la ventana de verificación de identidad real, introduce tu nombre y número de documento de identidad y haz clic en enviar; serás redirigido automáticamente al servicio de verificación de identidad real de Alibaba Cloud.
+
+![](https://cdn.zeabur.com/pre-icp-2.png)
+
+6. Una vez completada la verificación de identidad real, haz clic de nuevo en «Generar dominio» para generar y vincular automáticamente el dominio registrado.
+
+## Consideraciones importantes
+
+- El uso del subdominio previo al registro ICP implica que has aceptado los términos de uso del proveedor de nube correspondiente.
+- Zeabur prohíbe estrictamente el uso del subdominio previo al registro ICP para cualquier actividad que infrinja las leyes y regulaciones locales. En caso de detectarse una infracción, Zeabur tiene derecho a rescindir el servicio de forma unilateral y a transferir la información de identidad real a las autoridades de aplicación de la ley del país o región del usuario.
+- No se recomienda utilizar el subdominio previo al registro ICP como dominio oficial para servicios comerciales. Una vez finalizadas las pruebas o el desarrollo, se recomienda completar el proceso formal de registro ICP para solicitar tu propio dominio. Zeabur ofrece de forma gratuita asistencia y soporte para las solicitudes de registro ICP.

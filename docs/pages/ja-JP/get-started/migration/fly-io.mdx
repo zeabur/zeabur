@@ -1,0 +1,134 @@
+---
+title: Fly.io からの移行
+ogImageTitle: Fly.io からの移行
+ogImageSubtitle: アプリケーションを Fly.io から Zeabur に移行
+---
+
+import { Callout } from 'nextra/components'
+
+# Fly.io からの移行
+
+このガイドでは、アプリケーションを Fly.io から Zeabur に移行する手順を説明します。Docker ベースのアプリ、Web サービス、Postgres データベースを含むフルスタックアプリケーションのいずれでも、Zeabur は最小限の設定変更で対応できます。
+
+## 始める前に
+
+- [Zeabur](https://zeabur.com/) アカウント。
+- アプリケーションのソースコードが Git リポジトリ（GitHub）にあること。
+- Fly.io ダッシュボードと CLI（`flyctl`）へのアクセス。
+
+<Callout>
+Docker イメージのみで Fly.io にデプロイしている場合（Git リポジトリなし）でも、イメージをコンテナレジストリにプッシュし、Zeabur で Docker サービスとしてデプロイすることで移行できます。
+</Callout>
+
+## ステップ 1：Fly.io の設定を確認
+
+プロジェクトの `fly.toml` ファイルを開きます。Zeabur で再作成する必要がある設定が含まれています：
+
+```toml
+# fly.toml — 例
+app = "my-app"
+
+[env]
+  NODE_ENV = "production"
+  PORT = "8080"
+
+[http_service]
+  internal_port = 8080
+
+[[vm]]
+  memory = "512mb"
+  cpu_kind = "shared"
+```
+
+以下を確認してください：
+- `[env]` の**環境変数**および `fly secrets list` で設定されたシークレット。
+- アプリがリッスンする**内部ポート**。
+- `[mounts]` が設定されている場合の**ボリューム**。
+
+## ステップ 2：Fly.io のシークレットをエクスポート
+
+すべてのシークレットをリストアップして Zeabur に転送します：
+
+```bash
+fly secrets list -a my-app
+```
+
+シークレット名が表示されます（値は非表示）。各シークレットについて、元のソース（データベースプロバイダー、API ダッシュボードなど）から値を取得または再生成する必要があります。
+
+## ステップ 3：Git リポジトリを Zeabur に接続
+
+1. [Zeabur ダッシュボード](https://dash.zeabur.com/)にログイン。
+2. 新しいプロジェクトを作成し、専用サーバーを選択（または新規購入）。
+3. **Add Service** → **Git** をクリックし、GitHub アカウントを接続。
+4. アプリケーションコードを含むリポジトリを選択。
+
+Zeabur はプロジェクトの言語とフレームワークを自動検出します。ほとんどの場合、`fly.toml` や `Dockerfile` は不要です。
+
+<Callout>
+プロジェクトが Dockerfile を使用している場合、Zeabur は自動的に検出して使用します。追加の設定は不要です。
+</Callout>
+
+## ステップ 4：環境変数を設定
+
+1. Zeabur ダッシュボードで新しく作成したサービスをクリック。
+2. **Variables** タブに移動。
+3. Fly.io アプリの各環境変数とシークレットを追加。
+
+`PORT` の設定は不要です。Zeabur が自動的にポートを割り当て、注入します。
+
+## ステップ 5：永続ストレージの設定（必要な場合）
+
+Fly.io アプリがボリューム（`fly.toml` の `[mounts]`）を使用している場合、Zeabur でボリュームを作成する必要があります：
+
+1. サービス設定で **Volumes** タブに移動。
+2. **Add Volume** をクリックし、マウントパス（例：`/data`）を指定。
+3. Zeabur が再デプロイ後も存続する永続ストレージをプロビジョニングします。
+
+<Callout type="warning">
+Fly.io のボリュームは自動エクスポートできません。Fly.io マシンに SSH（`fly ssh console`）でログインし、データを圧縮してから Zeabur の新しいボリュームに転送する必要があります。
+</Callout>
+
+## ステップ 6：データベースの移行
+
+Fly.io Postgres を使用している場合：
+
+1. **Fly.io Postgres からデータをエクスポート**：
+
+   ```bash
+   fly proxy 15432:5432 -a my-app-db &
+   pg_dump -h localhost -p 15432 -U postgres -d my_database > backup.sql
+   ```
+
+2. **Zeabur でデータベースを作成**：**Add Service** → **Database** → **PostgreSQL** をクリック。
+
+3. **データをインポート**：Zeabur の PostgreSQL 接続文字列を使用：
+
+   ```bash
+   psql "your-zeabur-postgres-connection-string" < backup.sql
+   ```
+
+4. **アプリのデータベース URL を更新**：Zeabur の **Variables** タブで `DATABASE_URL` を設定。Zeabur の組み込み変数参照 `${POSTGRES_URI}` を使って接続文字列を自動注入できます。
+
+## ステップ 7：カスタムドメインの設定
+
+1. Zeabur ダッシュボードでサービスをクリックし、**Networking** タブに移動。
+2. **Generate Domain** で無料の `.zeabur.app` サブドメインを取得、または **Custom Domain** で独自ドメインを追加。
+3. カスタムドメインを使用する場合、DNS レコードを更新：
+   - 古い Fly.io の CNAME または A レコードを削除。
+   - Zeabur が提供するターゲットを指す CNAME レコードを追加。
+
+## 主な違い：Fly.io vs Zeabur
+
+| 機能 | Fly.io | Zeabur |
+|------|--------|--------|
+| 設定 | `fly.toml` + CLI | 自動検出 + ダッシュボード |
+| デプロイ | `fly deploy` CLI コマンド | Git push（自動デプロイ） |
+| スケーリング | Machines API、手動設定 | ダッシュボードでワンクリック |
+| データベース | Fly Postgres（セルフマネージド） | データベースサービス（マネージド PostgreSQL、MySQL、Redis 等） |
+| ネットワーク | Anycast IP、WireGuard | 自動 HTTPS、カスタムドメイン |
+| 永続ストレージ | Fly Volumes（リージョン固定） | Zeabur Volumes（マネージド） |
+| 料金モデル | VM 単位 + 帯域幅 | 使用量ベース |
+
+---
+
+以上です。Fly.io アプリケーションが Zeabur で稼働しています。問題が発生した場合は、[コミュニティフォーラム](https://zeabur.com/forum)でお問い合わせください。

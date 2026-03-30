@@ -1,0 +1,132 @@
+---
+title: Migrar desde Railway
+ogImageTitle: Migrar desde Railway
+ogImageSubtitle: Migra tu aplicación de Railway a Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Migrar desde Railway
+
+Esta guía te lleva a través de la migración de tu aplicación de Railway a Zeabur. Railway y Zeabur comparten un modelo de despliegue basado en Git similar, por lo que la migración es sencilla.
+
+## Antes de Empezar
+
+- Una cuenta en [Zeabur](https://zeabur.com/).
+- El código fuente de tu aplicación en un repositorio Git (GitHub).
+- Acceso a tu dashboard de Railway.
+
+## Paso 1: Conecta tu Repositorio Git
+
+Como las apps de Railway típicamente están conectadas a un repositorio Git, puedes conectar el mismo repo a Zeabur:
+
+1. Inicia sesión en el [dashboard de Zeabur](https://dash.zeabur.com/).
+2. Crea un nuevo proyecto y selecciona un servidor dedicado (o compra uno nuevo).
+3. Haz clic en **Add Service** → **Git** y conecta tu cuenta de GitHub.
+4. Selecciona el mismo repositorio que usa tu servicio de Railway.
+
+Zeabur auto-detecta el lenguaje, framework y configuración de compilación de tu proyecto.
+
+## Paso 2: Transfiere Variables de Entorno
+
+1. En tu proyecto de Railway, haz clic en un servicio y ve a la pestaña **Variables**. Haz clic en **Raw Editor** para copiar todas las variables a la vez.
+2. En el dashboard de Zeabur, haz clic en tu servicio y ve a la pestaña **Variables**.
+3. Usa **Bulk Edit** para pegar todas tus variables en un solo paso.
+
+<Callout>
+Railway usa referencias de variables como `${{Postgres.DATABASE_URL}}` para enlazar servicios. En Zeabur, el equivalente es `${POSTGRES_URI}`. Reemplaza las referencias estilo Railway con la sintaxis de variables de Zeabur.
+</Callout>
+
+## Paso 3: Migra tu Base de Datos
+
+Si estás usando los servicios de base de datos de Railway:
+
+### PostgreSQL
+
+1. **Exporta desde Railway**: abre el servicio de base de datos de Railway, ve a la pestaña **Data** y usa la función **Dump**. O usa `pg_dump` con la cadena de conexión de Railway:
+
+   ```bash
+   pg_dump "your-railway-postgres-url" > backup.sql
+   ```
+
+2. **Crea en Zeabur**: haz clic en **Add Service** → **Database** → **PostgreSQL**.
+
+3. **Importa**:
+
+   ```bash
+   psql "your-zeabur-postgres-connection-string" < backup.sql
+   ```
+
+### MySQL
+
+1. **Exporta desde Railway**:
+
+   ```bash
+   mysqldump -h railway-host -u root -p railway_db > backup.sql
+   ```
+
+2. **Crea en Zeabur**: haz clic en **Add Service** → **Database** → **MySQL**.
+
+3. **Importa**:
+
+   ```bash
+   mysql -h zeabur-host -u root -p zeabur_db < backup.sql
+   ```
+
+### Redis
+
+1. **Exporta desde Railway**:
+
+   ```bash
+   redis-cli -u "your-railway-redis-url" --rdb dump.rdb
+   ```
+
+2. **Crea en Zeabur**: haz clic en **Add Service** → **Database** → **Redis**.
+
+3. Para la mayoría de los casos de uso, Redis se usa como caché y puede iniciarse de cero sin importar datos.
+
+## Paso 4: Migra Volúmenes
+
+Si tu servicio de Railway usa volúmenes persistentes:
+
+1. Descarga tus datos desde Railway. Puedes usar el CLI de Railway o acceder al volumen a través del shell del servicio.
+2. En el dashboard de Zeabur, ve a la pestaña **Volumes** de tu servicio y haz clic en **Add Volume**.
+3. Especifica la ruta de montaje (debe coincidir con lo que espera tu aplicación).
+4. Sube tus datos vía el shell del servicio o deja que la aplicación los regenere.
+
+<Callout type="warning">
+No hay transferencia directa de volumen a volumen entre Railway y Zeabur. Necesitarás exportar e importar los datos manualmente.
+</Callout>
+
+## Paso 5: Configura Dominios Personalizados
+
+1. En el dashboard de Zeabur, haz clic en tu servicio y ve a la pestaña **Networking**.
+2. Haz clic en **Generate Domain** para un subdominio `.zeabur.app` gratuito, o en **Custom Domain** para añadir el tuyo.
+3. Actualiza tus registros DNS:
+   - Elimina el antiguo registro CNAME de Railway.
+   - Añade un registro CNAME apuntando al destino proporcionado por Zeabur.
+
+## Paso 6: Verifica y Publica
+
+1. Haz un push de un commit para disparar un despliegue, o haz clic en **Redeploy** en el dashboard.
+2. Revisa la pestaña **Logs** para confirmar que tu app inicia correctamente.
+3. Prueba la conectividad de la base de datos y todos los flujos clave de la aplicación.
+4. Una vez verificado, cambia tu DNS de producción a Zeabur.
+
+## Diferencias Clave: Railway vs Zeabur
+
+| Característica | Railway | Zeabur |
+|---|---|---|
+| Despliegue | Git push (auto-despliegue) | Git push (auto-despliegue) |
+| Referencias de variables | `${{Service.VAR}}` | `${VAR}` |
+| Bases de datos | Postgres, MySQL, Redis, MongoDB integrados | Servicios de base de datos con las mismas opciones + más |
+| Volúmenes | Volúmenes por servicio | Volúmenes por servicio |
+| Escalado | Conteo de réplicas manual | Asignación manual de recursos |
+| Servidores dedicados | No disponible | Disponible (opciones bare-metal) |
+| Plantillas | Plantillas de Railway | [Plantillas de Zeabur](https://zeabur.com/templates) |
+| Servicios de IA | No disponible | [AI Hub](https://zeabur.com/ai) para inferencia de modelos |
+| Precios | Basado en uso + suscripción | Basado en uso |
+
+---
+
+Listo. Tu aplicación de Railway ahora está ejecutándose en Zeabur. Ambas plataformas tienen una experiencia de desarrollador muy similar, así que deberías sentirte como en casa. Si encuentras algún problema, contáctanos en nuestro [foro de la comunidad](https://zeabur.com/forum).

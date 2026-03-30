@@ -1,5 +1,5 @@
 export default {
-  index:            { display: 'hidden' },
+  purchase:         'Purchase a Server',
   register:         'Add a Server',
   operate:          'Manage Server',
   'shared-cluster': 'Shared Cluster (Deprecated)',

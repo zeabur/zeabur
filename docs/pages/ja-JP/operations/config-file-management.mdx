@@ -1,0 +1,103 @@
+---
+title: 設定ファイルエディタ
+ogImageTitle: 設定ファイルエディタ
+ogImageSubtitle: サービスの設定を編集する
+---
+
+import { Callout } from 'nextra/components'
+
+# 設定ファイルエディタ
+
+サービスを実行する際、設定ファイルを通じてさまざまな設定をカスタマイズできます。Zeabur は、エディタを通じて設定ファイルの保存場所と内容を指定できる設定ファイルエディタを提供しています。設定ファイルはサービスの起動時に自動的にマウントされます。
+
+ここでは、[NGINX](https://nginx.com/) を使用して内部の [vaultwarden](https://github.com/dani-garcia/vaultwarden) サービスをリバースプロキシする例を通じて、設定ファイルエディタを使用して NGINX の設定ファイルを変更するプロセスを示します。
+
+## ステップ1：プロジェクトの作成
+
+[Zeabur ダッシュボード](https://dash.zeabur.com/)でプロジェクトを作成します。
+
+## ステップ2：サービスの作成
+
+上記のプロジェクトに NGINX と Vaultwarden の両方のプリビルトサービスを作成します。
+
+![Create NGINX Service](/data-management/config-edit/create-nginx-service.en-US.png)
+
+![Create Vaultwarden Service](/data-management/config-edit/create-vultwarden-service.en-US.png)
+
+## ステップ3：NGINX サービスの設定ファイルを編集
+
+1. サービスセクションで、NGINX サービスの `Settings` ブロックのドロップダウンボタンをクリックし、`Configs` セクションを見つけて、`Open Config Editor` ボタンをクリックして設定ファイルエディタに入ります。
+
+![Open Config Editor](/data-management/config-edit/open-config-editor.en-US.png)
+
+2. 開いたエディタで、`Add Config file` ボタンをクリックして新しい設定ファイルを追加します。ポップアップフォームの `Config Path` 入力ボックスに、設定ファイルのパスと名前を入力します。ここでは `/etc/nginx/nginx.conf` と入力し、`Save Config` ボタンをクリックします。
+
+![Add Config File](/data-management/config-edit/create-new-config.en-US.png)
+
+<Callout>
+    上記の `Config Path` は設定ファイルの絶対パスである必要があります。実際の状況に合わせて調整してください。
+</Callout>
+
+3. 必要に応じて設定ファイルの内容を編集します。ここでは、Vaultwarden サービスをリバースプロキシするための `server` ブロックを追加します。
+
+```nginx
+worker_processes  4;
+error_log  stderr;
+worker_rlimit_nofile 8192;
+
+events {}
+
+http {
+  default_type application/octet-stream;
+  log_format   main '$remote_addr - $remote_user [$time_local]  $status '
+    '"$request" $body_bytes_sent "$http_referer" '
+    '"$http_user_agent" "$http_x_forwarded_for"';
+  access_log   /dev/stdout  main;
+  sendfile     on;
+  tcp_nopush   on;
+  server_names_hash_bucket_size 128; # this seems to be required for some vhosts
+
+  map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      "";
+  }
+
+  server {
+    listen 80 default_server;
+    server_name _;
+
+    location / {
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection $connection_upgrade;
+
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+
+      proxy_pass http://vaultwarden.zeabur.internal:80;
+    }
+  }
+}
+```
+
+他のユーザーが NGINX サービスを通じて内部の Vaultwarden サービスにアクセスできるようにするため、NGINX で `proxy_pass http://vaultwarden.zeabur.internal:80;` ディレクティブを使用しています。これは、NGINX がこの場所へのすべてのリクエストを Vaultwarden にプロキシすることを示しています。[プライベートネットワーク](/deploy/private-networking)機能を使用して、固定ホスト名でプライベートネットワーク内の Vaultwarden にアクセスしています。
+
+4. `Save` ボタンをクリックして設定を保存します。
+
+![Save Config](/data-management/config-edit/save-config.en-US.png)
+
+## ステップ4：サービスの再起動
+
+上記の手順で設定ファイルの編集が完了しました。次に、サービスを再起動する必要があります。`Instructions` セクションを見つけて `Restart` ボタンをクリックし、設定ファイルが有効になるようにサービスを再起動します。
+
+![Restart Service](/data-management/config-edit/restart-service.en-US.png)
+
+[NGINX サービスにドメインをバインド](/deploy/domain-binding)した後、ドメインを通じて Vaultwarden サービスにアクセスできます。
+
+![Access Vaultwarden](/data-management/config-edit/vultwarden-service.en-US.png)
+
+## テンプレート YAML での設定ファイルの事前指定
+
+「サービス仕様」で `configs` を使用して、このサービスの設定ファイルを事前に指定できます。詳細については、[YAML からテンプレートを作成する](/template/template-format)の記事をご参照ください。

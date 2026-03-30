@@ -4,6 +4,7 @@ import JaJP from './ja_JP.mdx'
 import ZhTW from './zh_TW.mdx'
 import ZhCN from './zh_CN.mdx'
 import EnUS from './en_US.mdx'
+import EsES from './es_ES.mdx'
 
 export default function WorkingInProgress() {
   const router = useRouter()
@@ -15,6 +16,8 @@ export default function WorkingInProgress() {
       return <ZhTW />
     case 'zh-CN':
       return <ZhCN />
+    case 'es-ES':
+      return <EsES />
     case 'en-US':
     default:
       return <EnUS />

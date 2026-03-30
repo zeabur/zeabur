@@ -1,0 +1,96 @@
+---
+title: Mejores Prácticas
+ogImageTitle: Mejores Prácticas
+ogImageSubtitle: Prácticas recomendadas para despliegue y gestión en Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Mejores Prácticas
+
+Sigue estos consejos prácticos para aprovechar al máximo Zeabur mientras mantienes tus despliegues confiables y eficientes en costos.
+
+## Usa Variables de Entorno para la Configuración
+
+Almacena todos los valores de configuración — claves API, URLs de bases de datos, feature flags — en [variables de entorno](/deploy/variable). Nunca codifiques secretos directamente en tu código fuente o imágenes Docker.
+
+<Callout type="warning">
+Los secretos committeados en Git quedan permanentemente expuestos en el historial de tu repositorio. Usa siempre la gestión de variables de entorno de Zeabur.
+</Callout>
+
+Zeabur soporta referencias de variables entre servicios (por ejemplo, `${MYSQL_HOST}`), lo que mantiene las credenciales sincronizadas automáticamente.
+
+## Sé Intencional con los Volúmenes Persistentes
+
+Los [volúmenes persistentes](/operations/volumes) son esenciales para bases de datos y almacenamiento de archivos, pero tienen un trade-off: los servicios con volúmenes adjuntos no pueden realizar despliegues rolling sin tiempo de inactividad.
+
+<Callout type="warning">
+Solo adjunta volúmenes a servicios que realmente necesiten datos persistentes (bases de datos, archivos subidos). Los servidores de aplicaciones sin estado no deben usar volúmenes.
+</Callout>
+
+Para activos estáticos y artefactos de compilación, usa almacenamiento de objetos o un CDN en su lugar.
+
+## Establece Límites de Recursos para Controlar Costos
+
+Configura límites de CPU y memoria para cada servicio para prevenir costos desbordados. Un solo servicio mal configurado puede consumir recursos muy por encima de lo que tu aplicación necesita.
+
+- Revisa la [calculadora de precios](https://zeabur.com/pricing) para estimar costos antes del despliegue.
+- Consulta las métricas de uso en el [Dashboard](https://dash.zeabur.com) regularmente.
+
+## Usa Servicios del Marketplace para Bases de Datos
+
+En lugar de ejecutar tus propios contenedores de bases de datos, usa los [servicios del Marketplace](/marketplace) de Zeabur. Vienen preconfigurados, incluyen inyección automática de variables de conexión y están optimizados para la plataforma.
+
+Las opciones populares incluyen PostgreSQL, MySQL, MongoDB y Redis — todos desplegables con un clic.
+
+## Estructura los Proyectos de Forma Lógica
+
+Organiza tus cargas de trabajo con una estructura de proyecto clara:
+
+- **Un proyecto por aplicación** — agrupa servicios relacionados (API, frontend, base de datos) en el mismo proyecto.
+- **Separa entornos** — usa diferentes proyectos para producción, staging y desarrollo.
+- **Convenciones de nombres** — usa nombres descriptivos de proyectos y servicios para que tu equipo pueda navegar el Dashboard rápidamente.
+
+## Usa Despliegues Basados en Git
+
+Conecta tu repositorio de GitHub o GitLab para despliegues automáticos en cada push. Esto te da:
+
+- Automatización CI/CD completa sin herramientas adicionales.
+- Rollback automático al revertir un commit.
+- [Entornos de preview](/deploy/preview) basados en ramas para pruebas de Pull Requests.
+
+<Callout type="info">
+Para proyectos que no están en un repositorio Git, también puedes desplegar vía [CLI](/deploy/command-line) o imágenes Docker.
+</Callout>
+
+## Habilita Dominios Personalizados con HTTPS
+
+Zeabur proporciona certificados TLS automáticos para todos los dominios personalizados. Apunta tu DNS a Zeabur y HTTPS se habilita con cero configuración — consulta [Dominios Personalizados](/deploy/networking/public-networking) para instrucciones de configuración.
+
+Usa tu propio dominio para servicios de producción para mantener una apariencia profesional y evitar compartir el subdominio predeterminado `*.zeabur.app`.
+
+## Monitorea el Uso y Optimiza Costos
+
+Revisa el panel de facturación regularmente para entender tus gastos:
+
+- Identifica servicios con uso excesivo de memoria y ajústalos.
+- Elimina servicios y proyectos sin usar — los recursos inactivos siguen generando costos a menos que estés en el Plan Gratuito (que auto-suspende).
+- Usa la [vista general de suscripción](/subscription) para seguir créditos y facturas.
+
+## Usa Entornos de Preview para Pruebas
+
+Habilita los [despliegues de preview](/deploy/preview) para que cada Pull Request obtenga su propio entorno aislado. Esto permite a tu equipo probar cambios en un entorno similar a producción antes de fusionar.
+
+Los entornos de preview se limpian automáticamente cuando se elimina la rama o se cierra el PR.
+
+## Respalda los Datos Importantes Regularmente
+
+Aunque Zeabur proporciona confiabilidad a nivel de infraestructura, deberías mantener tus propios respaldos para datos críticos:
+
+- Usa la función de [respaldo y restauración](/operations/backup-restore) para snapshots de bases de datos.
+- Exporta configuraciones importantes vía [gestión de archivos de configuración](/operations/config-file-management).
+- Almacena respaldos externamente (por ejemplo, almacenamiento de objetos) para recuperación ante desastres.
+
+<Callout type="info">
+Combinar estas prácticas con las funciones integradas de Zeabur — como [alta disponibilidad](/deploy/high-availability) — te da una base sólida para cargas de trabajo de producción.
+</Callout>

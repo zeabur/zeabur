@@ -1,0 +1,56 @@
+---
+title: Despliegue y Servicios
+ogImageTitle: Despliegue y Servicios
+ogImageSubtitle: Despliega Tus Aplicaciones y Servicios
+---
+
+import { Cards, Card } from 'nextra/components'
+
+# Despliegue y Servicios
+
+Esta sección cubre todos los métodos de despliegue de Zeabur, la configuración de servicios y las funciones de gestión de proyectos. Cada encabezado responde a una pregunta específica para referencia rápida.
+
+## ¿Dónde Comienza el Despliegue?
+
+Todos los servicios en Zeabur viven dentro de un "Proyecto". Un solo proyecto puede contener tu frontend, backend, bases de datos y más.
+
+- [Crear Proyecto](/deploy/create-project) — Crear y gestionar proyectos
+- [Crear Servicio](/deploy/create-service) — Agregar servicios a un proyecto
+- [Cómo Funcionan los Despliegues](/deploy/how-deploys-work) — Aprende cómo Zeabur auto-detecta lenguajes y compila
+
+## ¿Qué Métodos de Despliegue Están Disponibles?
+
+| Método | Mejor Para | Docs |
+|--------|-----------|------|
+| **Integración GitHub** | Más común — push para desplegar | [Integración GitHub/Git](/deploy/github-integration) |
+| **Plantillas** | Despliegue con un clic de apps open-source | [Plantillas](/template) |
+| **Dockerfile** | Procesos de compilación personalizados | [Dockerfile](/deploy/dockerfile) |
+| **Imagen Docker** | Usar una imagen existente | [Imagen Docker Personalizada](/deploy/custom-docker-image) |
+| **Botón de Despliegue** | Permite a otros desplegar tu proyecto con un clic | [Botón de Despliegue](/deploy/deploy-button) |
+| **Extensión Chrome** | Despliegue rápido desde el navegador | [Extensión Chrome](/deploy/deploy-with-chrome-extension) |
+| **CLI** | Despliegue por terminal, ideal para CI/CD | [Despliegue CLI](/developer/cli) |
+| **API de Carga** | Sube un ZIP para despliegue automático | [API de Carga](/developer/public-api#upload-api) |
+
+## ¿Qué Activa un Redespliegue?
+
+- **Push a GitHub**: Por defecto, cada push a la rama vinculada activa un nuevo despliegue.
+- **Activación Manual**: Haz clic en "Redesplegar" en el Panel.
+- **Rutas de Vigilancia**: Configura despliegues para activarse solo cuando cambian rutas específicas. Ver [Rutas de Vigilancia](/deploy/watch-paths).
+
+## ¿Cómo Configuro Variables de Entorno?
+
+En la pestaña "Configuración" del servicio, puedes agregar, editar y eliminar variables de entorno. Zeabur también soporta la referencia de variables entre servicios.
+
+> [Variables de Entorno](/deploy/environment-variables)
+
+## ¿Cómo Personalizo la Compilación?
+
+- [Directorio Raíz](/deploy/root-directory) — Especificar un subdirectorio en un monorepo
+- [Rutas de Vigilancia](/deploy/watch-paths) — Controlar qué cambios de archivos activan despliegues
+- [Ejecución de Comandos](/deploy/command-execution) — Personalizar el comando de inicio
+
+## ¿Cómo Gestiono y Migro Proyectos?
+
+- [Copiar Proyecto](/deploy/copy-project) — Duplicar un proyecto completo a un nuevo entorno
+- [Exportar Proyecto](/deploy/export-project) — Exportar configuración del proyecto
+- [Actualizar Referencia de Imagen](/deploy/update-image-reference) — Actualizar versiones de imagen Docker
