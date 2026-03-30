@@ -1,0 +1,133 @@
+---
+title: Domain Registration
+ogImageTitle: Domain Registration
+ogImageSubtitle: Purchase and manage domains directly on Zeabur
+---
+
+import { Callout, Steps } from 'nextra/components'
+import LastUpdated from 'components/LastUpdated'
+
+## Domain Registration
+
+<LastUpdated />
+
+Zeabur lets you search, purchase, and manage domain names directly from the dashboard or CLI — no need to use a separate registrar.
+
+Purchased domains are automatically configured with Cloudflare DNS, and you can bind them to your services with one click.
+
+### Supported TLDs
+
+| TLD | Example |
+|-----|---------|
+| `.com` | `example.com` |
+| `.net` | `example.net` |
+| `.org` | `example.org` |
+| `.io` | `example.io` |
+| `.dev` | `example.dev` |
+| `.app` | `example.app` |
+| `.co` | `example.co` |
+| `.me` | `example.me` |
+| `.xyz` | `example.xyz` |
+
+### Purchasing a Domain
+
+<Steps>
+
+### Create a Registrant Profile
+
+Before purchasing a domain, you need a registrant profile — the contact information required by ICANN for domain registration (WHOIS data).
+
+Go to **Settings** → **Registrant Profiles** and fill in your name, email, phone, and address.
+
+<Callout type="info">
+You only need to create a registrant profile once. It can be reused for all future domain purchases.
+</Callout>
+
+### Search for a Domain
+
+Go to **Domains** → **Register Domain** and enter the domain name you want. Zeabur will check availability and show the price.
+
+You can also search from the CLI:
+
+```bash copy
+npx zeabur@latest domain search --domain example.com
+```
+
+### Purchase
+
+Click **Purchase** and confirm the payment. The domain will be registered and a Cloudflare DNS zone will be created automatically.
+
+From the CLI:
+
+```bash copy
+npx zeabur@latest domain purchase --domain example.com --registrant-profile-id <profile-id>
+```
+
+<Callout type="warning">
+Domain purchases are non-refundable. Make sure you've entered the correct domain name before confirming.
+</Callout>
+
+### Bind to a Service
+
+Once purchased, you can bind the domain to any service. Go to your service's **Domains** tab, select **Custom Domain**, and enter your purchased domain.
+
+Zeabur will automatically configure the DNS records — no manual CNAME setup needed for domains purchased through Zeabur.
+
+</Steps>
+
+### Managing DNS Records
+
+For domains purchased through Zeabur, DNS is managed via Cloudflare. You can add, update, and delete records from the dashboard or CLI.
+
+Supported record types: `A`, `AAAA`, `CNAME`, `MX`, `TXT`, `SRV`, `CAA`, `NS`.
+
+From the CLI:
+
+```bash copy
+# List records
+npx zeabur@latest domain dns list --id <domain-id>
+
+# Add a record
+npx zeabur@latest domain dns create --id <domain-id> --type A --name @ --content 1.2.3.4
+
+# Delete a record
+npx zeabur@latest domain dns delete --id <domain-id> --record-id <record-id>
+```
+
+### Renewal
+
+Domains are registered for 1 year. You can enable **auto-renew** from the dashboard or renew manually.
+
+```bash copy
+# Enable auto-renew
+npx zeabur@latest domain auto-renew --id <domain-id> --enable
+
+# Manual renew
+npx zeabur@latest domain renew --id <domain-id>
+```
+
+### ICANN Registrant Verification
+
+After purchasing a domain, ICANN requires you to verify your registrant email address. You'll receive a verification email — **click the link within 15 days**, or your domain may be suspended.
+
+If you didn't receive the email or need to resend it:
+
+```bash copy
+npx zeabur@latest domain verification resend --id <domain-id>
+```
+
+If you entered the wrong email during registration, you can update your registrant contact info:
+
+```bash copy
+npx zeabur@latest domain verification update-contact --id <domain-id> --email correct@example.com --first-name John --last-name Doe --phone "+1.5551234567" --address1 "123 Main St" --city "San Francisco" --state CA --country US --postal-code 94105
+```
+
+<Callout type="warning">
+Changing the registrant email triggers a new verification flow and may impose a 60-day transfer lock on the domain.
+</Callout>
+
+To check the current verification status:
+
+```bash copy
+npx zeabur@latest domain verification status --id <domain-id>
+```

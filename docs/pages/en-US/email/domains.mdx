@@ -6,11 +6,15 @@ ogImageSubtitle: Verify and Manage Sender Domains
 
 # Domain Management
 
+import { Callout, Steps } from 'nextra/components'
+
 To send emails with Zeabur Email, you need to verify your sender domain first. Domain verification ensures that you own the domain and improves email deliverability.
 
-## Why Domain Verification is Required
+<Callout type="info">
+  **Recommended: Use [Zeabur Domain](/domains) to register your domain.** If your domain is registered through Zeabur Domain, you can set up Zeabur Email in one click from the domain detail page — all required DNS records (DKIM, SPF, DMARC) are created automatically, no manual configuration needed.
+</Callout>
 
-import { Callout, Steps } from 'nextra/components'
+## Why Domain Verification is Required
 
 <Callout type="info">
   Unverified domains cannot be used to send emails. Domain verification improves email credibility through DKIM, SPF, and DMARC records.

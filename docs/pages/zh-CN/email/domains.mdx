@@ -6,11 +6,15 @@ ogImageSubtitle: 验证和管理发件域名
 
 # 域名管理
 
+import { Callout, Steps } from 'nextra/components'
+
 要使用 Zeabur Email 发送邮件，您需要先验证发件域名。域名验证确保您拥有该域名，并提高邮件送达率。
 
-## 为什么需要验证域名
+<Callout type="info">
+  **推荐通过 [Zeabur Domain](/domains) 注册域名。** 通过 Zeabur Domain 注册的域名，可以在域名详情页一键配置 Zeabur Email，所需的 DNS 记录（DKIM、SPF、DMARC）会自动创建，无需手动配置。
+</Callout>
 
-import { Callout, Steps } from 'nextra/components'
+## 为什么需要验证域名
 
 <Callout type="info">
   未经验证的域名无法用于发送邮件。域名验证通过 DKIM、SPF 和 DMARC 记录提高邮件的可信度。

@@ -1,0 +1,52 @@
+---
+title: Gestión de Dominios
+ogImageTitle: Gestión de Dominios
+ogImageSubtitle: Gestiona los dominios registrados en Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Gestión de Dominios
+
+
+La página de gestión de dominios muestra todos los dominios registrados en tu cuenta.
+
+## Estado del dominio
+
+Cada dominio tiene uno de los siguientes estados:
+
+| Estado | Descripción |
+|--------|-------------|
+| **Activo** | El dominio está registrado y funcionando correctamente. |
+| **Pendiente** | El registro está en proceso. |
+| **Expirado** | El dominio ha superado su fecha de vencimiento. |
+| **Suspendido** | El dominio está suspendido (por ejemplo, por registrante no verificado). |
+| **Fallido** | El registro falló. |
+
+Usa el filtro desplegable de estado para acotar la lista cuando tengas muchos dominios.
+
+Los dominios que expiran en los próximos 30 días muestran una advertencia en la columna de vencimiento.
+
+## Renovación automática
+
+Cada dominio tiene un interruptor de renovación automática en la tabla de gestión. Cuando está activado, Zeabur renueva automáticamente el dominio antes de que expire usando tu método de pago registrado.
+
+Activa o desactiva la renovación automática directamente desde la fila de la tabla, sin necesidad de abrir la página de detalle.
+
+## Renovación manual
+
+Para renovar un dominio manualmente:
+
+1. Haz clic en un dominio para abrir su página de detalle.
+2. Haz clic en el botón **Renovar** en el encabezado. El botón muestra el precio de renovación.
+3. Completa el proceso de pago.
+
+<Callout type="info">
+  La página de detalle muestra tanto el precio de compra original como el precio de renovación como referencia.
+</Callout>
+
+## Integración con Zeabur Email
+
+Desde la página de detalle del dominio, puedes conectar tu dominio a **Zeabur Email** con un solo clic. Selecciona una región de envío y los registros DNS necesarios (DKIM, SPF, DMARC) se crean automáticamente.
+
+Consulta la documentación de [Gestión de dominios de Zeabur Email](/email/domains) para más detalles sobre la verificación de dominios de correo.
