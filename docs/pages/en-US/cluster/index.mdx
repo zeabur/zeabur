@@ -1,0 +1,45 @@
+---
+title: Clusters
+ogImageTitle: Clusters
+ogImageSubtitle: Manage multi-node Kubernetes clusters on Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Clusters
+
+If your workload has grown beyond what a single machine can reliably handle, or you need cross-node scheduling, failover, and distributed storage, what you usually need is not a single [server](/dedicated-server) — it's a **cluster**.
+
+A cluster is a runtime environment composed of multiple Kubernetes nodes, designed for service architectures that require high availability, horizontal scaling, and distributed storage.
+
+## Why You Need a Cluster
+
+A server is a good fit when you run all services on a **single node**: the architecture is simple, costs are predictable, and operational overhead is low. But when your system starts requiring the following capabilities, a cluster is the better choice:
+
+- **Multi-node scheduling**: Spread different services and replicas across multiple machines, avoiding all workloads being concentrated on a single host.
+- **Node failure tolerance**: When a single node goes offline, workloads can be rescheduled to other healthy nodes, reducing the risk of a full outage.
+- **Distributed storage**: When you need to mount and migrate persistent data across nodes, distributed volumes are a better fit than local disks on a single machine.
+- **Greater scaling flexibility**: You can expand capacity by adding nodes, rather than being limited to vertically upgrading a single host.
+
+In short, **a server solves "exclusive resources on one machine"**, while **a cluster solves "multi-machine coordination and high availability"**.
+
+## Server vs. Cluster
+
+| Feature | Server | Cluster |
+| --- | --- | --- |
+| Number of nodes | Single node | Multiple Kubernetes nodes |
+| Compute model | Single-machine deployment | Cross-node scheduling |
+| Storage | Primarily single-machine local volumes | Distributed volumes that can follow workloads across nodes |
+| Failure impact | Services on the affected machine are impacted | Workloads can be rescheduled to other nodes, reducing single-point-of-failure impact |
+| Scaling | Primarily vertical (upgrading the single host) | Horizontal (adding nodes) |
+| Best for | Small-to-medium services, monolithic apps, stable workloads | High-availability requirements, multi-replica services, distributed systems |
+
+<Callout type="info">
+  If you only need fixed resources and a single data node, a server is usually sufficient. If you want services to automatically failover when a node goes down, or you need a true multi-node architecture, choose a cluster.
+</Callout>
+
+## Getting Started
+
+1. To create a new cluster directly through Zeabur, see [Purchase a Cluster](/cluster/purchase).
+2. If you already have your own Kubernetes cluster, see [Connect an Existing Cluster](/cluster/bind).
+3. To learn about the single-machine option, see [Servers](/dedicated-server).

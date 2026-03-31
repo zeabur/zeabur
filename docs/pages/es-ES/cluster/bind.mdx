@@ -1,0 +1,49 @@
+---
+title: Conectar un Clúster de Kubernetes Existente
+ogImageTitle: Conectar un Clúster de Kubernetes Existente
+ogImageSubtitle: Incorpora tu clúster a la gestión de Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Conectar un Clúster de Kubernetes Existente
+
+Si ya has comprado o creado un clúster de Kubernetes a través de otro proveedor de nube, puedes conectarlo a Zeabur y seguir utilizando la experiencia de despliegue y gestión de Zeabur.
+
+Los escenarios comunes incluyen:
+
+- Ya tienes un clúster existente en AWS, GCP, DigitalOcean, Hetzner u otro proveedor.
+- Quieres preservar tu topología de red existente, ubicación de datos o configuración de cumplimiento.
+- Quieres consolidar las operaciones diarias de Kubernetes en el Dashboard de Zeabur.
+
+## Antes de comenzar
+
+Antes de comenzar, confirma lo siguiente:
+
+- Tu Kubernetes API Server es accesible desde Zeabur.
+- Tienes permisos suficientes para proporcionar las credenciales de acceso que Zeabur necesita para conectarse al clúster.
+- Tu clúster está en buen estado, y los nodos, la red y los componentes de almacenamiento han sido configurados.
+
+## Pasos de conexión
+
+1. Inicia sesión en Zeabur y ve a la página de [Servidores](https://zeabur.com/servers).
+2. Selecciona **Clúster**, luego haz clic en **Crear** en la esquina superior derecha.
+   ![cluster page](/cluster/cluster-page.webp)
+3. En el flujo de creación, selecciona **Conectar tu propio Clúster**.
+   ![create cluster](/cluster/create-cluster.webp)
+4. Sube tu Kubeconfig. Zeabur analizará automáticamente la información del clúster y intentará verificar la conexión.
+   ![upload kubeconfig](/cluster/upload-kubeconfig.webp)
+5. Configura el Proveedor (p. ej., `LINODE`), País (p. ej., `US`), Ciudad, Continente y otros campos — estos son solo para fines de visualización y se pueden completar libremente.
+   ![cluster provider](/cluster/update-details.webp)
+6. Haz clic en **Conectar Clúster** y espera a que Zeabur termine de conectar e inicializar el clúster — esto generalmente tarda 3–5 minutos.
+7. Una vez completado, el clúster aparecerá en tu lista de servidores, y puedes usarlo para crear proyectos y desplegar servicios directamente desde Zeabur.
+   ![cluster information](/cluster/cluster-information.webp)
+
+<Callout type="warning">
+  Conectar un clúster existente no reconstruye automáticamente tu entorno de Kubernetes. Si tu clúster utiliza redes personalizadas, Ingress, StorageClass o políticas de seguridad, verifica que estas configuraciones sean compatibles con los requisitos de despliegue de Zeabur antes de continuar.
+</Callout>
+
+## Próximos pasos
+
+- Para crear un nuevo clúster directamente a través de Zeabur, consulta [Comprar un Clúster](/cluster/purchase).
+- Para conocer las diferencias entre un clúster y un servidor, consulta el [Resumen de Clústeres](/cluster).

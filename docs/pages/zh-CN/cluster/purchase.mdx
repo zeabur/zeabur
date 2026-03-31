@@ -1,0 +1,35 @@
+---
+title: 购买集群
+ogImageTitle: 购买集群
+ogImageSubtitle: 从 Zeabur 一键创建集群
+---
+
+# 购买集群
+
+Zeabur 提供一键创建 Linode 集群的流程，适合希望快速取得可用 Kubernetes 集群，而不想自己手动搭建控制平面、节点池与网络配置的团队。
+
+## 购买前准备
+
+- 确认你的 Zeabur 账户中有可用的付款方式或余额。
+- 决定集群要部署的区域与节点规格。
+
+## 购买步骤
+
+1. 登录 Zeabur，前往[“服务器”页面](https://zeabur.com/servers)。
+2. 选择“集群”后，点击右上角的“创建”。
+   ![cluster page](/cluster/cluster-page.webp)
+3. 在创建流程中选择“从 Zeabur 购买集群”。
+   ![create cluster](/cluster/create-cluster.webp)
+4. 选择集群区域和节点方案，然后点击“立即购买”。
+   ![select cluster plan](/cluster/cluster-select-plan.webp)
+5. 确认费用与配置后提交订单。
+6. 等待 Zeabur 完成集群创建与初始化，创建时间大约耗时 3-5 分钟。
+7. 创建完成后，你会在服务器列表中看到新的集群，可直接在 Zeabur 上用它来创建项目与部署服务。
+   ![cluster information](/cluster/cluster-information.webp)
+
+创建完成后，Zeabur 会替你接手集群接入所需的基础配置，让你可以直接从 Dashboard 管理部署，而不需要自己逐步配置 Kubernetes 基础组件。
+
+## 下一步
+
+- 若你想把现有集群接入 Zeabur，请参考[绑定现有集群](/cluster/bind)。
+- 若你仍在评估单机与多节点方案差异，请回到[集群概览](/cluster)。
