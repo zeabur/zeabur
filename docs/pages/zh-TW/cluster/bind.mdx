@@ -26,12 +26,18 @@ import { Callout } from 'nextra/components'
 
 ## 綁定步驟
 
-1. 登入 Zeabur，前往 [https://zeabur.com/servers](https://zeabur.com/servers)。
-2. 點選右上角的「建立」。
-3. 選擇 **綁定既有 Kubernetes 叢集** 或類似選項。
-4. 依照畫面提供叢集連線資訊，例如 `kubeconfig` 或其他必要驗證資料。
-5. 等待 Zeabur 驗證叢集連線與完成綁定。
-6. 綁定成功後，該叢集會出現在你的伺服器列表中，之後就可以在建立專案時選擇它作為部署目標。
+1. 登入 Zeabur，前往[「伺服器」選單](https://zeabur.com/servers)。
+2. 選擇「叢集」後，點選右上角的「建立」。
+   ![cluster page](/cluster/cluster-page.webp)
+3. 在建立流程中選擇 **Connect your own Cluster**。
+   ![create cluster](/cluster/create-cluster.webp)
+4. 上傳你的 Kubeconfig。Zeabur 會自動解析 kubeconfig 中的叢集資訊，並嘗試連線驗證。
+   ![upload kubeconfig](/cluster/upload-kubeconfig.webp)
+5. 設定 Provider（如 `LINODE`）、國家（如 `US`）、城市、大洲等資訊，主要用於在前端顯示，可以隨意填寫。
+   ![cluster provider](/cluster/update-details.webp)
+6. 點選 **Connect Cluster** 後等待 Zeabur 完成叢集建立與初始化，建立時間大約會耗時 3-5 分鐘。
+7. 建立完成後，你會在伺服器列表中看到新的叢集，可直接在 Zeabur 上用它來建立專案與部署服務。
+   ![cluster information](/cluster/cluster-information.webp)
 
 <Callout type="warning">
   綁定既有叢集不會自動重建你的 Kubernetes 環境。若你的叢集使用自訂網路、Ingress、StorageClass 或安全政策，請先確認這些設定與 Zeabur 的部署需求相容。
