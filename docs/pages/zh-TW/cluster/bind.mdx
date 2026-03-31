@@ -1,0 +1,43 @@
+---
+title: 綁定既有 Kubernetes 叢集
+ogImageTitle: 綁定既有 Kubernetes 叢集
+ogImageSubtitle: 將你的叢集接入 Zeabur 管理
+---
+
+import { Callout } from 'nextra/components'
+
+# 綁定既有 Kubernetes 叢集
+
+如果你已經在其他雲端供應商購買或建立 Kubernetes 叢集，也可以將該叢集綁定到 Zeabur，繼續使用 Zeabur 的部署與管理體驗。
+
+常見情境包括：
+
+- 你已經在 AWS、GCP、DigitalOcean、Hetzner 或其他供應商上有既有叢集。
+- 你希望保留現有網路拓撲、資料位置或合規設定。
+- 你想把 Kubernetes 的日常操作入口整合回 Zeabur Dashboard。
+
+## 綁定前準備
+
+在開始之前，請先確認：
+
+- 你的 Kubernetes API Server 可從 Zeabur 存取。
+- 你擁有足夠權限可提供 Zeabur 綁定叢集所需的存取資訊。
+- 你的叢集運作正常，且節點、網路與儲存元件都已完成基本配置。
+
+## 綁定步驟
+
+1. 登入 Zeabur，前往 [https://zeabur.com/servers](https://zeabur.com/servers)。
+2. 點選右上角的「建立」。
+3. 選擇 **綁定既有 Kubernetes 叢集** 或類似選項。
+4. 依照畫面提供叢集連線資訊，例如 `kubeconfig` 或其他必要驗證資料。
+5. 等待 Zeabur 驗證叢集連線與完成綁定。
+6. 綁定成功後，該叢集會出現在你的伺服器列表中，之後就可以在建立專案時選擇它作為部署目標。
+
+<Callout type="warning">
+  綁定既有叢集不會自動重建你的 Kubernetes 環境。若你的叢集使用自訂網路、Ingress、StorageClass 或安全政策，請先確認這些設定與 Zeabur 的部署需求相容。
+</Callout>
+
+## 下一步
+
+- 若你想直接由 Zeabur 建立新叢集，請參考[購買叢集](/zh-TW/cluster/purchase)。
+- 若你想先了解專用叢集與專用伺服器的差異，請參考[專用叢集總覽](/zh-TW/cluster)。
