@@ -1,0 +1,73 @@
+---
+title: 绑定现有 Kubernetes 集群
+ogImageTitle: 绑定现有 Kubernetes 集群
+ogImageSubtitle: 将你的集群接入 Zeabur 管理
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# 绑定现有 Kubernetes 集群
+
+如果你已经在其他云服务商购买或创建 Kubernetes 集群，也可以将该集群绑定到 Zeabur，继续使用 Zeabur 的部署与管理体验。
+
+常见场景包括：
+
+- 你已经在 AWS、GCP、DigitalOcean、Hetzner 或其他服务商上有现有集群。
+- 你希望保留现有网络拓扑、数据位置或合规配置。
+- 你想把 Kubernetes 的日常操作入口整合回 Zeabur Dashboard。
+
+## 绑定前准备
+
+在开始之前，请先确认：
+
+- 你的 Kubernetes API Server 可从 Zeabur 访问。
+- 你拥有足够权限可提供 Zeabur 绑定集群所需的访问信息。
+- 你的集群运行正常，且节点、网络与存储组件都已完成基本配置。
+
+## 绑定步骤
+
+<Steps>
+
+### 登录 Zeabur
+
+前往[“服务器”页面](https://zeabur.com/servers)。
+
+### 选择集群并创建
+
+选择”集群”后，点击右上角的”创建”。
+![cluster page](/cluster/cluster-page.webp)
+
+### 选择连接自己的集群
+
+在创建流程中选择”连接自己的集群”。
+![create cluster](/cluster/create-cluster.webp)
+
+### 上传 kubeconfig
+
+Zeabur 会自动解析 kubeconfig 中的集群信息，并尝试连接验证。
+![upload kubeconfig](/cluster/upload-kubeconfig.webp)
+
+### 设置 Provider 与位置信息
+
+设置 Provider（如 `LINODE`）、国家（如 `US`）、城市、大洲等信息，主要用于前端显示，可以随意填写。
+![cluster provider](/cluster/update-details.webp)
+
+### 连接集群并等待
+
+点击”连接集群”后等待 Zeabur 完成集群创建与初始化，创建时间大约耗时 3-5 分钟。
+
+### 集群出现在服务器列表中
+
+创建完成后，你会在服务器列表中看到新的集群，可直接在 Zeabur 上用它来创建项目与部署服务。
+![cluster information](/cluster/cluster-information.webp)
+
+</Steps>
+
+<Callout type="warning">
+  绑定现有集群不会自动重建你的 Kubernetes 环境。若你的集群使用自定义网络、Ingress、StorageClass 或安全策略，请先确认这些配置与 Zeabur 的部署需求兼容。
+</Callout>
+
+## 下一步
+
+- 若你想直接由 Zeabur 创建新集群，请参考[购买集群](/cluster/purchase)。
+- 若你想先了解集群与服务器的差异，请参考[集群概览](/cluster)。

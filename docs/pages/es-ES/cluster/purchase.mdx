@@ -1,0 +1,61 @@
+---
+title: Comprar un Clúster
+ogImageTitle: Comprar un Clúster
+ogImageSubtitle: Crea un clúster de Linode en Zeabur con un solo clic
+---
+
+import { Steps } from 'nextra/components'
+
+# Comprar un Clúster
+
+Zeabur ofrece un flujo de creación de clústeres de Linode con un solo clic, ideal para equipos que quieren un clúster de Kubernetes listo para usar sin configurar manualmente un plano de control, grupos de nodos y configuración de red.
+
+## Antes de comenzar
+
+- Asegúrate de que tu cuenta de Zeabur tenga un método de pago válido o saldo suficiente.
+- Decide la región y el plan de nodos para tu clúster.
+
+## Pasos para comprar
+
+<Steps>
+
+### Inicia sesión en Zeabur
+
+Ve a la página de [Servidores](https://zeabur.com/servers).
+
+### Selecciona Clúster y crea
+
+Selecciona **Clúster**, luego haz clic en **Crear** en la esquina superior derecha.
+![cluster page](/cluster/cluster-page.webp)
+
+### Elige Comprar un Clúster desde Zeabur
+
+En el flujo de creación, selecciona **Comprar un Clúster desde Zeabur**.
+![create cluster](/cluster/create-cluster.webp)
+
+### Elige región y plan de nodos
+
+Elige una región de clúster y un plan de nodos, luego haz clic en **Comprar Ahora**.
+![select cluster plan](/cluster/cluster-select-plan.webp)
+
+### Revisa y envía tu pedido
+
+Revisa el costo y la configuración, luego envía tu pedido.
+
+### Espera la creación del clúster
+
+Espera a que Zeabur termine de crear e inicializar el clúster — esto generalmente tarda 3–5 minutos.
+
+### El clúster aparece en la lista de servidores
+
+Una vez completado, el nuevo clúster aparecerá en tu lista de servidores, y puedes usarlo para crear proyectos y desplegar servicios directamente desde Zeabur.
+![cluster information](/cluster/cluster-information.webp)
+
+</Steps>
+
+Después de crear el clúster, Zeabur se encarga de la configuración base necesaria para incorporarlo, para que puedas gestionar los despliegues directamente desde el Dashboard sin configurar los componentes de Kubernetes tú mismo.
+
+## Próximos pasos
+
+- Para conectar un clúster existente a Zeabur, consulta [Conectar un Clúster Existente](/cluster/bind).
+- Si aún estás evaluando la diferencia entre una configuración de nodo único y multinodo, vuelve al [Resumen de Clústeres](/cluster).

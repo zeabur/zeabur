@@ -4,6 +4,7 @@ export default {
   // ── Infrastructure ────────────────────────────────────────────────────
   '---1---': { type: 'separator' },
   'dedicated-server': 'Servers',
+  cluster:            'Clusters',
   deploy:             'Deploy',
   operations:         'Operations',
 
