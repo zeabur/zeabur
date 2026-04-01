@@ -4,7 +4,7 @@ ogImageTitle: Connect an Existing Kubernetes Cluster
 ogImageSubtitle: Bring your cluster under Zeabur management
 ---
 
-import { Callout } from 'nextra/components'
+import { Callout, Steps } from 'nextra/components'
 
 # Connect an Existing Kubernetes Cluster
 
@@ -26,18 +26,42 @@ Before beginning, confirm the following:
 
 ## Connection Steps
 
-1. Log in to Zeabur and go to the [Servers](https://zeabur.com/servers) page.
-2. Select **Cluster**, then click **Create** in the top-right corner.
-   ![cluster page](/cluster/cluster-page.webp)
-3. In the creation flow, select **Connect your own Cluster**.
-   ![create cluster](/cluster/create-cluster.webp)
-4. Upload your Kubeconfig. Zeabur will automatically parse the cluster information from it and attempt to verify the connection.
-   ![upload kubeconfig](/cluster/upload-kubeconfig.webp)
-5. Set the Provider (e.g. `LINODE`), Country (e.g. `US`), City, Continent, and other fields — these are used for display purposes only and can be filled in freely.
-   ![cluster provider](/cluster/update-details.webp)
-6. Click **Connect Cluster** and wait for Zeabur to finish connecting and initializing the cluster — this typically takes 3–5 minutes.
-7. Once complete, the cluster will appear in your server list, and you can use it to create projects and deploy services directly from Zeabur.
-   ![cluster information](/cluster/cluster-information.webp)
+<Steps>
+
+### Log in to Zeabur
+
+Go to the [Servers](https://zeabur.com/servers) page.
+
+### Select Cluster and Create
+
+Select **Cluster**, then click **Create** in the top-right corner.
+![cluster page](/cluster/cluster-page.webp)
+
+### Choose Connect your own Cluster
+
+In the creation flow, select **Connect your own Cluster**.
+![create cluster](/cluster/create-cluster.webp)
+
+### Upload your Kubeconfig
+
+Zeabur will automatically parse the cluster information from it and attempt to verify the connection.
+![upload kubeconfig](/cluster/upload-kubeconfig.webp)
+
+### Set Provider and Location
+
+Set the Provider (e.g. `LINODE`), Country (e.g. `US`), City, Continent, and other fields — these are used for display purposes only and can be filled in freely.
+![cluster provider](/cluster/update-details.webp)
+
+### Connect Cluster and wait
+
+Click **Connect Cluster** and wait for Zeabur to finish connecting and initializing the cluster — this typically takes 3–5 minutes.
+
+### Cluster appears in server list
+
+Once complete, the cluster will appear in your server list, and you can use it to create projects and deploy services directly from Zeabur.
+![cluster information](/cluster/cluster-information.webp)
+
+</Steps>
 
 <Callout type="warning">
   Connecting an existing cluster does not automatically rebuild your Kubernetes environment. If your cluster uses custom networking, Ingress, StorageClass, or security policies, verify that these configurations are compatible with Zeabur's deployment requirements before proceeding.

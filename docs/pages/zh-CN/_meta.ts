@@ -4,6 +4,7 @@ export default {
   // ── 基础设施 ─────────────────────────────────────────────────────────────
   '---1---': { type: 'separator' },
   'dedicated-server': '服务器',
+  cluster:            '集群',
   deploy:             '部署',
   operations:         '运维',
 
