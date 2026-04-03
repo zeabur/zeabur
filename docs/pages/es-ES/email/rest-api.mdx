@@ -77,14 +77,14 @@ POST /emails
 | `bcc` | array | No | Lista de direcciones de correo BCC |
 | `reply_to` | array | No | Lista de direcciones de respuesta |
 | `subject` | string | Sí | Asunto del correo (máximo 998 caracteres) |
-| `html` | string | No* | Contenido del correo en formato HTML (máximo 5 MB) |
-| `text` | string | No* | Contenido del correo en texto plano (máximo 5 MB) |
+| `html` | string | No* | Cuerpo del correo en formato HTML. Admite formato enriquecido como negrita, colores, imágenes y enlaces. Máximo 5 MB. |
+| `text` | string | No* | Cuerpo del correo en texto plano, sin formato. Máximo 5 MB. |
 | `attachments` | array | No | Lista de archivos adjuntos (máximo 10, cada uno hasta 10 MB) |
 | `headers` | object | No | Encabezados de correo personalizados (máximo 50) |
 | `tags` | object | No | Etiquetas personalizadas para categorización y seguimiento |
 
 <Callout type="warning">
-  Debe proporcionarse al menos uno de `html` o `text`. Si se proporcionan ambos, los clientes de correo priorizarán la versión HTML, mientras que los clientes que no soporten HTML mostrarán la versión de texto plano. El total de destinatarios (to + cc + bcc) no puede exceder 50.
+  Se debe proporcionar al menos uno de `html` o `text`. Si se proporcionan ambos, HTML tiene prioridad. El total de destinatarios (to + cc + bcc) no puede exceder 50.
 </Callout>
 
 #### Respuesta

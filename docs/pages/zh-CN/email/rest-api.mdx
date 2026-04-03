@@ -77,14 +77,14 @@ POST /emails
 | `bcc` | array | 否 | 密送邮箱地址列表 |
 | `reply_to` | array | 否 | 回复地址列表 |
 | `subject` | string | 是 | 邮件主题（最大 998 字符） |
-| `html` | string | 否* | HTML 格式邮件内容（最大 5 MB） |
-| `text` | string | 否* | 纯文本邮件内容（最大 5 MB） |
+| `html` | string | 否* | HTML 格式邮件内容，支持粗体、颜色、图片、链接等丰富排版。最大 5 MB。 |
+| `text` | string | 否* | 纯文本邮件内容，不含任何排版格式。最大 5 MB。 |
 | `attachments` | array | 否 | 附件列表（最多 10 个，单个最大 10 MB） |
 | `headers` | object | 否 | 自定义邮件头（最多 50 个） |
 | `tags` | object | 否 | 自定义标签，用于分类和追踪 |
 
 <Callout type="warning">
-  `html` 和 `text` 至少需要提供一个。如果同时提供，邮件客户端会优先显示 HTML 版本，不支持 HTML 的客户端则显示纯文本版本。总收件人数（to + cc + bcc）不能超过 50 人。
+  `html` 和 `text` 至少需要提供一个。若两者都填写，以 HTML 为优先。总收件人数（to + cc + bcc）不能超过 50 人。
 </Callout>
 
 #### 响应

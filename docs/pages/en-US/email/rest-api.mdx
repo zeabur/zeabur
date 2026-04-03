@@ -77,14 +77,14 @@ POST /emails
 | `bcc` | array | No | List of BCC email addresses |
 | `reply_to` | array | No | List of reply-to addresses |
 | `subject` | string | Yes | Email subject (max 998 characters) |
-| `html` | string | No* | HTML format email content (max 5 MB) |
-| `text` | string | No* | Plain text email content (max 5 MB) |
+| `html` | string | No* | HTML email body. Supports rich formatting such as bold text, colors, images, and links. Max 5 MB. |
+| `text` | string | No* | Plain text email body with no formatting. Max 5 MB. |
 | `attachments` | array | No | List of attachments (max 10, each up to 10 MB) |
 | `headers` | object | No | Custom email headers (max 50) |
 | `tags` | object | No | Custom tags for categorization and tracking |
 
 <Callout type="warning">
-  At least one of `html` or `text` must be provided. If both are provided, email clients will prioritize the HTML version, while clients that don't support HTML will display the plain text version. Total recipients (to + cc + bcc) cannot exceed 50.
+  At least one of `html` or `text` must be provided. If both are provided, HTML takes priority. Total recipients (to + cc + bcc) cannot exceed 50.
 </Callout>
 
 #### Response

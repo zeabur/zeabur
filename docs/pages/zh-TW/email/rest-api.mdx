@@ -77,14 +77,14 @@ POST /emails
 | `bcc` | array | 否 | 密件副本郵箱地址列表 |
 | `reply_to` | array | 否 | 回覆地址列表 |
 | `subject` | string | 是 | 郵件主旨（最大 998 字元） |
-| `html` | string | 否* | HTML 格式郵件內容（最大 5 MB） |
-| `text` | string | 否* | 純文字郵件內容（最大 5 MB） |
+| `html` | string | 否* | HTML 格式郵件內容，支援粗體、顏色、圖片、連結等豐富排版。最大 5 MB。 |
+| `text` | string | 否* | 純文字郵件內容，不含任何排版格式。最大 5 MB。 |
 | `attachments` | array | 否 | 附件列表（最多 10 個，單個最大 10 MB） |
 | `headers` | object | 否 | 自訂郵件標頭（最多 50 個） |
 | `tags` | object | 否 | 自訂標籤，用於分類和追蹤 |
 
 <Callout type="warning">
-  `html` 和 `text` 至少需要提供一個。如果同時提供，郵件客戶端會優先顯示 HTML 版本，不支援 HTML 的客戶端則顯示純文字版本。總收件人數（to + cc + bcc）不能超過 50 人。
+  `html` 和 `text` 至少需要提供一個。若兩者都填寫，以 HTML 為優先。總收件人數（to + cc + bcc）不能超過 50 人。
 </Callout>
 
 #### 回應
