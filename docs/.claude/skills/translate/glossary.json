@@ -299,23 +299,23 @@
       "ja-JP": "永続ストレージ（ディスク）",
       "es-ES": "Volúmenes"
     },
-    "Dedicated Server": {
-      "zh-TW": "專用伺服器",
-      "zh-CN": "独立服务器",
-      "ja-JP": "専用サーバー",
-      "es-ES": "Servidor Dedicado"
+    "Server": {
+      "zh-TW": "伺服器",
+      "zh-CN": "服务器",
+      "ja-JP": "サーバー",
+      "es-ES": "Servidor"
     },
-    "Register Dedicated Server": {
-      "zh-TW": "註冊專用伺服器",
-      "zh-CN": "注册独立服务器",
-      "ja-JP": "専用サーバーの登録",
-      "es-ES": "Registrar Servidor Dedicado"
+    "Register Server": {
+      "zh-TW": "註冊伺服器",
+      "zh-CN": "注册服务器",
+      "ja-JP": "サーバーの登録",
+      "es-ES": "Registrar Servidor"
     },
-    "Maintain Dedicated Server": {
-      "zh-TW": "維護專用伺服器",
-      "zh-CN": "维护独立服务器",
-      "ja-JP": "専用サーバーのメンテナンス",
-      "es-ES": "Mantener Servidor Dedicado"
+    "Maintain Server": {
+      "zh-TW": "維護伺服器",
+      "zh-CN": "维护服务器",
+      "ja-JP": "サーバーのメンテナンス",
+      "es-ES": "Mantener Servidor"
     },
     "Execute Commands": {
       "zh-TW": "執行命令",

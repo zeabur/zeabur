@@ -9,16 +9,16 @@ import { Callout } from 'nextra/components'
 # Shared Cluster (Being Phased Out)
 
 <Callout type="error">
-Shared clusters are being phased out. New projects can no longer be created on shared clusters, and existing shared cluster projects will stop accepting new services from **April 1, 2026**. All new projects should use [Dedicated Servers](/dedicated-server).
+Shared clusters are being phased out. New projects can no longer be created on shared clusters, and existing shared cluster projects will stop accepting new services from **April 1, 2026**. All new projects should use [Servers](/dedicated-server).
 </Callout>
 
 ## What Was the Shared Cluster
 
 The shared cluster was Zeabur's early server offering. In this model, multiple users' services were deployed on the same Kubernetes cluster, sharing underlying CPU, memory, and network resources. Users didn't need to manage hardware and only paid for actual resource usage.
 
-## Shared Cluster vs. Dedicated Server
+## Shared Cluster vs. Server
 
-| Feature | Shared Cluster (Being Phased Out) | Dedicated Server |
+| Feature | Shared Cluster (Being Phased Out) | Server |
 | --- | --- | --- |
 | Resource Isolation | Multi-tenant, shared hardware | Fully dedicated hardware |
 | Billing | Usage-based (vCPU / memory / traffic) | Fixed monthly fee |
@@ -28,16 +28,16 @@ The shared cluster was Zeabur's early server offering. In this model, multiple u
 
 ## Why It Was Discontinued
 
-As the dedicated server offering matured, Zeabur consolidated the shared cluster into the dedicated server architecture to provide better resource isolation and performance guarantees. The usage-based pricing model from the shared cluster era is still referenced in the [pricing plans](/pricing/pricing-plans) for rate information.
+As the server offering matured, Zeabur consolidated the shared cluster into the server architecture to provide better resource isolation and performance guarantees. The usage-based pricing model from the shared cluster era is still referenced in the [pricing plans](/pricing/pricing-plans) for rate information.
 
-## Migrating from Shared Cluster to Dedicated Server
+## Migrating from Shared Cluster to Server
 
 If your services are still running on a shared cluster, follow these steps to migrate:
 
-1. **Provision a dedicated server** — Purchase or [register your own server](/dedicated-server/register) on the [Zeabur Servers page](https://zeabur.com/servers).
+1. **Provision a server** — Purchase or [register your own server](/dedicated-server/register) on the [Zeabur Servers page](https://zeabur.com/servers).
 2. **Back up your data** — Use the [Backup & Restore](/operations/backup-restore) feature to create backups of all stateful services (databases, persistent storage).
 3. **Export your project** — Use the [Export Project](/deploy/export-project) feature to export your project's YAML configuration.
-4. **Redeploy on the dedicated server** — Create a new project in the dedicated server's region, import the configuration, and redeploy your services.
+4. **Redeploy on the server** — Create a new project in the server's region, import the configuration, and redeploy your services.
 5. **Restore data** — Restore the backups from step 2 into the new services.
 6. **Switch DNS** — Point your custom domain's DNS records to the new service's domain.
 7. **Verify and clean up** — Once the new environment is running correctly, remove the old services from the shared cluster.

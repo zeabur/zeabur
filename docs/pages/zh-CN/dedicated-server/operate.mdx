@@ -1,17 +1,17 @@
 ---
-title: 维护独立服务器
-ogImageTitle: 维护独立服务器
-ogImageSubtitle: 维护您的独立服务器
+title: 维护服务器
+ogImageTitle: 维护服务器
+ogImageSubtitle: 维护您的服务器
 ---
 
 import { Callout } from 'nextra/components';
 
-# 维护独立服务器
+# 维护服务器
 
-本文将介绍如何维护您注册到 Zeabur 的 [独立服务器](../dedicated-server)。
+本文将介绍如何维护您注册到 Zeabur 的 [服务器](../dedicated-server)。
 
 <Callout>
-    如果您是从 Zeabur 购买独立服务器的，维运的任务是由我们代为执行的。
+    如果您是从 Zeabur 购买服务器的，维运的任务是由我们代为执行的。
     请开工单告诉我们您想要维护的项目，让工作人员代为操作。
 </Callout>
 
@@ -74,7 +74,7 @@ $ sudo k3s crictl rmi --prune
 
 ## 更改 DNS Nameservers
 
-默认 Zeabur 独立服务器会使用 [Cloudflare DNS](https://1.1.1.1/) 作为集群的 DNS Nameservers（中国大陆区域的机器，则是使用 [阿里云公共 DNS](https://www.alidns.com/)）。
+默认 Zeabur 服务器会使用 [Cloudflare DNS](https://1.1.1.1/) 作为集群的 DNS Nameservers（中国大陆区域的机器，则是使用 [阿里云公共 DNS](https://www.alidns.com/)）。
 
 如果需要更改集群使用的 DNS Nameservers（比如改成腾讯云的 [DNSPod Public DNS](https://www.dnspod.cn/products/publicdns)），可以编辑 `/etc/resolv.kubelet.conf`，并将其中的 `nameserver` 改成您想要的 DNS Nameservers。
 
@@ -90,7 +90,7 @@ $ sudo systemctl restart k3s
 
 ## 停用 Zeabur 服务
 
-如果您拥有独立服务器，可以关闭所有 Zeabur 服务，将 VPS 用于其他用途，例如运行 Docker Compose 服务。
+如果您拥有服务器，可以关闭所有 Zeabur 服务，将 VPS 用于其他用途，例如运行 Docker Compose 服务。
 
 <Callout type="warning">
     关闭 Zeabur 服务后，您将无法从 Zeabur 控制台创建项目和服务，且目前在 Zeabur 上运行的服务也会随之停止。但您仍可管理服务器设置，例如防火墙规则和重启。请注意，若从 Zeabur 重新安装服务器，Zeabur 服务将会重新安装并启用。
@@ -120,7 +120,7 @@ sudo systemctl enable --now k3s containerd
 
 ## 使用 VS Code 远程开发
 
-你可以使用 [VS Code Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) 连接到你的独立服务器，在熟悉的 IDE 环境中直接编辑文件或操作容器。
+你可以使用 [VS Code Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) 连接到你的服务器，在熟悉的 IDE 环境中直接编辑文件或操作容器。
 
 ### 步骤一：安装 Remote-SSH 插件
 
