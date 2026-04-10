@@ -1,17 +1,17 @@
 ---
-title: Mantener Servidor Dedicado
-ogImageTitle: Mantener Servidor Dedicado
-ogImageSubtitle: Mantener tu Servidor Dedicado
+title: Mantener Servidor
+ogImageTitle: Mantener Servidor
+ogImageSubtitle: Mantener tu Servidor
 ---
 
 import { Callout } from 'nextra/components';
 
-# Mantener tu Servidor Dedicado
+# Mantener tu Servidor
 
-Este artículo te explicará cómo mantener tu [servidor dedicado](../dedicated-server) registrado con Zeabur.
+Este artículo te explicará cómo mantener tu [servidor](../dedicated-server) registrado con Zeabur.
 
 <Callout>
-    Si compraste un servidor dedicado de Zeabur, las tareas de operación y mantenimiento son realizadas por nosotros.
+    Si compraste un servidor de Zeabur, las tareas de operación y mantenimiento son realizadas por nosotros.
     Por favor, envía un ticket para informarnos qué proyecto deseas mantener y nuestro personal se encargará de ello.
 </Callout>
 
@@ -74,7 +74,7 @@ Después de ajustar los valores, haz clic en **Save** para aplicar los cambios.
 
 ## Cambiar los Servidores DNS
 
-Por defecto, los servidores dedicados de Zeabur utilizan [Cloudflare DNS](https://1.1.1.1/) como servidores DNS para el clúster (las máquinas en China continental utilizan [DNS Público de Alibaba Cloud](https://www.alidns.com/)).
+Por defecto, los servidores de Zeabur utilizan [Cloudflare DNS](https://1.1.1.1/) como servidores DNS para el clúster (las máquinas en China continental utilizan [DNS Público de Alibaba Cloud](https://www.alidns.com/)).
 
 Si necesitas cambiar los servidores DNS utilizados por el clúster (por ejemplo, al DNS Público de [DNSPod de Tencent Cloud](https://www.dnspod.cn/products/publicdns)), puedes editar `/etc/resolv.kubelet.conf` y cambiar el `nameserver` a los servidores DNS que desees.
 
@@ -90,7 +90,7 @@ $ sudo systemctl restart k3s
 
 ## Desactivar los Servicios de Zeabur
 
-Si tienes un servidor dedicado propio, puedes desactivar todos los servicios de Zeabur y usar el VPS libremente para otros propósitos, como ejecutar servicios de Docker Compose.
+Si tienes un servidor propio, puedes desactivar todos los servicios de Zeabur y usar el VPS libremente para otros propósitos, como ejecutar servicios de Docker Compose.
 
 <Callout type="warning">
     Al desactivar los servicios de Zeabur, no podrás crear proyectos ni servicios desde el panel de Zeabur, y los servicios que se estén ejecutando en Zeabur se detendrán. Sin embargo, aún podrás gestionar la configuración del servidor, como las reglas del firewall y los reinicios. Ten en cuenta que reinstalar el servidor desde Zeabur reinstalará y reactivará los servicios de Zeabur.
@@ -120,7 +120,7 @@ sudo systemctl enable --now k3s containerd
 
 ## Uso de VS Code para Desarrollo Remoto
 
-Puedes usar [VS Code Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) para conectarte a tu servidor dedicado y editar archivos u operar contenedores directamente en un entorno IDE familiar.
+Puedes usar [VS Code Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) para conectarte a tu servidor y editar archivos u operar contenedores directamente en un entorno IDE familiar.
 
 ### Paso 1: Instalar la Extensión Remote-SSH
 

@@ -1,17 +1,17 @@
 ---
-title: Maintain Dedicated Server
-ogImageTitle: Maintain Dedicated Server
-ogImageSubtitle: Maintain your Dedicated Server
+title: Maintain Server
+ogImageTitle: Maintain Server
+ogImageSubtitle: Maintain your Server
 ---
 
 import { Callout } from 'nextra/components';
 
-# Maintain your Dedicated Server
+# Maintain your Server
 
-This article will introduce how to maintain your [dedicated server](../dedicated-server) registered with Zeabur.
+This article will introduce how to maintain your [server](../dedicated-server) registered with Zeabur.
 
 <Callout>
-    If you purchased a dedicated server from Zeabur, the operation and maintenance tasks are performed by us.
+    If you purchased a server from Zeabur, the operation and maintenance tasks are performed by us.
     Please submit a ticket to let us know which project you want to maintain, and our staff will handle it for you.
 </Callout>
 
@@ -74,7 +74,7 @@ After adjusting the values, click **Save** to apply the changes.
 
 ## Changing DNS Nameservers
 
-By default, Zeabur's dedicated servers use [Cloudflare DNS](https://1.1.1.1/) as the DNS nameservers for the cluster (machines in mainland China use [Alibaba Cloud Public DNS](https://www.alidns.com/)).
+By default, Zeabur's servers use [Cloudflare DNS](https://1.1.1.1/) as the DNS nameservers for the cluster (machines in mainland China use [Alibaba Cloud Public DNS](https://www.alidns.com/)).
 
 If you need to change the DNS nameservers used by the cluster (for example, to Tencent Cloud's [DNSPod Public DNS](https://www.dnspod.cn/products/publicdns)), you can edit `/etc/resolv.kubelet.conf` and change the `nameserver` to the DNS nameservers you want.
 
@@ -90,7 +90,7 @@ $ sudo systemctl restart k3s
 
 ## Disabling Zeabur Services
 
-If you own a dedicated server, you can disable all Zeabur services and use the VPS freely for other purposes, such as running Docker Compose services.
+If you own a server, you can disable all Zeabur services and use the VPS freely for other purposes, such as running Docker Compose services.
 
 <Callout type="warning">
     Disabling Zeabur services means you will not be able to create projects and services from the Zeabur dashboard, and any services currently running on Zeabur will stop. However, you can still manage server settings such as firewall rules and reboots. Note that reinstalling the server from Zeabur will reinstall and re-enable Zeabur services.
@@ -120,7 +120,7 @@ sudo systemctl enable --now k3s containerd
 
 ## Using VS Code for Remote Development
 
-You can use [VS Code Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) to connect to your dedicated server and directly edit files or operate containers in a familiar IDE environment.
+You can use [VS Code Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) to connect to your server and directly edit files or operate containers in a familiar IDE environment.
 
 ### Step 1: Install the Remote-SSH Extension
 

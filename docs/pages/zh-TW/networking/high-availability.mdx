@@ -9,7 +9,7 @@ import { Callout } from 'nextra/components'
 # 高可用性架構
 
 <Callout type="info">
-  此高可用性架構適用於**專用伺服器**和**專用叢集**。但如果想要在單個節點故障時自動轉移到另一個正常的節點（也就是配置多個 Kubernetes 節點），會需要**專用叢集**。Zeabur 也正在[逐步淘汰共享叢集](https://zeabur.com/changelogs/phasing-out-shared-cluster)，新專案請使用專用伺服器或專用叢集。
+  此高可用性架構適用於**伺服器**和**專用叢集**。但如果想要在單個節點故障時自動轉移到另一個正常的節點（也就是配置多個 Kubernetes 節點），會需要**專用叢集**。Zeabur 也正在[逐步淘汰共享叢集](https://zeabur.com/changelogs/phasing-out-shared-cluster)，新專案請使用伺服器或專用叢集。
 </Callout>
 
 本文件概述了在 Zeabur 上部署服務，來實作高可用性所推薦的架構。
