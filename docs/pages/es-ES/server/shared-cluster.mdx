@@ -1,0 +1,47 @@
+---
+title: Clúster Compartido (Descontinuado)
+ogImageTitle: Clúster Compartido (Descontinuado)
+ogImageSubtitle: Información histórica del clúster compartido y guía de migración
+---
+
+import { Callout } from 'nextra/components'
+
+# Clúster Compartido (Descontinuado)
+
+<Callout type="error">
+Los clústeres compartidos fueron **descontinuados en 2026**. Todos los nuevos proyectos deben utilizar [Servidores](/server).
+</Callout>
+
+## Qué era el Clúster Compartido
+
+El clúster compartido fue la oferta inicial de servidores de Zeabur. En este modelo, los servicios de múltiples usuarios se desplegaban en el mismo clúster de Kubernetes, compartiendo los recursos subyacentes de CPU, memoria y red. Los usuarios no necesitaban gestionar hardware y solo pagaban por el uso real de recursos.
+
+## Clúster Compartido vs. Servidor
+
+| Característica | Clúster Compartido (Descontinuado) | Servidor |
+| --- | --- | --- |
+| Aislamiento de recursos | Multi-inquilino, hardware compartido | Hardware totalmente dedicado |
+| Facturación | Basada en uso (vCPU / memoria / tráfico) | Tarifa mensual fija |
+| Ubicación del servidor | Regiones fijas (AWS) | Traiga su propio host (BYOH), cualquier región |
+| Estabilidad del rendimiento | Posibles efectos de vecino ruidoso | Estable y predecible |
+| Caso de uso | Proyectos pequeños, desarrollo/pruebas | Producción, cargas de trabajo de alta fiabilidad |
+
+## Por qué fue descontinuado
+
+A medida que la oferta de servidores maduró, Zeabur consolidó el clúster compartido en la arquitectura de servidores para proporcionar mejor aislamiento de recursos y garantías de rendimiento. El modelo de precios basado en uso de la era del clúster compartido todavía se referencia en los [planes de precios](/pricing/pricing-plans) para información de tarifas.
+
+## Migración del Clúster Compartido al Servidor
+
+Si sus servicios aún se ejecutan en un clúster compartido, siga estos pasos para migrar:
+
+1. **Aprovisionar un servidor** — Compre o [registre su propio servidor](/server/register) en la [página de Servidores de Zeabur](https://zeabur.com/servers).
+2. **Hacer copia de seguridad de sus datos** — Utilice la función de [Copia de seguridad y Restauración](/operations/backup-restore) para crear copias de seguridad de todos los servicios con estado (bases de datos, almacenamiento persistente).
+3. **Exportar su proyecto** — Utilice la función de [Exportar Proyecto](/deploy/export-project) para exportar la configuración YAML de su proyecto.
+4. **Redesplegar en el servidor** — Cree un nuevo proyecto en la región del servidor, importe la configuración y redespliegue sus servicios.
+5. **Restaurar datos** — Restaure las copias de seguridad del paso 2 en los nuevos servicios.
+6. **Cambiar DNS** — Apunte los registros DNS de su dominio personalizado al dominio del nuevo servicio.
+7. **Verificar y limpiar** — Una vez que el nuevo entorno esté funcionando correctamente, elimine los servicios antiguos del clúster compartido.
+
+<Callout type="info">
+Si encuentra algún problema durante la migración, comuníquese con nosotros en nuestro [foro de la comunidad](https://zeabur.com/forum).
+</Callout>

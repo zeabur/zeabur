@@ -3,7 +3,7 @@ export default {
 
   // ── 基礎設施 ──────────────────────────────────────────────────────────
   '---1---': { type: 'separator' },
-  'dedicated-server': '伺服器',
+  server:             '伺服器',
   cluster:            '叢集',
   deploy:             '部署',
   operations:         '維運',

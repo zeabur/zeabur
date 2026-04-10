@@ -3,7 +3,7 @@ export default {
 
   // ── インフラストラクチャ ─────────────────────────────────────────────────
   '---1---': { type: 'separator' },
-  'dedicated-server': 'サーバー',
+  server:             'サーバー',
   cluster:            'クラスター',
   deploy:             'デプロイ',
   operations:         'オペレーション',
