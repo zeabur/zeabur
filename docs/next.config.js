@@ -247,15 +247,27 @@ export default withNextra({
         permanent: true,
       },
 
-      // infrastructure/dedicated-server -> dedicated-server (moved to root)
+      // infrastructure/dedicated-server -> server (moved to root, renamed)
       {
         source: '/infrastructure/dedicated-server/:path*',
-        destination: '/dedicated-server/:path*',
+        destination: '/server/:path*',
         permanent: true,
       },
       {
         source: '/:locale/infrastructure/dedicated-server/:path*',
-        destination: '/:locale/dedicated-server/:path*',
+        destination: '/:locale/server/:path*',
+        permanent: true,
+      },
+
+      // dedicated-server -> server (directory renamed)
+      {
+        source: '/dedicated-server/:path*',
+        destination: '/server/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:locale/dedicated-server/:path*',
+        destination: '/:locale/server/:path*',
         permanent: true,
       },
 

@@ -1,0 +1,193 @@
+---
+title: 維護伺服器
+ogImageTitle: 維護伺服器
+ogImageSubtitle: 維護您的伺服器
+---
+
+import { Callout } from 'nextra/components';
+
+# 維護伺服器
+
+本文將介紹如何維護您註冊到 Zeabur 的 [伺服器](../server)。
+
+<Callout>
+    如果您是從 Zeabur 購買伺服器的，維運的任務是由我們代為執行的。
+    請開工單告訴我們您想要維護的項目，讓工作人員代為操作。
+</Callout>
+
+## 空間清理
+
+如果您發現主機的磁碟空間不足，可以試試看清理 K3s 在您主機上拉回的 Docker image（通常會自動執行）。
+
+```bash
+# 檢查目前拉回了哪些 images（這行不用打）
+$ sudo k3s crictl images
+
+# 移除所有未在使用的 images
+$ sudo k3s crictl rmi --prune
+```
+
+有時候 K3s 針對每個容器記錄的 Logs 也會佔用不少空間，您可以試著到 [K3s 的 logs 目錄](https://docs.k3s.io/faq#where-are-the-k3s-logs) 清理這些 Logs。
+
+## 從 OOM 恢復（伺服器離線）
+
+當伺服器記憶體不足（OOM）時，伺服器儀表板上的 K3s 狀態指示燈可能會變紅，表示 Kubernetes 已無法正常運作。此時您的服務將無法存取。
+
+![伺服器資訊顯示 K3s 狀態](/server/server-info.png)
+
+要恢復伺服器，請前往 **Settings**，然後點擊 **Reboot Server**。
+
+![Settings 中的 Reboot Server 按鈕](/server/reboot-server-button.png)
+
+系統會彈出一個對話框，列出重啟後會自動啟動的所有服務。**如果 K3s 顯示為紅色（離線），建議取消選取所有服務**，以避免伺服器重啟後立即再次記憶體不足。
+
+![Reboot Server 對話框，列出服務](/server/reboot-dialog.png)
+
+點擊 **Deselect All** 以防止任何服務自動啟動，然後點擊 **Reboot**。
+
+![Reboot Server 對話框，所有服務已取消選取](/server/reboot-deselected.png)
+
+<Callout type="warning">
+    重啟過程大約需要 3–5 分鐘。伺服器重啟後，K3s 應該會恢復為綠色。確認伺服器正常後，您可以從 **Projects** 標籤逐一重新啟用服務。
+</Callout>
+
+如果伺服器經常發生 OOM，請考慮升級到更大的伺服器或減少部署的服務數量。您也應該設定 **資源預留**（見下方說明）以防止系統資源被完全耗盡。
+
+## 資源預留
+
+資源預留功能可讓您為 Kubernetes 和系統程序保留 CPU 與記憶體，確保伺服器即使在高負載下仍然可存取。這可以防止作業系統或 Kubernetes 本身因 OOM 而被終止。
+
+前往 **Settings** > **Advanced Settings** > **Resource Reservation**。
+
+![資源預留設定](/server/resource-reservation.png)
+
+有兩種預留類別：
+
+- **Kubernetes Reserved**：為 Kubernetes 系統元件（kubelet、kube-proxy 等）保留的資源
+- **System Reserved**：為作業系統層級程序（SSH、systemd 等）保留的資源
+
+<Callout type="info">
+    新購買的伺服器預設為 Kubernetes 和系統預留各 500m CPU / 512Mi 記憶體。建議保持這些預設值以確保伺服器穩定性。如果您之前購買的伺服器沒有這些預設值，建議手動設定。
+</Callout>
+
+調整數值後，點擊 **Save** 即可套用變更。
+
+## 更改 DNS Nameservers
+
+預設 Zeabur 伺服器會使用 [Cloudflare DNS](https://1.1.1.1/) 作為叢集的 DNS Nameservers（中國大陸區域的機器，則是使用 [阿里雲公共 DNS](https://www.alidns.com/)）。
+
+如果需要更改叢集使用的 DNS Nameservers（比如改成騰訊雲的 [DNSPod Public DNS](https://www.dnspod.cn/products/publicdns)），可以編輯 `/etc/resolv.kubelet.conf`，並將其中的 `nameserver` 改成您想要的 DNS Nameservers。
+
+```
+nameserver 119.29.29.29
+```
+
+更改完後記得重啟 K3s 服務。
+
+```bash
+$ sudo systemctl restart k3s
+```
+
+## 停用 Zeabur 服務
+
+如果您擁有伺服器，可以關閉所有 Zeabur 服務，將 VPS 用於其他用途，例如執行 Docker Compose 服務。
+
+<Callout type="warning">
+    關閉 Zeabur 服務後，您將無法從 Zeabur 儀表板建立專案與服務，且目前在 Zeabur 上執行的服務也會隨之停止。但您仍可管理伺服器設定，例如防火牆規則與重新啟動。請注意，若從 Zeabur 重新安裝伺服器，Zeabur 服務將會重新安裝並啟用。
+</Callout>
+
+### 停用 Zeabur 服務
+
+您也可以直接在 Zeabur 儀表板點擊左側的 **SSH** 選項，透過瀏覽器連線到伺服器，無需本機終端機：
+
+![透過 Zeabur 儀表板進行 SSH 連線](/server/server-ssh-from-dashboard.webp)
+
+或透過 SSH 連線到您的伺服器後執行：
+
+```bash
+sudo systemctl disable --now k3s containerd
+```
+
+> 注意：關閉這些服務會導致所有在這台伺服器上運作的容器與服務停止，請謹慎操作。
+
+### 重新啟用 Zeabur 服務
+
+若您想讓 Zeabur 重新上線，透過 SSH 連線後執行：
+
+```bash
+sudo systemctl enable --now k3s containerd
+```
+
+## 使用 VS Code 遠端開發
+
+你可以使用 [VS Code Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) 連線到你的伺服器，在熟悉的 IDE 環境中直接編輯檔案或操作容器。
+
+### 步驟一：安裝 Remote-SSH 套件
+
+打開 VS Code，在擴充功能商店中安裝 **Remote - SSH** 套件。
+
+### 步驟二：設定 SSH 金鑰認證
+
+在本機產生一組 SSH 金鑰對（如果還沒有的話），然後將公鑰加到伺服器上：
+
+```bash
+# 在本機產生 SSH 金鑰對
+$ ssh-keygen -t ed25519
+
+# 將公鑰複製到伺服器
+$ ssh-copy-id <使用者名稱>@<伺服器 IP>
+```
+
+如果 `ssh-copy-id` 不可用，可以手動新增公鑰：
+
+```bash
+$ cat ~/.ssh/id_ed25519.pub | ssh <使用者名稱>@<伺服器 IP> "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+```
+
+### 步驟三：透過 VS Code 連線
+
+打開 VS Code 的命令面板（`Ctrl+Shift+P` / `Cmd+Shift+P`），選擇 **Remote-SSH: Connect to Host**，輸入 `<使用者名稱>@<伺服器 IP>` 即可連線。
+
+### 步驟四：找到服務的檔案存放路徑
+
+連線後會位在伺服器的根目錄。若要找到服務檔案的實際存放位置，需要先找到服務對應的 PVC（Persistent Volume Claim），再找到 PVC 綁定的 PV（Persistent Volume）及其宿主機路徑。
+
+PVC 名稱的格式為 `<volume-id>-service-<service-id>`，所在的 Namespace 為 `environment-<environment-id>`。
+
+```bash
+# 列出所有 PVC，找到你的服務的 Volume
+$ kubectl get pvc -A
+
+# 找到 PVC 綁定的 PV 名稱
+$ kubectl get pvc <PVC 名稱> -n <Namespace> -o jsonpath='{.spec.volumeName}'
+
+# 取得該 PV 在宿主機上的路徑
+$ kubectl get pv <PV 名稱> -o jsonpath='{.spec.local.path}'
+```
+
+接著在 VS Code 中使用 **檔案 → 開啟資料夾** 打開這個路徑，就可以開始編輯你的服務檔案了。
+
+### 步驟五：進入容器的 Shell 環境
+
+若要取得服務容器內的終端機環境（相當於 Zeabur 上的 Web Terminal）：
+
+```bash
+# 列出特定 Namespace 的 Pod
+$ kubectl get pods -n <Namespace>
+
+# 進入 Pod 的 Shell
+$ kubectl exec -it <Pod 名稱> -n <Namespace> -- /bin/sh
+```
+
+## 解除安裝
+
+首先您得先從 Zeabur 移除伺服器及在其上面部署的服務。
+
+![移除伺服器](/server/remove-server.webp)
+
+「移除伺服器」的步驟 **不會移除 Zeabur 在您伺服器上設定的基礎設施**。Zeabur 的基礎設施主要是架設在 [K3s](https://k3s.io/) 之上，所以解除安裝的步驟 [遵照 K3s 的解除安裝步驟即可](https://docs.k3s.io/installation/uninstall)。
+
+```bash
+$ /usr/local/bin/k3s-uninstall.sh
+```
+

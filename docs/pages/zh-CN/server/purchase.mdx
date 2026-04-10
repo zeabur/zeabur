@@ -1,0 +1,83 @@
+---
+title: 购买服务器
+ogImageTitle: 购买服务器
+ogImageSubtitle: 从 Zeabur 购买服务器
+---
+
+import { Callout } from 'nextra/components'
+import { Steps } from 'nextra/components'
+
+# 从 Zeabur 购买服务器
+
+如果你没有自己的服务器，可以直接从 Zeabur 购买服务器。Zeabur 与主要云服务商（AWS、GCP、Hetzner、Linode、Digital Ocean、Aliyun、Tencent Cloud、Volcengine）合作，提供有竞争力的价格——通常比直接从服务商购买更便宜。
+
+<Callout type="info">
+  购买的服务器由 Zeabur 全权托管，你不需要处理 SSH 访问、操作系统更新或基础设施维护。
+</Callout>
+
+## 购买步骤
+
+<Steps>
+
+### 打开服务器列表
+
+登录后，点击左侧栏的 **Servers**，或直接访问 [https://zeabur.com/servers](https://zeabur.com/servers)。
+
+![我的服务器页面](/server/purchase-servers-page.png)
+
+### 点击「Create」并选择「从 Zeabur 购买服务器」
+
+点击右上角的 **Create** 按钮。在弹出的对话框中，选择**从 Zeabur 购买服务器**。
+
+![创建服务器对话框](/server/purchase-create-dialog.png)
+
+你还会看到其他选项：
+
+- **固定 IP 服务器** — 通过 SSH 连接你自己具有固定公网 IP 的服务器（参见[注册服务器](./register)）。
+- **[Wonder Mesh](/wonder-mesh)** — 适用于没有固定公网 IP 的服务器（目前为 Beta 版）。
+
+### 选择服务器方案
+
+你会被跳转到服务器选择页面。使用筛选器缩小选项范围：
+
+- **Provider** — 从 AWS、GCP、Hetzner、Linode、Digital Ocean、Aliyun、Tencent、Volcengine 中选择。
+- **Region** — 按地区筛选（亚洲、中国、欧洲、北美、南美、大洋洲）。
+- **CPU** — 按 vCPU 数量筛选（1–32）。
+- **Memory** — 按内存大小筛选（2 GB–64 GB）。
+- **Sort** — 按推荐、价格、CPU、RAM 或流量排序。
+
+![选择服务器方案](/server/purchase-select-server.png)
+
+每个服务器方案会显示供应商、城市、vCPU 数量、内存、存储空间、出站流量及月费。部分方案会显示折扣标签，标示 Zeabur 相较供应商官方价格的常态性折扣。
+
+### 确认并付款
+
+点击服务器方案后进入结账流程。付款完成后，服务器将自动部署。部署完成后（通常几分钟内），服务器将出现在你的**我的服务器**列表中，并显示 **Running** 状态。
+
+</Steps>
+
+## 购买后
+
+当服务器上线后，你可以：
+
+- **[创建项目](/zh-CN/deploy/creating-projects)** 在新服务器上部署服务。
+- **[管理服务器](./operate)** — 监控资源、配置设置等。
+- **[设置防火墙规则](./firewall)** — 控制进出站流量。
+
+## 常见问题
+
+### 购买后可以升级方案吗？
+
+可以，你可以在服务器的设置页面自助升级方案。请注意，升级为单向操作——升级后无法降级至较低方案。
+
+### 如果服务器不符合需求怎么办？
+
+通过 **Tencent Cloud**、**Aliyun** 或 **Volcengine** 购买的服务器，Zeabur 提供一次免费退款。第二次退款需通过[社区论坛](https://zeabur.com/forum)提交申请。其他供应商（AWS、GCP、Hetzner、Linode、Digital Ocean）的服务器，可以在服务器设置页面点击**申请退款**直接操作。
+
+### 计费方式是什么？
+
+购买的服务器按月固定费率计费。选择页面上显示的价格即为月费。服务器将自动续费，除非你手动取消。
+
+### 有哪些供应商可选？
+
+Zeabur 目前提供 AWS、GCP、Hetzner、Linode、Digital Ocean、Aliyun、Tencent Cloud 和 Volcengine 的服务器，数据中心遍布亚洲、欧洲、北美、南美和大洋洲。
