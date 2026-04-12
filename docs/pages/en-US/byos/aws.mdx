@@ -1,0 +1,35 @@
+---
+title: AWS BYOS
+ogImageTitle: AWS BYOS
+ogImageSubtitle: Bring your own AWS account to Zeabur
+---
+
+import { Steps } from 'nextra/components'
+
+# AWS BYOS (Bring Your Own Subscription)
+
+By linking your own AWS account to Zeabur, you can let Zeabur create clusters and manage services directly in your AWS account.
+
+<Steps>
+
+### Sign in to your AWS account
+
+Log in to the [AWS Management Console](https://aws.amazon.com/console/) with the account you want to link to Zeabur.
+
+### Create the CloudFormation stack
+
+Visit [https://zeabur.com/aws-byos](https://zeabur.com/aws-byos). This will open the AWS CloudFormation **Quick create stack** page.
+
+Review the stack details, then click **Create stack**.
+
+### Copy the Role ARN
+
+Once the CloudFormation stack has finished deploying, go to the **Outputs** tab.
+
+Find the **RoleArn** entry and copy its **Value** (it looks like `arn:aws:iam::703xxxxxx752:role/ZeaburAccessRole`).
+
+### Bind the role to Zeabur
+
+Go to [https://zeabur.com/account/byos](https://zeabur.com/account/byos), select **Bind AWS Role**, paste the Role ARN you copied, and submit.
+
+</Steps>

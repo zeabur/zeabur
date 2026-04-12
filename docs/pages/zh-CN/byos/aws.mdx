@@ -1,0 +1,35 @@
+---
+title: AWS BYOS
+ogImageTitle: AWS BYOS
+ogImageSubtitle: 使用自己的 AWS 账号授权给 Zeabur
+---
+
+import { Steps } from 'nextra/components'
+
+# AWS BYOS（自带订阅）
+
+将你自己的 AWS 账号连接到 Zeabur，让 Zeabur 直接在你的 AWS 账号中创建集群、管理服务。
+
+<Steps>
+
+### 登录你的 AWS 账号
+
+使用你想要连接到 Zeabur 的账号，登录 [AWS Management Console](https://aws.amazon.com/console/)。
+
+### 创建 CloudFormation Stack
+
+前往 [https://zeabur.com/aws-byos](https://zeabur.com/aws-byos)，会自动打开 AWS CloudFormation 的 **Quick create stack** 页面。
+
+确认 Stack 信息后，点击 **Create stack**。
+
+### 复制 Role ARN
+
+等待 CloudFormation Stack 部署完成后，点击 **Outputs** 选项卡。
+
+找到 **RoleArn** 条目，复制它的 **Value**（格式为 `arn:aws:iam::703xxxxxx752:role/ZeaburAccessRole`）。
+
+### 绑定 Role 到 Zeabur
+
+前往 [https://zeabur.com/account/byos](https://zeabur.com/account/byos)，选择「**绑定 AWS Role**」，粘贴刚刚复制的 Role ARN，然后提交。
+
+</Steps>

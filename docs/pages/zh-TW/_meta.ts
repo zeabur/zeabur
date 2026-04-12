@@ -7,6 +7,7 @@ export default {
   cluster:            '叢集',
   deploy:             '部署',
   operations:         '維運',
+  byos:               'BYOS',
 
   // ── 產品 ──────────────────────────────────────────────────────────────
   '---2---': { type: 'separator' },
