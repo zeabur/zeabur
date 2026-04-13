@@ -7,6 +7,7 @@ export default {
   cluster:            'Clústeres',
   deploy:             'Implementar',
   operations:         'Operaciones',
+  byos:               'BYOS',
 
   // ── Productos ────────────────────────────────────────────────────────────
   '---2---': { type: 'separator' },

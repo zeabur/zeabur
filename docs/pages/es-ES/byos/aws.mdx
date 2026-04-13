@@ -1,0 +1,39 @@
+---
+title: AWS BYOS
+ogImageTitle: AWS BYOS
+ogImageSubtitle: Usa tu propia cuenta de AWS con Zeabur
+---
+
+import { Steps } from 'nextra/components'
+
+# AWS BYOS (Trae tu propia suscripción)
+
+Al vincular tu propia cuenta de AWS a Zeabur, puedes permitir que Zeabur cree clusters y administre servicios directamente en tu cuenta de AWS.
+
+<Steps>
+
+### Inicia sesión en tu cuenta de AWS
+
+Inicia sesión en la [AWS Management Console](https://aws.amazon.com/console/) con la cuenta que deseas vincular a Zeabur.
+
+### Crea el stack de CloudFormation
+
+Visita [https://zeabur.com/aws-byos](https://zeabur.com/aws-byos). Esto abrirá la página **Quick create stack** de AWS CloudFormation.
+
+Revisa los detalles del stack y haz clic en **Create stack**.
+
+### Copia el Role ARN
+
+Una vez que el stack de CloudFormation haya terminado de desplegarse, ve a la pestaña **Outputs**.
+
+Busca la entrada **RoleArn** y copia su **Value** (tiene el formato `arn:aws:iam::703xxxxxx752:role/ZeaburAccessRole`).
+
+### Vincula el rol a Zeabur
+
+Ve a [https://zeabur.com/account/byos](https://zeabur.com/account/byos), selecciona **Bind AWS Role**, pega el Role ARN que copiaste y envía.
+
+### Compra un clúster dedicado
+
+Una vez vinculado el Role ARN, ve a la página de [Comprar Clúster](https://zeabur.com/servers/buy-cluster). Verás una nueva opción de proveedor llamada **AWS - XXXXXXXX** (donde XXXXXXXX es tu ID de cuenta de AWS). Selecciónala y Zeabur creará un nuevo clúster EKS directamente en tu cuenta de AWS.
+
+</Steps>

@@ -1,0 +1,39 @@
+---
+title: AWS BYOS
+ogImageTitle: AWS BYOS
+ogImageSubtitle: 自分の AWS アカウントを Zeabur に連携する
+---
+
+import { Steps } from 'nextra/components'
+
+# AWS BYOS（サブスクリプション持ち込み）
+
+自分の AWS アカウントを Zeabur にリンクすることで、Zeabur があなたの AWS アカウント上で直接クラスターの作成やサービスの管理を行えるようになります。
+
+<Steps>
+
+### AWS アカウントにサインイン
+
+Zeabur に連携したいアカウントで [AWS Management Console](https://aws.amazon.com/console/) にログインします。
+
+### CloudFormation スタックを作成
+
+[https://zeabur.com/aws-byos](https://zeabur.com/aws-byos) にアクセスすると、AWS CloudFormation の **Quick create stack** ページが開きます。
+
+スタックの内容を確認し、**Create stack** をクリックします。
+
+### Role ARN をコピー
+
+CloudFormation スタックのデプロイが完了したら、**Outputs** タブを開きます。
+
+**RoleArn** の項目を見つけ、**Value** をコピーします（形式: `arn:aws:iam::703xxxxxx752:role/ZeaburAccessRole`）。
+
+### Zeabur にロールをバインド
+
+[https://zeabur.com/account/byos](https://zeabur.com/account/byos) にアクセスし、「**AWS Role をバインド**」を選択して、コピーした Role ARN を貼り付けて送信します。
+
+### 専用クラスターを購入
+
+Role ARN のバインドが完了したら、[クラスター購入](https://zeabur.com/servers/buy-cluster)ページにアクセスします。プロバイダーの選択肢に **AWS - XXXXXXXX**（XXXXXXXX はあなたの AWS アカウント ID）が追加されています。これを選択すると、Zeabur があなたの AWS アカウントに直接新しい EKS クラスターを作成します。
+
+</Steps>
