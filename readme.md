@@ -10,11 +10,24 @@
 
 ## Intro
 
-Zeabur is a platform that helps developers deploy their services with one click — no matter what programming language or framework is used.
+Zeabur is an AI-centric deployment platform — build with AI agents, deploy with AI tools, and run AI models, all in one place.
 
 <a href="https://www.producthunt.com/posts/zeabur?utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-zeabur" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=404816&theme=light&period=daily" alt="Zeabur - Deploy&#0032;painlessly&#0032;and&#0032;scale&#0032;infinitely&#0032;with&#0032;just&#0032;one&#0032;click | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 
 ## Features
+
+### AI-Native Development
+
+Zeabur is built for AI-centric workflows — deploy and operate your infrastructure directly from your AI tools.
+
+- **[Claude Code Plugin](https://zeabur.com/docs/developer/claude-code-skills)** — Zeabur's official Claude Code plugin converts natural language into infrastructure operations. Rent servers, deploy services, bind domains, manage databases, and debug issues — all without leaving your editor.
+  ```bash
+  claude plugin marketplace add zeabur/zeabur-claude-plugin
+  ```
+- **[MCP Server](https://zeabur.com/docs/mcp)** — Connect Zeabur to any MCP-compatible AI assistant (Claude Desktop, Cursor, etc.) to manage projects, deployments, environment variables, and logs through conversation.
+- **[VS Code / Cursor Extension](https://marketplace.visualstudio.com/items?itemName=Zeabur.zeabur-vscode)** — Deploy your local project to Zeabur in one click without leaving your editor.
+- **[AI Hub](https://zeabur.com/docs/ai-hub)** — Access GPT-4o, Claude, Grok, and more through a single OpenAI-compatible API key, with per-token billing and multi-region endpoints (Tokyo, San Francisco).
+- **[InsForge](https://zeabur.com/docs/integrations)** — An agent-native Supabase alternative with PostgreSQL, JWT auth, S3-compatible storage, serverless edge functions, and MCP support — purpose-built for AI agents building full-stack apps autonomously.
 
 ### One-Click Deployment
 
@@ -37,14 +50,6 @@ Zeabur supports two infrastructure options:
 - Works from home labs, offices, or any network environment.
 - Deploy templates, push code, bind domains, and monitor resources just like any managed server.
 - Supports Linux (amd64/arm64) and macOS (amd64/arm64).
-
-### AI Hub
-
-[AI Hub](https://zeabur.com/docs/ai-hub) is a unified AI service platform giving you access to multiple AI models (OpenAI GPT, Anthropic Claude, xAI Grok, and more) through a single API key.
-
-- Compatible with the OpenAI API format — drop it into existing applications with minimal changes.
-- Transparent pay-as-you-go billing per token with full usage history.
-- Multi-region endpoints (Tokyo, San Francisco) for optimal latency.
 
 ### Domain
 
@@ -69,24 +74,11 @@ Zeabur offers a rich catalog of [one-click deployment templates](https://zeabur.
 - Each template pre-wires services, environment variables, and connection settings automatically.
 - Create and share your own templates via YAML.
 
-### Integrations
-
-Zeabur provides [built-in integrations](https://zeabur.com/docs/integrations) with third-party services so you can add powerful backend capabilities to your project without separate deployments.
-
-- **InsForge** — An agent-native Supabase alternative with PostgreSQL, JWT auth, S3-compatible storage, serverless edge functions, and MCP protocol support for AI IDE integration.
-
 ### Powerful Configuration
 
 - Environment variables managed from the dashboard — no `.env` files required.
-- Multiple environment support (`production`, `staging`, `development`, etc.) with separate domains and branches.
 - Rollback, suspend, restart, and scale services with one click.
 - Invite team members to collaborate on the same project.
-
-### Pay as You Go
-
-Zeabur uses a consumption-based pricing model — you only pay for the resources your services actually use, billed by the minute.
-
-See the [pricing page](https://zeabur.com/docs/pricing) for details.
 
 ### Developer Tools
 
