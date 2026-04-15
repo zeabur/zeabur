@@ -41,13 +41,19 @@ sudo mount /dev/sdb1 /var/lib/rancher/k3s/storage
 
 `/dev/sdb1` は実際のディスクパーティション名に置き換えてください。
 
-サーバー再起動後も自動的にマウントしたい場合は、マウント情報を `/etc/fstab` に追加できます。
+サーバー再起動後も自動的にマウントしたい場合は、マウント情報を `/etc/fstab` に追加できます。デバイスパス（`/dev/sdb1` など）は再起動やハードウェア変更時に変わる可能性があるため、UUID を使用することを推奨します。`blkid` で UUID を確認してください。
 
 ```bash
-echo '/dev/sdb1 /var/lib/rancher/k3s/storage ext4 defaults,nofail 0 2' | sudo tee -a /etc/fstab
+sudo blkid /dev/sdb1
 ```
 
-`/dev/sdb1` と `ext4` は、実際のディスクパーティション名とファイルシステムの種類に置き換えてください。追記後は、`/etc/fstab` の設定が正しいことを確認するため、次のコマンドを実行することをおすすめします。
+UUID を使ってマウントエントリを追加します。
+
+```bash
+echo 'UUID=<your-partition-uuid> /var/lib/rancher/k3s/storage ext4 defaults,nofail 0 2' | sudo tee -a /etc/fstab
+```
+
+`<your-partition-uuid>` と `ext4` は、実際のパーティション UUID とファイルシステムの種類に置き換えてください。追記後は、`/etc/fstab` の設定が正しいことを確認するため、次のコマンドを実行することをおすすめします。
 
 ```bash
 sudo mount -a
@@ -56,7 +62,7 @@ sudo mount -a
 マウントが完了すると、このディスクの容量は Dedicated Server 全体の共有ストレージとして使用され、サーバー上の各サービスから利用されます。
 
 <Callout type="warning">
-    この操作を行うと、`/var/lib/rancher/k3s/storage` の既存内容は消去され、このパスに依存している永続データにも影響します。必ず事前に関連データをバックアップし、サービス停止や移行のメンテナンス時間帯に実施して、サービス中断やデータ損失を防いでください。
+    この操作を行うと、`/var/lib/rancher/k3s/storage` の既存内容はマウント中に見えなくなります（内容は削除されるのではなく隠されるだけで、アンマウント後は再び表示されます）。このパスに依存している永続データにも影響します。必ず事前に関連データをバックアップし、サービス停止や移行のメンテナンス時間帯に実施して、サービス中断やデータ損失を防いでください。
 </Callout>
 
 ## OOMからの復旧（サーバーオフライン）

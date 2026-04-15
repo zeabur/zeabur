@@ -41,13 +41,19 @@ sudo mount /dev/sdb1 /var/lib/rancher/k3s/storage
 
 Sustituye `/dev/sdb1` por el nombre real de la partición del disco.
 
-Si quieres que el disco siga montado después de reiniciar el servidor, puedes añadir la configuración a `/etc/fstab`:
+Si quieres que el disco siga montado después de reiniciar el servidor, puedes añadir la configuración a `/etc/fstab`. Se recomienda usar UUID en lugar de rutas de dispositivo como `/dev/sdb1`, ya que los nombres de dispositivo pueden cambiar tras reinicios o cambios de hardware. Usa `blkid` para obtener el UUID:
 
 ```bash
-echo '/dev/sdb1 /var/lib/rancher/k3s/storage ext4 defaults,nofail 0 2' | sudo tee -a /etc/fstab
+sudo blkid /dev/sdb1
 ```
 
-Sustituye `/dev/sdb1` y `ext4` por el nombre real de la partición del disco y el tipo de sistema de archivos. Después de actualizar `/etc/fstab`, recomendamos ejecutar el siguiente comando para verificar que la configuración sea correcta:
+Luego añade la entrada usando el UUID:
+
+```bash
+echo 'UUID=<your-partition-uuid> /var/lib/rancher/k3s/storage ext4 defaults,nofail 0 2' | sudo tee -a /etc/fstab
+```
+
+Sustituye `<your-partition-uuid>` y `ext4` por el UUID real de la partición y el tipo de sistema de archivos. Después de actualizar `/etc/fstab`, recomendamos ejecutar el siguiente comando para verificar que la configuración sea correcta:
 
 ```bash
 sudo mount -a
@@ -56,7 +62,7 @@ sudo mount -a
 Una vez completado el montaje, el espacio de este disco se usará como almacenamiento compartido para los servicios de todo el Dedicated Server.
 
 <Callout type="warning">
-    Esta operación vaciará el contenido actual de `/var/lib/rancher/k3s/storage` y afectará a cualquier dato persistente que dependa de esa ruta. Asegúrate de hacer una copia de seguridad de los datos relevantes primero y realiza esta operación durante una ventana de mantenimiento o migración para evitar interrupciones del servicio o pérdida de datos.
+    Esta operación hará que el contenido actual de `/var/lib/rancher/k3s/storage` quede inaccesible mientras el volumen esté montado (el contenido se oculta, no se elimina, y volverá a ser visible si se desmonta el volumen). También afectará a cualquier dato persistente que dependa de esa ruta. Asegúrate de hacer una copia de seguridad de los datos relevantes primero y realiza esta operación durante una ventana de mantenimiento o migración para evitar interrupciones del servicio o pérdida de datos.
 </Callout>
 
 ## Recuperación de OOM (Servidor Fuera de Línea)

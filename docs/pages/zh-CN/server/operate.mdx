@@ -41,13 +41,19 @@ sudo mount /dev/sdb1 /var/lib/rancher/k3s/storage
 
 请将 `/dev/sdb1` 替换成您的实际磁盘分区名称。
 
-如果您希望服务器重启后仍然自动挂载这块硬盘，可以将挂载信息写入 `/etc/fstab`：
+如果您希望服务器重启后仍然自动挂载这块硬盘，可以将挂载信息写入 `/etc/fstab`。建议使用 UUID 而非设备路径（如 `/dev/sdb1`），因为设备名称可能在重启或硬件变更后发生改变。使用 `blkid` 获取 UUID：
 
 ```bash
-echo '/dev/sdb1 /var/lib/rancher/k3s/storage ext4 defaults,nofail 0 2' | sudo tee -a /etc/fstab
+sudo blkid /dev/sdb1
 ```
 
-请将 `/dev/sdb1` 和 `ext4` 替换为您的实际磁盘分区名称与文件系统类型。写入后，建议执行以下指令确认 `/etc/fstab` 配置正确：
+然后使用 UUID 添加挂载条目：
+
+```bash
+echo 'UUID=<your-partition-uuid> /var/lib/rancher/k3s/storage ext4 defaults,nofail 0 2' | sudo tee -a /etc/fstab
+```
+
+请将 `<your-partition-uuid>` 和 `ext4` 替换为您的实际分区 UUID 与文件系统类型。写入后，建议执行以下指令确认 `/etc/fstab` 配置正确：
 
 ```bash
 sudo mount -a
@@ -56,7 +62,7 @@ sudo mount -a
 挂载完成后，这块硬盘上的空间会作为整台 Dedicated Server 的共享存储空间，供服务器上的服务共同使用。
 
 <Callout type="warning">
-    这个操作会清空 `/var/lib/rancher/k3s/storage` 现有内容，并影响原本依赖该路径的持久数据。请务必先备份相关数据，并在停机或迁移维护时段内操作，以免造成服务中断或数据丢失。
+    这个操作会使 `/var/lib/rancher/k3s/storage` 的现有内容在挂载期间不可见（内容被遮蔽而非删除，卸载后将重新可见），并影响原本依赖该路径的持久数据。请务必先备份相关数据，并在停机或迁移维护时段内操作，以免造成服务中断或数据丢失。
 </Callout>
 
 ## 从 OOM 恢复（服务器离线）
