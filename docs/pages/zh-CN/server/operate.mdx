@@ -29,6 +29,42 @@ $ sudo k3s crictl rmi --prune
 
 有时候 K3s 针对每个容器记录的 Logs 也会占用不少空间，您可以试着到 [K3s 的 logs 目录](https://docs.k3s.io/faq#where-are-the-k3s-logs) 清理这些 Logs。
 
+## 挂载硬盘到 Dedicated Server
+
+如果您想为 Dedicated Server 扩充持久存储空间，可以在服务器系统上将一块额外硬盘挂载到 `/var/lib/rancher/k3s/storage`。这是主机层级的维护操作，您可以使用 Zeabur 服务器页面左侧的 **SSH** 功能进入服务器后执行相关指令。
+
+例如，您可以使用以下指令将额外硬盘挂载到 `/var/lib/rancher/k3s/storage`：
+
+```bash
+sudo mount /dev/sdb1 /var/lib/rancher/k3s/storage
+```
+
+请将 `/dev/sdb1` 替换成您的实际磁盘分区名称。
+
+如果您希望服务器重启后仍然自动挂载这块硬盘，可以将挂载信息写入 `/etc/fstab`。建议使用 UUID 而非设备路径（如 `/dev/sdb1`），因为设备名称可能在重启或硬件变更后发生改变。使用 `blkid` 获取 UUID：
+
+```bash
+sudo blkid /dev/sdb1
+```
+
+然后使用 UUID 添加挂载条目：
+
+```bash
+echo 'UUID=<your-partition-uuid> /var/lib/rancher/k3s/storage ext4 defaults,nofail 0 2' | sudo tee -a /etc/fstab
+```
+
+请将 `<your-partition-uuid>` 和 `ext4` 替换为您的实际分区 UUID 与文件系统类型。写入后，建议执行以下指令确认 `/etc/fstab` 配置正确：
+
+```bash
+sudo mount -a
+```
+
+挂载完成后，这块硬盘上的空间会作为整台 Dedicated Server 的共享存储空间，供服务器上的服务共同使用。
+
+<Callout type="warning">
+    这个操作会使 `/var/lib/rancher/k3s/storage` 的现有内容在挂载期间不可见（内容被遮蔽而非删除，卸载后将重新可见），并影响原本依赖该路径的持久数据。请务必先备份相关数据，并在停机或迁移维护时段内操作，以免造成服务中断或数据丢失。
+</Callout>
+
 ## 从 OOM 恢复（服务器离线）
 
 当服务器内存不足（OOM）时，服务器仪表盘上的 K3s 状态指示灯可能会变红，表示 Kubernetes 已无法正常运行。此时您的服务将无法访问。

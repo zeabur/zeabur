@@ -29,6 +29,42 @@ $ sudo k3s crictl rmi --prune
 
 Sometimes, the logs recorded by K3s for each container can also take up a lot of space. You can try cleaning these logs in the [K3s logs directory](https://docs.k3s.io/faq#where-are-the-k3s-logs).
 
+## Mounting a Volume on a Dedicated Server
+
+If you want to expand persistent storage for a Dedicated Server, you can mount an additional disk to `/var/lib/rancher/k3s/storage` on the server itself. This is a host-level maintenance operation. You can use the **SSH** entry in the left sidebar of the Zeabur server page to enter the server and run the required commands.
+
+For example, you can use the following command to mount an additional disk to `/var/lib/rancher/k3s/storage`:
+
+```bash
+sudo mount /dev/sdb1 /var/lib/rancher/k3s/storage
+```
+
+Replace `/dev/sdb1` with your actual disk partition name.
+
+If you want the disk to remain mounted after a server reboot, you can add the mount entry to `/etc/fstab`. Using a UUID is recommended over a device path like `/dev/sdb1`, as device names can change across reboots or hardware changes. Use `blkid` to find the UUID:
+
+```bash
+sudo blkid /dev/sdb1
+```
+
+Then add the entry using the UUID:
+
+```bash
+echo 'UUID=<your-partition-uuid> /var/lib/rancher/k3s/storage ext4 defaults,nofail 0 2' | sudo tee -a /etc/fstab
+```
+
+Replace `<your-partition-uuid>` and `ext4` with your actual partition UUID and filesystem type. After updating `/etc/fstab`, we recommend running the following command to verify the configuration:
+
+```bash
+sudo mount -a
+```
+
+After the mount is complete, the disk space will be used as shared storage for services on the entire Dedicated Server.
+
+<Callout type="warning">
+    This operation will make the existing contents of `/var/lib/rancher/k3s/storage` inaccessible while the volume is mounted (they are hidden, not deleted, and will reappear if the volume is unmounted). It will also affect any persistent data currently relying on that path. Make sure to back up the relevant data first, and perform this during a maintenance window or migration to avoid service interruption or data loss.
+</Callout>
+
 ## Recovering from OOM (Server Offline)
 
 If your server runs out of memory (OOM), the K3s status indicator on the server dashboard may turn red, meaning Kubernetes is no longer running properly. When this happens, your services will become unreachable.

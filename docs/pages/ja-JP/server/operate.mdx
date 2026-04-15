@@ -29,6 +29,42 @@ $ sudo k3s crictl rmi --prune
 
 K3sが各コンテナに対して記録しているログも、かなりの容量を占めることがあります。[K3sのlogsディレクトリ](https://docs.k3s.io/faq#where-are-the-k3s-logs)でこれらのログを清掃することができます。
 
+## Dedicated Server でディスクをマウントする
+
+Dedicated Server の永続ストレージを拡張したい場合は、追加のディスクをサーバー上で `/var/lib/rancher/k3s/storage` にマウントできます。これはホストレベルのメンテナンス作業です。Zeabur のサーバーページ左側にある **SSH** 機能を使ってサーバーに入り、必要なコマンドを実行してください。
+
+たとえば、追加ディスクを `/var/lib/rancher/k3s/storage` にマウントするには、次のコマンドを使用できます。
+
+```bash
+sudo mount /dev/sdb1 /var/lib/rancher/k3s/storage
+```
+
+`/dev/sdb1` は実際のディスクパーティション名に置き換えてください。
+
+サーバー再起動後も自動的にマウントしたい場合は、マウント情報を `/etc/fstab` に追加できます。デバイスパス（`/dev/sdb1` など）は再起動やハードウェア変更時に変わる可能性があるため、UUID を使用することを推奨します。`blkid` で UUID を確認してください。
+
+```bash
+sudo blkid /dev/sdb1
+```
+
+UUID を使ってマウントエントリを追加します。
+
+```bash
+echo 'UUID=<your-partition-uuid> /var/lib/rancher/k3s/storage ext4 defaults,nofail 0 2' | sudo tee -a /etc/fstab
+```
+
+`<your-partition-uuid>` と `ext4` は、実際のパーティション UUID とファイルシステムの種類に置き換えてください。追記後は、`/etc/fstab` の設定が正しいことを確認するため、次のコマンドを実行することをおすすめします。
+
+```bash
+sudo mount -a
+```
+
+マウントが完了すると、このディスクの容量は Dedicated Server 全体の共有ストレージとして使用され、サーバー上の各サービスから利用されます。
+
+<Callout type="warning">
+    この操作を行うと、`/var/lib/rancher/k3s/storage` の既存内容はマウント中に見えなくなります（内容は削除されるのではなく隠されるだけで、アンマウント後は再び表示されます）。このパスに依存している永続データにも影響します。必ず事前に関連データをバックアップし、サービス停止や移行のメンテナンス時間帯に実施して、サービス中断やデータ損失を防いでください。
+</Callout>
+
 ## OOMからの復旧（サーバーオフライン）
 
 サーバーのメモリが不足（OOM）すると、サーバーダッシュボードのK3sステータスインジケーターが赤色に変わり、Kubernetesが正常に動作していないことを示します。この場合、サービスにアクセスできなくなります。

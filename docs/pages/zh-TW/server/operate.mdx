@@ -29,6 +29,42 @@ $ sudo k3s crictl rmi --prune
 
 有時候 K3s 針對每個容器記錄的 Logs 也會佔用不少空間，您可以試著到 [K3s 的 logs 目錄](https://docs.k3s.io/faq#where-are-the-k3s-logs) 清理這些 Logs。
 
+## 在 Dedicated Server 掛載硬碟
+
+如果您想為 Dedicated Server 擴充持久儲存空間，可以在伺服器系統上將一顆額外硬碟掛載到 `/var/lib/rancher/k3s/storage`。這是主機層級的維護操作，您可以使用 Zeabur 伺服器頁面左側的 **SSH** 功能進入伺服器後執行相關指令。
+
+例如，您可以使用以下指令將額外硬碟掛載到 `/var/lib/rancher/k3s/storage`：
+
+```bash
+sudo mount /dev/sdb1 /var/lib/rancher/k3s/storage
+```
+
+請將 `/dev/sdb1` 替換成您的實際磁碟分割區名稱。
+
+如果您希望伺服器重新啟動後仍然自動掛載這顆硬碟，可以將掛載資訊寫入 `/etc/fstab`。建議使用 UUID 而非裝置路徑（如 `/dev/sdb1`），因為裝置名稱可能在重新啟動或硬體變更後改變。使用 `blkid` 取得 UUID：
+
+```bash
+sudo blkid /dev/sdb1
+```
+
+然後使用 UUID 新增掛載條目：
+
+```bash
+echo 'UUID=<your-partition-uuid> /var/lib/rancher/k3s/storage ext4 defaults,nofail 0 2' | sudo tee -a /etc/fstab
+```
+
+請將 `<your-partition-uuid>` 和 `ext4` 替換為您的實際分割區 UUID 與檔案系統類型。寫入後，建議執行以下指令確認 `/etc/fstab` 設定正確：
+
+```bash
+sudo mount -a
+```
+
+掛載完成後，這顆硬碟上的空間會作為整台 Dedicated Server 的共享儲存空間，供伺服器上的服務共同使用。
+
+<Callout type="warning">
+    這個操作會使 `/var/lib/rancher/k3s/storage` 的現有內容在掛載期間不可見（內容被遮蔽而非刪除，卸載後將重新可見），並影響原本依賴該路徑的持久資料。請務必先備份相關資料，並在停機或遷移維護時段內操作，以免造成服務中斷或資料遺失。
+</Callout>
+
 ## 從 OOM 恢復（伺服器離線）
 
 當伺服器記憶體不足（OOM）時，伺服器儀表板上的 K3s 狀態指示燈可能會變紅，表示 Kubernetes 已無法正常運作。此時您的服務將無法存取。
@@ -190,4 +226,3 @@ $ kubectl exec -it <Pod 名稱> -n <Namespace> -- /bin/sh
 ```bash
 $ /usr/local/bin/k3s-uninstall.sh
 ```
-
