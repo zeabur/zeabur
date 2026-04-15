@@ -93,7 +93,7 @@ Zeabur offers a rich catalog of [one-click deployment templates](https://zeabur.
 
 - **[Community Forum](https://zeabur.com/forum)** — Official support hub for questions, issues, and discussions. Priority response times for paid plans.
 - **[Discord](https://discord.gg/DrdGCvXEyY)** — Chat with the Zeabur community.
-- **[GitHub Discussions](https://github.com/orgs/zeabur/discussions)** — Feature requests and community discussions.
+
 
 ## Documentation
 
