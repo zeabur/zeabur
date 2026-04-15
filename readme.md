@@ -101,10 +101,10 @@ For full details, visit [zeabur.com/docs](https://zeabur.com/docs).
 
 ## Contributing
 
-### Dashboard Localization
+Contributions of all kinds are welcome:
 
-Help translate the Zeabur dashboard and earn credits through the [Contribution Reward Program](https://zeabur.com/docs/rewards/contribution). Contact us on [Discord](https://zeabur.com/dc) or the [forum](https://zeabur.com/forum) to get started.
+- **Docs** — Fix errors, improve clarity, or add examples by opening a pull request in this repository.
+- **Templates** — Publish a template to the [marketplace](https://zeabur.com/templates) and earn rewards. See the [template format guide](https://zeabur.com/docs/template/template-format) to get started.
+- **OSS projects** — Browse our open-source repositories under the [zeabur](https://github.com/zeabur) GitHub organization and open issues or pull requests.
 
-### Templates
-
-Publish a template to the [template marketplace](https://zeabur.com/templates) and earn rewards. See the [template format guide](https://zeabur.com/docs/template/template-format) to get started.
+Not sure where to start? Join the [forum](https://zeabur.com/forum) or [Discord](https://discord.gg/DrdGCvXEyY) and let us know what you'd like to work on.
