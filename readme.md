@@ -14,7 +14,7 @@ Zeabur handles all your deployment work so you can focus on your code.
 
 Tell your AI agent what you need — Zeabur deploys services, rents servers, manages domains, configures databases, and troubleshoots issues, all through natural language. No DevOps expertise required.
 
-<a href="https://www.producthunt.com/posts/zeabur?utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-zeabur" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=404816&theme=light&period=daily" alt="Zeabur - Deploy&#0032;painlessly&#0032;and&#0032;scale&#0032;infinitely&#0032;with&#0032;just&#0032;one&#0032;click | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+<a href="https://www.producthunt.com/posts/zeabur?utm_source=badge-top-post-badge&utm_medium=badge&utm_source=badge-zeabur" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=404816&theme=light&period=daily" alt="Zeabur - Deploy&#0032;painlessly&#0032;and&#0032;scale&#0032;infinitely&#0032;with&#0032;just&#0032;one&#0032;click | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 
 ## Features
 
