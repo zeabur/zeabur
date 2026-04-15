@@ -29,6 +29,36 @@ $ sudo k3s crictl rmi --prune
 
 A veces, los registros guardados por K3s para cada contenedor también pueden ocupar mucho espacio. Puedes intentar limpiar estos registros en el [directorio de registros de K3s](https://docs.k3s.io/faq#where-are-the-k3s-logs).
 
+## Montar un disco en un Dedicated Server
+
+Si quieres ampliar el almacenamiento persistente de un Dedicated Server, puedes montar un disco adicional en `/var/lib/rancher/k3s/storage` directamente en el servidor. Esta es una operación de mantenimiento a nivel del host. Puedes usar la función **SSH** en la barra lateral izquierda de la página del servidor en Zeabur para entrar al servidor y ejecutar los comandos necesarios.
+
+Por ejemplo, puedes usar el siguiente comando para montar un disco adicional en `/var/lib/rancher/k3s/storage`:
+
+```bash
+sudo mount /dev/sdb1 /var/lib/rancher/k3s/storage
+```
+
+Sustituye `/dev/sdb1` por el nombre real de la partición del disco.
+
+Si quieres que el disco siga montado después de reiniciar el servidor, puedes añadir la configuración a `/etc/fstab`:
+
+```bash
+echo '/dev/sdb1 /var/lib/rancher/k3s/storage ext4 defaults,nofail 0 2' | sudo tee -a /etc/fstab
+```
+
+Sustituye `/dev/sdb1` y `ext4` por el nombre real de la partición del disco y el tipo de sistema de archivos. Después de actualizar `/etc/fstab`, recomendamos ejecutar el siguiente comando para verificar que la configuración sea correcta:
+
+```bash
+sudo mount -a
+```
+
+Una vez completado el montaje, el espacio de este disco se usará como almacenamiento compartido para los servicios de todo el Dedicated Server.
+
+<Callout type="warning">
+    Esta operación vaciará el contenido actual de `/var/lib/rancher/k3s/storage` y afectará a cualquier dato persistente que dependa de esa ruta. Asegúrate de hacer una copia de seguridad de los datos relevantes primero y realiza esta operación durante una ventana de mantenimiento o migración para evitar interrupciones del servicio o pérdida de datos.
+</Callout>
+
 ## Recuperación de OOM (Servidor Fuera de Línea)
 
 Si tu servidor se queda sin memoria (OOM), el indicador de estado de K3s en el panel del servidor puede volverse rojo, lo que significa que Kubernetes ya no está funcionando correctamente. Cuando esto sucede, tus servicios serán inaccesibles.
