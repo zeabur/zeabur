@@ -25,6 +25,7 @@ Zeabur is built for AI-centric workflows — deploy and operate your infrastruct
 - **[Claude Code Plugin](https://zeabur.com/docs/developer/claude-code-skills)** — Zeabur's official Claude Code plugin converts natural language into infrastructure operations. Rent servers, deploy services, bind domains, manage databases, and debug issues — all without leaving your editor.
   ```bash
   claude plugin marketplace add zeabur/zeabur-claude-plugin
+  claude plugin install zeabur@zeabur
   ```
 - **[MCP Server](https://zeabur.com/docs/mcp)** — Connect Zeabur to any MCP-compatible AI assistant (Claude Desktop, Cursor, etc.) to manage projects, deployments, environment variables, and logs through conversation.
 - **[VS Code / Cursor Extension](https://marketplace.visualstudio.com/items?itemName=Zeabur.zeabur-vscode)** — Deploy your local project to Zeabur in one click without leaving your editor.
