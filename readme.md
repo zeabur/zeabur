@@ -22,12 +22,13 @@ Zeabur automatically analyzes your code to detect its language and framework —
 
 Push to your repository and Zeabur builds, deploys, and updates your service automatically. It supports GitHub integration, Dockerfile, Docker images, CLI, a Chrome extension, and more.
 
-### Servers
+### Servers & Clusters
 
-Beyond shared clusters, you can [register your own server](https://zeabur.com/docs/server) with Zeabur and let the platform manage deployments, firewall rules, and resource allocation on your hardware — no SSH required.
+Zeabur supports two infrastructure options:
 
-- **Buy a server** from Zeabur at competitive pricing, or **bring your own hardware** from AWS, GCP, Hetzner, or your own datacenter.
-- Servers are billed monthly at a fixed rate and are ideal for production workloads with stable requirements.
+- **[Servers](https://zeabur.com/docs/server)** — Single-machine deployments. Buy a server from Zeabur or bring your own hardware (AWS, GCP, Hetzner, your own datacenter). Zeabur manages deployments, firewall rules, and resource allocation — no SSH required. Billed monthly at a fixed rate; ideal for small-to-medium workloads and stable production services.
+
+- **[Clusters](https://zeabur.com/docs/cluster)** — Multi-node Kubernetes environments for high-availability workloads. Get cross-node scheduling, automatic failover, distributed storage, and horizontal scaling. Purchase a cluster from Zeabur or connect your own existing Kubernetes cluster.
 
 ### Wonder Mesh (Beta)
 
