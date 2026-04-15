@@ -28,7 +28,6 @@ Zeabur is built for AI-centric workflows — deploy and operate your infrastruct
   ```
 - **[MCP Server](https://zeabur.com/docs/mcp)** — Connect Zeabur to any MCP-compatible AI assistant (Claude Desktop, Cursor, etc.) to manage projects, deployments, environment variables, and logs through conversation.
 - **[VS Code / Cursor Extension](https://marketplace.visualstudio.com/items?itemName=Zeabur.zeabur-vscode)** — Deploy your local project to Zeabur in one click without leaving your editor.
-- **[AI Hub](https://zeabur.com/docs/ai-hub)** — Access GPT-4o, Claude, Grok, and more through a single OpenAI-compatible API key, with per-token billing and multi-region endpoints (Tokyo, San Francisco).
 - **[InsForge](https://zeabur.com/docs/integrations)** — An agent-native Supabase alternative with PostgreSQL, JWT auth, S3-compatible storage, serverless edge functions, and MCP support — purpose-built for AI agents building full-stack apps autonomously.
 
 ### One-Click Deployment
@@ -45,7 +44,15 @@ Zeabur supports two infrastructure options:
 
 - **[Clusters](https://zeabur.com/docs/cluster)** — Multi-node Kubernetes environments for high-availability workloads. Get cross-node scheduling, automatic failover, distributed storage, and horizontal scaling. Purchase a cluster from Zeabur or connect your own existing Kubernetes cluster.
 
-### Wonder Mesh (Beta)
+### AI Hub
+
+[AI Hub](https://zeabur.com/docs/ai-hub) is a unified AI service platform giving you access to multiple AI models through a single OpenAI-compatible API key.
+
+- Supports GPT-5, Claude, Grok, and more — no separate API key per provider.
+- Per-token billing with full usage history.
+- Multi-region endpoints (Tokyo, San Francisco) for optimal latency.
+
+### Wonder Mesh
 
 [Wonder Mesh](https://zeabur.com/docs/wonder-mesh) turns any computer or server into a Zeabur compute node using an encrypted WireGuard tunnel — no public IP, no port forwarding, no firewall changes needed.
 
