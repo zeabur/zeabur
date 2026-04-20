@@ -1,4 +1,10 @@
 export default {
-  education:       '教育推广',
-  'sales-partner': '导入顾问',
+  'event-partner': {
+    title: '教育伙伴',
+    theme: { collapsed: true },
+  },
+  'sales-partner': {
+    title: '销售伙伴',
+    theme: { collapsed: true },
+  },
 }

@@ -1,4 +1,10 @@
 export default {
-  education:       'Education Advocacy',
-  'sales-partner': 'Sales Partner',
+  'event-partner': {
+    title: 'Education Partner',
+    theme: { collapsed: true },
+  },
+  'sales-partner': {
+    title: 'Sales Partner',
+    theme: { collapsed: true },
+  },
 }
