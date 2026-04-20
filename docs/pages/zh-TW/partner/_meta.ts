@@ -1,4 +1,10 @@
 export default {
-  education:       '教育推廣',
-  'sales-partner': '導入顧問',
+  'event-partner': {
+    title: '教育夥伴',
+    theme: { collapsed: true },
+  },
+  'sales-partner': {
+    title: '銷售夥伴',
+    theme: { collapsed: true },
+  },
 }

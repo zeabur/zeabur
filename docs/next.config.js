@@ -355,8 +355,8 @@ export default withNextra({
       { source: '/:locale/billing/subscription',           destination: '/:locale/subscription', permanent: true },
       { source: '/billing/sponsor',                       destination: '/rewards/sponsor', permanent: true },
       { source: '/:locale/billing/sponsor',                destination: '/:locale/rewards/sponsor', permanent: true },
-      { source: '/billing/redeem',                        destination: '/rewards/redeem-card', permanent: true },
-      { source: '/:locale/billing/redeem',                 destination: '/:locale/rewards/redeem-card', permanent: true },
+      { source: '/billing/redeem',                        destination: '/partner/sales-partner/redeem-card', permanent: true },
+      { source: '/:locale/billing/redeem',                 destination: '/:locale/partner/sales-partner/redeem-card', permanent: true },
 
       // community → rewards / faq-support
       { source: '/community/referral',                    destination: '/rewards/referral', permanent: true },
@@ -410,10 +410,10 @@ export default withNextra({
       { source: '/:locale/pricing/reward',                  destination: '/:locale/rewards/contribution', permanent: true },
       { source: '/pricing/sponsor',                        destination: '/rewards/sponsor', permanent: true },
       { source: '/:locale/pricing/sponsor',                 destination: '/:locale/rewards/sponsor', permanent: true },
-      { source: '/pricing/redeem-card',                    destination: '/rewards/redeem-card', permanent: true },
-      { source: '/:locale/pricing/redeem-card',             destination: '/:locale/rewards/redeem-card', permanent: true },
-      { source: '/pricing/redeem',                         destination: '/rewards/redeem-card', permanent: true },
-      { source: '/:locale/pricing/redeem',                  destination: '/:locale/rewards/redeem-card', permanent: true },
+      { source: '/pricing/redeem-card',                    destination: '/partner/sales-partner/redeem-card', permanent: true },
+      { source: '/:locale/pricing/redeem-card',             destination: '/:locale/partner/sales-partner/redeem-card', permanent: true },
+      { source: '/pricing/redeem',                         destination: '/partner/sales-partner/redeem-card', permanent: true },
+      { source: '/:locale/pricing/redeem',                  destination: '/:locale/partner/sales-partner/redeem-card', permanent: true },
 
       // ── template-in-code → template/template-format (replaced) ──
       { source: '/template/template-in-code',              destination: '/template/template-format', permanent: true },
@@ -440,6 +440,17 @@ export default withNextra({
       // ── Tutorials bare → get-started ──
       { source: '/tutorials',           destination: '/get-started',                    permanent: true },
       { source: '/:locale/tutorials',    destination: '/:locale/get-started',            permanent: true },
+
+      // ── MKT-2020: Partner Portal docs restructure ──
+      // rewards/redeem-card moved under partner/sales-partner (Voucher is a Sales Partner concept)
+      { source: '/rewards/redeem-card',         destination: '/partner/sales-partner/redeem-card', permanent: true },
+      { source: '/:locale/rewards/redeem-card', destination: '/:locale/partner/sales-partner/redeem-card', permanent: true },
+      // rewards/partner overview collapsed into top-level /partner (L1)
+      { source: '/rewards/partner',             destination: '/partner', permanent: true },
+      { source: '/:locale/rewards/partner',     destination: '/:locale/partner', permanent: true },
+      // partner/education renamed to partner/event-partner (repositioned as Education Partner)
+      { source: '/partner/education',           destination: '/partner/event-partner', permanent: true },
+      { source: '/:locale/partner/education',   destination: '/:locale/partner/event-partner', permanent: true },
     ]);
   },
 })
