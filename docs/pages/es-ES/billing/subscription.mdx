@@ -1,69 +1,84 @@
 ---
-title: Subscription
-ogImageTitle: Subscription
-ogImageSubtitle: Subscription on Zeabur
+title: Suscripción
+ogImageTitle: Suscripción
+ogImageSubtitle: Suscripción en Zeabur
 ---
 
 import { Callout } from 'nextra/components';
 
-<WorkingInProgress />
+# Suscripción
 
-# Subscription
+## ¿Qué es la suscripción?
 
-## What is Subscription?
+Zeabur ofrece cinco planes: **Free**, **Dev**, **Pro**, **Team** y **Enterprise**. Consulta la página de [planes](/billing/plans) para ver detalles de funciones y casos de uso.
 
-There are 3 types of plans on Zeabur: **Free Plan**, **Developer Plan** and **Team Plan**.
-You can check the details of each plan on [plans](/billing/plans) page.
+Si no te has suscrito a ningún plan, tu cuenta se considera **Free** por defecto.
 
-If you has not subscribed to any plan, you'll be considered as a **Free Plan** user by default.
+## Prueba gratuita de 14 días
 
-## How to Subscribe?
+Cada usuario puede iniciar **una** prueba gratuita de 14 días en el plan **Dev** o **Pro**:
 
-Zeabur's subscription is based on [Stripe](https://stripe.com/).
+- Durante la prueba obtienes las mismas funciones y cuotas que una suscripción de pago.
+- No se cobran tarifas de suscripción durante los 14 días de prueba.
+- Al finalizar la prueba, tu plan elegido se renueva automáticamente y se cobra.
+- Puedes finalizar la prueba anticipadamente en cualquier momento — el plan se cobra inmediatamente y comienza un nuevo ciclo mensual ese día.
+- El plan **Team** no incluye prueba gratuita.
 
-There are 2 ways to subscribe to a plan: **Credit Card** and **Prepaid Credits**.
+## ¿Cómo suscribirse?
 
-### Subscribe with Credit Card
+La suscripción de Zeabur se procesa a través de [Stripe](https://stripe.com/). Hay dos formas de pagar: **tarjeta de crédito** y **créditos prepagados**.
 
-You can subscribe to a plan with your credit card, paying in USD.
+### Suscribirse con tarjeta de crédito
 
-- Setup without subscription: Go to [billing page](https://zeabur.com/account/billing), you can setup your credit card in **Payment Method** section. After you've input your credit card information, click **Add** button to save your credit card, then you can simply click **Subscribe** button in [plan page](https://zeabur.com/pricing#upgrade) to update your subscription.
-- Setup with subscription: Go to the [plan page](https://zeabur.com/pricing#upgrade) in dashboard, choose a plan, and then input your credit card information, click **Subscribe** button, you'll be redirected to Stripe's checkout page, fill the form and you'll be subscribed to the plan with your credit card saved.
+Puedes suscribirte a un plan con tu tarjeta de crédito, pagando en USD.
 
-### Subscribe with Prepaid Credits
+- **Configurar sin suscripción**: Ve a la [página de facturación](https://dash.zeabur.com/account/billing) y añade tu tarjeta de crédito en la sección **Payment Method**. Haz clic en **Add** para guardarla, luego haz clic en **Subscribe** en la [página de planes](https://zeabur.com/pricing#upgrade) para activar tu suscripción.
+- **Configurar con suscripción**: Ve a la [página de planes](https://zeabur.com/pricing#upgrade) en el panel, elige un plan, introduce los datos de tu tarjeta y haz clic en **Subscribe**. Serás redirigido a la página de pago de Stripe para completar el flujo.
 
-If you don't have a credit card that is compatible with Stripe service, you can subscribe to a plan with buying some credits.
+### Suscribirse con créditos prepagados
 
-Go to the [billing page](https://zeabur.com/account/billing) in dashboard, press the **Get More Credits** button to buy some credits, then you can go to the [plan page](https://zeabur.com/pricing#upgrade) in dashboard to upgrade your plan with the credits you've bought.
+Si no tienes una tarjeta de crédito compatible con Stripe, puedes comprar primero créditos prepagados.
+
+Ve a la [página de facturación](https://dash.zeabur.com/account/billing) en el panel, haz clic en **Get More Credits** para recargar, luego dirígete a la [página de planes](https://zeabur.com/pricing#upgrade) para actualizar usando esos créditos.
 
 ![Get More Credits](/billing/subscription/get-more-credits.png)
 
-## How to Change Payment Method
+<Callout type="info">
+En China, puedes suscribirte con **Alipay** además de tarjeta de crédito.
+</Callout>
 
-If your card is declined or you want to change your payment method, you can do it in the [billing page](https://zeabur.com/account/billing).
+## Actualizar y bajar de plan
 
-Scroll down to find the **Unbind Payment Method** to unbind current credit card, then you can setup a new credit card.
+- **Las actualizaciones tienen efecto inmediato.** Se te cobrará una diferencia prorrateada entre el plan antiguo y el nuevo según los días restantes del ciclo de facturación actual.
+- **Las bajadas de plan tienen efecto al final del ciclo de facturación actual.** No se emiten reembolsos y mantienes tus funciones actuales hasta que termine el ciclo.
 
-## How to Downgrade to Free Plan
+Después de bajar de plan, tus servicios desplegados y recursos existentes **no se eliminan** — pero la adición de nuevos recursos se limita a la cuota del nuevo plan.
 
-If you've subscribed to a paid plan, you can downgrade to **Free Plan** at any time.
+## Cómo cambiar el método de pago
 
-Go to [billing page in your dashboard](https://zeabur.com/account/billing), scroll down to the danger zone for unsubscribing.
+Si tu tarjeta es rechazada o quieres cambiar el método de pago, ve a la [página de facturación](https://dash.zeabur.com/account/billing).
+
+Desplázate hasta **Unbind Payment Method** para eliminar la tarjeta actual, luego añade una nueva.
+
+## Cómo cancelar / bajar al plan Free
+
+Si te has suscrito a un plan de pago, puedes cancelar o bajar al plan **Free** en cualquier momento.
+
+Ve a la [página de facturación en tu panel](https://dash.zeabur.com/account/billing) y desplázate hasta la zona de peligro para cancelar la suscripción.
 
 ![Unsubscribe Plan](/billing/subscription/unsubscribe.png)
 
 <Callout>
-    By downgrading to the Free Plan, you will no longer incur any charges. However, your currently deployed Containerized services will be automatically suspended by the system.
+Después de cancelar, aún puedes usar todas las funciones de tu plan actual hasta el final del ciclo de facturación actual. La cuenta cambia automáticamente al plan Free después, y los servicios que superen los límites Free pueden ser suspendidos.
 </Callout>
 
-## Invoices and Receipts
+## Facturas y recibos
 
-When you make a payment, you will receive an email with your invoice and receipt attached.
+Cuando realices un pago, recibirás un correo electrónico con tu factura y recibo adjuntos. También puedes ver tu historial de facturación y descargar facturas anteriores en la [página de facturación](https://dash.zeabur.com/account/billing).
 
-You can also view your billing history and download past invoices on the [billing page](https://zeabur.com/account/billing).
+- La información de facturación personalizada (nombre de empresa, NIF, dirección) requiere el plan **Dev** o superior.
+- Las facturas formales con **adquisición y facturación empresarial** están disponibles en el plan **Team** o superior.
 
-If you need customized billing information on your invoices (e.g., company name, tax ID, or address), you must subscribe to the **Developer Plan** or above. If you require a formal invoice, you must subscribe to the **Team Plan**.
+## Contáctanos
 
-## Contact us
-
-If you have any questions about subscription, please contact us at [our community forum](https://zeabur.com/forum).
+Si tienes alguna pregunta sobre la suscripción, contáctanos en el [foro de Zeabur](https://zeabur.com/forum).

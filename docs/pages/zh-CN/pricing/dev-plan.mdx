@@ -8,51 +8,68 @@ import { Callout } from 'nextra/components'
 
 # Dev Plan（开发者方案）
 
-开发者方案（Developer Plan）是 Zeabur 针对个人开发者设计的付费方案，每月 **US$5**，解锁完整的部署功能，适合个人正式项目与 side project。
+Dev Plan 是 Zeabur 为需要 AI Agent、数据库备份与域名管理的个人开发者设计的付费方案，每月 **US$5**，解锁个人开发者最需要的生产力功能。
+
+<Callout type="info">
+支持 **14 天免费试用** — 功能与付费版本完全一致，试用结束前不会收费。详见 [14 天免费试用](/billing/subscription#14-天免费试用)。
+</Callout>
 
 ## 方案内容
 
 | 项目 | 说明 |
 | --- | --- |
 | 月费 | US$5 / 月 |
-| 包含额度 | US$5 / 月（可抵扣资源费用） |
-| 项目数量 | 无限制 |
-| 服务数量 | 无限制 |
-| 自定义域名 | 支持 |
-| 持久存储 | 支持 |
-| 部署区域 | 所有可用区域 |
+| 绑定外部服务器 | 最多 3 台 |
+| 构建 CI 规格 | 2C4G |
+| 日志保留 | 7 天 |
+| 文件上传限制 | 中 |
+| 容器文件管理 | 单文件上传 |
+| Zeabur AI（AI Agent） | 包含 |
+| 域名购买 | 支持 |
+| 邮件系统 | 包含 |
+| 数据库备份导出 | 支持 |
 | 成员数 | 仅限 1 人（账号拥有者） |
+| 部署区域 | 所有可用区域 |
 
-### 费率
+## 相较 Free Plan 新增
 
-Dev Plan 的资源费率与 [方案总览](/pricing/pricing-plans) 中列出的费率一致：
+包含 Free Plan 所有功能，并额外提供：
+
+- 最多 **3 台绑定外部服务器**（Free：1 台）
+- 日志保留 **7 天**（Free：48 小时）
+- **Zeabur AI** — 管理服务的 AI Agent
+- **通过 Zeabur 购买域名**
+- **邮件系统** — 发送交易邮件
+- 更高的文件上传限制
+
+## 资源费率
+
+共享集群按分钟计费。完整费率请见 [Billing / Pricing](/billing/pricing)。
 
 - **vCPU** — 不计费
 - **内存** — US$0.00025 / GB-分钟（约 US$10.8 / GB-月）
 - **网络输出** — US$0.1 / GB
 - **持久存储** — US$0.2 / GB-月
 
-每月包含的 US$5 额度会自动抵扣资源使用费。超出额度的部分会从你的信用卡或充值余额扣款。
-
-## 与 Free Plan 的差异
+## Free Plan vs. Dev Plan
 
 | 功能 | Free Plan | Dev Plan |
 | --- | --- | --- |
-| 月费 | 免费 | US$5 |
-| 项目数量 | 1 | 无限制 |
-| 服务数量 | 每项目 2 个 | 无限制 |
-| 自定义域名 | 不支持 | 支持 |
-| 持久存储 | 不支持 | 支持 |
-| 服务休眠 | 无流量自动暂停 | 持续运行 |
-| SLA | 无 | 标准 |
+| 月费 | $0 | US$5 |
+| 绑定外部服务器 | 1 台 | 3 台 |
+| 日志保留 | 48 小时 | 7 天 |
+| Zeabur AI | — | 包含 |
+| 域名购买 | — | 支持 |
+| 邮件系统 | — | 包含 |
+| 文件上传限制 | 低 | 中 |
 
 ## 适用场景
 
 - **个人 Side Project** — 部署个人网站、Blog、API 服务等。
-- **开发与测试** — 需要持久存储（如数据库）的开发环境。
+- **AI 辅助工作流** — 让 Zeabur AI 协助管理与排错。
 - **小型生产服务** — 流量不大但需要 24/7 运行的服务。
-- **模板开发** — 创建和维护 Zeabur 模板，搭配[一键部署按钮](/deploy/deploy-button)推广项目。
+- **模板开发** — 创建和维护 Zeabur 模板，搭配 [一键部署按钮](/deploy/deploy-button) 推广项目。
 
 ## 如何订阅
 
-前往 [zeabur.com/pricing](https://zeabur.com/pricing) 选择 Dev Plan，或在 [Dashboard 账单页面](https://dash.zeabur.com/account/billing) 升级。支持信用卡和支付宝付款，详见[付款方式](/subscription/payment-methods)。
+前往 [zeabur.com/pricing](https://zeabur.com/pricing) 选择 Dev Plan，或在 [Dashboard 账单页面](https://dash.zeabur.com/account/billing) 升级。支持信用卡和支付宝付款，详见 [付款方式](/subscription/payment-methods)。

@@ -8,52 +8,112 @@ import { Callout } from 'nextra/components'
 
 # Team Plan
 
-The Team Plan is Zeabur's collaborative plan designed for teams. It supports multi-member management and unified billing, ideal for teams that need multiple people managing projects together.
+The Team Plan is Zeabur's collaborative plan built for small teams that need **collaboration, unlimited server binding, and priority support**. It starts at **US$79/month** with 3 seats included, and each additional seat costs **US$24/month**.
+
+<Callout type="warning">
+The Team plan does **not** include a free trial. Start a trial on Dev or Pro if you'd like to evaluate the platform first.
+</Callout>
 
 ## Plan Details
 
 | Item | Details |
 | --- | --- |
-| Billing | Usage-based |
-| Projects | Unlimited |
-| Services | Unlimited |
-| Custom domains | Supported |
-| Persistent storage | Supported |
-| Deployment regions | All available regions |
-| Members | Multiple (by seat count) |
-| Invoicing / Tax ID | Supported |
+| Monthly fee | US$79 / month (3 seats included) |
+| Extra seat | +US$24 / seat / month |
+| Bound external servers | Unlimited |
+| Build CI spec | 4C8G |
+| Log retention | 90 days |
+| File upload limit | High |
+| Container file management | Single file + batch operations |
+| HA service deployment | Supported |
+| Advanced log search & drain | Supported |
+| Domain & IP access control | Supported |
+| Plan seats | 3 seats included (each at Pro level) |
+| Role & permission management | Supported |
+| Team project collaboration | Supported |
+| Priority support | Supported |
+| Enterprise procurement & invoicing | Supported |
 
 ### Seat Model
 
-The Team Plan supports multi-member collaboration. Member count is based on seats — see [zeabur.com/pricing](https://zeabur.com/pricing) for specific rates.
+Team Plan supports multi-member collaboration. Every seat has Pro-level features for that member. The base subscription includes **3 seats**; additional seats are **US$24 per seat per month**.
 
-### Rates
+Example: a team of 5 pays `$79 + 2 × $24 = $127 / month`.
 
-Team Plan resource rates are the same as the Dev Plan. See [Plans Overview](/pricing/pricing-plans) for details.
+## Seat Roles & Permissions
+
+Team Plan seats come in three roles: **Viewer**, **Editor**, and **Admin**. Assign roles based on what each member needs to do — read-only visibility, day-to-day development work, or full administrative control.
+
+| Capability | Viewer | Editor | Admin |
+| --- | :---: | :---: | :---: |
+| View team members | ✅ | ✅ | ✅ |
+| Invite new members | ❌ | ❌ | ✅ |
+| Change member roles | ❌ | ❌ | ✅ |
+| Remove members | ❌ | ❌ | ✅ |
+| Delete the team | ❌ | ❌ | ✅ |
+| View projects / services | ✅ | ✅ | ✅ |
+| Create projects / services | ❌ | ✅ | ✅ |
+| Modify service configuration | ❌ | ✅ | ✅ |
+| Delete projects / services | ❌ | ❌ | ✅ |
+| View deployment history | ✅ | ✅ | ✅ |
+| Trigger deployments manually | ❌ | ✅ | ✅ |
+| Rollback deployments | ❌ | ✅ | ✅ |
+| View logs | ✅ | ✅ | ✅ |
+| Search logs | ❌ | ✅ | ✅ |
+| Download logs | ❌ | ✅ | ✅ |
+| View databases / servers | ✅ | ✅ | ✅ |
+| Create databases / servers | ❌ | ✅ | ✅ |
+| Modify databases / servers | ❌ | ✅ | ✅ |
+| Delete databases / servers | ❌ | ❌ | ✅ |
+| View billing | ❌ | ❌ | ✅ |
+| Change payment method | ❌ | ❌ | ✅ |
+| Change subscription plan | ❌ | ❌ | ✅ |
+
+- **Viewer** — read-only access across the team's resources. Best for stakeholders, auditors, or new hires during onboarding.
+- **Editor** — can build and ship: create/modify projects, trigger deploys, rollback, search and download logs. Cannot delete resources or manage members/billing.
+- **Admin** — full administrative control, including member management, destructive operations, and billing. Required for any action that affects the team itself or its subscription.
+
+## What's included (vs. Pro)
+
+Everything in Pro, plus:
+
+- **Unlimited** bound external servers (Pro: 10)
+- **90 days** of log retention (Pro: 30 days)
+- **3 seats included** (each at Pro level)
+- **Team project collaboration**
+- **Role & permission management**
+- **Priority customer & technical support**
+- **Batch file operations** on containers
+- **Enterprise procurement & invoicing**
 
 ## Invoicing & Tax ID
 
-The Team Plan supports invoice issuance and tax ID (統一編號) configuration, making it suitable for businesses and organizations that need receipts for accounting. See [Invoicing](/subscription/invoicing) for details.
+The Team Plan supports formal invoice issuance and tax ID configuration, suitable for businesses and organizations that need receipts for accounting. See [Invoicing](/subscription/invoicing) for details.
 
-## Dev Plan vs. Team Plan
+## Pro Plan vs. Team Plan
 
-| Feature | Dev Plan | Team Plan |
+| Feature | Pro Plan | Team Plan |
 | --- | --- | --- |
-| Billing | US$5/month + usage | Usage-based |
-| Members | 1 | Multiple (by seat) |
-| Member permissions | N/A | Supported |
-| Invoicing / Tax ID | Not supported | Supported |
-| Best for | Individual developers | Teams / Organizations |
+| Monthly fee | US$19 | US$79 (3 seats) + US$24 / extra seat |
+| Bound external servers | 10 | Unlimited |
+| Log retention | 30 days | 90 days |
+| Plan seats | 1 | 3 (each at Pro level) |
+| Role & permission management | — | Supported |
+| Team collaboration | — | Supported |
+| Priority support | — | Supported |
+| Enterprise procurement & invoicing | — | Supported |
+| Free trial | 14 days | Not available |
+| Best for | Individual developers | Teams / organizations |
 
 <Callout type="info">
-For larger-scale custom plans, dedicated support, and SLAs, check out the **Enterprise Plan** — [contact us](https://zeabur.com/forum) for details.
+For larger-scale custom plans, dedicated technical resources, and enterprise contracts, see the **Enterprise Plan** — [contact us](https://zeabur.com/forum) for details.
 </Callout>
 
 ## Use Cases
 
 - **Startup teams** — Multiple developers jointly managing deployment environments.
-- **Enterprise internal projects** — Teams that need unified billing and invoicing.
-- **Agencies** — Create separate projects for different clients under unified team management.
+- **Enterprise internal projects** — Teams that need unified billing and formal invoicing.
+- **Agencies** — Separate projects for different clients, unified under one team.
 - **Open-source communities** — Multiple maintainers collaborating on service deployments.
 
 ## How to Subscribe

@@ -8,45 +8,52 @@ import { Callout } from 'nextra/components'
 
 # Free Plan
 
-Free Plan 是 Zeabur 的免费方案，适合个人探索与学习使用。无需绑定信用卡，注册即可开始部署。
+Free Plan 是 Zeabur 的入门方案，适合首次尝试 Zeabur 部署流程的用户。无需绑定信用卡，注册即可开始部署。
 
 ## 包含资源
 
 | 资源 | 限制 |
 | --- | --- |
-| 项目数量 | 1 个 |
-| 服务数量 | 每项目最多 2 个 |
+| 月费 | $0 |
+| 绑定外部服务器 | 1 台 |
+| 构建 CI 规格 | 2C4G |
+| 日志保留 | 48 小时 |
+| 文件上传限制 | 低 |
+| 容器文件管理 | 单文件上传 |
+| 数据库查看 | 支持 |
+| AI Agent（Zeabur AI） | 不包含 |
 | 部署区域 | 共享集群区域 |
-| 免费额度 | 每月重置（详见[免费额度说明](/subscription/free-quota)） |
-| 自定义域名 | 不支持 |
-| 持久存储 | 不支持 |
 
-### 服务费率
+## 资源费率
 
-Free Plan使用与付费方案相同的费率计算，只是扣减免费额度：
+共享集群按分钟计费，与付费方案使用相同费率：
 
 - **vCPU** — 不计费（$0.0 / vCPU-分钟）
 - **内存** — US$0.00025 / GB-分钟（约 US$10.8 / GB-月）
 - **网络输出** — US$0.1 / GB
 - **持久存储** — US$0.2 / GB-月
 
+完整说明请见 [Billing / Pricing](/billing/pricing)。
+
 ## 限制与注意事项
 
-- **服务自动暂停** — Free Plan的服务在一段时间无流量后会自动暂停（sleep），下次收到请求时自动唤醒。这可能导致首次请求有数秒延迟。
-- **容器化服务限制** — 无法部署需要持久存储的服务（如数据库）。
+- **无 Zeabur AI / AI Agent** — AI 驱动的运维体验仅在付费方案提供。
+- **日志保留较短** — Free 仅保留 48 小时。
+- **绑定服务器有限** — Free 最多只能绑定 1 台外部服务器。
 - **无 SLA 保障** — 免费方案不提供服务等级协议。
-- **额度用尽** — 当月免费额度用尽后，服务会被暂停，下月重置后恢复。
+- **仅社区支持** — 优先技术支持需 Team 方案。
 
 <Callout type="info">
-Free Plan的服务会在没有流量时自动暂停以节省资源。如果你需要服务持续运行，建议升级到 [Dev Plan](/pricing/dev-plan)。
+想体验 AI Agent、备份、自定义域名与更长日志保留吗？可以到 [14 天免费试用](/billing/subscription#14-天免费试用) 试用 Dev 或 Pro — 功能与付费版本完全一致，试用结束前不会收费。
 </Callout>
 
 ## 升级路径
 
-当你的需求超过 Free Plan的范围，可以升级到付费方案：
+当你的需求超过 Free Plan 的范围，可以升级到付费方案：
 
-- **[Dev Plan](/pricing/dev-plan)** — US$5/月，适合个人开发者的正式项目，包含自定义域名、持久存储和更多项目配额。
-- **[Team Plan](/pricing/team-plan)** — 依用量计费，适合团队协作，支持成员管理和发票功能。
-- **Enterprise** — 定制化方案，专属支持与 SLA，详情请[联系我们](https://zeabur.com/forum)。
+- **[Dev Plan](/pricing/dev-plan)** — US$5 / 月。需要 AI Agent、数据库备份、域名管理与邮件系统的个人开发者。
+- **[Pro Plan](/pricing/pro-plan)** — US$19 / 月。更高构建规格、30 天日志保留、高级可观测性、HA 部署与 IP 访问控制。
+- **[Team Plan](/pricing/team-plan)** — US$79 / 月（含 3 席）。无限绑定服务器、团队协作、角色管理与优先支持。
+- **Enterprise** — 定制化合约、专属资源、合规支持，详情请 [联系我们](https://zeabur.com/forum)。
 
 前往 [zeabur.com/pricing](https://zeabur.com/pricing) 比较各方案的完整功能。

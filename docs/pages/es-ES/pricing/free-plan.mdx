@@ -1,52 +1,59 @@
 ---
-title: Plan Gratuito (Plan Serverless)
-ogImageTitle: Plan Gratuito
-ogImageSubtitle: Detalles del Plan Gratuito de Zeabur
+title: Plan Free
+ogImageTitle: Plan Free
+ogImageSubtitle: Detalles del Plan Free de Zeabur
 ---
 
 import { Callout } from 'nextra/components'
 
-# Plan Gratuito (Plan Serverless)
+# Plan Free
 
-El Plan Serverless es el nivel gratuito de Zeabur, diseñado para exploración personal y aprendizaje. No se requiere tarjeta de crédito — simplemente regístrese y comience a desplegar.
+El Plan Free es el nivel de entrada de Zeabur, diseñado para usuarios que prueban el flujo de despliegue de Zeabur por primera vez. No se requiere tarjeta de crédito — simplemente regístrate y comienza a desplegar.
 
 ## Recursos incluidos
 
 | Recurso | Límite |
 | --- | --- |
-| Proyectos | 1 |
-| Servicios | Hasta 2 por proyecto |
+| Tarifa mensual | $0 |
+| Servidores externos vinculados | 1 |
+| Especificación CI de build | 2C4G |
+| Retención de logs | 48 horas |
+| Límite de subida de archivos | Bajo |
+| Gestión de archivos de contenedor | Subida de archivo único |
+| Vista de base de datos | Soportado |
+| AI Agent (Zeabur AI) | No incluido |
 | Regiones de despliegue | Regiones de clúster compartido |
-| Credits gratuitos | Se reinician mensualmente (ver [Cuota Gratuita](/subscription/free-quota)) |
-| Dominios personalizados | No soportado |
-| Almacenamiento persistente | No soportado |
 
-### Tarifas de servicio
+## Tarifas de recursos
 
-El Plan Serverless utiliza las mismas tarifas que los planes de pago, descontadas de los Credits gratuitos:
+El uso del clúster compartido se factura por minuto y utiliza las mismas tarifas que los planes de pago:
 
-- **vCPU** — Gratis ($0.0 / minuto de vCPU)
+- **vCPU** — Sin coste ($0.0 / minuto de vCPU)
 - **Memoria** — US$0.00025 / GB-minuto (~US$10.8 / GB-mes)
 - **Tráfico de red saliente** — US$0.1 / GB
 - **Almacenamiento persistente** — US$0.2 / GB-mes
 
+Consulta [Billing / Pricing](/billing/pricing) para detalles completos.
+
 ## Limitaciones
 
-- **Suspensión automática** — Los servicios en el Plan Serverless se suspenden automáticamente después de un período de inactividad. Se reactivan con la siguiente solicitud entrante, lo que puede causar unos segundos de latencia de arranque en frío.
-- **Sin almacenamiento persistente** — No se pueden desplegar servicios que requieran volúmenes persistentes (ej., bases de datos).
-- **Sin SLA** — El plan gratuito no incluye un Acuerdo de Nivel de Servicio.
-- **Credits agotados** — Cuando los Credits gratuitos mensuales se agotan, los servicios se suspenden hasta el reinicio del mes siguiente.
+- **Sin Zeabur AI / AI Agent** — La experiencia de operaciones impulsada por IA solo está disponible en planes de pago.
+- **Retención de logs limitada** — Solo se guardan 48 horas de logs en Free.
+- **Vinculación de servidores limitada** — Solo se puede vincular 1 servidor externo en Free.
+- **Sin SLA** — El plan Free no incluye un Acuerdo de Nivel de Servicio.
+- **Solo soporte comunitario** — El soporte técnico prioritario requiere el plan Team.
 
 <Callout type="info">
-Los servicios en el Plan Serverless se suspenden automáticamente cuando están inactivos para conservar recursos. Si necesita que los servicios se ejecuten continuamente, considere actualizar al [Plan Dev](/pricing/dev-plan).
+¿Quieres AI Agent, backups, dominios personalizados y retención de logs más larga? Inicia una [prueba gratuita de 14 días](/billing/subscription#prueba-gratuita-de-14-días) en Dev o Pro — las mismas funciones que la versión de pago, sin cargo hasta que termine la prueba.
 </Callout>
 
 ## Ruta de actualización
 
-Cuando sus necesidades excedan el Plan Serverless, puede actualizar a un plan de pago:
+Cuando tus necesidades excedan el Plan Free, elige un plan de pago:
 
-- **[Plan Dev](/pricing/dev-plan)** — US$5/mes, ideal para desarrolladores individuales con proyectos en producción. Incluye dominios personalizados, almacenamiento persistente y proyectos ilimitados.
-- **[Plan Team](/pricing/team-plan)** — Facturación basada en uso, diseñado para colaboración en equipo con gestión de miembros y soporte de facturación.
-- **Enterprise** — Planes personalizados con soporte dedicado y SLAs — [contáctenos](https://zeabur.com/forum) para más detalles.
+- **[Plan Dev](/pricing/dev-plan)** — US$5/mes. Desarrolladores individuales que quieren AI Agent, backups de base de datos, gestión de dominios y sistema de correo.
+- **[Plan Pro](/pricing/pro-plan)** — US$19/mes. Mayores especificaciones de build, retención de logs de 30 días, observabilidad avanzada, despliegue HA y control de acceso IP.
+- **[Plan Team](/pricing/team-plan)** — US$79/mes (3 asientos incluidos). Servidores vinculados ilimitados, colaboración en equipo, gestión de roles y soporte prioritario.
+- **Enterprise** — Contratos personalizados, recursos dedicados, soporte de cumplimiento — [contáctanos](https://zeabur.com/forum).
 
-Visite [zeabur.com/pricing](https://zeabur.com/pricing) para comparar todos los planes.
+Visita [zeabur.com/pricing](https://zeabur.com/pricing) para comparar todos los planes.

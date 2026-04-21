@@ -8,51 +8,68 @@ import { Callout } from 'nextra/components'
 
 # Plan Dev (Plan Desarrollador)
 
-El Plan Desarrollador es el plan de pago de Zeabur diseñado para desarrolladores individuales. A **US$5/mes**, desbloquea todas las funciones de despliegue y es ideal para proyectos personales en producción y proyectos secundarios.
+El Plan Dev es el plan de pago de Zeabur diseñado para desarrolladores individuales que quieren AI Agent, backups de base de datos y gestión de dominios. A **US$5/mes**, desbloquea las funciones de productividad esenciales para desarrolladores individuales.
+
+<Callout type="info">
+Elegible para la **prueba gratuita de 14 días** — las mismas funciones que la versión de pago, sin cargo hasta que termine la prueba. Consulta [Prueba gratuita de 14 días](/billing/subscription#prueba-gratuita-de-14-días).
+</Callout>
 
 ## Detalles del plan
 
 | Elemento | Detalles |
 | --- | --- |
 | Tarifa mensual | US$5 / mes |
-| Credits incluidos | US$5 / mes (compensa costos de recursos) |
-| Proyectos | Ilimitados |
-| Servicios | Ilimitados |
-| Dominios personalizados | Soportado |
-| Almacenamiento persistente | Soportado |
-| Regiones de despliegue | Todas las regiones disponibles |
+| Servidores externos vinculados | Hasta 3 |
+| Especificación CI de build | 2C4G |
+| Retención de logs | 7 días |
+| Límite de subida de archivos | Medio |
+| Gestión de archivos de contenedor | Subida de archivo único |
+| Zeabur AI (AI Agent) | Incluido |
+| Compra de dominio | Soportado |
+| Sistema de correo | Incluido |
+| Exportación de backup de base de datos | Soportado |
 | Miembros | 1 (solo el propietario de la cuenta) |
+| Regiones de despliegue | Todas las regiones disponibles |
 
-### Tarifas
+## Qué se añade (vs. Free)
 
-Las tarifas de recursos del Plan Dev son las mismas que se indican en el [Resumen de Planes](/pricing/pricing-plans):
+Todo lo del plan Free, más:
+
+- Hasta **3 servidores externos vinculados** (Free: 1)
+- Retención de logs **7 días** (Free: 48 horas)
+- **Zeabur AI** — AI Agent para gestionar tus servicios
+- **Compra de dominio** directamente a través de Zeabur
+- **Sistema de correo** — envía correos transaccionales
+- Mayores límites de subida de archivos
+
+## Tarifas de recursos
+
+El uso del clúster compartido se factura por minuto. Consulta [Billing / Pricing](/billing/pricing) para la tabla completa.
 
 - **vCPU** — Gratis
 - **Memoria** — US$0.00025 / GB-minuto (~US$10.8 / GB-mes)
 - **Tráfico de red saliente** — US$0.1 / GB
 - **Almacenamiento persistente** — US$0.2 / GB-mes
 
-Los US$5 de Credits mensuales incluidos compensan automáticamente el uso de recursos. Cualquier exceso se cobra a su tarjeta de crédito o saldo prepagado.
+## Plan Free vs. Plan Dev
 
-## Plan Gratuito vs. Plan Dev
-
-| Característica | Plan Gratuito | Plan Dev |
+| Característica | Plan Free | Plan Dev |
 | --- | --- | --- |
-| Tarifa mensual | Gratis | US$5 |
-| Proyectos | 1 | Ilimitados |
-| Servicios | 2 por proyecto | Ilimitados |
-| Dominios personalizados | No soportado | Soportado |
-| Almacenamiento persistente | No soportado | Soportado |
-| Suspensión automática | Se suspende cuando está inactivo | Siempre en ejecución |
-| SLA | Ninguno | Estándar |
+| Tarifa mensual | $0 | US$5 |
+| Servidores externos vinculados | 1 | 3 |
+| Retención de logs | 48 horas | 7 días |
+| Zeabur AI | — | Incluido |
+| Compra de dominio | — | Soportado |
+| Sistema de correo | — | Incluido |
+| Límite de subida de archivos | Bajo | Medio |
 
 ## Casos de uso
 
-- **Proyectos personales secundarios** — Despliegue sitios web personales, blogs, servicios API, etc.
-- **Desarrollo y pruebas** — Entornos que necesitan almacenamiento persistente (ej., bases de datos).
+- **Proyectos personales secundarios** — Despliega sitios web personales, blogs, servicios API.
+- **Flujos asistidos por IA** — Deja que Zeabur AI gestione y solucione problemas en tus servicios.
 - **Servicios pequeños en producción** — Servicios de bajo tráfico que necesitan ejecutarse 24/7.
-- **Desarrollo de plantillas** — Cree y mantenga plantillas de Zeabur con [Deploy Buttons](/deploy/deploy-button) para promocionar sus proyectos.
+- **Desarrollo de plantillas** — Crea y mantén plantillas de Zeabur con [Deploy Buttons](/deploy/deploy-button).
 
 ## Cómo suscribirse
 
-Vaya a [zeabur.com/pricing](https://zeabur.com/pricing) y seleccione Plan Dev, o actualice desde la [página de facturación del Dashboard](https://dash.zeabur.com/account/billing). Se aceptan tarjeta de crédito y Alipay — consulte [Métodos de Pago](/subscription/payment-methods) para más detalles.
+Ve a [zeabur.com/pricing](https://zeabur.com/pricing) y selecciona Plan Dev, o actualiza desde la [página de facturación del Dashboard](https://dash.zeabur.com/account/billing). Se aceptan tarjeta de crédito y Alipay — consulta [Métodos de Pago](/subscription/payment-methods) para más detalles.

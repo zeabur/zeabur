@@ -8,50 +8,108 @@ import { Callout } from 'nextra/components'
 
 # Planes
 
-Zeabur ofrece diferentes planes de suscripción para distintas necesidades.
+Zeabur ofrece cinco planes de suscripción: **Free**, **Dev**, **Pro**, **Team** y **Enterprise**. Desde experimentos individuales hasta despliegues empresariales, hay una opción adaptada a tus necesidades.
 
-Las características y precios se pueden consultar en la [página de "Precios" de Zeabur](https://zeabur.com/es-ES/pricing). Este documento explica principalmente el público objetivo de cada plan y los métodos de pago admitidos.
+Para la comparación completa de funciones y los precios más recientes, visita [zeabur.com/pricing](https://zeabur.com/pricing). Esta página se centra en el público objetivo y los métodos de pago admitidos de cada plan.
 
 ![Plans](/billing/plans/overview.png)
 
-## Plan de Prueba Gratuita
+## Plan Free
 
-De forma predeterminada, todas las cuentas de Zeabur son del Plan de Prueba Gratuita.
+Todas las cuentas de Zeabur empiezan por defecto en el plan **Free**, ideal para probar el flujo de despliegue de Zeabur por primera vez.
 
-Puedes evaluar cualquier servicio con este plan, pero los servicios solo se pueden desplegar en regiones gratuitas específicas. Después de actualizar tu plan, puedes migrar a otras regiones de pago.
+El plan Free incluye:
 
-Este plan solo es adecuado para pruebas y evaluaciones.
+- Hasta **1 servidor externo vinculado**
+- Build CI a **2C4G**
+- Retención de logs: **48 horas**
+- Gestión de archivos de contenedor (subida de archivo único)
+- Vista básica de base de datos
+- Soporte de la comunidad
 
-<Callout>
-  El Plan de Prueba Gratuita no incluye créditos para la compra de servidores dedicados. Solo permite desplegar servicios en regiones gratuitas de clústeres compartidos.
+No requiere tarjeta de crédito. Cuando quieras AI Agent, backups, retención de logs más larga o un dominio personalizado, actualiza a un plan de pago.
+
+## Plan Dev
+
+El plan **Dev** (US$5 / mes) está diseñado para desarrolladores individuales que necesitan AI Agent, copias de seguridad de bases de datos y gestión de dominios.
+
+Todo lo de Free, más:
+
+- Hasta **3 servidores externos vinculados**
+- Retención de logs **7 días**
+- **Zeabur AI** (AI Agent)
+- Compra de dominios a través de Zeabur
+- Sistema de correo (envío de correos transaccionales)
+- Límites de subida más altos
+
+## Plan Pro
+
+El plan **Pro** (US$19 / mes) es para desarrolladores que necesitan mayores especificaciones de build, mayor retención de logs y observabilidad reforzada.
+
+Todo lo de Dev, más:
+
+- Hasta **10 servidores externos vinculados**
+- Build CI a **4C8G**
+- Retención de logs **30 días**
+- Búsqueda avanzada de logs
+- Reenvío de logs (Log Drain)
+- Despliegue de servicios de alta disponibilidad
+- Control de acceso por dominio e IP
+- Métricas y alertas de monitoreo personalizadas
+
+## Plan Team
+
+El plan **Team** (US$79 / mes con 3 asientos incluidos; **US$24 por asiento adicional / mes**) es para equipos pequeños que necesitan colaboración, vinculación ilimitada de servidores y soporte prioritario.
+
+Todo lo de Pro, más:
+
+- **Servidores externos ilimitados** vinculados
+- Retención de logs **90 días**
+- **3 asientos incluidos** (cada asiento con funciones de nivel Pro)
+- Colaboración en proyectos de equipo
+- Gestión de roles y permisos
+- Soporte prioritario al cliente y técnico
+- Adquisición y facturación empresarial
+
+Admite tarjeta de crédito y Alipay. Si necesitas otros métodos de pago, contáctanos.
+
+<Callout type="info">
+El plan **Team** **no** incluye prueba gratuita. Solo **Dev** y **Pro** son elegibles para la prueba gratuita de 14 días.
 </Callout>
 
-## Plan de Desarrollador
+## Plan Enterprise
 
-El Plan de Desarrollador es adecuado para todo tipo de desarrolladores y equipos pequeños. Además de generosas cuotas de recursos, mayor prioridad de soporte y la insignia exclusiva "Dev Plan" en el foro de la comunidad, también puedes "pagar por uso" y crear diversas aplicaciones interesantes con Zeabur sin preocuparte por las restricciones.
+**Enterprise** está destinado a empresas con necesidades de cumplimiento, contratos personalizados y recursos dedicados.
 
-El Plan de Desarrollador incluye una cuota gratuita de US$5 cada mes:
+Todo lo de Team, más:
 
-- Si tu consumo en un mes no supera los US$5, no te cobraremos ninguna tarifa adicional aparte de este plan.
-- Si el consumo supera los US$5, el exceso se cobrará según la fórmula indicada en ["Precios"](./pricing).
-- La cuota gratuita se aplica únicamente al uso de clústeres compartidos (memoria, tráfico de red de salida y volumen persistente). No cubre las tarifas de alquiler de servidores dedicados.
+- Límites de uso y contratos personalizados
+- Recursos técnicos dedicados
+- Soporte prioritario
+- Adquisición y facturación empresarial
 
-## Plan de Equipo
+Si el plan Team no satisface tus necesidades, [contáctanos](mailto:contact@zeabur.com) para obtener un plan adaptado a tu caso de uso.
 
-El Plan de Equipo es adecuado para proyectos de mediana y gran escala, o con grandes requisitos de recursos. Además de ofrecer más cuotas de recursos, también puedes conectarte directamente con el equipo de Zeabur para discutir diversas posibilidades.
+## Prueba gratuita de 14 días
 
-Admite pagos con tarjeta de crédito y Alipay. Si necesitas otros métodos de pago, puedes comunicarte con nosotros.
+Cada usuario tiene derecho a **una** prueba gratuita y puede elegir entre el plan **Dev** (US$5/mes) o **Pro** (US$19/mes):
 
-## Plan Empresarial
-
-Si el Plan de Equipo no satisface tus necesidades, puedes [contactarnos](mailto:contact@zeabur.com) para obtener un plan adaptado a tu caso de uso.
+- Durante la prueba obtienes **exactamente las mismas funciones y cuotas** que una suscripción de pago.
+- No se cobran tarifas de suscripción durante los 14 días de prueba.
+- Al finalizar la prueba, tu plan elegido se renueva automáticamente y se cobra.
+- Puedes finalizar la prueba anticipadamente — se te cobrará inmediatamente por ese plan y comenzará un nuevo ciclo mensual ese día.
+- El plan **Team** no incluye prueba gratuita.
 
 ## Preguntas Frecuentes
 
-### ¿Necesito el Plan de Desarrollador si ya tengo un servidor dedicado?
+### ¿Necesito un plan de pago si ya tengo un servidor dedicado?
 
-Puedes usar un servidor dedicado sin el Plan de Desarrollador, pero el Plan de Desarrollador desbloquea capacidades adicionales de la plataforma como copias de seguridad, funciones beta y soporte prioritario del personal. Los usuarios gratuitos aún pueden recibir soporte comunitario a través del [foro de Zeabur](https://zeabur.com/forum), pero no hay un tiempo de respuesta garantizado. Para más información, consulta [Comunidad y Soporte](/community/forum).
+Puedes usar un servidor dedicado en el plan Free, pero un plan de pago (Dev / Pro / Team) desbloquea capacidades adicionales como copias de seguridad, AI Agent, mayores cuotas y soporte prioritario. Los usuarios Free aún pueden recibir soporte comunitario en el [foro de Zeabur](https://zeabur.com/forum), pero sin garantía de tiempo de respuesta. Consulta [Comunidad y Soporte](/community/forum).
 
-### ¿Qué sucede si cancelo y me vuelvo a suscribir al Plan de Desarrollador dentro del mismo período de facturación?
+### ¿Qué sucede con mis servicios tras bajar de plan?
 
-Cancelar y volver a suscribirse creará una nueva suscripción y se te cobrará nuevamente. El período restante de la suscripción anterior no se transfiere. Si se te cobró dos veces dentro del mismo período, envía una solicitud en el [foro de Zeabur](https://zeabur.com/forum) para solicitar un reembolso del cargo duplicado.
+Tus servicios desplegados y recursos existentes (dominios, servidores externos vinculados, etc.) **no se eliminan** — puedes seguir gestionándolos. Sin embargo, la adición de nuevos recursos se limita a la cuota del nuevo plan. Por ejemplo, si tenías 5 servidores vinculados en Pro y bajas a Dev (máx. 3), esos 5 siguen siendo gestionables pero no podrás vincular nuevos hasta que vuelvas a subir de plan.
+
+### ¿Qué sucede si cancelo y me vuelvo a suscribir dentro del mismo período de facturación?
+
+Cancelar y volver a suscribirse crea una nueva suscripción y se te cobrará de nuevo. El período restante de la suscripción anterior no se transfiere. Si se te cobró dos veces dentro del mismo período, envía una solicitud en el [foro de Zeabur](https://zeabur.com/forum) para solicitar un reembolso del cargo duplicado.
