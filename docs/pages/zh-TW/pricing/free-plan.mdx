@@ -1,52 +1,58 @@
 ---
 title: Free Plan
 ogImageTitle: Free Plan
-ogImageSubtitle: Zeabur 免費方案說明
+ogImageSubtitle: Zeabur Free Plan 詳情
 ---
 
 import { Callout } from 'nextra/components'
 
 # Free Plan
 
-Free Plan 是 Zeabur 的免費方案，適合個人探索與學習使用。無需綁定信用卡，註冊即可開始部署。
+Free Plan 是 Zeabur 的免費方案，專為個人探索與學習而設計。無需信用卡——只需註冊即可開始部署。
 
-## 包含資源
+## 方案詳情
 
-| 資源 | 限制 |
+| 項目 | Free Plan |
 | --- | --- |
-| 專案數量 | 有限制 |
-| 服務數量 | 有限制 |
-| 部署區域 | 共享叢集區域 |
-| 免費額度 | 每月重置（詳見[免費額度說明](/subscription/free-quota)） |
-| 自訂網域 | 不支援 |
-| 持久儲存 | 不支援 |
+| 月費 | US$0 |
+| 可綁定外部伺服器數量 | 1 |
+| 編譯 CI 規格 | 2C4G |
+| 日誌保留時間 | 48 小時 |
+| 容器檔案管理 | 單檔上傳 |
+| 資料庫查看 | 支援 |
+| 持久儲存空間 | 支援 |
+| 自訂網域綁定 | 支援 |
+| 網域購買（註冊） | 不支援 |
+| 資料庫備份（匯出 / 匯入） | 不支援 |
+| 日誌轉發 | 不支援 |
+| Zeabur AI | 不支援 |
+| Zeabur Email — 每日配額 | 0 |
+| Zeabur Email — 每月配額 | 0 |
+| 網域 | 0 |
+| API 金鑰 | 0 |
+| Webhooks | 0 |
+| 論壇發文 | 限制（基本） |
+| 優先支援 | 不包含 |
+| SLA | 不包含 |
 
-### 服務費率
+## 限制
 
-Free Plan使用與付費方案相同的費率計算，只是扣減免費額度：
-
-- **vCPU** — 不計費（$0.0 / vCPU-分鐘）
-- **記憶體** — US$0.00025 / GB-分鐘（約 US$10.8 / GB-月）
-- **網路輸出** — US$0.1 / GB
-- **持久儲存** — US$0.2 / GB-月
-
-## 限制與注意事項
-
-- **服務自動暫停** — Free Plan的服務在一段時間無流量後會自動暫停（sleep），下次收到請求時自動喚醒。這可能導致首次請求有數秒延遲。
-- **容器化服務限制** — 無法部署需要持久儲存的服務（如資料庫）。
-- **無 SLA 保障** — 免費方案不提供服務等級協議。
-- **額度用盡** — 當月免費額度用盡後，服務會被暫停，下月重置後恢復。
+- **自動休眠** — Free Plan 上的服務在一段時間無活動後會自動進入休眠。下次有請求進來時會自動喚醒，但可能會有幾秒鐘的冷啟動延遲。
+- **無 SLA** — Free Plan 不包含服務等級協議。
+- **無 Zeabur Email** — Free Plan 不支援透過 [Zeabur Email](/email) 寄送郵件。
+- **無自動資料庫備份 / 匯入及日誌轉發** — 這些進階維運功能從 Dev Plan 起才提供。
 
 <Callout type="info">
-Free Plan的服務會在沒有流量時自動暫停以節省資源。如果你需要服務持續運行，建議升級到 [Dev Plan](/pricing/dev-plan)。
+Free Plan 上的服務在閒置時會自動休眠以節省資源。若需要服務持續運行，請考慮升級至 [Dev Plan](/pricing/dev-plan)。
 </Callout>
 
 ## 升級路徑
 
-當你的需求超過 Free Plan的範圍，可以升級到付費方案：
+當您的需求超出 Free Plan 時，可升級至付費方案：
 
-- **[Dev Plan](/pricing/dev-plan)** — US$5/月，適合個人開發者的正式專案，包含自訂網域、持久儲存和更多專案配額。
-- **[Team Plan](/pricing/team-plan)** — 依用量計費，適合團隊協作，支援成員管理和發票功能。
-- **Enterprise** — 客製化方案，專屬支援與 SLA，詳情請[聯絡我們](https://zeabur.com/forum)。
+- **[Dev Plan](/pricing/dev-plan)** — US$5/月（14 天免費試用），適合有個人正式專案的獨立開發者。新增 Zeabur AI、資料庫備份、網域購買及 Zeabur Email。
+- **[Pro Plan](/pricing/pro-plan)** — US$19/月（14 天免費試用），推薦用於正式環境。新增日誌轉發、進階配額、自訂服務圖示及優先支援。
+- **[Team Plan](/pricing/team-plan)** — US$79/月（含 3 個席位，每增加一個席位 US$24），專為需要角色與權限管理的團隊協作而設計。
+- **Enterprise** — 自訂方案，提供專屬支援及 SLA——[聯絡我們](https://zeabur.com/forum)了解詳情。
 
-前往 [zeabur.com/pricing](https://zeabur.com/pricing) 比較各方案的完整功能。
+前往 [zeabur.com/pricing](https://zeabur.com/pricing) 比較所有方案。
