@@ -1,0 +1,45 @@
+---
+title: Clústeres
+ogImageTitle: Clústeres
+ogImageSubtitle: Gestiona clústeres de Kubernetes multinodo en Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Clústeres
+
+Si tu carga de trabajo ha crecido más allá de lo que una sola máquina puede manejar de forma confiable, o necesitas programación entre nodos, conmutación por error y almacenamiento distribuido, lo que generalmente necesitas no es un solo [servidor](/server), sino un **clúster**.
+
+Un clúster es un entorno de ejecución compuesto por múltiples nodos de Kubernetes, diseñado para arquitecturas de servicios que requieren alta disponibilidad, escalado horizontal y almacenamiento distribuido.
+
+## Por qué necesitas un clúster
+
+Un servidor es adecuado cuando ejecutas todos los servicios en un **único nodo**: la arquitectura es simple, los costos son predecibles y la sobrecarga operativa es baja. Pero cuando tu sistema comienza a requerir las siguientes capacidades, un clúster es la mejor opción:
+
+- **Programación multinodo**: Distribuye diferentes servicios y réplicas en múltiples máquinas, evitando que todas las cargas de trabajo se concentren en un solo host.
+- **Tolerancia a fallos de nodo**: Cuando un único nodo se desconecta, las cargas de trabajo pueden reprogramarse en otros nodos saludables, reduciendo el riesgo de una interrupción total.
+- **Almacenamiento distribuido**: Cuando necesitas montar y migrar datos persistentes entre nodos, los volúmenes distribuidos son más adecuados que los discos locales de una sola máquina.
+- **Mayor flexibilidad de escalado**: Puedes ampliar la capacidad añadiendo nodos, en lugar de limitarte a actualizar verticalmente un único host.
+
+En resumen, **un servidor resuelve "recursos exclusivos en una máquina"**, mientras que **un clúster resuelve "coordinación multimáquina y alta disponibilidad"**.
+
+## Servidor vs. Clúster
+
+| Característica | Servidor | Clúster |
+| --- | --- | --- |
+| Número de nodos | Nodo único | Múltiples nodos de Kubernetes |
+| Modelo de cómputo | Despliegue en una sola máquina | Programación entre nodos |
+| Almacenamiento | Principalmente volúmenes locales en una sola máquina | Volúmenes distribuidos que pueden seguir cargas de trabajo entre nodos |
+| Impacto en fallos | Los servicios en la máquina afectada se ven impactados | Las cargas de trabajo pueden reprogramarse en otros nodos, reduciendo el impacto de fallos en un único punto |
+| Escalado | Principalmente vertical (actualizar el único host) | Horizontal (añadir nodos) |
+| Ideal para | Servicios pequeños y medianos, aplicaciones monolíticas, cargas de trabajo estables | Requisitos de alta disponibilidad, servicios con múltiples réplicas, sistemas distribuidos |
+
+<Callout type="info">
+  Si solo necesitas recursos fijos y un único nodo de datos, un servidor suele ser suficiente. Si quieres que los servicios conmuten automáticamente cuando un nodo falla, o necesitas una arquitectura verdaderamente multinodo, elige un clúster.
+</Callout>
+
+## Primeros pasos
+
+1. Para crear un nuevo clúster directamente a través de Zeabur, consulta [Comprar un Clúster](/cluster/purchase).
+2. Si ya tienes tu propio clúster de Kubernetes, consulta [Conectar un Clúster Existente](/cluster/bind).
+3. Para conocer la opción de una sola máquina, consulta [Servidores](/server).

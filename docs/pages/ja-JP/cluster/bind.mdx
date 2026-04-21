@@ -1,0 +1,73 @@
+---
+title: 既存の Kubernetes クラスターを接続する
+ogImageTitle: 既存の Kubernetes クラスターを接続する
+ogImageSubtitle: クラスターを Zeabur の管理下に置く
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# 既存の Kubernetes クラスターを接続する
+
+他のクラウドプロバイダーを通じて Kubernetes クラスターをすでに購入または作成している場合、そのクラスターを Zeabur に接続し、Zeabur のデプロイメントと管理体験を引き続き利用できます。
+
+一般的なシナリオには以下が含まれます：
+
+- AWS、GCP、DigitalOcean、Hetzner、または他のプロバイダーにすでに既存のクラスターがある。
+- 既存のネットワークトポロジー、データの場所、またはコンプライアンス設定を保持したい。
+- Kubernetes の日常操作を Zeabur Dashboard に統合したい。
+
+## 開始前の準備
+
+開始する前に、以下を確認してください：
+
+- Kubernetes API Server が Zeabur からアクセス可能である。
+- クラスターへの接続に Zeabur が必要とするアクセス資格情報を提供するのに十分な権限がある。
+- クラスターが正常に動作しており、ノード、ネットワーク、ストレージコンポーネントが設定されている。
+
+## 接続手順
+
+<Steps>
+
+### Zeabur にログインする
+
+[サーバー](https://zeabur.com/servers)ページに移動します。
+
+### クラスターを選択して作成する
+
+「クラスター」を選択し、右上の「作成」をクリックします。
+![cluster page](/cluster/cluster-page.webp)
+
+### 自分のクラスターを接続を選ぶ
+
+作成フローで「自分のクラスターを接続」を選択します。
+![create cluster](/cluster/create-cluster.webp)
+
+### Kubeconfig をアップロードする
+
+Zeabur はクラスター情報を自動的に解析し、接続の確認を試みます。
+![upload kubeconfig](/cluster/upload-kubeconfig.webp)
+
+### プロバイダーと場所を設定する
+
+プロバイダー（例：`LINODE`）、国（例：`US`）、都市、大陸、その他のフィールドを設定します — これらは表示目的のみであり、自由に入力できます。
+![cluster provider](/cluster/update-details.webp)
+
+### クラスターを接続して待つ
+
+「クラスターを接続」をクリックし、Zeabur がクラスターの接続と初期化を完了するまで待ちます — 通常 3〜5 分かかります。
+
+### クラスターがサーバーリストに表示される
+
+完了すると、クラスターがサーバーリストに表示され、Zeabur から直接プロジェクトを作成してサービスをデプロイできます。
+![cluster information](/cluster/cluster-information.webp)
+
+</Steps>
+
+<Callout type="warning">
+  既存のクラスターを接続しても、Kubernetes 環境が自動的に再構築されるわけではありません。クラスターがカスタムネットワーク、Ingress、StorageClass、またはセキュリティポリシーを使用している場合は、続行する前にこれらの設定が Zeabur のデプロイメント要件と互換性があることを確認してください。
+</Callout>
+
+## 次のステップ
+
+- Zeabur から直接新しいクラスターを作成するには、[クラスターを購入する](/cluster/purchase)を参照してください。
+- クラスターとサーバーの違いについては、[クラスター概要](/cluster)を参照してください。

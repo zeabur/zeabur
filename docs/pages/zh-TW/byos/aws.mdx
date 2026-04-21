@@ -1,0 +1,39 @@
+---
+title: AWS BYOS
+ogImageTitle: AWS BYOS
+ogImageSubtitle: 使用自己的 AWS 帳號授權給 Zeabur
+---
+
+import { Steps } from 'nextra/components'
+
+# AWS BYOS（自帶訂閱）
+
+將你自己的 AWS 帳號連結到 Zeabur，讓 Zeabur 直接在你的 AWS 帳號中建立叢集、管理服務。
+
+<Steps>
+
+### 登入你的 AWS 帳號
+
+使用你想要連結到 Zeabur 的帳號，登入 [AWS Management Console](https://aws.amazon.com/console/)。
+
+### 建立 CloudFormation Stack
+
+前往 [https://zeabur.com/aws-byos](https://zeabur.com/aws-byos)，會自動開啟 AWS CloudFormation 的 **Quick create stack** 頁面。
+
+確認 Stack 資訊後，按下 **Create stack**。
+
+### 複製 Role ARN
+
+等待 CloudFormation Stack 部署完成後，點擊 **Outputs** 分頁。
+
+找到 **RoleArn** 項目，複製它的 **Value**（格式為 `arn:aws:iam::703xxxxxx752:role/ZeaburAccessRole`）。
+
+### 綁定 Role 到 Zeabur
+
+前往 [https://zeabur.com/account/byos](https://zeabur.com/account/byos)，選擇「**綁定 AWS Role**」，貼上剛剛複製的 Role ARN，然後送出。
+
+### 購買專用叢集
+
+綁定完成後，前往[購買叢集](https://zeabur.com/servers/buy-cluster)頁面，你會發現 Provider 多了一個 **AWS - XXXXXXXX**（XXXXXXXX 為你的 AWS 帳號 ID）的選項。選擇它，Zeabur 就會直接在你的 AWS 帳號中建立新的 EKS 叢集。
+
+</Steps>

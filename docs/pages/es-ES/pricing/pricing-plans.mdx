@@ -4,6 +4,8 @@ ogImageTitle: Precios
 ogImageSubtitle: Precios de Zeabur
 ---
 
+import { Callout } from 'nextra/components'
+
 # Precios
 
 Zeabur ofrece un modelo de precios basado en consumo para tus proyectos. No recibirás facturas por recursos que no utilices.
@@ -12,7 +14,11 @@ Zeabur cobra por minuto por cada recurso que tus servicios realmente utilizan.
 
 ## Tarifas
 
-Hay dos tipos de servidores en Zeabur: _clústeres compartidos_ y [_servidores dedicados_](/dedicated-server). Estas tarifas aplican solo a los **clústeres compartidos** — no cobramos tarifas de uso por servidores dedicados.
+<Callout type="warning">
+  Zeabur está eliminando gradualmente los clústeres compartidos. Ya no se pueden crear nuevos proyectos en clústeres compartidos, y los proyectos existentes dejaron de aceptar nuevos servicios el 1 de abril de 2026. Los servicios existentes siguen funcionando. Para más detalles, consulta el [changelog](https://zeabur.com/changelogs/phasing-out-shared-cluster).
+</Callout>
+
+Hay dos tipos de servidores en Zeabur: _clústeres compartidos_ y [_servidores_](/server). Estas tarifas aplican solo a los **clústeres compartidos** — no cobramos tarifas de uso por servidores.
 
 Las tarifas de uso en los **clústeres compartidos** son las siguientes:
 
@@ -33,7 +39,7 @@ Para cualquier consulta sobre reembolsos, contáctanos en [nuestro foro de la co
 
 Para el **Plan Developer** o **Plan Team**, puedes solicitar un reembolso por el saldo restante si cancelas tu suscripción. Por ejemplo, si cancelas tu Plan Developer después de usarlo 10 días, puedes recibir un reembolso por los 20 días restantes. Si solicitas un reembolso dentro de las 24 horas, recibirás un reembolso completo.
 
-Para usuarios de **Servidor Dedicado**, Zeabur ya no admite reembolsos para servidores creados o renovados después del 21 de julio de 2025. Para evitar cargos en el próximo ciclo de facturación, puedes desactivar la configuración de renovación automática.
+Para usuarios de **Servidor**, Zeabur ya no admite reembolsos para servidores creados o renovados después del 21 de julio de 2025. Para evitar cargos en el próximo ciclo de facturación, puedes desactivar la configuración de renovación automática.
 
 > Ten en cuenta que esto solo afecta a los servidores creados o renovados después del 21 de julio de 2025.
 

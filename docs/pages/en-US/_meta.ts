@@ -3,9 +3,11 @@ export default {
 
   // ── Infrastructure ────────────────────────────────────────────────────
   '---1---': { type: 'separator' },
-  'dedicated-server': 'Servers',
+  server:             'Servers',
+  cluster:            'Clusters',
   deploy:             'Deploy',
   operations:         'Operations',
+  byos:               'BYOS',
 
   // ── Products ──────────────────────────────────────────────────────────
   '---2---': { type: 'separator' },

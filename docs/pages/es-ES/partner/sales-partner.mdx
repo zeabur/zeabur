@@ -4,65 +4,109 @@ ogImageTitle: Socio de Ventas
 ogImageSubtitle: Detalles del programa de Socio de Ventas
 ---
 
-import { Callout } from 'nextra/components'
+import { Callout, Steps } from 'nextra/components'
 
-# Socio de Ventas
+# Socio de Ventas (Sales Partner)
 
-El programa de Socio de Ventas es para **consultores empresariales, integradores de sistemas y firmas de consultoría tecnológica** que ayudan a clientes empresariales a adoptar Zeabur y firmar contratos, ganando recompensas de devolución de efectivo basadas en el valor del contrato.
+El programa de Socio de Ventas (Sales Partner) está dirigido a **consultores empresariales, integradores de sistemas y firmas de consultoría tecnológica**. Cuando ayude a clientes empresariales, instituciones u organizaciones a adoptar Zeabur, obtendrá comisiones recurrentes basadas en las etapas en las que participe efectivamente.
 
 ## Cuándo aplica
 
 El programa de Socio de Ventas aplica en los siguientes escenarios:
 
-- **Valor de contrato individual superior a US$1,000**
-- **Compra institucional al por mayor** (incluyendo Vouchers, facturación requerida, contrato requerido)
+- **Migración empresarial a la nube** — Ayude a las empresas a migrar servicios existentes a Zeabur.
+- **Adquisición institucional** — Compras al por mayor o por contrato realizadas por instituciones educativas, agencias gubernamentales o departamentos de TI empresariales, incluyendo Vouchers, facturación y casos que requieran contrato.
+- **Consultoría técnica** — Como consultor técnico o integrador de sistemas, incorpore Zeabur a los planes de despliegue que diseña para sus clientes.
+- **Alianzas de servicio a largo plazo** — Ofrezca servicios de despliegue, operaciones o cobro de pagos a clientes utilizando Zeabur como plataforma subyacente.
 
-Si el monto está por debajo del umbral y el usuario paga individualmente a través de autoservicio, se aplica en su lugar el flujo automático del [Programa de Referidos](/rewards/referral).
-
-<Callout type="info">
-Una sola transacción solo puede seguir el camino del código de referido o el de Socio de Ventas — **no se acumulan**.
-</Callout>
-
-## Cálculo de la devolución
-
-La devolución del Socio de Ventas se basa en el **Lifetime Value (LTV)** del cliente, con un porcentaje fijo devuelto al socio.
-
-> **Devolución = LTV del Cliente × Tasa de Devolución (%)**
+Si el monto está por debajo del umbral y el usuario paga individualmente a través del autoservicio, utilice el flujo automático del [Programa de Referidos](/rewards/referral) en su lugar. Los umbrales y condiciones específicos se acuerdan de forma individual en cada contrato.
 
 <Callout type="info">
-La tasa de devolución específica se está finalizando actualmente y se actualizará en esta página una vez confirmada. Si está interesado en asociarse, no dude en contactarnos para conocer las últimas condiciones.
+Una misma transacción solo puede ir por la vía del Programa de Referidos o la vía de Socio de Ventas — **no se acumulan**.
 </Callout>
 
-## Socio de Ventas vs. Código de Referido
+## Estructura de comisiones
 
-| Aspecto | Código de Referido | Socio de Ventas |
+Las comisiones del Socio de Ventas combinan dos capas, calculadas según su participación efectiva.
+
+### Capa 1: Tasa escalonada por acuerdo
+
+Cada acuerdo se calcula de forma independiente utilizando una tasa progresiva según el tamaño del acuerdo. Las tasas se **negocian individualmente** en función del tipo de socio, su posicionamiento en el mercado y la escala del compromiso — no se publican tasas estándar.
+
+### Capa 2: Ponderación por etapa de contribución
+
+Su participación en cada acuerdo se pondera según las etapas que efectivamente asuma. Las cuatro etapas suman el 100%. Las etapas que Zeabur gestiona internamente no se pagan.
+
+| Etapa | Definición | Criterio de atribución |
 | --- | --- | --- |
-| Umbral | Ninguno | Operación individual > US$1,000 o compra institucional |
-| Activación | Automática (pago de autoservicio del usuario) | Manual (firma de contrato) |
-| Base de recompensa | % de comisión × monto del pago | LTV del cliente × tasa de devolución |
-| Audiencia objetivo | Cualquier usuario | Consultores empresariales / Integradores |
+| Lead (Presentación) | Encontrar al cliente | Marca de tiempo del momento en que facilitó el primer contacto entre ambas partes (incluyendo la creación de un grupo de comunicación dedicado) |
+| Close (Contrato) | Cerrar el acuerdo | Cotización firmada por ambas partes |
+| Deliver (Servicio) | Entrega del servicio | Usted gestiona todas las consultas del cliente y el soporte operativo sin requerir al equipo de ingeniería de Zeabur |
+| Collect (Cobro) | Cobro de pagos | Usted completa el cobro y la facturación sin que Zeabur tenga que reclamar |
+
+### Patrones de participación comunes
+
+| Escenario | Lead | Close | Deliver | Collect |
+| --- | :---: | :---: | :---: | :---: |
+| Servicio completo | ✓ | ✓ | ✓ | ✓ |
+| Solo presentación | ✓ |   |   |   |
+| Presentación + Servicio | ✓ |   | ✓ |   |
+| Servicio + Cobro |   |   | ✓ | ✓ |
+| Cierre + operación (sin Lead) |   | ✓ | ✓ | ✓ |
+| Presentación + Servicio + Cobro | ✓ |   | ✓ | ✓ |
+
+### División entre múltiples partes
+
+Distintas etapas de un mismo acuerdo pueden pertenecer a diferentes socios. Cada acuerdo se calcula de forma aislada (sin fondo común) y cada parte liquida de manera independiente sin afectar a las demás.
+
+## Reglas complementarias
+
+- **Moneda de liquidación** — Las comisiones se liquidan en USD. Los costos de cambio de divisa corren por cuenta del Socio de Ventas.
+- **Ciclo de liquidación** — Las comisiones se calculan mensualmente y se publican en el Partner Portal tras confirmación mutua.
+- **Período de retención** — Se aplica un período de retención antes de que las comisiones puedan retirarse. La pérdida del cliente durante el período de retención resulta en una deducción automática; después del período de retención, los montos ya retirados no se recuperan. La duración específica se establece por contrato.
+- **Compromiso mínimo de ventas** — Se aplica un compromiso periódico mínimo. El incumplimiento durante períodos consecutivos permite a Zeabur ajustar las tasas o rescindir el contrato. El monto específico se establece por contrato.
+- **Atribución del Lead** — La atribución del Lead requiere la confirmación de Zeabur antes de quedar fijada.
+- **Bloqueo de etapas** — La titularidad de cada etapa se fija al registrar el acuerdo; los cambios requieren consentimiento por escrito de ambas partes.
+- **Continuidad de comisiones** — Las comisiones continúan mientras el cliente siga pagando; cesan cuando el cliente abandona.
 
 <Callout type="warning">
-KOL Override (tarifas de referido personalizadas configuradas por el administrador) y Socio de Ventas no deben aplicarse a la misma cuenta simultáneamente para evitar conflictos de doble beneficio.
+La vía de Socio de Ventas y el Programa de Referidos no pueden aplicarse a la misma transacción — elija uno por operación para evitar conflictos de doble beneficio.
 </Callout>
 
 ## Proceso de asociación
 
-1. **Contactar a Zeabur** — Comuníquese vía el foro de la comunidad o email para expresar su interés, describiendo el perfil de su cliente y la escala estimada del contrato.
-2. **Confirmar la asociación** — El equipo de Zeabur revisa y confirma los términos de la asociación con usted.
-3. **Incorporación del cliente** — Ayude al cliente a evaluar, probar y poner en producción en Zeabur.
-4. **Firma del contrato** — El cliente firma un contrato con Zeabur y completa el pago del primer mes.
-5. **Recibir la devolución** — Después de que el primer pago sea exitoso, se calcula y distribuye el monto de la devolución.
+<Steps>
 
-## Escenarios ideales
+### Contactar a Zeabur
 
-- **Migración empresarial a la nube** — Ayude a las empresas a migrar servicios existentes a Zeabur.
-- **Adquisición institucional** — Instituciones educativas, agencias gubernamentales y otras organizaciones que compran servicios de Zeabur al por mayor.
-- **Consultoría técnica** — Recomiende e incorpore Zeabur como la plataforma de despliegue para sus clientes.
+Solicite en [partner.zeabur.com](https://partner.zeabur.com), o póngase en contacto a través del [foro de la comunidad de Zeabur](https://zeabur.com/forum), describiendo el perfil de su cliente y la escala estimada del compromiso.
+
+### Negociar el contrato
+
+El equipo de Zeabur evalúa y negocia con usted las tasas específicas, la ponderación de etapas y los términos complementarios. Los contratos individuales son confidenciales.
+
+### Firmar el contrato
+
+Una vez confirmados los términos, firme el contrato e inicie el seguimiento del acuerdo.
+
+### Incorporación del cliente
+
+Ayude al cliente a evaluar, probar y poner en producción.
+
+### Liquidación mensual
+
+Una vez que el pago del cliente sea exitoso, las comisiones mensuales se liquidan según el contrato.
+
+</Steps>
+
+## Anexos relacionados
+
+Algunas asociaciones implican contratos o anexos separados, como:
+
+- **Tarifas por servicio de cobro** — Si actúa como cobrador de pagos, las tarifas de servicio asociadas se rigen por un contrato aparte.
+- **Subsidios educativos** — Las asociaciones que involucran escuelas o instituciones educativas se gestionan mediante un anexo/MOU aparte.
 
 ## Cómo solicitar
 
-Contacte al equipo de Zeabur:
-
-- **Foro de la Comunidad**: Crea una publicación en el [foro de la comunidad de Zeabur](https://zeabur.com/forum)
-- Proporcione la información de su empresa/organización, tipos de clientes esperados y escala
+- Regístrese en [partner.zeabur.com](https://partner.zeabur.com) y envíe una solicitud con la información de su empresa, el perfil de su cliente y la escala estimada del compromiso.
+- También puede manifestar su interés a través del [foro de la comunidad de Zeabur](https://zeabur.com/forum).
