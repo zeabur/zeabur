@@ -1,24 +1,24 @@
 ---
-title: Shared Cluster (Being Phased Out)
-ogImageTitle: Shared Cluster (Being Phased Out)
+title: Shared Cluster (Deprecated)
+ogImageTitle: Shared Cluster (Deprecated)
 ogImageSubtitle: Historical shared cluster information and migration guide
 ---
 
 import { Callout } from 'nextra/components'
 
-# Shared Cluster (Being Phased Out)
+# Shared Cluster (Deprecated)
 
 <Callout type="error">
-Shared clusters are being phased out. New projects can no longer be created on shared clusters, and existing shared cluster projects will stop accepting new services from **April 1, 2026**. All new projects should use [Servers](/server).
+Shared clusters have been deprecated. New projects can no longer be created on shared clusters, and existing shared cluster projects stopped accepting new services on **April 1, 2026**. All new projects should use [Servers](/server).
 </Callout>
 
-## What Was the Shared Cluster
+## What was the Shared Cluster
 
 The shared cluster was Zeabur's early server offering. In this model, multiple users' services were deployed on the same Kubernetes cluster, sharing underlying CPU, memory, and network resources. Users didn't need to manage hardware and only paid for actual resource usage.
 
 ## Shared Cluster vs. Server
 
-| Feature | Shared Cluster (Being Phased Out) | Server |
+| Feature | Shared Cluster (Deprecated) | Server |
 | --- | --- | --- |
 | Resource Isolation | Multi-tenant, shared hardware | Fully dedicated hardware |
 | Billing | Usage-based (vCPU / memory / traffic) | Fixed monthly fee |
