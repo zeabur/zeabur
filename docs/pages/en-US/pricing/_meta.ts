@@ -6,8 +6,6 @@ export default {
 
   // legacy files — hidden from sidebar
   'pricing-plans':        { display: 'hidden' },
-  pricing:                { display: 'hidden' },
-  plans:                  { display: 'hidden' },
   'redeem-card':          { display: 'hidden' },
   redeem:                 { display: 'hidden' },
   referral:               { display: 'hidden' },
