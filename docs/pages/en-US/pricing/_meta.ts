@@ -3,10 +3,10 @@ export default {
   'dev-plan':      'Dev Plan',
   'pro-plan':      'Pro Plan',
   'team-plan':     'Team Plan',
+  'redeem-card':   'Redeem Prepaid Card',
 
   // legacy files — hidden from sidebar
   'pricing-plans':        { display: 'hidden' },
-  'redeem-card':          { display: 'hidden' },
   redeem:                 { display: 'hidden' },
   referral:               { display: 'hidden' },
   reward:                 { display: 'hidden' },
