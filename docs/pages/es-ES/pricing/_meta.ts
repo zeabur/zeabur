@@ -1,6 +1,15 @@
 export default {
+  'free-plan':     'Free Plan',
+  'dev-plan':      'Dev Plan',
+  'pro-plan':      'Pro Plan',
+  'team-plan':     'Team Plan',
+  'redeem-card':   'Canjear Tarjeta Prepago',
+
+  // legacy files — hidden from sidebar
   'pricing-plans': { display: 'hidden' },
-  'free-plan':     'Plan Gratuito',
-  'dev-plan':      'Plan Dev',
-  'team-plan':     'Plan Team',
+  redeem:          { display: 'hidden' },
+  referral:        { display: 'hidden' },
+  reward:          { display: 'hidden' },
+  sponsor:         { display: 'hidden' },
+  subscription:    { display: 'hidden' },
 }

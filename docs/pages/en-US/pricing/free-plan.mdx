@@ -10,36 +10,14 @@ import { Callout } from 'nextra/components'
 
 The Free Plan is Zeabur's free tier, designed for personal exploration and learning. No credit card required — just sign up and start deploying.
 
-<Callout type="warning">
-  Zeabur is phasing out shared clusters. New projects can no longer be created on shared clusters, and existing shared cluster projects stopped accepting new services on April 1, 2026. Existing services continue to run. For more details, see the [changelog](https://zeabur.com/changelogs/phasing-out-shared-cluster).
-</Callout>
-
-## Included Resources
-
-| Resource | Limit |
-| --- | --- |
-| Projects | 1 |
-| Services | Up to 2 per project |
-| Deployment regions | Shared cluster regions |
-| Free credits | Reset monthly (see [Free Quota](/subscription/free-quota)) |
-| Custom domains | Not supported |
-| Persistent storage | Not supported |
-
-### Service Rates
-
-The Free Plan uses the same rates as paid plans, deducted from free credits:
-
-- **vCPU** — Free ($0.0 / vCPU-minute)
-- **Memory** — US$0.00025 / GB-minute (~US$10.8 / GB-month)
-- **Network egress** — US$0.1 / GB
-- **Persistent storage** — US$0.2 / GB-month
+For the full feature list and the latest limits, see the [comparison chart](/pricing).
 
 ## Limitations
 
 - **Auto-sleep** — Services on the Free Plan automatically sleep after a period of inactivity. They wake up on the next incoming request, which may cause a few seconds of cold-start latency.
-- **No persistent storage** — Cannot deploy services that require persistent volumes (e.g., databases).
-- **No SLA** — The free plan does not include a Service Level Agreement.
-- **Credits exhausted** — When monthly free credits run out, services are suspended until the next month's reset.
+- **No SLA** — The Free Plan does not include a Service Level Agreement.
+- **No Zeabur Email** — Sending email through [Zeabur Email](/email) is not available on the Free Plan.
+- **No automated database backup/import or log forwarding** — these advanced operational features start at the Dev Plan.
 
 <Callout type="info">
 Services on the Free Plan auto-sleep when idle to conserve resources. If you need services to run continuously, consider upgrading to the [Dev Plan](/pricing/dev-plan).
@@ -49,8 +27,9 @@ Services on the Free Plan auto-sleep when idle to conserve resources. If you nee
 
 When your needs exceed the Free Plan, you can upgrade to a paid plan:
 
-- **[Dev Plan](/pricing/dev-plan)** — US$5/month, ideal for individual developers with production projects. Includes custom domains, persistent storage, and unlimited projects.
-- **[Team Plan](/pricing/team-plan)** — Usage-based billing, designed for team collaboration with member management and invoicing support.
+- **[Dev Plan](/pricing/dev-plan)** — US$5/month (14-day free trial), ideal for individual developers with personal production projects.
+- **[Pro Plan](/pricing/pro-plan)** — US$19/month (14-day free trial), recommended for production workloads.
+- **[Team Plan](/pricing/team-plan)** — US$79/month for 3 seats (+US$24/seat), designed for team collaboration.
 - **Enterprise** — Custom plans with dedicated support and SLAs — [contact us](https://zeabur.com/forum) for details.
 
 Visit [zeabur.com/pricing](https://zeabur.com/pricing) to compare all plans.

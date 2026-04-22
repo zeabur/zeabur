@@ -1,6 +1,15 @@
 export default {
-  'pricing-plans': { display: 'hidden' },
   'free-plan':     'Free Plan',
   'dev-plan':      'Dev Plan',
+  'pro-plan':      'Pro Plan',
   'team-plan':     'Team Plan',
+  'redeem-card':   '兑换代金券',
+
+  // legacy files — hidden from sidebar
+  'pricing-plans': { display: 'hidden' },
+  redeem:          { display: 'hidden' },
+  referral:        { display: 'hidden' },
+  reward:          { display: 'hidden' },
+  sponsor:         { display: 'hidden' },
+  subscription:    { display: 'hidden' },
 }
