@@ -8,50 +8,108 @@ import { Callout } from 'nextra/components'
 
 # Plans
 
-Zeabur offers different subscription plans for different needs.
+Zeabur offers five subscription plans — **Free**, **Dev**, **Pro**, **Team**, and **Enterprise** — designed to grow with you from solo experiments to company-wide deployments.
 
-Features and pricing can be found on [Zeabur's "Pricing" page](https://zeabur.com/en-US/pricing). This document mainly explains the target audience of each plan and supported payment methods.
+For full feature comparison and the latest pricing, visit [zeabur.com/pricing](https://zeabur.com/pricing). This page focuses on the audience and supported payment methods of each plan.
 
 ![Plans](/billing/plans/overview.png)
 
-## Free Trial Plan
+## Free Plan
 
-By default, all Zeabur accounts are Free Trial Plan.
+By default, every Zeabur account starts on the **Free** plan — ideal for trying the Zeabur deployment flow for the first time.
 
-You can evaluate any service with this plan, but services can only be deployed in specific free regions. After upgrading, you can migrate to other paid regions.
+The Free plan includes:
 
-This plan is only suitable for testing and evaluation.
+- Up to **1 bound external server**
+- Build CI at **2C4G**
+- **48 hours** of log retention
+- Single-file container file management
+- Basic database view
+- Community support
 
-<Callout>
-  The Free Trial Plan does not include any credits toward server purchases. It is limited to deploying services in free regions on shared clusters.
-</Callout>
+No credit card required. When you want AI Agent, backups, longer log retention, or a custom domain, upgrade to a paid plan.
 
-## Developer Plan
+## Dev Plan
 
-The Developer Plan is suitable for all kinds of developers and small teams. In addition to generous resource quotas, higher support priority, and exclusive "Dev Plan" badge on the community forum, you can also "pay as you go" and create various interesting applications with Zeabur without worrying about restrictions.
+The **Dev** plan ($5 / month) is built for solo developers who want AI Agent, database backups, and domain management.
 
-The Developer Plan has a US$5 free quota each month:
+Everything in Free, plus:
 
-- If your usage in a month does not exceed US$5, we will not charge you any additional fees other than this plan.
-- If the usage exceeds US$5, the excess usage will be charged according to the formula in ["Pricing"](./pricing).
-- The free quota applies only to shared cluster usage (memory, network egress, and persistent volume). It does not cover server rental fees.
+- Up to **3 bound external servers**
+- **7 days** of log retention
+- **Zeabur AI** (AI Agent)
+- Purchase domains through Zeabur
+- Email system (send transactional emails)
+- Higher upload limits
+
+## Pro Plan
+
+The **Pro** plan ($19 / month) is for developers who need higher build specs, long log retention, and stronger observability.
+
+Everything in Dev, plus:
+
+- Up to **10 bound external servers**
+- Build CI at **4C8G**
+- **30 days** of log retention
+- Advanced log search
+- Log forwarding (log drain)
+- High-availability service deployment
+- Domain & IP access control
+- Custom monitoring metrics & alerts
 
 ## Team Plan
 
-The Team Plan is suitable for medium and large-scale, or projects with large resource requirements. In addition to providing more resource quotas, you can also directly connect with the Zeabur team to discuss various possibilities.
+The **Team** plan ($79 / month, 3 seats included; **$24 per additional seat / month**) is for small teams that need collaboration, unlimited server binding, and priority support.
 
-Supports credit card and Alipay payments. When you need other payment methods, you can communicate with us.
+Everything in Pro, plus:
+
+- **Unlimited** bound external servers
+- **90 days** of log retention
+- **3 seats included** (each seat has Pro-level features)
+- Team project collaboration
+- Role & permission management
+- Priority customer & technical support
+- Enterprise procurement & invoicing
+
+Supports credit card and Alipay. If you need other payment methods, please contact us.
+
+<Callout type="info">
+The **Team** plan does **not** include a free trial. Only **Dev** and **Pro** are eligible for the 14-day free trial.
+</Callout>
 
 ## Enterprise Plan
 
-If the Team Plan does not meet your needs, you can [contact us](mailto:contact@zeabur.com) to get a plan tailored to your usage scenario.
+**Enterprise** is for companies with compliance needs, custom contracts, and dedicated resources.
+
+Everything in Team, plus:
+
+- Custom usage limits and tailored contracts
+- Dedicated technical resources
+- Priority support
+- Enterprise procurement & invoicing
+
+If the Team plan does not meet your needs, please [contact us](mailto:contact@zeabur.com) for a plan tailored to your scenario.
+
+## 14-Day Free Trial
+
+Every user is entitled to **one** free trial and can choose either the **Dev** ($5/mo) or **Pro** ($19/mo) plan:
+
+- During the trial you get **exactly the same features and quotas** as a paid subscription.
+- No subscription fees are charged during the 14-day trial.
+- After the trial ends, your chosen plan automatically renews and is charged.
+- You can end the trial early — you'll be charged immediately for that plan and a new one-month billing cycle starts that day.
+- The **Team** plan does not include a free trial.
 
 ## FAQ
 
-### Do I need a Developer Plan if I already have a server?
+### Do I need a paid plan if I already have a dedicated server?
 
-You can use a server without the Developer Plan, but the Developer Plan unlocks additional platform capabilities such as backup, beta features, and priority support from staff. Free users can still receive community support through the [Zeabur forum](https://zeabur.com/forum), but there is no guaranteed response time. For more information, see [Community & Support](/community/forum).
+You can use a dedicated server on the Free plan, but a paid plan (Dev / Pro / Team) unlocks additional platform capabilities such as backups, AI Agent, higher quotas, and priority support. Free users can still receive community support on the [Zeabur forum](https://zeabur.com/forum) with no guaranteed response time. See [Community & Support](/community/forum) for details.
 
-### What happens if I cancel and re-subscribe to the Developer Plan within the same billing period?
+### What happens to my services after downgrading?
 
-Canceling and re-subscribing will create a new subscription and charge you again. The previous subscription's remaining period is not carried over. If you were charged twice within the same period, please submit a request on the [Zeabur forum](https://zeabur.com/forum) to request a refund for the duplicate charge.
+Your deployed services and existing resources (domains, bound external servers, etc.) are **not deleted** — you can still manage them. However, adding new resources is capped by your new plan's quota. For example, if you had 5 external servers bound on Pro and downgrade to Dev (max 3), the 5 remain manageable but you cannot bind new servers until you upgrade again.
+
+### What happens if I cancel and re-subscribe within the same billing period?
+
+Canceling and re-subscribing creates a new subscription and charges you again. The previous subscription's remaining period is not carried over. If you were charged twice within the same period, please submit a request on the [Zeabur forum](https://zeabur.com/forum) for a refund of the duplicate charge.

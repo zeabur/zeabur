@@ -1,36 +1,121 @@
 ---
-title: Team Plan
+title: Team Plan（團隊方案）
 ogImageTitle: Team Plan
-ogImageSubtitle: Zeabur Team Plan 詳情
+ogImageSubtitle: Zeabur 團隊方案說明
 ---
 
 import { Callout } from 'nextra/components'
 
-# Team Plan
+# Team Plan（團隊方案）
 
-Team Plan 是 Zeabur 專為團隊協作設計的方案。**每月 US$79，含 3 個 Pro 級別席位**，每增加一個席位 **US$24/月**。支援多成員協作、角色與權限管理、發票開立，以及最高的資源配額——非常適合需要多人共同管理專案的團隊。
+Team Plan 是 Zeabur 為需要 **協作、無限綁定伺服器與優先支援** 的小團隊設計的方案。起價 **US$79 / 月**，內含 3 個席位，每額外席位 **US$24 / 月**。
 
-完整功能清單與最新配額請參閱[方案比較表](/pricing)。
-
-## 席位模式
-
-Team Plan 的每月基本費 US$79 已包含 **3 個 Pro 級別席位**。每增加一位成員費用為 **US$24/月**。每位成員皆可使用 Pro 等級的功能；[方案比較表](/pricing)上的 Team Plan 配額適用於整個工作區，不會依席位數倍增。最新費率請參考 [zeabur.com/pricing](https://zeabur.com/pricing)。
-
-## 發票與統一編號
-
-Team Plan 支援開立發票及設定統一編號，適合需要報帳的企業和組織。詳細說明請參考[發票開立](/subscription/invoicing)。
-
-<Callout type="info">
-若需要大規模自訂方案、專屬支援及 SLA，請參閱 **Enterprise Plan** — [聯絡我們](https://zeabur.com/forum)了解詳情。
+<Callout type="warning">
+Team 方案**不**包含免費試用。若想先評估平台，建議先試用 Dev 或 Pro 方案。
 </Callout>
 
-## 使用情境
+## 方案內容
+
+| 項目 | 說明 |
+| --- | --- |
+| 月費 | US$79 / 月（含 3 席） |
+| 額外席位 | +US$24 / 席 / 月 |
+| 綁定外部伺服器 | 無限 |
+| 建置 CI 規格 | 4C8G |
+| 日誌保留 | 90 天 |
+| 檔案上傳限制 | 高 |
+| 容器檔案管理 | 單檔 + 批次操作 |
+| HA 服務部署 | 支援 |
+| 進階日誌搜尋與轉發 | 支援 |
+| 網域與 IP 存取控管 | 支援 |
+| 方案席位 | 內含 3 席（每席 Pro 等級） |
+| 角色與權限管理 | 支援 |
+| 團隊專案協作 | 支援 |
+| 優先支援 | 支援 |
+| 企業採購與發票 | 支援 |
+
+### 席位機制
+
+Team Plan 支援多成員協作，每個席位皆擁有 Pro 等級功能。基礎訂閱包含 **3 席**，額外席位為每席每月 **US$24**。
+
+範例：5 人團隊支付 `$79 + 2 × $24 = $127 / 月`。
+
+## 角色與權限
+
+Team Plan 的席位分為 **Viewer**、**Editor**、**Admin** 三種角色。依據每位成員實際需要的權限分配角色 — 從純粹的唯讀檢視、日常開發操作，到完整的管理控制。
+
+| 具體功能 | Viewer | Editor（即將推出） | Admin |
+| --- | :---: | :---: | :---: |
+| 查看 Team 成員 | ✅ | ✅ | ✅ |
+| 邀請新成員 | ❌ | ❌ | ✅ |
+| 修改成員角色 | ❌ | ❌ | ✅ |
+| 移除成員 | ❌ | ❌ | ✅ |
+| 刪除 Team | ❌ | ❌ | ✅ |
+| 查看 Project / Service | ✅ | ✅ | ✅ |
+| 建立 Project / Service | ❌ | ✅ | ✅ |
+| 修改 Service 設定 | ❌ | ✅ | ✅ |
+| 刪除 Project / Service | ❌ | ❌ | ✅ |
+| 查看部署紀錄 | ✅ | ✅ | ✅ |
+| 手動觸發 Deploy | ❌ | ✅ | ✅ |
+| Rollback 部署 | ❌ | ✅ | ✅ |
+| 查看 Logs | ✅ | ✅ | ✅ |
+| 搜尋 Logs | ❌ | ✅ | ✅ |
+| 下載 Logs | ❌ | ✅ | ✅ |
+| 查看 Database / Server | ✅ | ✅ | ✅ |
+| 建立 Database / Server | ❌ | ✅ | ✅ |
+| 修改 Database / Server | ❌ | ✅ | ✅ |
+| 刪除 Database / Server | ❌ | ❌ | ✅ |
+| 查看帳單 | ❌ | ❌ | ✅ |
+| 修改付款方式 | ❌ | ❌ | ✅ |
+| 修改訂閱方案 | ❌ | ❌ | ✅ |
+
+- **Viewer** — 對團隊資源的唯讀權限。適合利害關係人、稽核人員或新進同事的上手期。
+- **Editor** _（即將推出）_ — 可建置與部署：建立／修改 Project、觸發部署、Rollback、搜尋與下載 Logs。但無法刪除資源，也不能管理成員或帳務。
+- **Admin** — 完整的管理權限，包含成員管理、破壞性操作與帳務。任何影響 Team 本身或訂閱的操作都需要 Admin 角色。
+
+## 相較 Pro Plan 新增
+
+包含 Pro Plan 所有功能，並額外提供：
+
+- **無限** 綁定外部伺服器（Pro：10 台）
+- 日誌保留 **90 天**（Pro：30 天）
+- **內含 3 個席位**（每席 Pro 等級）
+- **團隊專案協作**
+- **角色與權限管理**
+- **優先客服與技術支援**
+- 容器**批次檔案操作**
+- **企業採購與發票開立**
+
+## 發票與統編
+
+Team Plan 支援開立正式發票及設定統一編號，適合需要報帳的企業和組織。詳細說明請參考 [發票與統編](/subscription/invoicing)。
+
+## Pro Plan vs. Team Plan
+
+| 功能 | Pro Plan | Team Plan |
+| --- | --- | --- |
+| 月費 | US$19 | US$79（3 席）+ US$24/額外席位 |
+| 綁定外部伺服器 | 10 台 | 無限 |
+| 日誌保留 | 30 天 | 90 天 |
+| 方案席位 | 1 | 3（每席 Pro 等級） |
+| 角色與權限管理 | — | 支援 |
+| 團隊協作 | — | 支援 |
+| 優先支援 | — | 支援 |
+| 企業採購與發票 | — | 支援 |
+| 免費試用 | 14 天 | 不支援 |
+| 適用對象 | 個人開發者 | 團隊 / 企業 |
+
+<Callout type="info">
+如需更大規模的客製化方案、專屬技術資源與企業合約，請參考 **Enterprise 方案**，詳情請 [聯絡我們](https://zeabur.com/forum)。
+</Callout>
+
+## 適用場景
 
 - **新創團隊** — 多位開發者共同管理部署環境。
-- **企業內部專案** — 需要統一帳單和發票的團隊。
-- **接案公司** — 在統一的團隊管理下，為不同客戶建立獨立的專案。
+- **企業內部專案** — 需要統一帳單和正式發票的團隊。
+- **接案公司** — 為不同客戶建立獨立專案，團隊統一管理。
 - **開源社群** — 多位維護者協同管理服務部署。
 
 ## 如何訂閱
 
-前往 [zeabur.com/pricing](https://zeabur.com/pricing) 選擇 Team Plan，或從 [Dashboard 帳單頁面](https://dash.zeabur.com/account/billing) 進行升級。支援信用卡與 Alipay，詳見[付款方式](/subscription/payment-methods)。
+前往 [zeabur.com/pricing](https://zeabur.com/pricing) 選擇 Team Plan，或在 [Dashboard 帳單頁面](https://dash.zeabur.com/account/billing) 升級。支援信用卡和支付寶付款，詳見 [付款方式](/subscription/payment-methods)。

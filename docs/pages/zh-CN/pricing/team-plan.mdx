@@ -1,36 +1,121 @@
 ---
-title: Team Plan
+title: Team Plan（团队方案）
 ogImageTitle: Team Plan
-ogImageSubtitle: Zeabur Team Plan 详情
+ogImageSubtitle: Zeabur 团队方案说明
 ---
 
 import { Callout } from 'nextra/components'
 
-# Team Plan
+# Team Plan（团队方案）
 
-Team Plan 是 Zeabur 专为团队协作设计的方案。**US$79/月含 3 个 Pro 级席位**，每增加一个席位 **US$24/月**。支持多成员协作、角色与权限管理、发票开具，以及最高资源配额——适合需要多人共同管理项目的团队。
+Team Plan 是 Zeabur 为需要 **协作、无限绑定服务器与优先支持** 的小团队设计的方案。起价 **US$79 / 月**，内含 3 个席位，每额外席位 **US$24 / 月**。
 
-完整功能列表与最新配额请参见[方案对比表](/pricing)。
+<Callout type="warning">
+Team 方案**不**包含免费试用。若想先评估平台，建议先试用 Dev 或 Pro 方案。
+</Callout>
 
-## 席位模式
+## 方案内容
 
-Team Plan 在 US$79/月基础费中包含 **3 个 Pro 级席位**，每增加一位成员 **US$24/月**。每位成员均可使用 Pro 级功能；[方案对比表](/pricing)中的 Team Plan 配额适用于整个工作区，不会按席位数倍增。最新费率请参阅 [zeabur.com/pricing](https://zeabur.com/pricing)。
+| 项目 | 说明 |
+| --- | --- |
+| 月费 | US$79 / 月（含 3 席） |
+| 额外席位 | +US$24 / 席 / 月 |
+| 绑定外部服务器 | 无限 |
+| 构建 CI 规格 | 4C8G |
+| 日志保留 | 90 天 |
+| 文件上传限制 | 高 |
+| 容器文件管理 | 单文件 + 批量操作 |
+| HA 服务部署 | 支持 |
+| 高级日志搜索与转发 | 支持 |
+| 域名与 IP 访问控制 | 支持 |
+| 方案席位 | 内含 3 席（每席 Pro 等级） |
+| 角色与权限管理 | 支持 |
+| 团队项目协作 | 支持 |
+| 优先支持 | 支持 |
+| 企业采购与发票 | 支持 |
+
+### 席位机制
+
+Team Plan 支持多成员协作，每个席位皆拥有 Pro 等级功能。基础订阅包含 **3 席**，额外席位为每席每月 **US$24**。
+
+示例：5 人团队支付 `$79 + 2 × $24 = $127 / 月`。
+
+## 角色与权限
+
+Team Plan 的席位分为 **Viewer**、**Editor**、**Admin** 三种角色。依据每位成员实际需要的权限分配角色 — 从只读查看、日常开发操作，到完整的管理控制。
+
+| 具体功能 | Viewer | Editor（即将推出） | Admin |
+| --- | :---: | :---: | :---: |
+| 查看 Team 成员 | ✅ | ✅ | ✅ |
+| 邀请新成员 | ❌ | ❌ | ✅ |
+| 修改成员角色 | ❌ | ❌ | ✅ |
+| 移除成员 | ❌ | ❌ | ✅ |
+| 删除 Team | ❌ | ❌ | ✅ |
+| 查看 Project / Service | ✅ | ✅ | ✅ |
+| 创建 Project / Service | ❌ | ✅ | ✅ |
+| 修改 Service 设置 | ❌ | ✅ | ✅ |
+| 删除 Project / Service | ❌ | ❌ | ✅ |
+| 查看部署记录 | ✅ | ✅ | ✅ |
+| 手动触发 Deploy | ❌ | ✅ | ✅ |
+| Rollback 部署 | ❌ | ✅ | ✅ |
+| 查看 Logs | ✅ | ✅ | ✅ |
+| 搜索 Logs | ❌ | ✅ | ✅ |
+| 下载 Logs | ❌ | ✅ | ✅ |
+| 查看 Database / Server | ✅ | ✅ | ✅ |
+| 创建 Database / Server | ❌ | ✅ | ✅ |
+| 修改 Database / Server | ❌ | ✅ | ✅ |
+| 删除 Database / Server | ❌ | ❌ | ✅ |
+| 查看账单 | ❌ | ❌ | ✅ |
+| 修改支付方式 | ❌ | ❌ | ✅ |
+| 修改订阅方案 | ❌ | ❌ | ✅ |
+
+- **Viewer** — 对团队资源的只读权限。适合相关方、审计人员或新进同事的上手期。
+- **Editor** _（即将推出）_ — 可构建与部署：创建／修改 Project、触发部署、Rollback、搜索与下载 Logs。但无法删除资源，也不能管理成员或账务。
+- **Admin** — 完整的管理权限，包含成员管理、破坏性操作与账务。任何影响 Team 本身或订阅的操作都需要 Admin 角色。
+
+## 相较 Pro Plan 新增
+
+包含 Pro Plan 所有功能，并额外提供：
+
+- **无限** 绑定外部服务器（Pro：10 台）
+- 日志保留 **90 天**（Pro：30 天）
+- **内含 3 个席位**（每席 Pro 等级）
+- **团队项目协作**
+- **角色与权限管理**
+- **优先客服与技术支持**
+- 容器**批量文件操作**
+- **企业采购与发票开立**
 
 ## 发票与税号
 
-Team Plan 支持开立发票及配置税号，适合需要报账的企业和组织。详情请参阅[发票](/subscription/invoicing)。
+Team Plan 支持开具正式发票及设置税号，适合需要报账的企业和组织。详细说明请参考 [发票与税号](/subscription/invoicing)。
+
+## Pro Plan vs. Team Plan
+
+| 功能 | Pro Plan | Team Plan |
+| --- | --- | --- |
+| 月费 | US$19 | US$79（3 席）+ US$24/额外席位 |
+| 绑定外部服务器 | 10 台 | 无限 |
+| 日志保留 | 30 天 | 90 天 |
+| 方案席位 | 1 | 3（每席 Pro 等级） |
+| 角色与权限管理 | — | 支持 |
+| 团队协作 | — | 支持 |
+| 优先支持 | — | 支持 |
+| 企业采购与发票 | — | 支持 |
+| 免费试用 | 14 天 | 不支持 |
+| 适用对象 | 个人开发者 | 团队 / 企业 |
 
 <Callout type="info">
-如需更大规模的定制方案、专属支持及 SLA，请了解 **Enterprise Plan** — [联系我们](https://zeabur.com/forum)获取详情。
+如需更大规模的定制化方案、专属技术资源与企业合约，请参考 **Enterprise 方案**，详情请 [联系我们](https://zeabur.com/forum)。
 </Callout>
 
 ## 适用场景
 
 - **初创团队** — 多位开发者共同管理部署环境。
-- **企业内部项目** — 需要统一账单和发票的团队。
-- **代理商** — 在统一团队管理下为不同客户创建独立项目。
+- **企业内部项目** — 需要统一账单和正式发票的团队。
+- **接案公司** — 为不同客户创建独立项目，团队统一管理。
 - **开源社区** — 多位维护者协同管理服务部署。
 
 ## 如何订阅
 
-前往 [zeabur.com/pricing](https://zeabur.com/pricing) 选择 Team Plan，或从 [Dashboard 账单页面](https://dash.zeabur.com/account/billing) 进行升级。支持信用卡与 Alipay，详见[付款方式](/subscription/payment-methods)。
+前往 [zeabur.com/pricing](https://zeabur.com/pricing) 选择 Team Plan，或在 [Dashboard 账单页面](https://dash.zeabur.com/account/billing) 升级。支持信用卡和支付宝付款，详见 [付款方式](/subscription/payment-methods)。

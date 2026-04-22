@@ -1,36 +1,121 @@
 ---
-title: Team Plan
-ogImageTitle: Team Plan
-ogImageSubtitle: Detalles del Team Plan de Zeabur
+title: Plan Team
+ogImageTitle: Plan Team
+ogImageSubtitle: Detalles del Plan Team de Zeabur
 ---
 
 import { Callout } from 'nextra/components'
 
-# Team Plan
+# Plan Team
 
-El Team Plan es el nivel colaborativo de Zeabur diseñado para equipos. **US$79/mes para 3 asientos al nivel Pro**, con cada asiento adicional a **US$24/mes**. Soporta colaboración de múltiples miembros, gestión de roles y permisos, facturación, y las mayores cuotas de recursos — ideal para equipos que necesitan que varias personas gestionen proyectos juntas.
+El Plan Team es el plan colaborativo de Zeabur, diseñado para pequeños equipos que necesitan **colaboración, vinculación ilimitada de servidores y soporte prioritario**. Comienza en **US$79 / mes** con 3 asientos incluidos, y cada asiento adicional cuesta **US$24 / mes**.
 
-Para la lista completa de funciones y las cuotas más recientes, consulta la [tabla comparativa](/pricing).
-
-## Modelo de Asientos
-
-El Team Plan incluye **3 asientos al nivel Pro** en la cuota base de US$79/mes. Cada miembro adicional es **US$24/mes**. Cada miembro puede usar las funciones de nivel Pro; las cuotas del Team Plan indicadas en la [tabla comparativa](/pricing) se aplican a nivel de workspace (no se multiplican por asiento). Consulta [zeabur.com/pricing](https://zeabur.com/pricing) para las tarifas más actualizadas.
-
-## Facturación e ID Fiscal
-
-El Team Plan soporta la emisión de facturas y la configuración de ID fiscal (統一編號), lo que lo hace adecuado para empresas y organizaciones que necesitan recibos para contabilidad. Consulta [Facturación](/subscription/invoicing) para más detalles.
-
-<Callout type="info">
-Para planes personalizados a mayor escala, soporte dedicado y SLAs, consulta el **Enterprise Plan** — [contáctanos](https://zeabur.com/forum) para más detalles.
+<Callout type="warning">
+El plan Team **no** incluye prueba gratuita. Inicia una prueba en Dev o Pro si quieres evaluar la plataforma primero.
 </Callout>
 
-## Casos de Uso
+## Detalles del plan
+
+| Elemento | Detalles |
+| --- | --- |
+| Tarifa mensual | US$79 / mes (3 asientos incluidos) |
+| Asiento adicional | +US$24 / asiento / mes |
+| Servidores externos vinculados | Ilimitados |
+| Especificación CI de build | 4C8G |
+| Retención de logs | 90 días |
+| Límite de subida de archivos | Alto |
+| Gestión de archivos de contenedor | Archivo único + operaciones por lotes |
+| Despliegue HA de servicios | Soportado |
+| Búsqueda avanzada de logs y drain | Soportado |
+| Control de acceso por dominio e IP | Soportado |
+| Asientos del plan | 3 asientos incluidos (cada uno al nivel Pro) |
+| Gestión de roles y permisos | Soportado |
+| Colaboración en proyectos de equipo | Soportado |
+| Soporte prioritario | Soportado |
+| Adquisición y facturación empresarial | Soportado |
+
+### Modelo de asientos
+
+El Plan Team soporta colaboración de múltiples miembros. Cada asiento tiene funciones de nivel Pro para ese miembro. La suscripción base incluye **3 asientos**; los asientos adicionales son **US$24 por asiento al mes**.
+
+Ejemplo: un equipo de 5 paga `$79 + 2 × $24 = $127 / mes`.
+
+## Roles y permisos
+
+Los asientos del Plan Team se dividen en tres roles: **Viewer**, **Editor** y **Admin**. Asigna roles según lo que cada miembro necesita hacer — visibilidad de solo lectura, trabajo de desarrollo diario o control administrativo completo.
+
+| Capacidad | Viewer | Editor (Próximamente) | Admin |
+| --- | :---: | :---: | :---: |
+| Ver miembros del equipo | ✅ | ✅ | ✅ |
+| Invitar nuevos miembros | ❌ | ❌ | ✅ |
+| Cambiar roles de miembros | ❌ | ❌ | ✅ |
+| Eliminar miembros | ❌ | ❌ | ✅ |
+| Eliminar el equipo | ❌ | ❌ | ✅ |
+| Ver proyectos / servicios | ✅ | ✅ | ✅ |
+| Crear proyectos / servicios | ❌ | ✅ | ✅ |
+| Modificar configuración del servicio | ❌ | ✅ | ✅ |
+| Eliminar proyectos / servicios | ❌ | ❌ | ✅ |
+| Ver historial de despliegues | ✅ | ✅ | ✅ |
+| Activar despliegues manualmente | ❌ | ✅ | ✅ |
+| Rollback de despliegues | ❌ | ✅ | ✅ |
+| Ver logs | ✅ | ✅ | ✅ |
+| Buscar logs | ❌ | ✅ | ✅ |
+| Descargar logs | ❌ | ✅ | ✅ |
+| Ver bases de datos / servidores | ✅ | ✅ | ✅ |
+| Crear bases de datos / servidores | ❌ | ✅ | ✅ |
+| Modificar bases de datos / servidores | ❌ | ✅ | ✅ |
+| Eliminar bases de datos / servidores | ❌ | ❌ | ✅ |
+| Ver facturación | ❌ | ❌ | ✅ |
+| Cambiar método de pago | ❌ | ❌ | ✅ |
+| Cambiar plan de suscripción | ❌ | ❌ | ✅ |
+
+- **Viewer** — acceso de solo lectura a los recursos del equipo. Ideal para partes interesadas, auditores o nuevos integrantes durante el onboarding.
+- **Editor** _(Próximamente)_ — puede construir y desplegar: crear/modificar proyectos, activar despliegues, rollback, buscar y descargar logs. No puede eliminar recursos ni gestionar miembros/facturación.
+- **Admin** — control administrativo completo, incluyendo gestión de miembros, operaciones destructivas y facturación. Se requiere para cualquier acción que afecte al equipo en sí o a su suscripción.
+
+## Qué se añade (vs. Pro)
+
+Todo lo del plan Pro, más:
+
+- **Servidores externos ilimitados** vinculados (Pro: 10)
+- Retención de logs **90 días** (Pro: 30 días)
+- **3 asientos incluidos** (cada uno al nivel Pro)
+- **Colaboración en proyectos de equipo**
+- **Gestión de roles y permisos**
+- **Soporte prioritario al cliente y técnico**
+- **Operaciones por lotes** de archivos en contenedores
+- **Adquisición y facturación empresarial**
+
+## Facturación y Tax ID
+
+El Plan Team soporta la emisión de facturas formales y la configuración de Tax ID, lo que lo hace adecuado para empresas y organizaciones que necesitan recibos para contabilidad. Consulta [Facturación](/subscription/invoicing) para más detalles.
+
+## Plan Pro vs. Plan Team
+
+| Característica | Plan Pro | Plan Team |
+| --- | --- | --- |
+| Tarifa mensual | US$19 | US$79 (3 asientos) + US$24 / asiento extra |
+| Servidores externos vinculados | 10 | Ilimitados |
+| Retención de logs | 30 días | 90 días |
+| Asientos del plan | 1 | 3 (cada uno al nivel Pro) |
+| Gestión de roles y permisos | — | Soportado |
+| Colaboración en equipo | — | Soportado |
+| Soporte prioritario | — | Soportado |
+| Adquisición y facturación empresarial | — | Soportado |
+| Prueba gratuita | 14 días | No disponible |
+| Ideal para | Desarrolladores individuales | Equipos / organizaciones |
+
+<Callout type="info">
+Para planes personalizados a mayor escala, recursos técnicos dedicados y contratos empresariales, consulta el **Plan Enterprise** — [contáctanos](https://zeabur.com/forum) para más detalles.
+</Callout>
+
+## Casos de uso
 
 - **Equipos de startups** — Múltiples desarrolladores gestionando entornos de despliegue conjuntamente.
-- **Proyectos internos de empresa** — Equipos que necesitan facturación unificada y emisión de facturas.
-- **Agencias** — Crea proyectos separados para diferentes clientes bajo una gestión de equipo unificada.
+- **Proyectos internos de empresa** — Equipos que necesitan facturación unificada y emisión formal de facturas.
+- **Agencias** — Proyectos separados para distintos clientes, unificados bajo un mismo equipo.
 - **Comunidades de código abierto** — Múltiples mantenedores colaborando en despliegues de servicios.
 
-## Cómo Suscribirse
+## Cómo suscribirse
 
-Ve a [zeabur.com/pricing](https://zeabur.com/pricing) y selecciona Team Plan, o actualiza desde la [página de facturación del Dashboard](https://dash.zeabur.com/account/billing). Se aceptan tarjetas de crédito y Alipay — consulta [Métodos de Pago](/subscription/payment-methods) para más detalles.
+Ve a [zeabur.com/pricing](https://zeabur.com/pricing) y selecciona Plan Team, o actualiza desde la [página de facturación del Dashboard](https://dash.zeabur.com/account/billing). Se aceptan tarjeta de crédito y Alipay — consulta [Métodos de Pago](/subscription/payment-methods) para más detalles.
