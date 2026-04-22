@@ -7,9 +7,4 @@ export default {
 
   // legacy files — hidden from sidebar
   'pricing-plans':        { display: 'hidden' },
-  redeem:                 { display: 'hidden' },
-  referral:               { display: 'hidden' },
-  reward:                 { display: 'hidden' },
-  sponsor:                { display: 'hidden' },
-  subscription:           { display: 'hidden' },
 }
