@@ -3,7 +3,6 @@ export default {
   'dev-plan':      'Dev Plan',
   'pro-plan':      'Pro Plan',
   'team-plan':     'Team Plan',
-  'redeem-card':   '兑换代金券',
 
   // legacy files — hidden from sidebar
   'pricing-plans': { display: 'hidden' },
