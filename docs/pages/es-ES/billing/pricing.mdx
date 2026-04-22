@@ -4,90 +4,58 @@ ogImageTitle: Precios
 ogImageSubtitle: Precios de Zeabur
 ---
 
-import { Callout } from 'nextra/components'
-
 # Precios
 
-Zeabur ofrece un modelo de precios basado en el consumo para tus proyectos. No recibirás facturas por recursos que no utilices.
+Zeabur ofrece cuatro niveles de suscripción más una opción Enterprise personalizada. Cada nivel incluye funcionalidades de plataforma y límites de recursos — consulta [Precios](/pricing) para ver la lista completa de planes.
 
-En su lugar, Zeabur cobra por minuto según los recursos que tus servicios utilicen realmente.
+## Niveles de Suscripción
 
-## Tarifas de precios
+- **[Free Plan](/pricing/free-plan)** — US$0/mes
+- **[Dev Plan](/pricing/dev-plan)** — US$5/mes (prueba gratuita de 14 días)
+- **[Pro Plan](/pricing/pro-plan)** — US$19/mes (prueba gratuita de 14 días)
+- **[Team Plan](/pricing/team-plan)** — US$79/mes para 3 plazas (+US$24/plaza)
+- **Enterprise** — [contáctenos](https://zeabur.com/forum)
 
-<Callout type="warning">
-  Zeabur está eliminando gradualmente los clústeres compartidos. Ya no se pueden crear nuevos proyectos en clústeres compartidos, y los proyectos existentes dejaron de aceptar nuevos servicios el 1 de abril de 2026. Los servicios existentes siguen funcionando. Para más detalles, consulta el [changelog](https://zeabur.com/changelogs/phasing-out-shared-cluster).
-</Callout>
-
-En Zeabur hay dos tipos de servidores: _clústeres compartidos_ y [_servidores_](/server). Estas tarifas de precios se aplican únicamente a los **clústeres compartidos**, y no cobramos ninguna tarifa de uso por los servidores.
-
-De igual manera, la cuota gratuita mensual de US$5 del Plan de Desarrollador se aplica únicamente al uso de clústeres compartidos y no puede utilizarse para cubrir las tarifas de alquiler de servidores.
-
-Las tarifas por el uso en los **clústeres compartidos** son las siguientes:
-
-- vCPU - Sin coste ($0.00 / minuto de vCPU)
-
-- Memoria - **US$0.00025** / minuto por GB (aproximadamente US$10.80 / mes por GB)
-  - Solo se te cobrará por la memoria que tus servicios utilicen realmente. Si tu servicio se detiene o se suspende, no se generarán cargos por el uso de memoria.
-
-- Salida de red - **US$0.10** / GB (US$10.00 / 100GB)
-  - 1GB equivale aproximadamente a 1,000 visitantes únicos accediendo a una página de 1MiB sin CDN ni compresión.
-  - [Red privada](/networking/private) no se considera ancho de banda de salida.
-
-- Volumen persistente - **US$0.20** / mes por GB
+Para la comparación completa de funcionalidades, visita [zeabur.com/pricing](https://zeabur.com/pricing).
 
 ## Reembolsos
 
-Para cualquier consulta relacionada con reembolsos, por favor contáctenos en [nuestro foro de la comunidad](https://zeabur.com/forum).
+Para cualquier problema relacionado con reembolsos, contáctenos en [nuestro foro de la comunidad](https://zeabur.com/forum).
 
-Para el **Plan de Desarrollador** o el **Plan de Equipo**, puede solicitar un reembolso por el saldo restante si cancela su suscripción. Por ejemplo, si cancela su Plan de Desarrollador después de usarlo durante 10 días, puede recibir un reembolso por los 20 días restantes. Si solicita el reembolso dentro de las 24 horas, recibirá un reembolso completo.
+Para el **Dev Plan**, **Pro Plan** o **Team Plan**, puedes solicitar un reembolso por el saldo restante si cancelas tu suscripción. Por ejemplo, si cancelas después de haber usado un plan durante 10 días en un ciclo de 30 días, puedes recibir un reembolso por los 20 días restantes. Si solicitas un reembolso dentro de las 24 horas posteriores al cargo más reciente, recibirás un reembolso completo.
 
-Para usuarios de **Servidores**, Zeabur ya no admite reembolsos para los servidores creados o renovados después del 21 de julio de 2025. Para evitar cargos en el próximo ciclo de facturación, puede deshabilitar la configuración de renovación automática.
+Para los usuarios de **Server**, Zeabur ya no admite reembolsos para servidores creados o renovados después del 21 de julio de 2025. Para evitar cargos en el próximo ciclo de facturación, puedes desactivar la configuración de renovación automática.
 
-> Tenga en cuenta que esto solo afecta a los servidores creados o renovados después del 21 de julio de 2025.
+> Ten en cuenta que esto solo afecta a los servidores creados o renovados después del 21 de julio de 2025.
 
-![disable auto renewal](/billing/pricing/auto-renewal.png)
+![desactivar renovación automática](/billing/pricing/auto-renewal.png)
 
-Puede elegir recibir su reembolso como créditos de Zeabur o en su método de pago original. Si opta por los créditos de Zeabur, el reembolso suele procesarse de manera instantánea tras su aprobación. Si elige reembolsar a su método de pago original, puede tardar hasta 7 días en procesarse y deberá pagar la tarifa de transacción de Stripe, que es aproximadamente el 30% del monto reembolsado.
+Puedes optar por recibir tu reembolso como créditos de Zeabur o de vuelta a tu método de pago original. Si eliges créditos de Zeabur, el reembolso generalmente se procesa de forma instantánea tras la aprobación. Si eliges recibir el reembolso en tu método de pago original, el proceso puede tardar hasta 7 días, y tendrás que pagar la comisión de transacción de Stripe, que es aproximadamente el 30% del importe reembolsado.
 
-## Preguntas frecuentes
-
-### ¿Qué plan de suscripción es el adecuado para mí?
-
-| Plan | Mensual | Para quién |
-| --- | --- | --- |
-| **Free** | $0 | Usuarios que prueban el flujo de despliegue de Zeabur por primera vez |
-| **Dev** | $5 | Desarrolladores individuales que necesitan AI Agent, backups de base de datos y gestión de dominios |
-| **Pro** | $19 | Desarrolladores que necesitan mayor CI, retención larga de logs y observabilidad reforzada |
-| **Team** | $79 | Pequeños equipos que necesitan colaboración, vinculación ilimitada de servidores y soporte prioritario |
-| **Enterprise** | Contáctanos | Empresas con necesidades de cumplimiento, contratos personalizados y recursos dedicados |
-
-Consulta la página de [Planes](/billing/plans) para ver un desglose detallado.
-
-### ¿Qué es la prueba gratuita de 14 días?
-
-Cada usuario tiene derecho a una prueba gratuita y puede elegir entre el plan **Dev** (US$5/mes) o **Pro** (US$19/mes). Durante la prueba obtienes exactamente las mismas funciones y cuotas que una suscripción de pago. El plan **Team** no incluye prueba gratuita.
-
-No se cobran tarifas de suscripción durante los 14 días de prueba. Al finalizar, tu plan elegido se renueva automáticamente y se cobra. Puedes cancelar antes del final de la prueba para evitar el cargo.
+## Preguntas Frecuentes
 
 ### ¿Cuál es la relación entre VPS y los planes de suscripción?
 
-VPS es el servidor que compras a proveedores de nube a precios con descuento a través de Zeabur. Los planes de suscripción proporcionan servicios de gestión adicionales sobre tu VPS, incluyendo un panel unificado, monitoreo, copias de seguridad, AI Agent y soporte técnico.
+VPS es el servidor que compras a proveedores de nube a precios con descuento a través de Zeabur. Los planes de suscripción proporcionan servicios de gestión adicionales sobre tu VPS, incluidos un panel de control unificado, monitorización, copias de seguridad, AI Agent y soporte técnico.
 
 ### ¿Por qué debería comprar VPS a través de Zeabur?
 
-Zeabur ofrece precios exclusivos con descuento de los principales proveedores de nube, además de una plataforma de gestión unificada. Obtienes precios más bajos, configuración instantánea, monitoreo integrado, copias de seguridad automáticas y soporte prioritario, todo en un solo lugar.
+Zeabur ofrece precios exclusivos con descuento de los principales proveedores de nube, además de una plataforma de gestión unificada. Obtienes precios más bajos, configuración instantánea, monitorización integrada, copias de seguridad automáticas y soporte prioritario, todo en un solo lugar.
+
+### ¿Qué plan de suscripción es adecuado para mí?
+
+El Free Plan es ideal para comenzar con acceso básico al panel de control. El Dev Plan es perfecto para desarrolladores individuales que necesitan monitorización completa, copias de seguridad y AI Agent. El Pro Plan añade reenvío de registros, cuotas más amplias y soporte prioritario — recomendado para cargas de trabajo en producción. El Team Plan está diseñado para equipos que gestionan múltiples servidores con gestión de roles y permisos.
 
 ### ¿Puedo usar Zeabur sin tarjeta de crédito?
 
-Sí. Puedes comprar créditos prepagados sin necesidad de una tarjeta de crédito. En China también puedes usar **Alipay** como método de pago. Consulta la [página de suscripción](/billing/subscription) para más detalles.
+Sí. Puedes comprar créditos prepagados sin necesidad de una tarjeta de crédito. Alipay también está disponible como método de pago alternativo. Consulta la [página de suscripción](/billing/subscription) para más detalles.
 
 ### ¿Recibiré un recibo?
 
-Cuando realizas un pago, recibirás un correo electrónico con tu factura y recibo adjuntos. También puedes consultar tu historial de facturación en la [página de facturación](https://dash.zeabur.com/account/billing).
+Cuando realizas un pago, recibirás un correo electrónico con tu factura y recibo adjuntos. También puedes consultar tu historial de facturación en la [página de facturación](https://zeabur.com/account/billing).
 
-- La información de facturación personalizada (nombre de empresa, NIF, dirección) requiere el plan **Dev** o superior.
-- Las facturas formales con adquisición y facturación empresarial están disponibles en el plan **Team** o superior.
+Si necesitas información de facturación personalizada en tus facturas (por ejemplo, nombre de empresa, número de identificación fiscal o dirección), debes suscribirte al **Dev Plan** o superior. Si necesitas una factura formal, debes suscribirte al **Team Plan**.
 
-### ¿Qué proveedores de nube son compatibles?
+### ¿Qué proveedores en la nube son compatibles?
 
-Actualmente soportamos AWS (Lightsail), Hetzner, DigitalOcean, Tencent Cloud, Linode, Alibaba Cloud y Google Cloud (GCP). Continuamos agregando más proveedores.
+Actualmente admitimos AWS (Lightsail), Hetzner, DigitalOcean, Tencent Cloud, Linode, Alibaba Cloud y Google Cloud (GCP). Seguimos incorporando más proveedores continuamente.

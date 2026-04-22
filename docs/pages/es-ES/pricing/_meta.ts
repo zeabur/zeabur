@@ -1,7 +1,9 @@
 export default {
+  'free-plan':     'Free Plan',
+  'dev-plan':      'Dev Plan',
+  'pro-plan':      'Pro Plan',
+  'team-plan':     'Team Plan',
+
+  // legacy files — hidden from sidebar
   'pricing-plans': { display: 'hidden' },
-  'free-plan':     'Plan Free',
-  'dev-plan':      'Plan Dev',
-  'pro-plan':      'Plan Pro',
-  'team-plan':     'Plan Team',
 }

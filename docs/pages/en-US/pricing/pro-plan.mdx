@@ -8,67 +8,24 @@ import { Callout } from 'nextra/components'
 
 # Pro Plan
 
-The Pro Plan is Zeabur's plan for developers who need **higher build specs, long log retention, and stronger observability**. At **US$19/month**, it layers production-grade capabilities on top of the Dev Plan.
+The Pro Plan is Zeabur's recommended tier for production workloads — **US$19/month** with a **14-day free trial**. It builds on the Dev Plan with **log forwarding**, **larger CI specs**, **longer log retention**, **higher Email/Domain/API Key/Webhook quotas**, **custom service icons**, and **priority support**.
 
-<Callout type="info">
-Eligible for the **14-day free trial** — same features as paid, no charge until the trial ends. See [14-Day Free Trial](/billing/subscription#14-day-free-trial).
-</Callout>
-
-## Plan Details
-
-| Item | Details |
-| --- | --- |
-| Monthly fee | US$19 / month |
-| Bound external servers | Up to 10 |
-| Build CI spec | 4C8G |
-| Log retention | 30 days |
-| Advanced log search | Supported |
-| Log forwarding (log drain) | Supported |
-| Custom monitoring & alerts | Supported |
-| File upload limit | High |
-| Container file management | Single file upload |
-| HA service deployment | Supported |
-| Domain & IP access control | Supported |
-| Members | 1 (account owner only) |
-
-## What's included (vs. Dev)
-
-Everything in Dev, plus:
-
-- Up to **10 bound external servers** (Dev: 3)
-- **Build CI at 4C8G** (Dev: 2C4G) — faster, more powerful builds
-- **30 days** of log retention (Dev: 7 days)
-- **Advanced log search** — filter and query historical logs
-- **Log forwarding (log drain)** — stream logs to third-party systems
-- **High-availability service deployment**
-- **Domain & IP access control** — restrict who can reach your services
-- Higher file upload limits
-
-## Resource Rates
-
-Shared cluster usage is billed per-minute. See [Billing / Pricing](/billing/pricing) for the full table.
-
-## Dev Plan vs. Pro Plan
-
-| Feature | Dev Plan | Pro Plan |
-| --- | --- | --- |
-| Monthly fee | US$5 | US$19 |
-| Bound external servers | 3 | 10 |
-| Build CI spec | 2C4G | 4C8G |
-| Log retention | 7 days | 30 days |
-| Advanced log search | — | Supported |
-| Log drain | — | Supported |
-| HA deployment | — | Supported |
-| Domain & IP access control | — | Supported |
-| Custom monitoring & alerts | — | Supported |
-| File upload limit | Medium | High |
+For the full feature list and the latest quotas, see the [comparison chart](/pricing).
 
 ## Use Cases
 
-- **Production services with traffic** — Higher CI, HA deployment, and log retention keep your production stack healthy.
-- **Teams of one that need observability** — Advanced log search, log drain, and custom alerts for debugging at scale.
-- **Security-sensitive services** — Domain & IP access control locks down who can reach your endpoints.
-- **Long-running builds** — 4C8G build CI ships faster, especially for monorepos.
+- **Small production deployments** — Services that benefit from longer log retention, larger CI builds, and direct support channels.
+- **Apps with higher transactional email volume** — The Pro Plan's monthly Email quota covers most early-stage SaaS and e-commerce apps.
+- **Operations-heavy workloads** — Log forwarding to your existing observability stack (Datadog, Grafana, etc.) keeps Pro-tier services aligned with your central monitoring.
+- **Frontend-heavy apps with many domains** — Pro's domain and API key headroom covers most multi-environment setups.
+
+## When to Upgrade to Team
+
+If you need **multiple members collaborating on the same projects**, **role and permission management**, **invoicing / tax ID support**, or **unlimited external server bindings**, the [Team Plan](/pricing/team-plan) (US$79/month for 3 seats, +US$24/seat) is the next step.
+
+<Callout type="info">
+For larger-scale custom plans, dedicated support, and SLAs, check out the **Enterprise Plan** — [contact us](https://zeabur.com/forum) for details.
+</Callout>
 
 ## How to Subscribe
 

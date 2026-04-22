@@ -4,42 +4,25 @@ ogImageTitle: Pricing
 ogImageSubtitle: Zeabur Pricing
 ---
 
-import { Callout } from 'nextra/components'
-
 # Pricing
 
-Zeabur offers a consumption-based pricing model for your projects. You won't get any bills for resources you don't use.
+Zeabur offers four subscription tiers plus a custom Enterprise option. Each tier bundles platform features and resource limits — see [Pricing](/pricing) for the full plan list.
 
-Instead, Zeabur charges by the minute for each resource that your services actually use.
+## Subscription Tiers
 
-## Pricing Rates
+- **[Free Plan](/pricing/free-plan)** — US$0/month
+- **[Dev Plan](/pricing/dev-plan)** — US$5/month (14-day free trial)
+- **[Pro Plan](/pricing/pro-plan)** — US$19/month (14-day free trial)
+- **[Team Plan](/pricing/team-plan)** — US$79/month for 3 seats (+US$24/seat)
+- **Enterprise** — [contact us](https://zeabur.com/forum)
 
-<Callout type="warning">
-  Zeabur is phasing out shared clusters. New projects can no longer be created on shared clusters, and existing shared cluster projects stopped accepting new services on April 1, 2026. Existing services continue to run. For more details, see the [changelog](https://zeabur.com/changelogs/phasing-out-shared-cluster).
-</Callout>
-
-There are two kinds of servers in Zeabur: _shared clusters_ and [_servers_](/server). These pricing rates apply only to **shared clusters**, and we do not charge a usage fee for servers.
-
-Similarly, the Developer Plan's US$5 monthly free quota applies only to shared cluster usage and cannot be used toward server rental fees.
-
-The rates for usage in the **shared clusters** are as the following:
-
-- vCPU - No cost ($0.00 / vCPU-minute)
-
-- Memory - **US$0.00025** / GB-minute (approx. US$10.80 / GB-month)
-  - You will only be charged for the memory your services actually use. If your service crashes or is suspended, you won't incur any memory usage charges.
-
-- Network Egress - **US$0.10** / GB (US$10.00 / 100GB)
-  - 1GB accommodates about 1,000 unique visitors accessing your 1MiB page without a CDN or compression.
-  - [Private networking](/networking/private) does not count as egress bandwidth.
-
-- Persistent Volume - **US$0.20** / GB-month
+For the full feature comparison, visit [zeabur.com/pricing](https://zeabur.com/pricing).
 
 ## Refunds
 
 For any refund issues, please contact us on [our community forum](https://zeabur.com/forum).
 
-For the **Developer Plan** or **Team Plan**, you can request a refund for the remaining balance if you cancel your subscription. For example, if you cancel your Developer Plan after using it for 10 days, you can receive a refund for the remaining 20 days. If you request a refund within 24 hours, you will receive a full refund.
+For the **Dev Plan**, **Pro Plan**, or **Team Plan**, you can request a refund for the remaining balance if you cancel your subscription. For example, if you cancel after using a plan for 10 days in a 30-day cycle, you can receive a refund for the remaining 20 days. If you request a refund within 24 hours of the most recent charge, you will receive a full refund.
 
 For **Server** users, Zeabur no longer supports refunds for servers created or renewed after July 21, 2025. To avoid being charged in the upcoming billing cycle, you can disable the auto-renewal settings.
 
@@ -51,24 +34,6 @@ You can choose to receive your refund as Zeabur credits or back to your original
 
 ## Frequently Asked Questions
 
-### Which subscription plan is right for me?
-
-| Plan | Monthly | Who it's for |
-| --- | --- | --- |
-| **Free** | $0 | Users trying out the Zeabur deployment flow for the first time |
-| **Dev** | $5 | Solo developers who need AI Agent, database backups, and domain management |
-| **Pro** | $19 | Developers who need higher build specs, long log retention, and stronger observability |
-| **Team** | $79 | Small teams that need collaboration, unlimited server binding, and priority support |
-| **Enterprise** | Contact us | Companies with compliance needs, custom contracts, and dedicated resources |
-
-See the [Plans](/billing/plans) page for a detailed breakdown.
-
-### What is the 14-day free trial?
-
-Every user is entitled to one free trial and can choose either the **Dev** ($5/mo) or **Pro** ($19/mo) plan. During the trial you get exactly the same features and quotas as a paid subscription. The **Team** plan does not include a free trial.
-
-No subscription fees are charged during the 14-day trial. After the trial ends, your chosen plan automatically renews and is charged. You can cancel before the trial ends to avoid being charged.
-
 ### What is the relationship between VPS and subscription plans?
 
 VPS is the server you purchase from cloud providers at discounted prices through Zeabur. Subscription plans provide additional management services on top of your VPS, including a unified dashboard, monitoring, backups, AI Agent, and technical support.
@@ -77,16 +42,19 @@ VPS is the server you purchase from cloud providers at discounted prices through
 
 Zeabur offers exclusive discounted pricing from top cloud providers, plus a unified management platform. You get lower prices, instant setup, built-in monitoring, automatic backups, and priority support — all in one place.
 
+### Which subscription plan is right for me?
+
+The Free Plan is great for getting started with basic dashboard access. The Dev Plan is ideal for individual developers who need full monitoring, backups, and AI Agent. The Pro Plan adds log forwarding, larger quotas, and priority support — recommended for production workloads. The Team Plan is designed for teams managing multiple servers with role and permission management.
+
 ### Can I use Zeabur without a credit card?
 
-Yes. You can purchase prepaid credits without a credit card. In China, **Alipay** is also available as a payment method. See the [subscription page](/billing/subscription) for details.
+Yes. You can purchase prepaid credits without a credit card. Alipay is also available as an alternative payment method. See the [subscription page](/billing/subscription) for details.
 
 ### Will I get a receipt?
 
-When you make a payment, you'll receive an email with your invoice and receipt attached. You can also find your billing history on the [billing page](https://dash.zeabur.com/account/billing).
+When you make a payment, you will receive an email with your invoice and receipt attached. You can also find your billing history on the [billing page](https://zeabur.com/account/billing).
 
-- Customized billing information (company name, tax ID, address) requires the **Dev** plan or above.
-- Formal invoices with enterprise procurement & invoicing are available on the **Team** plan and above.
+If you need customized billing information on your invoices (e.g., company name, tax ID, or address), you must subscribe to the **Dev Plan** or above. If you require a formal invoice, you must subscribe to the **Team Plan**.
 
 ### Which cloud providers are supported?
 

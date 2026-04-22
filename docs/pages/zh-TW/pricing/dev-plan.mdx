@@ -1,75 +1,26 @@
 ---
-title: Dev Plan（開發者方案）
+title: Dev Plan (Developer Plan)
 ogImageTitle: Dev Plan
-ogImageSubtitle: Zeabur 開發者方案說明
+ogImageSubtitle: Zeabur Developer Plan 詳情
 ---
 
-import { Callout } from 'nextra/components'
+# Dev Plan (Developer Plan)
 
-# Dev Plan（開發者方案）
+Dev Plan 是 Zeabur 的入門付費方案，專為獨立開發者設計。每月 **US$5**，並提供 **14 天免費試用**，解鎖 Zeabur AI、自動資料庫備份、網域購買及 Zeabur Email 服務——非常適合個人正式專案和 side project。
 
-Dev Plan 是 Zeabur 為需要 AI Agent、資料庫備份與網域管理的個人開發者設計的付費方案，每月 **US$5**，解鎖個人開發者最需要的生產力功能。
+完整功能清單與最新配額請參閱[方案比較表](/pricing)。
 
-<Callout type="info">
-支援 **14 天免費試用** — 功能與付費版本完全一致，試用結束前不會收費。詳見 [14 天免費試用](/billing/subscription#14-天免費試用)。
-</Callout>
+## 使用情境
 
-## 方案內容
+- **個人 side project** — 部署個人網站、部落格、API 服務等。
+- **開發與測試** — 需要持久儲存空間（如資料庫）和自動備份的環境。
+- **小型正式服務** — 流量不大但需要 24/7 不間斷運行的服務。
+- **模板開發** — 建立和維護 Zeabur 模板，搭配[一鍵部署按鈕](/deploy/deploy-button)推廣您的專案。
 
-| 項目 | 說明 |
-| --- | --- |
-| 月費 | US$5 / 月 |
-| 綁定外部伺服器 | 最多 3 台 |
-| 建置 CI 規格 | 2C4G |
-| 日誌保留 | 7 天 |
-| 檔案上傳限制 | 中 |
-| 容器檔案管理 | 單檔上傳 |
-| Zeabur AI（AI Agent） | 包含 |
-| 網域購買 | 支援 |
-| 郵件系統 | 包含 |
-| 資料庫備份匯出 | 支援 |
-| 成員數 | 僅限 1 人（帳號擁有者） |
-| 部署區域 | 所有可用區域 |
+## 何時升級至 Pro
 
-## 相較 Free Plan 新增
-
-包含 Free Plan 所有功能，並額外提供：
-
-- 最多 **3 台綁定外部伺服器**（Free：1 台）
-- 日誌保留 **7 天**（Free：48 小時）
-- **Zeabur AI** — 管理服務的 AI Agent
-- **透過 Zeabur 購買網域**
-- **郵件系統** — 發送交易郵件
-- 更高的檔案上傳限制
-
-## 資源費率
-
-共享叢集按分鐘計費。完整費率請見 [Billing / Pricing](/billing/pricing)。
-
-- **vCPU** — 不計費
-- **記憶體** — US$0.00025 / GB-分鐘（約 US$10.8 / GB-月）
-- **網路輸出** — US$0.1 / GB
-- **持久儲存** — US$0.2 / GB-月
-
-## Free Plan vs. Dev Plan
-
-| 功能 | Free Plan | Dev Plan |
-| --- | --- | --- |
-| 月費 | $0 | US$5 |
-| 綁定外部伺服器 | 1 台 | 3 台 |
-| 日誌保留 | 48 小時 | 7 天 |
-| Zeabur AI | — | 包含 |
-| 網域購買 | — | 支援 |
-| 郵件系統 | — | 包含 |
-| 檔案上傳限制 | 低 | 中 |
-
-## 適用場景
-
-- **個人 Side Project** — 部署個人網站、Blog、API 服務等。
-- **AI 輔助工作流** — 讓 Zeabur AI 協助管理與排錯。
-- **小型生產服務** — 流量不大但需要 24/7 運行的服務。
-- **模板開發** — 建立和維護 Zeabur 模板，搭配 [一鍵部署按鈕](/deploy/deploy-button) 推廣專案。
+若您需要**日誌轉發**、**更高的 Email / 網域 / API 金鑰 / Webhook 配額**、**自訂服務圖示**或**優先支援**，下一步可考慮升級至 [Pro Plan](/pricing/pro-plan)（US$19/月，14 天免費試用）。詳見 [Pro Plan](/pricing/pro-plan) 頁面。
 
 ## 如何訂閱
 
-前往 [zeabur.com/pricing](https://zeabur.com/pricing) 選擇 Dev Plan，或在 [Dashboard 帳單頁面](https://dash.zeabur.com/account/billing) 升級。支援信用卡和支付寶付款，詳見 [付款方式](/subscription/payment-methods)。
+前往 [zeabur.com/pricing](https://zeabur.com/pricing) 選擇 Dev Plan，或從 [Dashboard 帳單頁面](https://dash.zeabur.com/account/billing) 進行升級。支援信用卡與 Alipay，詳見[付款方式](/subscription/payment-methods)。

@@ -1,63 +1,35 @@
 ---
-title: Plan Free
-ogImageTitle: Plan Free
-ogImageSubtitle: Detalles del Plan Free de Zeabur
+title: Free Plan
+ogImageTitle: Free Plan
+ogImageSubtitle: Detalles del Free Plan de Zeabur
 ---
 
 import { Callout } from 'nextra/components'
 
-# Plan Free
+# Free Plan
 
-El Plan Free es el nivel de entrada de Zeabur, diseñado para usuarios que prueban el flujo de despliegue de Zeabur por primera vez. No se requiere tarjeta de crédito — simplemente regístrate y comienza a desplegar.
+El Free Plan es el nivel gratuito de Zeabur, diseñado para la exploración personal y el aprendizaje. No se requiere tarjeta de crédito — simplemente regístrate y empieza a desplegar.
 
-<Callout type="warning">
-  Zeabur está eliminando gradualmente los clústeres compartidos. Ya no se pueden crear nuevos proyectos en clústeres compartidos, y los proyectos existentes dejaron de aceptar nuevos servicios el 1 de abril de 2026. Los servicios existentes siguen funcionando. Para más detalles, consulta el [changelog](https://zeabur.com/changelogs/phasing-out-shared-cluster).
-</Callout>
-
-## Recursos incluidos
-
-| Recurso | Límite |
-| --- | --- |
-| Tarifa mensual | $0 |
-| Servidores externos vinculados | 1 |
-| Especificación CI de build | 2C4G |
-| Retención de logs | 48 horas |
-| Límite de subida de archivos | Bajo |
-| Gestión de archivos de contenedor | Subida de archivo único |
-| Vista de base de datos | Soportado |
-| AI Agent (Zeabur AI) | No incluido |
-| Regiones de despliegue | Regiones de clúster compartido |
-
-## Tarifas de recursos
-
-El uso del clúster compartido se factura por minuto y utiliza las mismas tarifas que los planes de pago:
-
-- **vCPU** — Sin coste ($0.0 / minuto de vCPU)
-- **Memoria** — US$0.00025 / GB-minuto (~US$10.8 / GB-mes)
-- **Tráfico de red saliente** — US$0.1 / GB
-- **Almacenamiento persistente** — US$0.2 / GB-mes
-
-Consulta [Billing / Pricing](/billing/pricing) para detalles completos.
+Para la lista completa de funciones y los límites más recientes, consulta la [tabla comparativa](/pricing).
 
 ## Limitaciones
 
-- **Sin Zeabur AI / AI Agent** — La experiencia de operaciones impulsada por IA solo está disponible en planes de pago.
-- **Retención de logs limitada** — Solo se guardan 48 horas de logs en Free.
-- **Vinculación de servidores limitada** — Solo se puede vincular 1 servidor externo en Free.
-- **Sin SLA** — El plan Free no incluye un Acuerdo de Nivel de Servicio.
-- **Solo soporte comunitario** — El soporte técnico prioritario requiere el plan Team.
+- **Suspensión automática** — Los servicios en el Free Plan se suspenden automáticamente tras un período de inactividad. Se reactivan con la siguiente solicitud entrante, lo que puede causar unos segundos de latencia de arranque en frío.
+- **Sin SLA** — El Free Plan no incluye un Acuerdo de Nivel de Servicio.
+- **Sin Zeabur Email** — El envío de correos a través de [Zeabur Email](/email) no está disponible en el Free Plan.
+- **Sin copia de seguridad automatizada de bases de datos/importación ni reenvío de logs** — estas funciones operativas avanzadas están disponibles a partir del Dev Plan.
 
 <Callout type="info">
-¿Quieres AI Agent, backups, dominios personalizados y retención de logs más larga? Inicia una [prueba gratuita de 14 días](/billing/subscription#prueba-gratuita-de-14-días) en Dev o Pro — las mismas funciones que la versión de pago, sin cargo hasta que termine la prueba.
+Los servicios en el Free Plan se suspenden automáticamente cuando están inactivos para conservar recursos. Si necesitas que los servicios se ejecuten de forma continua, considera actualizar al [Dev Plan](/pricing/dev-plan).
 </Callout>
 
-## Ruta de actualización
+## Ruta de Actualización
 
-Cuando tus necesidades excedan el Plan Free, elige un plan de pago:
+Cuando tus necesidades superen el Free Plan, puedes actualizar a un plan de pago:
 
-- **[Plan Dev](/pricing/dev-plan)** — US$5/mes. Desarrolladores individuales que quieren AI Agent, backups de base de datos, gestión de dominios y sistema de correo.
-- **[Plan Pro](/pricing/pro-plan)** — US$19/mes. Mayores especificaciones de build, retención de logs de 30 días, observabilidad avanzada, despliegue HA y control de acceso IP.
-- **[Plan Team](/pricing/team-plan)** — US$79/mes (3 asientos incluidos). Servidores vinculados ilimitados, colaboración en equipo, gestión de roles y soporte prioritario.
-- **Enterprise** — Contratos personalizados, recursos dedicados, soporte de cumplimiento — [contáctanos](https://zeabur.com/forum).
+- **[Dev Plan](/pricing/dev-plan)** — US$5/mes (prueba gratuita de 14 días), ideal para desarrolladores individuales con proyectos personales en producción.
+- **[Pro Plan](/pricing/pro-plan)** — US$19/mes (prueba gratuita de 14 días), recomendado para cargas de trabajo en producción.
+- **[Team Plan](/pricing/team-plan)** — US$79/mes para 3 asientos (+US$24/asiento), diseñado para la colaboración en equipo.
+- **Enterprise** — Planes personalizados con soporte dedicado y SLAs — [contáctanos](https://zeabur.com/forum) para más detalles.
 
 Visita [zeabur.com/pricing](https://zeabur.com/pricing) para comparar todos los planes.

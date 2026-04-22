@@ -1,75 +1,32 @@
 ---
-title: Pro Plan（專業方案）
+title: Pro Plan
 ogImageTitle: Pro Plan
-ogImageSubtitle: Zeabur 專業方案說明
+ogImageSubtitle: Zeabur Pro Plan 詳情
 ---
 
 import { Callout } from 'nextra/components'
 
-# Pro Plan（專業方案）
+# Pro Plan
 
-Pro Plan 是 Zeabur 為需要 **更高建置規格、更長日誌保留與強化可觀測性** 的開發者設計的方案，每月 **US$19**，在 Dev Plan 之上新增生產級能力。
+Pro Plan 是 Zeabur 推薦用於正式環境的方案——每月 **US$19**，並提供 **14 天免費試用**。在 Dev Plan 的基礎上新增了**日誌轉發**、**更大的 CI 規格**、**更長的日誌保留時間**、**更高的 Email / 網域 / API 金鑰 / Webhook 配額**、**自訂服務圖示**以及**優先支援**。
+
+完整功能清單與最新配額請參閱[方案比較表](/pricing)。
+
+## 使用情境
+
+- **小型正式環境部署** — 需要更長日誌保留時間、更大 CI 編譯規格及直接支援管道的服務。
+- **高交易量電子郵件應用** — Pro Plan 的每月 Email 配額足以應對大多數早期 SaaS 和電商應用。
+- **重視維運的工作負載** — 將日誌轉發至現有的可觀測性平台（如 Datadog、Grafana 等），讓 Pro 方案的服務與您的集中監控系統整合。
+- **多網域前端應用** — Pro 的網域與 API 金鑰配額能涵蓋大多數多環境部署。
+
+## 何時升級至 Team
+
+若您需要**多位成員協同管理同一專案**、**角色與權限管理**、**發票與統一編號支援**，或**無限制的外部伺服器綁定**，下一步可考慮升級至 [Team Plan](/pricing/team-plan)（每月 US$79，含 3 個席位，每增加一個席位 US$24/月）。
 
 <Callout type="info">
-支援 **14 天免費試用** — 功能與付費版本完全一致，試用結束前不會收費。詳見 [14 天免費試用](/billing/subscription#14-天免費試用)。
+若需要大規模自訂方案、專屬支援及 SLA，請參閱 **Enterprise Plan** — [聯絡我們](https://zeabur.com/forum)了解詳情。
 </Callout>
-
-## 方案內容
-
-| 項目 | 說明 |
-| --- | --- |
-| 月費 | US$19 / 月 |
-| 綁定外部伺服器 | 最多 10 台 |
-| 建置 CI 規格 | 4C8G |
-| 日誌保留 | 30 天 |
-| 進階日誌搜尋 | 支援 |
-| 日誌轉發（Log Drain） | 支援 |
-| 自訂監控與告警 | 支援 |
-| 檔案上傳限制 | 高 |
-| 容器檔案管理 | 單檔上傳 |
-| HA 服務部署 | 支援 |
-| 網域與 IP 存取控管 | 支援 |
-| 成員數 | 僅限 1 人（帳號擁有者） |
-
-## 相較 Dev Plan 新增
-
-包含 Dev Plan 所有功能，並額外提供：
-
-- 最多 **10 台綁定外部伺服器**（Dev：3 台）
-- **建置 CI 4C8G**（Dev：2C4G）— 更快、更強的建置能力
-- 日誌保留 **30 天**（Dev：7 天）
-- **進階日誌搜尋** — 篩選與查詢歷史日誌
-- **日誌轉發（Log Drain）** — 將日誌導向第三方系統
-- **高可用服務部署**
-- **網域與 IP 存取控管** — 限制誰可以存取你的服務
-- 更高的檔案上傳限制
-
-## 資源費率
-
-共享叢集按分鐘計費。完整費率請見 [Billing / Pricing](/billing/pricing)。
-
-## Dev Plan vs. Pro Plan
-
-| 功能 | Dev Plan | Pro Plan |
-| --- | --- | --- |
-| 月費 | US$5 | US$19 |
-| 綁定外部伺服器 | 3 台 | 10 台 |
-| 建置 CI 規格 | 2C4G | 4C8G |
-| 日誌保留 | 7 天 | 30 天 |
-| 進階日誌搜尋 | — | 支援 |
-| 日誌轉發 | — | 支援 |
-| HA 部署 | — | 支援 |
-| 網域與 IP 存取控管 | — | 支援 |
-| 自訂監控與告警 | — | 支援 |
-| 檔案上傳限制 | 中 | 高 |
-
-## 適用場景
-
-- **有流量的生產服務** — 更高 CI、HA 部署與更長日誌保留，保持生產環境穩定。
-- **需要可觀測性的一人團隊** — 進階日誌搜尋、日誌轉發與自訂告警，讓除錯更輕鬆。
-- **安全敏感服務** — 網域與 IP 存取控管，限制誰可以連到你的端點。
-- **長時間建置** — 4C8G 建置 CI 更快，特別適合 monorepo。
 
 ## 如何訂閱
 
-前往 [zeabur.com/pricing](https://zeabur.com/pricing) 選擇 Pro Plan，或在 [Dashboard 帳單頁面](https://dash.zeabur.com/account/billing) 升級。支援信用卡和支付寶付款，詳見 [付款方式](/subscription/payment-methods)。
+前往 [zeabur.com/pricing](https://zeabur.com/pricing) 選擇 Pro Plan，或從 [Dashboard 帳單頁面](https://dash.zeabur.com/account/billing) 進行升級。支援信用卡與 Alipay，詳見[付款方式](/subscription/payment-methods)。

@@ -8,56 +8,28 @@ import { Callout } from 'nextra/components'
 
 # Free Plan
 
-The Free Plan is Zeabur's entry-level tier, designed for users trying out the Zeabur deployment flow for the first time. No credit card required — just sign up and start deploying.
+The Free Plan is Zeabur's free tier, designed for personal exploration and learning. No credit card required — just sign up and start deploying.
 
-<Callout type="warning">
-  Zeabur is phasing out shared clusters. New projects can no longer be created on shared clusters, and existing shared cluster projects stopped accepting new services on April 1, 2026. Existing services continue to run. For more details, see the [changelog](https://zeabur.com/changelogs/phasing-out-shared-cluster).
-</Callout>
-
-## Included Resources
-
-| Resource | Limit |
-| --- | --- |
-| Monthly fee | $0 |
-| Bound external servers | 1 |
-| Build CI spec | 2C4G |
-| Log retention | 48 hours |
-| File upload limit | Low |
-| Container file management | Single file upload |
-| Database view | Supported |
-| AI Agent (Zeabur AI) | Not included |
-| Deployment regions | Shared cluster regions |
-
-## Resource Rates
-
-Shared cluster usage is billed per-minute and uses the same rates as paid plans:
-
-- **vCPU** — No cost ($0.0 / vCPU-minute)
-- **Memory** — US$0.00025 / GB-minute (~US$10.8 / GB-month)
-- **Network egress** — US$0.1 / GB
-- **Persistent storage** — US$0.2 / GB-month
-
-See [Billing / Pricing](/billing/pricing) for full details.
+For the full feature list and the latest limits, see the [comparison chart](/pricing).
 
 ## Limitations
 
-- **No Zeabur AI / AI Agent** — The AI-powered operations experience is only available on paid plans.
-- **Limited log retention** — Only 48 hours of logs are kept on Free.
-- **Limited server binding** — Only 1 external server can be bound on Free.
-- **No SLA** — The Free plan does not include a Service Level Agreement.
-- **Community support only** — Priority technical support requires the Team plan.
+- **Auto-sleep** — Services on the Free Plan automatically sleep after a period of inactivity. They wake up on the next incoming request, which may cause a few seconds of cold-start latency.
+- **No SLA** — The Free Plan does not include a Service Level Agreement.
+- **No Zeabur Email** — Sending email through [Zeabur Email](/email) is not available on the Free Plan.
+- **No automated database backup/import or log forwarding** — these advanced operational features start at the Dev Plan.
 
 <Callout type="info">
-Want AI Agent, backups, custom domains, and longer log retention? Start a [14-day free trial](/billing/subscription#14-day-free-trial) on Dev or Pro — same features as paid, no charge until the trial ends.
+Services on the Free Plan auto-sleep when idle to conserve resources. If you need services to run continuously, consider upgrading to the [Dev Plan](/pricing/dev-plan).
 </Callout>
 
 ## Upgrade Path
 
-When your needs exceed the Free Plan, pick a paid plan:
+When your needs exceed the Free Plan, you can upgrade to a paid plan:
 
-- **[Dev Plan](/pricing/dev-plan)** — US$5/month. Solo developers who want AI Agent, database backups, domain management, and email system.
-- **[Pro Plan](/pricing/pro-plan)** — US$19/month. Higher build specs, 30-day log retention, advanced observability, HA deployment, and IP access control.
-- **[Team Plan](/pricing/team-plan)** — US$79/month (3 seats included). Unlimited bound servers, team collaboration, role management, and priority support.
-- **Enterprise** — Custom contracts, dedicated resources, compliance support — [contact us](https://zeabur.com/forum).
+- **[Dev Plan](/pricing/dev-plan)** — US$5/month (14-day free trial), ideal for individual developers with personal production projects.
+- **[Pro Plan](/pricing/pro-plan)** — US$19/month (14-day free trial), recommended for production workloads.
+- **[Team Plan](/pricing/team-plan)** — US$79/month for 3 seats (+US$24/seat), designed for team collaboration.
+- **Enterprise** — Custom plans with dedicated support and SLAs — [contact us](https://zeabur.com/forum) for details.
 
 Visit [zeabur.com/pricing](https://zeabur.com/pricing) to compare all plans.

@@ -1,75 +1,32 @@
 ---
-title: Pro Plan（专业方案）
+title: Pro Plan
 ogImageTitle: Pro Plan
-ogImageSubtitle: Zeabur 专业方案说明
+ogImageSubtitle: Zeabur Pro Plan 详情
 ---
 
 import { Callout } from 'nextra/components'
 
-# Pro Plan（专业方案）
+# Pro Plan
 
-Pro Plan 是 Zeabur 为需要 **更高构建规格、更长日志保留与强化可观测性** 的开发者设计的方案，每月 **US$19**，在 Dev Plan 之上新增生产级能力。
+Pro Plan 是 Zeabur 推荐用于生产工作负载的方案——**US$19/月**，含 **14 天免费试用**。在 Dev Plan 基础上新增**日志转发**、**更大的 CI 规格**、**更长的日志保留时间**、**更高的 Email／域名／API 密钥／Webhook 配额**、**自定义服务图标**及**优先支持**。
 
-<Callout type="info">
-支持 **14 天免费试用** — 功能与付费版本完全一致，试用结束前不会收费。详见 [14 天免费试用](/billing/subscription#14-天免费试用)。
-</Callout>
-
-## 方案内容
-
-| 项目 | 说明 |
-| --- | --- |
-| 月费 | US$19 / 月 |
-| 绑定外部服务器 | 最多 10 台 |
-| 构建 CI 规格 | 4C8G |
-| 日志保留 | 30 天 |
-| 高级日志搜索 | 支持 |
-| 日志转发（Log Drain） | 支持 |
-| 自定义监控与告警 | 支持 |
-| 文件上传限制 | 高 |
-| 容器文件管理 | 单文件上传 |
-| HA 服务部署 | 支持 |
-| 域名与 IP 访问控制 | 支持 |
-| 成员数 | 仅限 1 人（账号拥有者） |
-
-## 相较 Dev Plan 新增
-
-包含 Dev Plan 所有功能，并额外提供：
-
-- 最多 **10 台绑定外部服务器**（Dev：3 台）
-- **构建 CI 4C8G**（Dev：2C4G）— 更快、更强的构建能力
-- 日志保留 **30 天**（Dev：7 天）
-- **高级日志搜索** — 筛选与查询历史日志
-- **日志转发（Log Drain）** — 将日志导向第三方系统
-- **高可用服务部署**
-- **域名与 IP 访问控制** — 限制谁可以访问你的服务
-- 更高的文件上传限制
-
-## 资源费率
-
-共享集群按分钟计费。完整费率请见 [Billing / Pricing](/billing/pricing)。
-
-## Dev Plan vs. Pro Plan
-
-| 功能 | Dev Plan | Pro Plan |
-| --- | --- | --- |
-| 月费 | US$5 | US$19 |
-| 绑定外部服务器 | 3 台 | 10 台 |
-| 构建 CI 规格 | 2C4G | 4C8G |
-| 日志保留 | 7 天 | 30 天 |
-| 高级日志搜索 | — | 支持 |
-| 日志转发 | — | 支持 |
-| HA 部署 | — | 支持 |
-| 域名与 IP 访问控制 | — | 支持 |
-| 自定义监控与告警 | — | 支持 |
-| 文件上传限制 | 中 | 高 |
+完整功能列表与最新配额请参见[方案对比表](/pricing)。
 
 ## 适用场景
 
-- **有流量的生产服务** — 更高 CI、HA 部署与更长日志保留，保持生产环境稳定。
-- **需要可观测性的一人团队** — 高级日志搜索、日志转发与自定义告警，让排错更轻松。
-- **安全敏感服务** — 域名与 IP 访问控制，限制谁可以连接你的端点。
-- **长时间构建** — 4C8G 构建 CI 更快，特别适合 monorepo。
+- **小型生产部署** — 受益于更长日志保留时间、更大 CI 编译规格及专属支持渠道的服务。
+- **高交易量邮件应用** — Pro Plan 的每月邮件配额可满足大多数早期 SaaS 及电商应用。
+- **运维密集型工作负载** — 将日志转发至现有可观测性平台（Datadog、Grafana 等），使 Pro 层服务与中央监控保持一致。
+- **多域名前端应用** — Pro 的域名与 API 密钥配额覆盖大多数多环境部署。
+
+## 何时升级到 Team
+
+如果需要**多成员协作同一项目**、**角色与权限管理**、**发票／税号支持**或**无限制外部服务器绑定**，[Team Plan](/pricing/team-plan)（US$79/月含 3 个席位，每增加一个席位 US$24/月）是下一步。
+
+<Callout type="info">
+如需更大规模的定制方案、专属支持及 SLA，请了解 **Enterprise Plan** — [联系我们](https://zeabur.com/forum)获取详情。
+</Callout>
 
 ## 如何订阅
 
-前往 [zeabur.com/pricing](https://zeabur.com/pricing) 选择 Pro Plan，或在 [Dashboard 账单页面](https://dash.zeabur.com/account/billing) 升级。支持信用卡和支付宝付款，详见 [付款方式](/subscription/payment-methods)。
+前往 [zeabur.com/pricing](https://zeabur.com/pricing) 选择 Pro Plan，或从 [Dashboard 账单页面](https://dash.zeabur.com/account/billing) 进行升级。支持信用卡与 Alipay，详见[付款方式](/subscription/payment-methods)。
