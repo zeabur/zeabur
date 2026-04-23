@@ -42,7 +42,6 @@ export default {
   'billing-legal': { display: 'hidden' },
   community:      { display: 'hidden' },
   'data-management': { display: 'hidden' },
-  legal:          { display: 'hidden' },
   monitoring:     { display: 'hidden' },
   networking:     { display: 'hidden' },
   manage:         { display: 'hidden' },
