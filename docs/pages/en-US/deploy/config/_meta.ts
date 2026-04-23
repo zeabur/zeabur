@@ -3,4 +3,5 @@ export default {
   'root-directory': 'Root Directory',
   'watch-paths': 'Watch Paths',
   'command-execution': 'Command Execution',
+  'build-spec': 'Build Spec',
 }

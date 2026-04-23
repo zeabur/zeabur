@@ -4,4 +4,5 @@ export default {
   'root-directory':        'ルートディレクトリ',
   'watch-paths':           'ウォッチパス',
   'command-execution':     'コマンド実行',
+  'build-spec':            'ビルドスペック',
 }
