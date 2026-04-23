@@ -4,4 +4,5 @@ export default {
   'root-directory':        'Directorio Raíz',
   'watch-paths':           'Rutas de Observación',
   'command-execution':     'Ejecución de Comandos',
+  'build-spec':            'Especificación de Compilación',
 }
