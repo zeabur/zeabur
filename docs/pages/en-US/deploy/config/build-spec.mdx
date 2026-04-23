@@ -1,59 +1,42 @@
 ---
 title: Build Spec
 ogImageTitle: Build Spec
-ogImageSubtitle: What the "Build Spec" label on the service settings page actually means
+ogImageSubtitle: Where Zeabur builds your code versus where it runs
 ---
 
 import { Callout } from 'nextra/components'
 
 # Build Spec
 
-On the service settings page you will see a field labeled **Build Spec**, showing something like `Free · 2 vCPU · 4 GB`. This page explains what that value refers to, and — more importantly — what it is **not**.
+When you deploy a service on Zeabur, the build and the runtime happen on two different machines. This page describes the build side.
 
 <Callout type="info">
-**TL;DR** — "Build Spec" describes the shared CI/CD runner Zeabur uses to compile and package your code into an image. It is **not** the spec of the machine that runs your service after the build finishes.
+**TL;DR** — Your code is built on Zeabur's shared CI/CD infrastructure, not on the machine where your service runs. Build Spec only affects how fast the build completes; it has no effect on your running service.
 </Callout>
 
-## What the "Build Spec" label means
+## Where Zeabur builds your code
 
-Every time Zeabur deploys a service, a CI/CD job runs on a shared build pool to:
+Every deploy triggers a build job on Zeabur's shared CI/CD infrastructure. The job:
 
-1. Pull your source code
-2. Resolve a build plan with [zbpack](/deploy/how-deploys-work)
-3. Build the container image
-4. Push the image to Zeabur's registry
+1. Pulls your source code (from Git, CLI upload, or container image source)
+2. Resolves a build plan with [zbpack](/deploy/how-deploys-work)
+3. Builds a container image
+4. Pushes the image to Zeabur's registry
 
-The **Build Spec** field tells you the CPU and memory allocated to that build job. Higher specs mean faster builds — that's it.
+The build machine is ephemeral — once the image is pushed, the build machine is released. It never runs your service.
 
-## Why it shows "Free" even if I'm on a paid plan
+## Where your service actually runs
 
-The CI/CD runner is a **shared piece of infrastructure** and each tier of build machine is labeled internally with a plan name (`Free`, `Dev`, `Pro`, …). That label only describes **which pool of build machines** the job ran on — it does **not** reflect your account's subscription plan.
+After the image is built, Zeabur deploys it to **your chosen runtime infrastructure**:
 
-In other words: a Pro user may still see `Free · 2 vCPU · 4 GB` under Build Spec if the build was routed to the Free-tier build pool. It has nothing to do with any rate limiting or restriction on your service.
+- **Shared Cluster** — Zeabur-managed nodes (AWS / GCP / Tencent Cloud), sized per your plan
+- **Dedicated Server** — a server you rent through Zeabur or bring yourself under [BYOS](/byos/aws)
 
-## What actually runs my service?
+The CPU, memory, network, and storage available to your service at runtime are determined by that infrastructure — not by anything about the build machine.
 
-Your service runs on completely separate infrastructure:
+## Build Spec by plan
 
-- **Shared Cluster** — Zeabur-managed nodes on AWS / GCP / Tencent Cloud, sized per your plan.
-- **Dedicated Server** — your own bound server(s) under [BYOS](/byos/aws) or purchased through Zeabur.
-
-The resources available to your running service (CPU, memory, bandwidth) are governed by your **plan** and the **server** you chose to deploy to — **not** by the Build Spec value.
-
-## Does Build Spec affect my service's performance?
-
-**No.** Build Spec only affects **how fast the build job completes**. Once the image is built and your service starts, the build machine is gone and has zero impact on:
-
-- Request latency
-- Memory and CPU available at runtime
-- Concurrency or connection limits
-- Uptime or availability
-
-If you're debugging a slow or throttled service at runtime, the Build Spec field is not the place to look. Check your service's runtime metrics and the plan / server it is deployed on instead.
-
-## Can I increase my Build Spec?
-
-Yes. Paid plans are routed to higher-spec build pools:
+Higher plans route builds to larger build machines, so builds finish faster:
 
 | Plan | Build CI |
 |------|----------|
@@ -63,6 +46,17 @@ Yes. Paid plans are routed to higher-spec build pools:
 | Team | 4 vCPU / 8 GB |
 
 See [Plans](/billing/plans) and [zeabur.com/pricing](https://zeabur.com/pricing) for the latest allocations.
+
+## Does Build Spec affect my service's performance?
+
+No. Build Spec determines how fast your code compiles and packages, nothing else. It does not affect:
+
+- Request latency
+- Memory or CPU available at runtime
+- Concurrency or connection limits
+- Uptime or availability
+
+If your running service is slow or being throttled, check your service's runtime metrics and the plan / server it is deployed on instead.
 
 ## Related
 
