@@ -1,59 +1,42 @@
 ---
 title: Especificación de Compilación
 ogImageTitle: Especificación de Compilación
-ogImageSubtitle: Qué significa realmente el campo "Build Spec" en la página de configuración del servicio
+ogImageSubtitle: Dónde compila Zeabur tu código frente a dónde lo ejecuta
 ---
 
 import { Callout } from 'nextra/components'
 
 # Especificación de Compilación
 
-En la página de configuración de cada servicio aparece un campo llamado **Build Spec**, con un valor similar a `Free · 2 vCPU · 4 GB`. Esta página explica qué representa ese valor y, sobre todo, qué **no** representa.
+Cuando despliegas un servicio en Zeabur, la **compilación** y la **ejecución** ocurren en dos máquinas distintas. Esta página describe el lado de la compilación.
 
 <Callout type="info">
-**Resumen**: "Build Spec" describe la máquina CI/CD compartida que Zeabur utiliza para compilar y empaquetar tu código en una imagen. **No** es la especificación de la máquina donde tu servicio se ejecuta después de la compilación.
+**Resumen** — Tu código se compila en la infraestructura CI/CD compartida de Zeabur, no en la máquina donde tu servicio se ejecuta. Build Spec solo afecta a cuánto tarda en terminar la compilación; no tiene ningún efecto sobre tu servicio en ejecución.
 </Callout>
 
-## Qué significa el campo "Build Spec"
+## Dónde compila Zeabur tu código
 
-Cada vez que Zeabur despliega un servicio, se ejecuta un job de CI/CD en un pool de compilación compartido que:
+Cada despliegue lanza un job de compilación en la infraestructura CI/CD compartida de Zeabur. Ese job:
 
-1. Descarga tu código fuente
+1. Descarga tu código fuente (desde Git, una subida por CLI o una imagen de contenedor)
 2. Resuelve un plan de compilación con [zbpack](/deploy/how-deploys-work)
-3. Construye la imagen del contenedor
+3. Construye una imagen de contenedor
 4. Sube la imagen al registry de Zeabur
 
-El campo **Build Spec** indica el CPU y la memoria que tiene disponibles ese job de compilación. Cuanto más alta sea la especificación, más rápida será la compilación — nada más.
+La máquina de compilación es efímera — en cuanto la imagen se sube, la máquina se libera. Nunca ejecuta tu servicio.
 
-## ¿Por qué veo "Free" aunque estoy en un plan de pago?
+## Dónde se ejecuta realmente tu servicio
 
-El runner de CI/CD es **infraestructura compartida**, y cada nivel de máquina de compilación se etiqueta internamente con un nombre de plan (`Free`, `Dev`, `Pro`, …). Esa etiqueta solo describe **a qué pool de máquinas de compilación** se envió el job — **no** refleja el plan de suscripción de tu cuenta.
+Una vez construida la imagen, Zeabur la despliega en **la infraestructura de ejecución que hayas elegido**:
 
-Es decir: un usuario Pro puede seguir viendo `Free · 2 vCPU · 4 GB` en Build Spec si la compilación se enrutó al pool Free. Esto no tiene nada que ver con que tu servicio tenga algún tipo de límite o restricción.
+- **Clúster Compartido** — nodos gestionados por Zeabur (AWS / GCP / Tencent Cloud), dimensionados según tu plan
+- **Servidor Dedicado** — un servidor que alquilas a través de Zeabur o que aportas tú mismo mediante [BYOS](/byos/aws)
 
-## Entonces, ¿dónde se ejecuta realmente mi servicio?
+El CPU, memoria, red y almacenamiento disponibles para tu servicio en ejecución los determina esa infraestructura — no nada relacionado con la máquina de compilación.
 
-Tu servicio corre sobre infraestructura totalmente independiente:
+## Build Spec por plan
 
-- **Clúster Compartido** — nodos gestionados por Zeabur en AWS / GCP / Tencent Cloud, dimensionados según tu plan.
-- **Servidor Dedicado** — tu propio servidor vinculado mediante [BYOS](/byos/aws), o alquilado a través de Zeabur.
-
-Los recursos disponibles para tu servicio en ejecución (CPU, memoria, ancho de banda) dependen de tu **plan** y del **servidor** al que hiciste el despliegue — **no** del valor de Build Spec.
-
-## ¿Afecta Build Spec al rendimiento de mi servicio?
-
-**No.** Build Spec solo afecta a **cuánto tarda en completarse el job de compilación**. Una vez que la imagen está lista y tu servicio arranca, la máquina de compilación desaparece y no tiene ningún impacto sobre:
-
-- La latencia de las solicitudes
-- La memoria y CPU disponibles en tiempo de ejecución
-- La concurrencia o los límites de conexión
-- La disponibilidad o el uptime
-
-Si estás depurando un servicio lento o limitado en producción, Build Spec no es el lugar donde mirar. Revisa las métricas de runtime de tu servicio y el plan / servidor donde está desplegado.
-
-## ¿Puedo aumentar mi Build Spec?
-
-Sí. Los planes de pago se enrutan a pools de compilación con mayor especificación:
+Los planes superiores enrutan las compilaciones a máquinas más grandes, así que las compilaciones terminan antes:
 
 | Plan | Build CI |
 |------|----------|
@@ -62,7 +45,18 @@ Sí. Los planes de pago se enrutan a pools de compilación con mayor especificac
 | Pro  | 4 vCPU / 8 GB |
 | Team | 4 vCPU / 8 GB |
 
-Consulta [Planes](/billing/plans) y [zeabur.com/pricing](https://zeabur.com/pricing) para ver la asignación más reciente.
+Consulta [Planes](/billing/plans) y [zeabur.com/pricing](https://zeabur.com/pricing) para ver las asignaciones más recientes.
+
+## ¿Afecta Build Spec al rendimiento de mi servicio?
+
+No. Build Spec determina lo rápido que se compila y empaqueta tu código, nada más. No afecta a:
+
+- La latencia de las solicitudes
+- La memoria o CPU disponibles en tiempo de ejecución
+- La concurrencia ni los límites de conexión
+- La disponibilidad o el uptime
+
+Si tu servicio en ejecución va lento o está siendo limitado, revisa las métricas de runtime del servicio y el plan / servidor donde está desplegado, no este campo.
 
 ## Relacionado
 
