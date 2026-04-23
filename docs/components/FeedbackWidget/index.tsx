@@ -200,10 +200,8 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
   const [feedback, setFeedback] = useState('')
   const [status, setStatus] = useState<Status>('idle')
   const [errorMsg, setErrorMsg] = useState('')
-  const submitEpochRef = useRef(0)
 
   const resetWidget = useCallback(() => {
-    submitEpochRef.current += 1
     setRating(null)
     setFeedback('')
     setErrorMsg('')
@@ -226,14 +224,12 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
 
   const handleSubmit = async () => {
     if (!rating) return
-    const submitEpoch = ++submitEpochRef.current
 
     setStatus('submitting')
     setErrorMsg('')
 
     try {
       const turnstileToken = await getToken()
-      if (submitEpoch !== submitEpochRef.current) return
       if (!turnstileToken) {
         setErrorMsg('Turnstile verification failed. Please refresh and try again.')
         setStatus('error')
@@ -263,14 +259,12 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
       })
 
       const json = await res.json()
-      if (submitEpoch !== submitEpochRef.current) return
       if (json.errors) {
         throw new Error(json.errors[0]?.message || t.error)
       }
 
       setStatus('success')
     } catch (err: any) {
-      if (submitEpoch !== submitEpochRef.current) return
       setErrorMsg(err.message || t.error)
       setStatus('error')
       resetToken()
