@@ -1,0 +1,64 @@
+---
+title: Build Spec
+ogImageTitle: Build Spec
+ogImageSubtitle: Where Zeabur builds your code versus where it runs
+---
+
+import { Callout } from 'nextra/components'
+
+# Build Spec
+
+When you deploy a service on Zeabur, the build and the runtime happen on two different machines. This page describes the build side.
+
+<Callout type="info">
+**TL;DR** — Your code is built on Zeabur's shared CI/CD infrastructure, not on the machine where your service runs. Build Spec only affects how fast the build completes; it has no effect on your running service.
+</Callout>
+
+## Where Zeabur builds your code
+
+Every deploy triggers a build job on Zeabur's shared CI/CD infrastructure. The job:
+
+1. Pulls your source code (from Git, CLI upload, or container image source)
+2. Resolves a build plan with [zbpack](/deploy/how-deploys-work)
+3. Builds a container image
+4. Pushes the image to Zeabur's registry
+
+The build machine is ephemeral — once the image is pushed, the build machine is released. It never runs your service.
+
+## Where your service actually runs
+
+After the image is built, Zeabur deploys it to **your chosen runtime infrastructure**:
+
+- **Shared Cluster** — Zeabur-managed nodes (AWS / GCP / Tencent Cloud), sized per your plan
+- **Dedicated Server** — a server you rent through Zeabur or bring yourself under [BYOS](/byos/aws)
+
+The CPU, memory, network, and storage available to your service at runtime are determined by that infrastructure — not by anything about the build machine.
+
+## Build Spec by plan
+
+Higher plans route builds to larger build machines, so builds finish faster:
+
+| Plan | Build CI |
+|------|----------|
+| Free | 2 vCPU / 4 GB |
+| Dev  | 2 vCPU / 4 GB |
+| Pro  | 4 vCPU / 8 GB |
+| Team | 4 vCPU / 8 GB |
+
+See [Plans](/billing/plans) and [zeabur.com/pricing](https://zeabur.com/pricing) for the latest allocations.
+
+## Does Build Spec affect my service's performance?
+
+No. Build Spec determines how fast your code compiles and packages, nothing else. It does not affect:
+
+- Request latency
+- Memory or CPU available at runtime
+- Concurrency or connection limits
+- Uptime or availability
+
+If your running service is slow or being throttled, check your service's runtime metrics and the plan / server it is deployed on instead.
+
+## Related
+
+- [Builds — how zbpack turns your code into an image](/deploy/how-deploys-work)
+- [Plans](/billing/plans)

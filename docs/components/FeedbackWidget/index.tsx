@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'nextra/hooks'
 
 const TURNSTILE_SITEKEY = '0x4AAAAAACCyo_1UnKEIQB-R'
@@ -201,6 +201,19 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
   const [status, setStatus] = useState<Status>('idle')
   const [errorMsg, setErrorMsg] = useState('')
 
+  const resetWidget = useCallback(() => {
+    setRating(null)
+    setFeedback('')
+    setErrorMsg('')
+    setStatus('idle')
+    resetToken()
+  }, [resetToken])
+
+  const pagePath = router.asPath.split(/[?#]/)[0]
+  useEffect(() => {
+    resetWidget()
+  }, [pagePath, resetWidget])
+
   const handleRating = (value: Rating) => {
     setRating(value)
     if (status === 'idle') {
@@ -278,6 +291,21 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
             />
           </svg>
           <span>{t.thanks}</span>
+          <button
+            type="button"
+            className="feedback-close"
+            onClick={resetWidget}
+            aria-label="Close"
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path
+                d="M3 3l8 8M11 3l-8 8"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
         </div>
       </div>
     )

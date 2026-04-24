@@ -715,6 +715,30 @@ html.dark .feedback-success {
 	color: #34d399;
 }
 
+.feedback-close {
+	margin-left: auto;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.5rem;
+	height: 1.5rem;
+	border-radius: 0.25rem;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	color: var(--zb-text-muted);
+	transition: background 0.15s ease, color 0.15s ease;
+}
+
+.feedback-close:hover {
+	background: rgba(0, 0, 0, 0.05);
+	color: var(--zb-text);
+}
+
+html.dark .feedback-close:hover {
+	background: rgba(255, 255, 255, 0.08);
+}
+
 .feedback-link {
 	color: var(--zb-purple);
 	text-decoration: underline;

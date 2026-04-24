@@ -1,0 +1,64 @@
+---
+title: 构建规格
+ogImageTitle: 构建规格
+ogImageSubtitle: Zeabur 在哪里构建你的代码，又在哪里实际运行
+---
+
+import { Callout } from 'nextra/components'
+
+# 构建规格
+
+在 Zeabur 部署服务时，**构建**和**运行**其实发生在两台完全不同的机器上。本文说明的是「构建」这一侧。
+
+<Callout type="info">
+**一句话结论**：你的代码是在 Zeabur 的共享 CI/CD 基础设施上构建的，不是在你服务实际运行的那台机器上。「构建规格」只影响构建要多久跑完，对运行中的服务没有任何影响。
+</Callout>
+
+## Zeabur 在哪里构建你的代码
+
+每次部署都会在 Zeabur 的共享 CI/CD 基础设施上触发一个构建任务，这个任务会：
+
+1. 拉取你的源代码（来自 Git、CLI 上传，或容器镜像源）
+2. 通过 [zbpack](/deploy/how-deploys-work) 生成构建计划
+3. 构建容器镜像
+4. 把镜像推送到 Zeabur 的 registry
+
+这台构建机器是临时的——镜像一旦推送完成，构建机器就会被回收，它永远不会用来跑你的服务。
+
+## 你的服务实际跑在哪里
+
+镜像构建完成后，Zeabur 会把它部署到**你选择的运行环境**：
+
+- **共享集群** — Zeabur 托管的节点（AWS / GCP / 腾讯云），规格按你的方案分配
+- **专属服务器** — 通过 Zeabur 租用，或通过 [BYOS](/byos/aws) 自行绑定的服务器
+
+服务运行时能使用的 CPU、内存、网络、存储，由**这套运行环境**决定——和构建机器完全无关。
+
+## 各方案的构建规格
+
+付费方案会把构建任务派发到规格更大的构建机器，所以构建会更快完成：
+
+| 方案 | 构建 CI |
+|------|---------|
+| Free | 2 vCPU / 4 GB |
+| Dev  | 2 vCPU / 4 GB |
+| Pro  | 4 vCPU / 8 GB |
+| Team | 4 vCPU / 8 GB |
+
+最新配额请参考 [方案](/billing/plans) 与 [zeabur.com/pricing](https://zeabur.com/pricing)。
+
+## 构建规格会影响服务性能吗？
+
+不会。构建规格决定的只是代码编译、打包的速度，仅此而已。它**不会**影响：
+
+- 请求延迟
+- 运行时的 CPU / 内存
+- 并发或连接数上限
+- 可用性或 uptime
+
+如果你的服务运行时变慢或被限流，应该去看服务自身的 runtime metrics 以及部署到的方案 / 服务器，而不是这个字段。
+
+## 相关文档
+
+- [构建流程 — zbpack 如何把你的代码变成镜像](/deploy/how-deploys-work)
+- [方案](/billing/plans)
