@@ -33,7 +33,7 @@ Zeabur 會在你的專案裡用一個叫 `zeabur-connector` 的 service account 
 
 開啟 [Cloud Shell](https://shell.cloud.google.com/)（或任何已驗證 `gcloud` 的終端機），設定 `PROJECT_ID` 後執行：
 
-```bash
+```bash copy
 export PROJECT_ID=your-gcp-project-id
 
 gcloud services enable \
@@ -59,7 +59,7 @@ gcloud iam service-accounts add-iam-policy-binding \
 
 把以下 prompt 貼到 [Claude Code](https://claude.com/claude-code) 或 [Codex CLI](https://github.com/openai/codex)——AI agent 會幫你跑完所有指令並回報你需要的資訊：
 
-```text
+```text copy
 Set up Zeabur BYOS for GKE on a GCP project. Use gcloud (assume I'm authenticated).
 
 1. Ask me which GCP project to use, or create a new one.
