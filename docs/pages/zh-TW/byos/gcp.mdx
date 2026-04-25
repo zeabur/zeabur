@@ -1,0 +1,90 @@
+---
+title: GCP BYOS
+ogImageTitle: GCP BYOS
+ogImageSubtitle: 使用自己的 GCP 專案授權給 Zeabur
+---
+
+import { Steps, Tabs } from 'nextra/components'
+
+# GCP BYOS（自帶訂閱）
+
+將你自己的 GCP 專案連結到 Zeabur，讓 Zeabur 直接在你的 GCP 專案中建立 GKE 叢集、管理服務。
+
+<Steps>
+
+### 準備一個已綁定 billing 的 GCP 專案
+
+選一個你想讓 Zeabur 使用的 GCP 專案，或[建立一個新的](https://console.cloud.google.com/projectcreate)。確認專案已綁定 billing account——沒綁 billing 的話 GKE 無法運作。
+
+### 設定 connector service account
+
+Zeabur 會在你的專案裡用一個叫 `zeabur-connector` 的 service account 管理 GKE 叢集，並透過 `zeabur-byos-connector@zeabur-system.iam.gserviceaccount.com` 進行 impersonation。下面三種設定方式擇一即可。
+
+<Tabs storageKey="gcp-byos-setup" items={['Cloud Console', 'gcloud CLI', 'Claude Code / Codex']}>
+<Tabs.Tab>
+
+1. 在專案的 API 程式庫中啟用 [Kubernetes Engine API](https://console.cloud.google.com/apis/library/container.googleapis.com) 與 [Cloud Resource Manager API](https://console.cloud.google.com/apis/library/cloudresourcemanager.googleapis.com)。
+2. 進到 **IAM 與管理 → 服務帳戶**，建立一個名為 `zeabur-connector` 的 service account。
+3. 進到 **IAM 與管理 → IAM**，點 **授予存取權**，把 `zeabur-connector@<PROJECT_ID>.iam.gserviceaccount.com` 加為主體並賦予 `roles/container.admin` 角色。
+4. 回到 **服務帳戶**，點開 `zeabur-connector`，切到 **權限** 分頁，點 **授予存取權**，把 `zeabur-byos-connector@zeabur-system.iam.gserviceaccount.com` 加為主體並賦予 `roles/iam.serviceAccountTokenCreator` 角色。
+
+</Tabs.Tab>
+<Tabs.Tab>
+
+開啟 [Cloud Shell](https://shell.cloud.google.com/)（或任何已驗證 `gcloud` 的終端機），設定 `PROJECT_ID` 後執行：
+
+```bash copy
+export PROJECT_ID=your-gcp-project-id
+
+gcloud services enable \
+  container.googleapis.com \
+  cloudresourcemanager.googleapis.com \
+  --project=$PROJECT_ID
+
+gcloud iam service-accounts create zeabur-connector --project=$PROJECT_ID
+
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member="serviceAccount:zeabur-connector@$PROJECT_ID.iam.gserviceaccount.com" \
+  --role="roles/container.admin"
+
+gcloud iam service-accounts add-iam-policy-binding \
+  zeabur-connector@$PROJECT_ID.iam.gserviceaccount.com \
+  --member="serviceAccount:zeabur-byos-connector@zeabur-system.iam.gserviceaccount.com" \
+  --role="roles/iam.serviceAccountTokenCreator" \
+  --project=$PROJECT_ID
+```
+
+</Tabs.Tab>
+<Tabs.Tab>
+
+把以下 prompt 貼到 [Claude Code](https://claude.com/claude-code) 或 [Codex CLI](https://github.com/openai/codex)——AI agent 會幫你跑完所有指令並回報你需要的資訊：
+
+```text copy
+Set up Zeabur BYOS for GKE on a GCP project. Use gcloud (assume I'm authenticated).
+
+1. Ask me which GCP project to use, or create a new one.
+2. Make sure the project is linked to a billing account.
+3. Run these commands (substitute PROJECT_ID):
+   - gcloud services enable container.googleapis.com cloudresourcemanager.googleapis.com --project=PROJECT_ID
+   - gcloud iam service-accounts create zeabur-connector --project=PROJECT_ID
+   - gcloud projects add-iam-policy-binding PROJECT_ID --member="serviceAccount:zeabur-connector@PROJECT_ID.iam.gserviceaccount.com" --role="roles/container.admin"
+   - gcloud iam service-accounts add-iam-policy-binding zeabur-connector@PROJECT_ID.iam.gserviceaccount.com --member="serviceAccount:zeabur-byos-connector@zeabur-system.iam.gserviceaccount.com" --role="roles/iam.serviceAccountTokenCreator" --project=PROJECT_ID
+
+When done, print the project ID and the connector service account email so I can paste them into Zeabur's Bind GCP Service Account form.
+```
+
+</Tabs.Tab>
+</Tabs>
+
+### 將專案綁定到 Zeabur
+
+前往 [https://zeabur.com/account/byos](https://zeabur.com/account/byos)，點擊 **綁定 GCP Service Account**，填入以下資訊後送出：
+
+- **Service Account Email**：`zeabur-connector@<PROJECT_ID>.iam.gserviceaccount.com`
+- **專案 ID**：你的 GCP 專案 ID
+
+### 購買專屬叢集
+
+Service account 綁定完成後，前往[購買叢集](https://zeabur.com/servers/buy-cluster)頁面。你會看到一個新的 provider 選項 **GCP - &lt;專案名稱&gt;**。選它，Zeabur 就會直接在你的 GCP 專案中建立一個新的 GKE 叢集。
+
+</Steps>

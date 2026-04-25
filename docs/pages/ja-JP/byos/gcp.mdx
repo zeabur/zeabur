@@ -1,0 +1,90 @@
+---
+title: GCP BYOS
+ogImageTitle: GCP BYOS
+ogImageSubtitle: 自分の GCP プロジェクトを Zeabur に連携する
+---
+
+import { Steps, Tabs } from 'nextra/components'
+
+# GCP BYOS（サブスクリプション持ち込み）
+
+自分の GCP プロジェクトを Zeabur にリンクすることで、Zeabur があなたの GCP プロジェクト上で直接 GKE クラスターの作成やサービスの管理を行えるようになります。
+
+<Steps>
+
+### Billing が紐付いた GCP プロジェクトを準備
+
+Zeabur に使わせたい GCP プロジェクトを選ぶか、[新しく作成](https://console.cloud.google.com/projectcreate)します。プロジェクトが billing account に紐付いていることを確認してください——billing がないと GKE は動作しません。
+
+### Connector service account をセットアップ
+
+Zeabur はあなたのプロジェクト内の `zeabur-connector` という service account を使って GKE クラスターを管理し、`zeabur-byos-connector@zeabur-system.iam.gserviceaccount.com` を通じて impersonation を行います。下記 3 つのセットアップ方法のいずれかを選んでください。
+
+<Tabs storageKey="gcp-byos-setup" items={['Cloud Console', 'gcloud CLI', 'Claude Code / Codex']}>
+<Tabs.Tab>
+
+1. プロジェクトの API ライブラリで [Kubernetes Engine API](https://console.cloud.google.com/apis/library/container.googleapis.com) と [Cloud Resource Manager API](https://console.cloud.google.com/apis/library/cloudresourcemanager.googleapis.com) を有効化します。
+2. **IAM と管理 → サービス アカウント** に進み、`zeabur-connector` という service account を作成します。
+3. **IAM と管理 → IAM** に進み、**アクセスを許可** をクリックして、`zeabur-connector@<PROJECT_ID>.iam.gserviceaccount.com` をプリンシパルとして追加し、`roles/container.admin` ロールを付与します。
+4. **サービス アカウント** に戻り、`zeabur-connector` を開いて **権限** タブに切り替え、**アクセスを許可** をクリックして、`zeabur-byos-connector@zeabur-system.iam.gserviceaccount.com` をプリンシパルとして追加し、`roles/iam.serviceAccountTokenCreator` ロールを付与します。
+
+</Tabs.Tab>
+<Tabs.Tab>
+
+[Cloud Shell](https://shell.cloud.google.com/)（または `gcloud` で認証済みの任意のターミナル）を開き、`PROJECT_ID` を設定して以下を実行します：
+
+```bash copy
+export PROJECT_ID=your-gcp-project-id
+
+gcloud services enable \
+  container.googleapis.com \
+  cloudresourcemanager.googleapis.com \
+  --project=$PROJECT_ID
+
+gcloud iam service-accounts create zeabur-connector --project=$PROJECT_ID
+
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member="serviceAccount:zeabur-connector@$PROJECT_ID.iam.gserviceaccount.com" \
+  --role="roles/container.admin"
+
+gcloud iam service-accounts add-iam-policy-binding \
+  zeabur-connector@$PROJECT_ID.iam.gserviceaccount.com \
+  --member="serviceAccount:zeabur-byos-connector@zeabur-system.iam.gserviceaccount.com" \
+  --role="roles/iam.serviceAccountTokenCreator" \
+  --project=$PROJECT_ID
+```
+
+</Tabs.Tab>
+<Tabs.Tab>
+
+以下のプロンプトを [Claude Code](https://claude.com/claude-code) または [Codex CLI](https://github.com/openai/codex) に貼り付けてください——AI エージェントがコマンドを実行し、必要な情報を返してくれます：
+
+```text copy
+Set up Zeabur BYOS for GKE on a GCP project. Use gcloud (assume I'm authenticated).
+
+1. Ask me which GCP project to use, or create a new one.
+2. Make sure the project is linked to a billing account.
+3. Run these commands (substitute PROJECT_ID):
+   - gcloud services enable container.googleapis.com cloudresourcemanager.googleapis.com --project=PROJECT_ID
+   - gcloud iam service-accounts create zeabur-connector --project=PROJECT_ID
+   - gcloud projects add-iam-policy-binding PROJECT_ID --member="serviceAccount:zeabur-connector@PROJECT_ID.iam.gserviceaccount.com" --role="roles/container.admin"
+   - gcloud iam service-accounts add-iam-policy-binding zeabur-connector@PROJECT_ID.iam.gserviceaccount.com --member="serviceAccount:zeabur-byos-connector@zeabur-system.iam.gserviceaccount.com" --role="roles/iam.serviceAccountTokenCreator" --project=PROJECT_ID
+
+When done, print the project ID and the connector service account email so I can paste them into Zeabur's Bind GCP Service Account form.
+```
+
+</Tabs.Tab>
+</Tabs>
+
+### プロジェクトを Zeabur にバインド
+
+[https://zeabur.com/account/byos](https://zeabur.com/account/byos) にアクセスし、**GCP Service Account をバインド** をクリックして、以下を送信します：
+
+- **Service Account Email**：`zeabur-connector@<PROJECT_ID>.iam.gserviceaccount.com`
+- **プロジェクト ID**：あなたの GCP プロジェクト ID
+
+### 専用クラスターを購入
+
+Service account のバインドが完了したら、[クラスター購入](https://zeabur.com/servers/buy-cluster)ページに進みます。**GCP - &lt;プロジェクト名&gt;** という新しいプロバイダオプションが表示されます。これを選択すると、Zeabur があなたの GCP プロジェクト上で新しい GKE クラスターを作成します。
+
+</Steps>
