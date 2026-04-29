@@ -27,6 +27,7 @@ export default {
   '---4---': { type: 'separator' },
   pricing:            'Pricing',
   subscription:       'Subscription & Billing',
+  team:               'Team',
   rewards:            'Rewards & Referrals',
   partner:            'Partner Program',
 
