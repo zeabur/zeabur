@@ -131,7 +131,9 @@ function loadTurnstileScript(): Promise<void> {
   return turnstileLoadPromise
 }
 
-function useTurnstile() {
+type TurnstileSize = 'compact' | 'flexible' | 'normal'
+
+function useTurnstile(size: TurnstileSize) {
   const tokenRef = useRef<string | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const widgetIdRef = useRef<string | null>(null)
@@ -144,12 +146,12 @@ function useTurnstile() {
         containerRef.current,
         {
           sitekey: TURNSTILE_SITEKEY,
-          size: 'compact',
+          size,
           callback: (token: string) => { tokenRef.current = token },
         }
       )
     }
-  }, [])
+  }, [size])
 
   const getToken = useCallback(async (): Promise<string | null> => {
     await ensureReady()
@@ -180,7 +182,15 @@ function useTurnstile() {
     }
   }, [])
 
-  return { containerRef, ensureReady, getToken, resetToken }
+  const removeWidget = useCallback(() => {
+    if ((window as any).turnstile && widgetIdRef.current !== null) {
+      ;(window as any).turnstile.remove(widgetIdRef.current)
+    }
+    widgetIdRef.current = null
+    tokenRef.current = null
+  }, [])
+
+  return { containerRef, ensureReady, getToken, resetToken, removeWidget }
 }
 
 /**
@@ -194,7 +204,8 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
   const t = i18n[locale] || i18n['en-US']
   const ratingLabels = RATING_LABELS[locale] || RATING_LABELS['en-US']
 
-  const { containerRef, ensureReady, getToken, resetToken } = useTurnstile()
+  const turnstileSize: TurnstileSize = variant === 'toc' ? 'compact' : 'flexible'
+  const { containerRef, ensureReady, getToken, resetToken, removeWidget } = useTurnstile(turnstileSize)
 
   const [rating, setRating] = useState<Rating | null>(null)
   const [feedback, setFeedback] = useState('')
@@ -214,11 +225,20 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
     resetWidget()
   }, [pagePath, resetWidget])
 
+  const formVisible = status === 'expanded' || status === 'submitting' || status === 'error'
+
+  useEffect(() => {
+    if (!formVisible) return
+    ensureReady().catch(() => {})
+    return () => {
+      removeWidget()
+    }
+  }, [formVisible, ensureReady, removeWidget])
+
   const handleRating = (value: Rating) => {
     setRating(value)
     if (status === 'idle') {
       setStatus('expanded')
-      ensureReady().catch(() => {})
     }
   }
 
@@ -330,7 +350,7 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
         ))}
       </div>
 
-      {(status === 'expanded' || status === 'submitting' || status === 'error') && (
+      {formVisible && (
         <div className="feedback-form">
           <textarea
             className="feedback-textarea"
@@ -340,6 +360,8 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
             rows={3}
             disabled={status === 'submitting'}
           />
+
+          <div ref={containerRef} className="feedback-turnstile" />
 
           <div className="feedback-actions">
             {status === 'error' && (
@@ -363,8 +385,6 @@ export default function FeedbackWidget({ variant = 'toc' }: { variant?: 'toc' | 
           </div>
         </div>
       )}
-
-      <div ref={containerRef} style={{ display: 'none' }} />
     </div>
   )
 }

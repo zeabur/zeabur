@@ -612,6 +612,10 @@ html.dark .feedback-emoji.active {
 	margin-top: 0.75rem;
 }
 
+.feedback-turnstile {
+	margin-top: 0.75rem;
+}
+
 .feedback-textarea {
 	width: 100%;
 	padding: 0.625rem 0.75rem;
