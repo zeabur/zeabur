@@ -4,39 +4,40 @@ ogImageTitle: Política de Reembolso
 ogImageSubtitle: Política de reembolso y cancelación de Zeabur
 ---
 
-import { Callout } from 'nextra/components'
+import { Callout, Steps } from 'nextra/components'
 
 # Política de Reembolso
 
-## Reembolsos de planes de suscripción
+## Cancelar un plan de suscripción
 
 Para el **Plan Desarrollador (Plan Dev)**, el **Plan Pro** y el **Plan Team**:
 
 - Después de cancelar su suscripción, puede seguir utilizando las funciones del plan actual hasta el final del ciclo de facturación actual. Después del ciclo, su cuenta se degradará automáticamente al plan gratuito.
 
-### Métodos de reembolso
-
-Puede elegir cómo recibir su reembolso:
-
-| Método de reembolso | Tiempo de procesamiento | Comisiones |
-| --- | --- | --- |
-| **Credits de Zeabur** | Instantáneo tras aprobación | Ninguna |
-| **Método de pago original** | Hasta 7 días | ~30% del monto del reembolso (comisión de transacción de Stripe) |
-
-<Callout type="info">
-Elegir Credits de Zeabur evita la comisión de procesamiento de Stripe y es más rápido. Los Credits se pueden usar para futuras suscripciones o uso de recursos.
-</Callout>
-
 ### Cómo cancelar su suscripción
 
-1. Vaya a la [página de facturación del Dashboard](https://dash.zeabur.com/account/billing).
-2. Desplácese hacia abajo y encuentre el botón "**Cancelar suscripción**".
-3. Confirme la cancelación.
+<Steps>
+
+### Vaya a la página de facturación del Dashboard
+
+Abra la [página de facturación del Dashboard](https://dash.zeabur.com/account/billing).
+
+### Encuentre el botón "**Cancelar suscripción**"
+
+Desplácese hacia abajo hasta la sección de suscripción.
+
+### Confirme la cancelación
+
+Revise el mensaje de confirmación y complete la cancelación.
+
+</Steps>
 
 ![Cancelar suscripción](/billing/subscription/unsubscribe.png)
 
 <Callout type="warning">
-Después de cambiar al plan gratuito, sus servicios contenerizados desplegados actualmente serán suspendidos automáticamente por el sistema. Asegúrese de respaldar datos importantes antes de cancelar.
+  Después de cambiar al plan gratuito, sus servicios contenerizados desplegados
+  actualmente serán suspendidos automáticamente por el sistema. Asegúrese de
+  respaldar datos importantes antes de cancelar.
 </Callout>
 
 ## Reembolsos de Servidor
@@ -44,16 +45,30 @@ Después de cambiar al plan gratuito, sus servicios contenerizados desplegados a
 - **Primer reembolso**: Cancelación de autoservicio en la página del Servidor. Reembolso incondicional a **Credits de Zeabur**, sin revisión requerida.
 - **Segundo y subsiguientes reembolsos**: Envíe una solicitud de reembolso en el [Foro de Zeabur](https://zeabur.com/forum) para revisión por el servicio de atención al cliente.
 
-<Callout type="warning">
-Antes de solicitar un reembolso, asegúrese de que todos los datos en el servidor hayan sido respaldados o confirmados como innecesarios — **los datos no se pueden recuperar después de que el servidor sea destruido**.
-</Callout>
-
 ### Notas sobre reembolsos
 
-- Si elige reembolsar al método de pago original, el procesamiento toma aproximadamente **7 días hábiles**, y se deducirá una **comisión de procesamiento de Stripe de ~30%** del monto del reembolso.
 - Para evitar cargos en el próximo ciclo de facturación, desactive la renovación automática con anticipación.
 
 ![Desactivar renovación automática](/billing/pricing/auto-renewal.png)
+
+El tiempo de procesamiento y las comisiones del reembolso de servidor dependen del destino del reembolso:
+
+| Método de reembolso         | Tiempo de procesamiento     | Comisiones                                                       |
+| --------------------------- | --------------------------- | ---------------------------------------------------------------- |
+| **Credits de Zeabur**       | Instantáneo tras aprobación | Ninguna                                                          |
+| **Método de pago original** | Hasta 7 días hábiles        | ~30% del monto del reembolso (comisión de transacción de Stripe) |
+
+<Callout type="info">
+  Elegir Credits de Zeabur evita la comisión de procesamiento de Stripe y es más
+  rápido. Los Credits se pueden usar para futuras suscripciones o uso de
+  recursos.
+</Callout>
+
+<Callout type="warning">
+  Antes de solicitar un reembolso, asegúrese de que todos los datos en el
+  servidor hayan sido respaldados o confirmados como innecesarios — **los datos
+  no se pueden recuperar después de que el servidor sea destruido**.
+</Callout>
 
 ## Reembolso de Credits prepagados
 

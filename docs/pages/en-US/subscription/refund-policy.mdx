@@ -4,39 +4,40 @@ ogImageTitle: Refund Policy
 ogImageSubtitle: Zeabur refund and cancellation policy
 ---
 
-import { Callout } from 'nextra/components'
+import { Callout, Steps } from 'nextra/components'
 
 # Refund Policy
 
-## Subscription Plan Refunds
+## Unsubscribing from a Subscription Plan
 
 For **Developer Plan (Dev Plan)**, **Pro Plan**, and **Team Plan**:
 
 - After cancelling your subscription, you can continue using the current plan's features until the end of the current billing cycle. After the cycle ends, your account will automatically downgrade to the Free Plan.
 
-### Refund Methods
+### How to Unsubscribe
 
-You can choose how to receive your refund:
+<Steps>
 
-| Refund Method | Processing Time | Fees |
-| --- | --- | --- |
-| **Zeabur Credits** | Instant after approval | None |
-| **Original payment method** | Up to 7 days | ~30% of refund amount (Stripe transaction fee) |
+### Go to the Dashboard billing page
 
-<Callout type="info">
-Choosing Zeabur Credits avoids the Stripe processing fee and is faster. Credits can be used for future subscriptions or resource usage.
-</Callout>
+Open the [Dashboard billing page](https://dash.zeabur.com/account/billing).
 
-### How to Cancel Your Subscription
+### Find the "**Unsubscribe**" button
 
-1. Go to the [Dashboard billing page](https://dash.zeabur.com/account/billing).
-2. Scroll down and find the "**Unsubscribe**" button.
-3. Confirm the cancellation.
+Scroll down to the subscription section.
+
+### Confirm the cancellation
+
+Review the confirmation prompt and complete the cancellation.
+
+</Steps>
 
 ![Unsubscribe](/billing/subscription/unsubscribe.png)
 
 <Callout type="warning">
-After downgrading to the Free Plan, your currently deployed containerized services will be automatically suspended by the system. Make sure to back up important data before cancelling.
+  After downgrading to the Free Plan, your currently deployed containerized
+  services will be automatically suspended by the system. Make sure to back up
+  important data before cancelling.
 </Callout>
 
 ## Server Refunds
@@ -44,16 +45,29 @@ After downgrading to the Free Plan, your currently deployed containerized servic
 - **First refund**: Self-service cancellation on the Server page. Unconditional refund to **Zeabur Credits**, no review required.
 - **Second and subsequent refunds**: Submit a refund request on the [Zeabur Forum](https://zeabur.com/forum) for review by customer support.
 
-<Callout type="warning">
-Before requesting a refund, make sure all data on the server has been backed up or confirmed as no longer needed — **data cannot be recovered after the server is destroyed**.
-</Callout>
-
 ### Refund Notes
 
-- If you choose to refund to the original payment method, processing takes approximately **7 business days**, and a **~30% Stripe processing fee** will be deducted.
 - To avoid charges in the next billing cycle, disable auto-renewal in advance.
 
 ![Disable auto-renewal](/billing/pricing/auto-renewal.png)
+
+Server refund processing time and fees depend on where the refund is issued:
+
+| Refund Method               | Processing Time        | Fees                                           |
+| --------------------------- | ---------------------- | ---------------------------------------------- |
+| **Zeabur Credits**          | Instant after approval | None                                           |
+| **Original payment method** | Up to 7 business days  | ~30% of refund amount (Stripe transaction fee) |
+
+<Callout type="info">
+  Choosing Zeabur Credits avoids the Stripe processing fee and is faster.
+  Credits can be used for future subscriptions or resource usage.
+</Callout>
+
+<Callout type="warning">
+  Before requesting a refund, make sure all data on the server has been backed
+  up or confirmed as no longer needed — **data cannot be recovered after the
+  server is destroyed**.
+</Callout>
 
 ## Prepaid Credits Refund
 

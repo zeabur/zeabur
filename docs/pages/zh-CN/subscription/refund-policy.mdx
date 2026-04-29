@@ -4,39 +4,39 @@ ogImageTitle: 退款政策
 ogImageSubtitle: Zeabur 退款与取消订阅政策
 ---
 
-import { Callout } from 'nextra/components'
+import { Callout, Steps } from 'nextra/components'
 
 # 退款政策
 
-## 订阅方案退款
+## 订阅方案退订
 
 针对 **开发者方案（Dev Plan）**、**专业方案（Pro Plan）** 或 **团队方案（Team Plan）**：
 
 - 取消订阅后，您仍可继续使用目前方案的功能直到当期账单周期结束。周期结束后，账号将自动切换至免费方案。
 
-### 退款方式
+### 如何退订
 
-你可以选择以下方式接收退款：
+<Steps>
 
-| 退款方式 | 处理时间 | 手续费 |
-| --- | --- | --- |
-| **Zeabur Credits** | 核准后立即到账 | 无 |
-| **原付款方式退回** | 最多 7 天 | 约退款金额的 30%（Stripe 交易手续费） |
+### 前往 Dashboard 账单页面
 
-<Callout type="info">
-选择退为 Zeabur Credits 可以避免 Stripe 手续费，且到账更快。Credits 可用于支付未来的订阅费或资源使用费。
-</Callout>
+打开 [Dashboard 账单页面](https://dash.zeabur.com/account/billing)。
 
-### 如何取消订阅
+### 找到「**取消订阅**」按钮
 
-1. 前往 [Dashboard 账单页面](https://dash.zeabur.com/account/billing)。
-2. 下滑找到「**取消订阅**」按钮。
-3. 确认取消。
+下滑至订阅区块。
+
+### 确认退订
+
+检查确认提示并完成退订。
+
+</Steps>
 
 ![取消订阅](/billing/subscription/unsubscribe.png)
 
 <Callout type="warning">
-降级到 Free Plan 后，你目前部署的容器化服务将会被系统自动暂停。请在取消前确认已备份重要数据。
+  降级到 Free Plan
+  后，你目前部署的容器化服务将会被系统自动暂停。请在取消前确认已备份重要数据。
 </Callout>
 
 ## 服务器退款
@@ -44,16 +44,27 @@ import { Callout } from 'nextra/components'
 - **首次退款**：可在 Server 页面自助取消，无条件退款至 **Zeabur Credits**。
 - **第二次及后续退款**：需到 [Zeabur Forum](https://zeabur.com/forum) 提交退款申请，由客服审核处理。
 
-<Callout type="warning">
-退款前请务必确认服务器内所有数据已备份或确认不需保留——**主机销毁后数据无法恢复**。
-</Callout>
-
 ### 退款注意事项
 
-- 如果选择退款至原付款方式，处理时间约 **7 个工作天**，退款金额会**扣除约 30% 的 Stripe 手续费**。
 - 为避免在下一个计费周期产生费用，可提前关闭自动续约设置。
 
 ![关闭自动续约](/billing/pricing/auto-renewal.png)
+
+服务器退款的到账时间与手续费取决于退款去向：
+
+| 退款方式           | 处理时间        | 手续费                                |
+| ------------------ | --------------- | ------------------------------------- |
+| **Zeabur Credits** | 核准后立即到账  | 无                                    |
+| **原付款方式退回** | 最多 7 个工作天 | 约退款金额的 30%（Stripe 交易手续费） |
+
+<Callout type="info">
+  选择退为 Zeabur Credits 可以避免 Stripe 手续费，且到账更快。Credits
+  可用于支付未来的订阅费或资源使用费。
+</Callout>
+
+<Callout type="warning">
+  退款前请务必确认服务器内所有数据已备份或确认不需保留——**主机销毁后数据无法恢复**。
+</Callout>
 
 ## 充值 Credits 退款
 
