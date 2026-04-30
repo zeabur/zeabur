@@ -16,6 +16,7 @@ tsconfig.tsbuildinfo
 
 # Generated files
 public/sitemap.xml
+lib/last-updated.json
 
 # Temporary files
 /tmp

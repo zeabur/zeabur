@@ -1,8 +1,5 @@
 import { useRouter } from 'nextra/hooks'
-
-interface LastUpdatedProps {
-  timestamp: Date
-}
+import manifest from '../../lib/last-updated.json'
 
 const translations: Record<string, { prefix: string; dateOptions: Intl.DateTimeFormatOptions }> = {
   'en-US': {
@@ -27,17 +24,21 @@ const translations: Record<string, { prefix: string; dateOptions: Intl.DateTimeF
   },
 }
 
-export default function LastUpdated({ timestamp }: LastUpdatedProps) {
+export default function LastUpdated() {
   const router = useRouter()
   const locale = router.locale || 'en-US'
-  
+  const route = router.asPath.split(/[?#]/)[0].replace(/\/$/, '') || `/${locale}`
+  const iso = (manifest as Record<string, string>)[route]
+  if (!iso) return null
+
   const { prefix, dateOptions } = translations[locale] || translations['en-US']
-  const formattedDate = timestamp.toLocaleDateString(locale, dateOptions)
+  const formattedDate = new Date(iso).toLocaleDateString(locale, dateOptions)
 
   return (
-    <span className="nx-text-xs nx-text-gray-500 dark:nx-text-gray-400">
-      {prefix} {formattedDate}
-    </span>
+    <div className="_mt-12 _mb-8 _block _text-xs _text-gray-500 ltr:_text-right rtl:_text-left dark:_text-gray-400">
+      <time dateTime={iso}>
+        {prefix} {formattedDate}
+      </time>
+    </div>
   )
 }
-

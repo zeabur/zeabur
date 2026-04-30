@@ -32,7 +32,7 @@ const t = {
  * @type {import('nextra-theme-docs').DocsThemeConfig}
  */
 const config = {
-  gitTimestamp: LastUpdated,
+  gitTimestamp: null,
   project: {
     link: 'https://github.com/zeabur',
   },
@@ -51,12 +51,24 @@ const config = {
     { locale: 'ja-JP', name: '日本語' },
     { locale: 'es-ES', name: 'Español' },
   ],
-  main: ({ children }) => (
-    <>
-      {children}
-      <FeedbackWidget variant="inline" />
-    </>
-  ),
+  main: ({ children }) => {
+    // Nextra renders an empty `<div class="_mt-16" />` as a placeholder where
+    // the gitTimestamp would go (between MDX content and prev/next pagination).
+    // Replace that slot with our <LastUpdated /> so the timestamp lands above
+    // the pagination instead of after it.
+    const kids = React.Children.toArray(children?.props?.children ?? children)
+    const enhanced = kids.map((child) =>
+      React.isValidElement(child) && child.props?.className === '_mt-16'
+        ? <LastUpdated key="last-updated" />
+        : child,
+    )
+    return (
+      <>
+        {enhanced}
+        <FeedbackWidget variant="inline" />
+      </>
+    )
+  },
   toc: {
     title: () => {
       const { locale } = useRouter()
