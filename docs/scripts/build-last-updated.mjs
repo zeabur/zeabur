@@ -1,4 +1,4 @@
-import { execSync } from 'node:child_process'
+import { execFileSync } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
 
@@ -6,9 +6,10 @@ const DOCS_ROOT = path.resolve(import.meta.dirname, '..')
 const PAGES_DIR = path.join(DOCS_ROOT, 'pages')
 const OUT_FILE = path.join(DOCS_ROOT, 'lib', 'last-updated.json')
 
-const GIT_ROOT = execSync('git rev-parse --show-toplevel', { cwd: DOCS_ROOT })
-  .toString()
-  .trim()
+const GIT_ROOT = execFileSync('git', ['rev-parse', '--show-toplevel'], {
+  cwd: DOCS_ROOT,
+  encoding: 'utf8',
+}).trim()
 
 function walk(dir) {
   const out = []
@@ -30,22 +31,21 @@ function routeFor(absPath) {
 
 function gitTimestamp(absPath) {
   const relFromGitRoot = path.relative(GIT_ROOT, absPath).replace(/\\/g, '/')
-  const out = execSync(
-    `git log -1 --format=%cI -- "${relFromGitRoot}"`,
-    { cwd: GIT_ROOT },
-  )
-    .toString()
-    .trim()
+  const out = execFileSync(
+    'git',
+    ['log', '-1', '--format=%cI', '--', relFromGitRoot],
+    { cwd: GIT_ROOT, encoding: 'utf8' },
+  ).trim()
   return out || null
 }
 
 const files = walk(PAGES_DIR)
 const manifest = {}
-let missing = 0
+const missingFiles = []
 for (const file of files) {
   const ts = gitTimestamp(file)
   if (!ts) {
-    missing++
+    missingFiles.push(path.relative(PAGES_DIR, file).replace(/\\/g, '/'))
     continue
   }
   manifest[routeFor(file)] = ts
@@ -56,5 +56,15 @@ fs.writeFileSync(OUT_FILE, JSON.stringify(manifest, null, 2) + '\n')
 
 console.log(
   `[last-updated] wrote ${Object.keys(manifest).length} routes` +
-    (missing ? ` (${missing} files missing git history)` : ''),
+    (missingFiles.length ? ` (${missingFiles.length} files missing git history)` : ''),
 )
+
+// Fail the CI build if any tracked MDX file is missing git history — every
+// page must render a "Last updated" timestamp. Locally we only warn, since
+// uncommitted in-progress files are expected.
+if (missingFiles.length && process.env.CI) {
+  throw new Error(
+    `[last-updated] missing git history for ${missingFiles.length} files:\n` +
+      missingFiles.map((f) => `  - ${f}`).join('\n'),
+  )
+}
