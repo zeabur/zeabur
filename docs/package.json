@@ -6,9 +6,10 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
+    "predev": "node scripts/build-last-updated.mjs",
     "start": "next start",
     "build": "next build",
-    "prebuild": "node sitemap.js"
+    "prebuild": "node scripts/build-last-updated.mjs && node sitemap.js"
   },
   "author": "Zeabur",
   "dependencies": {
