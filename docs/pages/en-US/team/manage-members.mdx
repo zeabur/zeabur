@@ -20,9 +20,44 @@ If you are still deciding whether you need a Team at all, start with [Team](/tea
 | **Editor** | No | No | Yes | No |
 | **Viewer** | No | No | No | No |
 
-All three roles can read everything in the Team workspace — projects, services, deployment history, logs, server status, invoices are visible to administrators only. The role only restricts what a member can change.
+Read access is scoped: any role can see the Team's projects, services, deployment history, server status, and view runtime logs. **Searching or downloading logs is restricted to Editors and Administrators.** Invoices, payment methods, and billing details are visible to **administrators only**.
 
 The user who creates the Team is recorded as the **Team creator** (shown as "Creator" in the dashboard). The creator is always an administrator and cannot be removed or demoted by anyone else — only the creator themselves can step down via [Transfer ownership](/team/transfer-ownership). Every Team must always have at least one administrator.
+
+### Detailed permission matrix
+
+For the precise per-feature breakdown:
+
+| Feature | Viewer | Editor | Administrator |
+| --- | :---: | :---: | :---: |
+| **Team management** | | | |
+| View Team members | Yes | Yes | Yes |
+| Invite new members | No | No | Yes |
+| Change member roles | No | No | Yes |
+| Remove members | No | No | Yes |
+| Delete the Team | No | No | Yes |
+| **Projects & services** | | | |
+| View projects and services | Yes | Yes | Yes |
+| Create projects and services | No | Yes | Yes |
+| Modify service settings | No | Yes | Yes |
+| Delete projects and services | No | No | Yes |
+| **Deployment** | | | |
+| View deployment history | Yes | Yes | Yes |
+| Trigger deploys manually | No | Yes | Yes |
+| Roll back a deployment | No | Yes | Yes |
+| **Logs & monitoring** | | | |
+| View logs | Yes | Yes | Yes |
+| Search logs | No | Yes | Yes |
+| Download logs | No | Yes | Yes |
+| **Infrastructure (databases & servers)** | | | |
+| View databases and servers | Yes | Yes | Yes |
+| Create databases and servers | No | Yes | Yes |
+| Modify databases and servers | No | Yes | Yes |
+| Delete databases and servers | No | No | Yes |
+| **Billing** | | | |
+| View invoices | No | No | Yes |
+| Change payment method | No | No | Yes |
+| Change subscription plan | No | No | Yes |
 
 ### What an Administrator can do
 
@@ -56,12 +91,21 @@ What an Editor **cannot** do:
 
 ### What a Viewer can do
 
-Viewers have full read access and zero write access. Useful for stakeholders, auditors, contractors on retainer, or anyone who needs visibility into deployments without the ability to change anything.
+Viewers have read-only access to most of the Team workspace. Useful for stakeholders, auditors, contractors on retainer, or anyone who needs visibility into deployments without the ability to change anything.
 
-- View projects, services, deployment history, runtime logs, build logs, and server status.
+A Viewer **can**:
+
+- View projects, services, deployment history, and server / database status.
+- Open runtime logs and build logs (read-only).
 - Switch into the Team workspace and browse it like any other member.
 
-A Viewer cannot deploy, restart, edit env vars, create a service, or change anything else in the workspace.
+A Viewer **cannot**:
+
+- Deploy, restart, roll back, or change service settings.
+- Create or modify projects, services, environment variables, databases, or servers.
+- Search or download logs (only viewing in the dashboard is allowed).
+- Invite, remove, or change member roles.
+- View invoices, payment methods, or billing details, or change anything in billing.
 
 ## Invite a member
 

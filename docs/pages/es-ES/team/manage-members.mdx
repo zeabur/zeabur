@@ -20,9 +20,44 @@ Si todavía estás decidiendo si necesitas un Equipo, empieza por [Equipo](/team
 | **Editor** | No | No | Sí | No |
 | **Visor** | No | No | No | No |
 
-Los tres roles pueden leer todo lo que hay en el espacio de trabajo del Equipo: proyectos, servicios, historial de despliegues, registros y estado de los servidores; las facturas solo son visibles para los administradores. El rol únicamente restringe lo que un miembro puede modificar.
+El acceso de lectura está acotado: cualquier rol puede ver los proyectos, servicios, historial de despliegues, estado de los servidores del Equipo y consultar los registros en tiempo de ejecución. **Buscar o descargar registros está restringido a Editores y Administradores.** Las facturas, métodos de pago y datos de facturación solo son visibles para los **administradores**.
 
 El usuario que crea el Equipo queda registrado como **Creador del Equipo** (se muestra como "Creador" en el panel). El creador es siempre administrador y nadie más puede eliminarlo ni degradarlo: solo el propio creador puede dar un paso al lado mediante [Transferir la propiedad](/team/transfer-ownership). Todo Equipo debe tener siempre al menos un administrador.
+
+### Matriz detallada de permisos
+
+Para el desglose preciso por funcionalidad:
+
+| Función | Visor | Editor | Administrador |
+| --- | :---: | :---: | :---: |
+| **Gestión del Equipo** | | | |
+| Ver miembros del Equipo | Sí | Sí | Sí |
+| Invitar a nuevos miembros | No | No | Sí |
+| Cambiar roles de miembros | No | No | Sí |
+| Eliminar miembros | No | No | Sí |
+| Eliminar el Equipo | No | No | Sí |
+| **Proyectos y servicios** | | | |
+| Ver proyectos y servicios | Sí | Sí | Sí |
+| Crear proyectos y servicios | No | Sí | Sí |
+| Modificar la configuración de los servicios | No | Sí | Sí |
+| Eliminar proyectos y servicios | No | No | Sí |
+| **Despliegue** | | | |
+| Ver el historial de despliegues | Sí | Sí | Sí |
+| Lanzar despliegues manualmente | No | Sí | Sí |
+| Hacer rollback de un despliegue | No | Sí | Sí |
+| **Logs y monitorización** | | | |
+| Ver registros | Sí | Sí | Sí |
+| Buscar registros | No | Sí | Sí |
+| Descargar registros | No | Sí | Sí |
+| **Infraestructura (bases de datos y servidores)** | | | |
+| Ver bases de datos y servidores | Sí | Sí | Sí |
+| Crear bases de datos y servidores | No | Sí | Sí |
+| Modificar bases de datos y servidores | No | Sí | Sí |
+| Eliminar bases de datos y servidores | No | No | Sí |
+| **Facturación** | | | |
+| Ver facturas | No | No | Sí |
+| Cambiar el método de pago | No | No | Sí |
+| Cambiar el plan de suscripción | No | No | Sí |
 
 ### Lo que puede hacer un Administrador
 
@@ -56,12 +91,21 @@ Lo que un Editor **no puede** hacer:
 
 ### Lo que puede hacer un Visor
 
-Los Visores tienen acceso de lectura completo y cero acceso de escritura. Útil para stakeholders, auditores, colaboradores externos en modalidad retainer o cualquier persona que necesite visibilidad sobre los despliegues sin posibilidad de cambiar nada.
+Los Visores tienen acceso de solo lectura a la mayor parte del espacio de trabajo del Equipo. Útil para stakeholders, auditores, colaboradores externos en modalidad retainer o cualquier persona que necesite visibilidad sobre los despliegues sin posibilidad de cambiar nada.
 
-- Ver proyectos, servicios, historial de despliegues, registros en tiempo de ejecución, registros de build y estado de los servidores.
+Un Visor **puede**:
+
+- Ver proyectos, servicios, historial de despliegues y estado de servidores / bases de datos.
+- Abrir registros en tiempo de ejecución y registros de build (solo lectura).
 - Cambiar al espacio de trabajo del Equipo y navegarlo como cualquier otro miembro.
 
-Un Visor no puede desplegar, reiniciar, editar variables de entorno, crear un servicio ni cambiar nada más en el espacio de trabajo.
+Un Visor **no puede**:
+
+- Desplegar, reiniciar, hacer rollback ni cambiar la configuración de los servicios.
+- Crear ni modificar proyectos, servicios, variables de entorno, bases de datos ni servidores.
+- Buscar ni descargar registros (solo se permite verlos en el panel).
+- Invitar, eliminar ni cambiar roles de miembros.
+- Ver facturas, métodos de pago ni datos de facturación, ni cambiar nada en facturación.
 
 ## Invitar a un miembro
 
