@@ -4,12 +4,108 @@ ogImageTitle: Crear un Equipo
 ogImageSubtitle: Configura un espacio de trabajo de Equipo
 ---
 
-import { Callout } from 'nextra/components';
+import { Callout, Steps } from 'nextra/components';
 
 # Crear un Equipo
 
+Un Equipo es un espacio de trabajo independiente con sus propios miembros, proyectos, servidores y facturación. Esta página te guía a través de su creación y de los siguientes pasos recomendados para que el Equipo sea realmente utilizable.
+
+Para una visión conceptual de qué es un Equipo y en qué se diferencia de tu espacio de trabajo personal, consulta [Equipo](/team).
+
+## Dónde crear un Equipo
+
+Abre el **selector de espacio de trabajo** del panel: es el avatar y el nombre que aparecen en la parte superior de la barra lateral izquierda, junto al chevron. Haz clic en él para abrir el menú emergente y, a continuación, haz clic en **Crear equipo** en la parte inferior de la lista de espacios de trabajo.
+
+Cualquier usuario con sesión iniciada puede crear un Equipo. No hay cuota: puedes pertenecer a tantos Equipos como quieras y puedes crear más de uno si necesitas contextos de facturación distintos (por ejemplo, un Equipo por cliente o por unidad de negocio).
+
+## El formulario de creación
+
+El cuadro de diálogo **Crear Equipo** te pide un único campo:
+
+- **Nombre del Equipo** — el nombre visible que verán todos los miembros y que aparecerá en las facturas. Puedes cambiarlo más tarde en Configuración del Equipo.
+
+Eso es todo. Haz clic en **Crear** para finalizar.
+
 <Callout type="info">
-  Esta página está en construcción y se publicará pronto.
+  El avatar del Equipo (logotipo) no se establece durante la creación: cada Equipo nuevo arranca con un avatar predeterminado generado a partir de su nombre. Puedes subir un logotipo personalizado posteriormente desde **Cuenta → Configuración del Equipo** mientras estés en el espacio de trabajo del Equipo.
 </Callout>
 
-Próximamente. Hasta que se publique esta página, consulta la [introducción a Equipo](/team) para ver un resumen del funcionamiento de los Equipos y de qué te ofrece activar el Team Plan.
+## Qué ocurre justo después de crearlo
+
+<Steps>
+
+### Te conviertes en el primer administrador
+
+El usuario que crea un Equipo se convierte automáticamente en su administrador. Siempre debe haber al menos un administrador en un Equipo: esta regla se aplica cuando se elimina o se degrada a algún administrador más adelante.
+
+### El panel cambia al nuevo Equipo
+
+El selector de espacio de trabajo se actualiza para mostrar el nombre y el avatar del nuevo Equipo en la barra lateral, y el resto del panel (Proyectos, Servidores, ajustes de Cuenta) se actualiza al contexto del Equipo. Para volver a tu espacio de trabajo personal, abre de nuevo el selector de espacio de trabajo y elige tu entrada personal en la lista.
+
+### El Equipo está en estado inactivo
+
+Un Equipo recién creado **no tiene aún el plan Team contratado**. Los miembros no pueden crear proyectos, desplegar plantillas, gestionar servidores, usar AI Hub ni enviar correos a través de Z‑Send dentro del Equipo hasta que se active el plan Team.
+
+Lo que sí funciona en un Equipo inactivo, para que puedas terminar la configuración:
+
+- Actualizar el perfil del Equipo (nombre, avatar, correos de contacto)
+- Invitar a miembros y asignar roles
+- Vincular un método de pago
+- Activar el plan Team
+- Volver a tu espacio de trabajo personal
+- Eliminar el Equipo (solo cuando no tiene proyectos ni servidores)
+
+</Steps>
+
+## Siguientes pasos recomendados
+
+Para que el Equipo sea productivo, hazlo aproximadamente en este orden:
+
+<Steps>
+
+### Activar el plan Team
+
+Estando en el espacio de trabajo del Equipo, ve a **Cuenta → Suscripción** y haz clic en **Activar el plan Team**. El panel mostrará una vista previa del cargo basado en asientos (plan base con 3 asientos incluidos, más el precio por asiento adicional) antes del pago.
+
+Consulta [Facturación del Equipo](/team/billing) para ver el desglose completo de precios, métodos de pago, facturas y créditos prepagados.
+
+### Invitar a miembros
+
+Ve a **Cuenta → Miembros** estando en el espacio de trabajo del Equipo y añade compañeros por correo electrónico, eligiendo un rol (**Administrador**, **Editor** o **Visor**) para cada uno. Añadir un miembro más allá de los asientos incluidos genera un cargo prorrateado por asiento adicional en la siguiente factura.
+
+Consulta [Gestionar miembros y roles](/team/manage-members) para ver la matriz completa de permisos por rol y el flujo de invitación.
+
+### Llevar al Equipo proyectos o servidores personales existentes (opcional)
+
+Si ya tienes un proyecto o un servidor dedicado en tu espacio de trabajo personal que debería pertenecer al Equipo, un administrador puede transferir su propiedad para que la facturación y las cuotas queden vinculadas al Equipo a partir de ese momento. El propietario original puede seguir trabajando en el recurso como miembro del Equipo.
+
+Consulta [Transferir la propiedad a un Equipo](/team/transfer-ownership).
+
+</Steps>
+
+## Preguntas frecuentes
+
+### He creado un Equipo, pero no puedo crear proyectos ni reiniciar nada
+
+El plan Team aún no está activado. Un Equipo recién creado está inactivo y la mayoría de las acciones están bloqueadas hasta que un administrador se suscriba. Ve a **Cuenta → Suscripción** en el espacio de trabajo del Equipo y activa el plan Team: consulta [Facturación del Equipo](/team/billing).
+
+### ¿Puedo tener varios Equipos?
+
+Sí. Un mismo usuario puede crear y pertenecer a tantos Equipos como quiera, cada uno con sus propios miembros, recursos y facturación. Usa el selector de espacio de trabajo para moverte entre ellos.
+
+### ¿Puedo cambiar el nombre o el avatar del Equipo más tarde?
+
+Sí. Estando en el espacio de trabajo del Equipo, ve a **Cuenta → Configuración del Equipo**. Los administradores pueden actualizar el nombre del Equipo, subir un nuevo logotipo y editar los correos de contacto para las notificaciones del sistema.
+
+### ¿Puedo eliminar un Equipo?
+
+Sí, pero solo cuando el Equipo no tiene proyectos ni servidores asociados. En **Cuenta → Configuración del Equipo → Zona de peligro**, escribe el nombre del Equipo para confirmar y haz clic en **Eliminar equipo**. Solo los administradores pueden eliminar un Equipo. Si el Equipo aún posee recursos, transfiérelos o elimínalos primero.
+
+Si solo quieres salir de un Equipo en el que ya no participas (sin eliminarlo), usa **Salir del equipo** en la misma página de Configuración del Equipo: esa opción está pensada para los miembros que no son administradores y para los administradores cuando queda al menos otro administrador.
+
+## Próximos pasos
+
+- [Facturación del Equipo](/team/billing)
+- [Gestionar miembros y roles](/team/manage-members)
+- [Transferir la propiedad a un Equipo](/team/transfer-ownership)
+- [Introducción a Equipo](/team)

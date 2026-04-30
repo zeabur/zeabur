@@ -4,12 +4,183 @@ ogImageTitle: Facturación del Equipo
 ogImageSubtitle: Suscripción, métodos de pago y facturas
 ---
 
-import { Callout } from 'nextra/components';
+import { Callout, Steps } from 'nextra/components';
 
 # Facturación del Equipo
 
+Un Equipo es un espacio de trabajo con **su propia facturación**, separada de la cuenta personal de cualquier miembro. Esta página cubre todo lo que un administrador necesita saber: activar el plan Team, gestionar métodos de pago, leer facturas, comprar créditos, configurar los datos de facturación, recuperarse de un pago fallido, y cancelar o reanudar la suscripción.
+
+Para una introducción de alto nivel al espacio de trabajo de Equipo, consulta [Equipo](/team).
+
+## En qué se diferencia la facturación de un Equipo de la facturación personal
+
+Cada Equipo tiene un contexto de facturación independiente. En la práctica:
+
+- **Cliente de Stripe distinto** — las facturas, los métodos de pago y el saldo de crédito se registran en el Equipo, no en la cuenta personal de ningún miembro.
+- **Métodos de pago distintos** — tus tarjetas personales no son visibles para el Equipo, y una tarjeta vinculada a un Equipo no es visible en tu espacio de trabajo personal.
+- **Saldo de crédito distinto** — los créditos añadidos al Equipo se gastan únicamente en recursos propiedad del Equipo, y los créditos de tu cuenta personal siguen siendo personales.
+- **Facturas distintas** — las facturas del Equipo se emiten con los datos de facturación del Equipo (razón social, dirección, NIF), no a tu nombre personal.
+- **Un único nivel de plan** — un espacio de trabajo de Equipo ejecuta el **Team Plan** o está inactivo. Los niveles solo personales (Free / Dev / Pro) no se aplican a los Equipos.
+- **El contexto del espacio de trabajo importa** — el panel siempre muestra la facturación del espacio de trabajo que tienes seleccionado. Cambia de espacio de trabajo usando el selector de la barra lateral.
+
+Para la comparación más amplia entre espacios de trabajo personal y de Equipo, consulta [Equipo](/team#cuenta-personal-frente-a-equipo).
+
+## Activar el plan Team
+
+Un Equipo recién creado está **inactivo**: hasta que un administrador active el plan Team, nadie en el Equipo puede crear proyectos, desplegar servicios, gestionar servidores del Equipo, usar AI Hub o enviar correos a través de Z‑Send.
+
 <Callout type="info">
-  Esta página está en construcción y se publicará pronto.
+  Solo los **administradores** del Equipo pueden activar, cambiar o cancelar la suscripción del Equipo. Los Editores y los Visores verán un aviso de que la facturación está restringida.
 </Callout>
 
-Próximamente. Hasta que se publique esta página, consulta la [introducción a Equipo](/team) para ver en qué se diferencia la facturación del Equipo de la facturación personal.
+### Precio
+
+El plan Team cuesta **$79/mes** e incluye **3 asientos** (cada uno con capacidades de nivel Pro). Cada miembro adicional más allá de los 3 primeros añade **$24/mes** por asiento. El uso de asientos se calcula a partir del número actual de miembros, así que eliminar a un miembro en el siguiente ciclo de facturación reduce el cargo por asientos correspondientemente.
+
+**No hay periodo de prueba gratuito** para el plan Team: la activación inicia la facturación de inmediato.
+
+Para el desglose completo de funcionalidades, consulta [Planes](/billing/plans).
+
+### Flujo de activación
+
+<Steps>
+### Cambia al espacio de trabajo del Equipo
+
+Usa el selector de espacio de trabajo de la barra lateral del panel para entrar en el Equipo que quieres activar.
+
+### Abre los ajustes de Suscripción
+
+Ve a **Cuenta → Suscripción**. Verás una tarjeta **Activar el plan Team** que muestra las funcionalidades incluidas y la previsualización del precio basado en asientos.
+
+### Vincula un método de pago (si aún no lo tienes)
+
+Si el Equipo no tiene método de pago ni saldo de crédito, el panel te pedirá que añadas uno antes de continuar. Consulta [Métodos de pago](#métodos-de-pago) más abajo.
+
+### Revisa el desglose de precio
+
+Una ventana modal de confirmación muestra el plan base ($79/mes por 3 asientos), cualquier cargo por asientos adicionales en función del número actual de miembros y el importe mensual total.
+
+### Continúa al pago
+
+Haz clic en **Continuar al pago**. La suscripción del Equipo se activa al instante: los proyectos, despliegues, servidores, AI Hub y Z‑Send se desbloquean inmediatamente.
+</Steps>
+
+## Métodos de pago
+
+Un Equipo puede tener varias tarjetas registradas, con una designada como **predeterminada**. La tarjeta predeterminada es la que Stripe carga para la factura mensual del plan Team y para cualquier factura de servidor con renovación automática.
+
+Gestiona los métodos de pago en **Cuenta → Facturación → Métodos de pago** estando en el espacio de trabajo del Equipo:
+
+- **Agregar método de pago** — añade una nueva tarjeta de crédito. La tarjeta queda vinculada directamente al cliente de Stripe del Equipo, nunca a tu cuenta personal.
+- **Establecer como predeterminada** — promociona cualquier tarjeta guardada para que sea la que Stripe cargue en las renovaciones.
+- **Eliminar** — borra una tarjeta no predeterminada. No puedes eliminar la última tarjeta mientras haya una suscripción activa; promociona otra como predeterminada primero.
+
+WeChat Pay y Alipay se aceptan para **comprar créditos** (consulta [Créditos y recarga](#créditos-y-recarga)), pero la **suscripción mensual debe pagarse con una tarjeta de crédito** a través del método de pago predeterminado del Equipo.
+
+## Facturas
+
+Estando en el espacio de trabajo del Equipo, **Cuenta → Facturación** muestra:
+
+- **Factura próxima** — una vista previa en vivo de lo que se facturará al final del periodo actual, incluyendo las líneas de la suscripción, los ajustes por asientos y los cargos por uso. El importe puede cambiar a medida que se añadan miembros o se utilicen recursos.
+- **Historial de facturación** — todas las facturas pasadas con su estado (Pagada, Abierta, Sin pagar, Anulada, Incobrable). Cada entrada enlaza con la página de la factura alojada por Stripe, donde puedes descargar el PDF.
+- **Historial de saldo** — todas las transacciones de crédito sobre el saldo de Stripe del Equipo: recargas, canjes de tarjetas prepagadas, créditos manuales y aplicaciones contra facturas.
+
+Todos los PDF de las facturas usan los **datos de facturación** configurados para el Equipo (consulta [Datos de facturación](#datos-de-facturación-razón-social-nif)).
+
+## Créditos y recarga
+
+Al igual que una cuenta personal, un Equipo puede mantener un saldo de crédito en Stripe que se consume antes que cualquier cargo en tarjeta. Hay dos formas de recargarlo.
+
+### Comprar créditos
+
+En el espacio de trabajo del Equipo, ve a **Cuenta → Facturación → Crédito de la cuenta** y haz clic en **Obtener más créditos**. Puedes pagar con:
+
+- **Tarjeta de crédito (USD)** — abre una sesión de Stripe Checkout. Los fondos se añaden al saldo del Equipo cuando el cargo se confirma.
+- **WeChat Pay (CNY)** — el mismo flujo de Stripe Checkout, denominado en CNY.
+
+La recarga mínima es de $5. El saldo se consume automáticamente contra las facturas futuras antes que cualquier cargo en la tarjeta predeterminada.
+
+### Canjear una tarjeta prepagada
+
+Si tienes una tarjeta prepagada de Zeabur, haz clic en **Canjear créditos** e introduce el código. El crédito se añade al saldo del Equipo.
+
+<Callout type="warning">
+  **Las tarjetas prepagadas de eventos patrocinados no se pueden canjear en un Equipo.** Las tarjetas distribuidas en eventos, hackathons o campañas están asociadas a una cuenta personal (también afectan al saldo del patrocinador y a la contabilidad del periodo de prueba gratuito, que no se aplican a los Equipos). Cánjealas en tu espacio de trabajo personal. Las tarjetas prepagadas de pago habituales funcionan con normalidad en un Equipo.
+</Callout>
+
+### Cómo se gastan los créditos del Equipo
+
+Los créditos del Equipo están limitados al Equipo: solo compensan facturas, importes de servidores y uso de AI Hub **propiedad del Equipo**. No se pueden transferir a la cuenta personal de un miembro, y los créditos personales de un miembro no se pueden aplicar a una factura del Equipo.
+
+## Datos de facturación (razón social, NIF)
+
+Si tu empresa necesita que las facturas muestren una razón social y un NIF para reembolsos o presentación de impuestos, configura los datos de facturación del Equipo una vez y todas las facturas futuras los utilizarán.
+
+En el espacio de trabajo del Equipo, ve a **Cuenta → Facturación → Métodos de pago** y haz clic en **Editar datos de facturación**. Puedes configurar:
+
+- **Nombre** — empresa o razón social que aparecerá en la factura.
+- **Dirección** — país, estado/provincia, ciudad, código postal y líneas de dirección.
+- **NIF** — elige un tipo de NIF (VAT, identificación legal, 統一編號, etc.) e introduce el número correspondiente. Stripe lo valida y lo muestra en la factura.
+
+Solo los administradores del Equipo pueden editar los datos de facturación. Las actualizaciones se aplican a todas las facturas futuras emitidas al Equipo.
+
+## Cancelar la suscripción
+
+Si un Equipo ya no necesita el plan Team, un administrador puede cancelar desde **Cuenta → Suscripción → Zona de peligro → Cancelar suscripción**. Se te pedirá un motivo opcional.
+
+La cancelación queda **programada para el final del periodo de facturación actual**: el Equipo conserva todas las funcionalidades de pago (proyectos, despliegues, servidores, AI Hub, Z‑Send) hasta esa fecha. Cuando termina el periodo, el Equipo vuelve a estar **inactivo** y se aplican las mismas restricciones descritas en [Activar el plan Team](#activar-el-plan-team): nada de proyectos nuevos, nada de despliegues, nada de uso de recursos propiedad del Equipo. Los datos existentes se conservan; reactivar restaura el acceso.
+
+### Reanudar antes del vencimiento
+
+Una cancelación programada puede revertirse en cualquier momento antes de que surta efecto al final del periodo. Vuelve a **Cuenta → Suscripción** y haz clic en **Mantener el plan actual** en el aviso de degradación pendiente. La cancelación se anula y la suscripción sigue renovándose con normalidad.
+
+## Pagos fallidos
+
+Si Stripe no puede cargar el método de pago predeterminado del Equipo (tarjeta caducada, fondos insuficientes, bloqueo por fraude, etc.), la factura pasa al estado **Sin pagar** y la suscripción entra en el flujo estándar de dunning de Stripe. Se envían correos de notificación a los correos de contacto del Equipo (o a todos los administradores del Equipo si no hay correos de contacto configurados).
+
+Para recuperarte:
+
+<Steps>
+### Arregla el método de pago
+
+Añade una tarjeta nueva y márcala como predeterminada, o actualiza con tu banco la fecha de caducidad o los datos de facturación de la tarjeta existente.
+
+### Reintenta la factura fallida
+
+En **Cuenta → Facturación → Historial de facturación**, busca la factura sin pagar y haz clic en **Reintentar**. Stripe carga la nueva tarjeta predeterminada inmediatamente.
+
+### Confirma que la suscripción está activa
+
+Una vez la factura aparezca como Pagada, la suscripción vuelve a su estado normal y se renueva según lo previsto.
+</Steps>
+
+Si el flujo de dunning agota su tiempo antes de que el pago se complete con éxito, la suscripción se cancela automáticamente y el Equipo queda inactivo: reactívalo con [Activar el plan Team](#activar-el-plan-team) una vez resuelto el problema de pago.
+
+## Preguntas frecuentes
+
+**¿Puedo mover créditos entre mi cuenta personal y el Equipo?**
+No. Son clientes de Stripe independientes. Los créditos personales se quedan personales y los créditos del Equipo se quedan con el Equipo.
+
+**¿Puedo transferir mi suscripción personal a un Equipo?**
+No. Las suscripciones no son transferibles entre clientes de Stripe. Activa el plan Team por separado en el Equipo: tu suscripción personal no se ve afectada.
+
+**Si elimino mi cuenta personal, ¿desaparecen mis Equipos?**
+No. Los Equipos persisten de forma independiente. Otros administradores siguen al frente. Si eres el único administrador, promociona antes a otro miembro o el Equipo se quedará sin administrador hasta que intervenga el soporte.
+
+**¿Puede un Equipo suscribirse al plan Free, Dev o Pro?**
+No. Los Equipos solo pueden suscribirse al **Team Plan**. Los demás niveles son solo personales.
+
+**¿Qué ocurre con los servidores y proyectos propiedad del Equipo si la suscripción caduca?**
+Los datos existentes se conservan, pero los nuevos despliegues y la mayoría de las operaciones quedan bloqueados mientras el Equipo está inactivo. Reactiva para restaurar el acceso completo. La facturación de los servidores dedicados sigue su propio ciclo de renovación y no se detiene por la caducidad del plan Team: presta atención a la tarjeta **Próximas facturas de servidores** si tienes servidores con renovación automática.
+
+**¿A dónde van los correos de error de pago?**
+A los correos de contacto configurados del Equipo. Si no hay ninguno, los reciben todos los administradores del Equipo. Configura los correos de contacto en **Cuenta → Configuración → Identidad del Equipo** dentro del espacio de trabajo del Equipo.
+
+## Próximos pasos
+
+- [Introducción a Equipo](/team)
+- [Crear un Equipo](/team/create-team)
+- [Gestionar miembros y roles](/team/manage-members)
+- [Transferir la propiedad a un Equipo](/team/transfer-ownership)
+- [Suscripciones personales](/subscription)
+- [Planes y precios](/billing/plans)

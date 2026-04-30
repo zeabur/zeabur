@@ -4,12 +4,138 @@ ogImageTitle: Gestionar miembros del Equipo
 ogImageSubtitle: Invita, elimina y asigna roles
 ---
 
-import { Callout } from 'nextra/components';
+import { Callout, Steps } from 'nextra/components';
 
 # Gestionar miembros
 
+Un Equipo solo es útil cuando tiene compañeros con el nivel de acceso adecuado. Esta página es la referencia canónica de qué puede y qué no puede hacer cada rol, cómo invitar y eliminar miembros, y en qué se diferencia la pertenencia a un Equipo de la colaboración a nivel de proyecto o de servidor.
+
+Si todavía estás decidiendo si necesitas un Equipo, empieza por [Equipo](/team) y [Crear un Equipo](/team/create-team).
+
+## Roles de un vistazo
+
+| Rol | Gestionar miembros y perfil del Equipo | Gestionar facturación | Crear / modificar recursos | Eliminar recursos |
+| --- | :---: | :---: | :---: | :---: |
+| **Administrador** | Sí | Sí | Sí | Sí |
+| **Editor** | No | No | Sí | No |
+| **Visor** | No | No | No | No |
+
+Los tres roles pueden leer todo lo que hay en el espacio de trabajo del Equipo: proyectos, servicios, historial de despliegues, registros y estado de los servidores; las facturas solo son visibles para los administradores. El rol únicamente restringe lo que un miembro puede modificar.
+
+El usuario que crea el Equipo queda registrado como **Creador del Equipo** (se muestra como "Creador" en el panel). El creador es siempre administrador y nadie más puede eliminarlo ni degradarlo: solo el propio creador puede dar un paso al lado mediante [Transferir la propiedad](/team/transfer-ownership). Todo Equipo debe tener siempre al menos un administrador.
+
+### Lo que puede hacer un Administrador
+
+- Actualizar el perfil del Equipo: nombre, logotipo, correos de contacto para las notificaciones del sistema.
+- Invitar, eliminar y cambiar el rol de otros miembros.
+- Activar, cancelar o reanudar el plan Team.
+- Gestionar métodos de pago, datos de facturación (razón social, dirección, NIF) y créditos prepagados.
+- Crear, modificar **y** eliminar proyectos, servicios, entornos, bases de datos y servidores dedicados propiedad del Equipo.
+- Transferir un proyecto o servidor personal al Equipo (consulta [Transferir la propiedad](/team/transfer-ownership)).
+- Eliminar el propio Equipo, una vez que no le quedan proyectos ni servidores.
+
+### Lo que puede hacer un Editor
+
+Los Editores son el rol cotidiano de "construir y desplegar".
+
+- Crear y modificar proyectos, servicios, entornos, variables de entorno y dominios propiedad del Equipo.
+- Lanzar despliegues, hacer rollback a un despliegue anterior y reiniciar servicios.
+- Buscar y descargar registros.
+- Añadir o modificar servidores dedicados y bases de datos asociados al Equipo.
+
+Lo que un Editor **no puede** hacer:
+
+- Invitar, eliminar ni cambiar el rol de ningún miembro.
+- Editar el nombre, el logotipo ni los correos de contacto del Equipo.
+- Ver facturas, cambiar métodos de pago, activar o cancelar el plan Team, ni recargar saldo.
+- Eliminar un proyecto, servicio, base de datos o servidor. Los Editores crean y modifican; solo los administradores eliminan.
+
 <Callout type="info">
-  Esta página está en construcción y se publicará pronto.
+  Las acciones de escritura de los Editores dependen de que el plan Team esté activo. Mientras un Equipo se encuentra en el estado inactivo descrito en la [introducción a Equipo](/team#activar-el-team-plan), los editores no pueden crear ni modificar recursos: solo un administrador puede completar el paso de activación.
 </Callout>
 
-Próximamente. Hasta que se publique esta página, consulta la [introducción a Equipo](/team) para ver la matriz de roles y en qué se diferencian los miembros del Equipo de los colaboradores de proyecto / servidor.
+### Lo que puede hacer un Visor
+
+Los Visores tienen acceso de lectura completo y cero acceso de escritura. Útil para stakeholders, auditores, colaboradores externos en modalidad retainer o cualquier persona que necesite visibilidad sobre los despliegues sin posibilidad de cambiar nada.
+
+- Ver proyectos, servicios, historial de despliegues, registros en tiempo de ejecución, registros de build y estado de los servidores.
+- Cambiar al espacio de trabajo del Equipo y navegarlo como cualquier otro miembro.
+
+Un Visor no puede desplegar, reiniciar, editar variables de entorno, crear un servicio ni cambiar nada más en el espacio de trabajo.
+
+## Invitar a un miembro
+
+Solo los administradores pueden invitar. La persona invitada debe tener ya una cuenta de Zeabur con ese mismo correo electrónico: no existe una bandeja de invitaciones pendientes; en cuanto la añades, queda como miembro activo de inmediato y la próxima vez que inicie sesión podrá cambiar al espacio de trabajo del Equipo desde el selector de espacio de trabajo.
+
+<Steps>
+### Cambia al espacio de trabajo del Equipo
+
+En el selector de espacio de trabajo de la barra lateral del panel, selecciona el Equipo al que quieres invitar. Tienes que estar en el espacio de trabajo del Equipo para ver la página **Miembros**; la gestión de miembros no está disponible desde tu espacio de trabajo personal.
+
+### Abre Miembros
+
+Ve a **Cuenta → Miembros**. Los administradores ven un botón **Invitar a un miembro** en la parte superior derecha de la lista de miembros. Los Editores y los Visores no ven ese botón.
+
+### Introduce el correo y elige un rol
+
+Haz clic en **Invitar a un miembro**, introduce la dirección de correo del compañero y elige **Administrador**, **Editor** o **Visor**. Puedes cambiar el rol más adelante, así que no pasa nada por empezar a un miembro como Visor y promocionarlo cuando confíes en su flujo de trabajo.
+
+### Confirma la previsualización del coste por asiento
+
+Si tu Equipo tiene contratado el plan Team y añadir a este miembro hace que se superen los asientos incluidos, el panel muestra una previsualización del coste del asiento adicional antes de enviar la invitación. El cargo prorrateado por el resto del periodo de facturación actual se añade a la siguiente factura. Consulta [Facturación del Equipo](/team/billing) para ver cómo funciona el precio por asiento.
+
+### Envía
+
+Haz clic en **Enviar invitación**. El nuevo miembro aparece inmediatamente en la lista con el rol elegido. Verá el Equipo en su selector de espacio de trabajo la próxima vez que cargue el panel.
+</Steps>
+
+Si el correo que has introducido no coincide con una cuenta de Zeabur existente, la invitación se rechaza: pide al compañero que se registre primero en [zeabur.com](https://zeabur.com) y vuelve a intentarlo.
+
+## Cambiar el rol de un miembro
+
+Los administradores pueden cambiar el rol de cualquier miembro en cualquier momento, con una excepción: nadie (ni siquiera otro administrador) puede cambiar el rol del **Creador**. Si necesitas cambiar quién dirige el Equipo en la práctica, usa [Transferir la propiedad](/team/transfer-ownership).
+
+Para cambiar un rol, abre **Cuenta → Miembros**, haz clic en el desplegable de rol junto al miembro y elige uno nuevo. El cambio surte efecto inmediatamente para ese miembro la próxima vez que cargue una página: no hay un paso de "guardar".
+
+No puedes cambiar tu propio rol desde esta página. Para eliminarte a ti mismo del Equipo, usa **Salir del equipo** (más abajo).
+
+## Eliminar a un miembro
+
+Los administradores pueden eliminar a cualquier miembro excepto al Creador. Eliminar a un miembro:
+
+- Surte efecto inmediatamente. El usuario eliminado pierde el acceso a todos los proyectos, servicios, servidores y datos de facturación propiedad del Equipo.
+- **No** elimina ninguno de sus proyectos ni servidores personales: estos permanecen en su espacio de trabajo personal.
+- Libera un asiento del plan Team, lo que reduce el cargo por asientos en la siguiente factura.
+
+Para eliminar a alguien, abre **Cuenta → Miembros**, haz clic en **Eliminar** en su fila y confirma. El miembro se elimina sin un paso de notificación adicional.
+
+### Salir tú mismo de un Equipo
+
+Cualquier miembro puede salir de un Equipo al que pertenezca, excepto el Creador. Ve a **Cuenta → Configuración del Equipo** estando en el espacio de trabajo del Equipo y usa **Salir del equipo** en la zona de peligro. Después de salir, pierdes el acceso a los recursos del Equipo y el panel te devuelve a tu espacio de trabajo personal.
+
+Si eres el Creador y quieres salir, primero debes [transferir la propiedad](/team/transfer-ownership) a otro administrador.
+
+## Miembro de Equipo frente a colaboradores de proyecto / servidor
+
+Zeabur tiene tres sistemas de invitación independientes. Elegir el adecuado importa porque dan acceso a cosas distintas y se gestionan en sitios distintos.
+
+| | Dónde invitas | Qué obtienen | Quién los elimina |
+| --- | --- | --- | --- |
+| **Miembro del Equipo** | **Cuenta → Miembros** dentro de un espacio de trabajo de Equipo | Todos los proyectos, servicios y servidores actuales y futuros propiedad del Equipo, limitados por el rol que asignes. Incluye acceso a la facturación para los administradores. | Un administrador los elimina; un miembro puede salir por su cuenta. |
+| **Colaborador de proyecto** | Dentro de un único proyecto, en el panel de configuración del proyecto | Los servicios, despliegues y variables de entorno de un único proyecto. **No** concede acceso al servidor dedicado subyacente, aunque el proyecto se ejecute en un servidor propiedad del Equipo o personal. | El propietario del proyecto los elimina; un colaborador puede salir del proyecto. |
+| **Colaborador de servidor** | Dentro de un único servidor, en la sección de colaboradores del servidor | La gestión de un único servidor dedicado: reinicio, reinstalación, facturación, ajustes a nivel de servidor. **No** concede acceso automáticamente a los proyectos desplegados en él. | El propietario del servidor los elimina. |
+
+### Cuándo usar cada uno
+
+- **Usa la pertenencia a un Equipo** cuando varias personas deban compartir facturación, ver todos los proyectos y servidores actuales y futuros, y operar como una única organización. Es la opción adecuada para una empresa, un cliente de agencia que paga, o un colaborador a largo plazo.
+- **Usa un colaborador de proyecto** cuando quieras dar a una persona acceso de edición a un único proyecto y nada más: un freelance trabajando en una sola aplicación, un amigo con quien estás haciendo pair-programming en un proyecto paralelo. No requiere un Equipo.
+- **Usa un colaborador de servidor** cuando alguien deba ayudar a administrar un servidor dedicado (reiniciar, reinstalar) pero no necesariamente deba ver los proyectos que se ejecutan en él.
+
+Los tres sistemas pueden coexistir: un usuario puede ser Editor en tu Equipo, colaborador de proyecto en un proyecto personal de otra persona y colaborador de servidor en una máquina dedicada de un tercero. Cada concesión está limitada al recurso desde el que se emitió.
+
+## Próximos pasos
+
+- [Introducción a Equipo](/team)
+- [Crear un Equipo](/team/create-team)
+- [Facturación del Equipo](/team/billing)
+- [Invitar a un colaborador de proyecto](/operations/team/invite-member)
