@@ -1,0 +1,186 @@
+---
+title: Team billing
+ogImageTitle: Team billing
+ogImageSubtitle: Subscription, payment methods, and invoices
+---
+
+import { Callout, Steps } from 'nextra/components';
+
+# Team billing
+
+A Team is a workspace with **its own billing** — separate from any individual member's personal account. This page covers everything an administrator needs to know: activating the Team plan, managing payment methods, reading invoices, buying credits, setting billing details, recovering from a failed payment, and cancelling or resuming the subscription.
+
+For a high-level introduction to the Team workspace, see [Team](/team).
+
+## How Team billing differs from personal billing
+
+Each Team has an independent billing context. In practice:
+
+- **Separate Stripe customer** — invoices, payment methods, and credit balance are tracked under the Team, not under any member's personal account.
+- **Separate payment methods** — your personal cards are not visible to the Team, and a card bound to a Team is not visible in your personal workspace.
+- **Separate credit balance** — credits added to the Team are spent only on Team-owned resources, and credits in your personal account stay personal.
+- **Separate invoices** — Team invoices are addressed to the Team's billing details (legal name, address, tax ID), not to you personally.
+- **One plan tier** — a Team workspace either runs on the **Team Plan** or is inactive. Personal-only tiers (Free / Dev / Pro) do not apply to Teams.
+- **Workspace context matters** — the dashboard always shows billing for the workspace you have selected. Switch workspaces using the workspace switcher in the sidebar.
+
+For the broader comparison between personal and Team workspaces, see [Team](/team#personal-account-vs-team).
+
+## Activate the Team plan
+
+A newly created Team is **inactive** — until an administrator activates the Team plan, no one in the Team can create projects, deploy services, manage Team servers, use AI Hub, or send emails through Z-Send.
+
+<Callout type="info">
+  Only Team **administrators** can activate, change, or cancel a Team subscription. Editors and Viewers will see a notice that billing is restricted.
+</Callout>
+
+### Pricing
+
+The Team plan is **$79/month** and includes **3 seats** (each at Pro-tier capability). Each additional member beyond the first 3 adds **$24/month** per seat. Seat usage is computed from the current member count, so removing a member at the next billing cycle reduces the seat charge accordingly.
+
+There is **no free trial** for the Team plan — activation starts billing immediately.
+
+For the full feature breakdown, see [Plans](/billing/plans).
+
+### Activation flow
+
+<Steps>
+### Switch to the Team workspace
+
+Use the workspace switcher in the dashboard sidebar to enter the Team you want to activate.
+
+### Open Subscription settings
+
+Go to **Account → Subscription**. You will see an **Activate Team plan** card showing the included features and the seat-based price preview.
+
+### Bind a payment method (if none yet)
+
+If the Team has no payment method or credit balance, the dashboard will prompt you to add one before continuing. See [Payment methods](#payment-methods) below.
+
+### Review the price breakdown
+
+A confirmation modal shows the base plan ($79/mo for 3 seats), any extra-seat charges based on the current member count, and the total monthly amount.
+
+### Continue to payment
+
+Click **Continue to payment**. The Team's subscription becomes active right away — projects, deploys, servers, AI Hub, and Z-Send unlock immediately.
+</Steps>
+
+## Payment methods
+
+A Team can have multiple cards on file, with one designated as the **default**. The default card is what Stripe charges for the monthly Team-plan invoice and any auto-renewing server bills.
+
+Manage payment methods at **Account → Billing → Payment Methods** while in the Team workspace:
+
+- **Add Payment Method** — add a new credit card. The card is bound directly to the Team's Stripe customer, never to your personal account.
+- **Set as Default** — promote any saved card to be the one Stripe charges for renewals.
+- **Remove** — delete a non-default card. You cannot remove the last card while a subscription is active; promote another to default first.
+
+WeChat Pay and Alipay are accepted for **buying credits** (see [Credits and recharge](#credits-and-recharge)) but the **monthly subscription itself must be paid with a credit card** through the Team's default payment method.
+
+## Invoices
+
+While in the Team workspace, **Account → Billing** shows:
+
+- **Upcoming Invoice** — a live preview of what will be billed at the end of the current period, including subscription line items, seat adjustments, and usage charges. The amount may change as members are added or resources are used.
+- **Billing History** — every past invoice with its status (Paid, Open, Unpaid, Void, Uncollectible). Each entry links to the Stripe-hosted invoice page where you can download the PDF.
+- **Balance History** — every credit transaction on the Team's Stripe balance: top-ups, prepaid-card redemptions, manual credits, and applications against invoices.
+
+All invoice PDFs use the **billing details** configured for the Team (see [Billing details](#billing-details-legal-name-tax-id)).
+
+## Credits and recharge
+
+Like a personal account, a Team can hold a Stripe credit balance that is consumed before any card charge. There are two ways to top up.
+
+### Buy credits
+
+In the Team workspace, go to **Account → Billing → Account Credit** and click **Get More Credits**. You can pay in:
+
+- **Credit Card (USD)** — opens a Stripe Checkout session. Funds are added to the Team's balance after the charge clears.
+- **WeChat Pay (CNY)** — same Stripe Checkout flow, denominated in CNY.
+
+The minimum top-up is $5. The balance is consumed automatically against future invoices before any default-card charge.
+
+### Redeem a prepaid card
+
+If you have a Zeabur prepaid card, click **Redeem Credits** and enter the code. The credit is added to the Team's balance.
+
+<Callout type="warning">
+  **Sponsored-event prepaid cards cannot be redeemed into a Team.** Cards distributed at events, hackathons, or campaigns are tied to a personal account (they also drive sponsor balance and free-trial bookkeeping that don't apply to Teams). Redeem those into your personal workspace instead. Regular paid prepaid cards work normally on a Team.
+</Callout>
+
+### How Team credits are spent
+
+Team credits are scoped to the Team — they offset only **Team-owned** invoices, server bills, and AI Hub usage. They cannot be transferred to a member's personal account, and a member's personal credits cannot be applied to a Team invoice.
+
+## Billing details (legal name, tax ID)
+
+If your company needs invoices to show a legal entity name and tax ID for reimbursement or tax filing, configure the Team's billing details once and every future invoice will use them.
+
+In the Team workspace, go to **Account → Billing → Payment Methods** and click **Edit Billing Detail**. You can set:
+
+- **Name** — company or legal name shown on the invoice.
+- **Address** — country, state/province, city, postal code, and address lines.
+- **Tax ID** — pick a Tax ID Type (VAT, statutory ID, 統一編號, etc.) and enter the corresponding number. Stripe validates and renders this on the invoice.
+
+Only Team administrators can edit billing details. Updates apply to all future invoices issued to the Team.
+
+## Cancel the subscription
+
+If a Team no longer needs the Team plan, an administrator can cancel from **Account → Subscription → Danger Zone → Cancel subscription**. You will be asked for an optional reason.
+
+Cancellation is **scheduled at the end of the current billing period** — the Team keeps every paid feature (projects, deploys, servers, AI Hub, Z-Send) until that date. After the period ends, the Team becomes **inactive** again and the same restrictions described in [Activate the Team plan](#activate-the-team-plan) apply: no new projects, no deploys, no Team-owned resource usage. Existing data is preserved; reactivating restores access.
+
+### Resume before expiry
+
+A scheduled cancellation can be reversed at any point before the end-of-period takes effect. Return to **Account → Subscription**, and click **Keep current plan** on the pending-downgrade banner. The cancellation is cleared and the subscription continues to renew normally.
+
+## Failed payments
+
+If Stripe cannot charge the Team's default payment method (expired card, insufficient funds, fraud block, etc.), the invoice goes into the **Unpaid** state and the subscription enters Stripe's standard dunning flow. Notification emails are sent to the Team's contact emails (or to all Team administrators if no contact emails are configured).
+
+To recover:
+
+<Steps>
+### Fix the payment method
+
+Add a new card and set it as default, or update the existing card's expiry / billing details with your bank.
+
+### Retry the failed invoice
+
+In **Account → Billing → Billing History**, find the Unpaid invoice and click **Retry**. Stripe charges the new default card immediately.
+
+### Confirm the subscription is active
+
+Once the invoice is marked Paid, the subscription returns to its normal state and renews on schedule.
+</Steps>
+
+If the dunning flow times out before payment succeeds, the subscription is automatically cancelled and the Team becomes inactive — reactivate with [Activate the Team plan](#activate-the-team-plan) once the payment issue is resolved.
+
+## Frequently asked questions
+
+**Can I move credits between my personal account and the Team?**
+No. They are independent Stripe customers. Personal credits stay personal, Team credits stay with the Team.
+
+**Can I transfer my personal subscription to a Team?**
+No. Subscriptions are not transferable between Stripe customers. Activate the Team plan separately on the Team — your personal subscription is unaffected.
+
+**If I delete my personal account, do my Teams disappear?**
+No. Teams persist independently. Other administrators continue running them. If you are the only administrator, promote another member first or the Team will be without an admin until support intervenes.
+
+**Can a Team subscribe to the Free, Dev, or Pro plan?**
+No. Teams can only subscribe to the **Team Plan**. The other tiers are personal-only.
+
+**What happens to Team-owned servers and projects if the subscription expires?**
+Existing data is preserved, but new deploys and most operations are blocked while the Team is inactive. Reactivate to restore full access. Dedicated server billing follows its own renewal cycle and is not stopped by Team-plan expiry — keep an eye on the **Upcoming Server Bills** card if you have auto-renewing servers.
+
+**Where do payment failure emails go?**
+To the Team's configured contact emails. If none are set, all Team administrators receive them. Configure contact emails at **Account → Settings → Team Identity** in the Team workspace.
+
+## Next steps
+
+- [Team overview](/team)
+- [Create a Team](/team/create-team)
+- [Manage members and roles](/team/manage-members)
+- [Transfer ownership to a Team](/team/transfer-ownership)
+- [Personal subscriptions](/subscription)
+- [Plans and pricing](/billing/plans)

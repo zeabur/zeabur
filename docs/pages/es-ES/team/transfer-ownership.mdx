@@ -1,0 +1,146 @@
+---
+title: Transferir la propiedad a un Equipo
+ogImageTitle: Transferir la propiedad
+ogImageSubtitle: Lleva proyectos y servidores personales a un Equipo
+---
+
+import { Callout, Steps } from 'nextra/components';
+
+# Transferir la propiedad a un Equipo
+
+Si tienes un proyecto o un servidor dedicado en tu **espacio de trabajo personal**, puedes cederlo a un [Equipo](/team) para que su facturación, su cuota y su propiedad pasen a la entidad del Equipo. Tras la transferencia, puedes seguir trabajando en el recurso como miembro del Equipo: el trabajo no cambia, solo cambia quién paga por él y quién es su propietario.
+
+## Cuándo transferir
+
+- Empezaste un proyecto en solitario y ahora quieres incorporar a compañeros bajo una facturación compartida.
+- Tu empresa te reembolsa el uso: las facturas deben emitirse a la entidad de la empresa, no a tu nombre personal.
+- Quieres que un proyecto o servidor sobreviva a cualquier cuenta de usuario individual, para que el traspaso no dependa de una sola persona.
+
+Si solo necesitas conceder a otra persona acceso a un único proyecto o servidor sin cambiar la facturación, invítale como colaborador: consulta [Gestionar miembros](/team/manage-members) para ver la comparación.
+
+## Qué se puede transferir
+
+Hay dos tipos de recursos que admiten transferencia a un Equipo:
+
+- **Proyectos** (con todos sus servicios, entornos, despliegues, historial de builds y datos en tiempo de ejecución)
+- **Servidores dedicados** (la máquina subyacente y la facturación de su renovación)
+
+Transferir un proyecto **no** transfiere el servidor en el que se ejecuta, y transferir un servidor **no** transfiere los proyectos desplegados en él. Las dos son operaciones independientes y hay que hacerlas por separado si quieres mover ambas cosas.
+
+## Requisitos previos
+
+Antes de que cualquier transferencia se complete con éxito, todo lo siguiente debe ser cierto:
+
+- **Eres el propietario actual del recurso** en tu espacio de trabajo personal (o eres administrador del Equipo de origen si ya pertenece a un Equipo), o eres administrador del staff de Zeabur actuando en nombre del propietario.
+- **Eres administrador del Equipo de destino.** Los Editores y los Visores no pueden traer recursos a un Equipo.
+- **El Equipo de destino tiene un plan Team activo.** Un Equipo que aún no ha activado el plan Team no puede tener proyectos ni servidores: el cuadro de diálogo de transferencia mostrará esto como *"Este equipo no tiene un Team Plan activo. Cambia al espacio de trabajo del equipo y suscríbete antes de transferir."* Consulta [Activar el plan Team](/team#activar-el-team-plan).
+
+Para la transferencia de servidores en concreto, se aplican dos comprobaciones adicionales:
+
+- El servidor **no debe estar suspendido** (un servidor detenido por facturas impagadas o por una infracción de políticas no se puede transferir; resuelve antes la suspensión).
+- Para transferencias a un **usuario** (no aplica al transferir a un Equipo), ese usuario debe tener ya un método de pago o créditos suficientes para cubrir un ciclo de renovación.
+
+<Callout type="info">
+  La transferencia depende de que el plan Team esté activo *en el momento de la transferencia*. El panel no permitirá enviar una transferencia a un Equipo inactivo: un administrador de ese Equipo debe suscribirse primero. Consulta [Facturación del Equipo](/team/billing).
+</Callout>
+
+## Transferir un proyecto
+
+<Steps>
+### Abre la configuración del proyecto
+
+Cambia a tu espacio de trabajo personal y abre el proyecto. Ve a **Configuración → Zona de peligro**, donde verás **Transferir la propiedad del proyecto**.
+
+### Abre el cuadro de diálogo de transferencia
+
+Haz clic en **Transferir la propiedad**. Aparece un cuadro de diálogo titulado *Transferir la propiedad del proyecto*.
+
+### Selecciona **Transferir a un equipo**
+
+El cuadro de diálogo tiene dos pestañas: **Transferir a un usuario** y **Transferir a un equipo**. Elige **Transferir a un equipo**.
+
+### Elige el Equipo de destino
+
+Verás un desplegable con todos los Equipos en los que eres administrador. Los Equipos sin un plan Team activo aparecen con una etiqueta **Free** y no se pueden seleccionar para confirmar: el diálogo mostrará *"Este equipo no tiene un Team Plan activo. Cambia al espacio de trabajo del equipo y suscríbete antes de transferir."*
+
+### Confirma
+
+Escribe el **nombre del proyecto** en el campo de confirmación y haz clic en **Transferir**.
+</Steps>
+
+Lo que cambia inmediatamente cuando la operación tiene éxito:
+
+- La propiedad del proyecto pasa al Equipo. A partir de ese momento, todos los costes futuros de despliegue, runtime, ancho de banda y cuota se facturan al método de pago del Equipo.
+- El proyecto sigue siendo totalmente funcional. Los servicios, entornos, despliegues, dominios personalizados, certificados SSL, variables de entorno, historial de builds y estado de runtime no se ven afectados.
+- El ID del proyecto y los dominios personalizados se mantienen iguales: no hay nada que reconfigurar en tu DNS.
+- **Los colaboradores existentes del proyecto se mantienen tal cual.** Los colaboradores de un proyecto vinculado a un Equipo son una capa de acceso adicional, separada y aditiva, sobre la pertenencia al Equipo; la transferencia no los reinicia.
+- Si no eres también miembro del Equipo de destino, pierdes tu vista directa de propietario del proyecto. Para seguir trabajando en él dentro del Equipo, un administrador debería añadirte como miembro del Equipo con el rol adecuado.
+
+## Transferir un servidor dedicado
+
+<Steps>
+### Abre la configuración del servidor
+
+Cambia a tu espacio de trabajo personal, abre el servidor y ve a **Configuración → Zona de peligro → Transferir la propiedad**.
+
+### Abre el cuadro de diálogo de transferencia
+
+Haz clic en **Transferir la propiedad** para abrir el cuadro de diálogo *Transferir la propiedad del servidor*.
+
+### Selecciona **Transferir a un equipo**
+
+En el cuadro de diálogo, cambia a la pestaña **Transferir a un equipo**.
+
+### Elige el Equipo de destino
+
+El desplegable lista los Equipos donde eres administrador. Los Equipos sin un plan Team activo aparecen marcados visiblemente como **Free** y no se pueden confirmar: se aplica el mismo aviso de mejora obligatoria que en la transferencia de proyectos.
+
+### Confirma
+
+Escribe el **nombre del servidor** en el campo de confirmación y haz clic en **Transferir**.
+</Steps>
+
+Lo que cambia:
+
+- Las futuras facturas de renovación de este servidor se cargan al Equipo a partir del próximo aniversario de facturación.
+- **El periodo prepagado actual permanece con el propietario original**: no hay reembolso, no hay prorrateo y no hay cargo inmediato al Equipo. El Equipo empieza a pagar solo en la siguiente renovación.
+- Conservas acceso de solo lectura al servidor automáticamente como colaborador tras la transferencia. Para eliminar ese acceso por completo, pide a un administrador del nuevo propietario que te elimine de la lista de colaboradores.
+- **Los proyectos que ya estén desplegados en el servidor NO se transfieren.** Permanecen con sus propietarios actuales; solo se mueve el servidor subyacente. Si quieres mover también un proyecto, transfiérelo por separado siguiendo los pasos anteriores.
+
+<Callout type="warning">
+  La transferencia de servidor es unidireccional desde el panel. El nuevo propietario puede transferirlo de vuelta más adelante, pero tú no puedes deshacerla desde tu lado. Comprueba dos veces el Equipo de destino antes de confirmar.
+</Callout>
+
+## Revertir una transferencia
+
+El mismo flujo de transferencia existe en sentido inverso. Un administrador del Equipo que ahora posee el proyecto o el servidor puede transferirlo de vuelta a un usuario personal (o a un Equipo distinto) usando el mismo punto de entrada **Transferir la propiedad** en la configuración del recurso. Ambas direcciones tienen los mismos requisitos previos: el plan Team debe estar activo en el Equipo implicado, y el receptor debe cumplir las comprobaciones de acceso y facturación anteriores.
+
+## Preguntas frecuentes
+
+**El panel dice "Este equipo no tiene un Team Plan activo": ¿qué hago ahora?**
+Un administrador de ese Equipo debe activar primero el plan Team. Cambia al espacio de trabajo del Equipo, ve a **Cuenta → Suscripción** y haz clic en **Activar el plan Team**. Consulta [Facturación del Equipo](/team/billing).
+
+**Mis compañeros siguen sin ver el proyecto después de la transferencia: ¿por qué?**
+Transferir la propiedad solo cambia quién posee y paga el recurso. Para que tus compañeros tengan acceso, también deben añadirse como miembros del Equipo de destino. Consulta [Gestionar miembros](/team/manage-members).
+
+**¿Seguirán funcionando los dominios personalizados y los certificados SSL después de la transferencia?**
+Sí. Los dominios y los certificados pertenecen al proyecto, no a su propietario. No hay nada que reconfigurar.
+
+**¿La próxima factura de este proyecto irá a mí o al Equipo?**
+Al Equipo. La transferencia de proyecto cambia la facturación al instante: todos los cargos a partir del momento de la transferencia recaen en la factura del Equipo.
+
+**¿La próxima factura de este servidor dedicado irá a mí o al Equipo?**
+El periodo prepagado actual ya lo pagaste tú y se queda contigo. La primera factura del Equipo por el servidor es la renovación del *próximo* aniversario de facturación.
+
+**¿Puedo transferir un único servicio fuera de un proyecto?**
+No. Los servicios están limitados a un proyecto. Para mover un servicio a un Equipo, tienes que transferir el proyecto entero (o recrear el servicio en un proyecto propiedad del Equipo).
+
+**¿Puedo transferir un proyecto de un Equipo directamente a otro Equipo?**
+Sí. Los administradores del Equipo de origen pueden transferir un proyecto propiedad del Equipo a otro Equipo en el que también sean administradores, siguiendo el mismo flujo. Ambos Equipos deben tener un plan Team activo.
+
+## Próximos pasos
+
+- [Introducción a Equipo](/team)
+- [Crear un Equipo](/team/create-team)
+- [Gestionar miembros y roles](/team/manage-members)
+- [Facturación del Equipo](/team/billing)

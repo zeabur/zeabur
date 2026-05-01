@@ -1,0 +1,146 @@
+---
+title: Transfer ownership to a Team
+ogImageTitle: Transfer ownership
+ogImageSubtitle: Move personal projects and servers into a Team
+---
+
+import { Callout, Steps } from 'nextra/components';
+
+# Transfer ownership to a Team
+
+If you have a project or a dedicated server in your **personal workspace**, you can hand it over to a [Team](/team) so its billing, quota, and ownership move under the Team entity. After transfer, you can keep working on the resource as a Team member — the work doesn't change, only who pays for it and who owns it.
+
+## When to transfer
+
+- You started a project solo and now want to bring colleagues in under shared billing.
+- Your company is reimbursing your usage — invoices need to be addressed to the company entity, not your personal name.
+- You want a project or server to outlive any individual user account, so handover doesn't depend on one person.
+
+If you only need to grant another person access to a single project or server without changing billing, invite them as a collaborator instead — see [Manage members](/team/manage-members) for the comparison.
+
+## What can be transferred
+
+Two resource types support transfer to a Team:
+
+- **Projects** (with all their services, environments, deployments, build history, and runtime data)
+- **Dedicated servers** (the underlying machine and its renewal billing)
+
+Transferring a project does **not** transfer the server it runs on, and transferring a server does **not** transfer the projects deployed on it. The two are independent operations and have to be done separately if you want both moved.
+
+## Prerequisites
+
+Before any transfer succeeds, the following must all be true:
+
+- **You currently own the resource** in your personal workspace (or are an administrator of the source Team if it's already team-owned), or you are a Zeabur staff administrator acting on behalf of the owner.
+- **You are an administrator of the destination Team.** Editors and Viewers cannot pull resources into a Team.
+- **The destination Team has an active Team plan.** A Team that has not yet activated the Team plan cannot own projects or servers — the transfer dialog will surface this as *"This team has no active Team Plan. Switch to the team workspace and subscribe before transferring."* See [Activating the Team plan](/team#activating-the-team-plan).
+
+For server transfer specifically, two extra checks apply:
+
+- The server must **not be suspended** (a server stopped because of unpaid bills or a policy violation cannot be transferred — resolve the suspension first).
+- For transfers to a **user** (not relevant when transferring to a Team), that user must already have a payment method or enough credits to cover one renewal cycle.
+
+<Callout type="info">
+  Transfer is gated on the Team plan being active *at the moment of transfer*. The dashboard will not let you submit a transfer to an inactive Team — an administrator of that Team must subscribe first. See [Team billing](/team/billing).
+</Callout>
+
+## Transfer a project
+
+<Steps>
+### Open the project's settings
+
+Switch to your personal workspace and open the project. Go to **Settings → Danger Zone**, where you'll see **Transfer project ownership**.
+
+### Open the transfer dialog
+
+Click **Transfer ownership**. A dialog titled *Transfer project ownership* appears.
+
+### Select **Transfer to team**
+
+The dialog has two tabs — **Transfer to user** and **Transfer to team**. Pick **Transfer to team**.
+
+### Choose the destination Team
+
+You'll see a dropdown listing every Team where you are an administrator. Teams without an active Team plan show a **Free** badge and are not selectable for confirmation — the dialog will display *"This team has no active Team Plan. Switch to the team workspace and subscribe before transferring."*
+
+### Confirm
+
+Type the **project name** into the confirmation field, then click **Transfer**.
+</Steps>
+
+What changes immediately on success:
+
+- The project's ownership flips to the Team. From this moment on, all future deployment, runtime, bandwidth, and quota costs are billed to the Team's payment method.
+- The project remains fully functional. Services, environments, deployments, custom domains, SSL certificates, environment variables, build history, and runtime state are all unaffected.
+- The project ID and any custom domains stay the same — there is nothing to reconfigure on your DNS side.
+- **Existing project collaborators are kept as-is.** A team-bound project's collaborators are a separate, additive access layer on top of Team membership; the transfer does not reset them.
+- If you are not also a member of the destination Team, you lose your direct ownership view of the project. To keep working on it under the Team, an administrator should add you as a Team member with the appropriate role.
+
+## Transfer a dedicated server
+
+<Steps>
+### Open the server's settings
+
+Switch to your personal workspace, open the server, and go to **Settings → Danger Zone → Transfer ownership**.
+
+### Open the transfer dialog
+
+Click **Transfer ownership** to bring up the *Transfer server ownership* dialog.
+
+### Select **Transfer to team**
+
+In the dialog, switch to the **Transfer to team** tab.
+
+### Choose the destination Team
+
+The dropdown lists Teams where you are an administrator. Teams without an active Team plan are visibly marked **Free** and cannot be confirmed — the same upgrade-required notice as project transfer applies.
+
+### Confirm
+
+Type the **server name** into the confirmation field, then click **Transfer**.
+</Steps>
+
+What changes:
+
+- Future renewal invoices for this server are charged to the Team starting from the next billing anniversary.
+- The **current prepaid period stays with the original owner** — there is no refund, no proration, and no immediate charge to the Team. The Team begins paying only at the next renewal.
+- You keep read-only access to the server automatically as a collaborator after transfer. To remove that access entirely, ask an administrator of the new owner to remove you from the collaborator list.
+- **Projects already deployed on the server are NOT transferred.** They stay with their current owners; only the underlying server moves. If you want a project moved as well, transfer it separately following the steps above.
+
+<Callout type="warning">
+  Server transfer is one-way from the dashboard. The new owner can transfer it back later, but you cannot undo it from your side. Double-check the destination Team before confirming.
+</Callout>
+
+## Reverting a transfer
+
+The same transfer flow exists in reverse. An administrator of the Team that now owns the project or server can transfer it back to a personal user (or to a different Team) using the same **Transfer ownership** entry point in the resource's settings. Both directions use the same prerequisites — the Team plan must be active on whichever Team is involved, and the receiver must meet the access and billing checks above.
+
+## FAQ
+
+**The dashboard says "This team has no active Team Plan" — what now?**
+An administrator of that Team must activate the Team plan first. Switch into the Team workspace, go to **Account → Subscription**, and click **Activate Team plan**. See [Team billing](/team/billing).
+
+**My colleagues still can't see the project after the transfer — why?**
+Transferring ownership only changes who owns and pays for the resource. To grant your colleagues access, they also need to be added as Team members in the destination Team. See [Manage members](/team/manage-members).
+
+**Will custom domains and SSL certificates still work after transfer?**
+Yes. Domains and certificates belong to the project, not to its owner. There is nothing to reconfigure.
+
+**Will the next invoice for this project go to me or to the Team?**
+The Team. Project transfer cuts billing over immediately — every charge from the moment of transfer onwards lands on the Team's invoice.
+
+**Will the next invoice for this dedicated server go to me or to the Team?**
+The current prepaid period was already paid by you and stays with you. The Team's first invoice for the server is the *next* billing anniversary's renewal.
+
+**Can I transfer a single service out of a project?**
+No. Services are scoped to a project. To move a service to a Team, you have to transfer the entire project (or recreate the service in a Team-owned project).
+
+**Can I transfer a project from one Team directly to another Team?**
+Yes — administrators of the source Team can transfer a team-owned project to another Team where they are also an administrator, following the same flow. Both Teams must be on an active Team plan.
+
+## Next steps
+
+- [Team overview](/team)
+- [Create a Team](/team/create-team)
+- [Manage members and roles](/team/manage-members)
+- [Team billing](/team/billing)

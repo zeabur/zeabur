@@ -1,0 +1,185 @@
+---
+title: Manage members
+ogImageTitle: Manage Team members
+ogImageSubtitle: Invite, remove, and assign roles
+---
+
+import { Callout, Steps } from 'nextra/components';
+
+# Manage members
+
+A Team is only useful once you have teammates in it with the right level of access. This page is the canonical reference for what each role can and cannot do, how to invite and remove members, and how a Team membership differs from project- or server-level collaboration.
+
+If you are still deciding whether you need a Team at all, start with [Team](/team) and [Create a Team](/team/create-team).
+
+## Roles at a glance
+
+| Role | Manage members & Team profile | Manage billing | Create / modify resources | Delete resources |
+| --- | :---: | :---: | :---: | :---: |
+| **Administrator** | Yes | Yes | Yes | Yes |
+| **Editor** | No | No | Yes | No |
+| **Viewer** | No | No | No | No |
+
+Read access is scoped: any role can see the Team's projects, services, deployment history, server status, and view runtime logs. **Searching or downloading logs is restricted to Editors and Administrators.** Invoices, payment methods, and billing details are visible to **administrators only**.
+
+The user who creates the Team is recorded as the **Team creator** (shown as "Creator" in the dashboard). The creator is always an administrator and cannot be removed or demoted by anyone else — only the creator themselves can step down via [Transfer ownership](/team/transfer-ownership). Every Team must always have at least one administrator.
+
+### Detailed permission matrix
+
+For the precise per-feature breakdown:
+
+| Feature | Viewer | Editor | Administrator |
+| --- | :---: | :---: | :---: |
+| **Team management** | | | |
+| View Team members | Yes | Yes | Yes |
+| Invite new members | No | No | Yes |
+| Change member roles | No | No | Yes |
+| Remove members | No | No | Yes |
+| Delete the Team | No | No | Yes |
+| **Projects & services** | | | |
+| View projects and services | Yes | Yes | Yes |
+| Create projects and services | No | Yes | Yes |
+| Modify service settings | No | Yes | Yes |
+| Delete projects and services | No | No | Yes |
+| **Deployment** | | | |
+| View deployment history | Yes | Yes | Yes |
+| Trigger deploys manually | No | Yes | Yes |
+| Roll back a deployment | No | Yes | Yes |
+| **Logs & monitoring** | | | |
+| View logs | Yes | Yes | Yes |
+| Search logs | No | Yes | Yes |
+| Download logs | No | Yes | Yes |
+| **Infrastructure (databases & servers)** | | | |
+| View databases and servers | Yes | Yes | Yes |
+| Create databases and servers | No | Yes | Yes |
+| Modify databases and servers | No | Yes | Yes |
+| Delete databases and servers | No | No | Yes |
+| **Billing** | | | |
+| View invoices | No | No | Yes |
+| Change payment method | No | No | Yes |
+| Change subscription plan | No | No | Yes |
+
+### What an Administrator can do
+
+- Update the Team profile: name, logo, contact emails for system notifications.
+- Invite, remove, and change the role of other members.
+- Activate, cancel, or resume the Team plan.
+- Manage payment methods, billing details (legal name, address, tax ID), and prepaid credits.
+- Create, modify, **and** delete team-owned projects, services, environments, databases, and dedicated servers.
+- Transfer a personal project or server into the Team (see [Transfer ownership](/team/transfer-ownership)).
+- Delete the Team itself, once it has no remaining projects or servers.
+
+### What an Editor can do
+
+Editors are the everyday "build and ship" role.
+
+- Create and modify team-owned projects, services, environments, environment variables, and domains.
+- Trigger deployments, rollback to a previous deployment, restart services.
+- Search and download logs.
+- Add or modify dedicated servers and databases attached to the Team.
+
+What an Editor **cannot** do:
+
+- Invite, remove, or change the role of any member.
+- Edit the Team name, logo, or contact emails.
+- View invoices, change payment methods, activate or cancel the Team plan, or top up balance.
+- Delete a project, service, database, or server. Editors create and modify; only administrators delete.
+
+<Callout type="info">
+  Editor write actions are gated on the Team plan being active. While a Team is in the inactive state described in the [Team overview](/team#activating-the-team-plan), editors cannot create or modify resources — only an administrator can finish the activation step.
+</Callout>
+
+### What a Viewer can do
+
+Viewers have read-only access to most of the Team workspace. Useful for stakeholders, auditors, contractors on retainer, or anyone who needs visibility into deployments without the ability to change anything.
+
+A Viewer **can**:
+
+- View projects, services, deployment history, and server / database status.
+- Open runtime logs and build logs (read-only).
+- Switch into the Team workspace and browse it like any other member.
+
+A Viewer **cannot**:
+
+- Deploy, restart, roll back, or change service settings.
+- Create or modify projects, services, environment variables, databases, or servers.
+- Search or download logs (only viewing in the dashboard is allowed).
+- Invite, remove, or change member roles.
+- View invoices, payment methods, or billing details, or change anything in billing.
+
+## Invite a member
+
+Only administrators can invite. The invitee must already have a Zeabur account on the same email — there is no pending-invitation inbox; once you add them, they are an active member immediately and the next time they sign in they can switch into the Team workspace from the workspace switcher.
+
+<Steps>
+### Switch into the Team workspace
+
+In the dashboard sidebar workspace switcher, select the Team you want to invite into. You must be in the Team workspace to see the **Members** page; member management is not exposed from your personal workspace.
+
+### Open Members
+
+Go to **Account → Members**. Administrators see an **Invite a member** button in the top-right of the members list. Editors and Viewers do not see this button.
+
+### Enter the email and pick a role
+
+Click **Invite a member**, enter the teammate's email address, and choose **Administrator**, **Editor**, or **Viewer**. You can change the role later, so it is fine to start a member at Viewer and promote them once you trust their workflow.
+
+### Confirm any seat-cost preview
+
+If your Team is on the Team plan and adding this member would exceed the included seats, the dashboard shows an extra-seat cost preview before the invitation is sent. The prorated charge for the rest of the current billing period is added to the next invoice. See [Team billing](/team/billing) for how seat pricing works.
+
+### Send
+
+Click **Send invitation**. The new member appears in the list straight away with their chosen role. They will see the Team in their workspace switcher the next time they load the dashboard.
+</Steps>
+
+If the email you entered does not match an existing Zeabur account, the invitation is rejected — ask the teammate to sign up at [zeabur.com](https://zeabur.com) first, then retry.
+
+## Change a member's role
+
+Administrators can change any member's role at any time, with one exception: nobody (not even another administrator) can change the **Creator's** role. If you need to change who effectively runs the Team, use [Transfer ownership](/team/transfer-ownership) instead.
+
+To change a role, open **Account → Members**, click the role dropdown next to the member, and pick a new role. The change takes effect immediately on the next page load for that member — there is no "save" step.
+
+You cannot change your own role from this page. To remove yourself from the Team, use **Leave team** (see below).
+
+## Remove a member
+
+Administrators can remove any member except the Creator. Removing a member:
+
+- Takes effect immediately. The removed user loses access to all team-owned projects, services, servers, and billing data.
+- Does **not** delete any of their personal projects or servers — those remain in their personal workspace.
+- Frees up a seat on the Team plan, which reduces the seat charge on the next invoice.
+
+To remove someone, open **Account → Members**, click **Remove** on their row, and confirm. The member is removed without an additional notification step.
+
+### Leaving a Team yourself
+
+Any member can leave a Team they belong to, except the Creator. Go to **Account → Team Settings** while in the Team workspace and use **Leave team** in the danger zone. After leaving, you lose access to the Team's resources, and the dashboard returns you to your personal workspace.
+
+If you are the Creator and want to leave, you must first [transfer ownership](/team/transfer-ownership) to another administrator.
+
+## Team member vs project / server collaborators
+
+Zeabur has three independent invitation systems. Picking the right one matters because they grant access to different things and are managed in different places.
+
+| | Where you invite | What they get | Who removes them |
+| --- | --- | --- | --- |
+| **Team member** | **Account → Members** in a Team workspace | Every current and future Team-owned project, service, and server, scoped by the role you assign. Includes billing access for administrators. | An administrator removes; a member can leave on their own. |
+| **Project collaborator** | Inside a single project, in the project's settings panel | A single project's services, deployments, and environment variables. Does **not** grant access to the underlying dedicated server, even if the project runs on a Team-owned or personally owned server. | The project owner removes; a collaborator can leave the project. |
+| **Server collaborator** | Inside a single server, in the server's collaborators section | One dedicated server's management — reboot, reinstall, billing, server-level settings. Does **not** automatically grant access to projects deployed on that server. | The server owner removes. |
+
+### When to use which
+
+- **Use Team membership** when more than one person should share billing, see all current and future projects and servers, and operate as a single org. This is the right choice for a company, a paying agency client, or a long-term collaborator.
+- **Use a project collaborator** when you want to give one person edit access to a single project and nothing else — a freelancer working on one app, a friend you are pair-programming with on a side project. Does not require a Team.
+- **Use a server collaborator** when someone needs to help administer a dedicated server (reboot, reinstall) but should not necessarily see the projects running on it.
+
+The three systems can coexist: a user might be an Editor on your Team, a project collaborator on someone else's personal project, and a server collaborator on a third party's dedicated box. Each grant is scoped to the resource it was issued from.
+
+## Next steps
+
+- [Team overview](/team)
+- [Create a Team](/team/create-team)
+- [Team billing](/team/billing)
+- [Invite a project collaborator](/operations/team/invite-member)

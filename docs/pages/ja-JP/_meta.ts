@@ -27,6 +27,7 @@ export default {
   '---4---': { type: 'separator' },
   pricing:            '料金プラン',
   subscription:       'サブスクリプションと請求',
+  team:               'チーム',
   rewards:            'リワードと紹介',
   partner:            'パートナープログラム',
 

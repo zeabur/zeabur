@@ -27,6 +27,7 @@ export default {
   '---4---': { type: 'separator' },
   pricing:            '定价',
   subscription:       '订阅与账单',
+  team:               '团队',
   rewards:            '推荐与奖励',
   partner:            '合作伙伴计划',
 

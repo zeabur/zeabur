@@ -1,0 +1,102 @@
+---
+title: Equipo
+ogImageTitle: Equipo
+ogImageSubtitle: Colabora con facturación y recursos compartidos
+---
+
+import { Callout, Steps } from 'nextra/components';
+
+# Equipo
+
+Un **Equipo** es un espacio de trabajo independiente que permite a varias personas compartir proyectos, servidores y facturación bajo una misma entidad. Los equipos disponen de su propia suscripción, método de pago y facturas, totalmente independientes de la cuenta personal de cualquier persona.
+
+Esta página explica qué es un Equipo, en qué se diferencia de tu cuenta personal y qué activa el **Team Plan**.
+
+## Cuenta personal frente a Equipo
+
+Cada usuario de Zeabur dispone de un **espacio de trabajo personal** (tu cuenta individual). Además, puedes pertenecer a uno o varios Equipos. Cada Equipo es su propio espacio de trabajo, con sus propios recursos, miembros y facturación.
+
+Puedes alternar entre tu espacio de trabajo personal y cualquier Equipo al que pertenezcas mediante el **selector de espacio de trabajo** de la barra lateral del panel.
+
+| | Espacio de trabajo personal | Espacio de trabajo de equipo |
+| --- | --- | --- |
+| Propietario | Tú | La entidad del Equipo |
+| Suscripción | Tu plan personal (Free / Dev / Pro) | Team Plan (un único nivel) |
+| Método de pago | Tu tarjeta | La tarjeta del Equipo |
+| Facturas | Emitidas a tu nombre | Emitidas al Equipo |
+| Proyectos / servidores visibles | Los tuyos | Los del Equipo |
+| Miembros | No aplica | Varios usuarios con roles |
+
+Un mismo usuario puede tener una suscripción personal activa **y** pertenecer a un Equipo con su propia suscripción activa al mismo tiempo. Ambas se facturan y gestionan de forma independiente: añadir miembros a un Equipo no afecta a tu facturación personal, y bajar de plan a nivel personal no afecta a ningún Equipo al que pertenezcas.
+
+<Callout type="info">
+  En tu historial de facturación, una suscripción personal en el antiguo nivel "Team" ahora aparece como **Team Plan (Legacy)**. Esto no guarda relación con el espacio de trabajo de Equipo descrito aquí. El producto actual de Equipo es el espacio de trabajo descrito en esta página.
+</Callout>
+
+## Activar el Team Plan
+
+Crear un Equipo te proporciona un espacio de trabajo vacío, pero un Equipo debe **activar el Team Plan** antes de que sus miembros puedan crear proyectos, desplegar servicios o utilizar cualquier recurso propiedad del Equipo.
+
+<Callout type="warning">
+  Un Equipo recién creado se encuentra en estado **inactivo**. Hasta que un administrador del Equipo active el Team Plan, las siguientes acciones están bloqueadas para todos los miembros del Equipo:
+
+  - Crear proyectos en el espacio de trabajo del Equipo
+  - Desplegar servicios desde una plantilla
+  - Gestionar servidores y clústeres propiedad del Equipo
+  - Usar AI Hub bajo el Equipo
+  - Enviar correos electrónicos a través de Z‑Send bajo el Equipo
+</Callout>
+
+Lo que sí funciona en un Equipo inactivo, para que los administradores puedan completar la configuración:
+
+- Crear el Equipo y darle nombre
+- Invitar a miembros y asignar roles
+- Actualizar el perfil del Equipo (nombre, avatar, correos de contacto)
+- Vincular un método de pago
+- **Activar el Team Plan**
+- Volver a tu espacio de trabajo personal en cualquier momento
+- Eliminar el Equipo (solo cuando no tiene proyectos ni servidores)
+
+Para activar el Team Plan, un administrador del Equipo debe ir a **Cuenta → Suscripción** estando en el espacio de trabajo del Equipo y hacer clic en **Activar el plan Team**. El panel mostrará la previsualización del precio basado en asientos antes del pago.
+
+## Roles
+
+Un Equipo tiene tres roles, asignados cuando un administrador invita a un miembro:
+
+- **Administrador** — control total: miembros, facturación, todos los recursos propiedad del equipo y posibilidad de eliminar el Equipo.
+- **Editor** — puede crear y modificar proyectos, servicios y recursos propiedad del Equipo, pero no puede gestionar miembros ni facturación, ni eliminar el Equipo.
+- **Visor** — acceso de solo lectura a los recursos del Equipo. No puede crear, modificar ni eliminar nada.
+
+El usuario que crea el Equipo se convierte automáticamente en su primer administrador. Siempre debe haber al menos un administrador en un Equipo.
+
+Para ver la lista completa de lo que cada rol puede y no puede hacer, consulta [Gestionar miembros](/team/manage-members).
+
+## Facturación independiente
+
+Cada Equipo dispone de su propio registro de cliente en Stripe. Esto implica:
+
+- Las facturas del Equipo se emiten con los datos de facturación del propio Equipo (razón social, dirección, NIF), no con los de ningún miembro individual.
+- El Equipo dispone de su propio método de pago, separado de las tarjetas personales de cualquier administrador.
+- El Equipo dispone de su propio saldo de crédito: los créditos añadidos al Equipo solo se gastan en recursos propiedad del Equipo.
+- Cambiar de espacio de trabajo en el panel cambia el contexto de facturación que estás viendo.
+
+Para más detalles sobre métodos de pago, facturas, créditos prepagados y el funcionamiento de los cargos por asiento del Team Plan, consulta [Facturación del Equipo](/team/billing).
+
+## Llevar proyectos y servidores personales a un Equipo
+
+Si tienes un proyecto o servidor dedicado existente en tu espacio de trabajo personal, un administrador de un Equipo al que pertenezcas puede transferir su propiedad al Equipo. Tras la transferencia, la facturación y las cuotas de recursos quedan vinculadas al Equipo, y el propietario personal original puede seguir trabajando en él como miembro del Equipo.
+
+Consulta [Transferir la propiedad a un Equipo](/team/transfer-ownership).
+
+## Cuándo usar un Equipo frente a colaboradores de proyecto / servidor
+
+Si solo quieres dar a alguien acceso a los servicios de un único proyecto, [invítale como colaborador del proyecto](/operations/team/invite-member). Si quieres compartir un único servidor dedicado, invítale como colaborador del servidor desde la página de configuración del servidor. Un **Equipo** es la opción adecuada cuando quieres facturación compartida y un único espacio de trabajo para muchos proyectos, servidores y miembros: en ese caso, invítale como miembro del Equipo.
+
+Para el desglose completo de las diferencias entre las tres opciones, consulta [Gestionar miembros](/team/manage-members).
+
+## Próximos pasos
+
+- [Crear un Equipo](/team/create-team)
+- [Gestionar miembros y roles](/team/manage-members)
+- [Facturación del Equipo](/team/billing)
+- [Transferir la propiedad a un Equipo](/team/transfer-ownership)

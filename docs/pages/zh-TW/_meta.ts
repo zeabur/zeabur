@@ -27,6 +27,7 @@ export default {
   '---4---': { type: 'separator' },
   pricing:            '定價',
   subscription:       '訂閱與帳單',
+  team:               '團隊',
   rewards:            '推薦與獎勵',
   partner:            '合作夥伴計畫',
 
