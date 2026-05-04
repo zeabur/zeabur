@@ -16,7 +16,9 @@ tsconfig.tsbuildinfo
 
 # Generated files
 public/sitemap.xml
-lib/last-updated.json
+# lib/last-updated.json is intentionally checked in: the build container does
+# a shallow clone of the repo, so regenerating it at build time would overwrite
+# the manifest with mostly-empty data. Refresh locally with `pnpm predev`.
 
 # Temporary files
 /tmp
