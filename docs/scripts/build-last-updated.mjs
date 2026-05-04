@@ -6,16 +6,25 @@ const DOCS_ROOT = path.resolve(import.meta.dirname, '..')
 const PAGES_DIR = path.join(DOCS_ROOT, 'pages')
 const OUT_FILE = path.join(DOCS_ROOT, 'lib', 'last-updated.json')
 
-const GIT_ROOT = execFileSync('git', ['rev-parse', '--show-toplevel'], {
-  cwd: DOCS_ROOT,
-  encoding: 'utf8',
-}).trim()
-
-const IS_SHALLOW =
-  execFileSync('git', ['rev-parse', '--is-shallow-repository'], {
-    cwd: GIT_ROOT,
+let GIT_ROOT = null
+let IS_SHALLOW = false
+try {
+  GIT_ROOT = execFileSync('git', ['rev-parse', '--show-toplevel'], {
+    cwd: DOCS_ROOT,
     encoding: 'utf8',
-  }).trim() === 'true'
+    stdio: ['ignore', 'pipe', 'ignore'],
+  }).trim()
+  IS_SHALLOW =
+    execFileSync('git', ['rev-parse', '--is-shallow-repository'], {
+      cwd: GIT_ROOT,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim() === 'true'
+} catch {
+  // No git available (e.g. Zeabur build container with no .git dir).
+  // Fall through to the same path as a shallow clone: use the committed manifest.
+  GIT_ROOT = null
+}
 
 function walk(dir) {
   const out = []
@@ -62,7 +71,7 @@ const expectedRoutes = files.map(routeFor)
 // but first, verify every current MDX route is covered by the committed
 // manifest. Otherwise a new page added without regenerating the manifest
 // would silently ship without a "Last updated" line.
-if (IS_SHALLOW) {
+if (!GIT_ROOT || IS_SHALLOW) {
   const committed = readCommittedManifest()
   const missingRoutes = expectedRoutes.filter((route) => !committed[route])
   if (missingRoutes.length) {
@@ -76,8 +85,9 @@ if (IS_SHALLOW) {
     }
     console.warn(msg)
   }
+  const reason = !GIT_ROOT ? 'no git repository detected' : 'shallow clone detected'
   console.log(
-    '[last-updated] shallow clone detected — skipping regeneration; using committed manifest',
+    `[last-updated] ${reason} — skipping regeneration; using committed manifest`,
   )
   process.exit(0)
 }
