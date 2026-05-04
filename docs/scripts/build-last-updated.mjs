@@ -11,6 +11,22 @@ const GIT_ROOT = execFileSync('git', ['rev-parse', '--show-toplevel'], {
   encoding: 'utf8',
 }).trim()
 
+const IS_SHALLOW =
+  execFileSync('git', ['rev-parse', '--is-shallow-repository'], {
+    cwd: GIT_ROOT,
+    encoding: 'utf8',
+  }).trim() === 'true'
+
+// Shallow clones (e.g. Zeabur/Vercel build containers) can't see history for
+// most files, so `git log` returns empty and we'd overwrite the committed
+// manifest with garbage. Bail out and let the committed copy be used as-is.
+if (IS_SHALLOW) {
+  console.log(
+    '[last-updated] shallow clone detected — skipping regeneration; using committed manifest',
+  )
+  process.exit(0)
+}
+
 function walk(dir) {
   const out = []
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
