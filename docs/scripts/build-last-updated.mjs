@@ -17,16 +17,6 @@ const IS_SHALLOW =
     encoding: 'utf8',
   }).trim() === 'true'
 
-// Shallow clones (e.g. Zeabur/Vercel build containers) can't see history for
-// most files, so `git log` returns empty and we'd overwrite the committed
-// manifest with garbage. Bail out and let the committed copy be used as-is.
-if (IS_SHALLOW) {
-  console.log(
-    '[last-updated] shallow clone detected — skipping regeneration; using committed manifest',
-  )
-  process.exit(0)
-}
-
 function walk(dir) {
   const out = []
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -55,7 +45,43 @@ function gitTimestamp(absPath) {
   return out || null
 }
 
+function readCommittedManifest() {
+  try {
+    return JSON.parse(fs.readFileSync(OUT_FILE, 'utf8'))
+  } catch {
+    return {}
+  }
+}
+
 const files = walk(PAGES_DIR)
+const expectedRoutes = files.map(routeFor)
+
+// Shallow clones (e.g. Zeabur/Vercel build containers) can't see history for
+// most files, so `git log` returns empty and we'd overwrite the committed
+// manifest with garbage. Bail out and let the committed copy be used as-is —
+// but first, verify every current MDX route is covered by the committed
+// manifest. Otherwise a new page added without regenerating the manifest
+// would silently ship without a "Last updated" line.
+if (IS_SHALLOW) {
+  const committed = readCommittedManifest()
+  const missingRoutes = expectedRoutes.filter((route) => !committed[route])
+  if (missingRoutes.length) {
+    const msg =
+      `[last-updated] committed manifest missing ${missingRoutes.length} routes:\n` +
+      missingRoutes.map((r) => `  - ${r}`).join('\n')
+    if (process.env.CI) {
+      throw new Error(
+        msg + '\nRun `pnpm predev` locally and commit lib/last-updated.json.',
+      )
+    }
+    console.warn(msg)
+  }
+  console.log(
+    '[last-updated] shallow clone detected — skipping regeneration; using committed manifest',
+  )
+  process.exit(0)
+}
+
 const manifest = {}
 const missingFiles = []
 for (const file of files) {
