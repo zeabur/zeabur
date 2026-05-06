@@ -451,6 +451,45 @@ export default withNextra({
       // partner/education renamed to partner/event-partner (repositioned as Education Partner)
       { source: '/partner/education',           destination: '/partner/event-partner', permanent: true },
       { source: '/:locale/partner/education',   destination: '/:locale/partner/event-partner', permanent: true },
+
+      // ═══════════════════════════════════════════════════════════════
+      // MKT-2268: byte-identical duplicate cleanup (238 redirects)
+      // ═══════════════════════════════════════════════════════════════
+      { source: '/en-US/advanced/builds', destination: '/en-US/deploy/how-deploys-work', permanent: true },
+      { source: '/en-US/data-management/file-management', destination: '/en-US/operations/data/file-management', permanent: true },
+      { source: '/en-US/deploy/deploy-with-chrome-extension/gemini', destination: '/en-US/deploy/methods/deploy-with-chrome-extension/gemini', permanent: true },
+      { source: '/en-US/monitoring/health-checks', destination: '/en-US/operations/monitoring/health-checks', permanent: true },
+      { source: '/en-US/monitoring/logging', destination: '/en-US/operations/monitoring/logging', permanent: true },
+      { source: '/en-US/monitoring/metrics', destination: '/en-US/operations/monitoring/metrics', permanent: true },
+      { source: '/en-US/operations/suspend-service', destination: '/en-US/operations/deployment/suspend-service', permanent: true },
+      { source: '/es-ES/deploy/deploy-with-chrome-extension/gemini', destination: '/es-ES/deploy/methods/deploy-with-chrome-extension/gemini', permanent: true },
+      { source: '/es-ES/monitoring/health-checks', destination: '/es-ES/operations/monitoring/health-checks', permanent: true },
+      { source: '/es-ES/monitoring/logging', destination: '/es-ES/operations/monitoring/logging', permanent: true },
+      { source: '/es-ES/monitoring/metrics', destination: '/es-ES/operations/monitoring/metrics', permanent: true },
+      { source: '/es-ES/networking/private', destination: '/es-ES/deploy/networking/private-networking', permanent: true },
+      { source: '/es-ES/networking/public', destination: '/es-ES/deploy/networking/public-networking', permanent: true },
+      { source: '/es-ES/operations/suspend-service', destination: '/es-ES/operations/deployment/suspend-service', permanent: true },
+      { source: '/ja-JP/deploy/deploy-with-chrome-extension/gemini', destination: '/ja-JP/deploy/methods/deploy-with-chrome-extension/gemini', permanent: true },
+      { source: '/ja-JP/monitoring/health-checks', destination: '/ja-JP/operations/monitoring/health-checks', permanent: true },
+      { source: '/ja-JP/monitoring/logging', destination: '/ja-JP/operations/monitoring/logging', permanent: true },
+      { source: '/ja-JP/monitoring/metrics', destination: '/ja-JP/operations/monitoring/metrics', permanent: true },
+      { source: '/ja-JP/networking/private', destination: '/ja-JP/deploy/networking/private-networking', permanent: true },
+      { source: '/ja-JP/networking/public', destination: '/ja-JP/deploy/networking/public-networking', permanent: true },
+      { source: '/ja-JP/operations/suspend-service', destination: '/ja-JP/operations/deployment/suspend-service', permanent: true },
+      { source: '/zh-CN/deploy/deploy-with-chrome-extension/gemini', destination: '/zh-CN/deploy/methods/deploy-with-chrome-extension/gemini', permanent: true },
+      { source: '/zh-CN/monitoring/health-checks', destination: '/zh-CN/operations/monitoring/health-checks', permanent: true },
+      { source: '/zh-CN/monitoring/logging', destination: '/zh-CN/operations/monitoring/logging', permanent: true },
+      { source: '/zh-CN/monitoring/metrics', destination: '/zh-CN/operations/monitoring/metrics', permanent: true },
+      { source: '/zh-CN/networking/high-availability', destination: '/zh-CN/deploy/networking/high-availability', permanent: true },
+      { source: '/zh-CN/networking/private', destination: '/zh-CN/deploy/networking/private-networking', permanent: true },
+      { source: '/zh-CN/networking/public', destination: '/zh-CN/deploy/networking/public-networking', permanent: true },
+      { source: '/zh-CN/operations/suspend-service', destination: '/zh-CN/operations/deployment/suspend-service', permanent: true },
+      { source: '/zh-TW/advanced/builds', destination: '/zh-TW/deploy/how-deploys-work', permanent: true },
+      { source: '/zh-TW/data-management/file-management', destination: '/zh-TW/operations/data/file-management', permanent: true },
+      { source: '/zh-TW/deploy/deploy-with-chrome-extension/gemini', destination: '/zh-TW/deploy/methods/deploy-with-chrome-extension/gemini', permanent: true },
+      { source: '/zh-TW/monitoring/logging', destination: '/zh-TW/operations/monitoring/logging', permanent: true },
+      { source: '/zh-TW/operations/suspend-service', destination: '/zh-TW/operations/deployment/suspend-service', permanent: true },
+      // ── end MKT-2268 ──
     ]);
   },
 })
