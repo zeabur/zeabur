@@ -37,7 +37,6 @@ export default {
   'terms-of-service': 'Terms of Service',
 
   // ── Hidden: legacy directories (not shown in sidebar) ──────────────────
-  advanced:        { display: 'hidden' },
   billing:         { display: 'hidden' },
   'billing-legal': { display: 'hidden' },
   community:       { display: 'hidden' },
