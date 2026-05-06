@@ -453,7 +453,7 @@ export default withNextra({
       { source: '/:locale/partner/education',   destination: '/:locale/partner/event-partner', permanent: true },
 
       // ═══════════════════════════════════════════════════════════════
-      // MKT-2268: byte-identical duplicate cleanup (238 redirects)
+      // MKT-2268: non-IA-covered duplicate redirects (34 entries)
       // ═══════════════════════════════════════════════════════════════
       { source: '/en-US/advanced/builds', destination: '/en-US/deploy/how-deploys-work', permanent: true },
       { source: '/en-US/data-management/file-management', destination: '/en-US/operations/data/file-management', permanent: true },

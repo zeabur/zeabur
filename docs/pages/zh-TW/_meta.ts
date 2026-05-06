@@ -37,7 +37,6 @@ export default {
   'terms-of-service': '服務條款',
 
   // ── 隱藏：舊版目錄（不顯示在 sidebar）────────────────────────────
-  advanced:       { display: 'hidden' },
   billing:        { display: 'hidden' },
   'billing-legal': { display: 'hidden' },
   community:      { display: 'hidden' },
