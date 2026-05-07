@@ -432,8 +432,6 @@ export default withNextra({
       { source: '/:locale/deploy/templates',                destination: '/:locale/template', permanent: true },
 
       // ── Template fork redirect ──
-      { source: '/template/fork-git-repo-from-template', destination: '/template/template-format', permanent: true },
-      { source: '/:locale/template/fork-git-repo-from-template', destination: '/:locale/template/template-format', permanent: true },
       { source: '/deploy/templates/fork-from-template', destination: '/template/template-format', permanent: true },
       { source: '/:locale/deploy/templates/fork-from-template', destination: '/:locale/template/template-format', permanent: true },
 
