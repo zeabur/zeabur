@@ -10,6 +10,5 @@ export default {
   'create-project':              { display: 'hidden' },
   'custom-docker-image':         { display: 'hidden' },
   'github-integration':          { display: 'hidden' },
-  'deploy-with-chrome-extension': { display: 'hidden' },
   'large-files':                 { display: 'hidden' },
 }

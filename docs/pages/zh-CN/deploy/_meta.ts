@@ -9,7 +9,6 @@ export default {
   networking:       '网络',
 
   // ── 隐藏：旧版平铺文件（现已移至子目录）──────────────────────────
-  "deploy-with-chrome-extension": { display: 'hidden' },
   "large-files":                 { display: 'hidden' },
   "high-availability":           { display: 'hidden' },
 }

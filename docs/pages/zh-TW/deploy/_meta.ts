@@ -11,7 +11,6 @@ export default {
   'custom-docker-image':         { display: 'hidden' },
   'github-integration':          { display: 'hidden' },
   'deploy-button':               { display: 'hidden' },
-  'deploy-with-chrome-extension': { display: 'hidden' },
   'deploy-with-vscode-extension': { display: 'hidden' },
   'deploy-with-raycast-extension': { display: 'hidden' },
   'large-files':                 { display: 'hidden' },
