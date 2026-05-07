@@ -35,8 +35,8 @@ import { Callout } from 'nextra/components'
 如果你的服務仍在共享叢集上運作，請依照以下步驟遷移至伺服器：
 
 1. **準備伺服器** — 在 [Zeabur 伺服器頁面](https://zeabur.com/servers) 購買或[註冊自己的伺服器](/server/register)。
-2. **備份資料** — 使用[備份與還原](/operations/backup-restore)功能，為所有有狀態服務（資料庫、持久儲存）建立備份。
-3. **匯出專案** — 透過[匯出專案](/deploy/export-project)功能匯出專案的 YAML 配置。
+2. **備份資料** — 使用[備份與還原](/operations/data/backup-restore)功能，為所有有狀態服務（資料庫、持久儲存）建立備份。
+3. **匯出專案** — 透過[匯出專案](/deploy/manage/export-project)功能匯出專案的 YAML 配置。
 4. **在伺服器上重新部署** — 在伺服器的區域建立新專案，匯入配置並重新部署服務。
 5. **還原資料** — 將步驟 2 的備份還原到新服務中。
 6. **切換 DNS** — 將自訂網域的 DNS 記錄指向新服務的網域。

@@ -51,7 +51,7 @@ After setting up, you can proceed to configure environment variables, ports, etc
 
 "Expose" makes the variable available to other services. For instance, `MARIADB_USERNAME` and `MARIADB_PASSWORD` are exposed, making them accessible to other services in the same project.
 
-Aside from variables Exposed by other services, you can also use [Zeabur's predefined special variables](/deploy/special-variables), such as using `${ZEABUR_WEB_URL}` to retrieve the URL set on the `web` port.
+Aside from variables Exposed by other services, you can also use [Zeabur's predefined special variables](/deploy/config/environment-variables), such as using `${ZEABUR_WEB_URL}` to retrieve the URL set on the `web` port.
 
 If you are write a Prebuilt according to a Docker image documentation, environment variables often follow `docker run` with `--env` (or `-e`), such as:
 
@@ -85,7 +85,7 @@ services:
 
 "Port Name" should consist only of letters and dashes. "Port" is the service listening port, such as `3306` for MariaDB or `8080`, `3000`, `80` for web services.
 
-"Port Type" can be `HTTP` or `TCP`. For external access, `HTTP` ports can be accessed with a domain (e.g., `my-service.zeabur.app`) that contains the automatic TLS certificate signing by Zeabur, while `TCP` ports can be accessed with an auto-assigned hostname and port (e.g., `reg.clusters.zeabur.com:12345`). For inter-service connections, you can access the port with [Private Networking](/deploy/private-networking), which reduces unnecessary traffic costs. To access this port in other services, use the declared port directly (`mariadb.zeabur.internal:3306`, `backend.zeabur.internal:8080`).
+"Port Type" can be `HTTP` or `TCP`. For external access, `HTTP` ports can be accessed with a domain (e.g., `my-service.zeabur.app`) that contains the automatic TLS certificate signing by Zeabur, while `TCP` ports can be accessed with an auto-assigned hostname and port (e.g., `reg.clusters.zeabur.com:12345`). For inter-service connections, you can access the port with [Private Networking](/deploy/networking/private-networking), which reduces unnecessary traffic costs. To access this port in other services, use the declared port directly (`mariadb.zeabur.internal:3306`, `backend.zeabur.internal:8080`).
 
 If you are write a Prebuilt according to a Docker image documentation, ports follow `docker run` with `-p`, such as:
 
@@ -146,10 +146,10 @@ services:
 
 "Start Command" allows you to override the default Docker image entrypoint and arguments. This is an advanced setting and can be skipped if you are unsure what it is.
 
-When specifying from the GUI, the default entrypoint when setting this field is `/bin/sh`. If your image does not provide `/bin/sh`, use **Edit TOML** to change it or consult [support](/community/help) for assistant.
+When specifying from the GUI, the default entrypoint when setting this field is `/bin/sh`. If your image does not provide `/bin/sh`, use **Edit TOML** to change it or consult [support](/get-started/faq-support/help) for assistant.
 
 ## Manually Write Your Template
 
 Although the GUI offers many necessary parameters for creating your Docker services, you might want to add custom icons, connection instructions, or detailed settings. In this case, [writing your template in code](/template/template-format) is a better choice.
 
-If you have any questions about writing your own template, feel free to contact [support](/community/help).
+If you have any questions about writing your own template, feel free to contact [support](/get-started/faq-support/help).

@@ -36,7 +36,7 @@ CPU usage is displayed as a percentage of the allocated CPU resources. Spikes in
 
 ### Memory
 
-Memory usage shows how much RAM your service is consuming relative to its configured limit. If your service consistently approaches its memory limit, consider increasing the allocation in [service settings](/operations/scaling) to avoid out-of-memory (OOM) restarts.
+Memory usage shows how much RAM your service is consuming relative to its configured limit. If your service consistently approaches its memory limit, consider increasing the allocation in [service settings](/operations/resources/scaling) to avoid out-of-memory (OOM) restarts.
 
 ### Network
 
@@ -50,7 +50,7 @@ For a detailed breakdown of resource consumption and associated costs, visit the
 - Network egress charges
 - Per-service cost breakdown
 
-See [Service Usage](/operations/service-usage) for more details on how usage translates to billing.
+See [Service Usage](/operations/resources/service-usage) for more details on how usage translates to billing.
 
 <Callout>
   Zeabur uses a usage-based pricing model. Monitoring your metrics regularly helps you stay aware of resource consumption and avoid unexpected charges. See [Pricing](/pricing) for the full pricing details.
@@ -64,4 +64,4 @@ Metrics are essential for deciding when and how to scale:
 - **Memory near the limit** — Increase the memory allocation to prevent OOM crashes.
 - **Steady traffic growth** — Plan ahead by adjusting resources before usage spikes cause degraded performance.
 
-For information on adjusting service resources, see [Scaling](/operations/scaling).
+For information on adjusting service resources, see [Scaling](/operations/resources/scaling).

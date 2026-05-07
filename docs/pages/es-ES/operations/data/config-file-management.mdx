@@ -82,7 +82,7 @@ http {
 }
 ```
 
-Para permitir que otros accedan a nuestro servicio interno Vaultwarden a través del servicio NGINX, usamos la directiva `proxy_pass http://vaultwarden.zeabur.internal:80;` en NGINX, indicando que NGINX debe hacer proxy de todas las solicitudes a esta ubicación hacia Vaultwarden. Usamos la función de [red privada](/deploy/private-networking) para acceder a Vaultwarden dentro de nuestra red privada usando un nombre de host fijo.
+Para permitir que otros accedan a nuestro servicio interno Vaultwarden a través del servicio NGINX, usamos la directiva `proxy_pass http://vaultwarden.zeabur.internal:80;` en NGINX, indicando que NGINX debe hacer proxy de todas las solicitudes a esta ubicación hacia Vaultwarden. Usamos la función de [red privada](/deploy/networking/private-networking) para acceder a Vaultwarden dentro de nuestra red privada usando un nombre de host fijo.
 
 4. Haz clic en el botón `Guardar` para guardar la configuración.
 
@@ -94,7 +94,7 @@ En los pasos anteriores, hemos completado la edición del archivo de configuraci
 
 ![Reiniciar Servicio](/data-management/config-edit/restart-service.en-US.png)
 
-[Después de vincular el dominio al servicio NGINX](/deploy/domain-binding), puedes acceder al servicio Vaultwarden a través del dominio.
+[Después de vincular el dominio al servicio NGINX](/deploy/networking/public-networking), puedes acceder al servicio Vaultwarden a través del dominio.
 
 ![Acceder a Vaultwarden](/data-management/config-edit/vultwarden-service.en-US.png)
 

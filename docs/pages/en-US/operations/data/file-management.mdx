@@ -54,7 +54,7 @@ Hover over a file item and click the "Delete" button to delete the file. Note th
 
 ![delete file](/data-management/file-management/delete-file.png)
 
-Currently, File Management does not support deleting entire folders through the interface. You can run the `rm` command to delete entire folders using [Command Execution](/deploy/command-execution). Here is an example of using `rm -rf` to delete the entire `/tmp/testdir` folder:
+Currently, File Management does not support deleting entire folders through the interface. You can run the `rm` command to delete entire folders using [Command Execution](/deploy/config/command-execution). Here is an example of using `rm -rf` to delete the entire `/tmp/testdir` folder:
 
 ```bash
 rm -rf /tmp/testdir
@@ -84,7 +84,7 @@ Drag the compressed `tar` file to the `/tmp` directory in the Zeabur file manage
 
 ![upload TAR file to temporary path](/data-management/file-management/upload-tar-file.png)
 
-Then run the following command with [Command Execution](/deploy/command-execution) to display the file hierarchy of the `tar` file:
+Then run the following command with [Command Execution](/deploy/config/command-execution) to display the file hierarchy of the `tar` file:
 
 ```bash
 tar tvf <your uploaded tar file>

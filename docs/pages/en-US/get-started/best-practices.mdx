@@ -22,7 +22,7 @@ Zeabur supports variable references between services (e.g., `${MYSQL_HOST}`), wh
 
 ## Be Intentional with Persistent Volumes
 
-[Persistent volumes](/operations/volumes) are essential for databases and file storage, but they come with a trade-off: services with volumes attached cannot perform zero-downtime rolling deploys.
+[Persistent volumes](/operations/data/volumes) are essential for databases and file storage, but they come with a trade-off: services with volumes attached cannot perform zero-downtime rolling deploys.
 
 <Callout type="warning">
 Only attach volumes to services that truly need persistent data (databases, uploaded files). Stateless application servers should not use volumes.
@@ -87,10 +87,10 @@ Preview environments are automatically cleaned up when the branch is deleted or 
 
 While Zeabur provides infrastructure-level reliability, you should still maintain your own backups for critical data:
 
-- Use the [backup and restore](/operations/backup-restore) feature for database snapshots.
-- Export important configurations via [config file management](/operations/config-file-management).
+- Use the [backup and restore](/operations/data/backup-restore) feature for database snapshots.
+- Export important configurations via [config file management](/operations/data/config-file-management).
 - Store backups externally (e.g., object storage) for disaster recovery.
 
 <Callout type="info">
-Combining these practices with Zeabur's built-in features — like [high availability](/deploy/high-availability) — gives you a solid foundation for production workloads.
+Combining these practices with Zeabur's built-in features — like [high availability](/deploy/networking/high-availability) — gives you a solid foundation for production workloads.
 </Callout>

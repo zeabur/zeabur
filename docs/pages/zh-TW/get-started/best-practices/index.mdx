@@ -12,7 +12,7 @@ import { Callout } from 'nextra/components'
 
 ## 使用環境變數管理設定
 
-所有設定值 — API 金鑰、資料庫連線字串、功能開關 — 都應存放在[環境變數](/deploy/environment-variables)中。絕對不要把機密資訊寫死在原始碼或 Docker 映像檔裡。
+所有設定值 — API 金鑰、資料庫連線字串、功能開關 — 都應存放在[環境變數](/deploy/config/environment-variables)中。絕對不要把機密資訊寫死在原始碼或 Docker 映像檔裡。
 
 <Callout type="warning">
 一旦把機密提交到 Git，就會永久留在版本歷史中。請務必使用 Zeabur 的環境變數管理功能。
@@ -22,7 +22,7 @@ Zeabur 支援服務間的變數參照（例如 `${MYSQL_HOST}`），可以自動
 
 ## 謹慎使用持久儲存空間
 
-[持久儲存空間](/operations/volumes)對資料庫和檔案儲存來說不可或缺，但有個取捨：掛載了 Volume 的服務無法執行零停機滾動部署。
+[持久儲存空間](/operations/data/volumes)對資料庫和檔案儲存來說不可或缺，但有個取捨：掛載了 Volume 的服務無法執行零停機滾動部署。
 
 <Callout type="warning">
 只在真正需要持久資料的服務（資料庫、上傳檔案）掛載 Volume。無狀態的應用程式伺服器不應使用 Volume。
@@ -81,8 +81,8 @@ Zeabur 會為所有自訂網域自動簽發 TLS 憑證。只要把 DNS 指向 Ze
 
 雖然 Zeabur 提供基礎設施層級的可靠性，你仍應為關鍵資料維護自己的備份：
 
-- 使用[備份與還原](/operations/backup-restore)功能建立資料庫快照。
-- 透過[設定檔管理](/operations/config-file-management)匯出重要設定。
+- 使用[備份與還原](/operations/data/backup-restore)功能建立資料庫快照。
+- 透過[設定檔管理](/operations/data/config-file-management)匯出重要設定。
 - 將備份存放到外部儲存空間（例如物件儲存），以備災難復原之需。
 
 <Callout type="info">

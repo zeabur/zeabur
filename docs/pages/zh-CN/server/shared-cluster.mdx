@@ -35,8 +35,8 @@ import { Callout } from 'nextra/components'
 如果你的服务仍在共享集群上运作，请依照以下步骤迁移至服务器：
 
 1. **准备服务器** — 在 [Zeabur 服务器页面](https://zeabur.com/servers) 购买或[注册自己的服务器](/server/register)。
-2. **备份数据** — 使用[备份与还原](/operations/backup-restore)功能，为所有有状态服务（数据库、持久存储）创建备份。
-3. **导出项目** — 通过[导出项目](/deploy/export-project)功能导出项目的 YAML 配置。
+2. **备份数据** — 使用[备份与还原](/operations/data/backup-restore)功能，为所有有状态服务（数据库、持久存储）创建备份。
+3. **导出项目** — 通过[导出项目](/deploy/manage/export-project)功能导出项目的 YAML 配置。
 4. **在服务器上重新部署** — 在服务器的区域创建新项目，导入配置并重新部署服务。
 5. **还原数据** — 将步骤 2 的备份还原到新服务中。
 6. **切换 DNS** — 将自定义域名的 DNS 记录指向新服务的域名。

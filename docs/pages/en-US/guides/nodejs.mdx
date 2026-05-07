@@ -53,7 +53,7 @@ Under `apps`, there are two directories, `docs` and `web`. By default, Zeabur wi
 }
 ```
 
-Or use [environment variables](/deploy/variables) to set it:
+Or use [environment variables](/deploy/config/environment-variables) to set it:
 
 ```env
 ZBPACK_APP_DIR=apps/web
@@ -87,7 +87,7 @@ To disable this feature, create a `zbpack.json` file in the root directory of yo
 }
 ```
 
-Or set [environment variables](/deploy/variables):
+Or set [environment variables](/deploy/config/environment-variables):
 
 ```env
 ZBPACK_CACHE_DEPENDENCIES=false
@@ -132,7 +132,7 @@ The priority of applying the settings is `zbpack.[service name].json` > `zbpack.
 
 ### Modify Using Environment Variables
 
-You can also use [environment variables](/deploy/variables) to set the build and start commands:
+You can also use [environment variables](/deploy/config/environment-variables) to set the build and start commands:
 
 ```env
 ZBPACK_BUILD_COMMAND=pnpm run build:api

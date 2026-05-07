@@ -8,7 +8,7 @@ ogImageSubtitle: Haz que tu servicio sea altamente disponible incluso si un serv
 
 Este documento describe las arquitecturas recomendadas para lograr alta disponibilidad en tus servicios desplegados en Zeabur.
 
-Ten en cuenta que este es un tema avanzado. Normalmente, no necesitas alta disponibilidad (HA) para los servicios de tu startup. Para la solución más sencilla, coloca tus servicios en un proyecto y usa [red privada](/deploy/private-networking) para la comunicación. Expón tu servicio a Internet usando [red pública](/deploy/public-networking). Nosotros manejamos el escalado vertical por ti. En clústeres compartidos, si un nodo cae, podemos migrar automáticamente tu servicio a otro nodo.
+Ten en cuenta que este es un tema avanzado. Normalmente, no necesitas alta disponibilidad (HA) para los servicios de tu startup. Para la solución más sencilla, coloca tus servicios en un proyecto y usa [red privada](/deploy/networking/private-networking) para la comunicación. Expón tu servicio a Internet usando [red pública](/deploy/networking/public-networking). Nosotros manejamos el escalado vertical por ti. En clústeres compartidos, si un nodo cae, podemos migrar automáticamente tu servicio a otro nodo.
 
 ## Balanceador de Carga DNS (Recomendado)
 

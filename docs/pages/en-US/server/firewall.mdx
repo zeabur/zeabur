@@ -78,5 +78,5 @@ Blocking any of these ports may prevent Zeabur from managing your server or caus
 
 - **Principle of least privilege** — Only open the ports and source IPs you actually need. Avoid using `0.0.0.0/0` (allow all) for sensitive services.
 - **Audit rules regularly** — Periodically review your firewall rules and remove ports that are no longer needed.
-- **Use private networking** — For inter-service communication, use [private networking](/deploy/private-networking) to avoid transmitting sensitive data over the public internet.
+- **Use private networking** — For inter-service communication, use [private networking](/deploy/networking/private-networking) to avoid transmitting sensitive data over the public internet.
 - **Keep SSH secure** — Use SSH key authentication instead of passwords, and consider restricting SSH access to specific IPs.

@@ -54,7 +54,7 @@ Pasa el cursor sobre un elemento de archivo y haz clic en el botón "Eliminar" p
 
 ![eliminar archivo](/data-management/file-management/delete-file.png)
 
-Actualmente, la Gestión de Archivos no admite eliminar carpetas completas a través de la interfaz. Puedes ejecutar el comando `rm` para eliminar carpetas completas usando [Ejecución de Comandos](/deploy/command-execution). Aquí hay un ejemplo de usar `rm -rf` para eliminar toda la carpeta `/tmp/testdir`:
+Actualmente, la Gestión de Archivos no admite eliminar carpetas completas a través de la interfaz. Puedes ejecutar el comando `rm` para eliminar carpetas completas usando [Ejecución de Comandos](/deploy/config/command-execution). Aquí hay un ejemplo de usar `rm -rf` para eliminar toda la carpeta `/tmp/testdir`:
 
 ```bash
 rm -rf /tmp/testdir
@@ -84,7 +84,7 @@ Arrastra el archivo `tar` comprimido al directorio `/tmp` en la interfaz de gest
 
 ![subir archivo TAR a ruta temporal](/data-management/file-management/upload-tar-file.png)
 
-Luego ejecuta el siguiente comando con [Ejecución de Comandos](/deploy/command-execution) para mostrar la jerarquía de archivos del archivo `tar`:
+Luego ejecuta el siguiente comando con [Ejecución de Comandos](/deploy/config/command-execution) para mostrar la jerarquía de archivos del archivo `tar`:
 
 ```bash
 tar tvf <tu archivo tar subido>

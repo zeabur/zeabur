@@ -17,7 +17,7 @@ Cada vez que despliegas un servicio, Zeabur crea una instantánea de ese desplie
 Cuando activas una reversión:
 
 1. Zeabur crea un **nuevo despliegue** usando la instantánea de la versión anterior seleccionada.
-2. El nuevo despliegue pasa por el proceso estándar de [verificación de salud](/operations/health-checks).
+2. El nuevo despliegue pasa por el proceso estándar de [verificación de salud](/operations/monitoring/health-checks).
 3. Una vez que la verificación de salud pasa, el tráfico se dirige a la versión revertida.
 4. El despliegue fallido permanece en tu historial de despliegues como referencia.
 
@@ -63,11 +63,11 @@ Las reversiones restauran el **código de la aplicación y los artefactos de com
 - **Contenido de base de datos** — Si tu despliegue incluyó migraciones de base de datos, revertir la aplicación no revierte esas migraciones. Es posible que necesites abordar manualmente los cambios de esquema.
 
 <Callout type="warning">
-  Si tu despliegue involucró migraciones de base de datos u otros cambios con estado, planifica tu reversión cuidadosamente. Considera restaurar una [copia de seguridad de la base de datos](/operations/backup-restore) junto con la reversión de la aplicación si es necesario.
+  Si tu despliegue involucró migraciones de base de datos u otros cambios con estado, planifica tu reversión cuidadosamente. Considera restaurar una [copia de seguridad de la base de datos](/operations/data/backup-restore) junto con la reversión de la aplicación si es necesario.
 </Callout>
 
 ## Mejores Prácticas
 
 - **Prueba antes de desplegar en producción.** Usa un proyecto de staging para detectar problemas antes de que lleguen a tu despliegue principal.
 - **Usa despliegues pequeños e incrementales.** Los cambios más pequeños son más fáciles de diagnosticar y revertir.
-- **Monitorea después de desplegar.** Observa las [métricas](/operations/metrics) y los [registros](/operations/logging) después de cada despliegue para detectar problemas tempranamente.
+- **Monitorea después de desplegar.** Observa las [métricas](/operations/monitoring/metrics) y los [registros](/operations/monitoring/logging) después de cada despliegue para detectar problemas tempranamente.

@@ -44,7 +44,6 @@ export default {
   monitoring:      { display: 'hidden' },
   networking:      { display: 'hidden' },
   manage:          { display: 'hidden' },
-  infrastructure:  { display: 'hidden' },
   mesh:            { display: 'hidden' },
   tutorials:       { display: 'hidden' },
   mcp:             { display: 'hidden' },

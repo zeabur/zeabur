@@ -20,7 +20,7 @@ Esto significa:
 - **Verificación de salud fallida** — El nuevo despliegue se marca como fallido, y el despliegue anterior permanece activo. No ocurre tiempo de inactividad.
 
 <Callout>
-  Para servicios con [volúmenes](/operations/volumes) adjuntos, Zeabur usa una estrategia de despliegue **Recrear** en lugar de actualizaciones continuas. Esto significa que el despliegue anterior se detiene antes de que comience el nuevo, resultando en un breve período de inactividad durante el despliegue. Esto es necesario para evitar conflictos de datos por dos instancias accediendo al mismo volumen simultáneamente.
+  Para servicios con [volúmenes](/operations/data/volumes) adjuntos, Zeabur usa una estrategia de despliegue **Recrear** en lugar de actualizaciones continuas. Esto significa que el despliegue anterior se detiene antes de que comience el nuevo, resultando en un breve período de inactividad durante el despliegue. Esto es necesario para evitar conflictos de datos por dos instancias accediendo al mismo volumen simultáneamente.
 </Callout>
 
 ## Comportamiento Predeterminado

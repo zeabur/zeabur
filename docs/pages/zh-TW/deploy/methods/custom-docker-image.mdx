@@ -51,7 +51,7 @@ services:
 
 「Expose」指把環境變數的鍵值同時套用到其他服務上。以上圖為例，`MARIADB_USERNAME` 和 `MARIADB_PASSWORD` 都有核取 Expose，所以同專案底下的其他服務都可以看到 `MARIADB_USERNAME`、`MARIADB_PASSWORD` 這兩個環境變數，當然也可以使用 `${KEY}` 引用它們。
 
-除了其他服務 Exposed 的變數以外，你也可以使用 [Zeabur 預先定義好的特殊變數](/deploy/special-variables)，比如使用 `${ZEABUR_WEB_URL}` 取回設定在 `web` port 的網址。
+除了其他服務 Exposed 的變數以外，你也可以使用 [Zeabur 預先定義好的特殊變數](/deploy/config/environment-variables)，比如使用 `${ZEABUR_WEB_URL}` 取回設定在 `web` port 的網址。
 
 如果你在參考 Docker image 的文件，通常環境變數在 `docker run` 之後的 `--env`（或 `-e`）引數中，如下範例所示。
 
@@ -85,7 +85,7 @@ services:
 
 「Port Name」只能由英文字母和連接號組成。「Port」則寫上服務監聽的 Port，如 MariaDB 就是 `3306`；Web 服務大部分都是 `8080`, `3000`, `80`, …。
 
-「Port Type」可以是 `HTTP` 或 `TCP`。外網的部分，`HTTP` 可以使用網域（如 `my-service.zeabur.app`）直連，同時 Zeabur 也會自動簽署 TLS 憑證；`TCP` 則可以使用 Zeabur 自動分配的轉送主機名稱和 Port 連線（如 `reg.clusters.zeabur.com:12345`）。如果是服務之間，可以使用 [服務內網](/deploy/private-networking) 直連到服務，減少不必要的流量費用，此時 Port 直接填寫你宣告的 Port 即可（亦即 `mariadb.zeabur.internal:3306`、`backend.zeabur.internal:8080`）。
+「Port Type」可以是 `HTTP` 或 `TCP`。外網的部分，`HTTP` 可以使用網域（如 `my-service.zeabur.app`）直連，同時 Zeabur 也會自動簽署 TLS 憑證；`TCP` 則可以使用 Zeabur 自動分配的轉送主機名稱和 Port 連線（如 `reg.clusters.zeabur.com:12345`）。如果是服務之間，可以使用 [服務內網](/deploy/networking/private-networking) 直連到服務，減少不必要的流量費用，此時 Port 直接填寫你宣告的 Port 即可（亦即 `mariadb.zeabur.internal:3306`、`backend.zeabur.internal:8080`）。
 
 如果你看得是 Docker image 的文件，通常環境變數在 `docker run` 之後的 `-p` 參數中，如下範例所示。
 
@@ -146,10 +146,10 @@ services:
 
 「Start Command」讓你可以改掉 Docker image 預設使用的 Entrypoint 和引數。這部分比較進階，如果你不太清楚意義，可以略過。
 
-從 GUI 建立的 Start Command 預設的 Command 都是 `/bin/sh`。如果你的 Command 不是 `/bin/sh`，可使用 Edit TOML 功能直接修改，或與 [客服](/community/help) 討論更改方式。
+從 GUI 建立的 Start Command 預設的 Command 都是 `/bin/sh`。如果你的 Command 不是 `/bin/sh`，可使用 Edit TOML 功能直接修改，或與 [客服](/get-started/faq-support/help) 討論更改方式。
 
 ## 撰寫自己的模板 YAML
 
 雖然 GUI 提供了許多用於建立您的 Docker 服務的必要參數，但您可能希望新增自訂圖示、連線說明或詳細設定。在這種情況下，[以程式碼撰寫您的模板](/template/template-format) 可能是更好的選擇。
 
-如果您對於撰寫自己的範本有任何問題，歡迎聯絡[客服](/community/help)。
+如果您對於撰寫自己的範本有任何問題，歡迎聯絡[客服](/get-started/faq-support/help)。
