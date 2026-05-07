@@ -8,7 +8,6 @@ export default {
   networking:       'ネットワーキング',
 
   // ── 非表示：旧版フラットファイル（サブフォルダに移動済み）──────────────────────────
-  "deploy-with-chrome-extension": { display: 'hidden' },
   "large-files":                 { display: 'hidden' },
   "high-availability":           { display: 'hidden' },
   "private-networking":          { display: 'hidden' },

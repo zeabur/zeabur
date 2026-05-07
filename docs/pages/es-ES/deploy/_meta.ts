@@ -9,7 +9,6 @@ export default {
 
   // ── Oculto: archivos planos antiguos (ahora en subcarpetas) ──────────────────────────
   "deploy-button":               { display: 'hidden' },
-  "deploy-with-chrome-extension": { display: 'hidden' },
   "large-files":                 { display: 'hidden' },
   "high-availability":           { display: 'hidden' },
   "private-networking":          { display: 'hidden' },
