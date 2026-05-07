@@ -20,7 +20,7 @@ This means:
 - **Failed health check** — The new deployment is marked as failed, and the old deployment stays active. No downtime occurs.
 
 <Callout>
-  For services with [volumes](/operations/volumes) attached, Zeabur uses a **Recreate** deployment strategy instead of rolling updates. This means the old deployment is stopped before the new one starts, resulting in a brief period of downtime during deployment. This is necessary to avoid data conflicts from two instances accessing the same volume simultaneously.
+  For services with [volumes](/operations/data/volumes) attached, Zeabur uses a **Recreate** deployment strategy instead of rolling updates. This means the old deployment is stopped before the new one starts, resulting in a brief period of downtime during deployment. This is necessary to avoid data conflicts from two instances accessing the same volume simultaneously.
 </Callout>
 
 ## Default Behavior

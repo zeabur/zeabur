@@ -8,7 +8,7 @@ import { Callout } from 'nextra/components'
 
 # Migrate Project
 
-Migrating a project is essentially **copying the project + syncing data**. Zeabur's [Copy Project](/deploy/copy-project) feature lets you duplicate an entire project (including service configurations, environment variables, and volume data) to another region with one click. Combined with [Backup & Restore](/operations/backup-restore), you can perform a complete migration across regions or even across accounts.
+Migrating a project is essentially **copying the project + syncing data**. Zeabur's [Copy Project](/deploy/manage/copy-project) feature lets you duplicate an entire project (including service configurations, environment variables, and volume data) to another region with one click. Combined with [Backup & Restore](/operations/data/backup-restore), you can perform a complete migration across regions or even across accounts.
 
 ## Cross-Region Migration
 
@@ -24,16 +24,16 @@ To move a project from one region to another (e.g., from Tokyo to San Francisco)
 Copy Project carries over all service configurations, environment variables, and volume data, but **does not automatically inherit the original project's domain settings** — you'll need to re-bind them manually.
 </Callout>
 
-For detailed steps, see the [Copy Project](/deploy/copy-project) documentation.
+For detailed steps, see the [Copy Project](/deploy/manage/copy-project) documentation.
 
 ## Cross-Account Migration
 
 To migrate a project to a different Zeabur account (e.g., from a personal account to a team account), you'll need to perform the migration manually:
 
-1. **Export the project configuration** — Use the [Export Project](/deploy/export-project) feature to download the project's YAML configuration.
+1. **Export the project configuration** — Use the [Export Project](/deploy/manage/export-project) feature to download the project's YAML configuration.
 2. **Back up data** — Create backups for all stateful services:
-   - Databases: Use the online backup feature in [Backup & Restore](/operations/backup-restore).
-   - Persistent storage: Use offline backup or manually download via [File Management](/operations/file-management).
+   - Databases: Use the online backup feature in [Backup & Restore](/operations/data/backup-restore).
+   - Persistent storage: Use offline backup or manually download via [File Management](/operations/data/file-management).
 3. **Create a new project in the target account** — Sign in to the target account and create a new project in the desired region.
 4. **Redeploy services** — Based on the exported YAML configuration, create the corresponding services in the new project.
 5. **Restore data** — Restore the backups from step 2 into the new services.
@@ -45,7 +45,7 @@ To migrate a project to a different Zeabur account (e.g., from a personal accoun
 - **DNS switchover** — Before migrating, lower your DNS TTL value to speed up DNS propagation after the switch.
 - **Environment variables** — Copy Project automatically carries over environment variables; cross-account migration requires manual reconfiguration, especially for variables containing secrets.
 - **Data backup** — Always confirm all databases and persistent storage are fully backed up before migrating. Consider pausing writes to the old project during migration to avoid data inconsistency.
-- **Git integration** — If services are linked to a GitHub repository, you'll need to reconfigure [GitHub integration](/deploy/github-integration) in the new account after cross-account migration.
+- **Git integration** — If services are linked to a GitHub repository, you'll need to reconfigure [GitHub integration](/deploy/methods/github-integration) in the new account after cross-account migration.
 
 <Callout type="info">
 If you encounter any issues during migration, please reach out on our [community forum](https://zeabur.com/forum).

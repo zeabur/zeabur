@@ -22,7 +22,7 @@ Zeabur soporta referencias de variables entre servicios (por ejemplo, `${MYSQL_H
 
 ## Sé Intencional con los Volúmenes Persistentes
 
-Los [volúmenes persistentes](/operations/volumes) son esenciales para bases de datos y almacenamiento de archivos, pero tienen un trade-off: los servicios con volúmenes adjuntos no pueden realizar despliegues rolling sin tiempo de inactividad.
+Los [volúmenes persistentes](/operations/data/volumes) son esenciales para bases de datos y almacenamiento de archivos, pero tienen un trade-off: los servicios con volúmenes adjuntos no pueden realizar despliegues rolling sin tiempo de inactividad.
 
 <Callout type="warning">
 Solo adjunta volúmenes a servicios que realmente necesiten datos persistentes (bases de datos, archivos subidos). Los servidores de aplicaciones sin estado no deben usar volúmenes.
@@ -87,10 +87,10 @@ Los entornos de preview se limpian automáticamente cuando se elimina la rama o 
 
 Aunque Zeabur proporciona confiabilidad a nivel de infraestructura, deberías mantener tus propios respaldos para datos críticos:
 
-- Usa la función de [respaldo y restauración](/operations/backup-restore) para snapshots de bases de datos.
-- Exporta configuraciones importantes vía [gestión de archivos de configuración](/operations/config-file-management).
+- Usa la función de [respaldo y restauración](/operations/data/backup-restore) para snapshots de bases de datos.
+- Exporta configuraciones importantes vía [gestión de archivos de configuración](/operations/data/config-file-management).
 - Almacena respaldos externamente (por ejemplo, almacenamiento de objetos) para recuperación ante desastres.
 
 <Callout type="info">
-Combinar estas prácticas con las funciones integradas de Zeabur — como [alta disponibilidad](/deploy/high-availability) — te da una base sólida para cargas de trabajo de producción.
+Combinar estas prácticas con las funciones integradas de Zeabur — como [alta disponibilidad](/deploy/networking/high-availability) — te da una base sólida para cargas de trabajo de producción.
 </Callout>

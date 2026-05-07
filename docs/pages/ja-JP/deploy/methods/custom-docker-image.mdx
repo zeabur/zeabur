@@ -64,7 +64,7 @@ docker buildx build --platform linux/amd64 -t <your-image> --push .
 
 「Expose」は、環境変数のキーと値を同時に他のサービスにも適用することを指します。上記の図を例にすると、`MARIADB_USERNAME` と `MARIADB_PASSWORD` は両方とも Expose がチェックされているため、同じプロジェクト下の他のサービスは `MARIADB_USERNAME`、`MARIADB_PASSWORD` という2つの環境変数を参照でき、もちろん `${KEY}` でそれらを参照することもできます。
 
-他のサービスで Expose された変数以外に、[Zeabur が事前に定義している特殊変数](/deploy/special-variables)を使用することも可能です。例えば、`${ZEABUR_WEB_URL}` を使用して `web` ポートに設定された URL を取得できます。
+他のサービスで Expose された変数以外に、[Zeabur が事前に定義している特殊変数](/deploy/config/environment-variables)を使用することも可能です。例えば、`${ZEABUR_WEB_URL}` を使用して `web` ポートに設定された URL を取得できます。
 
 Docker イメージのドキュメントを参照する場合、通常、環境変数は `docker run` の後の `--env` (または `-e`) パラメータで指定されています。以下の例を参照してください。
 
@@ -98,7 +98,7 @@ services:
 
 「Port Name」は英字とハイフンのみで構成できます。「Port」にはサービスがリッスンするポート番号を記述します。例えば MariaDB は `3306` です。Web サービスはほとんどが `8080`, `3000`, `80`, ... です。
 
-「Port Type」は `HTTP` または `TCP` を選択できます。外部ネットワークの場合、`HTTP` はドメイン名 (例: `my-service.zeabur.app`) で直接接続でき、同時に Zeabur が自動的に TLS 証明書を署名します。`TCP` は Zeabur が自動的に割り当てる転送ホスト名とポートで接続できます (例: `reg.clusters.zeabur.com:12345`)。サービス間の接続の場合、[サービス内部ネットワーク](/deploy/private-networking)を使用してサービスに直接接続することで、不要なトラフィックコストを削減できます。この場合、ポートには宣言したポート番号をそのまま入力すれば良いです (すなわち `mariadb.zeabur.internal:3306`、`backend.zeabur.internal:8080`)。
+「Port Type」は `HTTP` または `TCP` を選択できます。外部ネットワークの場合、`HTTP` はドメイン名 (例: `my-service.zeabur.app`) で直接接続でき、同時に Zeabur が自動的に TLS 証明書を署名します。`TCP` は Zeabur が自動的に割り当てる転送ホスト名とポートで接続できます (例: `reg.clusters.zeabur.com:12345`)。サービス間の接続の場合、[サービス内部ネットワーク](/deploy/networking/private-networking)を使用してサービスに直接接続することで、不要なトラフィックコストを削減できます。この場合、ポートには宣言したポート番号をそのまま入力すれば良いです (すなわち `mariadb.zeabur.internal:3306`、`backend.zeabur.internal:8080`)。
 
 Docker イメージのドキュメントを参照する場合、通常、環境変数は `docker run` の後の `-p` パラメータで指定されています。以下の例を参照してください。
 
@@ -159,10 +159,10 @@ services:
 
 「Start Command」を使用すると、Docker イメージがデフォルトで使用する Entrypoint とパラメータを変更できます。この部分はやや高度なので、意味がよくわからない場合はスキップしても構いません。
 
-GUI から作成された Start Command のデフォルトのコマンドはすべて `/bin/sh` です。コマンドが `/bin/sh` でない場合は、Edit TOML 機能で直接変更するか、[カスタマーサポート](/community/help)にご相談ください。
+GUI から作成された Start Command のデフォルトのコマンドはすべて `/bin/sh` です。コマンドが `/bin/sh` でない場合は、Edit TOML 機能で直接変更するか、[カスタマーサポート](/get-started/faq-support/help)にご相談ください。
 
 ## 独自のテンプレート YAML を記述する
 
 GUI は Docker サービスを作成するための必要な多くのパラメータを提供していますが、カスタムアイコン、接続手順、詳細設定などを追加したい場合があるかもしれません。この場合、[コードでテンプレートを記述する](/template/template-format)方が良い選択肢となるでしょう。
 
-独自のテンプレートの記述についてご不明な点がございましたら、お気軽に[カスタマーサポート](/community/help)にご連絡ください。
+独自のテンプレートの記述についてご不明な点がございましたら、お気軽に[カスタマーサポート](/get-started/faq-support/help)にご連絡ください。

@@ -82,7 +82,7 @@ http {
 }
 ```
 
-他のユーザーがNGINXサービスを通じて内部のVaultwardenサービスにアクセスできるようにするため、NGINXで`proxy_pass http://vaultwarden.zeabur.internal:80;`ディレクティブを使用し、ここへのすべてのリクエストをVaultwardenにプロキシするように指定します。[プライベートネットワーク](/deploy/private-networking)機能を利用して、プライベートネットワーク内で固定ホスト名を通じてVaultwardenにアクセスします。
+他のユーザーがNGINXサービスを通じて内部のVaultwardenサービスにアクセスできるようにするため、NGINXで`proxy_pass http://vaultwarden.zeabur.internal:80;`ディレクティブを使用し、ここへのすべてのリクエストをVaultwardenにプロキシするように指定します。[プライベートネットワーク](/deploy/networking/private-networking)機能を利用して、プライベートネットワーク内で固定ホスト名を通じてVaultwardenにアクセスします。
 
 4. `Save`ボタンをクリックして設定を保存します。
 
@@ -94,7 +94,7 @@ http {
 
 ![サービスの再起動](/data-management/config-edit/restart-service.en-US.png)
 
-[NGINXサービスにドメインをバインド](/deploy/domain-binding)した後、ドメインを通じてVaultwardenサービスにアクセスできます。
+[NGINXサービスにドメインをバインド](/deploy/networking/public-networking)した後、ドメインを通じてVaultwardenサービスにアクセスできます。
 
 ![Vaultwardenへのアクセス](/data-management/config-edit/vultwarden-service.en-US.png)
 

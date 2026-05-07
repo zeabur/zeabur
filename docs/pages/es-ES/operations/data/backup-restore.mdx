@@ -17,7 +17,7 @@ Para servicios de base de datos, Zeabur admite respaldos en línea y automático
 ### Respaldo Externo Fuera de Línea
 
 <Callout>
-    Si no has montado [volúmenes](/operations/volumes), la función de respaldo no se mostrará. "Respaldo" solo respaldará los datos dentro de los volúmenes; otros archivos del servicio (como el código fuente) no se respaldarán.
+    Si no has montado [volúmenes](/operations/data/volumes), la función de respaldo no se mostrará. "Respaldo" solo respaldará los datos dentro de los volúmenes; otros archivos del servicio (como el código fuente) no se respaldarán.
 </Callout>
 
 Primero, necesitas suspender el servicio. Haz clic en "Configuración" → "Suspender Servicio" para suspenderlo. Ten en cuenta que la suspensión no causará pérdida de datos.
@@ -130,4 +130,4 @@ mongorestore "<connection string>" "<backup directory>"
 
 ### Volúmenes
 
-Si deseas restaurar datos dentro de [volúmenes](/operations/volumes), puedes consultar el método de [Gestión de Archivos](/operations/file-management) para subir los archivos de respaldo al directorio de destino y descomprimirlos.
+Si deseas restaurar datos dentro de [volúmenes](/operations/data/volumes), puedes consultar el método de [Gestión de Archivos](/operations/data/file-management) para subir los archivos de respaldo al directorio de destino y descomprimirlos.

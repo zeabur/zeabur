@@ -64,7 +64,7 @@ docker buildx build --platform linux/amd64 -t <your-image> --push .
 
 "Exponer" hace que la variable esté disponible para otros servicios. Por ejemplo, `MARIADB_USERNAME` y `MARIADB_PASSWORD` están expuestas, lo que las hace accesibles para otros servicios en el mismo proyecto.
 
-Además de las variables expuestas por otros servicios, también puedes usar [variables especiales predefinidas de Zeabur](/deploy/special-variables), como usar `${ZEABUR_WEB_URL}` para obtener la URL establecida en el puerto `web`.
+Además de las variables expuestas por otros servicios, también puedes usar [variables especiales predefinidas de Zeabur](/deploy/config/environment-variables), como usar `${ZEABUR_WEB_URL}` para obtener la URL establecida en el puerto `web`.
 
 Si estás escribiendo un Prebuilt según la documentación de una imagen Docker, las variables de entorno a menudo siguen a `docker run` con `--env` (o `-e`), como por ejemplo:
 
@@ -98,7 +98,7 @@ Los "Puertos" funcionan como reglas de entrada de cortafuegos, permitiendo que s
 
 "Nombre del puerto" solo debe consistir en letras y guiones. "Puerto" es el puerto de escucha del servicio, como `3306` para MariaDB o `8080`, `3000`, `80` para servicios web.
 
-El "Tipo de puerto" puede ser `HTTP` o `TCP`. Para acceso externo, se puede acceder a los puertos `HTTP` con un dominio (ej. `my-service.zeabur.app`) que incluye la firma automática de certificados TLS por Zeabur, mientras que se puede acceder a los puertos `TCP` con un nombre de host y puerto asignados automáticamente (ej. `reg.clusters.zeabur.com:12345`). Para conexiones entre servicios, puedes acceder al puerto con [Red privada](/deploy/private-networking), lo que reduce costos de tráfico innecesarios. Para acceder a este puerto en otros servicios, usa el puerto declarado directamente (`mariadb.zeabur.internal:3306`, `backend.zeabur.internal:8080`).
+El "Tipo de puerto" puede ser `HTTP` o `TCP`. Para acceso externo, se puede acceder a los puertos `HTTP` con un dominio (ej. `my-service.zeabur.app`) que incluye la firma automática de certificados TLS por Zeabur, mientras que se puede acceder a los puertos `TCP` con un nombre de host y puerto asignados automáticamente (ej. `reg.clusters.zeabur.com:12345`). Para conexiones entre servicios, puedes acceder al puerto con [Red privada](/deploy/networking/private-networking), lo que reduce costos de tráfico innecesarios. Para acceder a este puerto en otros servicios, usa el puerto declarado directamente (`mariadb.zeabur.internal:3306`, `backend.zeabur.internal:8080`).
 
 Si estás escribiendo un Prebuilt según la documentación de una imagen Docker, los puertos siguen a `docker run` con `-p`, como por ejemplo:
 
@@ -159,10 +159,10 @@ services:
 
 "Comando de inicio" te permite anular el punto de entrada y los argumentos predeterminados de la imagen Docker. Esta es una configuración avanzada y puede omitirse si no estás seguro de qué es.
 
-Al especificar desde la GUI, el punto de entrada predeterminado al configurar este campo es `/bin/sh`. Si tu imagen no proporciona `/bin/sh`, usa **Editar TOML** para cambiarlo o consulta [soporte](/community/help) para ayuda.
+Al especificar desde la GUI, el punto de entrada predeterminado al configurar este campo es `/bin/sh`. Si tu imagen no proporciona `/bin/sh`, usa **Editar TOML** para cambiarlo o consulta [soporte](/get-started/faq-support/help) para ayuda.
 
 ## Escribe manualmente tu plantilla
 
 Aunque la GUI ofrece muchos parámetros necesarios para crear tus servicios Docker, es posible que desees añadir iconos personalizados, instrucciones de conexión o configuraciones detalladas. En este caso, [escribir tu plantilla en código](/template/template-format) es una mejor opción.
 
-Si tienes alguna pregunta sobre cómo escribir tu propia plantilla, no dudes en contactar con [soporte](/community/help).
+Si tienes alguna pregunta sobre cómo escribir tu propia plantilla, no dudes en contactar con [soporte](/get-started/faq-support/help).

@@ -55,7 +55,7 @@ Y bajo `apps` hay dos directorios, `docs` y `web`. Por defecto, Zeabur seleccion
 }
 ```
 
-O utilizar [variables de entorno](/deploy/variables) para configurarlo:
+O utilizar [variables de entorno](/deploy/config/environment-variables) para configurarlo:
 
 ```env
 ZBPACK_APP_DIR=apps/web
@@ -89,7 +89,7 @@ To disable this feature, create a `zbpack.json` file in the root directory of yo
 }
 ```
 
-O establecer [variables de entorno](/deploy/variables):
+O establecer [variables de entorno](/deploy/config/environment-variables):
 
 ```env
 ZBPACK_CACHE_DEPENDENCIES=false
@@ -134,7 +134,7 @@ La prioridad de aplicación de `zbpack.json` es `zbpack.[nombre del servicio].js
 
 ### Modificar Usando Variables de Entorno
 
-También puedes usar [variables de entorno](/deploy/variables) para establecer los comandos de construcción y arranque:
+También puedes usar [variables de entorno](/deploy/config/environment-variables) para establecer los comandos de construcción y arranque:
 
 ```env
 ZBPACK_BUILD_COMMAND=pnpm run build:api

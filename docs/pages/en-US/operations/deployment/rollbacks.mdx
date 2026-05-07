@@ -17,7 +17,7 @@ Each time you deploy a service, Zeabur creates a snapshot of that deployment (th
 When you trigger a rollback:
 
 1. Zeabur creates a **new deployment** using the snapshot from the selected previous version.
-2. The new deployment goes through the standard [health check](/operations/health-checks) process.
+2. The new deployment goes through the standard [health check](/operations/monitoring/health-checks) process.
 3. Once the health check passes, traffic is routed to the rolled-back version.
 4. The failed deployment remains in your deployment history for reference.
 
@@ -63,11 +63,11 @@ Rollbacks restore the **application code and build artifacts** to a previous sta
 - **Database contents** — If your deployment included database migrations, rolling back the application does not reverse those migrations. You may need to manually address schema changes.
 
 <Callout type="warning">
-  If your deployment involved database migrations or other stateful changes, plan your rollback carefully. Consider restoring a [database backup](/operations/backup-restore) alongside the application rollback if needed.
+  If your deployment involved database migrations or other stateful changes, plan your rollback carefully. Consider restoring a [database backup](/operations/data/backup-restore) alongside the application rollback if needed.
 </Callout>
 
 ## Best Practices
 
 - **Test before deploying to production.** Use a staging project to catch issues before they reach your main deployment.
 - **Use small, incremental deployments.** Smaller changes are easier to diagnose and roll back.
-- **Monitor after deploying.** Watch [metrics](/operations/metrics) and [logs](/operations/logging) after each deployment to detect issues early.
+- **Monitor after deploying.** Watch [metrics](/operations/monitoring/metrics) and [logs](/operations/monitoring/logging) after each deployment to detect issues early.
