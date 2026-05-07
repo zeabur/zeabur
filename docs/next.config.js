@@ -105,8 +105,6 @@ export default withNextra({
       { source: '/:locale/deploy/github-integration', destination: '/:locale/deploy/methods/github-integration', permanent: true },
       { source: '/deploy/deploy-button',       destination: '/deploy/methods/deploy-button', permanent: true },
       { source: '/:locale/deploy/deploy-button', destination: '/:locale/deploy/methods/deploy-button', permanent: true },
-      { source: '/deploy/deploy-with-chrome-extension', destination: '/deploy/methods/deploy-with-chrome-extension', permanent: true },
-      { source: '/:locale/deploy/deploy-with-chrome-extension', destination: '/:locale/deploy/methods/deploy-with-chrome-extension', permanent: true },
       { source: '/deploy/deploy-with-vscode-extension', destination: '/deploy/methods/deploy-with-vscode-extension', permanent: true },
       { source: '/:locale/deploy/deploy-with-vscode-extension', destination: '/:locale/deploy/methods/deploy-with-vscode-extension', permanent: true },
       { source: '/deploy/deploy-with-raycast-extension', destination: '/deploy/methods/deploy-with-raycast-extension', permanent: true },
