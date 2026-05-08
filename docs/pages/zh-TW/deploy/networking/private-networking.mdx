@@ -4,9 +4,15 @@ ogImageTitle: 服務內網
 ogImageSubtitle: 服務間可以互相連線的網路
 ---
 
+import { Callout } from 'nextra/components'
+
 # 服務內網
 
 服務內網 (Private Networking) 可以讓服務使用固定的主機名稱，連線到同屬一個專案的網路。
+
+<Callout type="info">
+  服務內網用於同一專案內的**服務對服務通訊**——不適用於從本機存取服務。如果你使用 [Wonder Mesh](/wonder-mesh) 並想從區域網路存取服務，請參閱[從區域網路存取服務](/wonder-mesh/get-started#accessing-services)。
+</Callout>
 
 ## 查看主機名稱
 
