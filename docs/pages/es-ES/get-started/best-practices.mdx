@@ -12,10 +12,10 @@ Sigue estos consejos prácticos para aprovechar al máximo Zeabur mientras manti
 
 ## Usa Variables de Entorno para la Configuración
 
-Almacena todos los valores de configuración — claves API, URLs de bases de datos, feature flags — en [variables de entorno](/deploy/variable). Nunca codifiques secretos directamente en tu código fuente o imágenes Docker.
+Almacena todos los valores de configuración — claves API, URLs de bases de datos, feature flags — en [variables de entorno](/deploy/config/environment-variables). Nunca codifiques secretos directamente en tu código fuente o imágenes Docker.
 
 <Callout type="warning">
-Los secretos committeados en Git quedan permanentemente expuestos en el historial de tu repositorio. Usa siempre la gestión de variables de entorno de Zeabur.
+Los secretos commiteados en Git quedan permanentemente expuestos en el historial de tu repositorio. Usa siempre la gestión de variables de entorno de Zeabur.
 </Callout>
 
 Zeabur soporta referencias de variables entre servicios (por ejemplo, `${MYSQL_HOST}`), lo que mantiene las credenciales sincronizadas automáticamente.
@@ -37,11 +37,11 @@ Configura límites de CPU y memoria para cada servicio para prevenir costos desb
 - Revisa la [calculadora de precios](https://zeabur.com/pricing) para estimar costos antes del despliegue.
 - Consulta las métricas de uso en el [Dashboard](https://dash.zeabur.com) regularmente.
 
-## Usa Servicios del Marketplace para Bases de Datos
+## Usa Plantillas de Bases de Datos Preconfiguradas
 
-En lugar de ejecutar tus propios contenedores de bases de datos, usa los [servicios del Marketplace](/marketplace) de Zeabur. Vienen preconfigurados, incluyen inyección automática de variables de conexión y están optimizados para la plataforma.
+En lugar de ejecutar tus propios contenedores de bases de datos, usa las [plantillas de bases de datos de un clic](/template) de Zeabur. Vienen preconfiguradas, incluyen inyección automática de variables de conexión y están optimizadas para la plataforma.
 
-Las opciones populares incluyen PostgreSQL, MySQL, MongoDB y Redis — todos desplegables con un clic.
+Las opciones populares incluyen PostgreSQL, MySQL, MongoDB y Redis — todas desplegables con un clic.
 
 ## Estructura los Proyectos de Forma Lógica
 
@@ -57,15 +57,15 @@ Conecta tu repositorio de GitHub o GitLab para despliegues automáticos en cada 
 
 - Automatización CI/CD completa sin herramientas adicionales.
 - Rollback automático al revertir un commit.
-- [Entornos de preview](/deploy/preview) basados en ramas para pruebas de Pull Requests.
+- **Entornos de preview** basados en ramas para pruebas de Pull Requests.
 
 <Callout type="info">
-Para proyectos que no están en un repositorio Git, también puedes desplegar vía [CLI](/deploy/command-line) o imágenes Docker.
+Para proyectos que no están en un repositorio Git, también puedes desplegar vía [CLI](/developer/cli) o imágenes Docker.
 </Callout>
 
 ## Habilita Dominios Personalizados con HTTPS
 
-Zeabur proporciona certificados TLS automáticos para todos los dominios personalizados. Apunta tu DNS a Zeabur y HTTPS se habilita con cero configuración — consulta [Dominios Personalizados](/deploy/networking/public-networking) para instrucciones de configuración.
+Zeabur proporciona certificados TLS automáticos para todos los dominios personalizados. Apunta tu DNS a Zeabur y HTTPS se habilita con cero configuración — consulta [Dominios Personalizados](/domain/management) para instrucciones de configuración.
 
 Usa tu propio dominio para servicios de producción para mantener una apariencia profesional y evitar compartir el subdominio predeterminado `*.zeabur.app`.
 
@@ -79,7 +79,7 @@ Revisa el panel de facturación regularmente para entender tus gastos:
 
 ## Usa Entornos de Preview para Pruebas
 
-Habilita los [despliegues de preview](/deploy/preview) para que cada Pull Request obtenga su propio entorno aislado. Esto permite a tu equipo probar cambios en un entorno similar a producción antes de fusionar.
+Habilita los **despliegues de preview** para que cada Pull Request obtenga su propio entorno aislado. Esto permite a tu equipo probar cambios en un entorno similar a producción antes de fusionar.
 
 Los entornos de preview se limpian automáticamente cuando se elimina la rama o se cierra el PR.
 

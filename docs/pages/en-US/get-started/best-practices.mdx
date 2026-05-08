@@ -12,7 +12,7 @@ Follow these practical tips to get the most out of Zeabur while keeping your dep
 
 ## Use Environment Variables for Configuration
 
-Store all configuration values — API keys, database URLs, feature flags — in [environment variables](/deploy/variable). Never hardcode secrets in your source code or Docker images.
+Store all configuration values — API keys, database URLs, feature flags — in [environment variables](/deploy/config/environment-variables). Never hardcode secrets in your source code or Docker images.
 
 <Callout type="warning">
 Secrets committed to Git are permanently exposed in your repository history. Always use Zeabur's environment variable management instead.
@@ -37,9 +37,9 @@ Configure CPU and memory limits for each service to prevent runaway costs. A sin
 - Review the [pricing calculator](https://zeabur.com/pricing) to estimate costs before deployment.
 - Check the [Dashboard](https://dash.zeabur.com) usage metrics regularly.
 
-## Use Marketplace Services for Databases
+## Use Pre-built Database Templates
 
-Instead of running your own database containers, use Zeabur's [Marketplace services](/marketplace). They come pre-configured, include automatic connection variable injection, and are optimized for the platform.
+Instead of running your own database containers, use Zeabur's [one-click database templates](/template). They come pre-configured, include automatic connection variable injection, and are optimized for the platform.
 
 Popular options include PostgreSQL, MySQL, MongoDB, and Redis — all deployable in one click.
 
@@ -57,15 +57,15 @@ Connect your GitHub or GitLab repository for automatic deployments on every push
 
 - Full CI/CD automation without extra tooling.
 - Automatic rollback by reverting a commit.
-- Branch-based [preview environments](/deploy/preview) for pull request testing.
+- Branch-based **preview environments** for pull request testing.
 
 <Callout type="info">
-For projects not in a Git repository, you can also deploy via the [CLI](/deploy/command-line) or Docker images.
+For projects not in a Git repository, you can also deploy via the [CLI](/developer/cli) or Docker images.
 </Callout>
 
 ## Enable Custom Domains with HTTPS
 
-Zeabur provides automatic TLS certificates for all custom domains. Point your DNS to Zeabur and HTTPS is enabled with zero configuration — see [Custom Domains](/deploy/domain-bindling) for setup instructions.
+Zeabur provides automatic TLS certificates for all custom domains. Point your DNS to Zeabur and HTTPS is enabled with zero configuration — see [Custom Domains](/domain/management) for setup instructions.
 
 Use your own domain for production services to maintain a professional appearance and avoid sharing the default `*.zeabur.app` subdomain.
 
@@ -79,7 +79,7 @@ Check the billing dashboard regularly to understand your spending:
 
 ## Use Preview Environments for Testing
 
-Enable [preview deployments](/deploy/preview) so every pull request gets its own isolated environment. This lets your team test changes in a production-like setting before merging.
+Enable **preview deployments** so every pull request gets its own isolated environment. This lets your team test changes in a production-like setting before merging.
 
 Preview environments are automatically cleaned up when the branch is deleted or the PR is closed.
 
