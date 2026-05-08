@@ -136,7 +136,9 @@ export default withNextra({
       { source: '/deploy/edge-caching',        destination: '/deploy/networking/edge-caching', permanent: true },
       { source: '/:locale/deploy/edge-caching', destination: '/:locale/deploy/networking/edge-caching', permanent: true },
       { source: '/networking',                 destination: '/deploy/networking', permanent: true },
-      { source: '/:locale/networking',         destination: '/:locale/deploy/networking', permanent: true },
+      // Constrain :locale so /deploy/networking (canonical) is not hijacked by
+      // a `:locale = "deploy"` match — same applies for any other top-level path.
+      { source: '/:locale(en-US|zh-TW|zh-CN|ja-JP|es-ES)/networking', destination: '/:locale/deploy/networking', permanent: true },
 
       // operations flat → operations sub-folders
       { source: '/operations/invite-member',   destination: '/operations/team/invite-member', permanent: true },
