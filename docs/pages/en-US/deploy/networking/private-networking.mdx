@@ -4,9 +4,15 @@ ogImageTitle: Private Networking
 ogImageSubtitle: A network that allows services to connect to each other
 ---
 
+import { Callout } from 'nextra/components'
+
 # Private Networking
 
 Private Networking allows services to use a fixed hostname to connect to another service in the same project.
+
+<Callout type="info">
+  Private networking is for **service-to-service communication** within the same project — not for accessing services from your local machine. If you are using [Wonder Mesh](/wonder-mesh) and want to access services from your local network, see [Accessing Services from Your LAN](/wonder-mesh/get-started#accessing-services).
+</Callout>
 
 ## Find the Hostname
 

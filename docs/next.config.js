@@ -135,6 +135,8 @@ export default withNextra({
       { source: '/:locale/deploy/high-availability', destination: '/:locale/deploy/networking/high-availability', permanent: true },
       { source: '/deploy/edge-caching',        destination: '/deploy/networking/edge-caching', permanent: true },
       { source: '/:locale/deploy/edge-caching', destination: '/:locale/deploy/networking/edge-caching', permanent: true },
+      { source: '/networking',                 destination: '/deploy/networking', permanent: true },
+      { source: '/:locale/networking',         destination: '/:locale/deploy/networking', permanent: true },
 
       // operations flat → operations sub-folders
       { source: '/operations/invite-member',   destination: '/operations/team/invite-member', permanent: true },
@@ -460,6 +462,8 @@ export default withNextra({
       { source: '/en-US/monitoring/logging', destination: '/en-US/operations/monitoring/logging', permanent: true },
       { source: '/en-US/monitoring/metrics', destination: '/en-US/operations/monitoring/metrics', permanent: true },
       { source: '/en-US/networking/high-availability', destination: '/en-US/deploy/networking/high-availability', permanent: true },
+      { source: '/en-US/networking/private', destination: '/en-US/deploy/networking/private-networking', permanent: true },
+      { source: '/en-US/networking/public', destination: '/en-US/deploy/networking/public-networking', permanent: true },
       { source: '/en-US/operations/suspend-service', destination: '/en-US/operations/deployment/suspend-service', permanent: true },
       { source: '/es-ES/deploy/deploy-with-chrome-extension/gemini', destination: '/es-ES/deploy/methods/deploy-with-chrome-extension/gemini', permanent: true },
       { source: '/es-ES/monitoring/health-checks', destination: '/es-ES/operations/monitoring/health-checks', permanent: true },
@@ -490,6 +494,8 @@ export default withNextra({
       { source: '/zh-TW/deploy/deploy-with-chrome-extension/gemini', destination: '/zh-TW/deploy/methods/deploy-with-chrome-extension/gemini', permanent: true },
       { source: '/zh-TW/monitoring/logging', destination: '/zh-TW/operations/monitoring/logging', permanent: true },
       { source: '/zh-TW/networking/high-availability', destination: '/zh-TW/deploy/networking/high-availability', permanent: true },
+      { source: '/zh-TW/networking/private', destination: '/zh-TW/deploy/networking/private-networking', permanent: true },
+      { source: '/zh-TW/networking/public', destination: '/zh-TW/deploy/networking/public-networking', permanent: true },
       { source: '/zh-TW/operations/suspend-service', destination: '/zh-TW/operations/deployment/suspend-service', permanent: true },
       // ── end MKT-2268 ──
     ]);
