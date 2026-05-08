@@ -53,6 +53,19 @@ export default withNextra({
     }).flat();
 
     return templateRedirectsRule.concat([
+      // Bare /marketplace path -> public template catalog (matches the
+      // existing per-template redirects above, which already point to
+      // zeabur.com/templates/<code>).
+      {
+        source: '/marketplace',
+        destination: 'https://zeabur.com/templates',
+        permanent: true,
+      },
+      {
+        source: '/:locale/marketplace',
+        destination: 'https://zeabur.com/:locale/templates',
+        permanent: true,
+      },
       {
         source: '/guides/go/go',
         destination: '/guides/go',
