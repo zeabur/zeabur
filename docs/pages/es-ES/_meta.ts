@@ -27,6 +27,7 @@ export default {
   '---4---': { type: 'separator' },
   pricing:            'Precios',
   subscription:       'Suscripción y Facturación',
+  team:               'Equipo',
   rewards:            'Recompensas y Referidos',
   partner:            'Programa de Socios',
 

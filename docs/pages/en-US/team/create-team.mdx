@@ -1,0 +1,111 @@
+---
+title: Create a Team
+ogImageTitle: Create a Team
+ogImageSubtitle: Set up a Team workspace
+---
+
+import { Callout, Steps } from 'nextra/components';
+
+# Create a Team
+
+A Team is a separate workspace with its own members, projects, servers, and billing. This page walks you through creating one and the recommended next steps so the Team is actually usable.
+
+For the conceptual overview of what a Team is and how it differs from your personal workspace, see [Team](/team).
+
+## Where to create a Team
+
+Open the **workspace switcher** in the dashboard — it's the avatar and name shown at the top of the left sidebar, next to the chevron. Click it to open the popover, then click **Create team** at the bottom of the workspace list.
+
+Any signed-in user can create a Team. There is no quota — you can be in as many Teams as you like, and you can create more than one if you want separate billing contexts (for example, one Team per client or per business unit).
+
+## The creation form
+
+The **Create Team** dialog asks for one field:
+
+- **Team name** — the display name shown to all members and on invoices. You can change this later in Team Settings.
+
+That's it. Click **Create** to finish.
+
+<Callout type="info">
+  The Team avatar (logo) is not set during creation — every new Team starts with a default avatar generated from its name. You can upload a custom logo afterward from **Account → Team Settings** while in the Team workspace.
+</Callout>
+
+## What happens immediately after creation
+
+<Steps>
+
+### You become the first administrator
+
+The user who creates a Team is automatically its administrator. There must always be at least one administrator on a Team — this rule is enforced when administrators are removed or demoted later.
+
+### The dashboard switches into the new Team
+
+The workspace switcher updates to show the new Team's name and avatar in the sidebar, and the rest of the dashboard (Projects, Servers, Account settings) refreshes to the Team's context. To return to your personal workspace, open the workspace switcher again and pick your personal entry from the list.
+
+### The Team is in an inactive state
+
+A newly created Team has **no Team plan subscribed** yet. Members cannot create projects, deploy templates, manage servers, use AI Hub, or send emails through Z‑Send under the Team until the Team plan is activated.
+
+What still works on an inactive Team — so you can finish setup:
+
+- Updating Team profile (name, avatar, contact emails)
+- Inviting members and assigning roles
+- Binding a payment method
+- Activating the Team plan
+- Switching back to your personal workspace
+- Deleting the Team (only when it has no projects or servers)
+
+</Steps>
+
+## Recommended next steps
+
+To make the Team productive, do these in roughly this order:
+
+<Steps>
+
+### Activate the Team plan
+
+While in the Team workspace, go to **Account → Subscription** and click **Activate Team plan**. The dashboard previews the seat-based charge (base plan with 3 seats included, plus per-extra-seat pricing) before payment.
+
+See [Team billing](/team/billing) for the full breakdown of pricing, payment methods, invoices, and prepaid credits.
+
+### Invite members
+
+Go to **Account → Members** while in the Team workspace and add teammates by email, picking a role (**Administrator**, **Editor**, or **Viewer**) for each. Adding a member beyond the included seats triggers a prorated extra-seat charge on the next invoice.
+
+See [Manage members and roles](/team/manage-members) for the full role permission matrix and invitation flow.
+
+### Bring in existing personal projects or servers (optional)
+
+If you already have a project or dedicated server in your personal workspace that should belong to the Team, an administrator can transfer ownership so billing and quotas attach to the Team going forward. The original owner can keep working on the resource as a Team member.
+
+See [Transfer ownership to a Team](/team/transfer-ownership).
+
+</Steps>
+
+## Common questions
+
+### I created a Team but I can't create projects or restart anything
+
+The Team plan isn't activated yet. A newly created Team is inactive and most actions are blocked until an administrator subscribes. Go to **Account → Subscription** in the Team workspace and activate the Team plan — see [Team billing](/team/billing).
+
+### Can I have multiple Teams?
+
+Yes. A single user can create and belong to as many Teams as they want, each with its own members, resources, and billing. Use the workspace switcher to move between them.
+
+### Can I rename the Team or change its avatar later?
+
+Yes. While in the Team workspace, go to **Account → Team Settings**. Administrators can update the Team name, upload a new logo, and edit the contact emails for system notifications.
+
+### Can I delete a Team?
+
+Yes — but only when the Team has no projects and no servers attached. In **Account → Team Settings → Danger zone**, type the Team name to confirm, then click **Delete team**. Only administrators can delete a Team. If the Team still owns resources, transfer or delete those first.
+
+If you only want to leave a Team you no longer participate in (without deleting it), use **Leave team** in the same Team Settings page — that option is for non-administrator members and for administrators when at least one other administrator remains.
+
+## Next steps
+
+- [Team billing](/team/billing)
+- [Manage members and roles](/team/manage-members)
+- [Transfer ownership to a Team](/team/transfer-ownership)
+- [Team overview](/team)

@@ -1,0 +1,102 @@
+---
+title: Team
+ogImageTitle: Team
+ogImageSubtitle: Collaborate with shared billing and resources
+---
+
+import { Callout, Steps } from 'nextra/components';
+
+# Team
+
+A **Team** is a separate workspace that lets multiple people share projects, servers, and billing under one entity. Teams have their own subscription, payment method, and invoices — completely independent from any individual's personal account.
+
+This page explains what a Team is, how it differs from your personal account, and what the **Team plan** activates.
+
+## Personal account vs Team
+
+Every Zeabur user has a **personal workspace** (your individual account). You can also belong to one or more Teams. Each Team is its own workspace with its own resources, members, and billing.
+
+You can switch between your personal workspace and any Team you belong to using the **workspace switcher** in the dashboard sidebar.
+
+| | Personal workspace | Team workspace |
+| --- | --- | --- |
+| Owner | Yourself | The Team entity |
+| Subscription | Your personal plan (Free / Dev / Pro) | Team plan (one tier) |
+| Payment method | Your card | The Team's card |
+| Invoices | Issued to you | Issued to the Team |
+| Projects / servers visible | Yours | The Team's |
+| Members | N/A | Multiple users with roles |
+
+A user can have an active personal subscription **and** belong to a Team with its own active subscription at the same time. The two are billed and managed independently — adding members to a Team does not affect your personal billing, and downgrading your personal plan does not affect any Team you belong to.
+
+<Callout type="info">
+  In your billing history, a personal subscription using the legacy "Team" tier is now displayed as **Team Plan (Legacy)**. This is unrelated to the Team workspace described here. The current Team product is the workspace described on this page.
+</Callout>
+
+## Activating the Team plan
+
+Creating a Team gives you an empty workspace, but a Team must **activate the Team plan** before its members can create projects, deploy services, or use any Team-owned resources.
+
+<Callout type="warning">
+  A newly created Team is in an **inactive** state. Until a Team administrator activates the Team plan, the following actions are blocked for everyone in the Team:
+
+  - Creating projects in the Team workspace
+  - Deploying services from a template
+  - Managing servers and clusters owned by the Team
+  - Using AI Hub under the Team
+  - Sending emails through Z‑Send under the Team
+</Callout>
+
+What still works on an inactive Team — so administrators can finish setup:
+
+- Creating the Team and naming it
+- Inviting members and assigning roles
+- Updating Team profile (name, avatar, contact emails)
+- Binding a payment method
+- **Activating the Team plan**
+- Switching back to your personal workspace at any time
+- Deleting the Team (only when it has no projects or servers)
+
+To activate the Team plan, a Team administrator should go to **Account → Subscription** while in the Team workspace and click **Activate Team plan**. The dashboard will show the seat-based price preview before payment.
+
+## Roles
+
+A Team has three roles, set when an administrator invites a member:
+
+- **Administrator** — full control: members, billing, every team-owned resource, can delete the Team.
+- **Editor** — can create and modify Team-owned projects, services, and resources, but cannot manage members, billing, or delete the Team.
+- **Viewer** — read-only access to Team resources. Cannot create, modify, or delete anything.
+
+The user who creates the Team is automatically its first administrator. There must always be at least one administrator on a Team.
+
+For the full list of what each role can and cannot do, see [Manage members](/team/manage-members).
+
+## Independent billing
+
+Every Team has its own Stripe customer record. This means:
+
+- Team invoices are addressed to the Team's billing details (legal name, address, tax ID), not to any individual member.
+- The Team has its own payment method, separate from any administrator's personal cards.
+- The Team has its own credit balance — credits added to the Team are spent only on Team-owned resources.
+- Switching workspaces in the dashboard switches which billing context you're viewing.
+
+For details on payment methods, invoices, prepaid credits, and how Team-plan seat charges work, see [Team billing](/team/billing).
+
+## Bringing personal projects and servers into a Team
+
+If you have an existing project or dedicated server in your personal workspace, an administrator of a Team you belong to can transfer ownership to the Team. After transfer, billing and resource quotas attach to the Team and the original personal owner can keep working on it as a Team member.
+
+See [Transfer ownership to a Team](/team/transfer-ownership).
+
+## When to use a Team vs project / server collaborators
+
+If you only want to give someone access to a single project's services, [invite them as a project collaborator](/operations/team/invite-member). If you want to share a single dedicated server, invite them as a server collaborator from the server settings page. A **Team** is the right choice when you want shared billing and a single workspace across many projects, servers, and members — invite them as a Team member instead.
+
+For the full breakdown of how the three differ, see [Manage members](/team/manage-members).
+
+## Next steps
+
+- [Create a Team](/team/create-team)
+- [Manage members and roles](/team/manage-members)
+- [Team billing](/team/billing)
+- [Transfer ownership to a Team](/team/transfer-ownership)
