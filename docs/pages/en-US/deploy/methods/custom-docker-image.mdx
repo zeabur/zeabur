@@ -51,7 +51,7 @@ After setting up, you can proceed to configure environment variables, ports, etc
 
 "Expose" makes the variable available to other services. For instance, `MARIADB_USERNAME` and `MARIADB_PASSWORD` are exposed, making them accessible to other services in the same project.
 
-Aside from variables Exposed by other services, you can also use [Zeabur's predefined special variables](/deploy/config/environment-variables), such as using `${ZEABUR_WEB_URL}` to retrieve the URL set on the `web` port.
+Aside from variables exposed by other services, you can also use [Zeabur's predefined special variables](/deploy/config/environment-variables), such as using `${ZEABUR_WEB_URL}` to retrieve the URL set on the `web` port.
 
 If you are write a Prebuilt according to a Docker image documentation, environment variables often follow `docker run` with `--env` (or `-e`), such as:
 
@@ -146,7 +146,7 @@ services:
 
 "Start Command" allows you to override the default Docker image entrypoint and arguments. This is an advanced setting and can be skipped if you are unsure what it is.
 
-When specifying from the GUI, the default entrypoint when setting this field is `/bin/sh`. If your image does not provide `/bin/sh`, use **Edit TOML** to change it or consult [support](/get-started/faq-support/help) for assistant.
+When specifying from the GUI, the default entrypoint when setting this field is `/bin/sh`. If your image does not provide `/bin/sh`, use **Edit TOML** to change it or consult [support](/get-started/faq-support/help) for assistance.
 
 ## Manually Write Your Template
 
