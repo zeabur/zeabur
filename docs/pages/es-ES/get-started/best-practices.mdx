@@ -15,7 +15,7 @@ Sigue estos consejos prácticos para aprovechar al máximo Zeabur mientras manti
 Almacena todos los valores de configuración — claves API, URLs de bases de datos, feature flags — en [variables de entorno](/deploy/config/environment-variables). Nunca codifiques secretos directamente en tu código fuente o imágenes Docker.
 
 <Callout type="warning">
-Los secretos commiteados en Git quedan permanentemente expuestos en el historial de tu repositorio. Usa siempre la gestión de variables de entorno de Zeabur.
+Los secretos subidos a Git quedan permanentemente expuestos en el historial de tu repositorio. Usa siempre la gestión de variables de entorno de Zeabur.
 </Callout>
 
 Zeabur soporta referencias de variables entre servicios (por ejemplo, `${MYSQL_HOST}`), lo que mantiene las credenciales sincronizadas automáticamente.
