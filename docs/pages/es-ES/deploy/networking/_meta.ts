@@ -3,4 +3,5 @@ export default {
   'public-networking':  'Redes Públicas',
   'private-networking': 'Redes Privadas',
   'high-availability':  'Alta Disponibilidad',
+  'gateway':            'Gateway',
 }

@@ -4,4 +4,5 @@ export default {
   'private-networking': 'プライベートネットワーキング',
   'domain-registration': 'ドメイン登録',
   'high-availability': '高可用性',
+  'gateway': 'Gateway',
 }
