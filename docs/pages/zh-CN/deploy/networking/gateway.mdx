@@ -1,0 +1,80 @@
+---
+title: Gateway
+ogImageTitle: Gateway
+ogImageSubtitle: 通过单一入口将流量路由至多个服务
+---
+
+import { Callout } from 'nextra/components'
+
+## Gateway
+
+Gateway 让你通过单一入口将流量路由至项目中的多个服务。你不需要为每个服务分别绑定域名，只要设置一个域名，就能通过 Gateway 将请求转发到不同的服务和端口。
+
+<Callout type="warning">
+  Gateway 不适用于 Wonder Mesh 项目。
+</Callout>
+
+## 启用 Gateway
+
+要启用 Gateway，请前往 Zeabur 控制台中的项目，打开侧边栏并前往 **Add-ons** → **Gateway** → **Enable**。
+
+启用后，项目中会创建一个 Gateway 服务。接着你就可以开始添加路由，将流量转发到你的服务。
+
+## 添加路由
+
+启用 Gateway 后，打开 Gateway 服务的 **Networking** 选项卡来添加路由。每条路由将一个公开域名映射到项目中特定的服务和端口。
+
+![添加路由](https://cdn.zeabur.com/gateway/add-route.jpeg)
+
+### 生成域名
+
+点击 **Generate Domain** 创建带有 `.zeabur.app` 后缀的域名，然后选择目标 **服务** 和 **端口** 来路由流量。
+
+### 自定义域名
+
+点击 **Custom Domain** 使用你自己的域名。输入你的域名，然后选择目标 **服务** 和 **端口**。
+
+添加自定义域名后，你需要配置 DNS 记录。请参考下方的[自定义域名 DNS 配置](#自定义域名-dns-配置)章节。
+
+## 自定义域名 DNS 配置
+
+在 Gateway 中添加自定义域名后，你会看到域名所需的 DNS 信息。
+
+你需要在 DNS 提供商处添加一条 **CNAME** 记录，指向 Zeabur 提供的主机名。以 Cloudflare 为例，在「DNS」→「Records」页面中添加 CNAME 记录。
+
+<Callout type="info">
+  关于根域名 DNS 设置（zone apex），请参考公网存取文档中的[根域名 DNS 设置](/deploy/networking/public-networking#root-domain-dns-settings)章节。
+</Callout>
+
+## IP 白名单 / 黑名单
+
+Gateway 支持基于 IP 的访问控制，限制谁可以通过 Gateway 访问你的服务。
+
+- **白名单**：仅允许来自指定 IP 地址的请求。
+- **黑名单**：屏蔽来自指定 IP 地址的请求。
+
+打开 Gateway 设置，按需将 IP 地址加入白名单或黑名单即可。
+
+<Callout type="warning">
+  IP 访问控制仅支持 **IPv4** 地址，不支持 IPv6。
+</Callout>
+
+## 管理路由
+
+### 编辑上游服务
+
+若要更改现有路由的目标服务或端口，点击路由条目并更新 **服务** 和 **端口** 字段。
+
+### 删除路由
+
+若要移除路由，点击路由条目旁的删除图标并确认删除。
+
+## 设置
+
+### 更新镜像版本
+
+当 Gateway 镜像有新版本可用时，你可以在 Gateway 服务设置中进行更新，应用最新的改进和修复。
+
+### 删除 Gateway
+
+若要从项目中完全移除 Gateway，前往 Gateway 服务设置并选择 **Delete**。这将移除所有路由以及项目中的 Gateway 服务。

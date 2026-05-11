@@ -1,0 +1,80 @@
+---
+title: Gateway
+ogImageTitle: Gateway
+ogImageSubtitle: Enruta múltiples servicios a través de un único punto de entrada
+---
+
+import { Callout } from 'nextra/components'
+
+## Gateway
+
+Gateway te permite enrutar el tráfico a múltiples servicios dentro de un proyecto a través de un único punto de entrada. En lugar de vincular un dominio separado a cada servicio, puedes configurar un solo dominio y usar el gateway para dirigir las solicitudes a diferentes servicios y puertos.
+
+<Callout type="warning">
+  Gateway no está disponible para proyectos de Wonder Mesh.
+</Callout>
+
+## Habilitar Gateway
+
+Para habilitar Gateway, navega a tu proyecto en el panel de Zeabur, abre la barra lateral y ve a **Add-ons** → **Gateway** → **Enable**.
+
+Una vez habilitado, se creará un servicio de gateway en tu proyecto. Luego podrás comenzar a agregar rutas para dirigir el tráfico a tus servicios.
+
+## Agregar rutas
+
+Después de habilitar el gateway, abre la pestaña **Networking** en el servicio de gateway para agregar rutas. Cada ruta mapea un dominio público a un servicio y puerto específico dentro de tu proyecto.
+
+![Agregar ruta](https://cdn.zeabur.com/gateway/add-route.jpeg)
+
+### Generar dominio
+
+Haz clic en **Generate Domain** para crear un dominio con el sufijo `.zeabur.app`. Luego selecciona el **servicio** y **puerto** de destino para enrutar el tráfico.
+
+### Dominio personalizado
+
+Haz clic en **Custom Domain** para usar tu propio nombre de dominio. Ingresa tu dominio y selecciona el **servicio** y **puerto** de destino.
+
+Después de agregar un dominio personalizado, necesitarás configurar los registros DNS. Consulta la sección [Configuración de DNS para dominios personalizados](#configuración-de-dns-para-dominios-personalizados) a continuación.
+
+## Configuración de DNS para dominios personalizados
+
+Después de agregar un dominio personalizado al gateway, verás la información DNS requerida para tu dominio.
+
+Debes agregar un registro **CNAME** que apunte al nombre de host proporcionado por Zeabur en tu proveedor de DNS. Por ejemplo, si usas Cloudflare, agrega el registro CNAME en la sección "DNS" → "Records".
+
+<Callout type="info">
+  Para la configuración de DNS del dominio raíz (zone apex), consulta la sección [Configuración de DNS del dominio raíz](/deploy/networking/public-networking#root-domain-dns-settings) en la documentación de Redes Públicas.
+</Callout>
+
+## Lista blanca / negra de IP
+
+Gateway admite el control de acceso basado en IP para restringir quién puede acceder a tus servicios a través del gateway.
+
+- **Lista blanca**: Solo permite solicitudes de las direcciones IP especificadas.
+- **Lista negra**: Bloquea solicitudes de las direcciones IP especificadas.
+
+Para configurar, abre la configuración del gateway y agrega direcciones IP a la lista blanca o negra según sea necesario.
+
+<Callout type="warning">
+  El control de acceso por IP solo admite direcciones **IPv4**. IPv6 no es compatible.
+</Callout>
+
+## Gestionar rutas
+
+### Editar upstream
+
+Para cambiar el servicio o puerto de destino de una ruta existente, haz clic en la entrada de la ruta y actualiza los campos de **servicio** y **puerto**.
+
+### Eliminar rutas
+
+Para eliminar una ruta, haz clic en el icono de eliminar junto a la entrada de la ruta y confirma la eliminación.
+
+## Configuración
+
+### Actualizar versión de imagen
+
+Cuando haya una nueva versión de la imagen del gateway disponible, puedes actualizarla desde la configuración del servicio de gateway. Esto aplica las últimas mejoras y correcciones a tu gateway.
+
+### Eliminar Gateway
+
+Para eliminar completamente el gateway de tu proyecto, ve a la configuración del servicio de gateway y selecciona **Delete**. Esto eliminará todas las rutas y el servicio de gateway de tu proyecto.
