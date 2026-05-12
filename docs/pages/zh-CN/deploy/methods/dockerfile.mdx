@@ -75,13 +75,25 @@ EXPOSE 8080
 CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
 ```
 
-## 指定要部署的 Dockerfile
+## 指定要部署的 Dockerfile（单一 repo 多服务 / monorepo）
 
-如果想指定用于项目部署的 Dockerfile，请将 Dockerfile 命名为 `[服务名称].Dockerfile` 或 `Dockerfile.[服务名称]`。例如，如果你的项目中有一个 `Dockerfile.storage` 文件，而你的服务名称是 `storage`，Zeabur 将会使用这个 Dockerfile 来部署 `storage` 服务。
+当你的 repo 包含多个 Dockerfile（例如 monorepo 结构，一个仓库部署多个服务），Zeabur 提供三种方式来指定每个服务使用哪个 Dockerfile。
+
+### 方法一：用服务名称自动匹配（推荐）
+
+最简单的方式：将 Dockerfile 命名为 `[服务名称].Dockerfile` 或 `Dockerfile.[服务名称]`，Zeabur 会根据你在 dashboard 上设置的服务名称自动匹配。例如，服务名称是 `storage`，Zeabur 会自动使用 `Dockerfile.storage` 或 `storage.Dockerfile`。
 
 ![specify-service-name](/deploy/dockerfile/specify-service-name.png)
 
-您也可以指定 `ZBPACK_DOCKERFILE_NAME` 环境变量，或者在 `zbpack.json` 中加入以下内容：
+### 方法二：用 `ZBPACK_DOCKERFILE_NAME` 指定后缀
+
+如果 Dockerfile 已命名为 `<suffix>.Dockerfile` 或 `Dockerfile.<suffix>`，但你不想让服务名称跟着改，可以用环境变量明确指定后缀：
+
+```
+ZBPACK_DOCKERFILE_NAME=storage
+```
+
+或在 `zbpack.json` 中：
 
 ```json
 {
@@ -91,7 +103,31 @@ CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/ngin
 }
 ```
 
-例如，如果您在服务中设置了 `ZBPACK_DOCKERFILE_NAME=storage`，Zeabur 将使用 `Dockerfile.storage` 作为 Dockerfile 来部署 `storage` 服务。
+Zeabur 会查找 `Dockerfile.storage` 或 `storage.Dockerfile`。
+
+<Callout type="warning">
+  这个变量**只接受后缀**，不要填完整文件名。如果你设置成 `ZBPACK_DOCKERFILE_NAME=Dockerfile.storage`，Zeabur 会去找名为 `Dockerfile.Dockerfile.storage` 的文件，找不到就会回退到自动检测（通常会误判成 Node.js 等其他 builder）。如果你想填完整路径或文件名，请改用下面的 `ZBPACK_DOCKERFILE_PATH`。
+</Callout>
+
+### 方法三：用 `ZBPACK_DOCKERFILE_PATH` 指定任意路径
+
+如果 Dockerfile 不在 repo 根目录、或文件名不符合 `*.Dockerfile` / `Dockerfile.*` 惯例，可以用这个变量直接指定**相对 repo 根目录的完整路径**：
+
+```
+ZBPACK_DOCKERFILE_PATH=apps/admin/Dockerfile
+```
+
+或在 `zbpack.json` 中：
+
+```json
+{
+  "dockerfile": {
+    "path": "apps/admin/Dockerfile"
+  }
+}
+```
+
+Zeabur 会直接使用该路径下的文件来构建，不再做后缀匹配。这是你想指定子目录里的 Dockerfile、或文件名完全自定义时应该用的变量。
 
 ## Docker Compose
 

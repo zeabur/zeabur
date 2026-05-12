@@ -75,13 +75,25 @@ EXPOSE 8080
 CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
 ```
 
-## Specifying Dockerfile to Deploy
+## Specifying Dockerfile to Deploy (Monorepo / Multiple Services from One Repo)
 
-To deploy a project using a specified Dockerfile, name the Dockerfile as `[service-name].Dockerfile` or `Dockerfile.[service-name]`. For instance, if you have a `Dockerfile.storage` file in your project and your service name is `storage`, Zeabur will deploy the `storage` service using this Dockerfile.
+When your repo contains multiple Dockerfiles (e.g. a monorepo deploying several services), Zeabur offers three ways to tell each service which Dockerfile to use.
+
+### Option 1: Auto-match by service name (recommended)
+
+The simplest approach: name your Dockerfile `[service-name].Dockerfile` or `Dockerfile.[service-name]`. Zeabur will automatically pick the matching file based on the service name you set in the dashboard. For example, if your service is named `storage`, Zeabur will use `Dockerfile.storage` (or `storage.Dockerfile`).
 
 ![specify-service-name](/deploy/dockerfile/specify-service-name.png)
 
-You can also specify the `ZBPACK_DOCKERFILE_NAME` environment variable or add the following to `zbpack.json`:
+### Option 2: `ZBPACK_DOCKERFILE_NAME` to specify the suffix
+
+If your Dockerfile is named `<suffix>.Dockerfile` or `Dockerfile.<suffix>` but you don't want the service name to dictate the match, set the suffix explicitly:
+
+```
+ZBPACK_DOCKERFILE_NAME=storage
+```
+
+Or in `zbpack.json`:
 
 ```json
 {
@@ -91,7 +103,31 @@ You can also specify the `ZBPACK_DOCKERFILE_NAME` environment variable or add th
 }
 ```
 
-For example, if you set `ZBPACK_DOCKERFILE_NAME=storage` in your service, Zeabur will use `Dockerfile.storage` as the Dockerfile to deploy the `storage` service.
+Zeabur will look for `Dockerfile.storage` or `storage.Dockerfile`.
+
+<Callout type="warning">
+  This variable accepts **the suffix only**, not a full filename. Setting `ZBPACK_DOCKERFILE_NAME=Dockerfile.storage` makes Zeabur look for a file named `Dockerfile.Dockerfile.storage`, which won't exist — it will then silently fall back to auto-detection and likely build your project with the wrong builder (e.g. Node.js). If you want to pass a full filename or path, use `ZBPACK_DOCKERFILE_PATH` below instead.
+</Callout>
+
+### Option 3: `ZBPACK_DOCKERFILE_PATH` for arbitrary paths
+
+If your Dockerfile is not in the repo root, or its filename doesn't follow the `*.Dockerfile` / `Dockerfile.*` convention, use this variable to specify the **full relative path from the repo root**:
+
+```
+ZBPACK_DOCKERFILE_PATH=apps/admin/Dockerfile
+```
+
+Or in `zbpack.json`:
+
+```json
+{
+  "dockerfile": {
+    "path": "apps/admin/Dockerfile"
+  }
+}
+```
+
+Zeabur will use that exact file to build, with no suffix matching applied. This is the right option for Dockerfiles in subdirectories or with fully custom filenames.
 
 ## Docker Compose
 
