@@ -75,13 +75,25 @@ EXPOSE 8080
 CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
 ```
 
-## 指定要部署的 Dockerfile
+## 指定要部署的 Dockerfile（單一 repo 多服務 / monorepo）
 
-若想指定要在專案部署的 Dockerfile，請將 Dockerfile 命名為 `[服務名稱].Dockerfile` 或 `Dockerfile.[服務名稱]`。例如，如果你的專案中有一個 `Dockerfile.storage` 檔案，而你的服務名稱是 `storage`，Zeabur 將會使用這個 Dockerfile 來部署 `storage` 服務。
+當你的 repo 有多個 Dockerfile（例如 monorepo 結構，一個倉庫部署多個服務），Zeabur 提供三種方式來指定每個服務要用哪個 Dockerfile。
+
+### 方法一：用服務名稱自動配對（推薦）
+
+最簡單的方式：把 Dockerfile 命名為 `[服務名稱].Dockerfile` 或 `Dockerfile.[服務名稱]`，Zeabur 會根據你在 dashboard 上設定的服務名稱自動配對。例如，服務名稱是 `storage`，Zeabur 會自動使用 `Dockerfile.storage` 或 `storage.Dockerfile`。
 
 ![specify-service-name](/deploy/dockerfile/specify-service-name.png)
 
-您也可以指定 `ZBPACK_DOCKERFILE_NAME` 環境變數，或在 `zbpack.json` 中加入以下內容：
+### 方法二：用 `ZBPACK_DOCKERFILE_NAME` 指定後綴
+
+若 Dockerfile 已命名為 `<suffix>.Dockerfile` 或 `Dockerfile.<suffix>`，但你不想讓服務名稱跟著走，可以用環境變數明確指定後綴：
+
+```
+ZBPACK_DOCKERFILE_NAME=storage
+```
+
+或在 `zbpack.json` 中：
 
 ```json
 {
@@ -91,7 +103,31 @@ CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/ngin
 }
 ```
 
-例如，如果您在服務中設定 `ZBPACK_DOCKERFILE_NAME=storage`，Zeabur 將使用 `Dockerfile.storage` Dockerfile 來部署 `storage` 服務。
+Zeabur 會找 `Dockerfile.storage` 或 `storage.Dockerfile`。
+
+<Callout type="warning">
+  這個變數**只接受後綴**，不要填完整檔名。如果你設成 `ZBPACK_DOCKERFILE_NAME=Dockerfile.storage`，Zeabur 會去找名為 `Dockerfile.Dockerfile.storage` 的檔案，找不到就會退回自動偵測（通常會誤判成 Node.js 等其他 builder）。如果你想填完整路徑或檔名，請改用下面的 `ZBPACK_DOCKERFILE_PATH`。
+</Callout>
+
+### 方法三：用 `ZBPACK_DOCKERFILE_PATH` 指定任意路徑
+
+若 Dockerfile 不在建置根目錄、或檔名不符合 `*.Dockerfile` / `Dockerfile.*` 慣例，可以用這個變數指定 Dockerfile 的路徑。路徑是**相對於該服務的「建置根目錄」**——若服務有設定 Root Directory，則相對於該目錄，否則相對於 repo 根目錄：
+
+```
+ZBPACK_DOCKERFILE_PATH=apps/admin/Dockerfile
+```
+
+或在 `zbpack.json` 中：
+
+```json
+{
+  "dockerfile": {
+    "path": "apps/admin/Dockerfile"
+  }
+}
+```
+
+Zeabur 會直接使用該路徑下的檔案來建置，不再做後綴比對。這是你想指定子目錄裡的 Dockerfile、或檔名完全自訂時應該用的變數。
 
 ## Docker Compose
 
