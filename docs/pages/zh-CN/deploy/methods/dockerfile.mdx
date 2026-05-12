@@ -111,7 +111,7 @@ Zeabur 会查找 `Dockerfile.storage` 或 `storage.Dockerfile`。
 
 ### 方法三：用 `ZBPACK_DOCKERFILE_PATH` 指定任意路径
 
-如果 Dockerfile 不在 repo 根目录、或文件名不符合 `*.Dockerfile` / `Dockerfile.*` 惯例，可以用这个变量直接指定**相对 repo 根目录的完整路径**：
+如果 Dockerfile 不在构建根目录、或文件名不符合 `*.Dockerfile` / `Dockerfile.*` 惯例，可以用这个变量指定 Dockerfile 的路径。路径是**相对于该服务的「构建根目录」**——若服务设定了 Root Directory，则相对于该目录，否则相对于 repo 根目录：
 
 ```
 ZBPACK_DOCKERFILE_PATH=apps/admin/Dockerfile

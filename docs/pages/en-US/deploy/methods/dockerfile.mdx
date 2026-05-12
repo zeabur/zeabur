@@ -111,7 +111,7 @@ Zeabur will look for `Dockerfile.storage` or `storage.Dockerfile`.
 
 ### Option 3: `ZBPACK_DOCKERFILE_PATH` for arbitrary paths
 
-If your Dockerfile is not in the repo root, or its filename doesn't follow the `*.Dockerfile` / `Dockerfile.*` convention, use this variable to specify the **full relative path from the repo root**:
+If your Dockerfile is not in the build root, or its filename doesn't follow the `*.Dockerfile` / `Dockerfile.*` convention, use this variable to specify the path. The path is **relative to the service's build root** — that is, the Root Directory configured on the service, or the repository root if none is set:
 
 ```
 ZBPACK_DOCKERFILE_PATH=apps/admin/Dockerfile

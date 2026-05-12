@@ -111,7 +111,7 @@ Zeabur buscará `Dockerfile.storage` o `storage.Dockerfile`.
 
 ### Opción 3: `ZBPACK_DOCKERFILE_PATH` para rutas arbitrarias
 
-Si tu Dockerfile no está en la raíz del repositorio, o su nombre no sigue la convención `*.Dockerfile` / `Dockerfile.*`, usa esta variable para especificar la **ruta relativa completa desde la raíz del repositorio**:
+Si tu Dockerfile no está en la raíz de la build, o su nombre no sigue la convención `*.Dockerfile` / `Dockerfile.*`, usa esta variable para especificar la ruta del Dockerfile. La ruta es **relativa a la raíz de build del servicio** — es decir, al Root Directory configurado en el servicio, o a la raíz del repositorio si no se ha configurado ninguno:
 
 ```
 ZBPACK_DOCKERFILE_PATH=apps/admin/Dockerfile
