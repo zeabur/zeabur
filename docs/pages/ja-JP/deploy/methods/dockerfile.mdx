@@ -77,13 +77,25 @@ EXPOSE 8080
 CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
 ```
 
-## デプロイする Dockerfile を指定する
+## デプロイする Dockerfile を指定する（モノレポ／1 つの repo から複数サービス）
 
-プロジェクトで使用する Dockerfile を指定する場合、Dockerfile を `[サービス名].Dockerfile` または `Dockerfile.[サービス名]` という名前にしてください。例えば、プロジェクト内に `Dockerfile.storage` というファイルがあり、サービス名が `storage` の場合、Zeabur はこの Dockerfile を使用して `storage` サービスをデプロイします。
+repo に複数の Dockerfile がある場合（例えばモノレポで 1 つのリポジトリから複数のサービスをデプロイする場合）、Zeabur では各サービスが使用する Dockerfile を指定する 3 つの方法を用意しています。
+
+### 方法 1：サービス名による自動マッチ（推奨）
+
+最もシンプルな方法は、Dockerfile を `[サービス名].Dockerfile` または `Dockerfile.[サービス名]` という名前にすることです。Zeabur は dashboard で設定したサービス名に基づいて、対応する Dockerfile を自動的に選びます。例えば、サービス名が `storage` であれば、Zeabur は自動的に `Dockerfile.storage`（または `storage.Dockerfile`）を使用します。
 
 ![specify-service-name](/deploy/dockerfile/specify-service-name.png)
 
-また、環境変数 `ZBPACK_DOCKERFILE_NAME` を指定するか、`zbpack.json` に以下の内容を追加することもできます：
+### 方法 2：`ZBPACK_DOCKERFILE_NAME` でサフィックスを指定する
+
+Dockerfile が `<suffix>.Dockerfile` または `Dockerfile.<suffix>` という名前で、サービス名をそれに合わせたくない場合は、環境変数でサフィックスを明示的に指定できます：
+
+```
+ZBPACK_DOCKERFILE_NAME=storage
+```
+
+または `zbpack.json` で：
 
 ```json
 {
@@ -93,7 +105,31 @@ CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/ngin
 }
 ```
 
-例えば、サービス内で `ZBPACK_DOCKERFILE_NAME=storage` を設定すると、Zeabur は `Dockerfile.storage` を Dockerfile として使用し、`storage` サービスをデプロイします。
+Zeabur は `Dockerfile.storage` または `storage.Dockerfile` を探します。
+
+<Callout type="warning">
+  この変数は**サフィックスのみ**を受け取り、ファイル名全体ではありません。`ZBPACK_DOCKERFILE_NAME=Dockerfile.storage` のように設定すると、Zeabur は `Dockerfile.Dockerfile.storage` という名前のファイルを探し、見つからずに自動検出にフォールバックします（通常は Node.js などの誤ったビルダーが選ばれます）。完全なパスやファイル名を渡したい場合は、下の `ZBPACK_DOCKERFILE_PATH` を使用してください。
+</Callout>
+
+### 方法 3：`ZBPACK_DOCKERFILE_PATH` で任意のパスを指定する
+
+Dockerfile が repo のルートにない場合、またはファイル名が `*.Dockerfile` / `Dockerfile.*` の慣例に従わない場合は、この変数を使って **repo ルートからの相対パス全体**を指定します：
+
+```
+ZBPACK_DOCKERFILE_PATH=apps/admin/Dockerfile
+```
+
+または `zbpack.json` で：
+
+```json
+{
+  "dockerfile": {
+    "path": "apps/admin/Dockerfile"
+  }
+}
+```
+
+Zeabur は指定されたパスのファイルをそのままビルドに使用し、サフィックスマッチは行いません。サブディレクトリ内の Dockerfile を指定したい場合や、完全にカスタムなファイル名を使いたい場合は、こちらの変数を使ってください。
 
 ## Docker Compose
 
