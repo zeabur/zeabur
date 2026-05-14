@@ -34,7 +34,7 @@ All data transmitted between customers and Zeabur is encrypted using TLS 1.2 or 
 
 ### At Rest
 
-Customer data stored on Zeabur -- including databases, application volumes, and backups -- is encrypted at rest using the native encryption capabilities of each infrastructure provider (e.g., AWS EBS encryption, GCP persistent disk encryption). Encryption keys are managed by the respective cloud providers.
+Production databases are not encrypted at rest. Access to production databases is restricted to devices connected to the company network.
 
 ## Access Control
 

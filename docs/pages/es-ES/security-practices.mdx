@@ -34,7 +34,7 @@ Todos los datos transmitidos entre los clientes y Zeabur se cifran mediante TLS 
 
 ### En reposo
 
-Los datos de los clientes almacenados en Zeabur — incluyendo bases de datos, volúmenes de aplicaciones y copias de seguridad — se cifran en reposo utilizando las capacidades de cifrado nativas de cada proveedor de infraestructura (por ejemplo, cifrado de AWS EBS, cifrado de discos persistentes de GCP). Las claves de cifrado son gestionadas por los respectivos proveedores de nube.
+Las bases de datos de producción no están cifradas en reposo. El acceso a las bases de datos de producción está restringido a dispositivos conectados a la red corporativa.
 
 ## Control de acceso
 
