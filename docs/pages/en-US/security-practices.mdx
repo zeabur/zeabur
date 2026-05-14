@@ -34,7 +34,7 @@ All data transmitted between customers and Zeabur is encrypted using TLS 1.2 or 
 
 ### At Rest
 
-Production databases are not encrypted at rest. Access to production databases is restricted to devices connected to the company network.
+Production data is stored in MongoDB Atlas, which provides encryption at rest by default using AES-256 encryption. Access to production databases is restricted to devices connected via Tailscale.
 
 ## Access Control
 

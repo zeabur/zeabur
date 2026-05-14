@@ -34,7 +34,7 @@ Todos los datos transmitidos entre los clientes y Zeabur se cifran mediante TLS 
 
 ### En reposo
 
-Las bases de datos de producción no están cifradas en reposo. El acceso a las bases de datos de producción está restringido a dispositivos conectados a la red corporativa.
+Los datos de producción se almacenan en MongoDB Atlas, que proporciona cifrado en reposo por defecto mediante cifrado AES-256. El acceso a las bases de datos de producción está restringido a dispositivos conectados a través de Tailscale.
 
 ## Control de acceso
 
