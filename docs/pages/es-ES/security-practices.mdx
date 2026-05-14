@@ -38,11 +38,20 @@ Los datos de producción se almacenan en MongoDB Atlas, que proporciona cifrado 
 
 ## Control de acceso
 
-Zeabur sigue el **principio de mínimo privilegio** para todo acceso interno a sistemas de producción y datos de clientes:
+### Identidad y autenticación
+
+- Todos los empleados se autentican a través de Google Workspace con autenticación de dos factores (2FA) obligatoria.
+- El acceso a las bases de datos de producción y sistemas internos requiere conexión a través de Tailscale, y solo los usuarios aprobados pueden agregar dispositivos a la red.
+
+### Seguridad de endpoints
+
+- Zeabur está implementando gestión de dispositivos móviles (MDM) para centralizar la administración de todos los dispositivos de la empresa.
+- Solo los dispositivos aprobados en Tailscale pueden acceder a las páginas internas y bases de datos de producción.
+
+### Mínimo privilegio
 
 - A los miembros del equipo se les concede el nivel mínimo de acceso necesario para desempeñar sus responsabilidades.
 - El acceso a la infraestructura de producción, bases de datos y entornos de clientes está restringido y auditado.
-- La autenticación multifactor (MFA) es obligatoria para todas las cuentas internas y el acceso a la infraestructura.
 - Los permisos de acceso se revisan periódicamente y se revocan de inmediato ante cambios de rol o desvinculación.
 
 ## Desarrollo seguro

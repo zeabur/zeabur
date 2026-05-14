@@ -38,11 +38,20 @@ Production data is stored in MongoDB Atlas, which provides encryption at rest by
 
 ## Access Control
 
-Zeabur follows the **principle of least privilege** for all internal access to production systems and customer data:
+### Identity and Authentication
+
+- All employees authenticate through Google Workspace with two-factor authentication (2FA) enforced.
+- Access to production databases and internal systems requires connection via Tailscale, and only approved users may add devices to the network.
+
+### Endpoint Security
+
+- Zeabur is implementing mobile device management (MDM) to bring all company devices under centralized management.
+- Only Tailscale-approved devices can access internal pages and production databases.
+
+### Least Privilege
 
 - Team members are granted the minimum level of access required to perform their responsibilities.
 - Access to production infrastructure, databases, and customer environments is restricted and audited.
-- Multi-factor authentication (MFA) is enforced for all internal accounts and infrastructure access.
 - Access permissions are reviewed periodically and revoked promptly upon role changes or offboarding.
 
 ## Secure Development
