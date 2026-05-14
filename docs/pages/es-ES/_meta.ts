@@ -33,9 +33,10 @@ export default {
 
   // ── Legal ────────────────────────────────────────────────────────────────
   '---5---': { type: 'separator' },
-  'privacy-policy':   'Política de Privacidad',
-  compliance:         'Cumplimiento',
-  'terms-of-service': 'Términos de Servicio',
+  'privacy-policy':       'Política de Privacidad',
+  'security-practices':  'Prácticas de Seguridad',
+  compliance:             'Cumplimiento',
+  'terms-of-service':    'Términos de Servicio',
 
   // ── Ocultos: directorios heredados ───────────────────────────────────────
   advanced:        { display: 'hidden' },
