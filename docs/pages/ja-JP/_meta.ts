@@ -34,7 +34,7 @@ export default {
   // ── 法律 ─────────────────────────────────────────────────────────────────
   '---5---': { type: 'separator' },
   'privacy-policy':       'プライバシーポリシー',
-  'security-practices':  'セキュリティ対策',
+  'security-practices':  'セキュリティプラクティス',
   compliance:             'コンプライアンス',
   'terms-of-service':    '利用規約',
 
