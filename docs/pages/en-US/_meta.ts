@@ -33,9 +33,10 @@ export default {
 
   // ── Legal ─────────────────────────────────────────────────────────────
   '---5---': { type: 'separator' },
-  'privacy-policy':   'Privacy Policy',
-  compliance:         'Compliance',
-  'terms-of-service': 'Terms of Service',
+  'privacy-policy':       'Privacy Policy',
+  'security-practices':  'Security Practices',
+  compliance:             'Compliance',
+  'terms-of-service':    'Terms of Service',
 
   // ── Hidden: legacy directories (not shown in sidebar) ──────────────────
   billing:         { display: 'hidden' },

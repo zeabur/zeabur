@@ -1,0 +1,95 @@
+---
+title: Security Practices
+ogImageTitle: Security Practices
+ogImageSubtitle: How Zeabur protects your data and infrastructure
+---
+
+# Security Practices
+
+## Compliance
+
+Zeabur is currently pursuing **SOC 2 Type II** certification. Our compliance program covers the Trust Services Criteria for security, availability, and confidentiality. We are committed to achieving and maintaining industry-recognized certifications as we scale.
+
+## Infrastructure Security
+
+Zeabur operates across multiple globally distributed infrastructure providers to deliver reliable, low-latency services:
+
+- Amazon Web Services (AWS)
+- Google Cloud Platform (GCP)
+- Hetzner
+- Linode (Akamai)
+- DigitalOcean
+- Tencent Cloud
+- Alibaba Cloud
+- Volcengine
+- Glows.ai
+
+All infrastructure providers are selected for their established security postures, physical data center protections, and compliance certifications. Zeabur leverages provider-native security features including network isolation, firewall rules, and DDoS mitigation across all regions.
+
+## Data Encryption
+
+### In Transit
+
+All data transmitted between customers and Zeabur is encrypted using TLS 1.2 or higher. This applies to all API endpoints, dashboard access, and service-to-service communication within the platform. Customer-facing services deployed on Zeabur are served over HTTPS with automatic certificate provisioning.
+
+### At Rest
+
+Production data is stored in MongoDB Atlas, which provides encryption at rest by default using AES-256 encryption. Access to production databases is restricted to devices connected via Tailscale.
+
+## Access Control
+
+### Identity and Authentication
+
+- All employees authenticate through Google Workspace with two-factor authentication (2FA) enforced.
+- Access to production databases and internal systems requires connection via Tailscale, and only approved users may add devices to the network.
+
+### Endpoint Security
+
+- Zeabur is implementing mobile device management (MDM) to bring all company devices under centralized management.
+- Only Tailscale-approved devices can access internal pages and production databases.
+
+### Least Privilege
+
+- Team members are granted the minimum level of access required to perform their responsibilities.
+- Access to production infrastructure, databases, and customer environments is restricted and audited.
+- Access permissions are reviewed periodically and revoked promptly upon role changes or offboarding.
+
+## Secure Development
+
+Zeabur integrates security throughout the software development lifecycle:
+
+- **Code Review**: All code changes require peer review via pull requests before merging to production branches.
+- **CI/CD Pipelines**: Automated build, test, and deployment pipelines enforce quality and security checks on every change.
+- **Dependency Scanning**: Automated scanning for known vulnerabilities in third-party dependencies, with alerts for critical issues.
+- **Environment Separation**: Development, staging, and production environments are logically separated to prevent unauthorized access to production data.
+
+## Incident Response
+
+Zeabur maintains a documented incident response plan that covers:
+
+- **Detection and Alerting**: Monitoring and alerting systems are in place to detect anomalies, unauthorized access, and infrastructure failures.
+- **Triage and Response**: A defined process for classifying incidents by severity, assigning ownership, and coordinating response efforts.
+- **Communication**: Affected customers are notified promptly in the event of a security incident that impacts their data or services.
+- **Post-Incident Review**: All significant incidents are followed by a post-mortem analysis to identify root causes and implement preventive measures.
+
+## Data Handling and Privacy
+
+- Customer data is processed solely to provide and operate the Services as requested by the customer.
+- Zeabur does not sell, rent, or lease customer data to third parties.
+- Upon account termination, customer data is retained for 7 days to allow for export, after which it is permanently deleted.
+- For full details, see our [Privacy Policy](/docs/en-US/privacy-policy).
+
+## Network Security
+
+- All customer workloads run in isolated containers with network-level separation.
+- Ingress and egress traffic is filtered and monitored.
+- Internal service communication is restricted to authorized endpoints.
+- Cloudflare is used for edge security, CDN, and DDoS protection on customer-facing domains.
+
+## Physical Security
+
+Zeabur relies on the physical security controls of our infrastructure providers. All data center facilities used by Zeabur maintain industry-standard physical security measures including biometric access controls, 24/7 surveillance, and environmental protections. Refer to each provider's compliance documentation for details.
+
+## Responsible Disclosure
+
+If you discover a security vulnerability in Zeabur, please report it to [contact@zeabur.com](mailto:contact@zeabur.com). We take all reports seriously and will investigate and respond promptly. We ask that you give us reasonable time to address the issue before public disclosure.

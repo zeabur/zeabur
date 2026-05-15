@@ -33,9 +33,10 @@ export default {
 
   // ── 法律 ─────────────────────────────────────────────────────────────────
   '---5---': { type: 'separator' },
-  'privacy-policy':   'プライバシーポリシー',
-  compliance:         'コンプライアンス',
-  'terms-of-service': '利用規約',
+  'privacy-policy':       'プライバシーポリシー',
+  'security-practices':  'セキュリティプラクティス',
+  compliance:             'コンプライアンス',
+  'terms-of-service':    '利用規約',
 
   // ── 非表示：レガシーディレクトリ ──────────────────────────────────────────
   advanced:        { display: 'hidden' },

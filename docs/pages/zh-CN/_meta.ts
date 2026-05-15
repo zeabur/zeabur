@@ -33,9 +33,10 @@ export default {
 
   // ── 法律 ─────────────────────────────────────────────────────────────────
   '---5---': { type: 'separator' },
-  'privacy-policy':   '隐私政策',
-  compliance:         '合规',
-  'terms-of-service': '服务条款',
+  'privacy-policy':       '隐私政策',
+  'security-practices':  '安全实践',
+  compliance:             '合规',
+  'terms-of-service':    '服务条款',
 
   // ── 隐藏：旧版目录 ───────────────────────────────────────────────────────
   advanced:        { display: 'hidden' },

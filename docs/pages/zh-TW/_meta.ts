@@ -33,9 +33,10 @@ export default {
 
   // ── 法律 ──────────────────────────────────────────────────────────────
   '---5---': { type: 'separator' },
-  'privacy-policy':   '隱私權政策',
-  compliance:         '合規',
-  'terms-of-service': '服務條款',
+  'privacy-policy':       '隱私權政策',
+  'security-practices':  '安全實踐',
+  compliance:             '合規',
+  'terms-of-service':    '服務條款',
 
   // ── 隱藏：舊版目錄（不顯示在 sidebar）────────────────────────────
   billing:        { display: 'hidden' },

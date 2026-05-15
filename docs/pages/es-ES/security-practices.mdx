@@ -1,0 +1,95 @@
+---
+title: Prácticas de seguridad
+ogImageTitle: Prácticas de seguridad
+ogImageSubtitle: Cómo Zeabur protege tus datos e infraestructura
+---
+
+# Prácticas de seguridad
+
+## Cumplimiento normativo
+
+Zeabur está actualmente en proceso de obtener la certificación **SOC 2 Type II**. Nuestro programa de cumplimiento abarca los criterios de servicios de confianza en materia de seguridad, disponibilidad y confidencialidad. Estamos comprometidos a obtener y mantener certificaciones reconocidas en la industria a medida que crecemos.
+
+## Seguridad de la infraestructura
+
+Zeabur opera a través de múltiples proveedores de infraestructura distribuidos globalmente para ofrecer servicios fiables y de baja latencia:
+
+- Amazon Web Services (AWS)
+- Google Cloud Platform (GCP)
+- Hetzner
+- Linode (Akamai)
+- DigitalOcean
+- Tencent Cloud
+- Alibaba Cloud
+- Volcengine
+- Glows.ai
+
+Todos los proveedores de infraestructura se seleccionan por sus sólidas posturas de seguridad, protecciones físicas de centros de datos y certificaciones de cumplimiento. Zeabur aprovecha las funciones de seguridad nativas de cada proveedor, incluyendo aislamiento de red, reglas de cortafuegos y mitigación de DDoS en todas las regiones.
+
+## Cifrado de datos
+
+### En tránsito
+
+Todos los datos transmitidos entre los clientes y Zeabur se cifran mediante TLS 1.2 o superior. Esto se aplica a todos los endpoints de API, al acceso al panel de control y a la comunicación entre servicios dentro de la plataforma. Los servicios orientados al cliente desplegados en Zeabur se sirven a través de HTTPS con aprovisionamiento automático de certificados.
+
+### En reposo
+
+Los datos de producción se almacenan en MongoDB Atlas, que proporciona cifrado en reposo por defecto mediante cifrado AES-256. El acceso a las bases de datos de producción está restringido a dispositivos conectados a través de Tailscale.
+
+## Control de acceso
+
+### Identidad y autenticación
+
+- Todos los empleados se autentican a través de Google Workspace con autenticación de dos factores (2FA) obligatoria.
+- El acceso a las bases de datos de producción y sistemas internos requiere conexión a través de Tailscale, y solo los usuarios aprobados pueden agregar dispositivos a la red.
+
+### Seguridad de endpoints
+
+- Zeabur está implementando gestión de dispositivos móviles (MDM) para centralizar la administración de todos los dispositivos de la empresa.
+- Solo los dispositivos aprobados en Tailscale pueden acceder a las páginas internas y bases de datos de producción.
+
+### Mínimo privilegio
+
+- A los miembros del equipo se les concede el nivel mínimo de acceso necesario para desempeñar sus responsabilidades.
+- El acceso a la infraestructura de producción, bases de datos y entornos de clientes está restringido y auditado.
+- Los permisos de acceso se revisan periódicamente y se revocan de inmediato ante cambios de rol o desvinculación.
+
+## Desarrollo seguro
+
+Zeabur integra la seguridad a lo largo de todo el ciclo de vida del desarrollo de software:
+
+- **Revisión de código**: Todos los cambios de código requieren revisión por pares mediante pull requests antes de fusionarse con las ramas de producción.
+- **Pipelines de CI/CD**: Los pipelines automatizados de compilación, pruebas y despliegue aplican controles de calidad y seguridad en cada cambio.
+- **Análisis de dependencias**: Análisis automatizado de vulnerabilidades conocidas en dependencias de terceros, con alertas para problemas críticos.
+- **Separación de entornos**: Los entornos de desarrollo, pruebas y producción están lógicamente separados para evitar el acceso no autorizado a los datos de producción.
+
+## Respuesta ante incidentes
+
+Zeabur mantiene un plan documentado de respuesta ante incidentes que abarca:
+
+- **Detección y alertas**: Se dispone de sistemas de monitorización y alertas para detectar anomalías, accesos no autorizados y fallos de infraestructura.
+- **Clasificación y respuesta**: Un proceso definido para clasificar incidentes por gravedad, asignar responsables y coordinar los esfuerzos de respuesta.
+- **Comunicación**: Los clientes afectados son notificados con prontitud en caso de un incidente de seguridad que afecte a sus datos o servicios.
+- **Revisión post-incidente**: Todos los incidentes significativos van seguidos de un análisis post-mortem para identificar las causas raíz e implementar medidas preventivas.
+
+## Tratamiento de datos y privacidad
+
+- Los datos de los clientes se procesan únicamente para proporcionar y operar los servicios solicitados por el cliente.
+- Zeabur no vende, alquila ni cede datos de clientes a terceros.
+- Tras la cancelación de una cuenta, los datos del cliente se conservan durante 7 días para permitir su exportación, tras lo cual se eliminan permanentemente.
+- Para más detalles, consulta nuestra [Política de privacidad](/docs/es-ES/privacy-policy).
+
+## Seguridad de red
+
+- Todas las cargas de trabajo de los clientes se ejecutan en contenedores aislados con separación a nivel de red.
+- El tráfico de entrada y salida se filtra y monitoriza.
+- La comunicación interna entre servicios está restringida a los endpoints autorizados.
+- Cloudflare se utiliza para la seguridad en el borde, CDN y protección contra DDoS en los dominios orientados al cliente.
+
+## Seguridad física
+
+Zeabur se apoya en los controles de seguridad física de nuestros proveedores de infraestructura. Todas las instalaciones de centros de datos utilizadas por Zeabur mantienen medidas de seguridad física conforme a los estándares de la industria, incluyendo controles de acceso biométricos, vigilancia 24/7 y protecciones ambientales. Consulta la documentación de cumplimiento de cada proveedor para más detalles.
+
+## Divulgación responsable
+
+Si descubres una vulnerabilidad de seguridad en Zeabur, por favor infórmala a [contact@zeabur.com](mailto:contact@zeabur.com). Nos tomamos todos los informes en serio y los investigaremos y responderemos con prontitud. Te pedimos que nos concedas un tiempo razonable para resolver el problema antes de su divulgación pública.
