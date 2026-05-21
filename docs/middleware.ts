@@ -31,6 +31,15 @@ function findCanonicalLocale(segment: string): string | undefined {
   return locales.find(l => l.toLowerCase() === segment.toLowerCase())
 }
 
+// Redirect using a relative path in the Location header to prevent the
+// internal service hostname (e.g. nextra-v2.zeabur.internal) from leaking
+// through the rewrite proxy — which causes Google "Redirect error".
+function safeRedirect(request: NextRequest, relativePath: string) {
+  const response = NextResponse.redirect(new URL(relativePath, request.url))
+  response.headers.set('Location', relativePath)
+  return response
+}
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
@@ -46,7 +55,7 @@ export function middleware(request: NextRequest) {
       if (canonical) {
         const rest = pathname.slice(segment.length + 1) // +1 for leading slash
         const url = addBasePath(`/${canonical}${rest}${request.nextUrl.search}`)
-        return NextResponse.redirect(new URL(url, request.url))
+        return safeRedirect(request, url)
       }
     }
   }
@@ -58,7 +67,7 @@ export function middleware(request: NextRequest) {
     const url = addBasePath(`/${locale}${pathname}`)
     // e.g. incoming request is /products
     // The new URL is now /en-US/products
-    return NextResponse.redirect(new URL(url, request.url))
+    return safeRedirect(request, url)
   }
 
   const [, requestLocale] = pathname.split('/', 2)
