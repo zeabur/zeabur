@@ -40,11 +40,16 @@ async function getRedirectSources() {
   return sources;
 }
 
+function escapeRegex(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 // Check if a docs-relative path (e.g. /en-US/billing/plans) is a redirect source
 function isRedirected(docsPath, redirectSources) {
   for (const pattern of redirectSources) {
     if (pattern.includes('.+')) {
-      const re = new RegExp(`^${pattern}$`);
+      const escaped = pattern.split('.+').map(escapeRegex).join('.+');
+      const re = new RegExp(`^${escaped}$`);
       if (re.test(docsPath)) return true;
     } else if (docsPath === pattern) {
       return true;
