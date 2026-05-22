@@ -1,0 +1,173 @@
+---
+title: 使用量と料金の取得
+ogImageTitle: 使用量と料金の取得
+ogImageSubtitle: レスポンスヘッダーと usage オブジェクトからトークンと料金を取得
+---
+
+import { Callout } from 'nextra/components'
+
+# 使用量と料金の取得
+
+Zeabur AI Hub を呼び出すと、成功したリクエストには必ず 2 つの情報が付いてきます。今回のリクエストで消費したトークン数と、そのリクエストにかかった料金です。このページでは、それらをどこから読み取れるかを説明します。ダッシュボードへの組み込み、ユーザーごとの予算上限の設定、開発中の料金確認などに使えます。
+
+## 取得方法は 2 つ
+
+| 取得元 | 含まれる情報 | 向いている用途 |
+| --- | --- | --- |
+| レスポンスヘッダー | リクエスト単位の料金（USD）、キーの累計支出、Call ID | 最速。body をパースしなくてよい |
+| レスポンス body の `usage` オブジェクト | トークン数、プロンプトキャッシュの内訳、推論トークン | OpenAI SDK が標準で参照する場所 |
+
+成功レスポンスには両方とも常に含まれているので、どちらかを選ぶ必要はありません。コードの構造上読みやすい方を使ってください。
+
+## ヘッダーから読む
+
+レスポンスには `x-litellm-` で始まる一連のヘッダーが含まれます。
+
+| ヘッダー | 意味 |
+| --- | --- |
+| `x-litellm-response-cost` | このリクエストの料金（USD、float） |
+| `x-litellm-key-spend` | この API キーの累計支出（USD） |
+| `x-litellm-call-id` | リクエスト単位の識別子。問い合わせやトレースに使えます |
+| `x-litellm-model-id` | 内部のモデルデプロイ ID |
+| `x-litellm-model-group` | リクエストで指定したモデル名 |
+
+### curl
+
+```bash
+curl -i https://hnd1.aihub.zeabur.ai/v1/chat/completions \
+  -H "Authorization: Bearer YOUR_ZEABUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "claude-sonnet-4-5",
+    "messages": [{"role": "user", "content": "こんにちは"}],
+    "max_tokens": 32
+  }'
+```
+
+`-i` でレスポンスヘッダーも一緒に出力されます。`x-litellm-response-cost` の行が料金です。
+
+### Python
+
+OpenAI 公式 SDK は、レスポンスヘッダーをアプリケーション側に公開しません。ヘッダーから料金を取りたい場合は `httpx` で直接 HTTP を叩くのが手っ取り早いです。
+
+```python
+import httpx
+
+r = httpx.post(
+    "https://hnd1.aihub.zeabur.ai/v1/chat/completions",
+    headers={"Authorization": "Bearer YOUR_ZEABUR_API_KEY"},
+    json={
+        "model": "claude-sonnet-4-5",
+        "messages": [{"role": "user", "content": "こんにちは"}],
+        "max_tokens": 32,
+    },
+    timeout=60.0,
+)
+print("料金 (USD):", r.headers.get("x-litellm-response-cost"))
+print("usage:", r.json()["usage"])
+```
+
+## body の `usage` オブジェクトから読む
+
+レスポンス body の `usage` オブジェクトは OpenAI 互換です。Anthropic および OpenAI 系列モデルでは、必要に応じて追加フィールドが入ります。
+
+```json
+{
+  "usage": {
+    "prompt_tokens": 1024,
+    "completion_tokens": 256,
+    "total_tokens": 1280,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+  }
+}
+```
+
+| フィールド | 対象モデル | 意味 |
+| --- | --- | --- |
+| `prompt_tokens` / `completion_tokens` / `total_tokens` | 全モデル | OpenAI の標準フィールド |
+| `prompt_tokens_details.cached_tokens` | OpenAI 系 | `prompt_tokens` のうちプロンプトキャッシュから配信された分（`prompt_tokens` に**含まれた**カウント） |
+| `cache_creation_input_tokens` | Anthropic 系 | このリクエストで Anthropic のプロンプトキャッシュに書き込まれたトークン数 |
+| `cache_read_input_tokens` | Anthropic 系 | このリクエストで Anthropic のプロンプトキャッシュから読み出されたトークン数 |
+| `completion_tokens_details.reasoning_tokens` | 推論モデル（`gpt-5`、`gpt-5-mini` など） | 内部推論で消費されたトークン |
+
+<Callout>
+  Anthropic と OpenAI ではキャッシュトークンの数え方が異なります。Anthropic の `cache_creation_input_tokens` と `cache_read_input_tokens` は `prompt_tokens` の**外側**に独立して報告されます。OpenAI の `cached_tokens` は `prompt_tokens` の**部分集合**です。body はプロバイダごとの形をそのまま返すので、呼び出したモデルに対応するフィールドを参照してください。
+</Callout>
+
+## ストリーミングレスポンス
+
+ストリーミングの場合、`usage` オブジェクトは明示的に有効化した場合のみ最終チャンクに含まれます。リクエストに `stream_options.include_usage: true` を指定してください。
+
+```python
+import httpx, json
+
+with httpx.stream(
+    "POST",
+    "https://hnd1.aihub.zeabur.ai/v1/chat/completions",
+    headers={"Authorization": "Bearer YOUR_ZEABUR_API_KEY"},
+    json={
+        "model": "claude-sonnet-4-5",
+        "messages": [{"role": "user", "content": "こんにちは"}],
+        "max_tokens": 32,
+        "stream": True,
+        "stream_options": {"include_usage": True},
+    },
+    timeout=60.0,
+) as r:
+    final_usage = None
+    for line in r.iter_lines():
+        if not line.startswith("data: "):
+            continue
+        payload = line[len("data: "):]
+        if payload == "[DONE]":
+            break
+        chunk = json.loads(payload)
+        if chunk.get("usage"):
+            final_usage = chunk["usage"]
+        # ... 既存のチャンク処理 ...
+    print("最終 usage:", final_usage)
+```
+
+`stream_options.include_usage` を付けない場合、ストリーミングレスポンス全体に `usage` オブジェクトは一切現れません。
+
+## 特定の呼び出しを追跡する
+
+特定のリクエストを事後的に調査する場合——たとえば想定外の応答を診断する、料金を照合する、アプリケーション側のログと相関付けるなど——には、レスポンス body の `id`（completion ID）を使用してください：
+
+```python
+resp = client.chat.completions.create(...)
+print("request id:", resp.id)
+# chatcmpl-715764bf-675d-4d95-bbdc-80c037c8ce3f
+```
+
+<Callout type="warning">
+  必ず `response.id` を使用してください。`x-litellm-call-id` ヘッダーは**使用しないでください**。ヘッダーの値は LiteLLM がリクエストルーティング時に用いる内部トレース識別子であり、spend log には永続化されないため、その値による検索は結果を返しません。
+</Callout>
+
+[Zeabur Dashboard](https://zeabur.com/projects) の AI Hub ページで該当する日次ログを展開し、いずれかの行の情報アイコンをクリックすると、詳細ダイアログに Request ID とコピーボタンが表示されます。この値は `response.id` と完全に一致します。
+
+### キャッシュから返された応答には派生サフィックスが付与される
+
+LiteLLM がレスポンス全体を response cache から返した場合（Dashboard では「レスポンス全体がキャッシュから」のバッジが表示され、`cost = 0` となります）、記録される ID は元の ID に `_cache_hit<timestamp>` サフィックスを付加した形式となります：
+
+```
+chatcmpl-2ec370dd-83a6-41b4-817c-1646c57034bc_cache_hit1779350469.4126954
+```
+
+元のリクエストとキャッシュから返された応答は、spend log 上に独立した 2 件のエントリとして記録され、UUID プレフィックスを共有します。このプレフィックス単位で集約することにより、特定のプロンプトがキャッシュから配信された回数を集計できます。
+
+## 過去の使用履歴
+
+日次の集計や 1 リクエスト単位の検索ログが必要な場合は、[Zeabur Dashboard](https://zeabur.com/projects) の AI Hub ページに月次サマリーと spend log の照会機能があります。本ページで紹介したヘッダーと body フィールドはアプリ内のリアルタイム計測向け、Dashboard は事後確認向けと使い分けてください。
+
+## 関連リンク
+
+- [n8n で Zeabur AI Hub を使う](./n8n-integration)
+- [SillyTavern で Zeabur AI Hub を使う](./sillytavern-integration)

@@ -1,0 +1,173 @@
+---
+title: Reading Usage and Cost
+ogImageTitle: Reading Usage and Cost
+ogImageSubtitle: Read tokens and cost from response headers and the usage object
+---
+
+import { Callout } from 'nextra/components'
+
+# Reading Usage and Cost
+
+Every successful AI Hub response carries two things you usually need: how many tokens were consumed, and how much the request cost. This page shows where they live so you can wire them into dashboards, set per-user budgets, or just sanity-check pricing as you experiment.
+
+## Two ways to get the data
+
+| Source | What you get | Best for |
+| --- | --- | --- |
+| Response headers | Cost in USD, key spend so far, call ID | Fastest — no body parsing |
+| Response body `usage` | Tokens, prompt cache breakdown, reasoning tokens | Same place the OpenAI SDK looks |
+
+You don't have to choose — every successful response has both.
+
+## Reading the headers
+
+Every response includes a set of headers prefixed with `x-litellm-`:
+
+| Header | Meaning |
+| --- | --- |
+| `x-litellm-response-cost` | USD cost of this request, as a float |
+| `x-litellm-key-spend` | Total USD spent by this API key so far |
+| `x-litellm-call-id` | Per-request ID, useful for support and tracing |
+| `x-litellm-model-id` | Internal model deployment ID |
+| `x-litellm-model-group` | The public model name you requested |
+
+### curl
+
+```bash
+curl -i https://hnd1.aihub.zeabur.ai/v1/chat/completions \
+  -H "Authorization: Bearer YOUR_ZEABUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "claude-sonnet-4-5",
+    "messages": [{"role": "user", "content": "Hello"}],
+    "max_tokens": 32
+  }'
+```
+
+The `-i` flag prints the response headers — look for the `x-litellm-response-cost` line.
+
+### Python
+
+The official OpenAI SDK does not expose response headers to user code by default. If you need cost out of the headers, drop down to `httpx`:
+
+```python
+import httpx
+
+r = httpx.post(
+    "https://hnd1.aihub.zeabur.ai/v1/chat/completions",
+    headers={"Authorization": "Bearer YOUR_ZEABUR_API_KEY"},
+    json={
+        "model": "claude-sonnet-4-5",
+        "messages": [{"role": "user", "content": "Hello"}],
+        "max_tokens": 32,
+    },
+    timeout=60.0,
+)
+print("cost (USD):", r.headers.get("x-litellm-response-cost"))
+print("usage:", r.json()["usage"])
+```
+
+## Reading the body `usage` object
+
+The response body's `usage` object is OpenAI-compatible. For Anthropic and OpenAI models, extra fields appear when relevant:
+
+```json
+{
+  "usage": {
+    "prompt_tokens": 1024,
+    "completion_tokens": 256,
+    "total_tokens": 1280,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+  }
+}
+```
+
+| Field | Models | Meaning |
+| --- | --- | --- |
+| `prompt_tokens` / `completion_tokens` / `total_tokens` | All | Standard OpenAI fields |
+| `prompt_tokens_details.cached_tokens` | OpenAI | Portion of `prompt_tokens` served from prompt cache — already counted inside `prompt_tokens` |
+| `cache_creation_input_tokens` | Anthropic | Tokens written into Anthropic's prompt cache on this request |
+| `cache_read_input_tokens` | Anthropic | Tokens read back from Anthropic's prompt cache |
+| `completion_tokens_details.reasoning_tokens` | Reasoning models (e.g. `gpt-5`, `gpt-5-mini`) | Tokens spent on internal reasoning |
+
+<Callout>
+  Anthropic and OpenAI count cached tokens differently. Anthropic's `cache_creation_input_tokens` and `cache_read_input_tokens` are reported **outside** `prompt_tokens`. OpenAI's `cached_tokens` is **a subset of** `prompt_tokens`. The body shows both shapes faithfully — pick the field that matches the provider you called.
+</Callout>
+
+## Streaming responses
+
+When you stream, the `usage` object only appears in a final chunk if you opt in. Set `stream_options.include_usage: true` in the request:
+
+```python
+import httpx, json
+
+with httpx.stream(
+    "POST",
+    "https://hnd1.aihub.zeabur.ai/v1/chat/completions",
+    headers={"Authorization": "Bearer YOUR_ZEABUR_API_KEY"},
+    json={
+        "model": "claude-sonnet-4-5",
+        "messages": [{"role": "user", "content": "Hello"}],
+        "max_tokens": 32,
+        "stream": True,
+        "stream_options": {"include_usage": True},
+    },
+    timeout=60.0,
+) as r:
+    final_usage = None
+    for line in r.iter_lines():
+        if not line.startswith("data: "):
+            continue
+        payload = line[len("data: "):]
+        if payload == "[DONE]":
+            break
+        chunk = json.loads(payload)
+        if chunk.get("usage"):
+            final_usage = chunk["usage"]
+        # ...your existing token-by-token handling...
+    print("final usage:", final_usage)
+```
+
+Without `stream_options.include_usage`, the streaming response carries no `usage` object at all.
+
+## Tracing a specific call
+
+To investigate a particular request after the fact — for example, when diagnosing an unexpected response, reconciling a charge, or correlating with application-side logs — use the **completion ID** returned in the response body as `id`:
+
+```python
+resp = client.chat.completions.create(...)
+print("request id:", resp.id)
+# chatcmpl-715764bf-675d-4d95-bbdc-80c037c8ce3f
+```
+
+<Callout type="warning">
+  Always use `response.id`. Do **not** use the `x-litellm-call-id` header — that value is an internal trace identifier used during request routing and is not persisted to spend logs, so lookups by it will yield no result.
+</Callout>
+
+In the [Zeabur Dashboard](https://zeabur.com/projects), open the AI Hub page, expand the relevant daily spend log, and click the info icon on any row. The detail dialog displays the Request ID alongside a copy action; this value is identical to `response.id`.
+
+### Cache-served responses carry a derived suffix
+
+When LiteLLM serves an entire response from its response cache (indicated by a "served from cache" badge in the Dashboard and `cost = 0`), the recorded ID is the original ID with a `_cache_hit<timestamp>` suffix appended:
+
+```
+chatcmpl-2ec370dd-83a6-41b4-817c-1646c57034bc_cache_hit1779350469.4126954
+```
+
+The original request and the cache-served replay are recorded as separate entries in the spend log, sharing the underlying UUID prefix. This allows aggregation by prefix to determine how many times a given prompt was served from cache.
+
+## Historical usage
+
+For per-day totals and a searchable log of every call, use the AI Hub page on the [Zeabur Dashboard](https://zeabur.com/projects). The headers and body fields above are for in-process accounting; the Dashboard is for after-the-fact inspection.
+
+## Related
+
+- [Using Zeabur AI Hub in n8n](./n8n-integration)
+- [Using Zeabur AI Hub in SillyTavern](./sillytavern-integration)
