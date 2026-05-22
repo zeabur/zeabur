@@ -34,10 +34,14 @@ function findCanonicalLocale(segment: string): string | undefined {
 // Redirect using a relative path in the Location header to prevent the
 // internal service hostname (e.g. nextra-v2.zeabur.internal) from leaking
 // through the rewrite proxy — which causes Google "Redirect error".
-function safeRedirect(request: NextRequest, relativePath: string) {
-  const response = NextResponse.redirect(new URL(relativePath, request.url))
-  response.headers.set('Location', relativePath)
-  return response
+// Avoid `NextResponse.redirect(new URL(...))` because `request.url` can be a
+// relative path behind the rewrite proxy, which throws `ERR_INVALID_URL` and
+// returns a 500.
+function safeRedirect(_request: NextRequest, relativePath: string) {
+  return new NextResponse(null, {
+    status: 307,
+    headers: { Location: relativePath },
+  })
 }
 
 export function middleware(request: NextRequest) {
