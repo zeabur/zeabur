@@ -5,33 +5,58 @@ const baseUrl = "https://zeabur.com/docs";
 const pagesDir = "./pages";
 const publicDir = "./public";
 
-// Marketplace templates from next.config.js
-const templateDocsMap = {
-  'dragonfly': 'UKMPPL',
-  'flowise': '2JYZTR',
-  'focalboard': 'SU7RTR',
-  'ghost': 'SHEU50',
-  'halo': 'Q6H2MA',
-  'likit': 'KZOLHA',
-  'linkwarden': '1E5ABT',
-  'logto': 'AV1NZ4',
-  'memos': 'KIJROJ',
-  'mongodb': 'KXL04P',
-  'mysql': 'DGLGRG',
-  'n8n': 'W2H4RW',
-  'postgresql': 'B20CX0',
-  'rabbitmq': 'QAQWVO',
-  'redis': 'KQZHXT',
-  'rsshub': 'X46PTP',
-  'ttrss': 'F1A1Y2',
-  'umami': '01NQCC',
-  'uptime-kuma': 'Q764RP',
-  'wewe-rss': 'DI9BBD',
-  'wordpress': 'CV344X',
-};
-
 // Supported locales
 const locales = ['en-US', 'zh-TW', 'zh-CN', 'ja-JP', 'es-ES'];
+
+// Build a set of redirect source paths from next.config.js so the sitemap
+// never advertises URLs that just redirect — Google should discover the
+// canonical destination directly.
+async function getRedirectSources() {
+  const configModule = await import('./next.config.js');
+  const config = configModule.default;
+  const redirects = typeof config.redirects === 'function'
+    ? await config.redirects()
+    : [];
+
+  const sources = new Set();
+  for (const rule of redirects) {
+    // Convert Next.js patterns like /:locale/billing/plans to a regex.
+    // Replace :locale with each real locale, :path* with .+
+    const pattern = rule.source;
+
+    if (pattern.includes(':locale')) {
+      for (const locale of locales) {
+        const concrete = pattern
+          .replace(':locale', locale)
+          .replace(/:path\*/g, '.+');
+        sources.add(concrete);
+      }
+    } else {
+      const concrete = pattern.replace(/:path\*/g, '.+');
+      sources.add(concrete);
+    }
+  }
+
+  return sources;
+}
+
+function escapeRegex(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// Check if a docs-relative path (e.g. /en-US/billing/plans) is a redirect source
+function isRedirected(docsPath, redirectSources) {
+  for (const pattern of redirectSources) {
+    if (pattern.includes('.+')) {
+      const escaped = pattern.split('.+').map(escapeRegex).join('.+');
+      const re = new RegExp(`^${escaped}$`);
+      if (re.test(docsPath)) return true;
+    } else if (docsPath === pattern) {
+      return true;
+    }
+  }
+  return false;
+}
 
 // Recursively get all .mdx files in a directory
 const getFiles = (dir) => {
@@ -48,30 +73,30 @@ const getFiles = (dir) => {
   return files;
 };
 
+const redirectSources = await getRedirectSources();
 const files = getFiles(pagesDir);
 
-// Create sitemap.xml
 let sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
 
-// Add all pages from .mdx files
+let included = 0;
+let excluded = 0;
+
 for (let file of files) {
   const fileName = path.basename(file);
   const pageName = fileName.split(".")[0];
   const fileDir = path.dirname(file);
-  const url = `${baseUrl}${fileDir.replace(/^pages/, "")}${pageName === "index" ? "" : `/${pageName}`}`;
-  sitemap += `  <url>\n    <loc>${url}</loc>\n  </url>\n`;
-}
+  const docsPath = `${fileDir.replace(/^pages/, "")}${pageName === "index" ? "" : `/${pageName}`}`;
 
-// Add marketplace URLs for all locales
-for (let locale of locales) {
-  for (let template of Object.keys(templateDocsMap)) {
-    const url = `${baseUrl}/${locale}/marketplace/${template}`;
-    sitemap += `  <url>\n    <loc>${url}</loc>\n  </url>\n`;
+  if (isRedirected(docsPath, redirectSources)) {
+    excluded++;
+    continue;
   }
+
+  sitemap += `  <url>\n    <loc>${baseUrl}${docsPath}</loc>\n  </url>\n`;
+  included++;
 }
 
 sitemap += "</urlset>";
 
-// Write sitemap.xml to public directory
 fs.writeFileSync(path.join(publicDir, "sitemap.xml"), sitemap);
-console.log("Sitemap generated!");
+console.log(`Sitemap generated! ${included} URLs included, ${excluded} redirect sources excluded.`);
