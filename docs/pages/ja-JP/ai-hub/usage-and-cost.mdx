@@ -137,6 +137,32 @@ with httpx.stream(
 
 `stream_options.include_usage` を付けない場合、ストリーミングレスポンス全体に `usage` オブジェクトは一切現れません。
 
+## 特定の呼び出しを追跡する
+
+特定のリクエストを事後的に調査する場合——たとえば想定外の応答を診断する、料金を照合する、アプリケーション側のログと相関付けるなど——には、レスポンス body の `id`（completion ID）を使用してください：
+
+```python
+resp = client.chat.completions.create(...)
+print("request id:", resp.id)
+# chatcmpl-715764bf-675d-4d95-bbdc-80c037c8ce3f
+```
+
+<Callout type="warning">
+  必ず `response.id` を使用してください。`x-litellm-call-id` ヘッダーは**使用しないでください**。ヘッダーの値は LiteLLM がリクエストルーティング時に用いる内部トレース識別子であり、spend log には永続化されないため、その値による検索は結果を返しません。
+</Callout>
+
+[Zeabur Dashboard](https://zeabur.com/projects) の AI Hub ページで該当する日次ログを展開し、いずれかの行の情報アイコンをクリックすると、詳細ダイアログに Request ID とコピーボタンが表示されます。この値は `response.id` と完全に一致します。
+
+### キャッシュから返された応答には派生サフィックスが付与される
+
+LiteLLM がレスポンス全体を response cache から返した場合（Dashboard では「レスポンス全体がキャッシュから」のバッジが表示され、`cost = 0` となります）、記録される ID は元の ID に `_cache_hit<timestamp>` サフィックスを付加した形式となります：
+
+```
+chatcmpl-2ec370dd-83a6-41b4-817c-1646c57034bc_cache_hit1779350469.4126954
+```
+
+元のリクエストとキャッシュから返された応答は、spend log 上に独立した 2 件のエントリとして記録され、UUID プレフィックスを共有します。このプレフィックス単位で集約することにより、特定のプロンプトがキャッシュから配信された回数を集計できます。
+
 ## 過去の使用履歴
 
 日次の集計や 1 リクエスト単位の検索ログが必要な場合は、[Zeabur Dashboard](https://zeabur.com/projects) の AI Hub ページに月次サマリーと spend log の照会機能があります。本ページで紹介したヘッダーと body フィールドはアプリ内のリアルタイム計測向け、Dashboard は事後確認向けと使い分けてください。

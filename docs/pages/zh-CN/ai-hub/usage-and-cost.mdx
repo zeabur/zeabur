@@ -137,6 +137,32 @@ with httpx.stream(
 
 如果不带 `stream_options.include_usage`，整个 streaming 响应里都不会出现 `usage` 对象。
 
+## 追踪特定一次调用
+
+如需于事后查询某次具体请求——例如诊断异常响应、核对费用，或与应用端日志关联——请使用 response body 中的 `id`（completion ID）：
+
+```python
+resp = client.chat.completions.create(...)
+print("request id:", resp.id)
+# chatcmpl-715764bf-675d-4d95-bbdc-80c037c8ce3f
+```
+
+<Callout type="warning">
+  请始终使用 `response.id`，**请勿**使用 `x-litellm-call-id` header。Header 中的值为 LiteLLM 内部路由使用的 trace 标识符，**不会写入 spend log**，以该值进行查询将不会返回任何结果。
+</Callout>
+
+在 [Zeabur Dashboard](https://zeabur.com/projects) 的 AI Hub 页面中展开相应的每日记录，点击任一行右侧的信息图标，详情对话框将显示 Request ID 并提供复制按钮；该值与 `response.id` 完全一致。
+
+### 命中缓存的响应携带派生后缀
+
+当 LiteLLM 直接从 response cache 返回完整响应时（Dashboard 中将显示「整条响应来自缓存」标签，且 `cost = 0`），所记录的 ID 为原始 ID 附加 `_cache_hit<timestamp>` 后缀：
+
+```
+chatcmpl-2ec370dd-83a6-41b4-817c-1646c57034bc_cache_hit1779350469.4126954
+```
+
+原始请求与缓存提供的响应在 spend log 中分别记录为两条独立条目，共用相同的 UUID 前缀。可基于该前缀进行聚合，以统计特定 prompt 被缓存提供的次数。
+
 ## 历史记录
 
 要查看每日累计或翻看每一笔请求的明细，请前往 [Zeabur Dashboard](https://zeabur.com/projects) 的 AI Hub 页面，它已经提供月度总览和单笔 spend log 查询。本页讲的 header 与 body 字段适合在代码里实时读取；事后翻账请直接用 Dashboard。

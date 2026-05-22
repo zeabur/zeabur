@@ -137,6 +137,32 @@ with httpx.stream(
 
 Sin `stream_options.include_usage`, la respuesta en streaming no incluye ningún objeto `usage`.
 
+## Rastrear una solicitud específica
+
+Para investigar una solicitud concreta a posteriori — por ejemplo, para diagnosticar una respuesta inesperada, conciliar un cargo o correlacionarla con los registros de su aplicación — utilice el **ID de la completación** devuelto en el body de la respuesta como `id`:
+
+```python
+resp = client.chat.completions.create(...)
+print("request id:", resp.id)
+# chatcmpl-715764bf-675d-4d95-bbdc-80c037c8ce3f
+```
+
+<Callout type="warning">
+  Utilice siempre `response.id`. **No** utilice el header `x-litellm-call-id`: ese valor es un identificador de traza interno utilizado durante el enrutamiento de la solicitud y no se persiste en los spend logs, por lo que cualquier búsqueda por dicho valor no devolverá resultados.
+</Callout>
+
+En el [Zeabur Dashboard](https://zeabur.com/projects), abra la página de AI Hub, despliegue el log diario correspondiente y haga clic en el icono de información de cualquier fila. El diálogo de detalles muestra el Request ID junto con un botón de copia; este valor coincide exactamente con `response.id`.
+
+### Las respuestas servidas desde caché incluyen un sufijo derivado
+
+Cuando LiteLLM sirve una respuesta completa desde su caché de respuestas (lo cual se indica mediante la etiqueta "servido desde caché" en el Dashboard y `cost = 0`), el ID registrado corresponde al ID original con un sufijo `_cache_hit<timestamp>` adjunto:
+
+```
+chatcmpl-2ec370dd-83a6-41b4-817c-1646c57034bc_cache_hit1779350469.4126954
+```
+
+La solicitud original y la respuesta servida desde caché se registran como entradas independientes en el spend log, compartiendo el mismo prefijo de UUID. Esto permite agregar por prefijo para contabilizar cuántas veces una solicitud determinada fue servida desde la caché.
+
 ## Historial de uso
 
 Para totales por día y un registro consultable de cada solicitud, use la página AI Hub en el [Zeabur Dashboard](https://zeabur.com/projects). Los headers y campos del body que vimos aquí son para contabilidad en tiempo real dentro de su código; el Dashboard es para inspección posterior.

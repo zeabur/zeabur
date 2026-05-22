@@ -137,6 +137,32 @@ with httpx.stream(
 
 Without `stream_options.include_usage`, the streaming response carries no `usage` object at all.
 
+## Tracing a specific call
+
+To investigate a particular request after the fact — for example, when diagnosing an unexpected response, reconciling a charge, or correlating with application-side logs — use the **completion ID** returned in the response body as `id`:
+
+```python
+resp = client.chat.completions.create(...)
+print("request id:", resp.id)
+# chatcmpl-715764bf-675d-4d95-bbdc-80c037c8ce3f
+```
+
+<Callout type="warning">
+  Always use `response.id`. Do **not** use the `x-litellm-call-id` header — that value is an internal trace identifier used during request routing and is not persisted to spend logs, so lookups by it will yield no result.
+</Callout>
+
+In the [Zeabur Dashboard](https://zeabur.com/projects), open the AI Hub page, expand the relevant daily spend log, and click the info icon on any row. The detail dialog displays the Request ID alongside a copy action; this value is identical to `response.id`.
+
+### Cache-served responses carry a derived suffix
+
+When LiteLLM serves an entire response from its response cache (indicated by a "served from cache" badge in the Dashboard and `cost = 0`), the recorded ID is the original ID with a `_cache_hit<timestamp>` suffix appended:
+
+```
+chatcmpl-2ec370dd-83a6-41b4-817c-1646c57034bc_cache_hit1779350469.4126954
+```
+
+The original request and the cache-served replay are recorded as separate entries in the spend log, sharing the underlying UUID prefix. This allows aggregation by prefix to determine how many times a given prompt was served from cache.
+
 ## Historical usage
 
 For per-day totals and a searchable log of every call, use the AI Hub page on the [Zeabur Dashboard](https://zeabur.com/projects). The headers and body fields above are for in-process accounting; the Dashboard is for after-the-fact inspection.
