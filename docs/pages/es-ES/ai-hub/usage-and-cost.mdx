@@ -1,0 +1,147 @@
+---
+title: Leer el uso y el costo
+ogImageTitle: Leer el uso y el costo
+ogImageSubtitle: Lea tokens y costo desde los headers de respuesta y el objeto usage
+---
+
+import { Callout } from 'nextra/components'
+
+# Leer el uso y el costo
+
+Cada respuesta exitosa de Zeabur AI Hub trae dos datos que normalmente le interesan: cuántos tokens se consumieron y cuánto costó la solicitud. Esta página le muestra dónde encontrarlos para que pueda conectarlos a sus propios paneles, aplicar límites de presupuesto por usuario o simplemente verificar los precios mientras desarrolla.
+
+## Dos maneras de obtener los datos
+
+| Origen | Qué contiene | Cuándo conviene |
+| --- | --- | --- |
+| Headers de respuesta | Costo en USD, gasto acumulado de la clave, Call ID | Más rápido; no requiere parsear el body |
+| Objeto `usage` del body | Tokens, desglose de caché de prompt, tokens de razonamiento | El mismo lugar donde lee el SDK de OpenAI |
+
+Cada respuesta exitosa trae ambos, así que no tiene que elegir: use el que encaje mejor con su código.
+
+## Leer los headers
+
+Cada respuesta incluye un conjunto de headers con el prefijo `x-litellm-`:
+
+| Header | Significado |
+| --- | --- |
+| `x-litellm-response-cost` | Costo en USD de esta solicitud (float) |
+| `x-litellm-key-spend` | Gasto acumulado en USD de esta clave API hasta ahora |
+| `x-litellm-call-id` | Identificador único de la solicitud, útil para soporte y trazabilidad |
+| `x-litellm-model-id` | ID interno del despliegue del modelo |
+| `x-litellm-model-group` | El nombre público del modelo que pidió |
+
+### curl
+
+```bash
+curl -i https://hnd1.aihub.zeabur.ai/v1/chat/completions \
+  -H "Authorization: Bearer YOUR_ZEABUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "claude-sonnet-4-5",
+    "messages": [{"role": "user", "content": "Hola"}],
+    "max_tokens": 32
+  }'
+```
+
+La opción `-i` imprime los headers de la respuesta — busque la línea `x-litellm-response-cost`.
+
+### Python
+
+El SDK oficial de OpenAI no expone los headers de respuesta al código de usuario. Si necesita el costo desde los headers, use `httpx` directamente:
+
+```python
+import httpx
+
+r = httpx.post(
+    "https://hnd1.aihub.zeabur.ai/v1/chat/completions",
+    headers={"Authorization": "Bearer YOUR_ZEABUR_API_KEY"},
+    json={
+        "model": "claude-sonnet-4-5",
+        "messages": [{"role": "user", "content": "Hola"}],
+        "max_tokens": 32,
+    },
+    timeout=60.0,
+)
+print("costo (USD):", r.headers.get("x-litellm-response-cost"))
+print("usage:", r.json()["usage"])
+```
+
+## Leer el objeto `usage` del body
+
+El objeto `usage` en el body sigue el formato de OpenAI. Para modelos de Anthropic y OpenAI aparecen campos adicionales cuando corresponde:
+
+```json
+{
+  "usage": {
+    "prompt_tokens": 1024,
+    "completion_tokens": 256,
+    "total_tokens": 1280,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+  }
+}
+```
+
+| Campo | Modelos | Significado |
+| --- | --- | --- |
+| `prompt_tokens` / `completion_tokens` / `total_tokens` | Todos | Campos estándar de OpenAI |
+| `prompt_tokens_details.cached_tokens` | OpenAI | Porción de `prompt_tokens` servida desde la caché de prompt — ya contada dentro de `prompt_tokens` |
+| `cache_creation_input_tokens` | Anthropic | Tokens escritos en la caché de prompt de Anthropic en esta solicitud |
+| `cache_read_input_tokens` | Anthropic | Tokens leídos desde la caché de prompt de Anthropic en esta solicitud |
+| `completion_tokens_details.reasoning_tokens` | Modelos de razonamiento (p. ej. `gpt-5`, `gpt-5-mini`) | Tokens consumidos en el razonamiento interno |
+
+<Callout>
+  Anthropic y OpenAI cuentan los tokens en caché de forma distinta. Los `cache_creation_input_tokens` y `cache_read_input_tokens` de Anthropic se reportan **fuera** de `prompt_tokens`. El `cached_tokens` de OpenAI es **un subconjunto** de `prompt_tokens`. El body devuelve cada formato tal cual lo entrega el proveedor — use el campo que corresponda al modelo que invocó.
+</Callout>
+
+## Respuestas en streaming
+
+En modo streaming, el objeto `usage` solo aparece en un chunk final si lo habilita explícitamente. Agregue `stream_options.include_usage: true` a la solicitud:
+
+```python
+import httpx, json
+
+with httpx.stream(
+    "POST",
+    "https://hnd1.aihub.zeabur.ai/v1/chat/completions",
+    headers={"Authorization": "Bearer YOUR_ZEABUR_API_KEY"},
+    json={
+        "model": "claude-sonnet-4-5",
+        "messages": [{"role": "user", "content": "Hola"}],
+        "max_tokens": 32,
+        "stream": True,
+        "stream_options": {"include_usage": True},
+    },
+    timeout=60.0,
+) as r:
+    final_usage = None
+    for line in r.iter_lines():
+        if not line.startswith("data: "):
+            continue
+        payload = line[len("data: "):]
+        if payload == "[DONE]":
+            break
+        chunk = json.loads(payload)
+        if chunk.get("usage"):
+            final_usage = chunk["usage"]
+        # ...su procesamiento de chunks existente...
+    print("usage final:", final_usage)
+```
+
+Sin `stream_options.include_usage`, la respuesta en streaming no incluye ningún objeto `usage`.
+
+## Historial de uso
+
+Para totales por día y un registro consultable de cada solicitud, use la página AI Hub en el [Zeabur Dashboard](https://zeabur.com/projects). Los headers y campos del body que vimos aquí son para contabilidad en tiempo real dentro de su código; el Dashboard es para inspección posterior.
+
+## Enlaces relacionados
+
+- [Usar Zeabur AI Hub en n8n](./n8n-integration)
+- [Usar Zeabur AI Hub en SillyTavern](./sillytavern-integration)
