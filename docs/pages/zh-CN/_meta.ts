@@ -31,6 +31,10 @@ export default {
   rewards:            '推荐与奖励',
   partner:            '合作伙伴计划',
 
+  // ── 社区 ─────────────────────────────────────────────────────────────────
+  '---community---': { type: 'separator' },
+  community:          '社区',
+
   // ── 法律 ─────────────────────────────────────────────────────────────────
   '---5---': { type: 'separator' },
   'privacy-policy':       '隐私政策',
@@ -42,7 +46,6 @@ export default {
   advanced:        { display: 'hidden' },
   billing:         { display: 'hidden' },
   'billing-legal': { display: 'hidden' },
-  community:       { display: 'hidden' },
   'data-management': { display: 'hidden' },
   monitoring:      { display: 'hidden' },
   networking:      { display: 'hidden' },

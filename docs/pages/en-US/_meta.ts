@@ -31,6 +31,10 @@ export default {
   rewards:            'Rewards & Referrals',
   partner:            'Partner Program',
 
+  // ── Community ─────────────────────────────────────────────────────────
+  '---community---': { type: 'separator' },
+  community:          'Community',
+
   // ── Legal ─────────────────────────────────────────────────────────────
   '---5---': { type: 'separator' },
   'privacy-policy':       'Privacy Policy',
@@ -41,7 +45,6 @@ export default {
   // ── Hidden: legacy directories (not shown in sidebar) ──────────────────
   billing:         { display: 'hidden' },
   'billing-legal': { display: 'hidden' },
-  community:       { display: 'hidden' },
   'data-management': { display: 'hidden' },
   monitoring:      { display: 'hidden' },
   networking:      { display: 'hidden' },
