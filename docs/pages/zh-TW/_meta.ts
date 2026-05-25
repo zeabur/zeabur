@@ -31,6 +31,10 @@ export default {
   rewards:            '推薦與獎勵',
   partner:            '合作夥伴計畫',
 
+  // ── 社群 ──────────────────────────────────────────────────────────────
+  '---community---': { type: 'separator' },
+  community:          '社群',
+
   // ── 法律 ──────────────────────────────────────────────────────────────
   '---5---': { type: 'separator' },
   'privacy-policy':       '隱私權政策',
@@ -41,7 +45,6 @@ export default {
   // ── 隱藏：舊版目錄（不顯示在 sidebar）────────────────────────────
   billing:        { display: 'hidden' },
   'billing-legal': { display: 'hidden' },
-  community:      { display: 'hidden' },
   'data-management': { display: 'hidden' },
   monitoring:     { display: 'hidden' },
   networking:     { display: 'hidden' },

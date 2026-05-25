@@ -31,6 +31,10 @@ export default {
   rewards:            'リワードと紹介',
   partner:            'パートナープログラム',
 
+  // ── コミュニティ ─────────────────────────────────────────────────────────
+  '---community---': { type: 'separator' },
+  community:          'コミュニティ',
+
   // ── 法律 ─────────────────────────────────────────────────────────────────
   '---5---': { type: 'separator' },
   'privacy-policy':       'プライバシーポリシー',
@@ -42,7 +46,6 @@ export default {
   advanced:        { display: 'hidden' },
   billing:         { display: 'hidden' },
   'billing-legal': { display: 'hidden' },
-  community:       { display: 'hidden' },
   'data-management': { display: 'hidden' },
   monitoring:      { display: 'hidden' },
   networking:      { display: 'hidden' },

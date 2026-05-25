@@ -31,6 +31,10 @@ export default {
   rewards:            'Recompensas y Referidos',
   partner:            'Programa de Socios',
 
+  // ── Comunidad ────────────────────────────────────────────────────────────
+  '---community---': { type: 'separator' },
+  community:          'Comunidad',
+
   // ── Legal ────────────────────────────────────────────────────────────────
   '---5---': { type: 'separator' },
   'privacy-policy':       'Política de Privacidad',
@@ -42,7 +46,6 @@ export default {
   advanced:        { display: 'hidden' },
   billing:         { display: 'hidden' },
   'billing-legal': { display: 'hidden' },
-  community:       { display: 'hidden' },
   'data-management': { display: 'hidden' },
   monitoring:      { display: 'hidden' },
   networking:      { display: 'hidden' },

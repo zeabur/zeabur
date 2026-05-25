@@ -1,7 +1,9 @@
 export default {
-    "forum": "Foro de la Comunidad",
-    "referral": "Programa de referidos",
     "ambassador-programme": "Programa de Embajadores",
     "code-of-conduct": "Código de Conducta",
-    "contribution": "Recompensas por contribución",
+    "forum": "Foro de la Comunidad",
+
+    // Oculto — su lugar canónico está en otra parte o es heredado
+    "referral": { display: "hidden" },
+    "contribution": { display: "hidden" },
 }
