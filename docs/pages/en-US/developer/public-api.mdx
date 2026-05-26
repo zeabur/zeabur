@@ -33,6 +33,41 @@ If you prefer writing GraphQL in an IDE or need type hints, you can download the
 
 If you find that the API you need is not in this Schema, please let us know through our [community forum](https://zeabur.com/forum).
 
+## Team-owned resources
+
+Your API key is tied to your **personal** account — teams do not have their own API keys. The same key authorizes access to resources in any team you belong to, limited by the permissions of your role in that team.
+
+A resource (such as a project) can be owned by your personal account or by a team. Queries and mutations that operate on owned resources accept an `ownerID` argument: pass a team's ID to act on that team, or omit it to act on your personal account. For example, to list a team's projects:
+
+```graphql
+query TeamProjects($ownerID: ObjectID!) {
+  projects(ownerID: $ownerID) {
+    edges {
+      node {
+        _id    # ObjectID!
+        name   # String!
+      }
+    }
+  }
+}
+```
+
+To discover the teams you belong to and their IDs, use the `teams` query:
+
+```graphql
+query MyTeams {
+  teams {
+    _id     # ObjectID!
+    name    # String!
+    myRole  # TeamMemberRole — your role in this team
+  }
+}
+```
+
+<Callout type="info">
+Using the Zeabur CLI? It wraps this in a workspace concept — see [Workspaces (Teams)](./cli#workspaces-teams) in the CLI documentation.
+</Callout>
+
 ## Local Project Upload API
 
 While deploying from a Git Repository is the mainstream method, there are times when you need to directly deploy a pre-packaged application. Common scenarios include:

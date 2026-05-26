@@ -38,6 +38,50 @@ npx zeabur@latest deploy
 
 El CLI detecta automáticamente tu framework y te guía para seleccionar o crear un proyecto. Una vez desplegado, la URL del servicio se mostrará en el terminal.
 
+## Espacios de trabajo (Equipos)
+
+Un espacio de trabajo es la cuenta bajo la que actúa el CLI: tu cuenta **personal** o uno de los **equipos** a los que perteneces. El espacio de trabajo es el ámbito exterior de tu contexto — al cambiarlo se borran el proyecto, el entorno y el servicio persistidos, porque los ID de los recursos no se comparten entre una cuenta personal y un equipo.
+
+<Callout type="info">
+Por defecto, el CLI actúa sobre tu cuenta **personal**. Antes de trabajar con recursos de un equipo, cambia al espacio de trabajo de ese equipo (o pasa `--workspace`); de lo contrario, los comandos se ejecutarán sobre tu cuenta personal.
+</Callout>
+
+### Listar espacios de trabajo
+
+Muestra tu espacio de trabajo personal y todos los equipos a los que perteneces, con tu rol en cada uno. El espacio de trabajo actual aparece marcado.
+
+```bash copy
+npx zeabur@latest workspace list
+```
+
+### Mostrar el espacio de trabajo actual
+
+```bash copy
+npx zeabur@latest workspace current
+```
+
+### Cambiar a un equipo
+
+El argumento es el nombre del equipo o su ID de 24 caracteres. Si un nombre coincide con más de un equipo, el CLI lista los candidatos para que puedas elegir por ID.
+
+```bash copy
+npx zeabur@latest workspace switch <team-name-or-id>
+```
+
+### Volver a tu espacio de trabajo personal
+
+```bash copy
+npx zeabur@latest workspace clear
+```
+
+### Anulación puntual
+
+Usa el flag global `--workspace` para ejecutar un único comando en otro espacio de trabajo sin cambiar el que tienes persistido. Esto resulta práctico para CI y scripts:
+
+```bash copy
+npx zeabur@latest --workspace <team-name-or-id> project ls
+```
+
 ## Gestión de proyectos
 
 ### Listar proyectos

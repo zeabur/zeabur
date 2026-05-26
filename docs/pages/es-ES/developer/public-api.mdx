@@ -33,6 +33,41 @@ Si prefieres escribir GraphQL en un IDE o necesitas sugerencias de tipos, puedes
 
 Si encuentras que la API que necesitas no está en este Esquema, por favor háganoslo saber a través de nuestro [community forum](https://zeabur.com/forum).
 
+## Recursos propiedad de un equipo
+
+Tu clave de API está vinculada a tu cuenta **personal**: los equipos no tienen sus propias claves de API. La misma clave autoriza el acceso a los recursos de cualquier equipo al que pertenezcas, limitado por los permisos de tu rol en ese equipo.
+
+Un recurso (como un proyecto) puede ser propiedad de tu cuenta personal o de un equipo. Las consultas y mutaciones que operan sobre recursos con propietario aceptan un argumento `ownerID`: pasa el ID de un equipo para actuar sobre ese equipo, u omítelo para actuar sobre tu cuenta personal. Por ejemplo, para listar los proyectos de un equipo:
+
+```graphql
+query TeamProjects($ownerID: ObjectID!) {
+  projects(ownerID: $ownerID) {
+    edges {
+      node {
+        _id    # ObjectID!
+        name   # String!
+      }
+    }
+  }
+}
+```
+
+Para descubrir los equipos a los que perteneces y sus ID, usa la consulta `teams`:
+
+```graphql
+query MyTeams {
+  teams {
+    _id     # ObjectID!
+    name    # String!
+    myRole  # TeamMemberRole — your role in this team
+  }
+}
+```
+
+<Callout type="info">
+¿Usas la Zeabur CLI? La envuelve en un concepto de espacio de trabajo: consulta [Espacios de trabajo (Equipos)](./cli#espacios-de-trabajo-equipos) en la documentación de la CLI.
+</Callout>
+
 ## API de Carga de Proyectos Locales
 
 Aunque desplegar desde un Repositorio Git es el método principal, hay ocasiones en las que necesitas desplegar directamente una aplicación ya empaquetada. Los escenarios comunes incluyen:

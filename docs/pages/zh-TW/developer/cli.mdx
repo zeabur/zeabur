@@ -38,6 +38,50 @@ npx zeabur@latest deploy
 
 CLI 會自動偵測框架，並引導你選擇或建立一個專案。部署完成後，終端會顯示服務的 URL。
 
+## 工作區（團隊）
+
+工作區是 CLI 操作所依據的帳號：你的**個人**帳號，或是你所屬的其中一個**團隊**。工作區是你上下文的最外層範圍——切換工作區會清除已儲存的專案、環境與服務，因為資源 ID 並不會在個人帳號與團隊之間共用。
+
+<Callout type="info">
+預設情況下，CLI 會在你的**個人**帳號上操作。在處理團隊資源之前，請先切換到該團隊的工作區（或加上 `--workspace`），否則指令會在你的個人帳號上執行。
+</Callout>
+
+### 列出工作區
+
+顯示你的個人工作區，以及你所屬的每一個團隊，並標示你在各團隊中的角色。目前所在的工作區會被標記出來。
+
+```bash copy
+npx zeabur@latest workspace list
+```
+
+### 顯示目前的工作區
+
+```bash copy
+npx zeabur@latest workspace current
+```
+
+### 切換到團隊
+
+參數為團隊的名稱或其 24 字元 ID。若名稱對應到多個團隊，CLI 會列出候選項目，讓你以 ID 來選擇。
+
+```bash copy
+npx zeabur@latest workspace switch <team-name-or-id>
+```
+
+### 回到個人工作區
+
+```bash copy
+npx zeabur@latest workspace clear
+```
+
+### 單次覆寫
+
+使用全域的 `--workspace` 旗標，可在另一個工作區中執行單一指令，而不變更已儲存的工作區。這在 CI 與腳本中相當方便：
+
+```bash copy
+npx zeabur@latest --workspace <team-name-or-id> project ls
+```
+
 ## 專案管理
 
 ### 列出專案
