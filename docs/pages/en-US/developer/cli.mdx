@@ -38,6 +38,50 @@ npx zeabur@latest deploy
 
 The CLI automatically detects your framework and guides you to select or create a project. Once deployed, the service URL will be displayed in the terminal.
 
+## Workspaces (Teams)
+
+A workspace is the account the CLI acts under: your **personal** account, or one of the **teams** you belong to. The workspace is the outer scope of your context — switching it clears the persisted project, environment, and service, because resource IDs are not shared between a personal account and a team.
+
+<Callout type="info">
+By default the CLI acts on your **personal** account. Before working with team resources, switch into that team's workspace (or pass `--workspace`), otherwise commands run against your personal account.
+</Callout>
+
+### List workspaces
+
+Shows your personal workspace and every team you belong to, with your role in each. The current workspace is marked.
+
+```bash copy
+npx zeabur@latest workspace list
+```
+
+### Show the current workspace
+
+```bash copy
+npx zeabur@latest workspace current
+```
+
+### Switch to a team
+
+The argument is the team's name or its 24-character ID. If a name matches more than one team, the CLI lists the candidates so you can pick by ID.
+
+```bash copy
+npx zeabur@latest workspace switch <team-name-or-id>
+```
+
+### Return to your personal workspace
+
+```bash copy
+npx zeabur@latest workspace clear
+```
+
+### One-shot override
+
+Use the global `--workspace` flag to run a single command in another workspace without changing your persisted one. This is convenient for CI and scripts:
+
+```bash copy
+npx zeabur@latest --workspace <team-name-or-id> project ls
+```
+
 ## Project management
 
 ### List projects

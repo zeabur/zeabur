@@ -38,6 +38,50 @@ npx zeabur@latest deploy
 
 CLI 自动检测框架，引导你选择或创建项目。部署完成后，服务 URL 会显示在终端。
 
+## 工作区（团队）
+
+工作区是指 CLI 当前操作的账号：你的**个人**账号，或你所属的某个**团队**。工作区是上下文的最外层范围——切换工作区会清除已保存的项目、环境和服务，因为个人账号与团队之间不共享资源 ID。
+
+<Callout type="info">
+默认情况下，CLI 操作的是你的**个人**账号。在操作团队资源之前，请先切换到该团队的工作区（或传入 `--workspace`），否则命令会作用于你的个人账号。
+</Callout>
+
+### 列出工作区
+
+显示你的个人工作区以及你所属的每个团队，并标注你在其中的角色。当前工作区会被标记出来。
+
+```bash copy
+npx zeabur@latest workspace list
+```
+
+### 查看当前工作区
+
+```bash copy
+npx zeabur@latest workspace current
+```
+
+### 切换到团队
+
+参数为团队的名称或其 24 位字符 ID。如果某个名称匹配到多个团队，CLI 会列出候选项，供你按 ID 选择。
+
+```bash copy
+npx zeabur@latest workspace switch <team-name-or-id>
+```
+
+### 返回个人工作区
+
+```bash copy
+npx zeabur@latest workspace clear
+```
+
+### 单次覆盖
+
+使用全局 `--workspace` 标志可以在另一个工作区中运行单条命令，而不改变你已保存的工作区。这在 CI 和脚本中很方便：
+
+```bash copy
+npx zeabur@latest --workspace <team-name-or-id> project ls
+```
+
 ## 项目管理
 
 ### 列出项目
