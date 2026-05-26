@@ -33,6 +33,41 @@ curl --request POST \
 
 若您發現您需要的 API 不在這個 Schema 中，請到我們的 [community forum](https://zeabur.com/forum) 和我們告知。
 
+## 團隊擁有的資源
+
+您的 API 金鑰是綁定在您的**個人帳號**上的 —— 團隊本身沒有自己的 API 金鑰。同一把金鑰可以授權存取您所屬的任何團隊中的資源，並受限於您在該團隊中角色的權限。
+
+一項資源（例如專案）可以由您的個人帳號擁有，也可以由團隊擁有。對這類擁有的資源進行操作的查詢與 mutation 都接受一個 `ownerID` 參數：傳入某個團隊的 ID 即可對該團隊進行操作，省略它則對您的個人帳號進行操作。例如，要列出某個團隊的專案：
+
+```graphql
+query TeamProjects($ownerID: ObjectID!) {
+  projects(ownerID: $ownerID) {
+    edges {
+      node {
+        _id    # ObjectID!
+        name   # String!
+      }
+    }
+  }
+}
+```
+
+若要查出您所屬的團隊以及它們的 ID，請使用 `teams` 查詢：
+
+```graphql
+query MyTeams {
+  teams {
+    _id     # ObjectID!
+    name    # String!
+    myRole  # TeamMemberRole — your role in this team
+  }
+}
+```
+
+<Callout>
+正在使用 Zeabur CLI 嗎？它將此功能包裝成工作區（workspace）的概念 —— 請參閱 CLI 文件中的 [工作區（團隊）](./cli#工作區團隊)。
+</Callout>
+
 ## 本機專案上傳 API
 
 雖然從 Git Repository 部署是主流方式，但有時您會需要直接部署一個預先打包好的應用程式。常見的情境包含：

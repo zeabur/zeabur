@@ -33,6 +33,41 @@ curl --request POST \
 
 若您发现您需要的 API 不在这个 Schema 中，请到我们的 [community forum](https://zeabur.com/forum) 和我们告知。
 
+## 团队拥有的资源
+
+您的 API 密钥绑定在您的**个人账号**上——团队并没有自己的 API 密钥。同一把密钥可以授权访问您所属的任意团队中的资源，访问范围受限于您在该团队中所担任角色的权限。
+
+一个资源（例如项目）可以由您的个人账号拥有，也可以由某个团队拥有。操作这类拥有型资源的查询和变更都接受一个 `ownerID` 参数：传入某个团队的 ID 即可针对该团队进行操作，省略该参数则针对您的个人账号进行操作。例如，要列出某个团队的项目：
+
+```graphql
+query TeamProjects($ownerID: ObjectID!) {
+  projects(ownerID: $ownerID) {
+    edges {
+      node {
+        _id    # ObjectID!
+        name   # String!
+      }
+    }
+  }
+}
+```
+
+要查询您所属的团队及其 ID，请使用 `teams` 查询：
+
+```graphql
+query MyTeams {
+  teams {
+    _id     # ObjectID!
+    name    # String!
+    myRole  # TeamMemberRole — your role in this team
+  }
+}
+```
+
+<Callout>
+正在使用 Zeabur CLI？它将这一概念封装为工作区（workspace）——请参阅 CLI 文档中的 [工作区（团队）](./cli#工作区团队)。
+</Callout>
+
 ## 本地项目上传 API
 
 虽然从 Git Repository 部署是主流方式，但有时您会需要直接部署一个预先打包好的应用程序。常见的情境包括：
