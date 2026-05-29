@@ -31,17 +31,22 @@ function findCanonicalLocale(segment: string): string | undefined {
   return locales.find(l => l.toLowerCase() === segment.toLowerCase())
 }
 
-// Redirect using a relative path in the Location header to prevent the
-// internal service hostname (e.g. nextra-v2.zeabur.internal) from leaking
-// through the rewrite proxy — which causes Google "Redirect error".
-// Avoid `NextResponse.redirect(new URL(...))` because `request.url` can be a
-// relative path behind the rewrite proxy, which throws `ERR_INVALID_URL` and
-// returns a 500.
-function safeRedirect(_request: NextRequest, relativePath: string) {
-  return new NextResponse(null, {
-    status: 307,
-    headers: { Location: relativePath },
-  })
+// Build the redirect against the PUBLIC origin, not `request.url`.
+// zeabur.com rewrites /docs/* to http://nextra-v2.zeabur.internal:8080, so
+// `request.url`'s host is the internal upstream — using it leaks
+// `nextra-v2.zeabur.internal` and triggers Google "Redirect error".
+// A bare relative Location is also unusable: Next's middleware adapter
+// normalizes the Location header via `new URL(location)` with no base, which
+// throws `ERR_INVALID_URL` (500). So resolve the path against the public
+// forwarded host: the Location is absolute (adapter-safe) and points at the
+// user-facing domain.
+function safeRedirect(request: NextRequest, relativePath: string) {
+  const host =
+    request.headers.get('x-forwarded-host') ??
+    request.headers.get('host') ??
+    request.nextUrl.host
+  const proto = request.headers.get('x-forwarded-proto') ?? 'https'
+  return NextResponse.redirect(new URL(relativePath, `${proto}://${host}`))
 }
 
 export function middleware(request: NextRequest) {
