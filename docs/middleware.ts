@@ -40,13 +40,29 @@ function findCanonicalLocale(segment: string): string | undefined {
 // throws `ERR_INVALID_URL` (500). So resolve the path against the public
 // forwarded host: the Location is absolute (adapter-safe) and points at the
 // user-facing domain.
+//
+// Behind multiple proxies `x-forwarded-*` can be comma-separated lists, so we
+// take the first token; a malformed origin would otherwise re-introduce the
+// `new URL` 500. As a last resort fall back to the (internal) request origin —
+// a working redirect beats a 500.
+function firstForwardedToken(value: string | null): string | undefined {
+  return value?.split(',')[0]?.trim() || undefined
+}
+
 function safeRedirect(request: NextRequest, relativePath: string) {
   const host =
-    request.headers.get('x-forwarded-host') ??
-    request.headers.get('host') ??
+    firstForwardedToken(request.headers.get('x-forwarded-host')) ??
+    firstForwardedToken(request.headers.get('host')) ??
     request.nextUrl.host
-  const proto = request.headers.get('x-forwarded-proto') ?? 'https'
-  return NextResponse.redirect(new URL(relativePath, `${proto}://${host}`))
+  const proto =
+    firstForwardedToken(request.headers.get('x-forwarded-proto'))?.toLowerCase() === 'http'
+      ? 'http'
+      : 'https'
+  try {
+    return NextResponse.redirect(new URL(relativePath, `${proto}://${host}`))
+  } catch {
+    return NextResponse.redirect(new URL(relativePath, request.nextUrl.origin))
+  }
 }
 
 export function middleware(request: NextRequest) {
