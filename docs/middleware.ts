@@ -31,17 +31,38 @@ function findCanonicalLocale(segment: string): string | undefined {
   return locales.find(l => l.toLowerCase() === segment.toLowerCase())
 }
 
-// Redirect using a relative path in the Location header to prevent the
-// internal service hostname (e.g. nextra-v2.zeabur.internal) from leaking
-// through the rewrite proxy — which causes Google "Redirect error".
-// Avoid `NextResponse.redirect(new URL(...))` because `request.url` can be a
-// relative path behind the rewrite proxy, which throws `ERR_INVALID_URL` and
-// returns a 500.
-function safeRedirect(_request: NextRequest, relativePath: string) {
-  return new NextResponse(null, {
-    status: 307,
-    headers: { Location: relativePath },
-  })
+// Build the redirect against the PUBLIC origin, not `request.url`.
+// zeabur.com rewrites /docs/* to http://nextra-v2.zeabur.internal:8080, so
+// `request.url`'s host is the internal upstream — using it leaks
+// `nextra-v2.zeabur.internal` and triggers Google "Redirect error".
+// A bare relative Location is also unusable: Next's middleware adapter
+// normalizes the Location header via `new URL(location)` with no base, which
+// throws `ERR_INVALID_URL` (500). So resolve the path against the public
+// forwarded host: the Location is absolute (adapter-safe) and points at the
+// user-facing domain.
+//
+// Behind multiple proxies `x-forwarded-*` can be comma-separated lists, so we
+// take the first token; a malformed origin would otherwise re-introduce the
+// `new URL` 500. As a last resort fall back to the (internal) request origin —
+// a working redirect beats a 500.
+function firstForwardedToken(value: string | null): string | undefined {
+  return value?.split(',')[0]?.trim() || undefined
+}
+
+function safeRedirect(request: NextRequest, relativePath: string) {
+  const host =
+    firstForwardedToken(request.headers.get('x-forwarded-host')) ??
+    firstForwardedToken(request.headers.get('host')) ??
+    request.nextUrl.host
+  const proto =
+    firstForwardedToken(request.headers.get('x-forwarded-proto'))?.toLowerCase() === 'http'
+      ? 'http'
+      : 'https'
+  try {
+    return NextResponse.redirect(new URL(relativePath, `${proto}://${host}`))
+  } catch {
+    return NextResponse.redirect(new URL(relativePath, request.nextUrl.origin))
+  }
 }
 
 export function middleware(request: NextRequest) {
