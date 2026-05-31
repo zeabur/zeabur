@@ -1,0 +1,105 @@
+---
+title: Acceso público vía Gateway
+ogImageTitle: Acceso público vía Gateway
+ogImageSubtitle: Expón los servicios de Wonder Mesh a Internet con un servidor gateway
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Acceso público vía Gateway
+
+Los servidores Wonder Mesh están detrás de NAT, por lo que no tienen una IP pública que pueda recibir tráfico entrante directamente. **Gateway** resuelve esto colocando un proxy inverso en un servidor dedicado que _sí_ tiene una IP pública, y enrutando el tráfico de Internet a través de la red mesh hacia tus servicios Wonder Mesh.
+
+<Callout type="info">
+  Gateway requiere un servidor dedicado (no Wonder Mesh) con K3s instalado. Si no tienes uno, puedes [comprar uno a través de Zeabur](https://zeabur.com/servers/buy).
+</Callout>
+
+## Cómo funciona
+
+1. Designas un servidor dedicado como el **gateway**.
+2. Zeabur despliega un proxy inverso (Caddy) y un sidecar de Tailscale en ese servidor.
+3. Cuando vinculas un dominio a un servicio Wonder Mesh, el gateway recibe el tráfico HTTPS entrante y lo reenvía a través del túnel mesh al dispositivo y puerto de destino.
+
+El gateway y tus dispositivos Wonder Mesh están conectados a través de la misma red mesh WireGuard, por lo que el tráfico permanece cifrado de extremo a extremo.
+
+## Configuración del Gateway
+
+<Steps>
+
+### Abrir la pestaña Gateway
+
+Navega a cualquier página de servidor en el Dashboard de Zeabur. Si el servidor es un servidor Wonder Mesh, abre la pestaña **Gateway**.
+
+<Callout type="warning">
+  El gateway en sí debe ejecutarse en un **servidor dedicado** (no un servidor Wonder Mesh). La pestaña Gateway en un servidor Wonder Mesh te permite administrar el gateway, pero la carga de trabajo real del gateway se ejecuta en el servidor dedicado que selecciones.
+</Callout>
+
+### Seleccionar un servidor
+
+Elige un servidor dedicado del menú desplegable. Solo los servidores con K3s instalado son elegibles. Si no tienes uno, haz clic en **Agregar un servidor** para comprar uno a través de Zeabur.
+
+### Habilitar el Gateway
+
+Haz clic en **Habilitar Gateway**. Zeabur desplegará los servicios del gateway (proxy inverso + sidecar de Tailscale) en el servidor seleccionado. Esto generalmente toma alrededor de un minuto.
+
+Una vez que el gateway esté listo, verás un indicador de estado verde y el nombre del servidor.
+
+</Steps>
+
+## Vinculación de dominios
+
+Después de configurar el gateway, puedes vincular dominios a tus servicios Wonder Mesh.
+
+<Steps>
+
+### Abrir la pestaña de Red
+
+Ve a la página del servicio de un servicio Wonder Mesh, luego abre la pestaña **Red**.
+
+### Generar o agregar un dominio personalizado
+
+- **Generar dominio** — Crea un dominio con el sufijo `.zeabur.app`. Cada servicio puede tener un dominio generado.
+- **Dominio personalizado** — Usa tu propio nombre de dominio. Necesitarás configurar un registro CNAME apuntando al hostname proporcionado por Zeabur.
+
+Selecciona el puerto de destino y confirma. El dominio comenzará a aprovisionarse — verás un icono giratorio con un tooltip que muestra "Tomará 90–120 segundos."
+
+### Esperar el aprovisionamiento
+
+Una vez que el dominio esté aprovisionado, el icono de estado se vuelve verde y el dominio está activo. Haz clic en el dominio o en el icono de enlace externo para abrirlo en una nueva pestaña.
+
+</Steps>
+
+<Callout type="info">
+  Para dominios personalizados, configura un registro **CNAME** en tu proveedor de DNS apuntando al hostname mostrado en el dashboard. Para la configuración de dominio raíz, consulta [Configuración DNS de dominio raíz](/deploy/networking/public-networking#root-domain-dns-settings).
+</Callout>
+
+## Gestión de rutas
+
+Cada dominio vinculado aparece como una tarjeta de ruta en la pestaña Red del servicio. Puedes:
+
+- **Abrir** — Haz clic en el icono de enlace externo para visitar el dominio.
+- **Eliminar** — Haz clic en el icono de la papelera y confirma para desvincular el dominio del gateway.
+
+Las rutas también son visibles en la pestaña **Gateway** en la página del servidor, filtradas al nodo mesh del servidor actual.
+
+## Administración del Gateway
+
+Desde la pestaña Gateway en la página de un servidor Wonder Mesh, puedes administrar el gateway:
+
+### Rotar Auth Key
+
+Haz clic en **Rotar Auth Key** para regenerar la clave de autenticación de Tailscale utilizada por el sidecar del gateway. Usa esto si sospechas que la clave ha sido comprometida.
+
+### Deshabilitar Gateway
+
+Haz clic en **Deshabilitar Gateway** para eliminar el gateway por completo. Se te pedirá confirmar escribiendo el nombre del servidor del gateway. Esto elimina el proxy inverso, el sidecar de Tailscale y todas las rutas vinculadas.
+
+<Callout type="warning">
+  Deshabilitar el gateway hará que **todos** los dominios vinculados a través de él sean inaccesibles inmediatamente. Asegúrate de migrar tus dominios antes de deshabilitar.
+</Callout>
+
+## Limitaciones
+
+- **Un gateway por espacio de trabajo** — Cada espacio de trabajo (personal o de equipo) puede tener un gateway a la vez.
+- **Transferencia de propiedad no soportada** — Los servidores y proyectos Wonder Mesh no pueden transferirse a otro usuario o equipo. Para mover un dispositivo a una cuenta diferente, desinstala Wonder Mesh y reinstala en la cuenta de destino.
+- **Solo IPv4** — Las rutas del gateway actualmente solo soportan tráfico IPv4.
