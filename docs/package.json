@@ -16,7 +16,7 @@
     "@formatjs/intl-localematcher": "^0.6.2",
     "@theguild/remark-mermaid": "^0.3.0",
     "negotiator": "^1.0.0",
-    "next": "^15.5.10",
+    "next": "^15.5.18",
     "nextra": "^3.3.1",
     "nextra-theme-docs": "^3.3.1",
     "react": "^19.2.3",
