@@ -1,0 +1,73 @@
+---
+title: Quotas & Overage Billing
+ogImageTitle: Zeabur Email Quotas & Overage Billing
+ogImageSubtitle: Sending quotas, overage pricing, and how it's billed
+---
+
+# Quotas & Overage Billing
+
+import { Callout } from 'nextra/components'
+
+Every Zeabur Email account has a **monthly sending quota** determined by your Zeabur plan. Sending within your quota is free. On the **Pro** and **Team** plans, sending beyond your quota is allowed and billed as **overage**; on other plans, sending is blocked once the quota is reached.
+
+<Callout type="info">
+Zeabur Email is **not available on the Free Plan**. To send email you need at least the [Dev Plan](/pricing/dev-plan).
+</Callout>
+
+## Monthly Sending Quota
+
+| Plan | Monthly Quota | Daily Quota | Overage |
+|------|---------------|-------------|---------|
+| Free | Not available | — | — |
+| Dev  | 3,000 emails  | 100 emails/day | Not supported |
+| Pro  | 50,000 emails | Unlimited | Supported |
+| Team | 100,000 emails | Unlimited | Supported |
+
+Your quota resets at the start of each monthly billing cycle. Both the quota you've used and the amount remaining are shown in the Zeabur Email dashboard.
+
+## What Happens When You Reach Your Quota
+
+- **Dev plan** — Sending is blocked once you hit your daily or monthly quota. The API returns `429 Too Many Requests`. You can still query email history; sending resumes when the quota resets.
+- **Pro / Team plans** — Sending continues past your monthly quota and the extra emails are billed as overage (see below), up to a hard cap. Once the hard cap is reached, sending is blocked until the next billing cycle.
+
+<Callout type="warning">
+When sending is blocked for quota reasons, the API returns `429 Too Many Requests` with a message such as `quota exceeded (current/total), resets at <time>`. See the [REST API Reference](/email/rest-api) for the error format.
+</Callout>
+
+## How Overage Is Priced
+
+Overage applies only to the **Pro** and **Team** plans and is automatic — there is nothing to opt into.
+
+- **Price:** **US$0.90 per 1,000 emails** sent beyond your monthly quota.
+- **Billed per bucket:** Overage is counted in buckets of **1,000 emails**, and each *started* bucket is billed in full (rounded up). Sending even one email past your quota bills one full bucket.
+- **Hard cap:** Overage is capped at **5× your monthly quota**. Once your total monthly sends reach the cap, sending is blocked until the next billing cycle.
+
+| Plan | Monthly Quota | Overage Hard Cap (5×) | Max Overage Charge / cycle |
+|------|---------------|-----------------------|----------------------------|
+| Pro  | 50,000  | 250,000 | 200 buckets × $0.90 = **$180.00** |
+| Team | 100,000 | 500,000 | 400 buckets × $0.90 = **$360.00** |
+
+**Example.** You are on the Pro plan (50,000/month quota) and send 50,003 emails in a cycle. That's 3 emails over quota → 1 bucket → **$0.90** of overage for that cycle.
+
+## How Overage Is Billed
+
+Overage is **not** added to your regular subscription invoice. At the end of each billing cycle, Zeabur freezes that cycle's total overage and charges it as a **separate, one-time invoice** to the payment method on file. No action is required from you.
+
+## When Overage Is Paused
+
+- **Failed payment** — If an overage invoice fails to charge, overage is paused. You can keep sending within your base monthly quota, but additional overage is disabled until the outstanding invoice is resolved.
+- **Plan change** — If you leave the Pro or Team plan (for example, downgrading to Dev), overage is disabled. Any overage already accrued in the current cycle is still settled.
+
+## FAQ
+
+**Is overage opt-in?**
+No. On Pro and Team plans it is automatic. There is no per-user toggle to turn it on or off.
+
+**Does the daily quota apply to Pro and Team?**
+No. Pro and Team have an unlimited daily quota — only the monthly quota and the overage hard cap apply.
+
+**When exactly am I charged for overage?**
+At the end of the billing cycle, as a separate one-time invoice — not on your normal subscription charge.
+
+**What if I never exceed my quota?**
+You are never charged for overage. Sending within your monthly quota is always free.
