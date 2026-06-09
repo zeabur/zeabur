@@ -1,0 +1,73 @@
+---
+title: Cuotas y Facturación por Excedente
+ogImageTitle: Cuotas y Facturación por Excedente de Zeabur Email
+ogImageSubtitle: Cuotas de envío, precio del excedente y cómo se factura
+---
+
+# Cuotas y Facturación por Excedente
+
+import { Callout } from 'nextra/components'
+
+Cada cuenta de Zeabur Email tiene una **cuota de envío mensual** determinada por tu plan de Zeabur. Enviar dentro de tu cuota es gratis. En los planes **Pro** y **Team**, puedes seguir enviando una vez superada la cuota y ese excedente (**overage**) se factura; en los demás planes, el envío se bloquea al alcanzar la cuota.
+
+<Callout type="info">
+Zeabur Email **no está disponible en el Plan Free**. Para enviar correo necesitas al menos el [Plan Dev](/pricing/dev-plan).
+</Callout>
+
+## Cuota de Envío Mensual
+
+| Plan | Cuota Mensual | Cuota Diaria | Excedente |
+|------|---------------|--------------|-----------|
+| Free | No disponible | — | — |
+| Dev  | 3.000 correos | 100 correos/día | No admitido |
+| Pro  | 50.000 correos | Ilimitada | Admitido |
+| Team | 100.000 correos | Ilimitada | Admitido |
+
+Tu cuota se reinicia al comienzo de cada ciclo de facturación mensual. Tanto lo consumido como lo restante se muestran en el panel de Zeabur Email.
+
+## Qué Ocurre al Alcanzar la Cuota
+
+- **Plan Dev** — El envío se bloquea al alcanzar tu cuota diaria o mensual. La API devuelve `429 Too Many Requests`. Puedes seguir consultando el historial de correos; el envío se reanuda cuando la cuota se reinicia.
+- **Planes Pro / Team** — El envío continúa una vez superada la cuota mensual y los correos adicionales se facturan como excedente (ver más abajo), hasta un límite máximo (hard cap). Una vez alcanzado ese límite, el envío se bloquea hasta el siguiente ciclo de facturación.
+
+<Callout type="warning">
+Cuando el envío se bloquea por motivos de cuota, la API devuelve `429 Too Many Requests` con un mensaje como `quota exceeded (current/total), resets at <time>`. Consulta el formato del error en la [Referencia de API REST](/email/rest-api).
+</Callout>
+
+## Cómo se Calcula el Precio del Excedente
+
+El excedente solo se aplica a los planes **Pro** y **Team** y es automático: no hay nada que activar.
+
+- **Precio:** **US$0,90 por cada 1.000 correos** enviados por encima de tu cuota mensual.
+- **Facturado por bloque:** El excedente se cuenta en bloques de **1.000 correos**, y cada bloque *iniciado* se factura completo (redondeo hacia arriba). Enviar aunque sea un solo correo por encima de tu cuota factura un bloque completo.
+- **Límite máximo:** El excedente está limitado a **5× tu cuota mensual**. Cuando el total de envíos del mes alcanza ese límite, el envío se bloquea hasta el siguiente ciclo de facturación.
+
+| Plan | Cuota Mensual | Límite de Excedente (5×) | Cargo Máximo de Excedente / ciclo |
+|------|---------------|--------------------------|-----------------------------------|
+| Pro  | 50.000  | 250.000 | 200 bloques × $0,90 = **$180,00** |
+| Team | 100.000 | 500.000 | 400 bloques × $0,90 = **$360,00** |
+
+**Ejemplo.** Estás en el plan Pro (cuota de 50.000/mes) y envías 50.003 correos en un ciclo. Son 3 correos por encima de la cuota → 1 bloque → **$0,90** de excedente para ese ciclo.
+
+## Cómo se Factura el Excedente
+
+El excedente **no** se añade a tu factura de suscripción habitual. Al final de cada ciclo de facturación, Zeabur congela el excedente total de ese ciclo y lo cobra como una **factura independiente y única** al método de pago registrado. No necesitas hacer nada.
+
+## Cuándo se Pausa el Excedente
+
+- **Pago fallido** — Si una factura de excedente no se puede cobrar, el excedente se pausa. Puedes seguir enviando dentro de tu cuota mensual base, pero el excedente adicional queda desactivado hasta que se resuelva la factura pendiente.
+- **Cambio de plan** — Si abandonas el plan Pro o Team (por ejemplo, bajando a Dev), el excedente se desactiva. El excedente ya acumulado en el ciclo actual se liquida igualmente.
+
+## Preguntas Frecuentes
+
+**¿El excedente es opcional (opt-in)?**
+No. En los planes Pro y Team es automático. No hay un interruptor por usuario para activarlo o desactivarlo.
+
+**¿La cuota diaria se aplica a Pro y Team?**
+No. Pro y Team tienen una cuota diaria ilimitada: solo se aplican la cuota mensual y el límite máximo de excedente.
+
+**¿Cuándo se me cobra exactamente el excedente?**
+Al final del ciclo de facturación, como una factura independiente y única, no en tu cargo de suscripción habitual.
+
+**¿Y si nunca supero mi cuota?**
+Nunca se te cobra excedente. Enviar dentro de tu cuota mensual siempre es gratis.
