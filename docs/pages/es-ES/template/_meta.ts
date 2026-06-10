@@ -3,5 +3,6 @@ export default {
   'template-format':             'Formato de Plantilla',
   'fork-git-repo-from-template': 'Fork Repositorio Git desde Plantilla',
   'maintain-template':           'Mantener y Actualizar Plantillas',
+  'wireguard-easy':              'WireGuard Easy',
   'template-in-code':            { display: 'hidden' },
 }

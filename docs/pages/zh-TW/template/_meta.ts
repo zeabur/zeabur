@@ -3,6 +3,7 @@ export default {
   'template-format':             '模板格式說明',
   'fork-git-repo-from-template': '從模板 Fork Git 倉庫',
   'maintain-template':           '維護與更新模板',
+  'wireguard-easy':              'WireGuard Easy',
 
   // ── 隱藏：舊檔案（已重構）────────────────────────────────────────────
   'template-in-code':            { display: 'hidden' },

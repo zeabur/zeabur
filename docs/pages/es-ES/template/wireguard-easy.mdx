@@ -1,0 +1,57 @@
+---
+title: WireGuard Easy
+ogImageTitle: WireGuard Easy
+ogImageSubtitle: Configura la contraseña de administrador de la plantilla WireGuard Easy
+---
+
+import { Callout } from 'nextra/components'
+
+# WireGuard Easy
+
+[WireGuard Easy (wg-easy)](https://github.com/wg-easy/wg-easy) ejecuta un servidor VPN WireGuard con una interfaz de gestión web, y puede desplegarse en Zeabur desde el [marketplace de plantillas](https://zeabur.com/templates). Esta página explica la configuración de la contraseña de administrador — que cambió entre versiones de wg-easy y es la fuente más común de errores de despliegue.
+
+## "You are using an invalid Configuration for wg-easy"
+
+Si el servicio no arranca y el log muestra:
+
+```
+You are using an invalid Configuration for wg-easy
+```
+
+tu despliegue ejecuta **wg-easy v15 o posterior** con la variable de entorno `PASSWORD_HASH` definida. wg-easy v15 eliminó `PASSWORD_HASH` (y la mayoría de las variables `WG_*`) — cualquier variable heredada hace que el servicio termine al arrancar.
+
+**Solución:**
+
+1. Abre la pestaña de **Variables** del servicio
+2. **Elimina la variable `PASSWORD_HASH`**
+3. Reinicia el servicio
+4. Abre la interfaz web — en la primera visita, un asistente de configuración te pedirá crear el usuario y la contraseña de administrador
+
+### Configuración desatendida (opcional)
+
+Para omitir el asistente, define estas variables **antes del primer arranque**:
+
+| Variable | Valor |
+| --- | --- |
+| `INIT_ENABLED` | `true` |
+| `INIT_USERNAME` | usuario administrador |
+| `INIT_PASSWORD` | contraseña de administrador (texto plano) |
+
+<Callout type="info">
+Las variables `INIT_*` solo se leen en el primer arranque, mientras el volumen de datos está vacío. Después de completar la configuración se ignoran — elimínalas para que las credenciales no queden en la configuración del servicio.
+</Callout>
+
+## `PASSWORD_HASH` en wg-easy v14 y anteriores
+
+Las imágenes antiguas de wg-easy (v14 y anteriores) autentican la interfaz web con un hash bcrypt en `PASSWORD_HASH`. Genéralo con la herramienta `wgpw` incluida:
+
+```bash
+docker run --rm ghcr.io/wg-easy/wg-easy:14 wgpw 'YOUR_PASSWORD'
+# PASSWORD_HASH='$2a$12$...'
+```
+
+Pega el hash en la variable de Zeabur **exactamente como se generó, con signos `$` simples**.
+
+<Callout type="warning">
+Muchos ejemplos de wg-easy muestran el hash con signos de dólar duplicados (`$$2a$$12$$...`). Ese duplicado es **solo para el escapado de docker-compose**. En Zeabur, pega el hash con `$` simples — un valor con `$$` no es un hash bcrypt válido y la interfaz web rechazará todos los inicios de sesión.
+</Callout>

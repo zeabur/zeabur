@@ -1,0 +1,57 @@
+---
+title: WireGuard Easy
+ogImageTitle: WireGuard Easy
+ogImageSubtitle: Configure the admin password for the WireGuard Easy template
+---
+
+import { Callout } from 'nextra/components'
+
+# WireGuard Easy
+
+[WireGuard Easy (wg-easy)](https://github.com/wg-easy/wg-easy) runs a WireGuard VPN server with a web-based management UI. You can deploy it on Zeabur from the [template marketplace](https://zeabur.com/templates). This page covers the admin-password configuration, which changed between wg-easy versions and is the most common source of deployment errors.
+
+## "You are using an invalid Configuration for wg-easy"
+
+If the service refuses to start and the runtime log shows:
+
+```
+You are using an invalid Configuration for wg-easy
+```
+
+your deployment is running **wg-easy v15 or later** with a `PASSWORD_HASH` environment variable set. wg-easy v15 removed `PASSWORD_HASH` (and most `WG_*` configuration variables) — any leftover legacy variable makes the service exit at startup.
+
+**Fix:**
+
+1. Open the service's **Variables** tab
+2. **Delete the `PASSWORD_HASH` variable**
+3. Restart the service
+4. Open the web UI — on first visit, a setup wizard asks you to create the admin username and password
+
+### Unattended setup (optional)
+
+To skip the setup wizard, set these variables **before the first start** instead:
+
+| Variable | Value |
+| --- | --- |
+| `INIT_ENABLED` | `true` |
+| `INIT_USERNAME` | admin username |
+| `INIT_PASSWORD` | admin password (plain text) |
+
+<Callout type="info">
+`INIT_*` variables are only read on the very first start, while the data volume is still empty. After setup completes they are ignored — remove them so the credentials don't linger in your service configuration.
+</Callout>
+
+## `PASSWORD_HASH` on wg-easy v14 and earlier
+
+Older wg-easy images (v14 and below) authenticate the web UI with a bcrypt hash in `PASSWORD_HASH`. Generate it with the bundled `wgpw` tool:
+
+```bash
+docker run --rm ghcr.io/wg-easy/wg-easy:14 wgpw 'YOUR_PASSWORD'
+# PASSWORD_HASH='$2a$12$...'
+```
+
+Paste the hash into the Zeabur variable **exactly as generated, with single `$` characters**.
+
+<Callout type="warning">
+Many wg-easy examples show the hash with doubled dollar signs (`$$2a$$12$$...`). That doubling is **docker-compose escaping only**. On Zeabur, paste the hash with single `$` — a value containing `$$` is not a valid bcrypt hash, and the web UI will reject every login.
+</Callout>

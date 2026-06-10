@@ -1,0 +1,57 @@
+---
+title: WireGuard Easy
+ogImageTitle: WireGuard Easy
+ogImageSubtitle: WireGuard Easy テンプレートの管理者パスワード設定
+---
+
+import { Callout } from 'nextra/components'
+
+# WireGuard Easy
+
+[WireGuard Easy（wg-easy）](https://github.com/wg-easy/wg-easy)は、Web 管理画面付きの WireGuard VPN サーバーで、Zeabur の[テンプレートマーケットプレイス](https://zeabur.com/templates)からワンクリックでデプロイできます。このページでは管理者パスワードの設定方法を説明します — これは wg-easy のバージョン間で大きく変更されており、デプロイ時に最もよくあるエラーの原因です。
+
+## 「You are using an invalid Configuration for wg-easy」
+
+サービスが起動せず、ランタイムログに次のように表示される場合：
+
+```
+You are using an invalid Configuration for wg-easy
+```
+
+これは **wg-easy v15 以降** を実行しているのに、環境変数に `PASSWORD_HASH` が設定されていることを意味します。wg-easy v15 では `PASSWORD_HASH`（およびほとんどの `WG_*` 設定変数）が削除されており、レガシー変数が残っているとサービスは起動時に終了します。
+
+**解決方法：**
+
+1. サービスの「**環境変数**」タブを開く
+2. **`PASSWORD_HASH` 変数を削除する**
+3. サービスを再起動する
+4. Web UI を開く — 初回アクセス時にセットアップウィザードが管理者アカウントの作成を案内します
+
+### 無人セットアップ（オプション）
+
+セットアップウィザードをスキップしたい場合は、**初回起動前に**次の変数を設定します：
+
+| 変数 | 値 |
+| --- | --- |
+| `INIT_ENABLED` | `true` |
+| `INIT_USERNAME` | 管理者ユーザー名 |
+| `INIT_PASSWORD` | 管理者パスワード（平文） |
+
+<Callout type="info">
+`INIT_*` 変数は、データボリュームが空の「初回起動時」にのみ読み込まれます。セットアップ完了後は無視されるため、認証情報がサービス設定に残らないよう、後で削除することをお勧めします。
+</Callout>
+
+## wg-easy v14 以前の `PASSWORD_HASH`
+
+古い wg-easy イメージ（v14 以前）は、`PASSWORD_HASH` の bcrypt ハッシュで Web UI のログインを認証します。同梱の `wgpw` ツールで生成できます：
+
+```bash
+docker run --rm ghcr.io/wg-easy/wg-easy:14 wgpw 'YOUR_PASSWORD'
+# PASSWORD_HASH='$2a$12$...'
+```
+
+ハッシュ値は**生成されたまま（`$` は 1 つのまま）**Zeabur の環境変数に貼り付けてください。
+
+<Callout type="warning">
+wg-easy の例の多くは、ハッシュをドル記号 2 つの形式（`$$2a$$12$$...`）で示しています。これは **docker-compose 専用のエスケープ記法**です。Zeabur では `$` 1 つの形式で貼り付けてください — `$$` を含む値は有効な bcrypt ハッシュではなく、Web UI はすべてのログインを拒否します。
+</Callout>

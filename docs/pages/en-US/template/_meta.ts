@@ -3,6 +3,7 @@ export default {
   'template-format':             'Template Format',
   'fork-git-repo-from-template': 'Fork Git Repo from Template',
   'maintain-template':           'Maintain & Update Templates',
+  'wireguard-easy':              'WireGuard Easy',
 
   // ── Hidden: old files (refactored) ────────────────────────────────────
   'template-in-code':            { display: 'hidden' },

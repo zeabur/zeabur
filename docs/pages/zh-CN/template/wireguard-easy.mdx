@@ -1,0 +1,57 @@
+---
+title: WireGuard Easy
+ogImageTitle: WireGuard Easy
+ogImageSubtitle: 配置 WireGuard Easy 模板的管理员密码
+---
+
+import { Callout } from 'nextra/components'
+
+# WireGuard Easy
+
+[WireGuard Easy（wg-easy）](https://github.com/wg-easy/wg-easy)是一套自带网页管理界面的 WireGuard VPN 服务器，可以从 Zeabur 的[模板市场](https://zeabur.com/templates)一键部署。本页说明管理员密码的配置方式——这在不同 wg-easy 版本之间有重大变动，也是部署时最常见的报错来源。
+
+## 「You are using an invalid Configuration for wg-easy」
+
+如果服务无法启动，且运行日志显示：
+
+```
+You are using an invalid Configuration for wg-easy
+```
+
+说明你的部署运行的是 **wg-easy v15 及以上版本**，但环境变量中设置了 `PASSWORD_HASH`。wg-easy v15 已移除 `PASSWORD_HASH`（以及大多数 `WG_*` 配置变量）——只要残留任何旧版变量，服务就会在启动时直接退出。
+
+**解决方式：**
+
+1. 打开服务的「**环境变量**」页签
+2. **删除 `PASSWORD_HASH` 这个变量**
+3. 重启服务
+4. 打开网页界面——首次访问时，设置向导会引导你创建管理员账号与密码
+
+### 免交互设置（可选）
+
+如果想跳过设置向导，可以在**首次启动前**改设以下变量：
+
+| 变量 | 值 |
+| --- | --- |
+| `INIT_ENABLED` | `true` |
+| `INIT_USERNAME` | 管理员账号 |
+| `INIT_PASSWORD` | 管理员密码（明文） |
+
+<Callout type="info">
+`INIT_*` 变量只在数据卷还是空的「第一次启动」时读取，设置完成后就会被忽略——建议事后删除这些变量，避免账号密码留在服务配置中。
+</Callout>
+
+## wg-easy v14 及更早版本的 `PASSWORD_HASH`
+
+较旧的 wg-easy 镜像（v14 以下）使用 `PASSWORD_HASH` 中的 bcrypt 哈希验证网页界面登录。可以用内置的 `wgpw` 工具生成：
+
+```bash
+docker run --rm ghcr.io/wg-easy/wg-easy:14 wgpw 'YOUR_PASSWORD'
+# PASSWORD_HASH='$2a$12$...'
+```
+
+将哈希值**原样（保持单个 `$` 字符）**粘贴进 Zeabur 的环境变量。
+
+<Callout type="warning">
+许多 wg-easy 示例会把哈希值写成双美元符格式（`$$2a$$12$$...`）。那是 **docker-compose 专用的转义写法**。在 Zeabur 上请粘贴单个 `$` 的版本——含有 `$$` 的值不是合法的 bcrypt 哈希，网页界面会拒绝所有登录。
+</Callout>
