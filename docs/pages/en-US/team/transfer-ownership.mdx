@@ -1,14 +1,16 @@
 ---
-title: Transfer ownership to a Team
+title: Transfer ownership
 ogImageTitle: Transfer ownership
-ogImageSubtitle: Move personal projects and servers into a Team
+ogImageSubtitle: Move projects and servers to a Team or another user
 ---
 
 import { Callout, Steps } from 'nextra/components';
 
-# Transfer ownership to a Team
+# Transfer ownership
 
-If you have a project or a dedicated server in your **personal workspace**, you can hand it over to a [Team](/team) so its billing, quota, and ownership move under the Team entity. After transfer, you can keep working on the resource as a Team member — the work doesn't change, only who pays for it and who owns it.
+If you have a project or a dedicated server in your **personal workspace**, you can hand it over to a [Team](/team) — or directly to **another user** — so its billing, quota, and ownership move to the new owner. After transfer, you can keep working on the resource as a member or collaborator — the work doesn't change, only who pays for it and who owns it.
+
+This page first walks through the Team flow, then the [user-to-user flow](#transfer-to-another-user).
 
 ## When to transfer
 
@@ -109,6 +111,54 @@ What changes:
 
 <Callout type="warning">
   Server transfer is one-way from the dashboard. The new owner can transfer it back later, but you cannot undo it from your side. Double-check the destination Team before confirming.
+</Callout>
+
+## Transfer to another user
+
+Both projects and dedicated servers can also be handed directly to another **personal user** — the *Transfer to user* tab in the same dialog. The steps mirror the Team flow, with one key prerequisite:
+
+<Callout type="info">
+  Only users who are **already collaborators** on the project or server can receive ownership. To transfer to someone new, invite them as a collaborator first, wait for them to accept, then run the transfer.
+</Callout>
+
+### Transfer a project to a user
+
+<Steps>
+### Open the transfer dialog
+
+In the project, go to **Settings → Danger Zone → Transfer ownership**.
+
+### Select **Transfer to user**
+
+Switch to the **Transfer to user** tab. A dropdown lists the project's current collaborators (name and email). If the list is empty, invite the receiving user as a collaborator first.
+
+### Confirm
+
+Pick the new owner, type the **project name** into the confirmation field, then click **Transfer**.
+</Steps>
+
+What changes on success:
+
+- Ownership and all future costs of the project move to the receiving user immediately.
+- **You are automatically kept as a collaborator**, so you don't lose access to the project you just handed over. If you want no further access, ask the new owner to remove you from the collaborator list.
+- Other existing collaborators are unaffected.
+- The transfer is one-way from your side — the new owner would have to transfer the project back.
+
+### Transfer a dedicated server to a user
+
+The same **Transfer to user** tab exists in the server's **Settings → Danger Zone → Transfer ownership** dialog, with the same collaborator prerequisite. Two extra checks apply to servers:
+
+- **The receiving user must have a payment method on file, or enough credits to cover the next renewal cycle.** Otherwise the transfer is rejected with *"The new owner must add a payment method or recharge enough credits to cover the next billing cycle before they can receive servers."*
+- A **suspended** server (unpaid bills or policy violation) cannot be transferred — resolve the suspension first.
+
+Billing and access behave the same as a server transfer to a Team:
+
+- The current prepaid period stays with you (no refund or proration); the new owner is billed from the next billing anniversary.
+- You keep read-only access as an automatically added collaborator.
+- Projects already running on the server are **not** transferred — they stay with their current owners.
+
+<Callout type="warning">
+  **Wonder Mesh servers do not support ownership transfer.** Uninstall Wonder Mesh and reinstall it under the target account instead.
 </Callout>
 
 ## Reverting a transfer
