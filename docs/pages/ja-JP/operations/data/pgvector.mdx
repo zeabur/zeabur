@@ -1,0 +1,74 @@
+---
+title: pgvector ベクトル検索
+ogImageTitle: pgvector ベクトル検索
+ogImageSubtitle: Zeabur で pgvector を使い、HNSW の次元数制限を回避する
+---
+
+import { Callout } from 'nextra/components'
+
+# pgvector ベクトル検索
+
+[pgvector](https://github.com/pgvector/pgvector) は、PostgreSQL で埋め込み（embedding）を保存しベクトル類似度検索を実行するための定番拡張機能です。このページでは、Zeabur で pgvector を使う方法と、埋め込みモデルを選ぶ前に知っておくべき次元数の制限について説明します。
+
+## Zeabur で pgvector を使う
+
+公式の `postgres` Docker イメージには pgvector が含まれていないため、`CREATE EXTENSION vector;` を実行すると次のエラーで失敗します：
+
+```
+ERROR: extension "vector" is not available
+```
+
+Zeabur で pgvector を使うには、拡張機能を同梱したイメージ — たとえば [`pgvector/pgvector`](https://hub.docker.com/r/pgvector/pgvector)（タグは `pg17`、`pg16` などの形式）— を[カスタム Docker イメージ](/deploy/custom-docker-image)としてデプロイします。その後、データベースごとに一度だけ拡張機能を有効化します：
+
+```sql
+CREATE EXTENSION IF NOT EXISTS vector;
+```
+
+## 次元数の制限
+
+pgvector の制限は、ベクトルの**保存**と**インデックス作成**で異なります：
+
+| | 最大次元数 |
+| --- | --- |
+| `vector` カラム（保存） | 16,000 |
+| `vector` に対する HNSW / IVFFlat インデックス | **2,000** |
+| `halfvec` に対する HNSW インデックス | 4,000 |
+
+つまり、OpenAI `text-embedding-3-large` や Gemini `gemini-embedding-001` などの 3072 次元の埋め込みは保存できますが、HNSW（または IVFFlat）インデックスの作成は失敗します：
+
+```
+ERROR: column cannot have more than 2000 dimensions for hnsw index
+```
+
+## 2,000 次元を超える埋め込みへの対処法
+
+### 方法 1：`halfvec` でインデックスを作成する（推奨）
+
+pgvector 0.7 以降は半精度ベクトルをサポートしており、`halfvec` に対する HNSW インデックスは最大 4,000 次元まで対応します。カラムは全精度の `vector(3072)` のまま、インデックスだけキャスト式で作成できます：
+
+```sql
+CREATE INDEX ON items
+USING hnsw ((embedding::halfvec(3072)) halfvec_cosine_ops);
+```
+
+クエリでも同じキャストを使わないと、プランナがこのインデックスを使用しません：
+
+```sql
+SELECT * FROM items
+ORDER BY embedding::halfvec(3072) <=> $1::halfvec(3072)
+LIMIT 10;
+```
+
+半精度による精度低下が検索品質に与える影響は、実用上は無視できる程度です。
+
+### 方法 2：埋め込みの次元数を減らす
+
+Matryoshka 表現学習で訓練されたモデルでは、埋め込み API に直接少ない次元数を指定できます — たとえば OpenAI の `dimensions` パラメータ（`text-embedding-3-large` で 1,024 や 1,536 を指定）や Gemini の `output_dimensionality` です。2,000 次元以下の埋め込みは、キャストなしで HNSW インデックスを作成できます。
+
+### 方法 3：インデックスを作らない
+
+インデックスがない場合、pgvector は正確なシーケンシャルスキャンにフォールバックします — 結果は常に正確で、速度が遅くなるだけです。小規模なテーブル（数万行程度まで）であれば多くの場合これで十分で、必要になってからインデックスを追加できます。
+
+<Callout type="info">
+`vector` 型に対しては IVFFlat も HNSW と同じ 2,000 次元の上限があるため、インデックスの種類を変えるだけでは高次元埋め込みの問題は解決しません。
+</Callout>

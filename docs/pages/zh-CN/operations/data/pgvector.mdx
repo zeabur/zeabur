@@ -1,0 +1,74 @@
+---
+title: pgvector 向量搜索
+ogImageTitle: pgvector 向量搜索
+ogImageSubtitle: 在 Zeabur 上使用 pgvector 并绕过 HNSW 维度限制
+---
+
+import { Callout } from 'nextra/components'
+
+# pgvector 向量搜索
+
+[pgvector](https://github.com/pgvector/pgvector) 是 PostgreSQL 上存储 embedding 与执行向量相似度搜索的主流扩展。本页说明如何在 Zeabur 上使用 pgvector，以及选择 embedding 模型前必须了解的维度限制。
+
+## 在 Zeabur 上使用 pgvector
+
+官方 `postgres` Docker 镜像并未内置 pgvector——直接运行 `CREATE EXTENSION vector;` 会失败：
+
+```
+ERROR: extension "vector" is not available
+```
+
+要在 Zeabur 上使用 pgvector，请部署内置该扩展的镜像，例如 [`pgvector/pgvector`](https://hub.docker.com/r/pgvector/pgvector)（tag 格式为 `pg17`、`pg16`……），部署方式参考[部署 Docker 镜像](/deploy/custom-docker-image)。然后在每个数据库启用一次扩展：
+
+```sql
+CREATE EXTENSION IF NOT EXISTS vector;
+```
+
+## 维度限制
+
+pgvector 对**存储**向量与**建立索引**的限制不同：
+
+| | 最大维度 |
+| --- | --- |
+| `vector` 列（存储） | 16,000 |
+| `vector` 上的 HNSW / IVFFlat 索引 | **2,000** |
+| `halfvec` 上的 HNSW 索引 | 4,000 |
+
+也就是说，你可以存储 3072 维的 embedding——例如 OpenAI `text-embedding-3-large` 或 Gemini `gemini-embedding-001`——但对它们创建 HNSW（或 IVFFlat）索引会失败：
+
+```
+ERROR: column cannot have more than 2000 dimensions for hnsw index
+```
+
+## 超过 2,000 维 embedding 的解决方法
+
+### 方法一：以 `halfvec` 建立索引（推荐）
+
+pgvector 0.7+ 支持半精度向量，`halfvec` 上的 HNSW 索引最高支持 4,000 维。列可以保持全精度的 `vector(3072)`，只在索引上使用类型转换：
+
+```sql
+CREATE INDEX ON items
+USING hnsw ((embedding::halfvec(3072)) halfvec_cosine_ops);
+```
+
+查询时必须使用相同的转换，查询规划器才会使用该索引：
+
+```sql
+SELECT * FROM items
+ORDER BY embedding::halfvec(3072) <=> $1::halfvec(3072)
+LIMIT 10;
+```
+
+实践中，半精度造成的精度损失对检索质量的影响可以忽略。
+
+### 方法二：降低 embedding 维度
+
+采用 Matryoshka 表示学习训练的模型，可以直接向 embedding API 请求更少的维度——例如 OpenAI 的 `dimensions` 参数（`text-embedding-3-large` 可指定 1,024 或 1,536 维）或 Gemini 的 `output_dimensionality`。2,000 维以下的 embedding 无需任何转换即可创建 HNSW 索引。
+
+### 方法三：不建立索引
+
+没有索引时，pgvector 会改用精确的顺序扫描——结果始终正确，只是较慢。对于小型数据表（数万行以内），这通常已经够快，之后需要时再加索引即可。
+
+<Callout type="info">
+对 `vector` 类型而言，IVFFlat 与 HNSW 有相同的 2,000 维上限，因此仅更换索引类型无法解决高维 embedding 的问题。
+</Callout>

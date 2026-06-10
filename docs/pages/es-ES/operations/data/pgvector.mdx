@@ -1,0 +1,74 @@
+---
+title: Búsqueda Vectorial con pgvector
+ogImageTitle: Búsqueda Vectorial con pgvector
+ogImageSubtitle: Usa pgvector en Zeabur y evita el límite de dimensiones de HNSW
+---
+
+import { Callout } from 'nextra/components'
+
+# Búsqueda Vectorial con pgvector
+
+[pgvector](https://github.com/pgvector/pgvector) es la extensión de PostgreSQL de referencia para almacenar embeddings y ejecutar búsquedas por similitud vectorial. Esta página explica cómo usar pgvector en Zeabur y los límites de dimensiones que debes conocer antes de elegir un modelo de embeddings.
+
+## Usar pgvector en Zeabur
+
+La imagen Docker oficial `postgres` no incluye pgvector — ejecutar `CREATE EXTENSION vector;` falla con:
+
+```
+ERROR: extension "vector" is not available
+```
+
+Para usar pgvector en Zeabur, despliega una imagen que incluya la extensión, por ejemplo [`pgvector/pgvector`](https://hub.docker.com/r/pgvector/pgvector) (los tags siguen el patrón `pg17`, `pg16`, …), como [imagen Docker personalizada](/deploy/custom-docker-image). Después, habilita la extensión una vez por base de datos:
+
+```sql
+CREATE EXTENSION IF NOT EXISTS vector;
+```
+
+## Límites de dimensiones
+
+Los límites de pgvector son distintos para **almacenar** vectores y para **indexarlos**:
+
+| | Dimensiones máximas |
+| --- | --- |
+| Columna `vector` (almacenamiento) | 16.000 |
+| Índice HNSW / IVFFlat sobre `vector` | **2.000** |
+| Índice HNSW sobre `halfvec` | 4.000 |
+
+Esto significa que puedes almacenar embeddings de 3072 dimensiones — como OpenAI `text-embedding-3-large` o Gemini `gemini-embedding-001` — pero crear un índice HNSW (o IVFFlat) sobre ellos falla:
+
+```
+ERROR: column cannot have more than 2000 dimensions for hnsw index
+```
+
+## Soluciones para embeddings de más de 2.000 dimensiones
+
+### Opción 1: indexar como `halfvec` (recomendado)
+
+pgvector 0.7+ soporta vectores de media precisión, y los índices HNSW sobre `halfvec` llegan hasta 4.000 dimensiones. Puedes mantener la columna como `vector(3072)` de precisión completa y crear el índice sobre una expresión de cast:
+
+```sql
+CREATE INDEX ON items
+USING hnsw ((embedding::halfvec(3072)) halfvec_cosine_ops);
+```
+
+Las consultas deben usar el mismo cast para que el planificador utilice el índice:
+
+```sql
+SELECT * FROM items
+ORDER BY embedding::halfvec(3072) <=> $1::halfvec(3072)
+LIMIT 10;
+```
+
+En la práctica, la pérdida de precisión de la media precisión es despreciable para la calidad de la recuperación.
+
+### Opción 2: reducir las dimensiones del embedding
+
+Los modelos entrenados con aprendizaje de representación Matryoshka permiten solicitar menos dimensiones directamente a la API de embeddings — por ejemplo el parámetro `dimensions` de OpenAI (`text-embedding-3-large` a 1.024 o 1.536) o `output_dimensionality` de Gemini. Los embeddings de 2.000 dimensiones o menos pueden indexarse con HNSW sin ningún cast.
+
+### Opción 3: prescindir del índice
+
+Sin índice, pgvector recurre a un escaneo secuencial exacto — siempre correcto, solo más lento. Para tablas pequeñas (hasta decenas de miles de filas) suele ser suficientemente rápido, y puedes añadir el índice más adelante.
+
+<Callout type="info">
+IVFFlat tiene el mismo techo de 2.000 dimensiones que HNSW para el tipo `vector`, por lo que cambiar solo el tipo de índice no resuelve el problema con embeddings de alta dimensionalidad.
+</Callout>
