@@ -54,6 +54,8 @@ The easiest migration path is the built-in **Clone Project** feature, which copi
 6. **Switch DNS / domains** — Re-bind your custom domains to the new services and update DNS records.
 7. **Delete the old project** once traffic is fully served by the new one.
 
+![Clone Project dialog](/server/clone-project-dialog.png)
+
 <Callout type="warning">
 Cloning may involve downtime from a few minutes up to tens of minutes depending on data size, unless you enable the option to keep the old project running during the clone. Volume data and other stateful storage should be verified after cloning — take a [backup](/operations/data/backup-restore) of databases first.
 </Callout>
