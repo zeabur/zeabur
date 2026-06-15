@@ -5,6 +5,7 @@ export interface ZeaburUser {
   name: string
   username: string
   avatarURL: string
+  referralCode?: string | null
 }
 
 interface AuthState {
@@ -37,7 +38,7 @@ export function useZeaburAuth(): AuthState {
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        query: '{ me { _id name username avatarURL } }',
+        query: '{ me { _id name username avatarURL referralCode } }',
       }),
     })
       .then((res) => res.json())

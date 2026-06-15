@@ -749,3 +749,45 @@ html.dark .feedback-close:hover {
 	font-size: 0.8125rem;
 	margin-left: 0.25rem;
 }
+
+/* ── ShareButton (MKT-2511 v0.1) ────────────────────────────────── */
+.share-button {
+	margin-top: 1.5rem;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 0.875rem;
+	border: 1px solid rgba(128, 128, 128, 0.2);
+	border-radius: 8px;
+	background: transparent;
+	color: var(--zb-text-2);
+	font-size: 0.875rem;
+	font-family: inherit;
+	cursor: pointer;
+	transition: border-color 0.15s ease, background-color 0.15s ease,
+		color 0.15s ease;
+}
+
+.share-button:hover {
+	border-color: rgba(128, 128, 128, 0.4);
+	background: rgba(128, 128, 128, 0.04);
+}
+
+html.dark .share-button {
+	border-color: rgba(255, 255, 255, 0.1);
+}
+
+html.dark .share-button:hover {
+	border-color: rgba(255, 255, 255, 0.25);
+	background: rgba(255, 255, 255, 0.04);
+}
+
+.share-button-copied {
+	color: #059669;
+	border-color: rgba(5, 150, 105, 0.3);
+}
+
+html.dark .share-button-copied {
+	color: #34d399;
+	border-color: rgba(52, 211, 153, 0.3);
+}

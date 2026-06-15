@@ -8,6 +8,7 @@ import WorkingInProgress from './components/WorkingInProgress'
 import CreateProject from './components/CreateProject'
 import LastUpdated from './components/LastUpdated'
 import FeedbackWidget from './components/FeedbackWidget'
+import ShareButton from './components/ShareButton'
 import LogoBlack from './public/logo_b.svg'
 import LogoWhite from './public/logo_w.svg'
 import IconBlack from './public/icon_b.svg'
@@ -65,6 +66,7 @@ const config = {
     return (
       <>
         {enhanced}
+        <ShareButton />
         <FeedbackWidget variant="inline" />
       </>
     )
