@@ -11,6 +11,44 @@ import { useZeaburAuth } from '../FeedbackWidget/useZeaburAuth'
 
 const DEFAULT_DISCOUNT = 5
 
+// PostHog public token (same project as zeabur.com — see pages/_app.tsx there).
+// Docs doesn't ship the posthog-js SDK, so we POST directly to the capture API.
+const POSTHOG_KEY = 'phc_TcgrjtKUGtTltFwWGj2Xhmuyv5ZHtrufIE8wgkLsruD'
+const POSTHOG_HOST = 'https://us.i.posthog.com'
+
+function captureShareButtonClicked(props: {
+  user_id: string
+  username?: string
+  page_path: string
+  locale: string
+  share_method: 'native_share' | 'clipboard'
+}) {
+  if (typeof window === 'undefined') return
+  fetch(`${POSTHOG_HOST}/capture/`, {
+    method: 'POST',
+    keepalive: true,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      api_key: POSTHOG_KEY,
+      event: 'share_button_clicked',
+      distinct_id: props.user_id,
+      properties: {
+        user_id: props.user_id,
+        username: props.username,
+        is_logged_in: true,
+        surface: 'docs',
+        page_path: props.page_path,
+        locale: props.locale,
+        share_method: props.share_method,
+        has_referral_code: true,
+        timestamp: Date.now(),
+      },
+    }),
+  }).catch(() => {
+    // best-effort; swallow network errors so share UX still works
+  })
+}
+
 const SHARE_MESSAGES: Record<string, string> = {
   'en-US':
     'Purchase servers or AI Hub credits at {{url}} — enter my referral code "{{code}}" at checkout to enjoy {{discount}}% off!',
@@ -59,6 +97,18 @@ export default function ShareButton() {
       .replace('{{url}}', shareUrl)
       .replace('{{code}}', user.referralCode!)
       .replace('{{discount}}', String(DEFAULT_DISCOUNT))
+
+    const willUseNativeShare =
+      typeof navigator !== 'undefined' &&
+      typeof navigator.share === 'function'
+
+    captureShareButtonClicked({
+      user_id: user._id,
+      username: user.username,
+      page_path: pagePath,
+      locale,
+      share_method: willUseNativeShare ? 'native_share' : 'clipboard',
+    })
 
     if (
       typeof navigator !== 'undefined' &&
