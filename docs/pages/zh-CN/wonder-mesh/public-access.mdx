@@ -1,0 +1,105 @@
+---
+title: 通过网关公网访问
+ogImageTitle: 通过网关公网访问
+ogImageSubtitle: 使用网关服务器将 Wonder Mesh 服务暴露到互联网
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# 通过网关公网访问
+
+Wonder Mesh 服务器位于 NAT 之后，没有可以直接接收外部流量的公网 IP。**网关（Gateway）** 通过在拥有公网 IP 的专属服务器上部署反向代理来解决这个问题，将互联网流量通过 Mesh 网络路由到你的 Wonder Mesh 服务。
+
+<Callout type="info">
+  网关需要一台已安装 K3s 的专属服务器（非 Wonder Mesh 服务器）。如果你还没有，可以[通过 Zeabur 购买](https://zeabur.com/servers/buy)。
+</Callout>
+
+## 工作原理
+
+1. 你指定一台专属服务器作为**网关**。
+2. Zeabur 在该服务器上部署反向代理（Caddy）和 Tailscale sidecar。
+3. 当你为 Wonder Mesh 服务绑定域名时，网关接收传入的 HTTPS 流量，并通过 Mesh 通道转发到目标设备和端口。
+
+网关和你的 Wonder Mesh 设备通过同一个 WireGuard Mesh 网络连接，因此流量保持端到端加密。
+
+## 设置网关
+
+<Steps>
+
+### 打开 Gateway 标签页
+
+前往 Zeabur Dashboard 中的任一服务器页面。如果服务器是 Wonder Mesh 服务器，打开 **Gateway** 标签页。
+
+<Callout type="warning">
+  网关本身必须运行在**专属服务器**上（不是 Wonder Mesh 服务器）。Wonder Mesh 服务器上的 Gateway 标签页让你管理网关，但实际的网关负载运行在你选择的专属服务器上。
+</Callout>
+
+### 选择服务器
+
+从下拉菜单中选择一台专属服务器。只有已安装 K3s 的服务器才符合条件。如果你没有，点击**添加服务器**通过 Zeabur 购买。
+
+### 启用网关
+
+点击**启用网关**。Zeabur 会在选定的服务器上部署网关服务（反向代理 + Tailscale sidecar）。这通常需要大约一分钟。
+
+网关就绪后，你会看到绿色状态指示器和服务器名称。
+
+</Steps>
+
+## 绑定域名
+
+网关设置完成后，你可以为 Wonder Mesh 服务绑定域名。
+
+<Steps>
+
+### 打开网络标签页
+
+前往 Wonder Mesh 服务的服务页面，打开**网络**标签页。
+
+### 生成或添加自定义域名
+
+- **生成域名** — 创建一个 `.zeabur.app` 后缀的域名。每个服务可以有一个自动生成的域名。
+- **自定义域名** — 使用你自己的域名。你需要配置 CNAME 记录指向 Zeabur 提供的主机名。
+
+选择目标端口并确认。域名将开始预配置——你会看到一个旋转图标，提示"大约需要 90-120 秒"。
+
+### 等待预配置完成
+
+域名预配置完成后，状态图标会变成绿色，域名即可使用。点击域名或外部链接图标，即可在新标签页中打开。
+
+</Steps>
+
+<Callout type="info">
+  对于自定义域名，请在你的 DNS 提供商配置 **CNAME** 记录，指向 Dashboard 中显示的主机名。根域名设置请参阅[根域名 DNS 设置](/deploy/networking/public-networking#root-domain-dns-settings)。
+</Callout>
+
+## 管理路由
+
+每个绑定的域名会以路由卡片的形式显示在服务的网络标签页中。你可以：
+
+- **打开** — 点击外部链接图标，前往该域名。
+- **移除** — 点击垃圾桶图标并确认，即可从网关解除绑定该域名。
+
+路由也会显示在服务器页面的 **Gateway** 标签页中，筛选为当前服务器的 Mesh 节点相关的路由。
+
+## 网关管理
+
+在 Wonder Mesh 服务器页面的 Gateway 标签页中，你可以管理网关本身：
+
+### 轮换 Auth Key
+
+点击**轮换 Auth Key** 来重新生成网关 sidecar 使用的 Tailscale 认证密钥。如果你怀疑密钥已泄露，请使用此功能。
+
+### 停用网关
+
+点击**停用网关**来完全移除网关。系统会要求你输入网关服务器的名称来确认。这会移除反向代理、Tailscale sidecar 和所有已绑定的路由。
+
+<Callout type="warning">
+  停用网关会使**所有**通过它绑定的域名立即无法访问。请在停用前确保已迁移你的域名。
+</Callout>
+
+## 限制
+
+- **每个工作区一个网关** — 每个工作区（个人或团队）一次只能有一个网关。
+- **不支持所有权转移** — Wonder Mesh 服务器和项目无法转移给其他用户或团队。若要将设备移至不同账号，请卸载 Wonder Mesh 后在目标账号重新安装。
+- **仅支持 IPv4** — 网关路由目前仅支持 IPv4 流量。

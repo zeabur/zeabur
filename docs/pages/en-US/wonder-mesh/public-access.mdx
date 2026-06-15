@@ -1,0 +1,105 @@
+---
+title: Public Access via Gateway
+ogImageTitle: Public Access via Gateway
+ogImageSubtitle: Expose Wonder Mesh services to the internet with a gateway server
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Public Access via Gateway
+
+Wonder Mesh servers sit behind NAT, so they don't have a public IP that can receive inbound traffic directly. **Gateway** solves this by placing a reverse-proxy on a dedicated server that _does_ have a public IP, and routing internet traffic through the mesh network to your Wonder Mesh services.
+
+<Callout type="info">
+  Gateway requires a dedicated server (non–Wonder Mesh) with K3s installed. If you don't have one, you can [purchase one through Zeabur](https://zeabur.com/servers/buy).
+</Callout>
+
+## How It Works
+
+1. You designate a dedicated server as the **gateway**.
+2. Zeabur deploys a reverse-proxy (Caddy) and a Tailscale sidecar on that server.
+3. When you bind a domain to a Wonder Mesh service, the gateway receives incoming HTTPS traffic and forwards it through the mesh tunnel to the target device and port.
+
+The gateway and your Wonder Mesh devices are connected via the same WireGuard mesh network, so traffic stays encrypted end-to-end.
+
+## Setting Up the Gateway
+
+<Steps>
+
+### Open the Gateway Tab
+
+Navigate to any server page in the Zeabur Dashboard. If the server is a Wonder Mesh server, open the **Gateway** tab.
+
+<Callout type="warning">
+  The gateway itself must run on a **dedicated server** (not a Wonder Mesh server). The Gateway tab on a Wonder Mesh server lets you manage the gateway, but the actual gateway workload runs on the dedicated server you select.
+</Callout>
+
+### Select a Server
+
+Choose a dedicated server from the dropdown. Only servers with K3s installed are eligible. If you don't have one, click **Add a Server** to purchase one through Zeabur.
+
+### Enable the Gateway
+
+Click **Enable Gateway**. Zeabur will deploy the gateway services (reverse-proxy + Tailscale sidecar) on the selected server. This usually takes about a minute.
+
+Once the gateway is ready, you will see a green status indicator and the server name.
+
+</Steps>
+
+## Binding Domains
+
+After the gateway is set up, you can bind domains to your Wonder Mesh services.
+
+<Steps>
+
+### Open the Networking Tab
+
+Go to the service page of a Wonder Mesh service, then open the **Networking** tab.
+
+### Generate or Add a Custom Domain
+
+- **Generate Domain** — Creates a domain with the `.zeabur.app` suffix. Each service can have one generated domain.
+- **Custom Domain** — Use your own domain name. You will need to configure a CNAME record pointing to the hostname provided by Zeabur.
+
+Select the target port and confirm. The domain will begin provisioning — you will see a spinning icon with a tooltip showing "It will take 90–120 seconds."
+
+### Wait for Provisioning
+
+Once the domain is provisioned, the status icon turns green and the domain is live. Click the domain or the external-link icon to open it in a new tab.
+
+</Steps>
+
+<Callout type="info">
+  For custom domains, configure a **CNAME** record at your DNS provider pointing to the hostname shown in the dashboard. For root domain setup, refer to [Root Domain DNS Settings](/deploy/networking/public-networking#root-domain-dns-settings).
+</Callout>
+
+## Managing Routes
+
+Each bound domain appears as a route card in the service's Networking tab. You can:
+
+- **Open** — Click the external-link icon to visit the domain.
+- **Remove** — Click the trash icon and confirm to detach the domain from the gateway.
+
+Routes are also visible in the **Gateway** tab on the server page, filtered to the current server's mesh node.
+
+## Gateway Management
+
+From the Gateway tab on a Wonder Mesh server page, you can manage the gateway itself:
+
+### Rotate Auth Key
+
+Click **Rotate Auth Key** to regenerate the Tailscale authentication key used by the gateway's sidecar. Use this if you suspect the key has been compromised.
+
+### Disable Gateway
+
+Click **Disable Gateway** to remove the gateway entirely. You will be asked to confirm by typing the gateway server's name. This removes the reverse-proxy, the Tailscale sidecar, and all bound routes.
+
+<Callout type="warning">
+  Disabling the gateway will make **all** domains bound through it inaccessible immediately. Make sure to migrate your domains before disabling.
+</Callout>
+
+## Limitations
+
+- **One gateway per workspace** — Each workspace (personal or team) can have one gateway at a time.
+- **Ownership transfer not supported** — Wonder Mesh servers and projects cannot be transferred to another user or team. To move a device to a different account, uninstall Wonder Mesh and reinstall on the target account.
+- **IPv4 only** — Gateway routes currently support IPv4 traffic only.

@@ -58,9 +58,10 @@ Just an internet connection. No public IP, no port forwarding, and no firewall c
 
 ### How do I access services deployed on my device?
 
-You have two options:
+You have three options:
 
-- **From the internet**: Bind a domain to your service just like any other Zeabur server. See [Public Networking](/networking/public) for details on domain binding and port forwarding.
+- **From the internet via Gateway**: Set up a [Gateway](/wonder-mesh/public-access) to expose your Wonder Mesh services through a dedicated server with a public IP. This lets you bind domains and receive HTTPS traffic from anywhere.
+- **From the internet via port forwarding**: If your network supports it, bind a domain to your service just like any other Zeabur server. See [Public Networking](/deploy/networking/public-networking) for details.
 - **From your local network**: Open the **Networking** tab on the service page to find the LAN access address. See the [Get Started guide](/wonder-mesh/get-started#accessing-services) for details on finding your device's LAN IP.
 
-Services in the same project can also communicate with each other using internal hostnames. See [Private Networking](/networking/private) for details.
+Services in the same project can also communicate with each other using internal hostnames. See [Private Networking](/deploy/networking/private-networking) for details.

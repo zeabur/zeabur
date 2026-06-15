@@ -58,9 +58,10 @@ Solo una conexión a Internet. No se necesita una IP pública, ni reenvío de pu
 
 ### ¿Cómo accedo a los servicios desplegados en mi dispositivo?
 
-Tienes dos opciones:
+Tienes tres opciones:
 
-- **Desde Internet**: Vincula un dominio a tu servicio igual que con cualquier otro servidor de Zeabur. Consulta [Red pública](/deploy/networking/public-networking) para más detalles sobre la vinculación de dominios y el reenvío de puertos.
+- **Desde Internet (vía Gateway)**: Configura un [Gateway](/wonder-mesh/public-access) para exponer tus servicios Wonder Mesh a través de un servidor dedicado con IP pública. Esto te permite vincular dominios y recibir tráfico HTTPS desde cualquier lugar.
+- **Desde Internet (vía reenvío de puertos)**: Si tu red lo soporta, vincula un dominio a tu servicio igual que con cualquier otro servidor de Zeabur. Consulta [Red pública](/deploy/networking/public-networking) para más detalles.
 - **Desde tu red local**: Abre la pestaña **Redes** en la página del servicio para encontrar la dirección de acceso LAN. Consulta la [guía de inicio](/wonder-mesh/get-started#accessing-services) para más detalles sobre cómo encontrar la IP LAN de tu dispositivo.
 
 Los servicios en el mismo proyecto también pueden comunicarse entre sí mediante nombres de host internos. Consulta [Red privada](/deploy/networking/private-networking) para más detalles.

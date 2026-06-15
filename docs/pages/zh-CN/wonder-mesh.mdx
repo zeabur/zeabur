@@ -58,9 +58,10 @@ Wonder Mesh 使用 [WireGuard](https://www.wireguard.com/) 在你的设备和 Ze
 
 ### 如何访问部署在我设备上的服务？
 
-你有两种选择：
+你有三种选择：
 
-- **从互联网访问**：像其他 Zeabur 服务器一样为你的服务绑定域名。有关域名绑定和端口转发的详情，请参阅[公网存取](/deploy/networking/public-networking)。
+- **从互联网（通过网关）**：设置[网关](/wonder-mesh/public-access)，通过拥有公网 IP 的专属服务器来暴露你的 Wonder Mesh 服务。这让你可以绑定域名，从任何地方接收 HTTPS 流量。
+- **从互联网（通过端口转发）**：如果你的网络支持，可以像其他 Zeabur 服务器一样为你的服务绑定域名。详情请参阅[公网存取](/deploy/networking/public-networking)。
 - **从局域网访问**：在服务页面打开 **网络** 标签页，找到局域网访问地址。有关查找设备局域网 IP 的详情，请参阅[快速开始指南](/wonder-mesh/get-started#accessing-services)。
 
 同一项目中的服务也可以使用内部主机名相互通信。详情请参阅[服务内网](/deploy/networking/private-networking)。
