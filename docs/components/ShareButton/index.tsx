@@ -16,10 +16,13 @@ const DEFAULT_DISCOUNT = 5
 const POSTHOG_KEY = 'phc_TcgrjtKUGtTltFwWGj2Xhmuyv5ZHtrufIE8wgkLsruD'
 const POSTHOG_HOST = 'https://us.i.posthog.com'
 
+// Matches ShareButtonEventProperties in zeabur.com/src/utils/posthog.ts.
+// Single event + `surface` discriminator (navbar_menu_item_clicked precedent);
+// see the sibling PR description for the design audit.
 function captureShareButtonClicked(props: {
   user_id: string
   username?: string
-  page_path: string
+  source_url: string
   locale: string
   share_method: 'native_share' | 'clipboard'
 }) {
@@ -37,7 +40,7 @@ function captureShareButtonClicked(props: {
         username: props.username,
         is_logged_in: true,
         surface: 'docs',
-        page_path: props.page_path,
+        source_url: props.source_url,
         locale: props.locale,
         share_method: props.share_method,
         has_referral_code: true,
@@ -105,7 +108,7 @@ export default function ShareButton() {
     captureShareButtonClicked({
       user_id: user._id,
       username: user.username,
-      page_path: pagePath,
+      source_url: shareUrl.split(/[?#]/)[0],
       locale,
       share_method: willUseNativeShare ? 'native_share' : 'clipboard',
     })
