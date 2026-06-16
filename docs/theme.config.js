@@ -8,6 +8,8 @@ import WorkingInProgress from './components/WorkingInProgress'
 import CreateProject from './components/CreateProject'
 import LastUpdated from './components/LastUpdated'
 import FeedbackWidget from './components/FeedbackWidget'
+import ShareButton from './components/ShareButton'
+import ScrollToTopButton from './components/ScrollToTopButton'
 import LogoBlack from './public/logo_b.svg'
 import LogoWhite from './public/logo_w.svg'
 import IconBlack from './public/icon_b.svg'
@@ -54,12 +56,20 @@ const config = {
   main: ({ children }) => {
     // Nextra renders an empty `<div class="_mt-16" />` as a placeholder where
     // the gitTimestamp would go (between MDX content and prev/next pagination).
-    // Replace that slot with our <LastUpdated /> so the timestamp lands above
-    // the pagination instead of after it.
+    // Replace that slot with a row containing <LastUpdated /> (left) and
+    // <ShareButton variant="inline" /> (right, mobile-only) so they share a
+    // single line on small viewports.
     const kids = React.Children.toArray(children?.props?.children ?? children)
     const enhanced = kids.map((child) =>
       React.isValidElement(child) && child.props?.className === '_mt-16'
-        ? <LastUpdated key="last-updated" />
+        ? (
+            <div key="last-updated-share-row" className="last-updated-share-row">
+              {/* No `variant="inline"` here — main-slot share is visible on all
+                * viewports (desktop + mobile), unlike the TOC-sidebar one. */}
+              <ShareButton />
+              <LastUpdated />
+            </div>
+          )
         : child,
     )
     return (
@@ -74,11 +84,19 @@ const config = {
       const { locale } = useRouter()
       return t.tocTitle[locale] || 'On This Page'
     },
-    backToTop: () => {
-      const { locale } = useRouter()
-      return t.backToTop[locale] || 'Scroll to top'
-    },
-    extraContent: () => <FeedbackWidget variant="toc" />,
+    // Nextra's built-in backToTop renders "Scroll to top" + chevron in its own
+    // row; we render an icon-only scroll button inside extraContent instead, so
+    // it sits on the same row as ShareButton. Disable the built-in to avoid dupes.
+    backToTop: false,
+    extraContent: () => (
+      <>
+        <FeedbackWidget variant="toc" />
+        <div className="share-row">
+          <ShareButton variant="toc" />
+          <ScrollToTopButton />
+        </div>
+      </>
+    ),
   },
   editLink: {
     content: () => {
