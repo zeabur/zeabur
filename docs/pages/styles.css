@@ -767,9 +767,13 @@ html.dark .feedback-close:hover {
 	transition: color 0.15s ease;
 }
 
-.share-button:hover,
-.share-button-copied {
+.share-button:hover {
 	color: var(--zb-text);
+}
+
+.share-button-copied,
+.share-button-copied:hover {
+	color: var(--zb-purple);
 }
 
 /* visibility split mirrors .feedback-mobile-only: inline variant visible below xl, hidden at xl+.
