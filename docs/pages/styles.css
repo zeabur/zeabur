@@ -761,22 +761,15 @@ html.dark .feedback-close:hover {
 	border: none;
 	background: transparent;
 	color: var(--zb-text-muted);
-	font-size: 0.8125rem;
+	font-size: var(--zb-fs-small);
 	font-family: inherit;
 	cursor: pointer;
 	transition: color 0.15s ease;
 }
 
-.share-button:hover {
-	color: var(--zb-text);
-}
-
+.share-button:hover,
 .share-button-copied {
-	color: #059669;
-}
-
-html.dark .share-button-copied {
-	color: #34d399;
+	color: var(--zb-text);
 }
 
 /* visibility split mirrors .feedback-mobile-only: inline variant visible below xl, hidden at xl+.

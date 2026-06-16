@@ -106,7 +106,9 @@ export default function ShareButton({
 
   const handleShare = async () => {
     const pagePath = (router.asPath || '/').split(/[?#]/)[0]
-    const shareUrl = `https://zeabur.com${pagePath}?referralCode=${user.referralCode}`
+    const shareUrlObj = new URL(`https://zeabur.com${pagePath}`)
+    shareUrlObj.searchParams.set('referralCode', user.referralCode!)
+    const shareUrl = shareUrlObj.toString()
     const text = tmpl
       .replace('{{url}}', shareUrl)
       .replace('{{code}}', user.referralCode!)
@@ -153,7 +155,8 @@ export default function ShareButton({
       type="button"
       className={`share-button ${visibilityClass} ${copied ? 'share-button-copied' : ''}`}
       onClick={handleShare}
-      aria-label={shareLabel}
+      aria-label={copied ? copiedLabel : shareLabel}
+      aria-live="polite"
     >
       {copied ? (
         <>
@@ -181,7 +184,7 @@ function ShareIcon() {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      aria-hidden
+      aria-hidden="true"
     >
       <circle cx="18" cy="5" r="3" />
       <circle cx="6" cy="12" r="3" />
@@ -199,7 +202,7 @@ function CheckIcon() {
       height="14"
       viewBox="0 0 20 20"
       fill="none"
-      aria-hidden
+      aria-hidden="true"
     >
       <path
         d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.7-10.3a.75.75 0 00-1.06-1.06L9 10.29 7.36 8.64a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.06 0l4.09-4.25z"

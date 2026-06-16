@@ -30,7 +30,7 @@ function ChevronUpIcon() {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      aria-hidden
+      aria-hidden="true"
     >
       <polyline points="18 15 12 9 6 15" />
     </svg>
