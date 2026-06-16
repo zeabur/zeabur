@@ -81,7 +81,18 @@ const COPIED_LABEL: Record<string, string> = {
   'es-ES': 'Copiado',
 }
 
-export default function ShareButton() {
+/**
+ * variant:
+ *   - "toc": compact, rendered in the TOC sidebar (desktop only, hidden below xl)
+ *   - "inline": rendered below main content (mobile only, hidden at xl+)
+ * Mirrors FeedbackWidget's responsive split so the share button always sits
+ * directly below the feedback widget on every viewport.
+ */
+export default function ShareButton({
+  variant = 'toc',
+}: {
+  variant?: 'toc' | 'inline'
+}) {
   const router = useRouter()
   const locale = router.locale || 'en-US'
   const { user, loading } = useZeaburAuth()
@@ -134,10 +145,13 @@ export default function ShareButton() {
     }
   }
 
+  const visibilityClass =
+    variant === 'inline' ? 'share-button-mobile-only' : ''
+
   return (
     <button
       type="button"
-      className={`share-button ${copied ? 'share-button-copied' : ''}`}
+      className={`share-button ${visibilityClass} ${copied ? 'share-button-copied' : ''}`}
       onClick={handleShare}
       aria-label={shareLabel}
     >

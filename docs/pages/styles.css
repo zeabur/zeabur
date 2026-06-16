@@ -751,43 +751,75 @@ html.dark .feedback-close:hover {
 }
 
 /* ── ShareButton (MKT-2511 v0.1) ────────────────────────────────── */
+/* ghost link style — no border/background, mirrors the zeabur.com blog top share */
 .share-button {
-	margin-top: 1.5rem;
+	margin-top: 1rem;
 	display: inline-flex;
 	align-items: center;
-	gap: 0.5rem;
-	padding: 0.5rem 0.875rem;
-	border: 1px solid rgba(128, 128, 128, 0.2);
-	border-radius: 8px;
+	gap: 0.375rem;
+	padding: 0.25rem 0;
+	border: none;
 	background: transparent;
-	color: var(--zb-text-2);
-	font-size: 0.875rem;
+	color: var(--zb-text-muted);
+	font-size: 0.8125rem;
 	font-family: inherit;
 	cursor: pointer;
-	transition: border-color 0.15s ease, background-color 0.15s ease,
-		color 0.15s ease;
+	transition: color 0.15s ease;
 }
 
 .share-button:hover {
-	border-color: rgba(128, 128, 128, 0.4);
-	background: rgba(128, 128, 128, 0.04);
-}
-
-html.dark .share-button {
-	border-color: rgba(255, 255, 255, 0.1);
-}
-
-html.dark .share-button:hover {
-	border-color: rgba(255, 255, 255, 0.25);
-	background: rgba(255, 255, 255, 0.04);
+	color: var(--zb-text);
 }
 
 .share-button-copied {
 	color: #059669;
-	border-color: rgba(5, 150, 105, 0.3);
 }
 
 html.dark .share-button-copied {
 	color: #34d399;
-	border-color: rgba(52, 211, 153, 0.3);
+}
+
+/* visibility split mirrors .feedback-mobile-only: inline variant visible below xl, hidden at xl+.
+ * Declared AFTER base .share-button so the media query reliably overrides display. */
+@media (min-width: 1280px) {
+	.share-button-mobile-only {
+		display: none;
+	}
+}
+
+/* Share + Scroll-to-top inline row in the TOC sidebar (replaces Nextra's standalone backToTop).
+ * width:100% so flex can stretch across the sidebar; last child (ScrollToTopButton)
+ * pinned right via margin-left:auto so it stays right-aligned even when ShareButton is hidden. */
+.share-row {
+	margin-top: 1rem;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	gap: 0.75rem;
+}
+
+.share-row .share-button {
+	margin-top: 0;
+}
+
+.share-row > :last-child {
+	margin-left: auto;
+}
+
+/* Main-slot row: ShareButton (left, mobile-only) + LastUpdated (right).
+ * Desktop: ShareButton hidden — last item (LastUpdated) absorbs the auto-margin, sitting at the right.
+ * Mobile: ShareButton visible at left, LastUpdated at right. */
+.last-updated-share-row {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	gap: 0.75rem;
+}
+
+.last-updated-share-row .share-button {
+	margin-top: 0;
+}
+
+.last-updated-share-row > :last-child {
+	margin-left: auto;
 }
