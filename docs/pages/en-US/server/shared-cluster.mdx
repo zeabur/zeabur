@@ -30,17 +30,57 @@ The shared cluster was Zeabur's early server offering. In this model, multiple u
 
 As the server offering matured, Zeabur consolidated the shared cluster into the server architecture to provide better resource isolation and performance guarantees.
 
-## Migrating from Shared Cluster to Server
+## Do you have to migrate?
 
-If your services are still running on a shared cluster, follow these steps to migrate:
+**Existing services on shared clusters keep running.** Deprecation currently means no *new* services can be added — it does not shut down what's already deployed, and there is no announced shutdown date for existing services.
+
+Zeabur proactively contacts project owners and asks them to migrate only in specific situations:
+
+- The project's resource usage is persistently high and affects other users on the shared cluster
+- The project triggered abuse detection (e.g. crawlers, mining)
+- The workload needs capabilities shared clusters can't provide (dedicated outbound IP, high bandwidth, custom networking)
+
+If you haven't been contacted, migration is **optional** — but moving to a [dedicated server](/server) still has real benefits: no platform-level rate limits, fully independent performance, and no shared-tenancy constraints.
+
+## Migrating with Clone Project (recommended)
+
+The easiest migration path is the built-in **Clone Project** feature, which copies the whole project — services, environment variables, and configuration — to a region you choose:
 
 1. **Provision a server** — Purchase or [register your own server](/server/register) on the [Zeabur Servers page](https://zeabur.com/servers).
-2. **Back up your data** — Use the [Backup & Restore](/operations/data/backup-restore) feature to create backups of all stateful services (databases, persistent storage).
-3. **Export your project** — Use the [Export Project](/deploy/manage/export-project) feature to export your project's YAML configuration.
-4. **Redeploy on the server** — Create a new project in the server's region, import the configuration, and redeploy your services.
-5. **Restore data** — Restore the backups from step 2 into the new services.
-6. **Switch DNS** — Point your custom domain's DNS records to the new service's domain.
-7. **Verify and clean up** — Once the new environment is running correctly, remove the old services from the shared cluster.
+2. In the old project, go to **Settings → General → Clone Project**.
+3. Pick your server's region as the **Target Region**.
+4. Choose the clone options — you can keep the old project running during the clone, and preserve service groups and ordering.
+5. Confirm and wait for the clone to finish, then check that every service in the new project starts and works correctly.
+6. **Switch DNS / domains** — Re-bind your custom domains to the new services and update DNS records.
+7. **Delete the old project** once traffic is fully served by the new one.
+
+![Clone Project dialog](/server/clone-project-dialog.webp)
+
+<Callout type="warning">
+Cloning may involve downtime from a few minutes up to tens of minutes depending on data size, unless you enable the option to keep the old project running during the clone. Volume data and other stateful storage should be verified after cloning — take a [backup](/operations/data/backup-restore) of databases first.
+</Callout>
+
+## Manual migration (alternative)
+
+If you prefer to rebuild instead of cloning:
+
+1. **Back up your data** — Use the [Backup & Restore](/operations/data/backup-restore) feature to create backups of all stateful services (databases, persistent storage).
+2. **Export your project** — Use the [Export Project](/deploy/manage/export-project) feature to export your project's YAML configuration.
+3. **Redeploy on the server** — Create a new project in the server's region, import the configuration, and redeploy your services.
+4. **Restore data** — Restore the backups from step 1 into the new services.
+5. **Switch DNS** — Point your custom domain's DNS records to the new service's domain.
+6. **Verify and clean up** — Once the new environment is running correctly, remove the old services from the shared cluster.
+
+## FAQ
+
+**Do I have to migrate by a certain date?**
+No general deadline has been announced for existing services. You only must act if Zeabur contacts you about your specific project. New services, however, can no longer be created on shared clusters since April 1, 2026.
+
+**Will my existing project stop working?**
+No. Existing services continue to run as before. Deprecation blocks adding new services, it does not stop running ones.
+
+**Does cloning move my volume data?**
+Database content and volume data need verification after cloning — always create a [backup](/operations/data/backup-restore) before migrating, and restore manually if anything is missing.
 
 <Callout type="info">
 If you encounter any issues during migration, please reach out on our [community forum](https://zeabur.com/forum).

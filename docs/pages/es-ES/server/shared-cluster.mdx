@@ -30,18 +30,58 @@ El clúster compartido fue la oferta inicial de servidores de Zeabur. En este mo
 
 A medida que la oferta de servidores maduró, Zeabur consolidó el clúster compartido en la arquitectura de servidores para proporcionar mejor aislamiento de recursos y garantías de rendimiento.
 
-## Migración del Clúster Compartido al Servidor
+## ¿Es obligatorio migrar?
 
-Si sus servicios aún se ejecutan en un clúster compartido, siga estos pasos para migrar:
+**Los servicios existentes en clústeres compartidos siguen funcionando.** Actualmente, la descontinuación significa que no se pueden añadir servicios *nuevos* — no apaga lo que ya está desplegado, y no hay una fecha de cierre anunciada para los servicios existentes.
 
-1. **Aprovisionar un servidor** — Compre o [registre su propio servidor](/server/register) en la [página de Servidores de Zeabur](https://zeabur.com/servers).
-2. **Hacer copia de seguridad de sus datos** — Utilice la función de [Copia de seguridad y Restauración](/operations/data/backup-restore) para crear copias de seguridad de todos los servicios con estado (bases de datos, almacenamiento persistente).
-3. **Exportar su proyecto** — Utilice la función de [Exportar Proyecto](/deploy/manage/export-project) para exportar la configuración YAML de su proyecto.
-4. **Redesplegar en el servidor** — Cree un nuevo proyecto en la región del servidor, importe la configuración y redespliegue sus servicios.
-5. **Restaurar datos** — Restaure las copias de seguridad del paso 2 en los nuevos servicios.
-6. **Cambiar DNS** — Apunte los registros DNS de su dominio personalizado al dominio del nuevo servicio.
-7. **Verificar y limpiar** — Una vez que el nuevo entorno esté funcionando correctamente, elimine los servicios antiguos del clúster compartido.
+Zeabur solo contacta proactivamente a los propietarios de proyectos para pedirles que migren en situaciones específicas:
+
+- El uso de recursos del proyecto es persistentemente alto y afecta a otros usuarios del clúster compartido
+- El proyecto activó la detección de abuso (p. ej., crawlers, minería)
+- La carga de trabajo necesita capacidades que los clústeres compartidos no pueden ofrecer (IP saliente dedicada, gran ancho de banda, redes personalizadas)
+
+Si no te han contactado, la migración es **opcional** — aunque pasar a un [servidor dedicado](/server) tiene beneficios reales: sin límites de tasa a nivel de plataforma, rendimiento totalmente independiente y sin las restricciones de la multitenencia.
+
+## Migrar con Clone Project (recomendado)
+
+La vía de migración más sencilla es la función integrada **Clone Project**, que copia el proyecto completo — servicios, variables de entorno y configuración — a la región que elijas:
+
+1. **Aprovisiona un servidor** — Compra o [registra tu propio servidor](/server/register) en la [página de Servidores de Zeabur](https://zeabur.com/servers).
+2. En el proyecto antiguo, ve a **Settings → General → Clone Project**.
+3. Elige la región de tu servidor como **Target Region**.
+4. Configura las opciones de clonado — puedes mantener el proyecto antiguo en marcha durante el clonado y conservar los grupos de servicios y su orden.
+5. Confirma, espera a que termine el clonado y comprueba que cada servicio del nuevo proyecto arranca y funciona correctamente.
+6. **Cambia DNS / dominios** — Vuelve a vincular tus dominios personalizados a los nuevos servicios y actualiza los registros DNS.
+7. **Elimina el proyecto antiguo** cuando el tráfico esté totalmente servido por el nuevo.
+
+![Diálogo de Clone Project](/server/clone-project-dialog.webp)
+
+<Callout type="warning">
+El clonado puede implicar una indisponibilidad de entre unos minutos y decenas de minutos según el tamaño de los datos, salvo que actives la opción de mantener el proyecto antiguo en marcha durante el clonado. Los datos de volúmenes y otro almacenamiento con estado deben verificarse tras el clonado — haz primero una [copia de seguridad](/operations/data/backup-restore) de las bases de datos.
+</Callout>
+
+## Migración manual (alternativa)
+
+Si prefieres reconstruir en lugar de clonar:
+
+1. **Haz copia de seguridad de tus datos** — Utiliza la función de [Copia de seguridad y Restauración](/operations/data/backup-restore) para crear copias de seguridad de todos los servicios con estado (bases de datos, almacenamiento persistente).
+2. **Exporta tu proyecto** — Utiliza la función de [Exportar Proyecto](/deploy/manage/export-project) para exportar la configuración YAML de tu proyecto.
+3. **Redespliega en el servidor** — Crea un nuevo proyecto en la región del servidor, importa la configuración y redespliega tus servicios.
+4. **Restaura los datos** — Restaura las copias de seguridad del paso 1 en los nuevos servicios.
+5. **Cambia DNS** — Apunta los registros DNS de tu dominio personalizado al dominio del nuevo servicio.
+6. **Verifica y limpia** — Una vez que el nuevo entorno funcione correctamente, elimina los servicios antiguos del clúster compartido.
+
+## Preguntas frecuentes
+
+**¿Tengo que migrar antes de una fecha concreta?**
+No se ha anunciado una fecha límite general para los servicios existentes. Solo debes actuar si Zeabur te contacta por tu proyecto en concreto. Eso sí, desde el 1 de abril de 2026 ya no se pueden crear servicios nuevos en clústeres compartidos.
+
+**¿Dejará de funcionar mi proyecto existente?**
+No. Los servicios existentes siguen funcionando como hasta ahora. La descontinuación bloquea añadir servicios nuevos, no detiene los que están en marcha.
+
+**¿El clonado mueve los datos de mis volúmenes?**
+El contenido de las bases de datos y los datos de volúmenes deben verificarse tras el clonado — crea siempre una [copia de seguridad](/operations/data/backup-restore) antes de migrar y restaura manualmente si falta algo.
 
 <Callout type="info">
-Si encuentra algún problema durante la migración, comuníquese con nosotros en nuestro [foro de la comunidad](https://zeabur.com/forum).
+Si encuentras algún problema durante la migración, escríbenos en nuestro [foro de la comunidad](https://zeabur.com/forum).
 </Callout>
