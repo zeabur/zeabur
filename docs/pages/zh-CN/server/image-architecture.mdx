@@ -1,0 +1,73 @@
+---
+title: 镜像架构（ARM / amd64）
+ogImageTitle: 镜像架构（ARM / amd64）
+ogImageSubtitle: 解决 CPU 架构不匹配导致的「exec format error」
+---
+
+import { Callout } from 'nextra/components'
+
+# 镜像架构（ARM / amd64）
+
+如果专属服务器上的服务一启动就退出，并出现类似以下错误：
+
+```
+exec /usr/local/bin/docker-entrypoint.sh: exec format error
+```
+
+或日志显示某个文件「not a valid executable」，说明 Docker 镜像的 CPU 架构与服务器的 CPU 架构不匹配。本页说明如何诊断架构不匹配，以及如何部署能在你的服务器上运行的镜像。
+
+## 错误的含义
+
+`exec format error` 表示操作系统尝试运行为另一种 CPU 架构编译的可执行文件。错误信息显示的是最先被执行的文件——通常是 `docker-entrypoint.sh`——因此任何预构建镜像（PostgreSQL、Redis、你自己的应用镜像等）都可能出现这个错误，并非特定服务的问题。
+
+常见情况：
+
+- 在 ARM（`linux/arm64`）专属服务器上部署了仅支持 `linux/amd64` 的镜像。这是最常见的情况，因为大多数预构建镜像与**所有 Zeabur 构建的镜像**都是 amd64 架构。
+- 在 amd64 服务器上部署了 `linux/arm64` 镜像——例如在 Apple Silicon Mac 上本地构建的镜像。这种情况通常会出现「no match for platform in manifest」错误，详见[部署 Docker 镜像](/deploy/custom-docker-image)中的说明。
+
+## 确认服务器的架构
+
+SSH 进入服务器后运行：
+
+```bash
+uname -m
+```
+
+| 输出 | 架构 |
+| --- | --- |
+| `x86_64` | amd64 |
+| `aarch64` | arm64（ARM） |
+
+## 确认镜像的架构
+
+```bash
+docker manifest inspect <image>
+```
+
+如果 manifest 列出多个平台（多架构镜像），服务器会自动拉取匹配的版本，不会有问题。如果只列出单一平台，该平台必须与服务器架构一致。
+
+## Zeabur 构建仅支持 amd64
+
+<Callout type="warning">
+Zeabur 的构建系统只会产出 `linux/amd64` 镜像，且构建配置没有指定其他目标平台的选项。因此从 Git 部署的服务无法直接在 ARM 专属服务器上运行。
+</Callout>
+
+## 解决方法：为服务器的架构自行构建
+
+自行为服务器的架构构建镜像，推送到 registry 后以预构建镜像方式部署：
+
+```bash
+docker buildx build --platform linux/arm64 -t <registry>/<image>:<tag> --push .
+```
+
+如果希望同一个 tag 在两种架构上都能运行，可构建多架构镜像：
+
+```bash
+docker buildx build --platform linux/amd64,linux/arm64 -t <registry>/<image>:<tag> --push .
+```
+
+然后按照[部署 Docker 镜像](/deploy/custom-docker-image)的步骤部署推送好的镜像。
+
+<Callout type="info">
+在 ARM 服务器上选用预构建镜像（包括模板市场的服务）时，建议优先选择提供多架构 manifest 的镜像。可以用 `docker manifest inspect` 或在镜像的 registry 页面上确认。
+</Callout>
