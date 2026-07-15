@@ -32,6 +32,32 @@ GitHub を使用したコードのデプロイにより、サービスに CI/CD 
 
 ![リポジトリの選択](/deploy/github/select-repo.webp)
 
+## リポジトリが見つからない場合
+
+Zeabur GitHub App をインストールしたのに、一部（またはすべて）のリポジトリが Zeabur のリポジトリ検索に表示されない場合は、次の 2 つの設定を確認してください — ほとんどのケースはこれでカバーされます。
+
+### 1. Zeabur アカウントが GitHub と連携されているか確認する
+
+GitHub App のインストールと GitHub アカウントの連携は**別のもの**です。App は Zeabur にリポジトリへのアクセス権を与え、アカウント連携は GitHub 上での*あなたが誰か*を Zeabur に伝えます。Zeabur は連携された GitHub ID から所属組織（およびどのインストールがあなたのものか）を判断するため、連携がないと App がインストール済みでもリポジトリは表示されません。
+
+[Console > Settings](https://dash.zeabur.com/account/general) を開いて一番下までスクロールし、GitHub が連携済みか確認してください。未連携の場合は連携してから再度検索してください。
+
+### 2. 組織における App のリポジトリアクセス範囲を確認する
+
+Zeabur App が「**Only select repositories**」でインストールされている場合、リスト外のリポジトリは表示されません。組織のアクセス範囲を変更するには：
+
+1. GitHub で**組織の Settings** を開く（個人アカウントの場合は自分の Settings）
+2. **Third-party Access → GitHub Apps** を開く（個人アカウントは **Applications → Installed GitHub Apps**）
+3. **Zeabur** を見つけて **Configure** をクリック
+4. **Repository access** で「**All repositories**」に切り替えるか、「Only select repositories」のまま不足しているリポジトリをリストに追加
+5. 保存すると、それらのリポジトリはすぐに Zeabur で検索可能になります
+
+<Callout type="info">
+組織の App 設定の変更には組織の **Owner** 権限が必要です。Member の場合は、Owner にリポジトリアクセスの調整を依頼するか、GitHub の承認リクエストを送信してください。
+</Callout>
+
+両方の設定が正しいのに、最近参加した組織のリポジトリがまだ表示されない場合は、App 設定をもう一度保存し直して（手順 4）メンバーシップ同期をリフレッシュするか、[コミュニティフォーラム](https://zeabur.com/forum)からサポートにお問い合わせください。
+
 ## GitHub Apps の削除
 
 Zeabur GitHub App を完全に削除する必要がある場合は、GitHub の Settings > Intergrations > Applications > Installed GitHub Apps で「Zeabur」を見つけ、「Configure」をクリックした後、ポップアップページの「Danger zone」で「Uninstall」をクリックします。
