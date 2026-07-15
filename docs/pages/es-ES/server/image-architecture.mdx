@@ -1,0 +1,73 @@
+---
+title: Arquitectura de Imagen (ARM / amd64)
+ogImageTitle: Arquitectura de Imagen (ARM / amd64)
+ogImageSubtitle: Soluciona el "exec format error" causado por una arquitectura de CPU incompatible
+---
+
+import { Callout } from 'nextra/components'
+
+# Arquitectura de Imagen (ARM / amd64)
+
+Si un servicio en tu servidor dedicado se cierra inmediatamente con un error como:
+
+```
+exec /usr/local/bin/docker-entrypoint.sh: exec format error
+```
+
+o el log indica que un archivo "not a valid executable", la arquitectura de CPU de la imagen Docker no coincide con la arquitectura de CPU de tu servidor. Esta página explica cómo diagnosticar la incompatibilidad y cómo desplegar imágenes que funcionen en tu servidor.
+
+## Qué significa el error
+
+`exec format error` significa que el sistema operativo intentó ejecutar un binario compilado para otra arquitectura de CPU. El mensaje de error muestra el archivo que se ejecuta primero — normalmente `docker-entrypoint.sh` — por lo que puede aparecer con cualquier imagen preconstruida (PostgreSQL, Redis, tu propia imagen de aplicación, etc.). No es un problema específico de un servicio.
+
+Casos típicos:
+
+- Una imagen solo `linux/amd64` desplegada en un servidor dedicado ARM (`linux/arm64`). Es el caso más común, porque la mayoría de las imágenes preconstruidas y **todas las imágenes construidas por Zeabur** son para amd64.
+- Una imagen `linux/arm64` — por ejemplo construida localmente en un Mac con Apple Silicon — desplegada en un servidor amd64. Esto suele fallar con "no match for platform in manifest"; consulta la nota en [Desplegar una Imagen Docker Personalizada](/deploy/custom-docker-image).
+
+## Comprueba la arquitectura de tu servidor
+
+Conéctate al servidor por SSH y ejecuta:
+
+```bash
+uname -m
+```
+
+| Salida | Arquitectura |
+| --- | --- |
+| `x86_64` | amd64 |
+| `aarch64` | arm64 (ARM) |
+
+## Comprueba la arquitectura de la imagen
+
+```bash
+docker manifest inspect <image>
+```
+
+Si el manifest lista varias plataformas (imagen multiarquitectura), el servidor descarga automáticamente la versión correcta y no habrá problema. Si solo lista una plataforma, esa plataforma debe coincidir con la arquitectura de tu servidor.
+
+## Las construcciones de Zeabur son solo amd64
+
+<Callout type="warning">
+El sistema de construcción de Zeabur produce únicamente imágenes `linux/amd64`, y la configuración de build no tiene opción para elegir otra plataforma de destino. Por lo tanto, un servicio desplegado desde Git no puede ejecutarse directamente en un servidor dedicado ARM.
+</Callout>
+
+## Solución: construye para la arquitectura de tu servidor
+
+Construye la imagen tú mismo para la arquitectura del servidor, súbela a un registry y despliégala como imagen preconstruida:
+
+```bash
+docker buildx build --platform linux/arm64 -t <registry>/<image>:<tag> --push .
+```
+
+Para obtener un único tag que funcione en ambas arquitecturas, construye una imagen multiarquitectura:
+
+```bash
+docker buildx build --platform linux/amd64,linux/arm64 -t <registry>/<image>:<tag> --push .
+```
+
+Después, despliega la imagen siguiendo [Desplegar una Imagen Docker Personalizada](/deploy/custom-docker-image).
+
+<Callout type="info">
+Al elegir imágenes preconstruidas (incluidas las del Marketplace) para un servidor ARM, prefiere imágenes que publiquen manifests multiarquitectura. Puedes verificarlo con `docker manifest inspect` o en la página del registry de la imagen.
+</Callout>
