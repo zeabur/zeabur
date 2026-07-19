@@ -1,4 +1,5 @@
 export default {
+    "os": "Sistema operativo",
     "purchase": "Comprar Servidor",
     "register": "Registrar Servidor",
     "operate": "Mantener Servidor",

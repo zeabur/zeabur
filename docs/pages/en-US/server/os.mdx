@@ -1,0 +1,99 @@
+---
+title: Operating System
+ogImageTitle: Operating System
+ogImageSubtitle: Choose how your server runs — ZeaburOS or a standard distribution
+---
+
+import { Callout } from 'nextra/components'
+
+# Operating System
+
+When you [purchase a server from Zeabur](/en-US/server/purchase) or reinstall an existing one, you choose the operating system it runs. This choice decides how the machine works from day one:
+
+- **ZeaburOS** (recommended) — the machine becomes a Zeabur deployment node, ready to deploy projects out of the box.
+- **Standard distribution** — currently Ubuntu 24.04 LTS, with more operating systems and versions on the way — a clean, fully self-managed machine.
+
+## What Is ZeaburOS [#zeaburos]
+
+ZeaburOS is the operating system that turns a server into a **Zeabur deployment node**. A machine running ZeaburOS connects to the Zeabur Dashboard, where you can deploy services, view logs and metrics, and manage storage and networking — without touching the host over SSH.
+
+Under the hood, ZeaburOS runs on [K3s](https://k3s.io/) (lightweight Kubernetes), together with the Zeabur system components (deploy agent, monitoring, and more) that keep the machine connected to the platform.
+
+Compared with running a standard distribution, ZeaburOS gives you:
+
+- **Deploy out of the box** — no runtime, reverse proxy, or certificate setup; push a project and it runs.
+- **Observability built in** — real-time logs, metrics, and service status in the dashboard.
+- **Managed maintenance** — system components can be updated or repaired in one click, and Zeabur provides technical support.
+
+<Callout type="info">
+  ZeaburOS used to appear in the dashboard as "K3s". Same engine, clearer name — see [K3s is now ZeaburOS](#k3s-is-now-zeaburos) below.
+</Callout>
+
+## Standard Distributions
+
+Pick a standard distribution and you get a clean machine, exactly as the distribution ships it — like a VPS from any provider. You operate it entirely over SSH: what runs on it, how it is configured, and how it is maintained are all up to you. Zeabur provides the machine; the software on it is fully self-managed.
+
+Ubuntu 24.04 LTS is available today, and more operating systems and versions will be added over time.
+
+## How to Choose
+
+|                                          | ZeaburOS | Standard distribution |
+| :--------------------------------------- | :------- | :-------------------- |
+| Deploy and manage services from the Zeabur Dashboard | ✅       | ❌                    |
+| Logs, metrics, and monitoring built in   | ✅       | ❌                    |
+| SSH access                               | ✅       | ✅                    |
+| Full control over the OS                 | Managed by Zeabur | Fully yours  |
+| Zeabur technical support                 | ✅       | ❌ (self-managed)     |
+
+**Rule of thumb:** pick ZeaburOS if you want to deploy projects with Zeabur — that is what the machine is for. Pick a standard distribution if you want a clean machine to manage entirely yourself.
+
+You are not locked in either way: a standard-distribution machine can be [converted to ZeaburOS](#convert-to-zeaburos) later without reinstalling, and a ZeaburOS machine can be returned to a clean state by reinstalling the OS.
+
+## Switching Later
+
+### Convert an Existing Machine to ZeaburOS [#convert-to-zeaburos]
+
+A machine that is already running a standard distribution can be converted to ZeaburOS to become a deployment node. The conversion is an **in-place upgrade on the current system: no reinstall, and your data stays**.
+
+To convert, open the server's **Settings** page and use **Convert to ZeaburOS**. Once the setup completes, the machine appears as a deployment node and you can start deploying services to it.
+
+<Callout type="default">
+  Without ZeaburOS, you can still connect to the machine over SSH — conversion is only required for deploying and managing services through Zeabur.
+</Callout>
+
+### Update ZeaburOS
+
+**Update ZeaburOS** re-applies all ZeaburOS system components (deploy agent, monitoring, and more) on your server to their latest state. Your deployed services are not affected, and it is also a useful first step to repair a misbehaving server.
+
+You can trigger an update from the server's menu or its **Settings** page. The operation is usually safe, but may introduce brief downtime.
+
+### Remove ZeaburOS
+
+To remove ZeaburOS from a machine, reinstall the operating system from the **Danger Zone** on the server's settings page — the machine returns to factory state. During the reinstall you choose the OS again: pick a standard distribution to get a clean machine, or ZeaburOS to come back as a deployment node.
+
+<Callout type="warning">
+  Reinstalling the OS wipes everything on the machine, including deployed services and their data. Back up anything you need first.
+</Callout>
+
+## Support Scope
+
+Zeabur provides technical support for **ZeaburOS only**. Software you install yourself — including management panels such as 1Panel or BaoTa — falls outside the support scope.
+
+When you choose a standard distribution, the machine is fully self-managed: Zeabur provides the machine, and everything running on it is up to you.
+
+## K3s Is Now ZeaburOS [#k3s-is-now-zeaburos]
+
+Everything that used to appear as **"K3s"** in the Zeabur dashboard now shows as **ZeaburOS**. It is the same engine with a clearer name: ZeaburOS runs on K3s (lightweight Kubernetes) at its core, and nothing changed on your existing machines — the status that used to read "K3s" is the same thing under its product name.
+
+Two things are new alongside the rename:
+
+- When buying a machine or reinstalling its OS, ZeaburOS is no longer pre-installed automatically — you **choose** it (or a standard distribution) as the operating system.
+- Machines without ZeaburOS can be converted at any time from the server's Settings page.
+
+For host-level maintenance, the underlying technical names are unchanged: the systemd service is still `k3s`, persistent storage still lives under `/var/lib/rancher/k3s/storage`, and the commands in [Manage Server](/en-US/server/operate) work as before.
+
+## Next Steps
+
+- **[Purchase a Server](/en-US/server/purchase)** — buy a machine from Zeabur and pick its OS
+- **[Add a Server](/en-US/server/register)** — mount an existing server to Zeabur
+- **[Manage Server](/en-US/server/operate)** — day-to-day operations and host-level maintenance

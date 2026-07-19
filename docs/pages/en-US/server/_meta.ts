@@ -1,4 +1,5 @@
 export default {
+  os:               'Operating System',
   purchase:         'Purchase a Server',
   register:         'Add a Server',
   operate:          'Manage Server',

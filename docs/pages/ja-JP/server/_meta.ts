@@ -1,4 +1,5 @@
 export default {
+    "os":             "オペレーティングシステム",
     "purchase":       "サーバーを購入する",
     "register":       "サーバーを登録する",
     "operate":        "サーバーを維護する",
