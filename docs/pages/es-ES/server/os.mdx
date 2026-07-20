@@ -10,8 +10,8 @@ import { Callout } from 'nextra/components'
 
 Cuando [compras un servidor en Zeabur](/es-ES/server/purchase) o reinstalas uno existente, eliges el sistema operativo que ejecuta. Esta elección decide cómo funciona la máquina desde el primer día:
 
-- **ZeaburOS** (recomendado) — la máquina se convierte en un nodo de despliegue de Zeabur, lista para desplegar proyectos desde el primer momento.
-- **Distribución estándar** — actualmente Ubuntu 24.04 LTS, con más sistemas operativos y versiones en camino — una máquina limpia y totalmente autogestionada.
+- **ZeaburOS** — la máquina la gestiona Zeabur: despliega proyectos y aplica plantillas con un clic desde el primer momento, con soporte técnico de Zeabur incluido.
+- **Distribución estándar** — actualmente Ubuntu 24.04 LTS, con más sistemas operativos y versiones en camino — la máquina queda totalmente autogestionada; Zeabur ofrece soporte técnico únicamente para ZeaburOS.
 
 ## Qué es ZeaburOS [#zeaburos]
 
@@ -35,19 +35,20 @@ Si eliges una distribución estándar, obtienes una máquina limpia, tal cual la
 
 Ubuntu 24.04 LTS está disponible hoy, y con el tiempo se añadirán más sistemas operativos y versiones.
 
+¿Solo quieres un VPS estándar sin la plataforma Zeabur por ahora? Compra la máquina con una distribución estándar — no se preinstala nada, así que después no habrá nada que eliminar.
+
 ## Cómo elegir
 
 |                                          | ZeaburOS | Distribución estándar |
 | :--------------------------------------- | :------- | :-------------------- |
 | Desplegar y gestionar servicios desde el Panel de Zeabur | ✅       | ❌                    |
+| Despliegue de plantillas con un clic     | ✅       | ❌                    |
 | Registros, métricas y monitorización integrados | ✅       | ❌                    |
-| Acceso SSH                               | ✅       | ✅                    |
-| Control total sobre el SO                | Gestionado por Zeabur | Totalmente tuyo |
-| Soporte técnico de Zeabur                | ✅       | ❌ (autogestionada)   |
+| Acceso SSH y control total del SO        | ✅       | ✅                    |
+| Componentes del sistema mantenidos por Zeabur | ✅       | ❌ (totalmente autogestionado) |
+| Soporte técnico de Zeabur                | ✅       | ❌                    |
 
 **Regla general:** elige ZeaburOS para desplegar proyectos con Zeabur desde el primer momento — para eso está la máquina. Elige una distribución estándar si quieres una máquina limpia para gestionarla completamente por tu cuenta.
-
-No quedas atado en ningún caso: una máquina con una distribución estándar puede [convertirse a ZeaburOS](#convert-to-zeaburos) más adelante sin reinstalar, y una máquina con ZeaburOS puede volver a un estado limpio reinstalando el SO.
 
 ## Cambiar más adelante
 
@@ -67,9 +68,9 @@ Para convertirla, abre la página de **Ajustes** del servidor y usa **Convertir 
 
 Puedes iniciar una actualización desde el menú del servidor o desde su página de **Ajustes**. La operación suele ser segura, pero puede causar una breve interrupción.
 
-### Eliminar ZeaburOS
+### Reinstalar como VPS estándar
 
-Para eliminar ZeaburOS de una máquina, reinstala el sistema operativo desde la **zona de peligro** en la página de ajustes del servidor — la máquina volverá a su estado de fábrica. Durante la reinstalación vuelves a elegir el SO: elige una distribución estándar para obtener una máquina limpia, o ZeaburOS para volver como nodo de despliegue.
+Si pruebas ZeaburOS y decides que la plataforma Zeabur no es para ti, la máquina no queda atada a él. Reinstala el sistema operativo desde la **zona de peligro** en la página de ajustes del servidor y elige una distribución estándar — la máquina volverá como un VPS estándar, totalmente autogestionado.
 
 <Callout type="warning">
   Reinstalar el SO borra todo lo que hay en la máquina, incluidos los servicios desplegados y sus datos. Haz antes una copia de seguridad de todo lo que necesites.
@@ -88,7 +89,7 @@ Todo lo que antes aparecía como **«K3s»** en el panel de Zeabur ahora se mues
 Junto con el cambio de nombre hay dos novedades:
 
 - Al comprar una máquina o reinstalar su SO, ZeaburOS ya no se preinstala automáticamente — lo **eliges** (o una distribución estándar) como sistema operativo.
-- Las máquinas sin ZeaburOS pueden convertirse en cualquier momento desde la página de Ajustes del servidor.
+- Las máquinas sin ZeaburOS se pueden convertir más adelante desde la página de Ajustes del servidor.
 
 Para el mantenimiento a nivel de host, los nombres técnicos subyacentes no cambian: el servicio de systemd sigue siendo `k3s`, el almacenamiento persistente sigue estando en `/var/lib/rancher/k3s/storage`, y los comandos de [Gestionar tu Servidor](/es-ES/server/operate) funcionan como antes.
 
