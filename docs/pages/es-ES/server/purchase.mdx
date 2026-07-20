@@ -78,6 +78,26 @@ Para servidores comprados de **Tencent Cloud**, **Aliyun** o **Volcengine**, Zea
 
 Los servidores comprados se facturan mensualmente a una tarifa fija. El precio que se muestra en la página de selección es el costo mensual. Tu servidor se renovará automáticamente a menos que lo canceles.
 
+### ¿Cómo renuevo mi servidor manualmente?
+
+Los servidores se renuevan automáticamente: el sistema lo comprueba aproximadamente cada 8 horas y cobra de tu saldo antes de la fecha de vencimiento, por lo que solo necesitas mantener saldo suficiente y un método de pago válido en tu cuenta.
+
+Para renovar manualmente, ve a **Dashboard → Servers** y haz clic en tu servidor: el botón **Renovar Ahora** está justo al lado de la fecha de vencimiento en la página de resumen del servidor. También está disponible como **Renovar** en el menú "⋯" de cada tarjeta de servidor en la lista.
+
+Si una renovación falla por saldo insuficiente, el servidor se apaga temporalmente pero no se elimina. Después de recargar (o corregir tu método de pago), la siguiente comprobación automática completa la renovación y vuelve a encender el servidor, o puedes hacer clic en **Renovar Ahora** de inmediato.
+
+### ¿Cuánto tiempo se conserva un servidor vencido antes de eliminarse?
+
+Si la renovación no se completa antes de la fecha de vencimiento, el servidor no se elimina de inmediato:
+
+- **Dentro de 1 día después del vencimiento**: el servidor sigue funcionando.
+- **1 día después del vencimiento**: el servidor se apaga y se envía un aviso por correo electrónico. Tus datos permanecen intactos, y completar la renovación lo vuelve a poner en línea.
+- **7 días después del vencimiento**: el servidor y todos los proyectos en él se eliminan permanentemente y no se pueden recuperar.
+
+Para los servidores de Tencent Cloud y Alibaba Cloud, la retención sigue la política de recuperación del propio proveedor (aproximadamente 15 días). El botón de renovar en el dashboard está disponible hasta que termina el período de retención.
+
+
+
 ### ¿Qué proveedores están disponibles?
 
 Zeabur actualmente ofrece servidores de AWS, GCP, Hetzner, Linode, Digital Ocean, Aliyun, Tencent Cloud y Volcengine, con centros de datos en Asia, Europa, América del Norte, América del Sur y Oceanía.
