@@ -214,7 +214,7 @@ const config = {
       <span>
         {new Date().getFullYear()} ©{' '}
         <a href="https://zeabur.com" target="_blank">
-          Zeabur Pte. Ltd.
+          Zeabur Inc.
         </a>
       </span>
     ),
