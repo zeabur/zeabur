@@ -78,6 +78,26 @@ For servers purchased from **Tencent Cloud**, **Aliyun**, or **Volcengine**, Zea
 
 Purchased servers are billed monthly at a fixed rate. The price shown on the selection page is the monthly cost. Your server will auto-renew unless you cancel it.
 
+### How do I renew my server manually?
+
+Servers renew automatically: the system checks roughly every 8 hours and charges your balance before the expiry date, so all you need to do is keep enough balance and a valid payment method on your account.
+
+To renew manually, go to **Dashboard → Servers** and click your server — the **Renew Now** button is right next to the expiry date on the server's overview page. It is also available as **Renew** in the "⋯" menu on each server card in the server list.
+
+If a renewal fails due to insufficient balance, the server is temporarily powered off but not deleted. After you top up (or fix your payment method), the next automatic check completes the renewal and powers the server back on — or you can click **Renew Now** right away.
+
+### How long is an expired server kept before deletion?
+
+If renewal doesn't complete by the expiry date, the server is not deleted immediately:
+
+- **Within 1 day after expiry**: the server keeps running.
+- **1 day after expiry**: the server is powered off and an email notice is sent. Your data remains intact, and completing the renewal brings it back online.
+- **7 days after expiry**: the server and all projects on it are permanently deleted and cannot be recovered.
+
+For Tencent Cloud and Alibaba Cloud servers, retention follows the provider's own reclamation policy (roughly 15 days). The Renew button in the dashboard is available until the retention period ends.
+
+
+
 ### What providers are available?
 
 Zeabur currently offers servers from AWS, GCP, Hetzner, Linode, Digital Ocean, Aliyun, Tencent Cloud, and Volcengine, with data centers across Asia, Europe, North America, South America, and Oceania.
