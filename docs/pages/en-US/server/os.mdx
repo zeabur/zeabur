@@ -54,9 +54,13 @@ Just want a standard VPS without the Zeabur platform for now? Buy the machine wi
 
 ### Convert an Existing Machine to ZeaburOS [#convert-to-zeaburos]
 
-A machine that is already running a standard distribution can be converted to ZeaburOS to become a deployment node. The conversion is an **in-place upgrade on the current system: no reinstall, and your data stays**.
+A machine that is already running a standard distribution can be converted to ZeaburOS to become a deployment node. Converting **reinstalls the machine**: it is reinstalled as ZeaburOS, giving a clean, predictable environment that does not depend on whatever was installed on the previous system.
 
-To convert, open the server's **Settings** page and use **Convert to ZeaburOS**. Once the setup completes, the machine appears as a deployment node and you can start deploying services to it.
+To convert, open the server's **Settings** page, and under **Danger Zone** use "Reinstall OS" and pick **ZeaburOS**. Reinstalling and provisioning take a few minutes; once done, the machine appears as a deployment node and you can start deploying services to it.
+
+<Callout type="warning">
+  **Reinstalling erases everything on the machine**, including software and data you installed yourself. Switching the operating system is a reinstall in **both directions** — moving to ZeaburOS wipes the disk just as moving back to a standard distribution does. Back up anything you want to keep first.
+</Callout>
 
 <Callout type="default">
   Without ZeaburOS, you can still connect to the machine over SSH — conversion is only required for deploying and managing services through Zeabur.

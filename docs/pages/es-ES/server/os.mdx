@@ -54,9 +54,13 @@ Ubuntu 24.04 LTS está disponible hoy, y con el tiempo se añadirán más sistem
 
 ### Convertir una máquina existente a ZeaburOS [#convert-to-zeaburos]
 
-Una máquina que ya está funcionando con una distribución estándar puede convertirse a ZeaburOS para hacerla un nodo de despliegue. La conversión es una **actualización in situ sobre el sistema actual: sin reinstalar y conservando tus datos**.
+Una máquina que ya está funcionando con una distribución estándar puede convertirse a ZeaburOS para hacerla un nodo de despliegue. Convertirla **reinstala la máquina**: se reinstala como ZeaburOS, lo que da un entorno limpio y predecible que no depende de lo que estuviera instalado en el sistema anterior.
 
-Para convertirla, abre la página de **Ajustes** del servidor y usa **Convertir a ZeaburOS**. Cuando la configuración termine, la máquina aparecerá como un nodo de despliegue y podrás empezar a desplegar servicios en ella.
+Para convertirla, abre la página de **Ajustes** del servidor y, en la **zona de peligro**, usa «Reinstalar sistema operativo» y elige **ZeaburOS**. La reinstalación y el aprovisionamiento tardan unos minutos; al terminar, la máquina aparecerá como un nodo de despliegue y podrás empezar a desplegar servicios en ella.
+
+<Callout type="warning">
+  **Reinstalar borra todo lo que haya en la máquina**, incluidos el software y los datos que instalaste tú. Cambiar el sistema operativo es una reinstalación en **ambos sentidos**: pasar a ZeaburOS borra el disco igual que volver a una distribución estándar. Haz una copia de seguridad de lo que quieras conservar.
+</Callout>
 
 <Callout type="default">
   Sin ZeaburOS, aún puedes conectarte a la máquina por SSH — la conversión solo es necesaria para desplegar y gestionar servicios a través de Zeabur.
