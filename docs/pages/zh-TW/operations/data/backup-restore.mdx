@@ -40,7 +40,7 @@ Zeabur 支援不限於 PostgreSQL、MySQL、MariaDB、MongoDB 等資料庫的線
 
 和〈離線異地備份〉相似，點選「備份」按鈕後，Zeabur 會在背景自動備份，您可以稍待幾分鐘。備份完成後，也會看到下載按鈕，點選即可下載備份檔案。
 
-備份檔案的內容，會是資料庫的標準傾印檔案（以 PostgreSQL、MySQL 來說，是 `.sql` 檔案；以 MongoDB 來說，是各種 `.bson` 檔案）。這些備份檔日後可以用資料庫內建的還原工具（如 `psql`、`mongoimport`）等工具來還原。
+備份檔案包含資料庫的標準傾印。PostgreSQL 備份使用 `pg_dumpall` 建立，並包含服務中的所有資料庫；MySQL 和 MariaDB 備份包含所有非系統資料庫；MongoDB 備份包含服務憑證可存取的所有資料庫。PostgreSQL、MySQL 和 MariaDB 使用 `.sql` 格式，MongoDB 則包含多個 `.bson` 檔案。您可以日後使用 `psql`、`mysql`、`mongorestore` 等資料庫還原工具復原這些檔案。
 
 ### 自動備份
 

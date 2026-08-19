@@ -40,7 +40,7 @@ Zeabur admite respaldo externo en línea para bases de datos como PostgreSQL, My
 
 Similar al "Respaldo Externo Fuera de Línea", después de hacer clic en el botón "Respaldo", Zeabur respaldará automáticamente en segundo plano, y puedes esperar unos minutos. Una vez que el respaldo esté completo, también verás un botón de descarga, que puedes hacer clic para descargar el archivo de respaldo.
 
-El contenido del archivo de respaldo será un archivo de volcado estándar de la base de datos (para PostgreSQL, MySQL, es un archivo `.sql`; para MongoDB, son varios archivos `.bson`). Estos archivos de respaldo pueden restaurarse posteriormente usando herramientas integradas de restauración de base de datos (como `psql` y `mongoimport`).
+El archivo de respaldo contiene un volcado estándar de la base de datos. Los respaldos de PostgreSQL se crean con `pg_dumpall` e incluyen todas las bases de datos del servicio. Los respaldos de MySQL y MariaDB incluyen todas las bases de datos que no son del sistema. Los respaldos de MongoDB incluyen todas las bases de datos accesibles con las credenciales del servicio. PostgreSQL, MySQL y MariaDB usan el formato `.sql`, mientras que MongoDB contiene varios archivos `.bson`. Puedes restaurar estos archivos posteriormente con herramientas como `psql`, `mysql` y `mongorestore`.
 
 ### Respaldo Automático
 

@@ -36,7 +36,7 @@ Zeabur supports online offsite backup for databases such as PostgreSQL, MySQL, M
 
 Similar to "Offline Offsite Backup," after clicking the "Backup" button, Zeabur will automatically back up in the background, and you can wait a few minutes. Once the backup is complete, you will also see a download button, which you can click to download the backup file.
 
-The content of the backup file will be a standard dump file of the database (for PostgreSQL, MySQL, it is a `.sql` file; for MongoDB, it is various `.bson` files). These backup files can be restored later using built-in database restoration tools (such as `psql` and `mongoimport`).
+The backup file contains a standard database dump. PostgreSQL backups are created with `pg_dumpall` and include all databases in the service. MySQL and MariaDB backups include all non-system databases. MongoDB backups include all databases accessible with the service credentials. PostgreSQL, MySQL, and MariaDB backups use the `.sql` format, while MongoDB backups contain multiple `.bson` files. You can restore these files later with database restoration tools such as `psql`, `mysql`, and `mongorestore`.
 
 ### Automatic Backup
 
