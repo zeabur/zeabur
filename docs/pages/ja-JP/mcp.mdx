@@ -29,6 +29,8 @@ ZeaburのMCPサーバーを使用すると、Zeaburコンソールに切り替�
 
 2. AIアシスタントのMCP設定ファイルに以下を追加します：
 
+   `sk-xxxxxx`を実際のZeabur APIトークンに置き換えてください。
+
 ```json
 {
   "mcpServers": {
@@ -38,7 +40,7 @@ ZeaburのMCPサーバーを使用すると、Zeaburコンソールに切り替�
         "@zeabur/mcp-server"
       ],
       "env": {
-        "ZEABUR_TOKEN": "sk-xxxxxx"  // 実際のAPIトークンに置き換えてください
+        "ZEABUR_TOKEN": "sk-xxxxxx"
       }
     }
   }
@@ -100,4 +102,4 @@ A: APIトークンはローカル設定ファイルにのみ保存され、Zeabu
 
 ## 追加リソース
 
-- [Model Context Protocolの公式ドキュメント](https://modelcontextprotocol.io/) 
+- [Model Context Protocolの公式ドキュメント](https://modelcontextprotocol.io/)

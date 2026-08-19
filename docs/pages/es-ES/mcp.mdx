@@ -29,6 +29,8 @@ Con el servidor MCP de Zeabur, puedes gestionar directamente tus servicios en la
 
 2. Añade lo siguiente al archivo de configuración MCP de tu asistente de IA:
 
+   Reemplaza `sk-xxxxxx` por tu Token API real de Zeabur.
+
 ```json
 {
   "mcpServers": {
@@ -38,7 +40,7 @@ Con el servidor MCP de Zeabur, puedes gestionar directamente tus servicios en la
         "@zeabur/mcp-server"
       ],
       "env": {
-        "ZEABUR_TOKEN": "sk-xxxxxx"  // Reemplaza con tu Token API real
+        "ZEABUR_TOKEN": "sk-xxxxxx"
       }
     }
   }
@@ -100,4 +102,4 @@ R: Tu Token API solo se almacena en tu archivo de configuración local y solo se
 
 ## Recursos adicionales
 
-- [Documentación oficial de Model Context Protocol](https://modelcontextprotocol.io/) 
+- [Documentación oficial de Model Context Protocol](https://modelcontextprotocol.io/)

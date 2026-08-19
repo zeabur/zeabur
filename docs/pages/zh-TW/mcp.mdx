@@ -29,6 +29,8 @@ Model Context Protocol (MCP) 是一個開放協定，用於標準化應用程式
 
 2. 在 AI 助理的 MCP 設定檔中新增以下內容：
 
+   請將 `sk-xxxxxx` 替換為你的實際 Zeabur API Token。
+
 ```json
 {
   "mcpServers": {
@@ -38,7 +40,7 @@ Model Context Protocol (MCP) 是一個開放協定，用於標準化應用程式
         "@zeabur/mcp-server"
       ],
       "env": {
-        "ZEABUR_TOKEN": "sk-xxxxxx"  // 替換為你的實際 API Token
+        "ZEABUR_TOKEN": "sk-xxxxxx"
       }
     }
   }
