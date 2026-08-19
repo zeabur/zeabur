@@ -29,7 +29,7 @@ With Zeabur's MCP server, you can directly manage your cloud services in Claude 
 
 2. Add the following to your AI assistant's MCP configuration file:
 
-   Replace `sk-xxxxxx` with your actual Zeabur API Token.
+   Access tokens created from Account API Keys currently start with `zat_`. Replace `zat_xxxxxx` with your actual Zeabur access token.
 
 ```json
 {
@@ -40,7 +40,7 @@ With Zeabur's MCP server, you can directly manage your cloud services in Claude 
         "@zeabur/mcp-server"
       ],
       "env": {
-        "ZEABUR_TOKEN": "sk-xxxxxx"
+        "ZEABUR_TOKEN": "zat_xxxxxx"
       }
     }
   }

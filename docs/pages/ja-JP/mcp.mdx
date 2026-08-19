@@ -29,7 +29,7 @@ ZeaburのMCPサーバーを使用すると、Zeaburコンソールに切り替�
 
 2. AIアシスタントのMCP設定ファイルに以下を追加します：
 
-   `sk-xxxxxx`を実際のZeabur APIトークンに置き換えてください。
+   Account API Keysで作成したアクセストークンは現在`zat_`で始まります。`zat_xxxxxx`を実際のZeaburアクセストークンに置き換えてください。
 
 ```json
 {
@@ -40,7 +40,7 @@ ZeaburのMCPサーバーを使用すると、Zeaburコンソールに切り替�
         "@zeabur/mcp-server"
       ],
       "env": {
-        "ZEABUR_TOKEN": "sk-xxxxxx"
+        "ZEABUR_TOKEN": "zat_xxxxxx"
       }
     }
   }

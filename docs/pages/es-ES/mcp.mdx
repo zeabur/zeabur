@@ -29,7 +29,7 @@ Con el servidor MCP de Zeabur, puedes gestionar directamente tus servicios en la
 
 2. Añade lo siguiente al archivo de configuración MCP de tu asistente de IA:
 
-   Reemplaza `sk-xxxxxx` por tu Token API real de Zeabur.
+   Los tokens de acceso creados en Account API Keys actualmente comienzan por `zat_`. Reemplaza `zat_xxxxxx` por tu token de acceso real de Zeabur.
 
 ```json
 {
@@ -40,7 +40,7 @@ Con el servidor MCP de Zeabur, puedes gestionar directamente tus servicios en la
         "@zeabur/mcp-server"
       ],
       "env": {
-        "ZEABUR_TOKEN": "sk-xxxxxx"
+        "ZEABUR_TOKEN": "zat_xxxxxx"
       }
     }
   }
