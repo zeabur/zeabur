@@ -30,6 +30,10 @@ Abre la página del servicio donde quieres montar Volúmenes, haz clic en la pes
 - **ID del Volumen** es un identificador único para este Volumen. Puedes usar un nombre simple (como `datos`, `cache`, `fotos`) para representar fácilmente este Volumen. Este identificador no está relacionado con el resultado real del montaje.
 - **Directorio de Montaje** es el directorio donde se montará el Volumen, esencialmente la "carpeta que necesita almacenamiento persistente". Si quieres almacenar de forma persistente el directorio `/data` en el servicio, ingresa `/data` aquí.
 
+<Callout type="info">
+    Los Volúmenes pertenecen a un solo servicio y no se pueden compartir entre servicios. Usar el mismo ID de Volumen en otro servicio crea un Volumen independiente; no monta el mismo disco. Si varios servicios necesitan acceder a los mismos datos, usa almacenamiento de objetos accesible por red, como MinIO o RustFS.
+</Callout>
+
 **Ten en cuenta que después de montar, los datos en este directorio se borrarán completamente**. Si ya tienes datos importantes dentro, por favor descárgalos antes de montar y reiniciar el servicio para evitar pérdidas, y luego vuelve a importar los datos después de montar.
 
 ## Desmontando Volúmenes
