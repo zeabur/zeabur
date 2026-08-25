@@ -63,3 +63,9 @@ shamefully-hoist=true
 ![deploy](/deploy/common/select-service.en-US.png)
 
 Nuxtアプリのリポジトリを検索し、インポートをクリックして、Nuxtアプリのデプロイを開始します。
+
+### Nitro preset
+
+Zeabur は Nuxt を Node.js サーバーとしてビルドします。zbpack は自動的に `NITRO_PRESET=node-server` を設定します（プロジェクトが Bun を使う場合は `bun`）。
+
+`SERVER_PRESET=zeabur` や `NITRO_PRESET=zeabur` は設定しないでください。公式 Nitro の `zeabur` preset は serverless 向けの `.zeabur/output` を出力しますが、Zeabur はこの形式をサポートしていません。すでに設定されている場合、zbpack は `node-server`（または `bun`）に置き換えます。

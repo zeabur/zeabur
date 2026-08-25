@@ -65,3 +65,9 @@ Click on **Add new service** button, then choose **Deploy your source code**.
 ![deploy](/deploy/common/select-service.en-US.png)
 
 Search for your Nuxt App repository, click on import, your Nuxt App will start deploying.
+
+### Nitro preset
+
+Zeabur builds Nuxt as a Node.js server. zbpack sets `NITRO_PRESET=node-server` automatically (or `bun` when the project uses Bun).
+
+Do not set `SERVER_PRESET=zeabur` or `NITRO_PRESET=zeabur`. That official Nitro preset emits a serverless `.zeabur/output` layout, which Zeabur no longer deploys. If those variables are already in your project, zbpack remaps them to `node-server` (or `bun`).

@@ -63,3 +63,9 @@ shamefully-hoist=true
 ![deploy](/deploy/common/select-service.en-US.png)
 
 搜索想要部署的 Nuxt 应用仓库，并点击导入，你的 Nuxt 应用就将自动开始部署。
+
+### Nitro preset
+
+Zeabur 会把 Nuxt 当成 Node.js 服务器来构建。zbpack 会自动设置 `NITRO_PRESET=node-server`（若项目使用 Bun，则为 `bun`）。
+
+请不要设置 `SERVER_PRESET=zeabur` 或 `NITRO_PRESET=zeabur`。官方 Nitro 的 `zeabur` preset 会产出 serverless 用的 `.zeabur/output`，Zeabur 已不再支持这种输出。若项目里已经写了这些变量，zbpack 会改成 `node-server`（或 `bun`）。

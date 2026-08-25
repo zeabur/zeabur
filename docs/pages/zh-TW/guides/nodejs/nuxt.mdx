@@ -64,4 +64,10 @@ shamefully-hoist=true
 
 搜尋想要部署的 Nuxt 程式碼儲存庫，並點選匯入，你的 Nuxt 應用程式就將自動開始部署。
 
+### Nitro preset
+
+Zeabur 會把 Nuxt 當成 Node.js 伺服器來建置。zbpack 會自動設定 `NITRO_PRESET=node-server`（若專案使用 Bun，則為 `bun`）。
+
+請不要設定 `SERVER_PRESET=zeabur` 或 `NITRO_PRESET=zeabur`。官方 Nitro 的 `zeabur` preset 會產出 serverless 用的 `.zeabur/output`，Zeabur 已不再支援這種輸出。若專案裡已經寫了這些變數，zbpack 會改成 `node-server`（或 `bun`）。
+
 {/* converted with zhconvert.org | revision dict-a1f426e3-r1031 */}
