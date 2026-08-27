@@ -42,26 +42,23 @@ Review the confirmation prompt and complete the cancellation.
 
 ## Server Refunds
 
-- **First refund**: Self-service cancellation on the Server page. Unconditional refund to **Zeabur Credits**, no review required.
-- **Second and subsequent refunds**: Submit a refund request through [Zeabur Support](https://zeabur.com/support) for review by customer support.
+- Only unexpired managed servers from refundable providers are eligible. Remove all projects from the server before requesting a refund.
+- Self-service refunds are issued as **Zeabur Credits**, not to the original payment method.
+- The refund amount is prorated based on the server's unused remaining time.
+
+### Aliyun, Tencent, and Volcengine
+
+These providers are monthly prepaid services that Zeabur purchases immediately after checkout.
+
+- Each account has one shared unconditional refund across all three providers.
+- After that refund is used, later refunds are generally unavailable. [Zeabur Support](https://zeabur.com/support) only considers exceptional cases, such as a server or provider technical failure.
+- Switching servers or plans, no longer needing the server, deleting projects, or powering it off are not eligible reasons for a refund.
 
 ### Refund Notes
 
 - To avoid charges in the next billing cycle, disable auto-renewal in advance.
 
 ![Disable auto-renewal](/billing/pricing/auto-renewal.png)
-
-Server refund processing time and fees depend on where the refund is issued:
-
-| Refund Method               | Processing Time        | Fees                                           |
-| --------------------------- | ---------------------- | ---------------------------------------------- |
-| **Zeabur Credits**          | Instant after approval | None                                           |
-| **Original payment method** | Up to 7 business days  | ~30% of refund amount (Stripe transaction fee) |
-
-<Callout type="info">
-  Choosing Zeabur Credits avoids the Stripe processing fee and is faster.
-  Credits can be used for future subscriptions or resource usage.
-</Callout>
 
 <Callout type="warning">
   Before requesting a refund, make sure all data on the server has been backed

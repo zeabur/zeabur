@@ -255,12 +255,12 @@ export default withNextra({
       { source: '/:locale/billing-legal/legal/abuse-report',  destination: '/:locale/compliance/abuse-report', permanent: true },
       {
         source: '/billing-legal',
-        destination: '/pricing/pricing-plans',
+        destination: '/pricing',
         permanent: true,
       },
       {
         source: '/:locale/billing-legal',
-        destination: '/:locale/pricing/pricing-plans',
+        destination: '/:locale/pricing',
         permanent: true,
       },
 
@@ -364,10 +364,12 @@ export default withNextra({
       { source: '/:locale/manage/security-report',         destination: '/:locale/operations/team/security-report', permanent: true },
 
       // billing → pricing / rewards
-      { source: '/billing/pricing',                       destination: '/pricing/pricing-plans', permanent: true },
-      { source: '/:locale/billing/pricing',                destination: '/:locale/pricing/pricing-plans', permanent: true },
-      { source: '/billing/plans',                         destination: '/pricing/pricing-plans', permanent: true },
-      { source: '/:locale/billing/plans',                  destination: '/:locale/pricing/pricing-plans', permanent: true },
+      { source: '/pricing/pricing-plans',                 destination: '/pricing', permanent: true },
+      { source: '/:locale/pricing/pricing-plans',          destination: '/:locale/pricing', permanent: true },
+      { source: '/billing/pricing',                       destination: '/pricing', permanent: true },
+      { source: '/:locale/billing/pricing',                destination: '/:locale/pricing', permanent: true },
+      { source: '/billing/plans',                         destination: '/pricing', permanent: true },
+      { source: '/:locale/billing/plans',                  destination: '/:locale/pricing', permanent: true },
       { source: '/billing/subscription',                  destination: '/subscription', permanent: true },
       { source: '/:locale/billing/subscription',           destination: '/:locale/subscription', permanent: true },
       { source: '/billing/sponsor',                       destination: '/rewards/sponsor', permanent: true },
@@ -390,8 +392,8 @@ export default withNextra({
       // ═══════════════════════════════════════════════════════════════
       // Root-level directory redirects (bare /dir → canonical landing)
       // ═══════════════════════════════════════════════════════════════
-      { source: '/billing',            destination: '/pricing/pricing-plans',   permanent: true },
-      { source: '/:locale/billing',     destination: '/:locale/pricing/pricing-plans', permanent: true },
+      { source: '/billing',            destination: '/pricing',                 permanent: true },
+      { source: '/:locale/billing',     destination: '/:locale/pricing',         permanent: true },
       { source: '/manage',             destination: '/operations',              permanent: true },
       { source: '/:locale/manage',      destination: '/:locale/operations',      permanent: true },
       { source: '/community',          destination: '/get-started/faq-support', permanent: true },
