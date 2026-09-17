@@ -9,7 +9,9 @@
     "predev": "node scripts/build-last-updated.mjs",
     "start": "next start",
     "build": "next build",
-    "prebuild": "node scripts/build-last-updated.mjs && node sitemap.js"
+    "prebuild": "node scripts/build-last-updated.mjs && node sitemap.js",
+    "translate:local": "tsx scripts/translate-local.ts",
+    "test:translation": "tsx --test tests/*.test.ts"
   },
   "author": "Zeabur",
   "dependencies": {
@@ -25,10 +27,15 @@
     "source-map-support": "^0.5.21"
   },
   "devDependencies": {
+    "@mdx-js/mdx": "^3.1.1",
     "@types/node": "24.12.0",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
-    "prettier": "^3.7.4"
+    "prettier": "^3.7.4",
+    "remark-gfm": "^4.0.1",
+    "tsx": "^4.23.13",
+    "typescript": "^5.9.3",
+    "yaml": "^2.9.1"
   },
   "prettier": {
     "semi": false,

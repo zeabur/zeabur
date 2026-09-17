@@ -22,3 +22,5 @@ public/sitemap.xml
 
 # Temporary files
 /tmp
+# Local translation state (generated pages remain reviewable)
+.translation-local/
