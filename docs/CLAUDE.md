@@ -106,3 +106,10 @@ Description
 - **Copy button**: ` ```bash copy ` — adds copy-to-clipboard button
 - **Line highlighting**: ` ```ts {2} ` or ` ```ts {7-8} ` — highlights specific lines
 - **Combined**: ` ```json filename="package.json" {3} copy `
+
+### Local translation of missing pages
+
+Use `pnpm translate:local` to preview missing target-language pages from authoritative
+`pages/en-US/`. Explicit `--write` uses a local Codex or Claude Code subscription;
+see [TRANSLATION.md](./TRANSLATION.md) for options and review requirements. Existing
+translations are preserved. Do not add generation to build steps, CI or Git hooks.
