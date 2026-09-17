@@ -118,12 +118,12 @@ Heroku 的 add-on 在 Zeabur 中有對應的替代方案，或可作為外部服
 |---|---|---|
 | 設定方式 | `Procfile` + buildpack | 自動偵測（零設定） |
 | 部署方式 | `git push heroku main` | Git push 到 GitHub（自動部署） |
-| 擴展 | Dyno 類型（Basic、Standard、Performance） | 按使用量計費，自動擴展 |
+| 擴展 | Dyno 類型（Basic、Standard、Performance） | 在主控台設定資源分配 |
 | 休眠行為 | Eco dyno 閒置 30 分鐘後休眠 | 不休眠——持續運行 |
 | Slug 大小限制 | 壓縮後 500 MB | 無 slug 大小限制 |
 | 資料庫 | Heroku Postgres（受管理） | 內建資料庫（PostgreSQL、MySQL、MongoDB、Redis 等） |
 | 附加服務 | Heroku Add-on 市集 | 內建服務 + 外部服務 |
-| 計價模式 | 按 dyno 月費計價 | 按使用量計費，用多少付多少 |
+| 計價模式 | 按 dyno 月費計價 | [訂閱方案](/pricing) + 伺服器費用 |
 
 <Callout>
 Heroku 的 `Procfile` 在 Zeabur 上不是必要的。Zeabur 會自動偵測您的啟動指令。如果需要自訂，可以在服務設定的 **Build & Deploy** 中進行設定。

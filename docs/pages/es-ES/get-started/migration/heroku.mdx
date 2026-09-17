@@ -118,12 +118,12 @@ Para los add-ons que son productos SaaS externos (SendGrid, Cloudinary, etc.), s
 |---|---|---|
 | Configuración | `Procfile` + buildpacks | Auto-detección (cero config) |
 | Despliegue | `git push heroku main` | Git push a GitHub (auto-despliegue) |
-| Escalado | Tipos de Dyno (Basic, Standard, Performance) | Basado en uso, auto-escalado |
+| Escalado | Tipos de Dyno (Basic, Standard, Performance) | Asignación de recursos en el dashboard |
 | Comportamiento de sleep | Eco dynos duermen tras 30 min de inactividad | Sin sleep — siempre activo |
 | Límite de tamaño slug | 500 MB comprimido | Sin límite de tamaño slug |
 | Bases de datos | Heroku Postgres (gestionado) | Servicios de base de datos (PostgreSQL, MySQL, MongoDB, Redis, etc.) |
 | Add-ons | Marketplace de Add-ons de Heroku | Servicios precompilados de Zeabur + servicios externos |
-| Precios | Precio mensual por dyno | Basado en uso |
+| Precios | Precio mensual por dyno | [Plan de suscripción](/pricing) + costos del servidor |
 
 <Callout>
 El `Procfile` de Heroku no es necesario en Zeabur. Zeabur auto-detecta tu comando de inicio. Si necesitas personalizarlo, puedes configurarlo en los ajustes del servicio bajo **Build & Deploy**.
