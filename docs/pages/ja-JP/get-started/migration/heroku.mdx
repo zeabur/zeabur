@@ -118,12 +118,12 @@ Heroku アドオンには Zeabur の同等機能か外部サービスとして�
 |------|--------|--------|
 | 設定 | `Procfile` + buildpacks | 自動検出（ゼロ設定） |
 | デプロイ | `git push heroku main` | GitHub への Git push（自動デプロイ） |
-| スケーリング | Dyno タイプ（Basic、Standard、Performance） | 使用量ベース、オートスケーリング |
+| スケーリング | Dyno タイプ（Basic、Standard、Performance） | ダッシュボードでリソースを割り当て |
 | スリープ動作 | Eco dyno は 30 分非アクティブでスリープ | スリープなし——常時稼働 |
 | Slug サイズ制限 | 500 MB 圧縮 | Slug サイズ制限なし |
 | データベース | Heroku Postgres（マネージド） | データベースサービス（PostgreSQL、MySQL、MongoDB、Redis 等） |
 | アドオン | Heroku Add-on マーケットプレイス | Zeabur プリビルトサービス + 外部サービス |
-| 料金 | Dyno 単位の月額課金 | 使用量ベース |
+| 料金 | Dyno 単位の月額課金 | [サブスクリプションプラン](/pricing) + サーバー料金 |
 
 <Callout>
 Heroku の `Procfile` は Zeabur では不要です。Zeabur は起動コマンドを自動検出します。カスタマイズが必要な場合は、サービス設定の **Build & Deploy** で設定できます。

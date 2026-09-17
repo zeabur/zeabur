@@ -118,12 +118,12 @@ Heroku 插件在 Zeabur 上有对应的替代品或可以作为外部服务连�
 |------|--------|--------|
 | 配置 | `Procfile` + buildpacks | 自动检测（零配置） |
 | 部署 | `git push heroku main` | Git push 到 GitHub（自动部署） |
-| 扩展 | Dyno 类型（Basic、Standard、Performance） | 按使用量计费，自动扩展 |
+| 扩展 | Dyno 类型（Basic、Standard、Performance） | 在控制面板中分配资源 |
 | 休眠行为 | Eco dyno 闲置 30 分钟后休眠 | 不休眠——始终运行 |
 | Slug 大小限制 | 500 MB 压缩 | 无 slug 大小限制 |
 | 数据库 | Heroku Postgres（托管） | 数据库服务（PostgreSQL、MySQL、MongoDB、Redis 等） |
 | 插件 | Heroku Add-on 市场 | Zeabur 预构建服务 + 外部服务 |
-| 定价 | 按 dyno 月付 | 按使用量付费 |
+| 定价 | 按 dyno 月付 | [订阅方案](/pricing) + 服务器费用 |
 
 <Callout>
 Heroku 的 `Procfile` 在 Zeabur 上不需要。Zeabur 自动检测启动命令。如需自定义，可以在服务设置的 **Build & Deploy** 中设置。
