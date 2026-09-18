@@ -32,6 +32,32 @@ After completing the authorization, you will see a search box. Enter the name of
 
 ![Select Repository](/deploy/github/select-repo.webp)
 
+## Can't Find Your Repositories?
+
+If you installed the Zeabur GitHub App but some (or all) of your repositories don't show up in Zeabur's repository search, check the following two settings — they cover almost every case.
+
+### 1. Make sure your Zeabur account is linked to GitHub
+
+Installing the GitHub App and linking your GitHub account are **two different things**: the App grants Zeabur access to repositories, while the account link tells Zeabur *who you are* on GitHub. Zeabur uses your linked GitHub identity to determine which organizations (and therefore which installations) belong to you — without it, no repositories appear even if the App is installed.
+
+Go to [Console > Settings](https://dash.zeabur.com/account/general), scroll to the bottom, and confirm GitHub is linked. If not, link it and search again.
+
+### 2. Check the App's repository access in your organization
+
+When the Zeabur App is installed with "**Only select repositories**", repositories outside that list never show up. To change the access scope for an organization:
+
+1. On GitHub, go to your **organization's Settings** (for personal accounts: your own Settings)
+2. Open **Third-party Access → GitHub Apps** (on personal accounts: **Applications → Installed GitHub Apps**)
+3. Find **Zeabur** and click **Configure**
+4. Under **Repository access**, switch to "**All repositories**", or keep "Only select repositories" and add the missing repositories to the list
+5. Save — the repositories become searchable in Zeabur immediately
+
+<Callout type="info">
+Changing an organization's App configuration requires organization **Owner** permission. If you're a Member, ask an Owner to adjust the repository access, or request approval when GitHub prompts for it.
+</Callout>
+
+If both settings are correct and repositories from an organization you joined recently still don't appear, try re-saving the App configuration (step 4) to refresh the membership sync, or contact support via the [community forum](https://zeabur.com/forum).
+
 ## Removing GitHub Apps
 
 If you need to completely remove the Zeabur GitHub App, you can find "Zeabur" in GitHub's Settings > Integrations > Applications > Installed GitHub Apps, click "Configure", and then click "Uninstall" in the "Danger zone" of the popup page.

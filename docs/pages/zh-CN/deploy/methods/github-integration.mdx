@@ -32,6 +32,32 @@ Zeabur 提供了与 GitHub 集成的能力，这允许你将 GitHub 账号与 Ze
 
 ![选择仓库](/deploy/github/select-repo.webp)
 
+## 找不到你的仓库？
+
+如果你已安装 Zeabur GitHub App，但部分（或全部）仓库没有出现在 Zeabur 的仓库搜索中，请检查以下两项设置——几乎所有情况都涵盖在内。
+
+### 一、确认 Zeabur 账号已绑定 GitHub
+
+安装 GitHub App 和绑定 GitHub 账号是**两件不同的事**：App 让 Zeabur 有权限访问仓库，而账号绑定让 Zeabur 知道你在 GitHub 上*是谁*。Zeabur 通过你绑定的 GitHub 身份判断你属于哪些组织（以及哪些安装属于你）——没有绑定的话，即使 App 已安装也不会显示任何仓库。
+
+前往 [Console > Settings](https://dash.zeabur.com/account/general) 滑到最底部，确认已绑定 GitHub。如果尚未绑定，完成绑定后再搜索一次。
+
+### 二、检查组织内 App 的仓库访问范围
+
+如果 Zeabur App 安装时选择了「**Only select repositories**」，列表之外的仓库永远不会出现。要调整组织的访问范围：
+
+1. 在 GitHub 前往**组织的 Settings**（个人账号则是自己的 Settings）
+2. 打开 **Third-party Access → GitHub Apps**（个人账号为 **Applications → Installed GitHub Apps**）
+3. 找到 **Zeabur**，点击 **Configure**
+4. 在 **Repository access** 中改选「**All repositories**」，或保持「Only select repositories」并把缺少的仓库加入列表
+5. 保存后，这些仓库立即可以在 Zeabur 中搜索到
+
+<Callout type="info">
+修改组织的 App 设置需要组织 **Owner** 权限。如果你是 Member，请组织 Owner 协助调整仓库访问范围，或在 GitHub 弹出提示时提交审批请求。
+</Callout>
+
+如果以上两项设置都正确，但最近加入的组织仓库仍未出现，可以重新保存一次 App 设置（步骤 4）以刷新成员同步，或通过[社区论坛](https://zeabur.com/forum)联系支持团队。
+
 ## 移除 GitHub Apps
 
 如果需要完全移除 Zeabur GitHub App，可以在 GitHub 的 Settings > Intergrations > Applications > Installed GitHub Apps 中找到“Zeabur”，点击“Configure”后在弹出页面中的“Danger zone”点击“Uninstall”即可
