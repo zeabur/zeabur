@@ -1,14 +1,16 @@
 ---
-title: Transferir la propiedad a un Equipo
+title: Transferir la propiedad
 ogImageTitle: Transferir la propiedad
-ogImageSubtitle: Lleva proyectos y servidores personales a un Equipo
+ogImageSubtitle: Lleva proyectos y servidores a un Equipo o a otro usuario
 ---
 
 import { Callout, Steps } from 'nextra/components';
 
-# Transferir la propiedad a un Equipo
+# Transferir la propiedad
 
-Si tienes un proyecto o un servidor dedicado en tu **espacio de trabajo personal**, puedes cederlo a un [Equipo](/team) para que su facturación, su cuota y su propiedad pasen a la entidad del Equipo. Tras la transferencia, puedes seguir trabajando en el recurso como miembro del Equipo: el trabajo no cambia, solo cambia quién paga por él y quién es su propietario.
+Si tienes un proyecto o un servidor dedicado en tu **espacio de trabajo personal**, puedes cederlo a un [Equipo](/team) — o directamente a **otro usuario** — para que su facturación, su cuota y su propiedad pasen al nuevo propietario. Tras la transferencia, puedes seguir trabajando en el recurso como miembro o colaborador: el trabajo no cambia, solo cambia quién paga por él y quién es su propietario.
+
+Esta página explica primero el flujo hacia un Equipo y después el [flujo de usuario a usuario](#transferir-a-otro-usuario).
 
 ## Cuándo transferir
 
@@ -109,6 +111,56 @@ Lo que cambia:
 
 <Callout type="warning">
   La transferencia de servidor es unidireccional desde el panel. El nuevo propietario puede transferirlo de vuelta más adelante, pero tú no puedes deshacerla desde tu lado. Comprueba dos veces el Equipo de destino antes de confirmar.
+</Callout>
+
+## Transferir a otro usuario
+
+Tanto los proyectos como los servidores dedicados también pueden cederse directamente a otro **usuario personal** — la pestaña *Transfer to user* del mismo diálogo. Los pasos reflejan el flujo de Equipo, con un requisito clave:
+
+<Callout type="info">
+  Solo los usuarios que **ya son colaboradores** del proyecto o servidor pueden recibir la propiedad. Para transferir a alguien nuevo, invítalo primero como colaborador, espera a que acepte y luego ejecuta la transferencia.
+</Callout>
+
+### Transferir un proyecto a un usuario
+
+<Steps>
+### Abre el diálogo de transferencia
+
+En el proyecto, ve a **Settings → Danger Zone → Transfer ownership**.
+
+### Selecciona **Transfer to user**
+
+Cambia a la pestaña **Transfer to user**. Un desplegable lista los colaboradores actuales del proyecto (nombre y correo). Si la lista está vacía, invita primero al usuario receptor como colaborador.
+
+### Confirma
+
+Elige al nuevo propietario, escribe el **nombre del proyecto** en el campo de confirmación y haz clic en **Transfer**.
+</Steps>
+
+![Diálogo de Transfer to user](/team/transfer-to-user-dialog.webp)
+
+Qué cambia al completarse:
+
+- La propiedad y todos los costes futuros del proyecto pasan inmediatamente al usuario receptor.
+- **Te mantienes automáticamente como colaborador**, así que no pierdes acceso al proyecto que acabas de ceder. Si no quieres conservar ningún acceso, pide al nuevo propietario que te elimine de la lista de colaboradores.
+- Los demás colaboradores existentes no se ven afectados.
+- La transferencia es unidireccional desde tu lado — el nuevo propietario tendría que transferirte el proyecto de vuelta.
+
+### Transferir un servidor dedicado a un usuario
+
+La misma pestaña **Transfer to user** existe en el diálogo **Settings → Danger Zone → Transfer ownership** del servidor, con el mismo requisito de colaborador. A los servidores se les aplican dos comprobaciones adicionales:
+
+- **El usuario receptor debe tener un método de pago registrado, o créditos suficientes para cubrir el siguiente ciclo de renovación.** De lo contrario la transferencia se rechaza con *"The new owner must add a payment method or recharge enough credits to cover the next billing cycle before they can receive servers."*
+- Un servidor **suspendido** (facturas impagadas o infracción de políticas) no puede transferirse — resuelve primero la suspensión.
+
+La facturación y el acceso se comportan igual que en una transferencia de servidor a un Equipo:
+
+- El período prepagado actual se queda contigo (sin reembolso ni prorrateo); al nuevo propietario se le factura desde el siguiente aniversario de facturación.
+- Conservas acceso de solo lectura como colaborador añadido automáticamente.
+- Los proyectos que ya corren en el servidor **no** se transfieren — siguen siendo de sus propietarios actuales.
+
+<Callout type="warning">
+  **Los servidores Wonder Mesh no admiten la transferencia de propiedad.** Desinstala Wonder Mesh y reinstálalo con la cuenta de destino.
 </Callout>
 
 ## Revertir una transferencia
