@@ -66,9 +66,11 @@ The following ports are required for Zeabur to operate properly. Do not block th
 | 22 | SSH management |
 | 80 | HTTP traffic |
 | 443 | HTTPS traffic |
-| 4222 | NATS internal communication |
-| 6443 | K3s API Server |
+| 4222 | NATS internal communication (Zeabur management addresses only) |
+| 6443 | K3s API Server (Zeabur management addresses only) |
 | 30000–32767 | Kubernetes NodePort range |
+
+When you enable the firewall, Zeabur opens `22`, `80`, `443` and `30000–32767` to all sources, and opens `4222` and `6443` to Zeabur management addresses only. You do not need to add rules for `4222` or `6443`, and they do not appear in the default rule list.
 
 <Callout type="warning">
 Blocking any of these ports may prevent Zeabur from managing your server or cause services to become unreachable.
