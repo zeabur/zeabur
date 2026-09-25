@@ -6,14 +6,19 @@
 PAGES="pages"
 LOCALES=(en-US zh-TW zh-CN ja-JP es-ES)
 REF=en-US
-ISSUES=0
+
+# Issues are counted via a temp file because most checks below run inside
+# subshells (created by pipelines), so a plain shell variable would not
+# propagate counts back to the parent shell.
+ISSUE_FILE=$(mktemp)
+trap 'rm -f "$ISSUE_FILE"' EXIT
 
 red()   { printf "\033[31m%s\033[0m\n" "$*"; }
 green() { printf "\033[32m%s\033[0m\n" "$*"; }
 yellow(){ printf "\033[33m%s\033[0m\n" "$*"; }
 bold()  { printf "\033[1m%s\033[0m\n" "$*"; }
 
-issue() { yellow "  $*"; ISSUES=$((ISSUES+1)); }
+issue() { yellow "  $*"; echo "x" >> "$ISSUE_FILE"; }
 
 # ─── 1. _meta.ts 跨語系結構一致性 ───────────────────────────────────────────
 bold "═══ 1. _meta.ts 跨語系 visible keys 一致性（基準：$REF）═══"
@@ -121,8 +126,10 @@ done
 
 # ─── Summary ────────────────────────────────────────────────────────────────
 bold ""
+ISSUES=$(wc -l < "$ISSUE_FILE" | tr -d ' ')
 if [ "$ISSUES" -gt 0 ]; then
   red "══ 發現 $ISSUES 個問題 ══"
+  exit 1
 else
   green "══ 全部通過 ══"
 fi

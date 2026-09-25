@@ -1,0 +1,20 @@
+# CODEOWNERS — 自動指派 reviewer
+#
+# 規則優先順序：愈靠檔尾的規則愈優先。每個檔案匹配最後一條規則。
+# 無規則匹配的檔案無強制 reviewer。
+#
+# 全文規則見：https://docs.github.com/en/repositories/managing-your-repositories-settings-and-customizations/customizing-your-repository/about-code-owners
+
+# ─── Docs 結構與分類 ──────────────────────────────────────────────────────
+# 為什麼鎖這幾類檔案？
+#  - 頂層 _meta.ts 決定 sidebar L1（separator + L1 目錄名稱），亂改會打破 IA 規則
+#  - audit-docs.sh / docs-audit.yml 是維護者自己的稽核工具，需 Docs Owner 批
+#  - next.config.js 在這個 repo 主要承載 docs redirect（IA 重構時的 301 規則）
+#
+# 文件分類規則見 zebra-manual/docs/docs-maintenance/
+
+docs/pages/**/_meta.ts        @linglingwu005
+docs/scripts/audit-docs.sh    @linglingwu005
+docs/next.config.js           @linglingwu005
+.github/workflows/docs-audit.yml @linglingwu005
+.github/PULL_REQUEST_TEMPLATE.md @linglingwu005
