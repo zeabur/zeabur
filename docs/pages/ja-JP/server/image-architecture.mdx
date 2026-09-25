@@ -1,0 +1,73 @@
+---
+title: イメージアーキテクチャ（ARM / amd64）
+ogImageTitle: イメージアーキテクチャ（ARM / amd64）
+ogImageSubtitle: CPU アーキテクチャの不一致による「exec format error」の解決
+---
+
+import { Callout } from 'nextra/components'
+
+# イメージアーキテクチャ（ARM / amd64）
+
+専用サーバー上のサービスが起動直後に終了し、次のようなエラーが表示される場合：
+
+```
+exec /usr/local/bin/docker-entrypoint.sh: exec format error
+```
+
+またはログに「not a valid executable」と表示される場合、Docker イメージの CPU アーキテクチャがサーバーの CPU アーキテクチャと一致していません。このページでは、不一致の診断方法と、サーバーで動作するイメージのデプロイ方法を説明します。
+
+## エラーの意味
+
+`exec format error` は、OS が別の CPU アーキテクチャ向けにコンパイルされたバイナリを実行しようとしたことを意味します。エラーメッセージには最初に実行されるファイル（多くの場合 `docker-entrypoint.sh`）が表示されるため、あらゆるビルド済みイメージ（PostgreSQL、Redis、独自のアプリケーションイメージなど）で発生する可能性があり、特定のサービスに限った問題ではありません。
+
+典型的なケース：
+
+- ARM（`linux/arm64`）専用サーバーに `linux/amd64` のみのイメージをデプロイした場合。ほとんどのビルド済みイメージと **Zeabur がビルドするすべてのイメージ** は amd64 向けであるため、これが最も一般的なケースです。
+- amd64 サーバーに `linux/arm64` イメージ（たとえば Apple Silicon Mac でローカルビルドしたもの）をデプロイした場合。この場合は通常「no match for platform in manifest」エラーになります。詳細は[カスタム Docker イメージのデプロイ](/deploy/custom-docker-image)を参照してください。
+
+## サーバーのアーキテクチャを確認する
+
+サーバーに SSH 接続して実行します：
+
+```bash
+uname -m
+```
+
+| 出力 | アーキテクチャ |
+| --- | --- |
+| `x86_64` | amd64 |
+| `aarch64` | arm64（ARM） |
+
+## イメージのアーキテクチャを確認する
+
+```bash
+docker manifest inspect <image>
+```
+
+manifest に複数のプラットフォームが含まれている場合（マルチアーキテクチャイメージ）、サーバーは自動的に一致するものを取得するため問題ありません。単一のプラットフォームのみの場合は、そのプラットフォームがサーバーのアーキテクチャと一致している必要があります。
+
+## Zeabur のビルドは amd64 のみ
+
+<Callout type="warning">
+Zeabur のビルドシステムは `linux/amd64` イメージのみを生成し、ビルド設定で別のターゲットプラットフォームを指定するオプションはありません。そのため、Git からデプロイしたサービスは ARM 専用サーバーでは直接動作しません。
+</Callout>
+
+## 回避策：サーバーのアーキテクチャ向けに自分でビルドする
+
+サーバーのアーキテクチャ向けにイメージをビルドしてレジストリにプッシュし、ビルド済みイメージとしてデプロイします：
+
+```bash
+docker buildx build --platform linux/arm64 -t <registry>/<image>:<tag> --push .
+```
+
+1 つのタグで両方のアーキテクチャに対応させたい場合は、マルチアーキテクチャイメージをビルドします：
+
+```bash
+docker buildx build --platform linux/amd64,linux/arm64 -t <registry>/<image>:<tag> --push .
+```
+
+その後、[カスタム Docker イメージのデプロイ](/deploy/custom-docker-image)の手順に従って、プッシュしたイメージをデプロイします。
+
+<Callout type="info">
+ARM サーバーでビルド済みイメージ（マーケットプレイスのサービスを含む）を選ぶ際は、マルチアーキテクチャ manifest を公開しているイメージを優先してください。`docker manifest inspect` またはイメージのレジストリページで確認できます。
+</Callout>

@@ -1,0 +1,73 @@
+---
+title: 映像檔架構（ARM / amd64）
+ogImageTitle: 映像檔架構（ARM / amd64）
+ogImageSubtitle: 解決 CPU 架構不符造成的「exec format error」
+---
+
+import { Callout } from 'nextra/components'
+
+# 映像檔架構（ARM / amd64）
+
+如果專屬伺服器上的服務一啟動就退出，並出現類似以下錯誤：
+
+```
+exec /usr/local/bin/docker-entrypoint.sh: exec format error
+```
+
+或日誌顯示某個檔案「not a valid executable」，代表 Docker 映像檔的 CPU 架構與伺服器的 CPU 架構不符。本頁說明如何診斷架構不符，以及如何部署能在你的伺服器上執行的映像檔。
+
+## 錯誤的含義
+
+`exec format error` 表示作業系統嘗試執行為另一種 CPU 架構編譯的執行檔。錯誤訊息顯示的是最先被執行的檔案——通常是 `docker-entrypoint.sh`——因此任何預建映像檔（PostgreSQL、Redis、你自己的應用程式映像檔等）都可能出現這個錯誤，並非特定服務的問題。
+
+常見情境：
+
+- 在 ARM（`linux/arm64`）專屬伺服器上部署了僅支援 `linux/amd64` 的映像檔。這是最常見的情況，因為大多數預建映像檔與**所有 Zeabur 建置的映像檔**都是 amd64 架構。
+- 在 amd64 伺服器上部署了 `linux/arm64` 映像檔——例如在 Apple Silicon Mac 上本地建置的映像檔。這種情況通常會出現「no match for platform in manifest」錯誤，詳見[部署 Docker 映像檔](/deploy/custom-docker-image)中的說明。
+
+## 確認伺服器的架構
+
+SSH 進入伺服器後執行：
+
+```bash
+uname -m
+```
+
+| 輸出 | 架構 |
+| --- | --- |
+| `x86_64` | amd64 |
+| `aarch64` | arm64（ARM） |
+
+## 確認映像檔的架構
+
+```bash
+docker manifest inspect <image>
+```
+
+如果 manifest 列出多個平台（多架構映像檔），伺服器會自動拉取相符的版本，不會有問題。如果只列出單一平台，該平台必須與伺服器架構一致。
+
+## Zeabur 建置僅支援 amd64
+
+<Callout type="warning">
+Zeabur 的建置系統只會產出 `linux/amd64` 映像檔，且建置設定沒有指定其他目標平台的選項。因此從 Git 部署的服務無法直接在 ARM 專屬伺服器上執行。
+</Callout>
+
+## 解決方法：為伺服器的架構自行建置
+
+自行為伺服器的架構建置映像檔，推送到 registry 後以預建映像檔方式部署：
+
+```bash
+docker buildx build --platform linux/arm64 -t <registry>/<image>:<tag> --push .
+```
+
+如果希望同一個 tag 在兩種架構上都能執行，可建置多架構映像檔：
+
+```bash
+docker buildx build --platform linux/amd64,linux/arm64 -t <registry>/<image>:<tag> --push .
+```
+
+接著依照[部署 Docker 映像檔](/deploy/custom-docker-image)的步驟部署推送好的映像檔。
+
+<Callout type="info">
+在 ARM 伺服器上選用預建映像檔（包括模板市場的服務）時，建議優先選擇提供多架構 manifest 的映像檔。可以用 `docker manifest inspect` 或在映像檔的 registry 頁面上確認。
+</Callout>
