@@ -32,6 +32,32 @@ Zeabur 提供了與 GitHub 整合的能力，這允許你將 GitHub 帳號與 Ze
 
 ![選擇儲存庫](/deploy/github/select-repo.webp)
 
+## 找不到你的儲存庫？
+
+如果你已安裝 Zeabur GitHub App，但部分（或全部）儲存庫沒有出現在 Zeabur 的儲存庫搜尋中，請檢查以下兩項設定——幾乎所有情況都涵蓋在內。
+
+### 一、確認 Zeabur 帳號已綁定 GitHub
+
+安裝 GitHub App 和綁定 GitHub 帳號是**兩件不同的事**：App 讓 Zeabur 有權限存取儲存庫，而帳號綁定讓 Zeabur 知道你在 GitHub 上*是誰*。Zeabur 透過你綁定的 GitHub 身分判斷你屬於哪些組織（以及哪些安裝屬於你）——沒有綁定的話，即使 App 已安裝也不會顯示任何儲存庫。
+
+前往 [Console > Settings](https://dash.zeabur.com/account/general) 滑到最底下，確認已綁定 GitHub。如果尚未綁定，完成綁定後再搜尋一次。
+
+### 二、檢查組織內 App 的儲存庫存取範圍
+
+如果 Zeabur App 安裝時選擇了「**Only select repositories**」，清單之外的儲存庫永遠不會出現。要調整組織的存取範圍：
+
+1. 在 GitHub 前往**組織的 Settings**（個人帳號則是自己的 Settings）
+2. 開啟 **Third-party Access → GitHub Apps**（個人帳號為 **Applications → Installed GitHub Apps**）
+3. 找到 **Zeabur**，點選 **Configure**
+4. 在 **Repository access** 中改選「**All repositories**」，或維持「Only select repositories」並把缺少的儲存庫加入清單
+5. 儲存後，這些儲存庫立即可以在 Zeabur 中搜尋到
+
+<Callout type="info">
+修改組織的 App 設定需要組織 **Owner** 權限。如果你是 Member，請組織 Owner 協助調整儲存庫存取範圍，或在 GitHub 跳出提示時送出核准請求。
+</Callout>
+
+如果以上兩項設定都正確，但最近加入的組織儲存庫仍未出現，可以重新儲存一次 App 設定（步驟 4）以刷新成員同步，或透過[社群論壇](https://zeabur.com/forum)聯絡支援團隊。
+
 ## 移除 GitHub Apps
 
 如果需要完全移除 Zeabur GitHub App，可以在 GitHub 的 Settings > Intergrations > Applications > Installed GitHub Apps 中找到「Zeabur」，點選「Configure」後在彈出頁面中的「Danger zone」點選「Uninstall」即可

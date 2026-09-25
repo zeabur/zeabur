@@ -32,6 +32,32 @@ Después de completar la autorización, verás un cuadro de búsqueda. Ingresa e
 
 ![Seleccionar Repositorio](/deploy/github/select-repo.webp)
 
+## ¿No encuentras tus repositorios?
+
+Si instalaste la GitHub App de Zeabur pero algunos (o todos) tus repositorios no aparecen en la búsqueda de repositorios de Zeabur, revisa estos dos ajustes — cubren casi todos los casos.
+
+### 1. Asegúrate de que tu cuenta de Zeabur está vinculada a GitHub
+
+Instalar la GitHub App y vincular tu cuenta de GitHub son **dos cosas distintas**: la App concede a Zeabur acceso a los repositorios, mientras que la vinculación le dice a Zeabur *quién eres* en GitHub. Zeabur usa tu identidad de GitHub vinculada para determinar a qué organizaciones (y por tanto a qué instalaciones) perteneces — sin ella, no aparece ningún repositorio aunque la App esté instalada.
+
+Ve a [Console > Settings](https://dash.zeabur.com/account/general), desplázate hasta el final y confirma que GitHub está vinculado. Si no lo está, vincúlalo y busca de nuevo.
+
+### 2. Revisa el acceso a repositorios de la App en tu organización
+
+Cuando la App de Zeabur se instala con "**Only select repositories**", los repositorios fuera de esa lista nunca aparecen. Para cambiar el alcance de acceso de una organización:
+
+1. En GitHub, ve a los **Settings de tu organización** (para cuentas personales: tus propios Settings)
+2. Abre **Third-party Access → GitHub Apps** (en cuentas personales: **Applications → Installed GitHub Apps**)
+3. Busca **Zeabur** y haz clic en **Configure**
+4. En **Repository access**, cambia a "**All repositories**", o mantén "Only select repositories" y añade los repositorios que falten a la lista
+5. Guarda — los repositorios pasan a ser buscables en Zeabur inmediatamente
+
+<Callout type="info">
+Cambiar la configuración de la App de una organización requiere permiso de **Owner** de la organización. Si eres Member, pide a un Owner que ajuste el acceso a repositorios, o envía la solicitud de aprobación cuando GitHub lo indique.
+</Callout>
+
+Si ambos ajustes son correctos y los repositorios de una organización a la que te uniste recientemente siguen sin aparecer, vuelve a guardar la configuración de la App (paso 4) para refrescar la sincronización de miembros, o contacta con soporte en el [foro de la comunidad](https://zeabur.com/forum).
+
 ## Eliminación de aplicaciones de GitHub
 
 Si necesitas eliminar completamente la aplicación GitHub de Zeabur, puedes encontrar "Zeabur" en Configuración > Integraciones > Aplicaciones > Aplicaciones GitHub instaladas de GitHub, hacer clic en "Configurar", y luego hacer clic en "Desinstalar" en la "Zona de peligro" de la página emergente.
