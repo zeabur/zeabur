@@ -30,7 +30,7 @@ pnpm create @farm.js/app my-app
 ```
 
 <Callout>
-    使用 `@farm.js/create-app` 0.1.2 或更新版本建立的專案已經包含 `start` 腳本。如果是更早的專案，請在 `package.json` 的 `scripts` 中加入 `"start": "farm start"`，並且如果 `farm.config.ts` 中設定了 `deploy.target`，請將其移除，這樣建置會產生一個 Node.js 服務。
+    Zeabur 會使用 `package.json` 中的 `start` 腳本啟動應用。請確保它執行 `farm build` 產生的服務，即 `"start": "node .farm/.output/server/index.mjs"`（在 Zeabur 上使用 `"start": "farm start"` 也可以）。如果 `farm.config.ts` 中設定了 `deploy.target`，請將其移除，這樣建置會產生一個 Node.js 服務。
 </Callout>
 
 ## 步驟二：部署到 Zeabur

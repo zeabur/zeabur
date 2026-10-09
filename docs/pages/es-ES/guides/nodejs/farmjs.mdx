@@ -32,7 +32,7 @@ pnpm create @farm.js/app my-app
 ```
 
 <Callout>
-    Apps created with `@farm.js/create-app` 0.1.2 or later already include a `start` script. For an older app, add `"start": "farm start"` to the `scripts` in `package.json`, and remove `deploy.target` from `farm.config.ts` if it is set, so the build creates a Node.js server.
+    Zeabur starts the app with the `start` script in `package.json`. Make sure it runs the server that `farm build` creates, `"start": "node .farm/.output/server/index.mjs"` (`"start": "farm start"` also works on Zeabur), and remove `deploy.target` from `farm.config.ts` if it is set, so the build creates a Node.js server.
 </Callout>
 
 ## Step 2: Deploy to Zeabur
