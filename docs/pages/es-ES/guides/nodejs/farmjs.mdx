@@ -1,0 +1,59 @@
+---
+title: Farm.js
+ogImageTitle: Deploy Farm.js
+ogImageSubtitle: Deploy Farm.js Application on Zeabur
+---
+
+import { Callout } from 'nextra/components';
+
+<WorkingInProgress />
+
+# Deploy Farm.js
+
+[Farm.js](https://farmjs.dev/) is a full-stack framework with typed file routing, server actions, and streaming server rendering. It uses React by default and also supports Preact, Solid, Vue, and Svelte.
+
+This guide will help you to deploy your Farm.js application in Zeabur.
+
+## Step1: Create Farm.js App
+
+You can create a Farm.js project with the command below and follow the instructions.
+
+<Callout>
+    Minimum requirement: Node.js 22.13.0 or later
+</Callout>
+
+```bash
+# npm
+npx @farm.js/create-app@latest my-app
+# yarn
+yarn create @farm.js/app my-app
+# pnpm
+pnpm create @farm.js/app my-app
+```
+
+<Callout>
+    Apps created with `@farm.js/create-app` 0.1.2 or later already include a `start` script. For an older app, add `"start": "farm start"` to the `scripts` in `package.json`, and remove `deploy.target` from `farm.config.ts` if it is set, so the build creates a Node.js server.
+</Callout>
+
+## Step 2: Deploy to Zeabur
+
+Go to [your dashboard of Zeabur](https://zeabur.com) and create a new project if you haven't done so.
+
+Then, click on the `Deploy New Service` button, select deploy from GitHub.
+
+<Callout>
+    If it's your first time to deploy from GitHub on Zeabur, you need to configure and install the GitHub application first.
+    You can check a more detailed guide [here](/deploy/methods/github-integration).
+</Callout>
+
+After select the repository and branch, Zeabur will automatically start building your service.
+
+Zeabur will detect your service as a Node.js project, run the `build` script, and start the server with the `start` script, so you don't have to do any extra configuration. The Farm.js server listens on the `PORT` that Zeabur provides. And your deployment will be finished in a few minutes.
+
+## What's next
+
+After the deployment is complete, you may need to configure the domain name for your Farm.js application.
+
+Open the "Domain" tab in the service page and click on "Generate Domain" or "Custom Domain".
+
+For more information about how to bind a domain to your service, please refer to [Bind a domain](/deploy/networking/public-networking).
