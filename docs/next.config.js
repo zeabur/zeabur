@@ -398,9 +398,10 @@ export default withNextra({
       { source: '/:locale/community/verify',               destination: '/:locale/get-started/faq-support/verify', permanent: true },
       { source: '/community/help',                        destination: '/get-started/faq-support/help', permanent: true },
       { source: '/:locale/community/help',                 destination: '/:locale/get-started/faq-support/help', permanent: true },
-      // Ambassador Programme closed: page removed, send old links to the community overview
-      { source: '/community/ambassador-programme',        destination: '/community', permanent: true },
-      { source: '/:locale/community/ambassador-programme', destination: '/:locale/community', permanent: true },
+      // Ambassador Programme closed: page removed. Point straight at the final
+      // destination of /community to avoid a redirect chain
+      { source: '/community/ambassador-programme',        destination: '/get-started/faq-support', permanent: true },
+      { source: '/:locale/community/ambassador-programme', destination: '/:locale/get-started/faq-support', permanent: true },
       { source: '/community/forum',                       destination: '/get-started/faq-support', permanent: true },
       { source: '/:locale/community/forum',                destination: '/:locale/get-started/faq-support', permanent: true },
 
