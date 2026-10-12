@@ -1,0 +1,109 @@
+---
+title: Manajemen File
+ogImageTitle: Manajemen File
+ogImageSubtitle: Kelola File di Dalam Layanan di Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Manajemen File
+
+Zeabur menyediakan antarmuka manajemen file yang intuitif untuk mempermudah pengelolaan semua file di dalam layanan Anda. Melalui antarmuka ini, Anda dapat mengunggah, mengunduh, mengedit file secara online, serta membuat atau menghapus file dan folder.
+
+<Callout type="warning">
+  Beberapa container terlalu minimalis dan tidak mendukung komponen yang diperlukan untuk manajemen file (seperti cat), sehingga fitur ini mungkin tidak tersedia.
+</Callout>
+
+## Membuka Manajemen File
+
+Di tab **Ikhtisar** pada halaman layanan, klik **File** untuk mengakses antarmuka manajemen file.
+
+![file management](/data-management/file-management/file-management.png)
+
+Antarmuka manajemen file terdiri dari lima bagian utama: (1) Buat Folder, (2) Buat File, (3) Muat Ulang, (4) Daftar Direktori, dan (5) Isi File. Fungsi Muat Ulang memuat ulang daftar file setelah ada pembaruan. Daftar Direktori menampilkan struktur direktori lengkap, dan Anda dapat membentangkan atau menciutkan subdirektori menggunakan panah di samping folder. Bagian Isi File memungkinkan Anda melihat dan mengedit file.
+
+## Membuat File dan Folder
+
+Untuk membuat folder, klik tombol "Buat Folder", masukkan path folder lengkap, lalu tekan tombol konfirmasi untuk menyelesaikan prosesnya. Untuk membatalkan, biarkan path kosong dan klik tombol kembali.
+
+![create folder](/data-management/file-management/create-folder.png)
+
+Membuat file mengikuti langkah yang serupa. Klik tombol "Buat File", masukkan path file lengkap, lalu tekan tombol konfirmasi. Untuk membatalkan, biarkan path kosong dan klik tombol kembali.
+
+![create file](/data-management/file-management/create-file.png)
+
+## Mengedit File
+
+Pilih file yang ingin Anda edit dari daftar direktori, dan isinya akan muncul di bagian isi file di sebelah kanan.
+
+<Callout type="info">
+  Saat ini, hanya file teks yang dapat diedit. Silakan unduh file biner (gambar, audio, file terkompresi). Jika Anda membuka file biner, Anda akan melihat deretan teks acak yang tidak dapat diedit.
+</Callout>
+
+Anda dapat mengedit langsung di bagian isi file dan mengklik tombol **Simpan** di pojok kanan atas untuk menyimpan perubahan. Pesan konfirmasi akan muncul di pojok kanan bawah setelah berhasil disimpan.
+
+![edit file](/data-management/file-management/edit-file.png)
+
+<Callout type="warning">
+  Jika file yang Anda ubah tidak dipasang ke path mana pun, file tersebut akan kembali ke kondisi awalnya setelah layanan di-restart. Jika Anda ingin file yang dimodifikasi tetap ada pada deployment berikutnya, gunakan [Editor Konfigurasi](/data-management/config-edit) untuk melakukan perubahan.
+</Callout>
+
+## Menghapus File dan Folder
+
+Arahkan kursor ke item file dan klik tombol "Hapus" untuk menghapus file. Perlu diperhatikan bahwa Manajemen File saat ini tidak menampilkan konfirmasi sebelum penghapusan, jadi lakukan dengan hati-hati.
+
+![delete file](/data-management/file-management/delete-file.png)
+
+Saat ini, Manajemen File belum mendukung penghapusan seluruh folder melalui antarmuka. Anda dapat menjalankan perintah `rm` untuk menghapus seluruh folder menggunakan [Eksekusi Perintah](/deploy/config/command-execution). Berikut contoh penggunaan `rm -rf` untuk menghapus seluruh folder `/tmp/testdir`:
+
+```bash
+rm -rf /tmp/testdir
+```
+
+## Mengunduh File
+
+Untuk mengunduh file, arahkan kursor ke item file dan klik tombol "Unduh". Manajemen File akan menampilkan progres unduhan di pojok kanan bawah. Setelah unduhan selesai, Anda dapat memilih lokasi penyimpanan.
+
+![download file](/data-management/file-management/download-file.png)
+
+![select downloaded file destination](/data-management/file-management/download-select-destination.png)
+
+## Mengunggah File
+
+Untuk mengunggah file, cukup seret file ke direktori tujuan. Manajemen File akan menyorot lokasi tujuan unggahan, dan unggahan akan dimulai begitu Anda melepaskan tombol mouse. Saat ini, hanya unggahan satu file yang didukung.
+
+![upload file](/data-management/file-management/upload.png)
+
+### Mengunggah Direktori
+
+Untuk mengunggah seluruh direktori, kompres terlebih dahulu menjadi file `tar`:
+
+![compress directory as TAR file](/data-management/file-management/compress-as-tar.png)
+
+Seret file `tar` hasil kompresi ke direktori `/tmp` di antarmuka manajemen file Zeabur:
+
+![upload TAR file to temporary path](/data-management/file-management/upload-tar-file.png)
+
+Kemudian jalankan perintah berikut dengan [Eksekusi Perintah](/deploy/config/command-execution) untuk menampilkan hierarki file di dalam file `tar`:
+
+```bash
+tar tvf <your uploaded tar file>
+```
+
+Setelah memastikan hierarkinya benar, gunakan perintah berikut untuk mengekstrak:
+
+```bash
+tar xvf <your uploaded tar file> -C <your desired extraction directory>
+```
+
+Contohnya:
+
+```bash
+tar xvf /tmp/myfolder.tar -C /usr/share
+```
+
+Struktur folder hasil ekstraksi adalah sebagai berikut:
+
+![extracted folder structure](/data-management/file-management/extracted-folder-structure.png)
+
+Setelah selesai, Anda dapat menghapus file `tar` di direktori `/tmp` untuk menghemat ruang.

@@ -1,0 +1,32 @@
+---
+title: Jaringan Privat
+ogImageTitle: Jaringan Privat
+ogImageSubtitle: Jaringan yang memungkinkan layanan saling terhubung
+---
+
+import { Callout } from 'nextra/components'
+
+# Jaringan Privat
+
+Jaringan Privat memungkinkan layanan menggunakan hostname tetap untuk terhubung ke layanan lain dalam proyek yang sama.
+
+<Callout type="info">
+  Jaringan privat digunakan untuk **komunikasi antar layanan** dalam proyek yang sama — bukan untuk mengakses layanan dari mesin lokal Anda. Jika Anda menggunakan [Wonder Mesh](/wonder-mesh) dan ingin mengakses layanan dari jaringan lokal Anda, lihat [Mengakses Layanan dari LAN Anda](/wonder-mesh/get-started#mengakses-layanan).
+</Callout>
+
+## Menemukan Hostname
+
+Buka bagian "Jaringan" pada layanan untuk menemukan hostname di bawah "Privat".
+
+![find hostname](/networking/private/find-hostname.webp)
+
+## Menghubungkan ke Layanan
+
+Gunakan hostname di atas untuk terhubung ke layanan ini (dalam contoh ini, PostgreSQL). Selain itu, menurut [dokumentasi PostgreSQL](/marketplace/postgresql), port disuntikkan ke environment variable `POSTGRES_PORT`. Jadi, Anda dapat mengisi informasi koneksi sebagai berikut:
+
+- Hostname: Hostname yang Anda temukan pada langkah sebelumnya, dalam contoh ini adalah `postgresql.zeabur.internal`.
+- Port: Ambil nilai dari environment variable `POSTGRES_PORT`, yang [secara default bernilai 5432](https://github.com/zeabur/zeabur/blob/bd565389cf1868a917333d0f74003b4aad6ef0ce/prebuilts/postgresql.toml#L14).
+
+## Catatan Penting
+
+- Mengubah nama layanan **tidak** mengubah hostname.

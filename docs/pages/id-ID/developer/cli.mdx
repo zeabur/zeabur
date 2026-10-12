@@ -1,0 +1,185 @@
+---
+title: Zeabur CLI
+ogImageTitle: Zeabur CLI
+ogImageSubtitle: Kelola sumber daya Zeabur dari terminal Anda
+---
+
+import { Callout } from 'nextra/components'
+
+# Zeabur CLI
+
+Zeabur CLI memungkinkan Anda mengelola semua sumber daya Zeabur dari terminal — deploy layanan, melihat log, mengelola proyek, tanpa membuka Dashboard.
+
+## Login
+
+### Login melalui browser
+
+```bash copy
+npx zeabur@latest auth login
+```
+
+Tekan `Enter` untuk membuka halaman login di browser, lalu klik `Confirm`. Anda akan diarahkan kembali ke terminal dengan pesan login berhasil.
+
+### Login dengan token
+
+Untuk CI/CD atau environment headless:
+
+```bash copy
+npx zeabur@latest auth login --token <your-token>
+```
+
+## Deploy layanan
+
+Jalankan perintah berikut di direktori proyek Anda:
+
+```bash copy
+npx zeabur@latest deploy
+```
+
+CLI secara otomatis mendeteksi framework Anda dan memandu Anda untuk memilih atau membuat proyek. Setelah deploy selesai, URL layanan akan ditampilkan di terminal.
+
+## Workspace (Tim)
+
+Workspace adalah akun yang digunakan CLI saat bertindak: akun **pribadi** Anda, atau salah satu **tim** tempat Anda bergabung. Workspace merupakan cakupan terluar dari konteks Anda — menggantinya akan menghapus proyek, environment, dan layanan yang tersimpan, karena ID sumber daya tidak dibagikan antara akun pribadi dan tim.
+
+<Callout type="info">
+Secara default, CLI bertindak atas akun **pribadi** Anda. Sebelum bekerja dengan sumber daya tim, beralihlah ke workspace tim tersebut (atau gunakan `--workspace`), jika tidak, perintah akan dijalankan terhadap akun pribadi Anda.
+</Callout>
+
+### Daftar workspace
+
+Menampilkan workspace pribadi Anda dan setiap tim tempat Anda bergabung, beserta peran Anda di masing-masing. Workspace saat ini akan ditandai.
+
+```bash copy
+npx zeabur@latest workspace list
+```
+
+### Tampilkan workspace saat ini
+
+```bash copy
+npx zeabur@latest workspace current
+```
+
+### Beralih ke tim
+
+Argumennya adalah nama tim atau ID tim yang terdiri dari 24 karakter. Jika sebuah nama cocok dengan lebih dari satu tim, CLI akan menampilkan daftar kandidat agar Anda dapat memilih berdasarkan ID.
+
+```bash copy
+npx zeabur@latest workspace switch <team-name-or-id>
+```
+
+### Kembali ke workspace pribadi Anda
+
+```bash copy
+npx zeabur@latest workspace clear
+```
+
+### Override sekali jalan
+
+Gunakan flag global `--workspace` untuk menjalankan satu perintah di workspace lain tanpa mengubah workspace yang tersimpan. Cara ini praktis untuk CI dan skrip:
+
+```bash copy
+npx zeabur@latest --workspace <team-name-or-id> project ls
+```
+
+## Manajemen proyek
+
+### Daftar proyek
+
+```bash copy
+npx zeabur@latest project ls
+```
+
+### Atur konteks proyek
+
+```bash copy
+npx zeabur@latest context set project
+```
+
+Dalam mode interaktif, perintah ini menampilkan semua proyek Anda untuk dipilih. Perintah selanjutnya akan otomatis diterapkan pada proyek yang dipilih.
+
+## Manajemen layanan
+
+### Daftar layanan
+
+```bash copy
+npx zeabur@latest service ls
+```
+
+### Atur konteks layanan
+
+```bash copy
+npx zeabur@latest context set service
+```
+
+### Restart layanan
+
+```bash copy
+npx zeabur@latest service restart
+```
+
+## Info deployment dan log
+
+### Lihat status deployment
+
+```bash copy
+npx zeabur@latest deployment get
+```
+
+### Lihat runtime log
+
+```bash copy
+npx zeabur@latest deployment log -t=runtime
+```
+
+### Lihat build log
+
+```bash copy
+npx zeabur@latest deployment log -t=build
+```
+
+## Beralih environment
+
+```bash copy
+npx zeabur@latest context set env
+```
+
+Beralih antar-environment deployment (misalnya production, staging).
+
+## Mode non-interaktif
+
+Untuk pipeline CI/CD atau skrip otomatisasi, tambahkan `-i=false` untuk menonaktifkan prompt interaktif dan meneruskan parameter secara langsung:
+
+### Tentukan proyek dan layanan berdasarkan nama
+
+```bash copy
+npx zeabur@latest context set project --name <project-name>
+npx zeabur@latest context set service --name <service-name>
+npx zeabur@latest context set env --id <env-id>
+```
+
+### Tentukan berdasarkan ID
+
+```bash copy
+npx zeabur@latest context set project --id <project-id>
+npx zeabur@latest context set service --id <service-id>
+```
+
+### Operasi satu baris
+
+Lewati pengaturan konteks dan teruskan semua parameter secara langsung:
+
+```bash copy
+npx zeabur@latest service restart --env-id <env-id> --service-name <service-name>
+npx zeabur@latest deployment get --env-id <env-id> --service-name <service-name>
+npx zeabur@latest deployment log -t=runtime --env-id <env-id> --service-name <service-name>
+```
+
+## Dapatkan bantuan
+
+Tambahkan `--help` ke perintah apa pun untuk melihat cara penggunaannya:
+
+```bash copy
+npx zeabur@latest --help
+npx zeabur@latest deployment --help
+```

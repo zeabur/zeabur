@@ -1,0 +1,90 @@
+---
+title: GCP BYOS
+ogImageTitle: GCP BYOS
+ogImageSubtitle: Gunakan proyek GCP Anda sendiri di Zeabur
+---
+
+import { Steps, Tabs } from 'nextra/components'
+
+# GCP BYOS (Bring Your Own Subscription)
+
+Dengan menghubungkan proyek GCP Anda sendiri ke Zeabur, Anda dapat mengizinkan Zeabur membuat kluster GKE dan mengelola layanan langsung di proyek GCP Anda.
+
+<Steps>
+
+### Siapkan proyek GCP dengan billing
+
+Pilih proyek GCP yang ingin digunakan oleh Zeabur, atau [buat proyek baru](https://console.cloud.google.com/projectcreate). Pastikan proyek tersebut terhubung ke akun billing — GKE tidak akan berjalan tanpanya.
+
+### Siapkan service account konektor
+
+Zeabur menggunakan service account di proyek Anda (`zeabur-connector`) untuk mengelola kluster GKE, dan melakukan impersonasi terhadapnya melalui `zeabur-byos-connector@zeabur-system.iam.gserviceaccount.com`. Pilih salah satu dari tiga cara penyiapan di bawah ini.
+
+<Tabs storageKey="gcp-byos-setup" items={['Cloud Console', 'gcloud CLI', 'Claude Code / Codex']}>
+<Tabs.Tab>
+
+1. Di API library proyek Anda, aktifkan [Kubernetes Engine API](https://console.cloud.google.com/apis/library/container.googleapis.com) dan [Cloud Resource Manager API](https://console.cloud.google.com/apis/library/cloudresourcemanager.googleapis.com).
+2. Buka **IAM & Admin → Service Accounts** dan buat service account bernama `zeabur-connector`.
+3. Buka **IAM & Admin → IAM**, klik **Grant Access**, tambahkan `zeabur-connector@<PROJECT_ID>.iam.gserviceaccount.com` sebagai principal, lalu berikan role `roles/container.admin`.
+4. Kembali ke **Service Accounts**, buka `zeabur-connector`, beralih ke tab **Permissions**, klik **Grant Access**, tambahkan `zeabur-byos-connector@zeabur-system.iam.gserviceaccount.com` sebagai principal, lalu berikan role `roles/iam.serviceAccountTokenCreator`.
+
+</Tabs.Tab>
+<Tabs.Tab>
+
+Buka [Cloud Shell](https://shell.cloud.google.com/) (atau terminal apa pun dengan `gcloud` yang sudah terautentikasi), atur `PROJECT_ID`, lalu jalankan:
+
+```bash copy
+export PROJECT_ID=your-gcp-project-id
+
+gcloud services enable \
+  container.googleapis.com \
+  cloudresourcemanager.googleapis.com \
+  --project=$PROJECT_ID
+
+gcloud iam service-accounts create zeabur-connector --project=$PROJECT_ID
+
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member="serviceAccount:zeabur-connector@$PROJECT_ID.iam.gserviceaccount.com" \
+  --role="roles/container.admin"
+
+gcloud iam service-accounts add-iam-policy-binding \
+  zeabur-connector@$PROJECT_ID.iam.gserviceaccount.com \
+  --member="serviceAccount:zeabur-byos-connector@zeabur-system.iam.gserviceaccount.com" \
+  --role="roles/iam.serviceAccountTokenCreator" \
+  --project=$PROJECT_ID
+```
+
+</Tabs.Tab>
+<Tabs.Tab>
+
+Tempel prompt berikut ke [Claude Code](https://claude.com/claude-code) atau [Codex CLI](https://github.com/openai/codex) — agent akan menjalankan perintah-perintah tersebut untuk Anda dan melaporkan kembali nilai-nilai yang Anda perlukan:
+
+```text copy
+Set up Zeabur BYOS for GKE on a GCP project. Use gcloud (assume I'm authenticated).
+
+1. Ask me which GCP project to use, or create a new one.
+2. Make sure the project is linked to a billing account.
+3. Run these commands (substitute PROJECT_ID):
+   - gcloud services enable container.googleapis.com cloudresourcemanager.googleapis.com --project=PROJECT_ID
+   - gcloud iam service-accounts create zeabur-connector --project=PROJECT_ID
+   - gcloud projects add-iam-policy-binding PROJECT_ID --member="serviceAccount:zeabur-connector@PROJECT_ID.iam.gserviceaccount.com" --role="roles/container.admin"
+   - gcloud iam service-accounts add-iam-policy-binding zeabur-connector@PROJECT_ID.iam.gserviceaccount.com --member="serviceAccount:zeabur-byos-connector@zeabur-system.iam.gserviceaccount.com" --role="roles/iam.serviceAccountTokenCreator" --project=PROJECT_ID
+
+When done, print the project ID and the connector service account email so I can paste them into Zeabur's Bind GCP Service Account form.
+```
+
+</Tabs.Tab>
+</Tabs>
+
+### Ikat proyek ke Zeabur
+
+Buka [https://zeabur.com/account/byos](https://zeabur.com/account/byos), klik **Bind GCP Service Account**, lalu kirimkan:
+
+- **Service Account Email**: `zeabur-connector@<PROJECT_ID>.iam.gserviceaccount.com`
+- **Project ID**: ID proyek GCP Anda
+
+### Beli kluster khusus
+
+Setelah service account terikat, buka halaman [Buy Cluster](https://zeabur.com/servers/buy-cluster). Anda akan melihat opsi penyedia baru bernama **GCP - &lt;project name&gt;**. Pilih opsi tersebut, dan Zeabur akan membuat kluster GKE baru langsung di proyek GCP Anda.
+
+</Steps>

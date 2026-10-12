@@ -3,7 +3,6 @@
 // Differences from SoT:
 //   - sonner not installed in docs → inline "Copied" state on the button itself (FeedbackWidget pattern).
 //   - User comes from useZeaburAuth (cookie + REST GraphQL) instead of Apollo useSession.
-//   - 5 locales (docs site doesn't ship id-ID).
 import { useState } from 'react'
 import { useRouter } from 'nextra/hooks'
 
@@ -63,6 +62,8 @@ const SHARE_MESSAGES: Record<string, string> = {
     '{{url}} でサーバーを購入する際、チェックアウトで紹介コード「{{code}}」を入力すると {{discount}}% オフになります！',
   'es-ES':
     'Compra servidores en {{url}} — ingresa mi código de referencia "{{code}}" al pagar y obtén {{discount}}% de descuento.',
+  'id-ID':
+    'Beli server di {{url}} — masukkan kode referral saya "{{code}}" saat checkout untuk mendapatkan diskon {{discount}}%!',
 }
 
 const SHARE_LABEL: Record<string, string> = {
@@ -71,6 +72,7 @@ const SHARE_LABEL: Record<string, string> = {
   'zh-CN': '分享',
   'ja-JP': 'シェア',
   'es-ES': 'Compartir',
+  'id-ID': 'Bagikan',
 }
 
 const COPIED_LABEL: Record<string, string> = {
@@ -79,6 +81,7 @@ const COPIED_LABEL: Record<string, string> = {
   'zh-CN': '已复制',
   'ja-JP': 'コピーしました',
   'es-ES': 'Copiado',
+  'id-ID': 'Disalin',
 }
 
 /**

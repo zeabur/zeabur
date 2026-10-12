@@ -1,0 +1,82 @@
+---
+title: Go
+ogImageTitle: Deploy Aplikasi Go
+ogImageSubtitle: Deploy Aplikasi Go di Zeabur
+---
+
+# Deploy Aplikasi Go
+
+Semua proyek yang berbasis [Go Modules](https://blog.golang.org/using-go-modules) dapat di-deploy. Namun, Anda perlu memiliki `main.go` di direktori root proyek sebagai entry kompilasi program.
+
+## Entry Point Aplikasi Kustom
+
+Jika Anda memiliki beberapa entry point, Anda perlu menempatkannya di direktori `cmd`, misalnya `cmd/server-a/main.go` dan `cmd/server-b/main.go`.
+
+Zeabur akan otomatis mengenali dan men-deploy aplikasi di direktori `cmd` yang sesuai dengan nama layanan.
+
+Atau, Anda dapat menentukan entry point menggunakan environment variable `ZBPACK_GO_ENTRY`:
+
+```env
+ZBPACK_GO_ENTRY=cmd/server-a/main.go
+```
+
+Anda juga dapat mengatur konfigurasi `go.entry` di `zbpack.json`:
+
+```json
+{
+    "go": {
+        "entry": "cmd/server-a/main.go"
+    }
+}
+```
+
+## Mengatur Perintah Pre-build
+
+Jika proyek Go Anda perlu menjalankan perintah seperti `go generate` sebelum build, Anda dapat mengaturnya menggunakan environment variable `ZBPACK_BUILD_COMMAND`.
+
+```env
+ZBPACK_BUILD_COMMAND=go generate ./...
+```
+
+Anda juga dapat mengatur `build_command` di `zbpack.json`:
+
+```json
+{
+    "build_command": "go generate ./..."
+}
+```
+
+Perintah pre-build Anda akan dijalankan setelah dependensi diinstal dan sebelum proses build.
+
+## Mengaktifkan cgo
+
+Jika proyek Go Anda perlu menggunakan cgo, Anda dapat mengatur `go.cgo` di `zbpack.json`:
+
+```json
+{
+    "go": {
+        "cgo": true
+    }
+}
+```
+
+Atau atur environment variable `ZBPACK_GO_CGO`:
+
+```env
+ZBPACK_GO_CGO=true
+```
+
+Zeabur akan otomatis mengaktifkan cgo dan menginstal toolchain C/C++ yang diperlukan.
+
+## Listening pada Port
+
+Zeabur akan otomatis mengatur environment variable `PORT` yang akan digunakan program Go untuk listening.
+
+```go
+port := os.Getenv("PORT")
+if port == "" {
+    port = "8080"
+}
+
+http.ListenAndServe(":"+port, nil)
+```

@@ -1,0 +1,557 @@
+---
+title: Konfigurasi Webhook
+ogImageTitle: Konfigurasi Webhook Zeabur Email
+ogImageSubtitle: Terima Notifikasi Status Email secara Real-time
+---
+
+# Konfigurasi Webhook
+
+Webhook memungkinkan Anda menerima pembaruan status email secara real-time, termasuk event terkirim, bounce, keluhan, dan lainnya.
+
+## Apa itu Webhook
+
+Ketika status email berubah, Zeabur Email akan mengirimkan permintaan HTTP POST yang berisi detail event ke URL yang telah Anda konfigurasi.
+
+## Membuat Webhook
+
+import { Callout, Steps } from 'nextra/components'
+
+<Steps>
+
+### Masuk ke Konsol
+
+Buka halaman manajemen Zeabur Email di konsol Zeabur.
+
+### Buat Webhook
+
+1. Buka "Webhooks"
+2. Klik "Tambah Webhook"
+3. Masukkan URL Webhook (misalnya `https://yourapp.com/webhooks/zsend`)
+4. Pilih jenis event yang ingin diterima
+5. Klik "Simpan"
+
+### Dapatkan Secret Tanda Tangan
+
+Setelah dibuat, sistem akan membuat secret tanda tangan untuk memverifikasi asal permintaan. **Simpan dengan aman — secret ini hanya ditampilkan satu kali!**
+
+### Verifikasi Webhook
+
+Klik tombol "Verifikasi", dan sistem akan mengirimkan permintaan uji ke URL Anda untuk memastikan URL tersebut dapat menerima permintaan dengan benar.
+
+</Steps>
+
+## Jenis Event
+
+Zeabur Email mendukung jenis event berikut:
+
+| Jenis Event | Deskripsi |
+|-----------|-------------|
+| `send` | Email telah dikirim ke mail server |
+| `delivery` | Email berhasil diterima oleh penerima |
+| `bounce` | Email terpental (hard bounce atau soft bounce) |
+| `complaint` | Penerima menandai email sebagai spam |
+| `reject` | Pengiriman email ditolak (domain belum terverifikasi, pelanggaran konten, dll.) |
+| `open` | Penerima membuka email |
+| `click` | Penerima mengklik tautan di dalam email |
+
+## Format Permintaan Webhook
+
+### Header Permintaan
+
+```http
+POST /your-webhook-endpoint HTTP/1.1
+Host: yourapp.com
+Content-Type: application/json
+X-ZSend-Event: delivery
+X-ZSend-Timestamp: 1768812348
+X-ZSend-Signature: sha256=dc36b914ecdb7bb6f4ba8714b6ccb04d46e85af5cd1bc52744e0208964f5fb34
+User-Agent: ZSend-Webhook/1.0
+```
+
+| Header | Deskripsi |
+|--------|-------------|
+| `X-ZSend-Event` | Jenis event |
+| `X-ZSend-Timestamp` | Unix timestamp |
+| `X-ZSend-Signature` | Tanda tangan HMAC-SHA256 |
+
+### Request Body
+
+#### Event Terkirim (delivery)
+
+```json
+{
+  "event": "delivery",
+  "timestamp": "2026-01-19T08:45:48Z",
+  "email": {
+    "id": "696def36de644b22ae711500",
+    "message_id": "0111019bd56e71c1-8ccdb66d-5d71-433f-9a9a-0766822f8955-000000",
+    "from": "hello@yourdomain.com",
+    "to": ["user@example.com"],
+    "subject": "Welcome to Zeabur Email",
+    "sent_at": "2026-01-19T08:45:42Z"
+  },
+  "data": {
+    "processing_time_millis": 5116,
+    "recipients": ["user@example.com"],
+    "smtp_response": "250 OK"
+  }
+}
+```
+
+#### Event Bounce (bounce)
+
+```json
+{
+  "event": "bounce",
+  "timestamp": "2026-01-19T08:45:50Z",
+  "email": {
+    "id": "696def36de644b22ae711501",
+    "message_id": "0111019bd56e71c1-8ccdb66d-5d71-433f-9a9a-0766822f8955-000001",
+    "from": "hello@yourdomain.com",
+    "to": ["invalid@example.com"],
+    "subject": "Test Email"
+  },
+  "data": {
+    "bounce_type": "Permanent"
+    "bounce_subtype": "General",
+    "bounced_recipients": [
+      {
+        "email_address": "invalid@example.com",
+        "status": "5.1.1",
+        "diagnostic_code": "smtp; 550 5.1.1 user unknown"
+      }
+    ]
+  }
+}
+```
+
+#### Event Keluhan (complaint)
+
+```json
+{
+  "event": "complaint",
+  "timestamp": "2026-01-19T09:00:00Z",
+  "email": {
+    "id": "696def36de644b22ae711502",
+    "message_id": "0111019bd56e71c1-8ccdb66d-5d71-433f-9a9a-0766822f8955-000002",
+    "from": "newsletter@yourdomain.com",
+    "to": ["user@example.com"],
+    "subject": "Weekly Newsletter"
+  },
+  "data": {
+    "complaint_feedback_type": "abuse",
+    "complained_recipients": ["user@example.com"]
+  }
+}
+```
+
+#### Event Dibuka (open)
+
+```json
+{
+  "event": "open",
+  "timestamp": "2026-01-19T09:10:00Z",
+  "email": {
+    "id": "696def36de644b22ae711503",
+    "message_id": "0111019bd56e71c1-8ccdb66d-5d71-433f-9a9a-0766822f8955-000003",
+    "from": "hello@yourdomain.com",
+    "to": ["user@example.com"],
+    "subject": "Welcome to Zeabur Email",
+    "sent_at": "2026-01-19T08:45:42Z"
+  },
+  "data": {
+    "timestamp": "2026-01-19T09:10:00Z",
+    "ip_address": "203.0.113.1",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+  }
+}
+```
+
+#### Event Klik (click)
+
+```json
+{
+  "event": "click",
+  "timestamp": "2026-01-19T09:12:00Z",
+  "email": {
+    "id": "696def36de644b22ae711503",
+    "message_id": "0111019bd56e71c1-8ccdb66d-5d71-433f-9a9a-0766822f8955-000003",
+    "from": "hello@yourdomain.com",
+    "to": ["user@example.com"],
+    "subject": "Welcome to Zeabur Email",
+    "sent_at": "2026-01-19T08:45:42Z"
+  },
+  "data": {
+    "timestamp": "2026-01-19T09:12:00Z",
+    "ip_address": "203.0.113.1",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+    "link": "https://zeabur.com/docs"
+  }
+}
+```
+
+## Verifikasi Tanda Tangan
+
+Untuk memastikan permintaan benar-benar berasal dari Zeabur Email, Anda perlu memverifikasi `X-ZSend-Signature`.
+
+### Langkah Verifikasi
+
+1. Ambil `X-ZSend-Timestamp` dan `X-ZSend-Signature` dari header permintaan
+2. Baca raw request body
+3. Susun pesan tanda tangan: `{timestamp}.{body}`
+4. Hitung tanda tangan menggunakan HMAC-SHA256 dan Secret Anda
+5. Bandingkan hasilnya dengan `X-ZSend-Signature` (format: `sha256=xxx`)
+
+### Contoh Node.js
+
+```javascript
+const crypto = require('crypto');
+const express = require('express');
+
+const app = express();
+
+// Gunakan raw body untuk mempertahankan request body asli (harus sebelum express.json())
+app.post('/webhooks/zsend',
+  express.raw({ type: 'application/json' }),
+  (req, res) => {
+    const secret = process.env.ZSEND_WEBHOOK_SECRET;
+    const signature = req.headers['x-zsend-signature'];
+    const timestamp = req.headers['x-zsend-timestamp'];
+
+    // Periksa header yang wajib ada
+    if (!signature || !timestamp) {
+      return res.status(400).json({ error: 'Missing signature or timestamp' });
+    }
+
+    const body = req.body.toString('utf8'); // Raw request body
+
+    // Susun pesan tanda tangan
+    const message = `${timestamp}.${body}`;
+
+    // Hitung HMAC-SHA256
+    const hmac = crypto.createHmac('sha256', secret);
+    hmac.update(message);
+    const expectedSignature = 'sha256=' + hmac.digest('hex');
+
+    // Perbandingan timing-safe (periksa panjang terlebih dahulu untuk menghindari RangeError)
+    const sigBuf = Buffer.from(signature);
+    const expBuf = Buffer.from(expectedSignature);
+    const isValid = sigBuf.length === expBuf.length &&
+      crypto.timingSafeEqual(sigBuf, expBuf);
+
+    if (!isValid) {
+      return res.status(401).json({ error: 'Invalid signature' });
+    }
+    
+    // Parse JSON dan proses event
+    const payload = JSON.parse(body);
+    const { event, email, data } = payload;
+    
+    console.log(`Received ${event} event for email ${email.id}`);
+    
+    // Kembalikan 200 untuk menandakan permintaan berhasil diterima
+    res.status(200).json({ received: true });
+  }
+);
+```
+
+### Contoh Python
+
+```python
+import hmac
+import hashlib
+
+def verify_webhook_signature(request, secret):
+    signature = request.headers.get('X-ZSend-Signature')
+    timestamp = request.headers.get('X-ZSend-Timestamp')
+    body = request.get_data(as_text=True)
+    
+    # Susun pesan tanda tangan
+    message = f"{timestamp}.{body}"
+    
+    # Hitung HMAC-SHA256
+    expected_signature = 'sha256=' + hmac.new(
+        secret.encode('utf-8'),
+        message.encode('utf-8'),
+        hashlib.sha256
+    ).hexdigest()
+    
+    # Perbandingan timing-safe
+    return hmac.compare_digest(signature, expected_signature)
+
+# Contoh Flask
+@app.route('/webhooks/zsend', methods=['POST'])
+def handle_webhook():
+    secret = os.environ.get('ZSEND_WEBHOOK_SECRET')
+    
+    if not verify_webhook_signature(request, secret):
+        return jsonify({'error': 'Invalid signature'}), 401
+    
+    data = request.get_json()
+    event_type = data['event']
+    email_id = data['email']['id']
+    
+    print(f"Received {event_type} event for email {email_id}")
+    
+    return jsonify({'received': True}), 200
+```
+
+### Contoh Go
+
+```go
+package main
+
+import (
+	"crypto/hmac"
+	"crypto/sha256"
+	"crypto/subtle"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	"io"
+	"net/http"
+	"os"
+)
+
+// WebhookPayload merepresentasikan struktur payload webhook
+type WebhookPayload struct {
+	Event     string `json:"event"`
+	Timestamp string `json:"timestamp"`
+	Email     struct {
+		ID        string   `json:"id"`
+		MessageID string   `json:"message_id"`
+		From      string   `json:"from"`
+		To        []string `json:"to"`
+		Subject   string   `json:"subject"`
+		SentAt    string   `json:"sent_at"`
+	} `json:"email"`
+	Data interface{} `json:"data"`
+}
+
+func verifyWebhookSignature(body []byte, signature, timestamp, secret string) bool {
+	// Susun pesan tanda tangan
+	message := fmt.Sprintf("%s.%s", timestamp, body)
+	
+	// Hitung HMAC-SHA256
+	h := hmac.New(sha256.New, []byte(secret))
+	h.Write([]byte(message))
+	expectedSignature := "sha256=" + hex.EncodeToString(h.Sum(nil))
+	
+	// Perbandingan timing-safe
+	return subtle.ConstantTimeCompare([]byte(signature), []byte(expectedSignature)) == 1
+}
+
+func handleWebhook(w http.ResponseWriter, r *http.Request) {
+	secret := os.Getenv("ZSEND_WEBHOOK_SECRET")
+	
+	// Baca raw request body
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, "Failed to read body", http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+	
+	// Ambil header permintaan
+	signature := r.Header.Get("X-ZSend-Signature")
+	timestamp := r.Header.Get("X-ZSend-Timestamp")
+	
+	// Verifikasi tanda tangan
+	if !verifyWebhookSignature(body, signature, timestamp, secret) {
+		http.Error(w, `{"error":"Invalid signature"}`, http.StatusUnauthorized)
+		return
+	}
+	
+	// Parse JSON
+	var payload WebhookPayload
+	if err := json.Unmarshal(body, &payload); err != nil {
+		http.Error(w, "Invalid JSON", http.StatusBadRequest)
+		return
+	}
+	
+	// Proses event
+	fmt.Printf("Received %s event for email %s\n", payload.Event, payload.Email.ID)
+	
+	// Kembalikan 200 untuk menandakan permintaan berhasil diterima
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]bool{"received": true})
+}
+
+func main() {
+	http.HandleFunc("/webhooks/zsend", handleWebhook)
+	http.ListenAndServe(":3000", nil)
+}
+```
+
+## Mekanisme Percobaan Ulang
+
+Jika endpoint Webhook Anda:
+- Mengembalikan kode status selain 2xx
+- Mengalami timeout (10 detik)
+- Mengalami error jaringan
+
+Zeabur Email akan otomatis mencoba ulang hingga **3 kali** menggunakan exponential backoff:
+
+- Percobaan ulang ke-1: setelah 1 detik
+- Percobaan ulang ke-2: setelah 2 detik
+- Percobaan ulang ke-3: setelah 4 detik
+
+<Callout type="warning">
+  Setelah 3 kali percobaan ulang gagal, event Webhook akan dibuang. Pastikan endpoint Anda dapat merespons dengan cepat.
+</Callout>
+
+## Praktik Terbaik
+
+### 1. Respons dengan Cepat
+
+Handler Webhook sebaiknya segera mengembalikan respons 200, lalu memproses event secara asinkron:
+
+```javascript
+app.post('/webhooks/zsend',
+  express.raw({ type: 'application/json' }),
+  async (req, res) => {
+    const secret = process.env.ZSEND_WEBHOOK_SECRET;
+    const signature = req.headers['x-zsend-signature'];
+    const timestamp = req.headers['x-zsend-timestamp'];
+
+    if (!signature || !timestamp) {
+      return res.status(400).json({ error: 'Missing signature or timestamp' });
+    }
+
+    const body = req.body.toString('utf8');
+
+    // Verifikasi tanda tangan terlebih dahulu
+    const message = `${timestamp}.${body}`;
+    const hmac = crypto.createHmac('sha256', secret);
+    hmac.update(message);
+    const expectedSignature = 'sha256=' + hmac.digest('hex');
+
+    const sigBuf = Buffer.from(signature);
+    const expBuf = Buffer.from(expectedSignature);
+    if (sigBuf.length !== expBuf.length || !crypto.timingSafeEqual(sigBuf, expBuf)) {
+      return res.status(401).json({ error: 'Invalid signature' });
+    }
+
+    // Segera kembalikan 200
+    res.status(200).json({ received: true });
+
+    // Proses event secara asinkron
+    const payload = JSON.parse(body);
+    setImmediate(async () => {
+      try {
+        await processWebhookEvent(payload);
+      } catch (error) {
+        console.error('Failed to process webhook:', error);
+      }
+    });
+  }
+);
+```
+
+### 2. Pemrosesan Idempoten
+
+Event yang sama dapat dikirim lebih dari satu kali, sehingga logika pemrosesan Anda harus bersifat idempoten:
+
+```javascript
+async function processWebhookEvent(event) {
+  const { email, event: eventType } = event;
+  
+  // Periksa apakah event sudah pernah diproses
+  const existing = await db.webhookEvents.findOne({
+    email_id: email.id,
+    event_type: eventType,
+    timestamp: event.timestamp
+  });
+  
+  if (existing) {
+    console.log('Event already processed, skipping');
+    return;
+  }
+  
+  // Proses event
+  await updateEmailStatus(email.id, eventType);
+  
+  // Catat sebagai sudah diproses
+  await db.webhookEvents.create({
+    email_id: email.id,
+    event_type: eventType,
+    timestamp: event.timestamp
+  });
+}
+```
+
+### 3. Pemantauan dan Peringatan
+
+Siapkan pemantauan untuk melacak kesehatan Webhook:
+
+```javascript
+const webhookMetrics = {
+  received: 0,
+  verified: 0,
+  processed: 0,
+  failed: 0
+};
+
+app.post('/webhooks/zsend',
+  express.raw({ type: 'application/json' }),
+  async (req, res) => {
+    webhookMetrics.received++;
+
+    const secret = process.env.ZSEND_WEBHOOK_SECRET;
+    const signature = req.headers['x-zsend-signature'];
+    const timestamp = req.headers['x-zsend-timestamp'];
+
+    if (!signature || !timestamp) {
+      webhookMetrics.failed++;
+      return res.status(400).json({ error: 'Missing signature or timestamp' });
+    }
+
+    const body = req.body.toString('utf8');
+
+    // Verifikasi tanda tangan
+    const message = `${timestamp}.${body}`;
+    const hmac = crypto.createHmac('sha256', secret);
+    hmac.update(message);
+    const expectedSignature = 'sha256=' + hmac.digest('hex');
+
+    const sigBuf = Buffer.from(signature);
+    const expBuf = Buffer.from(expectedSignature);
+    if (sigBuf.length !== expBuf.length || !crypto.timingSafeEqual(sigBuf, expBuf)) {
+      webhookMetrics.failed++;
+      return res.status(401).json({ error: 'Invalid signature' });
+    }
+    
+    webhookMetrics.verified++;
+    res.status(200).json({ received: true });
+    
+    const payload = JSON.parse(body);
+    try {
+      await processWebhookEvent(payload);
+      webhookMetrics.processed++;
+    } catch (error) {
+      webhookMetrics.failed++;
+      // Kirim peringatan
+      await sendAlert('Webhook processing failed', error);
+    }
+  }
+);
+```
+
+### 4. Uji Webhook
+
+Sebelum melakukan deploy ke production, gunakan alat pengujian untuk memverifikasi Webhook:
+
+```bash
+# Gunakan ngrok untuk mengekspos server lokal
+ngrok http 3000
+
+# Konfigurasikan URL ngrok di konsol Zeabur Email
+# https://abc123.ngrok.io/webhooks/zsend
+
+# Kirim email uji dan amati event Webhook
+```
+
+<Callout type="info">
+  Disarankan untuk melihat log Webhook di konsol Zeabur Email untuk memahami status pengiriman dan detail respons.
+</Callout>

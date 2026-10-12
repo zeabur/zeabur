@@ -1,0 +1,55 @@
+---
+title: Scaling
+ogImageTitle: Scaling
+ogImageSubtitle: Lakukan scaling layanan Anda untuk menangani lebih banyak lalu lintas
+---
+
+import { Callout } from 'nextra/components'
+
+# Scaling
+
+Zeabur memungkinkan Anda menyesuaikan sumber daya yang dialokasikan untuk layanan Anda agar dapat menangani beban kerja yang bervariasi. Anda dapat melakukan scaling vertikal dengan menambah CPU dan memori, serta memilih tingkat infrastruktur yang sesuai dengan kebutuhan Anda.
+
+## Scaling Vertikal
+
+Scaling vertikal berarti menambah (atau mengurangi) CPU dan memori yang dialokasikan untuk satu instance layanan.
+
+Untuk menyesuaikan sumber daya:
+
+1. Buka layanan Anda di dashboard Zeabur.
+2. Buka **Pengaturan**.
+3. Di bagian **Sumber Daya**, konfigurasikan batas CPU dan memori yang diinginkan.
+4. Simpan perubahan Anda. Alokasi sumber daya yang baru akan berlaku pada deployment berikutnya.
+
+### Paket Sumber Daya
+
+Zeabur menawarkan beberapa tingkat sumber daya. Alokasi default cocok untuk sebagian besar layanan ringan, tetapi Anda dapat meningkatkan sumber daya untuk beban kerja yang lebih berat seperti database, build server, atau inferensi AI.
+
+<Callout>
+  Alokasi sumber daya secara langsung memengaruhi tagihan. Batas CPU dan memori yang lebih tinggi menghasilkan biaya yang lebih tinggi. Lihat [Harga](/pricing) untuk detail harga per unit.
+</Callout>
+
+## Server
+
+Untuk beban kerja yang memerlukan sumber daya terjamin, performa yang dapat diprediksi, atau kepatuhan terhadap persyaratan residensi data, Zeabur menawarkan **Server**. Server memberi Anda environment komputasi terisolasi yang tidak dibagi dengan pengguna lain.
+
+Manfaat server meliputi:
+
+- **Sumber daya terjamin** — Tidak ada masalah noisy neighbor.
+- **Region kustom** — Deploy di lokasi geografis tertentu.
+- **Batas sumber daya yang lebih tinggi** — Jalankan layanan yang melampaui batas cluster bersama.
+
+Lihat [Server](/server) untuk petunjuk penyiapan dan konfigurasi yang tersedia.
+
+## Strategi Scaling
+
+| Skenario | Rekomendasi |
+| --- | --- |
+| Lonjakan lalu lintas sesekali | Tingkatkan CPU/memori untuk menangani beban puncak |
+| Lalu lintas tinggi yang konsisten | Gunakan server untuk performa yang dapat diprediksi |
+| Optimasi biaya | Sesuaikan ukuran sumber daya berdasarkan [metrik](/operations/monitoring/metrics) |
+| Tidak aktif sementara | [Tangguhkan](/operations/deployment/suspend-service) layanan untuk menghentikan penagihan |
+
+## Memantau Pemakaian Sumber Daya
+
+Gunakan dashboard [Metrik](/operations/monitoring/metrics) untuk memantau pemakaian CPU, memori, dan jaringan secara real-time. Data ini membantu Anda menentukan kapan harus melakukan scale up atau scale down. Untuk analisis biaya, lihat halaman [Pemakaian Layanan](/operations/resources/service-usage).

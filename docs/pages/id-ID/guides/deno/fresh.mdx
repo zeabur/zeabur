@@ -1,0 +1,48 @@
+---
+title: Fresh
+ogImageTitle: Deploy Aplikasi Fresh
+ogImageSubtitle: Deploy Aplikasi Fresh di Zeabur
+---
+
+# Deploy Aplikasi Fresh
+
+[Fresh](https://fresh.deno.dev/) adalah framework web modern full stack untuk JavaScript dan TypeScript.
+
+Artikel ini akan mengajarkan Anda cara men-deploy aplikasi Fresh Anda di Zeabur dengan satu klik.
+
+## Membuat Aplikasi Fresh (Opsional)
+
+- Instal Deno di komputer Anda.
+
+- Anda dapat melihat petunjuk yang lebih detail di [dokumentasi resmi Deno](https://deno.land/manual/getting_started/installation).
+
+Gunakan perintah berikut untuk menginisialisasi proyek Deno dengan framework Fresh.
+
+```bash
+deno run -A -r https://fresh.deno.dev my-project
+```
+
+Di `main.ts`, tambahkan `port: Deno.env.get("PORT")` ke fungsi start untuk memastikan aplikasi dapat melakukan listening dengan benar pada environment variable `PORT` yang diberikan oleh Zeabur.
+
+```typescript
+// di main.ts
+await start(manifest, { plugins: [twindPlugin(twindConfig)], port: Deno.env.get("PORT")}, );
+```
+
+## Pengembangan
+
+Jalankan `deno task start` untuk memulai server pengembangan.
+
+```bash
+deno task start
+```
+
+Inisialisasi repositori GitHub untuk proyek ini dan unggah ke GitHub Anda.
+
+## Deploy
+
+Klik tombol **Tambah Layanan Baru**, lalu pilih **Deploy dari kode sumber Anda**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Cari repositori aplikasi Fresh Anda, klik import, dan aplikasi Fresh Anda akan mulai di-deploy.

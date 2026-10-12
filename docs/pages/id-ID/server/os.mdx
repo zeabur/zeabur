@@ -1,0 +1,104 @@
+---
+title: Sistem Operasi
+ogImageTitle: Sistem Operasi
+ogImageSubtitle: Pilih cara server Anda berjalan — ZeaburOS atau distribusi standar
+---
+
+import { Callout } from 'nextra/components'
+
+# Sistem Operasi
+
+Saat Anda [membeli server dari Zeabur](/id-ID/server/purchase) atau menginstal ulang server yang sudah ada, Anda memilih sistem operasi yang dijalankannya. Pilihan ini menentukan cara kerja mesin sejak hari pertama:
+
+- **ZeaburOS** — mesin dikelola oleh Zeabur: deploy proyek dan terapkan template sekali klik langsung tanpa konfigurasi tambahan, dengan dukungan teknis Zeabur sudah termasuk.
+- **Distribusi standar** — saat ini Ubuntu 24.04 LTS, dengan lebih banyak sistem operasi dan versi yang akan segera hadir — mesin sepenuhnya dikelola sendiri; Zeabur hanya memberikan dukungan teknis untuk ZeaburOS.
+
+## Apa Itu ZeaburOS [#zeaburos]
+
+ZeaburOS adalah sistem operasi yang mengubah server menjadi **node deployment Zeabur**. Mesin yang menjalankan ZeaburOS terhubung ke Dashboard Zeabur, tempat Anda dapat melakukan deploy layanan, melihat log dan metrik, serta mengelola penyimpanan dan jaringan — tanpa perlu SSH untuk pekerjaan sehari-hari, sementara akses SSH penuh ke host tetap tersedia.
+
+Di balik layar, ZeaburOS berjalan di atas [K3s](https://k3s.io/) (Kubernetes ringan), bersama komponen sistem Zeabur (deploy agent, pemantauan, dan lainnya) yang menjaga mesin tetap terhubung ke platform.
+
+Dibandingkan menjalankan distribusi standar, ZeaburOS memberi Anda:
+
+- **Siap deploy sejak awal** — tanpa perlu menyiapkan runtime, reverse proxy, atau sertifikat; push proyek dan proyek langsung berjalan.
+- **Observabilitas bawaan** — log real-time, metrik, dan status layanan di dashboard.
+- **Pemeliharaan terkelola** — komponen sistem dapat diperbarui atau diperbaiki dengan sekali klik, dan Zeabur memberikan dukungan teknis.
+
+<Callout type="info">
+  ZeaburOS sebelumnya ditampilkan di dashboard sebagai "K3s". Mesin yang sama, nama yang lebih jelas — lihat [K3s kini menjadi ZeaburOS](#k3s-is-now-zeaburos) di bawah.
+</Callout>
+
+## Distribusi Standar
+
+Pilih distribusi standar dan Anda akan mendapatkan VPS standar, persis seperti yang disediakan oleh distribusi tersebut — sama seperti VPS dari penyedia mana pun. Anda mengoperasikannya sepenuhnya melalui SSH: apa yang berjalan di dalamnya, bagaimana konfigurasinya, dan bagaimana pemeliharaannya sepenuhnya diserahkan kepada Anda. Zeabur menyediakan mesinnya; perangkat lunak di dalamnya sepenuhnya dikelola sendiri.
+
+Ubuntu 24.04 LTS sudah tersedia saat ini, dan lebih banyak sistem operasi serta versi akan ditambahkan seiring waktu.
+
+Untuk saat ini hanya ingin VPS standar tanpa platform Zeabur? Beli mesin dengan distribusi standar — tidak ada yang diinstal sebelumnya, sehingga tidak ada yang perlu dihapus setelahnya.
+
+## Cara Memilih
+
+|                                          | ZeaburOS | Distribusi standar |
+| :--------------------------------------- | :------- | :-------------------- |
+| Deploy dan kelola layanan dari Dashboard Zeabur | ✅       | ❌                    |
+| Deployment template sekali klik            | ✅       | ❌                    |
+| Log, metrik, dan pemantauan bawaan   | ✅       | ❌                    |
+| Akses SSH dan kontrol OS penuh           | ✅       | ✅                    |
+| Komponen sistem dipelihara oleh Zeabur   | ✅       | ❌ (sepenuhnya dikelola sendiri) |
+| Dukungan teknis Zeabur                 | ✅       | ❌                    |
+
+**Patokan umum:** pilih ZeaburOS jika Anda ingin melakukan deploy proyek dengan Zeabur — itulah tujuan mesin tersebut. Pilih distribusi standar jika Anda menginginkan VPS standar yang sepenuhnya Anda kelola sendiri.
+
+## Beralih di Kemudian Hari
+
+### Konversi Mesin yang Ada ke ZeaburOS [#convert-to-zeaburos]
+
+Mesin yang sudah menjalankan distribusi standar dapat dikonversi ke ZeaburOS agar menjadi node deployment. Konversi akan **menginstal ulang mesin**: mesin diinstal ulang sebagai ZeaburOS, sehingga menghasilkan environment yang bersih dan dapat diprediksi, yang tidak bergantung pada apa pun yang terinstal di sistem sebelumnya.
+
+Untuk melakukan konversi, buka halaman **Pengaturan** server, lalu di bagian **Zona Bahaya** gunakan "Instal Ulang OS" dan pilih **ZeaburOS**. Proses instal ulang dan provisioning memerlukan waktu beberapa menit; setelah selesai, mesin akan muncul sebagai node deployment dan Anda dapat mulai melakukan deploy layanan ke dalamnya.
+
+<Callout type="warning">
+  **Instal ulang akan menghapus semua yang ada di mesin**, termasuk perangkat lunak dan data yang Anda instal sendiri. Mengganti sistem operasi merupakan instal ulang di **kedua arah** — beralih ke ZeaburOS menghapus disk sama seperti beralih kembali ke distribusi standar. Backup terlebih dahulu apa pun yang ingin Anda simpan.
+</Callout>
+
+<Callout type="default">
+  Tanpa ZeaburOS, Anda tetap dapat terhubung ke mesin melalui SSH — konversi hanya diperlukan untuk melakukan deploy dan mengelola layanan melalui Zeabur.
+</Callout>
+
+### Perbarui ZeaburOS
+
+**Perbarui ZeaburOS** menerapkan ulang semua komponen sistem ZeaburOS (deploy agent, pemantauan, dan lainnya) di server Anda ke kondisi terbarunya. Layanan yang sudah Anda deploy tidak terpengaruh, dan ini juga merupakan langkah awal yang berguna untuk memperbaiki server yang bermasalah.
+
+Anda dapat memicu pembaruan dari menu server atau halaman **Pengaturan** server. Operasi ini umumnya aman, tetapi dapat menyebabkan downtime singkat.
+
+### Instal Ulang sebagai VPS Standar
+
+Jika Anda mencoba ZeaburOS dan memutuskan bahwa platform Zeabur tidak cocok untuk Anda, mesin Anda tidak terikat dengannya. Instal ulang sistem operasi dari **Zona Bahaya** di halaman pengaturan server dan pilih distribusi standar — mesin akan kembali menjadi VPS standar yang sepenuhnya dikelola sendiri.
+
+<Callout type="warning">
+  Instal ulang OS akan menghapus semua yang ada di mesin, termasuk layanan yang sudah di-deploy beserta datanya. Backup terlebih dahulu apa pun yang Anda perlukan.
+</Callout>
+
+## Cakupan Dukungan
+
+Zeabur memberikan dukungan teknis **hanya untuk ZeaburOS**. Perangkat lunak yang Anda instal sendiri — termasuk panel manajemen seperti 1Panel atau BaoTa — berada di luar cakupan dukungan.
+
+Jika Anda memilih distribusi standar, mesin sepenuhnya dikelola sendiri: Zeabur menyediakan mesinnya, dan semua yang berjalan di dalamnya menjadi tanggung jawab Anda.
+
+## K3s Kini Menjadi ZeaburOS [#k3s-is-now-zeaburos]
+
+Semua yang sebelumnya ditampilkan sebagai **"K3s"** di dashboard Zeabur kini ditampilkan sebagai **ZeaburOS**. Mesinnya sama dengan nama yang lebih jelas: ZeaburOS berjalan di atas K3s (Kubernetes ringan) sebagai intinya, dan tidak ada yang berubah pada mesin Anda yang sudah ada — status yang sebelumnya bertuliskan "K3s" adalah hal yang sama dengan nama produknya.
+
+Ada dua hal baru seiring perubahan nama ini:
+
+- Saat membeli mesin atau menginstal ulang OS-nya, ZeaburOS tidak lagi terinstal otomatis — Anda **memilihnya** (atau distribusi standar) sebagai sistem operasi.
+- Mesin tanpa ZeaburOS tetap dapat dikonversi nanti dari halaman Pengaturan server.
+
+Untuk pemeliharaan tingkat host, nama teknis yang mendasarinya tidak berubah: layanan systemd tetap bernama `k3s`, penyimpanan persisten tetap berada di `/var/lib/rancher/k3s/storage`, dan perintah di [Kelola Server](/id-ID/server/operate) tetap berfungsi seperti sebelumnya.
+
+## Langkah Selanjutnya
+
+- **[Beli Server](/id-ID/server/purchase)** — beli mesin dari Zeabur dan pilih OS-nya
+- **[Tambah Server](/id-ID/server/register)** — hubungkan server yang sudah ada ke Zeabur
+- **[Kelola Server](/id-ID/server/operate)** — operasional sehari-hari dan pemeliharaan tingkat host

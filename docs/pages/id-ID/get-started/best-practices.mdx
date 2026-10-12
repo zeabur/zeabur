@@ -1,0 +1,96 @@
+---
+title: Praktik Terbaik
+ogImageTitle: Praktik Terbaik
+ogImageSubtitle: Praktik yang direkomendasikan untuk deploy dan pengelolaan di Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Praktik Terbaik
+
+Ikuti tips praktis berikut untuk memaksimalkan Zeabur sekaligus menjaga deployment Anda tetap andal dan hemat biaya.
+
+## Gunakan Environment Variables untuk Konfigurasi
+
+Simpan semua nilai konfigurasi — API key, URL database, feature flag — di [environment variables](/deploy/config/environment-variables). Jangan pernah menuliskan secret secara langsung (hardcode) di kode sumber atau Docker image Anda.
+
+<Callout type="warning">
+Secret yang di-commit ke Git akan terekspos secara permanen di riwayat repositori Anda. Selalu gunakan fitur pengelolaan environment variable di Zeabur.
+</Callout>
+
+Zeabur mendukung referensi variabel antarlayanan (misalnya `${MYSQL_HOST}`), sehingga kredensial tetap sinkron secara otomatis.
+
+## Gunakan Volume Persisten Secara Bijak
+
+[Volume persisten](/operations/data/volumes) sangat penting untuk database dan penyimpanan file, tetapi ada konsekuensinya: layanan yang memiliki volume tidak dapat melakukan rolling deploy tanpa downtime.
+
+<Callout type="warning">
+Pasang volume hanya pada layanan yang benar-benar membutuhkan data persisten (database, file yang diunggah). Server aplikasi stateless sebaiknya tidak menggunakan volume.
+</Callout>
+
+Untuk aset statis dan artefak build, gunakan object storage atau CDN sebagai gantinya.
+
+## Atur Batas Sumber Daya untuk Mengendalikan Biaya
+
+Konfigurasikan batas CPU dan memori untuk setiap layanan agar biaya tidak membengkak. Satu layanan yang salah konfigurasi dapat menghabiskan sumber daya jauh melebihi kebutuhan aplikasi Anda.
+
+- Tinjau [kalkulator harga](https://zeabur.com/pricing) untuk memperkirakan biaya sebelum melakukan deploy.
+- Periksa metrik penggunaan di [Dashboard](https://dash.zeabur.com) secara berkala.
+
+## Gunakan Template Database Siap Pakai
+
+Daripada menjalankan container database sendiri, gunakan [template database satu klik](/template) dari Zeabur. Template ini sudah terkonfigurasi, menyertakan injeksi variabel koneksi otomatis, dan dioptimalkan untuk platform.
+
+Pilihan populer meliputi PostgreSQL, MySQL, MongoDB, dan Redis — semuanya dapat di-deploy dengan satu klik.
+
+## Susun Proyek Secara Logis
+
+Atur beban kerja Anda dengan struktur proyek yang jelas:
+
+- **Satu proyek per aplikasi** — kelompokkan layanan yang saling terkait (API, frontend, database) dalam proyek yang sama.
+- **Pisahkan environment** — gunakan proyek yang berbeda untuk production, staging, dan development.
+- **Konvensi penamaan** — gunakan nama proyek dan layanan yang deskriptif agar tim Anda dapat menavigasi Dashboard dengan cepat.
+
+## Gunakan Deployment Berbasis Git
+
+Hubungkan repositori GitHub atau GitLab Anda untuk deploy otomatis setiap kali ada push. Dengan begitu Anda mendapatkan:
+
+- Otomatisasi CI/CD penuh tanpa alat tambahan.
+- Rollback otomatis dengan melakukan revert pada commit.
+- **Preview environment** berbasis branch untuk menguji pull request.
+
+<Callout type="info">
+Untuk proyek yang tidak berada di repositori Git, Anda juga dapat melakukan deploy melalui [CLI](/developer/cli) atau Docker image.
+</Callout>
+
+## Aktifkan Domain Kustom dengan HTTPS
+
+Zeabur menyediakan sertifikat TLS otomatis untuk semua domain kustom. Arahkan DNS Anda ke Zeabur dan HTTPS akan aktif tanpa konfigurasi apa pun — lihat [Domain Kustom](/domain/management) untuk petunjuk pengaturannya.
+
+Gunakan domain Anda sendiri untuk layanan production agar tampil profesional dan tidak perlu memakai subdomain bawaan `*.zeabur.app`.
+
+## Pantau Penggunaan dan Optimalkan Biaya
+
+Periksa dashboard tagihan secara berkala untuk memahami pengeluaran Anda:
+
+- Identifikasi layanan dengan penggunaan memori berlebih dan sesuaikan ukurannya.
+- Hapus layanan dan proyek yang tidak digunakan — sumber daya yang menganggur tetap dikenakan biaya, kecuali pada Free Plan (yang otomatis masuk mode tidur).
+- Gunakan [ikhtisar langganan](/subscription) untuk memantau kredit dan invoice.
+
+## Gunakan Preview Environment untuk Pengujian
+
+Aktifkan **preview deployment** agar setiap pull request memiliki environment terisolasi sendiri. Dengan begitu tim Anda dapat menguji perubahan di lingkungan yang menyerupai production sebelum melakukan merge.
+
+Preview environment dibersihkan secara otomatis ketika branch dihapus atau PR ditutup.
+
+## Backup Data Penting Secara Berkala
+
+Meskipun Zeabur menyediakan keandalan di tingkat infrastruktur, Anda tetap perlu memiliki backup sendiri untuk data penting:
+
+- Gunakan fitur [backup dan pemulihan](/operations/data/backup-restore) untuk snapshot database.
+- Ekspor konfigurasi penting melalui [manajemen file konfigurasi](/operations/data/config-file-management).
+- Simpan backup di luar platform (misalnya object storage) untuk pemulihan bencana.
+
+<Callout type="info">
+Menggabungkan praktik-praktik ini dengan fitur bawaan Zeabur — seperti [ketersediaan tinggi](/deploy/networking/high-availability) — memberi Anda fondasi yang kokoh untuk beban kerja production.
+</Callout>

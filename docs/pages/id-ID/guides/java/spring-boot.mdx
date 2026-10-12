@@ -1,0 +1,63 @@
+---
+ogImageTitle: Deploy Spring Boot
+ogImageSubtitle: Deploy Aplikasi Spring Boot di Zeabur
+---
+
+# Deploy Spring Boot
+
+Artikel ini akan mengajarkan Anda cara men-deploy proyek [Spring Boot](https://spring.io/projects/spring-boot) Anda di Zeabur.
+
+## Langkah 1: Konfigurasi Environment
+
+Anda dapat terlebih dahulu menguji dan melakukan build secara lokal untuk memastikan proyek Anda dapat berjalan dengan normal.
+
+Versi JDK yang tersedia di Zeabur adalah sebagai berikut:
+
+- 19
+- 17 (default)
+- 11
+- 8
+- 7
+
+### Menentukan Versi JDK
+
+Anda dapat menentukan versi JDK di `pom.xml` atau `build.gradle`.
+
+Misalnya, jika Anda menggunakan Maven, tambahkan pengaturan berikut di `pom.xml`:
+
+```xml
+<properties>
+    <java.version>11</java.version>
+</properties>
+```
+
+Jika Anda menggunakan Gradle, tambahkan pengaturan berikut di `build.gradle`:
+
+```groovy
+sourceCompatibility = 11
+```
+
+## Langkah 2: Membuat Proyek (Opsional)
+
+Pertama, Anda perlu menginisialisasi proyek Spring Boot di environment pengembangan lokal Anda. Kita dapat mengikuti petunjuk di [dokumentasi resmi Spring Boot](https://spring.io/quickstart) untuk menyelesaikan langkah ini, atau menginisialisasi proyek Spring Boot menggunakan IDE favorit Anda (seperti [IntelliJ IDEA](https://www.jetbrains.com/idea/) atau [Eclipse](https://www.eclipse.org/)).
+
+Jika Anda menggunakan **tool deployment Gradle**, Anda perlu membuka file `build.gradle` di proyek Gradle dan menambahkan pengaturan berikut:
+
+```groovy
+jar {
+    enabled = false
+    manifest {
+        attributes 'Main-Class': 'com.example.demo.DemoApplication' // <-- Ganti dengan main class Anda sendiri
+    }
+}
+```
+
+Setelah proyek dibuat, inisialisasi repositori Git untuknya dan unggah ke GitHub Anda.
+
+## Langkah 3: Deploy Proyek Spring Boot
+
+Di proyek Anda, klik tombol **Deploy Layanan** atau **Tambah Layanan Baru**, lalu pilih **Deploy dari kode sumber Anda**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Cari repositori kode Spring Boot yang ingin Anda deploy, lalu klik Import. Aplikasi Spring Boot Anda akan otomatis mulai di-deploy.

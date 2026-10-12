@@ -1,0 +1,65 @@
+---
+title: Nuxt
+ogImageTitle: Deploy Aplikasi Nuxt
+ogImageSubtitle: Deploy Aplikasi Nuxt di Zeabur
+---
+
+import { Tabs, Callout } from 'nextra/components'
+
+# Deploy Aplikasi Nuxt
+
+Deploy aplikasi Nuxt Anda di Zeabur.
+
+### Langkah 1: Membuat aplikasi Nuxt (opsional)
+
+Buka terminal Anda dan jalankan perintah berikut untuk membuat aplikasi Nuxt baru.
+
+<Tabs items={['pnpm', 'npx']}>
+  <Tabs.Tab>
+    ```bash copy
+    pnpm dlx nuxi init <project-name>
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    npx nuxi init <project-name>
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+Kemudian, instal dependensinya:
+
+<Tabs items={['pnpm', 'npm', 'yarn']}>
+  <Tabs.Tab>
+    ```bash copy
+    pnpm install --shamefully-hoist
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    npm install
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy
+    yarn
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+<Callout type="info" emoji="ℹ️">
+  Karena pnpm menggunakan cara yang berbeda untuk mengelola dependensi, Anda perlu menggunakan flag `--shamefully-hoist` untuk menginstal dependensi.
+  Jika menggunakan pnpm, pastikan Anda memiliki file `.npmrc` yang berisi `shamefully-hoist=true` sebelum melakukan deploy.
+</Callout>
+
+````.npmrc filename=".npmrc" copy
+shamefully-hoist=true
+````
+
+### Langkah 2: Deploy
+
+Klik tombol **Tambah Layanan Baru**, lalu pilih **Deploy dari kode sumber Anda**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Cari repositori aplikasi Nuxt Anda, klik import, dan aplikasi Nuxt Anda akan mulai di-deploy.

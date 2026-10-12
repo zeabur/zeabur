@@ -1,0 +1,111 @@
+---
+title: Buat Tim
+ogImageTitle: Buat Tim
+ogImageSubtitle: Siapkan workspace Tim
+---
+
+import { Callout, Steps } from 'nextra/components';
+
+# Buat Tim
+
+Tim adalah workspace terpisah dengan anggota, proyek, server, dan tagihannya sendiri. Halaman ini memandu Anda membuat Tim beserta langkah-langkah lanjutan yang disarankan agar Tim benar-benar siap digunakan.
+
+Untuk gambaran konseptual tentang apa itu Tim dan perbedaannya dengan workspace pribadi Anda, lihat [Tim](/team).
+
+## Tempat membuat Tim
+
+Buka **pengalih workspace** di dashboard — yaitu avatar dan nama yang ditampilkan di bagian atas sidebar kiri, di samping ikon chevron. Klik untuk membuka popover, lalu klik **Buat tim** di bagian bawah daftar workspace.
+
+Setiap pengguna yang sudah masuk dapat membuat Tim. Tidak ada kuota — Anda dapat bergabung dengan Tim sebanyak yang Anda inginkan, dan Anda dapat membuat lebih dari satu Tim jika menginginkan konteks tagihan yang terpisah (misalnya, satu Tim per klien atau per unit bisnis).
+
+## Formulir pembuatan
+
+Dialog **Buat tim** hanya meminta satu kolom:
+
+- **Nama tim** — nama tampilan yang terlihat oleh semua anggota dan tercantum di faktur. Anda dapat mengubahnya nanti di Pengaturan Tim.
+
+Hanya itu. Klik **Buat** untuk menyelesaikan.
+
+<Callout type="info">
+  Avatar (logo) Tim tidak diatur saat pembuatan — setiap Tim baru dimulai dengan avatar default yang dibuat dari namanya. Anda dapat mengunggah logo kustom setelahnya melalui **Akun → Pengaturan Tim** saat berada di workspace Tim.
+</Callout>
+
+## Yang terjadi segera setelah pembuatan
+
+<Steps>
+
+### Anda menjadi administrator pertama
+
+Pengguna yang membuat Tim secara otomatis menjadi administratornya. Tim harus selalu memiliki setidaknya satu administrator — aturan ini diberlakukan ketika administrator dikeluarkan atau diturunkan perannya di kemudian hari.
+
+### Dashboard beralih ke Tim baru
+
+Pengalih workspace diperbarui untuk menampilkan nama dan avatar Tim baru di sidebar, dan bagian lain dashboard (Proyek, Server, pengaturan Akun) dimuat ulang ke konteks Tim. Untuk kembali ke workspace pribadi Anda, buka kembali pengalih workspace dan pilih entri pribadi Anda dari daftar.
+
+### Tim berada dalam status tidak aktif
+
+Tim yang baru dibuat **belum berlangganan paket Team**. Anggota tidak dapat membuat proyek, melakukan deploy template, mengelola server, atau mengirim email melalui Z‑Send atas nama Tim hingga paket Team diaktifkan.
+
+Yang tetap dapat dilakukan pada Tim yang tidak aktif — agar Anda dapat menyelesaikan penyiapan:
+
+- Memperbarui profil Tim (nama, avatar, email kontak)
+- Mengundang anggota dan menetapkan peran
+- Menghubungkan metode pembayaran
+- Mengaktifkan paket Team
+- Kembali ke workspace pribadi Anda
+- Menghapus Tim (hanya jika tidak memiliki proyek atau server)
+
+</Steps>
+
+## Langkah selanjutnya yang disarankan
+
+Agar Tim dapat digunakan secara produktif, lakukan langkah-langkah berikut kurang lebih sesuai urutan ini:
+
+<Steps>
+
+### Aktifkan paket Team
+
+Saat berada di workspace Tim, buka **Akun → Langganan** dan klik **Aktifkan paket Team**. Dashboard akan menampilkan pratinjau biaya berbasis kursi (paket dasar dengan 3 kursi termasuk, ditambah harga per kursi tambahan) sebelum pembayaran.
+
+Lihat [Tagihan Tim](/team/billing) untuk rincian lengkap harga, metode pembayaran, faktur, dan kredit prabayar.
+
+### Undang anggota
+
+Buka **Akun → Anggota** saat berada di workspace Tim dan tambahkan rekan tim melalui email, dengan memilih peran (**Administrator**, **Editor**, atau **Viewer**) untuk masing-masing. Menambahkan anggota melebihi jumlah kursi yang termasuk akan memicu biaya kursi tambahan secara prorata pada faktur berikutnya.
+
+Lihat [Kelola anggota dan peran](/team/manage-members) untuk matriks izin peran lengkap dan alur undangan.
+
+### Bawa proyek atau server pribadi yang sudah ada (opsional)
+
+Jika Anda sudah memiliki proyek atau server dedicated di workspace pribadi yang seharusnya dimiliki oleh Tim, administrator dapat mentransfer kepemilikannya sehingga tagihan dan kuota selanjutnya melekat pada Tim. Pemilik semula tetap dapat mengerjakan sumber daya tersebut sebagai anggota Tim.
+
+Lihat [Transfer kepemilikan ke Tim](/team/transfer-ownership).
+
+</Steps>
+
+## Pertanyaan umum
+
+### Saya sudah membuat Tim, tetapi tidak dapat membuat proyek atau me-restart apa pun
+
+Paket Team belum diaktifkan. Tim yang baru dibuat berstatus tidak aktif, dan sebagian besar tindakan diblokir hingga administrator berlangganan. Buka **Akun → Langganan** di workspace Tim dan aktifkan paket Team — lihat [Tagihan Tim](/team/billing).
+
+### Apakah saya dapat memiliki beberapa Tim?
+
+Ya. Satu pengguna dapat membuat dan bergabung dengan Tim sebanyak yang diinginkan, masing-masing dengan anggota, sumber daya, dan tagihannya sendiri. Gunakan pengalih workspace untuk berpindah di antaranya.
+
+### Apakah saya dapat mengganti nama Tim atau mengubah avatarnya nanti?
+
+Ya. Saat berada di workspace Tim, buka **Akun → Pengaturan Tim**. Administrator dapat memperbarui nama Tim, mengunggah logo baru, dan mengedit email kontak untuk notifikasi sistem.
+
+### Apakah saya dapat menghapus Tim?
+
+Ya — tetapi hanya jika Tim tidak memiliki proyek maupun server. Di **Akun → Pengaturan Tim → Zona Berbahaya**, ketik nama Tim untuk konfirmasi, lalu klik **Hapus tim**. Hanya administrator yang dapat menghapus Tim. Jika Tim masih memiliki sumber daya, transfer atau hapus sumber daya tersebut terlebih dahulu.
+
+Jika Anda hanya ingin keluar dari Tim yang tidak lagi Anda ikuti (tanpa menghapusnya), gunakan **Keluar dari tim** di halaman Pengaturan Tim yang sama — opsi ini tersedia untuk anggota non-administrator dan untuk administrator selama masih ada setidaknya satu administrator lain.
+
+## Langkah selanjutnya
+
+- [Tagihan Tim](/team/billing)
+- [Kelola anggota dan peran](/team/manage-members)
+- [Transfer kepemilikan ke Tim](/team/transfer-ownership)
+- [Ikhtisar Tim](/team)

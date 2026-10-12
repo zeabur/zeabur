@@ -1,0 +1,40 @@
+---
+title: Template
+ogImageTitle: Template Zeabur
+ogImageSubtitle: Deploy layanan populer dengan satu klik
+---
+
+import { Callout } from 'nextra/components'
+
+# Template
+
+Zeabur menyediakan katalog **template deploy satu klik** yang lengkap, sehingga Anda dapat menjalankan WordPress, Postgres, Redis, n8n, Ghost, dan ratusan layanan populer lainnya tanpa pengaturan manual apa pun.
+
+## Jelajahi Template
+
+Kunjungi [zeabur.com/templates](https://zeabur.com/templates) untuk menjelajahi katalog lengkapnya. Klik template mana pun untuk melakukan deploy langsung ke proyek Anda.
+
+## Cara Kerja Template
+
+Setiap template telah mendefinisikan terlebih dahulu:
+
+- Layanan yang diperlukan beserta versinya
+- Environment variables dan konfigurasi default
+- Hubungan koneksi antarlayanan
+
+Saat Anda melakukan deploy, Zeabur secara otomatis membuat semua layanan yang didefinisikan dalam template, menghubungkannya satu sama lain, dan membuat aplikasi Anda langsung siap digunakan.
+
+## Menggunakan Template dalam Alur Deploy
+
+Saat membuat layanan, pilih "Deploy dari Template" untuk mencari dan menerapkan template langsung dari halaman deploy.
+
+<Callout type="info">
+  Deploy template akan membuat proyek lengkap yang berisi semua layanan yang telah didefinisikan. Anda dapat dengan bebas mengubah environment variables dan pengaturan setelah deploy.
+</Callout>
+
+## Buat Template Anda Sendiri
+
+Jika Anda memiliki arsitektur yang dapat digunakan ulang, Anda dapat mengemasnya sebagai template dan membagikannya kepada orang lain:
+
+- [Buat Template dari YAML](/id-ID/template/template-format) — definisikan struktur template Anda dalam kode
+- [Fork Repositori Git dari Template](/id-ID/template/fork-git-repo-from-template) — deploy template dengan integrasi repositori Git

@@ -1,0 +1,40 @@
+---
+title: Symfony
+ogImageTitle: Panduan Deployment Symfony
+ogImageSubtitle: Beberapa tips berguna untuk men-deploy Symfony di Zeabur
+---
+
+# Panduan Deployment Symfony
+
+Zeabur menggunakan NGINX + PHP-FPM sebagai server default untuk menjalankan layanan Symfony Anda.
+
+## Optimasi Otomatis
+
+Secara default, Zeabur menjalankan perintah optimasi berikut [^1] [^2]:
+
+```bash
+composer dump-env prod
+composer run-script --no-dev post-install-cmd
+php bin/console cache:clear
+```
+
+Anda dapat menonaktifkan perintah optimasi otomatis ini dengan mengatur variabel `PHP_OPTIMIZE=false`. Kemudian, gunakan perintah build kustom untuk menyesuaikan proses optimasi Anda secara lebih detail.
+
+[^1]: https://symfony.com/doc/current/performance.html
+[^2]: https://github.com/dunglas/symfony-docker
+
+## Dukungan Webpack Encore dan AssetMapper
+
+Jika Zeabur mendeteksi bahwa proyek Anda dikonfigurasi dengan AssetMapper atau Webpack Encore, Zeabur akan otomatis menjalankan perintah berikut:
+
+```bash
+php bin/console asset-map:compile
+```
+
+```bash
+./node_modules/.bin/encore production
+```
+
+Zeabur akan terlebih dahulu menjalankan `npm install`, `composer install`, dan perintah build kustom apa pun sebelum melakukan build aset-aset ini.
+
+Anda dapat menonaktifkan kompilasi aset otomatis dengan mengatur variabel `PHP_OPTIMIZE=false`. Kemudian, gunakan perintah build kustom untuk menyesuaikan proses kompilasi aset Anda secara lebih detail.

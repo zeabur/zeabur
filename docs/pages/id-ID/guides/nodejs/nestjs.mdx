@@ -1,0 +1,116 @@
+---
+title: NestJS
+ogImageTitle: Deploy Aplikasi NestJS
+ogImageSubtitle: Deploy Aplikasi NestJS di Zeabur
+---
+
+import { Tabs, Callout } from 'nextra/components'
+
+# Deploy Aplikasi NestJS
+
+Deploy aplikasi NestJS Anda di Zeabur.
+
+### Langkah 1: Membuat aplikasi NestJS (opsional)
+
+Anda dapat menggunakan NestJS CLI untuk membuat aplikasi baru.
+
+Buka terminal Anda dan jalankan perintah berikut:
+
+```bash
+npm install -g @nestjs/cli
+```
+
+Kemudian, buat aplikasi baru:
+
+```bash
+nest new <your project name>
+```
+
+Anda juga dapat melakukan clone proyek starter dari repositori GitHub kami.
+
+```bash
+git clone https://github.com/zeabur/nestjs-template.git <your project name>
+```
+
+Kemudian, instal dependensinya:
+
+<Tabs items={['pnpm', 'npm', 'yarn']}>
+  <Tabs.Tab>
+    ```bash
+    pnpm install
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    npm install
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    yarn
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+### Langkah 2: Menyiapkan environment variables
+
+<Callout type="info" emoji="ℹ️">
+  Anda dapat melewati langkah ini jika Anda menggunakan proyek starter dari repositori GitHub kami.
+</Callout>
+
+Dalam aplikasi Node.js, file `.env` umum digunakan untuk merepresentasikan setiap environment. File ini berisi pasangan key-value, di mana setiap key merepresentasikan nilai tertentu.
+
+NestJS menyediakan paket bernama `@nestjs/config` untuk membantu Anda mengelola environment variables.
+
+<Tabs items={['pnpm', 'npm', 'yarn']}>
+  <Tabs.Tab>
+    ```bash
+    pnpm add @nestjs/config
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    npm install @nestjs/config
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    yarn add @nestjs/config
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+Setelah proses instalasi selesai, Anda dapat mengimpor `ConfigModule` ke `src/app.module.ts` dan mengontrol perilakunya menggunakan static method `.forRoot()`.
+
+```typescript
+import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
+
+@Module({
+  imports: [ConfigModule.forRoot()],
+})
+export class AppModule {}
+```
+
+Sekarang, Anda dapat mengatur port di `src/main.ts`
+
+```typescript
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  await app.listen(process.env.PORT || 3000);
+}
+bootstrap().then(() =>
+  console.log(`Application is running on: ${process.env.PORT || 3000}`),
+);
+```
+
+### Langkah 3: Deploy
+
+Klik tombol **Tambah Layanan Baru**, lalu pilih **Deploy dari kode sumber Anda**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Cari repositori aplikasi NestJS Anda, klik import, dan aplikasi NestJS Anda akan mulai di-deploy.

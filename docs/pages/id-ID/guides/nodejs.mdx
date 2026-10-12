@@ -1,0 +1,225 @@
+---
+title: Node.js
+ogImageTitle: Deploy Aplikasi Node.js
+ogImageSubtitle: Deploy Aplikasi Node.js di Zeabur
+---
+
+import { Callout } from 'nextra/components';
+
+# Deploy Aplikasi Node.js
+
+Zeabur mendukung berbagai jenis proyek Node.js:
+
+- Proyek native (mendukung NPM/Yarn/PNPM/Bun dan package manager lainnya)
+- Proyek yang di-bundle dengan [Vite](./nodejs/vite)
+- [Qwik](./nodejs/qwik)
+- [Next.js](./nodejs/nextjs)
+- [Remix](./nodejs/remix)
+- [Nuxt.js](./nodejs/nuxt)
+- [Umi](./nodejs/umi)
+- [Svelte (Kit)](./nodejs/svelte-kit)
+- [Nest.js](./nodejs/nestjs)
+- [Nue.js](./nodejs/nue)
+- [Express](./nodejs/express)
+- [Astro](./nodejs/astro)
+- [Waku](./nodejs/waku)
+- [Nue](./nodejs/nue)
+- Create React App
+- vue-cli
+- Hexo
+- Vitepress
+- Astro (statis, SSR)
+- Slidev
+- Docusaurus
+- Solid Start (Node, statis)
+
+## Dukungan Monorepo
+
+Zeabur akan otomatis mengenali [pnpm workspace](https://pnpm.io/workspaces), [Yarn Workspace](https://yarnpkg.com/features/workspaces), serta sebagian besar toolchain yang berbasis pada kedua pendekatan Monorepo ini, seperti Turborepo dan Lerna.
+
+Ambil template `basic` dari Turborepo sebagai contoh, isi `pnpm-workspace.yaml`-nya adalah sebagai berikut:
+
+```yaml
+packages:
+  - "apps/*"
+  - "packages/*"
+```
+
+Di bawah `apps`, terdapat dua direktori, yaitu `docs` dan `web`. Secara default, Zeabur akan memilih aplikasi Node.js pertama yang tercantum dalam daftar paket workspace untuk di-deploy. Dalam kasus ini, Zeabur akan men-deploy aplikasi di `apps/docs`. Jika Anda ingin men-deploy `apps/web`, Anda dapat membuat file `zbpack.json` di direktori root proyek dan menambahkan konten berikut:
+
+```json
+{
+    "app_dir": "apps/web"
+}
+```
+
+Atau gunakan [environment variables](/deploy/config/environment-variables) untuk mengaturnya:
+
+```env
+ZBPACK_APP_DIR=apps/web
+```
+
+Ini akan men-deploy aplikasi `apps/web`.
+
+Jika aplikasi Anda memang berada di direktori root tetapi memanfaatkan `pnpm-workspace.yaml` untuk menempatkan komponen React, design system, dan sebagainya, Anda dapat menggunakan environment variable `ZBPACK_APP_DIR=/` atau menambahkan konten berikut ke `zbpack.json`
+
+```json
+{
+    "app_dir": "/"
+}
+```
+
+agar Zeabur men-deploy aplikasi Anda yang berada di direktori root.
+
+<Callout type="info">
+    [Nx](https://nx.dev) dan [Rush](https://rushjs.io), yang tidak berbasis pada kedua pendekatan Monorepo di atas, belum didukung untuk deployment satu klik. Anda dapat merujuk ke "Menonaktifkan Fitur Cache" dan "Mengubah Perintah Build dan Start" untuk mengonfigurasi Monorepo.
+</Callout>
+
+## Menonaktifkan Fitur Cache
+
+Secara default, Zeabur menyusun ulang proses instalasi untuk mempercepat CI/CD Anda dengan mencatat langkah-langkah instalasi dependensi. Hal ini seharusnya tidak memengaruhi sebagian besar proyek Node.js, tetapi jika proyek Anda perlu menggunakan file lain di dalam proyek selama instalasi dependensi sehingga menyebabkan kompilasi proyek gagal, Anda mungkin perlu menonaktifkan fitur caching.
+
+Untuk menonaktifkan fitur ini, buat file `zbpack.json` di direktori root proyek Anda dan tambahkan konten berikut:
+
+```json
+{
+    "cache_dependencies": false
+}
+```
+
+Atau atur [environment variables](/deploy/config/environment-variables):
+
+```env
+ZBPACK_CACHE_DEPENDENCIES=false
+```
+
+## Mengubah Perintah Build dan Start
+
+Jika jenis proyek Anda lebih khusus (misalnya menggunakan toolchain Monorepo kustom), Anda mungkin perlu menentukan perintah build dan start untuk layanan, misalnya, mengubah perintah start layanan `frontend` menjadi `pnpm run start:frontend`; mengubah perintah build layanan `api` menjadi `pnpm run start:api`.
+
+Berikut dua cara untuk mengubah perintah-perintah tersebut.
+
+### Mengubah melalui File
+
+Tambahkan dua pengaturan berikut ke `zbpack.json`:
+
+```json
+{
+    "build_command": "<custom build command>",
+    "start_command": "<custom start command>"
+}
+```
+
+Pengaturan default di `zbpack.json` akan diterapkan ke semua layanan yang di-deploy. Jika Anda ingin menentukan perintah yang berbeda untuk layanan yang berbeda (misalnya, menggunakan perintah tertentu untuk layanan bernama `api` dan perintah lain untuk layanan bernama `frontend`), Anda perlu membuat file bernama `zbpack.[service name].json`:
+
+```json
+// zbpack.api.json
+{
+    "build_command": "pnpm run build:api",
+    "start_command": "pnpm run start:api"
+}
+```
+
+```json
+// zbpack.frontend.json
+{
+    "build_command": "pnpm run build:frontend",
+    "start_command": "pnpm run start:frontend"
+}
+```
+
+Prioritas penerapan pengaturan adalah `zbpack.[service name].json` > `zbpack.json`.
+
+### Mengubah Menggunakan Environment Variables
+
+Anda juga dapat menggunakan [environment variables](/deploy/config/environment-variables) untuk mengatur perintah build dan start:
+
+```env
+ZBPACK_BUILD_COMMAND=pnpm run build:api
+ZBPACK_START_COMMAND=pnpm run start:api
+```
+
+## Mengonfigurasi Versi Node.js dan Versi Package Manager
+
+### Versi Node.js
+
+Secara default, Zeabur menggunakan versi LTS terbaru dari Node.js untuk membangun proyek Anda.
+
+Jika Anda ingin menggunakan versi lain, Anda dapat menentukannya di `package.json`:
+
+```json
+{
+    "engines": {
+        "node": "18.1.0"
+    }
+}
+```
+
+### Versi Package Manager
+
+Secara default, Zeabur menggunakan yarn untuk menginstal dependensi proyek Anda. Jika Anda ingin menggunakan package manager lain, Anda dapat menentukannya di `package.json`:
+
+```json
+{
+    "packageManager": "pnpm@8.0.0"
+}
+```
+
+## Deployment Situs Web Statis
+
+Jika proyek Anda hanya perlu menghasilkan halaman web frontend murni (tanpa server backend), proyek tersebut dapat di-host langsung menggunakan web server seperti NGINX atau Caddy. Anda dapat membiarkan Zeabur men-deploy-nya dengan cara yang lebih ringan, sehingga menghemat penggunaan resource dan biaya.
+
+1. Pertama, pastikan di folder mana perintah build Anda menghasilkan file web akhir (biasanya folder `dist`, `build`, atau `public`)
+2. Kemudian, tambahkan environment variable ini untuk memberi tahu Zeabur lokasi file web tersebut:
+
+    ```env
+    ZBPACK_OUTPUT_DIR=dist
+    ```
+
+    Anda juga dapat menuliskan konfigurasi ini ke `zbpack.json`:
+
+    ```json
+    {
+        "output_dir": "dist"
+    }
+    ```
+
+3. Dengan begitu, setelah build berikutnya selesai, Zeabur akan menggunakan Caddy yang hemat resource untuk meng-host situs web Anda.
+
+## Web Scraping
+
+### Dukungan Playwright
+
+Jika `package.json` Anda mendeklarasikan `playwright-chromium`, Zeabur akan otomatis menyiapkan environment yang diperlukan untuk menjalankan Playwright.
+
+Perlu diperhatikan bahwa Playwright [harus dijalankan dalam mode **Headless**](https://playwright.dev/docs/api/class-browsertype#browser-type-launch-option-headless), yang biasanya merupakan mode default.
+
+### Dukungan Puppeteer
+
+Jika `package.json` Anda mendeklarasikan `puppeteer`, Zeabur akan otomatis menyiapkan environment yang diperlukan untuk menjalankan Puppeteer.
+
+Perlu diperhatikan bahwa Puppeteer [harus dijalankan dalam mode **Headless**](https://pptr.dev/guides/headless-modes), yang biasanya merupakan mode default.
+
+## Catatan Tambahan
+
+1.  Anda sebaiknya mengambil port untuk listening dari `process.env.PORT`.
+
+    Misalnya:
+
+    ```js
+    const port = process.env.PORT || 3000
+    // bukan const port = 3000
+    ```
+
+2.  Hindari menggunakan nodemon sebagai runtime. Jalankan perintah Anda dengan perintah `node` biasa di production.
+
+    Misalnya, di `package.json`:
+
+    ```json
+    {
+        "scripts": {
+            "start": "node server.js"
+            // bukan "start": "nodemon server.js"
+        }
+    }
+    ```

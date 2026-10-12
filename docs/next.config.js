@@ -163,7 +163,7 @@ export default withNextra({
       { source: '/networking',                 destination: '/deploy/networking', permanent: true },
       // Constrain :locale so /deploy/networking (canonical) is not hijacked by
       // a `:locale = "deploy"` match — same applies for any other top-level path.
-      { source: '/:locale(en-US|zh-TW|zh-CN|ja-JP|es-ES)/networking', destination: '/:locale/deploy/networking', permanent: true },
+      { source: '/:locale(en-US|zh-TW|zh-CN|ja-JP|es-ES|id-ID)/networking', destination: '/:locale/deploy/networking', permanent: true },
 
       // operations flat → operations sub-folders
       { source: '/operations/invite-member',   destination: '/operations/team/invite-member', permanent: true },

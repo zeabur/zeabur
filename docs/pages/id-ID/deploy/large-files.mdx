@@ -1,0 +1,80 @@
+---
+title: Penanganan File Besar
+ogImageTitle: Penanganan File Besar
+ogImageSubtitle: Praktik terbaik untuk men-deploy proyek dengan file besar
+---
+
+import { Callout } from 'nextra/components'
+
+# Penanganan File Besar
+
+Saat Anda men-deploy proyek di Zeabur melalui Git, repositori Anda diunduh dan digunakan sebagai build context. File besar di dalam repositori — seperti binary, dataset, file media, atau model machine learning — dapat memperlama waktu build secara signifikan atau bahkan menyebabkan build gagal.
+
+Panduan ini menjelaskan mengapa file besar menimbulkan masalah dan cara menanganinya.
+
+## Mengapa File Besar Menimbulkan Masalah
+
+### Batas Ukuran Build Context
+
+Saat men-deploy dari GitHub, Zeabur mengunduh repositori Anda sebagai arsip ZIP. Arsip ini memiliki **batas ukuran 1 GiB** — jika repositori Anda melebihi batas ini, build akan gagal. Bahkan di bawah batas tersebut, repositori yang besar akan membuat build lebih lambat karena waktu unduh dan ekstraksi yang lebih lama.
+
+### Git LFS Tidak Didukung
+
+<Callout type="warning">
+Zeabur saat ini tidak mendukung Git Large File Storage (Git LFS). File yang dilacak oleh Git LFS **tidak** akan diambil selama proses build, sehingga akan menimbulkan error file tidak ditemukan saat build atau runtime.
+</Callout>
+
+Jika repositori Anda menggunakan Git LFS, server build hanya akan menerima file pointer LFS, bukan isi file yang sebenarnya. Anda perlu memindahkan file-file ini ke solusi penyimpanan eksternal.
+
+### Ukuran Container Image
+
+File besar yang disertakan dalam container image akhir akan memperlama waktu yang dibutuhkan untuk deploy, scaling, dan restart layanan Anda. Menjaga image tetap ramping memastikan cold start yang lebih cepat dan penggunaan sumber daya yang lebih efisien.
+
+## Praktik yang Disarankan
+
+### Hapus File Besar dari Repositori Anda
+
+Karena Zeabur mengunduh seluruh repositori untuk proses build, file besar tidak dapat dikecualikan melalui `.dockerignore` atau mekanisme serupa. Sebagai gantinya, Anda sebaiknya menghapus file besar dari repositori itu sendiri.
+
+Gunakan `.gitignore` untuk mencegah file besar ikut di-commit:
+
+```txt filename=".gitignore" copy
+# Datasets and large media
+*.csv
+*.parquet
+data/
+assets/videos/
+
+# Build artifacts
+dist/
+*.log
+
+# Machine learning models
+*.bin
+*.h5
+*.onnx
+```
+
+<Callout type="info">
+Jika Anda sudah meng-commit file besar dan ingin menghapusnya dari riwayat Git untuk mengurangi ukuran repositori, Anda dapat menggunakan alat seperti [git filter-repo](https://github.com/newren/git-filter-repo) atau [BFG Repo-Cleaner](https://rtyley.github.io/bfg-repo-cleaner/). Sekadar menghapus file di commit baru tidak akan mengurangi ukuran repositori karena Git tetap menyimpan file tersebut dalam riwayatnya.
+</Callout>
+
+### Gunakan Object Storage Eksternal untuk Aset Besar
+
+Untuk aset statis berukuran besar seperti gambar, video, atau model machine learning, simpan di layanan object storage eksternal (misalnya AWS S3, Cloudflare R2, atau layanan apa pun yang kompatibel dengan S3) dan rujuk melalui URL di aplikasi Anda.
+
+Dengan cara ini, repositori dan container image Anda tetap kecil, sementara aplikasi tetap dapat mengakses file yang dibutuhkan saat runtime.
+
+### Gunakan Volume untuk Data Runtime
+
+Jika aplikasi Anda menghasilkan atau membutuhkan file besar saat runtime — seperti unggahan pengguna, file cache, atau database — gunakan [Volume Persisten](/data-management/volumes) alih-alih memasukkannya ke dalam container image.
+
+File yang disimpan di volume akan tetap ada di setiap deployment dan restart layanan, serta tidak memengaruhi ukuran build context Anda.
+
+### Jaga Repositori Tetap Ramping
+
+Ikuti praktik terbaik umum berikut untuk menjaga repositori Anda tetap kecil:
+
+- **Jangan commit binary** — file hasil kompilasi, executable, dan arsip sebaiknya di-build di CI atau diunduh saat runtime.
+- **Gunakan `.gitignore`** — kecualikan artefak build, dependensi (`node_modules`, `venv`), dan file sementara.
+- **Pisahkan repositori besar** — jika repositori Anda berisi banyak layanan yang independen, pertimbangkan untuk memisahkannya menjadi beberapa repositori dan menggunakan [Watch Paths](/deploy/config/watch-paths) atau [Direktori Root](/deploy/config/root-directory) untuk mengelola deployment.

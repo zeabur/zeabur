@@ -1,0 +1,65 @@
+---
+title: Faktur
+ogImageTitle: Faktur
+ogImageSubtitle: Permintaan faktur dan pengaturan nomor identitas pajak
+---
+
+import { Callout } from 'nextra/components'
+
+# Faktur
+
+Zeabur menyediakan faktur untuk [Team Plan](/pricing/team-plan) ke atas, sehingga memudahkan bisnis dan organisasi dalam mengurus akuntansi.
+
+<Callout type="info">
+**Faktur resmi sesuai ketentuan (發票 / fapiao)** hanya tersedia untuk **Team Plan** ke atas. Pengguna Dev Plan, Pro Plan, dan Free Plan yang memerlukan 發票 harus upgrade ke Team Plan terlebih dahulu.
+</Callout>
+
+## Cara Meminta Faktur
+
+1. Buka [halaman tagihan Dashboard](https://dash.zeabur.com/account/billing).
+2. Di bagian pengaturan faktur, isi nama perusahaan dan nomor identitas pajak (Tax ID) Anda.
+3. Setelah disimpan, tagihan berikutnya akan otomatis menyertakan informasi faktur Anda.
+
+## Konfigurasi Nomor Identitas Pajak
+
+Di pengaturan faktur pada halaman tagihan, Anda dapat mengonfigurasi:
+
+- **Nama perusahaan** — Nama lengkap perusahaan atau organisasi yang ditampilkan pada faktur.
+- **Tax ID** — Nomor identitas pajak Anda (misalnya 統一編號 di Taiwan, nomor VAT, atau nomor identitas pajak regional lainnya).
+- **Alamat penagihan** — Alamat penagihan perusahaan Anda.
+
+## Negara / Wilayah yang Didukung
+
+Zeabur menyediakan faktur melalui Stripe, dengan dukungan nomor identitas pajak untuk negara dan wilayah berikut:
+
+- **Taiwan** — 統一編號 (Tax ID)
+- **Amerika Serikat** — EIN (Employer Identification Number)
+- **Uni Eropa** — Nomor VAT
+- **Jepang** — 法人番号 (Corporate Number)
+- **Negara/wilayah lain yang didukung Stripe**
+
+Jika negara/wilayah Anda tidak tercantum di atas, silakan hubungi kami melalui [Zeabur Support](https://zeabur.com/support) dan kami akan membantu Anda menyiapkannya.
+
+## Isi Faktur
+
+Faktur Zeabur mencakup hal-hal berikut:
+
+- Periode tagihan
+- Biaya paket langganan
+- Rincian pemakaian sumber daya (memori, jaringan, penyimpanan, dll.)
+- Biaya server (jika ada)
+- Pajak (sesuai peraturan setempat)
+
+## FAQ
+
+### Apakah tanda terima tagihan sama dengan 發票?
+
+Tidak. **Tanda terima tagihan** adalah ringkasan biaya dalam format PDF — semua pengguna berbayar dapat mengunduhnya sendiri dari [halaman tagihan dashboard](https://dash.zeabur.com/account/billing). **發票** adalah faktur pajak resmi sesuai ketentuan yang diwajibkan untuk akuntansi perusahaan di beberapa negara/wilayah, dan hanya diterbitkan untuk pelanggan [Team Plan](/pricing/team-plan).
+
+### Bisakah saya mendapatkan faktur untuk bulan-bulan sebelumnya?
+
+Ini hanya tersedia untuk pelanggan Team Plan. Silakan hubungi kami melalui [Zeabur Support](https://zeabur.com/support) atau saluran privat dengan menyertakan bulan yang Anda butuhkan dan informasi akun Anda. Jika Anda memerlukan faktur, lihat [Team Plan](/pricing/team-plan) kami.
+
+### Faktur diterbitkan dalam mata uang apa?
+
+Faktur diterbitkan dalam Dolar AS (USD), sesuai dengan mata uang tagihan Zeabur.

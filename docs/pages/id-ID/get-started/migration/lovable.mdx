@@ -1,0 +1,173 @@
+---
+title: Impor Lovable
+ogImageTitle: Impor Lovable
+ogImageSubtitle: Impor proyek Lovable Anda
+---
+
+## Cara Men-deploy Proyek Lovable.dev Anda ke Web dengan Zeabur
+
+Panduan ini adalah cara termudah untuk mengubah kode yang dihasilkan oleh **Lovable.dev** menjadi situs web nyata yang online dan dapat Anda bagikan kepada teman atau pelanggan.
+
+### Ikhtisar
+
+**Lovable.dev** sangat bagus untuk membuat desain dan fitur aplikasi Anda, tetapi untuk menayangkannya secara online, Anda memerlukan "hosting". Kami sangat merekomendasikan **Zeabur** karena Zeabur menangani pekerjaan teknis yang berat untuk Anda. Zeabur mengambil kode Anda dan menayangkannya di URL publik hanya dengan beberapa klik.
+
+**Alur Kerja:**
+
+- **Buat:** Hasilkan aplikasi Anda di **Lovable.dev**.
+- **Sempurnakan:** Simpan kode ke komputer Anda dan periksa dengan **Cursor**.
+- **Deploy:** Tayangkan secara online di **Zeabur**.
+
+> 📝 Catatan Penting: Panduan ini berfokus untuk membuat situs web Anda online (bagian Frontend). Jika aplikasi Anda perlu menyimpan data pengguna atau login, Anda memerlukan Database. Kami akan membahas cara menambahkan database dalam tutorial lanjutan yang terpisah!
+> 
+
+### Prasyarat
+
+- Akun GitHub.
+- [Cursor](https://cursor.sh/) terinstal di komputer Anda.
+- Akun [Zeabur](https://zeabur.com/).
+- Node.js terinstal secara lokal (disarankan versi 18+).
+
+### **Ikhtisar Migrasi**
+
+Rencana ini memindahkan Anda dari lingkungan "no-code" ke lingkungan "pro-code" sambil tetap mempertahankan bantuan AI yang Anda sukai.
+
+- **Sumber:** Lovable (React + Vite + Tailwind).
+- **Editor:** Cursor / Windsurf / Antigravity
+- **Host:** Zeabur
+
+## Langkah 1: Sinkronkan Lovable ke GitHub
+
+Alih-alih ekspor manual, Lovable memiliki integrasi sinkronisasi dua arah langsung yang membuatkan repositori untuk Anda.
+
+1. **Temukan Integrasi GitHub:**
+    - Buka proyek Anda di editor Lovable.
+    - Lihat bagian header kanan atas (di sebelah kiri tombol "Upgrade" dan "Publish").
+    - Klik **ikon GitHub** (siluet kucing).
+    
+    ![Sync Project with Lovable](https://cdn.zeabur.com/lovable%20migration/sync%20project%20with%20lovable.png)
+    
+2. **Mulai Koneksi:**
+    - Sebuah dropdown dengan judul "GitHub" akan muncul.
+    - Klik tombol hitam berlabel **"Connect GitHub"**.
+    
+    ![Click connect github](https://cdn.zeabur.com/lovable%20migration/click%20connect%20github.png)
+    
+3. **Tautkan Proyek:**
+    - Sebuah modal pengaturan berjudul "Project Settings" atau "Integrations" akan terbuka.
+    - Di bawah bagian "Project" (yang bertuliskan *Not connected*), klik tombol **"Connect Project"**.
+    - *Catatan: Jika Anda belum pernah login ke GitHub melalui Lovable, Anda mungkin akan diminta untuk mengotorisasi akun Anda terlebih dahulu.*
+        
+    ![Connect project with github](https://cdn.zeabur.com/lovable%20migration/connect%20project%20with%20github.png)
+        
+4. **Dapatkan URL Repositori Anda:**
+    - Setelah sinkronisasi selesai, notifikasi hijau akan muncul di kanan bawah: *"A GitHub Repository is now under your account..."*
+    - Sebuah modal berjudul **"Clone"** akan muncul di tengah layar.
+    - **Salin URL** yang ditampilkan di kotak tersebut (bentuknya seperti `https://github.com/yourusername/project-name.git`).
+    
+    ![Successfully create a new github repo](https://cdn.zeabur.com/lovable%20migration/successfully%20create%20a%20new%20github%20repo.png)
+    
+
+**Anda sudah selesai dengan Lovable.** Anda sudah memiliki URL yang diperlukan untuk membawa kode ke Cursor.
+
+## Langkah 2: Siapkan Pengembangan Lokal di Cursor
+
+Sekarang Anda akan membawa kode ke komputer lokal untuk mengeditnya dengan Cursor.
+
+1. **Instal Cursor:** Unduh dan instal dari [cursor.com](https://cursor.com/).
+2. **Clone Repositori Anda:**
+    - Buka Cursor.
+    - Tekan `Cmd + Shift + P` (Mac) atau `Ctrl + Shift + P` (Windows) untuk membuka command palette.
+    - Ketik `Git: Clone` lalu pilih.
+    - Tempelkan URL repositori GitHub Anda (misalnya `https://github.com/yourname/my-lovable-app`) dan pilih folder di komputer Anda untuk menyimpannya.
+3. **Instal Dependensi:**
+    - Buka terminal di Cursor (`Ctrl + ~` atau `Terminal > New Terminal`).
+    - Ketik perintah berikut untuk menginstal library yang digunakan Lovable:
+        
+        ```bash
+        npm install
+        
+        ```
+        
+4. **Jalankan Server Lokal:**
+    - Jalankan aplikasi secara lokal untuk memastikan aplikasi berfungsi:
+        
+        ```bash
+        npm run dev
+        
+        ```
+        
+    - Klik tautan `localhost` di terminal untuk melihat aplikasi Anda.
+
+## Langkah 3: Verifikasi Dependensi dan Environment
+
+1. **Instal Dependensi:**
+Proyek Lovable biasanya mendeteksi package manager secara otomatis. Periksa keberadaan lock file (`pnpm-lock.yaml`, `package-lock.json`, atau `yarn.lock`).
+    
+    ```bash
+    # Jika menggunakan npm
+    npm install
+    
+    # Jika menggunakan pnpm
+    pnpm install
+    
+    ```
+    
+2. **Pengaturan Environment:**
+    - Temukan file `.env.example` (jika ada) dan duplikat file tersebut untuk membuat file `.env`.
+    - **Penting:** Jika aplikasi Lovable Anda menggunakan API key (OpenAI, Supabase, dll.), Anda harus menambahkan key tersebut secara manual ke file `.env` lokal Anda. Lovable tidak mengekspor secret Anda ke GitHub demi alasan keamanan.
+3. **Uji Lokal:**
+Jalankan development server untuk memastikan aplikasi berfungsi secara lokal.
+    
+    ```bash
+    npm run dev
+    
+    ```
+
+## Langkah 4: Deploy dengan Satu Klik
+
+Sekarang saatnya keajaiban terjadi. Dengan ekstensi yang sudah terinstal, men-deploy proyek Anda hanya butuh beberapa klik.
+
+1. Klik ikon Zeabur yang baru di activity bar sebelah kiri.
+2. Klik tombol **"Deploy"**.
+
+Editor Anda kemudian akan meminta izin untuk membuka tautan di browser. Klik **"Open"**.
+
+![Click Deploy and Open .png](https://cdn.zeabur.com/replit%20migration%20/Click%20Deploy%20and%20Open%20.png)
+
+## Langkah 5: Biarkan AI Agent Zeabur Menangani Sisanya
+
+Setelah Anda dialihkan ke Zeabur, AI agent platform akan mengambil alih. Agent ini menganalisis kode Anda untuk memahami struktur proyek, dependensi, dan kebutuhan build.
+
+Agent Zeabur akan:
+
+- Mengenali bahwa Anda memiliki aplikasi full-stack (misalnya frontend React dan backend Express).
+- Mengonfigurasi build command dan start command secara otomatis.
+- Menyediakan semua layanan yang diperlukan.
+
+![Zeabur Agent Handle the rest.png](https://cdn.zeabur.com/new%20agent.png)
+
+Anda akan diminta memilih proyek dan region deployment. Setelah itu, Zeabur akan menangani semuanya.
+
+Anda dapat melihat secara real-time saat layanan Anda di-build hingga beroperasi sepenuhnya. Zeabur bahkan langsung memberikan domain yang aktif begitu deployment berhasil.
+
+## Langkah 6 : Domain & Jaringan
+
+1. Klik Layanan Anda di Zeabur.
+2. Buka tab **Jaringan**.
+3. Klik **Generate Domain** (untuk mendapatkan domain `.zeabur.app`) atau **Domain Kustom** untuk menghubungkan domain Anda sendiri.
+4. Kunjungi URL tersebut. Aplikasi Lovable Anda kini telah menjadi aplikasi production yang ter-deploy sepenuhnya.
+
+## Langkah 7: Hubungkan Database (Supabase)
+
+Jika aplikasi Lovable Anda memungkinkan pengguna untuk login, membuat akun, atau menyimpan data, aplikasi tersebut memerlukan database (biasanya **Supabase**).
+
+Saat ini, Anda telah berhasil men-deploy bagian **Frontend** (antarmuka visual). Agar fitur data dan autentikasi berfungsi, Anda perlu menghubungkan backend dengan menambahkan API key Anda ke pengaturan **Variabel** di Zeabur.
+
+Kami memiliki panduan khusus yang memandu Anda mendapatkan key Supabase dan menambahkannya ke Zeabur:
+
+**👉 Ikuti [panduan langkah demi langkah untuk membuat dan menghubungkan Supabase di Zeabur](https://zeabur.com/templates/SUPABS).**
+
+---
+
+Selesai! Anda telah berhasil memindahkan proyek Anda dari prototipe di Lovable.dev menjadi aplikasi yang online dan siap production di Zeabur tanpa menulis satu baris konfigurasi pun. Alur kerja yang mulus ini memungkinkan Anda fokus pada hal yang paling penting: membangun perangkat lunak yang hebat.

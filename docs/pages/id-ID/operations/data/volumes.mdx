@@ -1,0 +1,47 @@
+---
+title: Volume
+ogImageTitle: Volume
+ogImageSubtitle: Simpan data Anda secara persisten di Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Volume
+
+Di Zeabur, Anda dapat memasang Volume untuk menyimpan data secara persisten di dalam layanan. Biasanya, layanan di Zeabur akan mengembalikan data ke nilai default saat di-restart (disebut <abbr title="Stateless">stateless</abbr>), tetapi jika Anda perlu mempertahankan data (menjadikan layanan <abbr title="Stateful">stateful</abbr>), Anda dapat memasang direktori yang memerlukan penyimpanan persisten ke Volume. Dengan begitu, meskipun layanan di-restart, data tidak akan hilang.
+
+Untuk informasi harga Volume, silakan lihat [halaman harga kami](/pricing).
+
+<Callout type="info">
+    Jika Anda hanya ingin mengunggah file konfigurasi, menggunakan [Editor Konfigurasi](/data-management/config-edit) lebih praktis dan tidak dikenakan biaya tambahan.
+</Callout>
+
+## Perhatian
+
+- Secara default, layanan Zeabur mendukung restart tanpa downtime, artinya saat Anda me-restart layanan, lalu lintas dialihkan dengan mulus ke instance baru dan pengguna tidak akan mengalami gangguan.
+- Namun, setelah Volume diaktifkan, layanan **tidak dapat mendukung restart tanpa downtime**. Setiap restart akan mematikan layanan sepenuhnya terlebih dahulu sebelum menjalankannya kembali, sehingga terjadi downtime singkat.
+
+## Memasang Volume
+
+Buka halaman layanan tempat Anda ingin memasang Volume, klik tab "Volume", dan Anda akan melihat tombol "Pasang Volume". Setelah mengkliknya, Anda akan melihat dua kolom:
+
+![mount volumes](/data-management/volumes/mount-volumes.webp)
+
+- **ID Volume** adalah pengenal unik untuk Volume ini. Anda dapat menggunakan nama sederhana (seperti `data`, `cache`, `photos`) agar mudah merepresentasikan Volume ini. Pengenal ini tidak berkaitan dengan hasil pemasangan yang sebenarnya.
+- **Direktori Pemasangan** adalah direktori tempat Volume akan dipasang, yaitu "folder yang memerlukan penyimpanan persisten". Jika Anda ingin menyimpan direktori `/data` di layanan secara persisten, masukkan `/data` di sini.
+
+<Callout type="info">
+    Volume hanya berlaku untuk satu layanan dan tidak dapat dibagikan antarlayanan. Menggunakan kembali ID Volume yang sama di layanan lain akan membuat Volume terpisah; tidak memasang disk yang sama. Jika beberapa layanan memerlukan akses ke data yang sama, gunakan object storage yang dapat diakses melalui jaringan seperti MinIO atau RustFS.
+</Callout>
+
+**Perlu diperhatikan bahwa setelah pemasangan, data di direktori ini akan dihapus seluruhnya**. Jika di dalamnya sudah terdapat data penting, silakan unduh terlebih dahulu sebelum memasang dan me-restart layanan untuk menghindari kehilangan data, lalu impor kembali data tersebut setelah pemasangan.
+
+## Melepas Volume
+
+Jika Anda ingin menghentikan penagihan untuk Volume tertentu, klik tombol "Hapus" di samping Volume tersebut. Menghapusnya akan menghentikan penagihan untuk ruang ini. Perlu diperhatikan bahwa setelah dihapus, data di direktori ini akan **dihapus seluruhnya** dan **tidak dapat dipulihkan**.
+
+![unmount volumes](/data-management/volumes/unmount-volumes.webp)
+
+## Menggunakan Volume di Template YAML
+
+Anda dapat menggunakan `volumes` di "Service Specification" untuk memasang Volume. Untuk informasi lebih lanjut, silakan lihat artikel [Buat Template dari YAML](/template/template-format).

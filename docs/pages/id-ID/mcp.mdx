@@ -1,0 +1,105 @@
+---
+title: Integrasi MCP
+ogImageTitle: Integrasi MCP
+ogImageSubtitle: Integrasi dengan Model Context Protocol
+---
+
+# Zeabur MCP Server
+
+Zeabur menyediakan server Model Context Protocol (MCP) resmi yang memungkinkan Anda mengelola dan men-deploy proyek Zeabur dari aplikasi AI yang mendukung MCP.
+
+## Pengenalan MCP
+
+Model Context Protocol (MCP) adalah protokol terbuka yang dirancang untuk menstandarkan cara aplikasi menyediakan konteks bagi large language model (LLM). Protokol ini berfungsi layaknya "konektor USB-C" untuk aplikasi AI, sehingga model AI dapat dengan mudah terhubung ke berbagai sumber data dan tool.
+
+Dengan server MCP dari Zeabur, Anda dapat langsung mengelola layanan cloud Anda di Claude atau asisten AI lain yang mendukung MCP, tanpa perlu berpindah ke konsol Zeabur.
+
+## Menginstal Zeabur MCP Server
+
+### Prasyarat
+
+- Asisten AI yang mendukung MCP (seperti Claude Desktop atau Cursor)
+- Akun Zeabur dan API Token
+
+### Langkah Penyiapan
+
+1. Dapatkan Zeabur API Token Anda
+
+   Silakan lihat [Integrasi dengan Zeabur menggunakan API Key](./developer/use-api-key) untuk mendapatkan API Token Anda.
+
+2. Tambahkan konfigurasi berikut ke file konfigurasi MCP asisten AI Anda:
+
+   Access token yang dibuat dari Account API Keys saat ini diawali dengan `zat_`. Ganti `zat_xxxxxx` dengan access token Zeabur Anda yang sebenarnya.
+
+```json
+{
+  "mcpServers": {
+    "zeabur": {
+      "command": "npx",
+      "args": [
+        "@zeabur/mcp-server"
+      ],
+      "env": {
+        "ZEABUR_TOKEN": "zat_xxxxxx"
+      }
+    }
+  }
+}
+```
+
+3. Mulai ulang asisten AI Anda, dan Zeabur MCP server akan otomatis berjalan dan terhubung.
+
+## Menggunakan Zeabur MCP
+
+Setelah Zeabur MCP server disiapkan, Anda dapat melakukan operasi berikut di asisten AI yang mendukung MCP:
+
+- Membuat proyek Zeabur baru
+- Men-deploy aplikasi ke Zeabur
+- Melihat dan mengelola status layanan
+- Mengonfigurasi environment variables
+- Menghubungkan domain
+- Melihat log deployment
+- Menjalankan perintah database
+- Fitur manajemen layanan cloud lainnya
+
+## Contoh
+
+Berikut beberapa contoh percakapan saat menggunakan Zeabur MCP melalui asisten AI:
+
+**Membuat proyek baru**:
+```
+Please help me create a new project on Zeabur
+```
+
+**Men-deploy aplikasi**:
+```
+Deploy this Node.js application to my Zeabur project
+```
+
+**Menghubungkan domain**:
+```
+Help me bind a subdomain to my Zeabur service
+```
+
+**Melihat log**:
+```
+Show me the logs of my recently deployed application
+```
+
+## Pertanyaan yang Sering Diajukan
+
+**T: Asisten AI apa saja yang dapat digunakan dengan Zeabur MCP?**
+
+J: Asisten AI apa pun yang mendukung Model Context Protocol, seperti Claude Desktop.
+
+**T: Apakah Zeabur MCP server berbayar?**
+
+J: Zeabur MCP server sendiri gratis digunakan, tetapi pemakaian sumber daya Anda di platform Zeabur tetap ditagih sesuai harga Zeabur.
+
+**T: Apakah API Token saya aman?**
+
+J: API Token Anda hanya disimpan di file konfigurasi lokal Anda dan hanya digunakan untuk autentikasi dengan Zeabur API. Demi keamanan, jangan bagikan file konfigurasi yang berisi Token Anda kepada orang lain.
+
+## Sumber Daya Tambahan
+
+- [Dokumentasi Resmi Model Context Protocol](https://modelcontextprotocol.io/)

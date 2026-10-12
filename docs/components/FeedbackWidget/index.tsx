@@ -64,6 +64,16 @@ const i18n: Record<string, Record<string, string>> = {
     error: 'Error al enviar. Inténtalo de nuevo.',
     retry: 'Reintentar',
   },
+  'id-ID': {
+    heading: 'Apakah halaman ini membantu?',
+    placeholder: 'Masukan Anda (opsional)...',
+    send: 'Kirim',
+    login: 'Silakan masuk terlebih dahulu',
+    thanks: 'Terima kasih atas masukan Anda!',
+    viewPost: 'Lihat di Forum',
+    error: 'Gagal mengirim. Silakan coba lagi.',
+    retry: 'Coba lagi',
+  },
 }
 
 const RATING_LABELS: Record<string, string[]> = {
@@ -72,6 +82,7 @@ const RATING_LABELS: Record<string, string[]> = {
   'zh-CN': ['没有帮助', '稍有帮助', '有帮助', '非常有帮助'],
   'ja-JP': ['役に立たない', '少し役立つ', '役立つ', 'とても役立つ'],
   'es-ES': ['No útil', 'Algo útil', 'Útil', 'Muy útil'],
+  'id-ID': ['Tidak membantu', 'Sedikit membantu', 'Membantu', 'Sangat membantu'],
 }
 
 const TURNSTILE_TIMEOUT = 10_000

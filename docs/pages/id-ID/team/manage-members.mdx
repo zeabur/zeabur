@@ -1,0 +1,185 @@
+---
+title: Kelola anggota
+ogImageTitle: Kelola anggota Tim
+ogImageSubtitle: Undang, keluarkan, dan tetapkan peran
+---
+
+import { Callout, Steps } from 'nextra/components';
+
+# Kelola anggota
+
+Tim baru berguna setelah Anda memiliki rekan tim di dalamnya dengan tingkat akses yang tepat. Halaman ini adalah referensi utama tentang apa yang dapat dan tidak dapat dilakukan setiap peran, cara mengundang dan mengeluarkan anggota, serta perbedaan keanggotaan Tim dengan kolaborasi tingkat proyek atau server.
+
+Jika Anda masih mempertimbangkan apakah Anda memerlukan Tim, mulailah dengan [Tim](/team) dan [Buat Tim](/team/create-team).
+
+## Ringkasan peran
+
+| Peran | Kelola anggota & profil Tim | Kelola tagihan | Buat / ubah sumber daya | Hapus sumber daya |
+| --- | :---: | :---: | :---: | :---: |
+| **Administrator** | Ya | Ya | Ya | Ya |
+| **Editor** | Tidak | Tidak | Ya | Tidak |
+| **Viewer** | Tidak | Tidak | Tidak | Tidak |
+
+Akses baca memiliki cakupan tertentu: semua peran dapat melihat proyek, layanan, riwayat deployment, status server, dan log runtime milik Tim. **Mencari atau mengunduh log hanya dapat dilakukan oleh Editor dan Administrator.** Faktur, metode pembayaran, dan detail penagihan hanya dapat dilihat oleh **administrator**.
+
+Pengguna yang membuat Tim tercatat sebagai **pembuat Tim** (ditampilkan sebagai "Pembuat" di dashboard). Pembuat selalu berperan sebagai administrator dan tidak dapat dikeluarkan atau diturunkan perannya oleh siapa pun — hanya pembuat sendiri yang dapat mundur melalui [Transfer kepemilikan](/team/transfer-ownership). Setiap Tim harus selalu memiliki setidaknya satu administrator.
+
+### Matriks izin terperinci
+
+Untuk rincian per fitur yang lebih tepat:
+
+| Fitur | Viewer | Editor | Administrator |
+| --- | :---: | :---: | :---: |
+| **Manajemen Tim** | | | |
+| Melihat anggota Tim | Ya | Ya | Ya |
+| Mengundang anggota baru | Tidak | Tidak | Ya |
+| Mengubah peran anggota | Tidak | Tidak | Ya |
+| Mengeluarkan anggota | Tidak | Tidak | Ya |
+| Menghapus Tim | Tidak | Tidak | Ya |
+| **Proyek & layanan** | | | |
+| Melihat proyek dan layanan | Ya | Ya | Ya |
+| Membuat proyek dan layanan | Tidak | Ya | Ya |
+| Mengubah pengaturan layanan | Tidak | Ya | Ya |
+| Menghapus proyek dan layanan | Tidak | Tidak | Ya |
+| **Deployment** | | | |
+| Melihat riwayat deployment | Ya | Ya | Ya |
+| Memicu deploy secara manual | Tidak | Ya | Ya |
+| Melakukan rollback deployment | Tidak | Ya | Ya |
+| **Log & pemantauan** | | | |
+| Melihat log | Ya | Ya | Ya |
+| Mencari log | Tidak | Ya | Ya |
+| Mengunduh log | Tidak | Ya | Ya |
+| **Infrastruktur (database & server)** | | | |
+| Melihat database dan server | Ya | Ya | Ya |
+| Membuat database dan server | Tidak | Ya | Ya |
+| Mengubah database dan server | Tidak | Ya | Ya |
+| Menghapus database dan server | Tidak | Tidak | Ya |
+| **Tagihan** | | | |
+| Melihat faktur | Tidak | Tidak | Ya |
+| Mengubah metode pembayaran | Tidak | Tidak | Ya |
+| Mengubah paket langganan | Tidak | Tidak | Ya |
+
+### Yang dapat dilakukan Administrator
+
+- Memperbarui profil Tim: nama, logo, email kontak untuk notifikasi sistem.
+- Mengundang, mengeluarkan, dan mengubah peran anggota lain.
+- Mengaktifkan, membatalkan, atau melanjutkan paket Team.
+- Mengelola metode pembayaran, detail penagihan (nama resmi, alamat, ID pajak), dan kredit prabayar.
+- Membuat, mengubah, **dan** menghapus proyek, layanan, environment, database, dan server dedicated milik Tim.
+- Mentransfer proyek atau server pribadi ke dalam Tim (lihat [Transfer kepemilikan](/team/transfer-ownership)).
+- Menghapus Tim itu sendiri, setelah tidak ada lagi proyek atau server yang tersisa.
+
+### Yang dapat dilakukan Editor
+
+Editor adalah peran sehari-hari untuk "membangun dan merilis".
+
+- Membuat dan mengubah proyek, layanan, environment, environment variables, dan domain milik Tim.
+- Memicu deployment, melakukan rollback ke deployment sebelumnya, dan me-restart layanan.
+- Mencari dan mengunduh log.
+- Menambahkan atau mengubah server dedicated dan database yang terhubung ke Tim.
+
+Yang **tidak dapat** dilakukan Editor:
+
+- Mengundang, mengeluarkan, atau mengubah peran anggota mana pun.
+- Mengedit nama, logo, atau email kontak Tim.
+- Melihat faktur, mengubah metode pembayaran, mengaktifkan atau membatalkan paket Team, atau menambah saldo.
+- Menghapus proyek, layanan, database, atau server. Editor membuat dan mengubah; hanya administrator yang dapat menghapus.
+
+<Callout type="info">
+  Tindakan tulis Editor hanya dapat dilakukan jika paket Team aktif. Selama Tim berada dalam status tidak aktif seperti yang dijelaskan di [Ikhtisar Tim](/team#activating-the-team-plan), editor tidak dapat membuat atau mengubah sumber daya — hanya administrator yang dapat menyelesaikan langkah aktivasi.
+</Callout>
+
+### Yang dapat dilakukan Viewer
+
+Viewer memiliki akses hanya-baca ke sebagian besar workspace Tim. Peran ini berguna bagi pemangku kepentingan, auditor, kontraktor tetap, atau siapa pun yang perlu melihat deployment tanpa kemampuan untuk mengubah apa pun.
+
+Viewer **dapat**:
+
+- Melihat proyek, layanan, riwayat deployment, dan status server / database.
+- Membuka log runtime dan log build (hanya-baca).
+- Berpindah ke workspace Tim dan menjelajahinya seperti anggota lainnya.
+
+Viewer **tidak dapat**:
+
+- Melakukan deploy, restart, rollback, atau mengubah pengaturan layanan.
+- Membuat atau mengubah proyek, layanan, environment variables, database, atau server.
+- Mencari atau mengunduh log (hanya dapat melihat di dashboard).
+- Mengundang, mengeluarkan, atau mengubah peran anggota.
+- Melihat faktur, metode pembayaran, atau detail penagihan, maupun mengubah apa pun di bagian tagihan.
+
+## Mengundang anggota
+
+Hanya administrator yang dapat mengundang. Orang yang diundang harus sudah memiliki akun Zeabur dengan email yang sama — tidak ada kotak masuk undangan tertunda; begitu Anda menambahkannya, mereka langsung menjadi anggota aktif dan saat berikutnya masuk, mereka dapat berpindah ke workspace Tim melalui pengalih workspace.
+
+<Steps>
+### Beralih ke workspace Tim
+
+Di pengalih workspace pada sidebar dashboard, pilih Tim yang ingin Anda undang anggotanya. Anda harus berada di workspace Tim untuk melihat halaman **Anggota**; manajemen anggota tidak tersedia dari workspace pribadi Anda.
+
+### Buka Anggota
+
+Buka **Akun → Anggota**. Administrator akan melihat tombol **Undang anggota** di kanan atas daftar anggota. Editor dan Viewer tidak melihat tombol ini.
+
+### Masukkan email dan pilih peran
+
+Klik **Undang anggota**, masukkan alamat email rekan tim, lalu pilih **Administrator**, **Editor**, atau **Viewer**. Anda dapat mengubah peran nanti, jadi tidak masalah untuk memulai anggota sebagai Viewer lalu menaikkan perannya setelah Anda memercayai alur kerjanya.
+
+### Konfirmasi pratinjau biaya kursi
+
+Jika Tim Anda menggunakan paket Team dan penambahan anggota ini melebihi jumlah kursi yang termasuk, dashboard akan menampilkan pratinjau biaya kursi tambahan sebelum undangan dikirim. Biaya prorata untuk sisa periode penagihan saat ini akan ditambahkan ke faktur berikutnya. Lihat [Tagihan Tim](/team/billing) untuk cara kerja harga kursi.
+
+### Kirim
+
+Klik **Kirim undangan**. Anggota baru langsung muncul di daftar dengan peran yang dipilih. Mereka akan melihat Tim di pengalih workspace mereka saat berikutnya memuat dashboard.
+</Steps>
+
+Jika email yang Anda masukkan tidak cocok dengan akun Zeabur yang ada, undangan akan ditolak — minta rekan tim untuk mendaftar di [zeabur.com](https://zeabur.com) terlebih dahulu, lalu coba lagi.
+
+## Mengubah peran anggota
+
+Administrator dapat mengubah peran anggota mana pun kapan saja, dengan satu pengecualian: tidak seorang pun (bahkan administrator lain) dapat mengubah peran **Pembuat**. Jika Anda perlu mengubah siapa yang secara efektif menjalankan Tim, gunakan [Transfer kepemilikan](/team/transfer-ownership).
+
+Untuk mengubah peran, buka **Akun → Anggota**, klik dropdown peran di samping anggota, lalu pilih peran baru. Perubahan langsung berlaku pada pemuatan halaman berikutnya bagi anggota tersebut — tidak ada langkah "simpan".
+
+Anda tidak dapat mengubah peran Anda sendiri dari halaman ini. Untuk mengeluarkan diri Anda dari Tim, gunakan **Keluar dari tim** (lihat di bawah).
+
+## Mengeluarkan anggota
+
+Administrator dapat mengeluarkan anggota mana pun kecuali Pembuat. Mengeluarkan anggota:
+
+- Langsung berlaku. Pengguna yang dikeluarkan kehilangan akses ke semua proyek, layanan, server, dan data tagihan milik Tim.
+- **Tidak** menghapus proyek atau server pribadi mereka — semuanya tetap berada di workspace pribadi mereka.
+- Membebaskan satu kursi pada paket Team, sehingga mengurangi biaya kursi pada faktur berikutnya.
+
+Untuk mengeluarkan seseorang, buka **Akun → Anggota**, klik **Keluarkan** pada baris mereka, lalu konfirmasi. Anggota dikeluarkan tanpa langkah notifikasi tambahan.
+
+### Keluar dari Tim sendiri
+
+Setiap anggota dapat keluar dari Tim yang diikutinya, kecuali Pembuat. Buka **Akun → Pengaturan Tim** saat berada di workspace Tim dan gunakan **Keluar dari tim** di Zona Berbahaya. Setelah keluar, Anda kehilangan akses ke sumber daya Tim, dan dashboard akan mengembalikan Anda ke workspace pribadi.
+
+Jika Anda adalah Pembuat dan ingin keluar, Anda harus terlebih dahulu [mentransfer kepemilikan](/team/transfer-ownership) ke administrator lain.
+
+## Anggota Tim vs kolaborator proyek / server
+
+Zeabur memiliki tiga sistem undangan yang independen. Memilih yang tepat penting karena masing-masing memberikan akses ke hal yang berbeda dan dikelola di tempat yang berbeda.
+
+| | Tempat mengundang | Yang mereka dapatkan | Siapa yang mengeluarkan |
+| --- | --- | --- | --- |
+| **Anggota Tim** | **Akun → Anggota** di workspace Tim | Semua proyek, layanan, dan server milik Tim saat ini maupun di masa mendatang, sesuai peran yang Anda tetapkan. Termasuk akses tagihan untuk administrator. | Administrator mengeluarkan; anggota dapat keluar sendiri. |
+| **Kolaborator proyek** | Di dalam satu proyek, pada panel pengaturan proyek | Layanan, deployment, dan environment variables dari satu proyek. **Tidak** memberikan akses ke server dedicated yang mendasarinya, meskipun proyek berjalan di server milik Tim atau milik pribadi. | Pemilik proyek mengeluarkan; kolaborator dapat keluar dari proyek. |
+| **Kolaborator server** | Di dalam satu server, pada bagian kolaborator server | Pengelolaan satu server dedicated — reboot, instal ulang, tagihan, pengaturan tingkat server. **Tidak** otomatis memberikan akses ke proyek yang di-deploy di server tersebut. | Pemilik server mengeluarkan. |
+
+### Kapan menggunakan yang mana
+
+- **Gunakan keanggotaan Tim** ketika lebih dari satu orang perlu berbagi tagihan, melihat semua proyek dan server saat ini maupun di masa mendatang, serta beroperasi sebagai satu organisasi. Ini adalah pilihan yang tepat untuk perusahaan, klien agensi berbayar, atau kolaborator jangka panjang.
+- **Gunakan kolaborator proyek** ketika Anda ingin memberikan akses edit ke satu proyek saja kepada seseorang — misalnya freelancer yang mengerjakan satu aplikasi, atau teman yang melakukan pair programming dengan Anda di proyek sampingan. Tidak memerlukan Tim.
+- **Gunakan kolaborator server** ketika seseorang perlu membantu mengelola server dedicated (reboot, instal ulang) tetapi tidak harus melihat proyek yang berjalan di atasnya.
+
+Ketiga sistem ini dapat digunakan bersamaan: seorang pengguna bisa menjadi Editor di Tim Anda, kolaborator proyek di proyek pribadi orang lain, dan kolaborator server di server dedicated milik pihak ketiga. Setiap pemberian akses terbatas pada sumber daya tempat akses tersebut diberikan.
+
+## Langkah selanjutnya
+
+- [Ikhtisar Tim](/team)
+- [Buat Tim](/team/create-team)
+- [Tagihan Tim](/team/billing)
+- [Undang kolaborator proyek](/operations/team/invite-member)

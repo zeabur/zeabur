@@ -1,0 +1,43 @@
+---
+title: Membuat dan Menggunakan API Key
+ogImageTitle: Membuat dan Menggunakan API Key
+ogImageSubtitle: Buat dan gunakan API key untuk berinteraksi dengan Zeabur API
+---
+
+# Membuat dan Menggunakan API Key
+
+Anda memerlukan API key untuk berinteraksi dengan [Public API Zeabur](./public-api).
+
+## Membuat API Key
+
+Buka [Zeabur Dashboard > Settings > API Keys](https://zeabur.com/account/api-keys) untuk melihat semua key yang sedang aktif.
+
+![Developer Panel](/developer/api-key/developer.en-US.png)
+
+Klik "Generate new API key" untuk membuat API key baru dengan timestamp saat ini.
+
+![Generate API Key](/developer/api-key/generate-api-key.en-US.png)
+
+Klik tombol "mata" untuk melihat API key.
+
+![View API Key](/developer/api-key/view-api-key.en-US.png)
+
+Klik tombol "salin" untuk menyalin API key.
+
+![Copy API Key](/developer/api-key/copy-api-key.en-US.png)
+
+## Mencabut API Key
+
+Buka [Zeabur Dashboard > Settings > API Keys](https://zeabur.com/account/api-keys) untuk melihat semua key yang sedang aktif. Klik tombol "hapus" untuk segera mencabut API key.
+
+## Menggunakan API Key
+
+Sertakan `Bearer API_TOKEN` di header `Authorization` saat memanggil API, seperti pada contoh berikut:
+
+```bash
+curl --request POST \
+  --url https://api.zeabur.com/graphql \
+  --header 'Authorization: Bearer {YOUR_API_TOKEN}' \
+  --header 'Content-Type: application/json' \
+  --data '{"query":"query { me { username } }"}'
+```

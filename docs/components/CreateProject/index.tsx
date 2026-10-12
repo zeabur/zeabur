@@ -5,6 +5,7 @@ import ZhCN from './zh_CN.mdx'
 import ZhTW from './zh_TW.mdx'
 import JaJP from './ja_JP.mdx'
 import EsES from './es_ES.mdx'
+import IdID from './id_ID.mdx'
 
 export default function CreateProject() {
   const router = useRouter()
@@ -20,6 +21,8 @@ export default function CreateProject() {
       return <JaJP />
     case 'es-ES':
       return <EsES />
+    case 'id-ID':
+      return <IdID />
     default:
       return <EnUS />
   }

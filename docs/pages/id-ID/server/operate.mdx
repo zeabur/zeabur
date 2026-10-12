@@ -1,0 +1,228 @@
+---
+title: Pemeliharaan Server
+ogImageTitle: Pemeliharaan Server
+ogImageSubtitle: Pelihara Server Anda
+---
+
+import { Callout } from 'nextra/components';
+
+# Pemeliharaan Server Anda
+
+Artikel ini menjelaskan cara memelihara [server](../server) Anda yang terdaftar di Zeabur.
+
+<Callout>
+    Jika Anda membeli server dari Zeabur, tugas operasional dan pemeliharaan dilakukan oleh kami.
+    Silakan kirimkan tiket untuk memberi tahu kami proyek mana yang ingin Anda pelihara, dan staf kami akan menanganinya untuk Anda.
+</Callout>
+
+## Pembersihan Ruang Disk
+
+Jika ruang disk di host Anda tidak mencukupi, Anda dapat mencoba membersihkan Docker image yang ditarik oleh K3s di host Anda (biasanya hal ini dilakukan secara otomatis).
+
+```bash
+# Periksa image apa saja yang sudah ditarik (baris ini tidak perlu diketik)
+$ sudo k3s crictl images
+
+# Hapus semua image yang tidak digunakan
+$ sudo k3s crictl rmi --prune
+```
+
+Terkadang, log yang dicatat oleh K3s untuk setiap container juga dapat memakan banyak ruang. Anda dapat mencoba membersihkan log tersebut di [direktori log K3s](https://docs.k3s.io/faq#where-are-the-k3s-logs).
+
+## Memasang Volume di Dedicated Server
+
+Jika Anda ingin memperluas penyimpanan persisten untuk Dedicated Server, Anda dapat memasang (mount) disk tambahan ke `/var/lib/rancher/k3s/storage` di server itu sendiri. Ini merupakan operasi pemeliharaan tingkat host. Anda dapat menggunakan menu **SSH** di sidebar kiri halaman server Zeabur untuk masuk ke server dan menjalankan perintah yang diperlukan.
+
+Misalnya, Anda dapat menggunakan perintah berikut untuk memasang disk tambahan ke `/var/lib/rancher/k3s/storage`:
+
+```bash
+sudo mount /dev/sdb1 /var/lib/rancher/k3s/storage
+```
+
+Ganti `/dev/sdb1` dengan nama partisi disk Anda yang sebenarnya.
+
+Jika Anda ingin disk tetap terpasang setelah server di-reboot, Anda dapat menambahkan entri mount ke `/etc/fstab`. Penggunaan UUID lebih disarankan daripada path perangkat seperti `/dev/sdb1`, karena nama perangkat dapat berubah setelah reboot atau perubahan perangkat keras. Gunakan `blkid` untuk menemukan UUID:
+
+```bash
+sudo blkid /dev/sdb1
+```
+
+Kemudian tambahkan entri menggunakan UUID tersebut:
+
+```bash
+echo 'UUID=<your-partition-uuid> /var/lib/rancher/k3s/storage ext4 defaults,nofail 0 2' | sudo tee -a /etc/fstab
+```
+
+Ganti `<your-partition-uuid>` dan `ext4` dengan UUID partisi dan tipe filesystem Anda yang sebenarnya. Setelah memperbarui `/etc/fstab`, kami menyarankan untuk menjalankan perintah berikut guna memverifikasi konfigurasi:
+
+```bash
+sudo mount -a
+```
+
+Setelah proses mount selesai, ruang disk tersebut akan digunakan sebagai penyimpanan bersama untuk layanan di seluruh Dedicated Server.
+
+<Callout type="warning">
+    Operasi ini akan membuat isi `/var/lib/rancher/k3s/storage` yang sudah ada tidak dapat diakses selama volume terpasang (isinya tersembunyi, bukan terhapus, dan akan muncul kembali jika volume dilepas). Operasi ini juga akan memengaruhi data persisten apa pun yang saat ini bergantung pada path tersebut. Pastikan untuk melakukan backup data terkait terlebih dahulu, dan lakukan operasi ini selama jendela pemeliharaan atau migrasi untuk menghindari gangguan layanan atau kehilangan data.
+</Callout>
+
+## Pemulihan dari OOM (Server Offline)
+
+Jika server Anda kehabisan memori (OOM), indikator status K3s di dashboard server dapat berubah menjadi merah, yang berarti Kubernetes tidak lagi berjalan dengan baik. Ketika ini terjadi, layanan Anda tidak akan dapat dijangkau.
+
+![Server Info showing K3s status](/server/server-info.png)
+
+Untuk memulihkan, buka **Pengaturan** dan klik **Reboot Server**.
+
+![Reboot Server button in Settings](/server/reboot-server-button.png)
+
+Sebuah dialog akan muncul berisi daftar semua layanan yang akan otomatis dijalankan ulang setelah reboot. **Jika K3s berwarna merah (offline), kami menyarankan untuk membatalkan pilihan semua layanan** agar server tidak langsung kehabisan memori lagi setelah dijalankan ulang.
+
+![Reboot Server dialog with services listed](/server/reboot-dialog.png)
+
+Klik **Batalkan Semua** untuk mencegah layanan apa pun berjalan otomatis, lalu klik **Reboot**.
+
+![Reboot Server dialog with all services deselected](/server/reboot-deselected.png)
+
+<Callout type="warning">
+    Proses reboot memerlukan waktu sekitar 3–5 menit. Setelah server dijalankan ulang, K3s seharusnya kembali berwarna hijau. Setelah memastikan server dalam kondisi sehat, Anda dapat mengaktifkan kembali layanan satu per satu dari tab **Proyek**.
+</Callout>
+
+Jika server Anda sering mengalami OOM, pertimbangkan untuk meng-upgrade ke server yang lebih besar atau mengurangi jumlah layanan yang di-deploy. Anda juga sebaiknya mengonfigurasi **Reservasi Sumber Daya** (lihat di bawah) untuk mencegah sistem kehabisan sumber daya sepenuhnya.
+
+## Reservasi Sumber Daya
+
+Reservasi Sumber Daya memungkinkan Anda mencadangkan CPU dan memori untuk Kubernetes dan proses sistem, sehingga server tetap dapat dijangkau meskipun dalam beban berat. Hal ini mencegah situasi OOM di mana sistem operasi atau Kubernetes itu sendiri dihentikan paksa.
+
+Buka **Pengaturan** > **Pengaturan Lanjutan** > **Reservasi Sumber Daya**.
+
+![Resource Reservation settings](/server/resource-reservation.png)
+
+Ada dua kategori reservasi:
+
+- **Reservasi Kubernetes**: Sumber daya yang dicadangkan untuk komponen sistem Kubernetes (kubelet, kube-proxy, dll.)
+- **Reservasi Sistem**: Sumber daya yang dicadangkan untuk proses tingkat OS (SSH, systemd, dll.)
+
+<Callout type="info">
+    Server yang baru dibeli secara default menggunakan 500m CPU / 512Mi memori untuk reservasi Kubernetes maupun sistem. Kami menyarankan untuk mempertahankan nilai default ini guna menjaga stabilitas server. Jika sebelumnya Anda membeli server tanpa nilai default ini, pertimbangkan untuk mengaturnya secara manual.
+</Callout>
+
+Setelah menyesuaikan nilainya, klik **Simpan** untuk menerapkan perubahan.
+
+## Mengubah DNS Nameserver
+
+Secara default, server Zeabur menggunakan [Cloudflare DNS](https://1.1.1.1/) sebagai DNS nameserver untuk cluster (mesin di Tiongkok daratan menggunakan [Alibaba Cloud Public DNS](https://www.alidns.com/)).
+
+Jika Anda perlu mengubah DNS nameserver yang digunakan oleh cluster (misalnya ke [DNSPod Public DNS](https://www.dnspod.cn/products/publicdns) milik Tencent Cloud), Anda dapat mengedit `/etc/resolv.kubelet.conf` dan mengubah `nameserver` ke DNS nameserver yang Anda inginkan.
+
+```
+nameserver 119.29.29.29
+```
+
+Jangan lupa untuk me-restart layanan K3s setelah melakukan perubahan.
+
+```bash
+$ sudo systemctl restart k3s
+```
+
+## Menonaktifkan Layanan Zeabur
+
+Jika Anda memiliki server sendiri, Anda dapat menonaktifkan semua layanan Zeabur dan menggunakan VPS secara bebas untuk keperluan lain, seperti menjalankan layanan Docker Compose.
+
+<Callout type="warning">
+    Menonaktifkan layanan Zeabur berarti Anda tidak akan dapat membuat proyek dan layanan dari dashboard Zeabur, dan semua layanan yang sedang berjalan di Zeabur akan berhenti. Namun, Anda tetap dapat mengelola pengaturan server seperti aturan firewall dan reboot. Perhatikan bahwa menginstal ulang server dari Zeabur akan menginstal ulang dan mengaktifkan kembali layanan Zeabur.
+</Callout>
+
+### Nonaktifkan Layanan Zeabur
+
+Anda juga dapat mengklik opsi **SSH** di sidebar Dashboard Zeabur untuk terhubung ke server langsung dari browser, tanpa memerlukan terminal lokal:
+
+![SSH into server from Zeabur Dashboard](/server/server-ssh-from-dashboard.webp)
+
+Atau hubungkan melalui SSH dan jalankan:
+
+```bash
+sudo systemctl disable --now k3s containerd
+```
+
+> Catatan: Menghentikan layanan ini akan menyebabkan semua container dan layanan yang berjalan di server berhenti. Harap lanjutkan dengan hati-hati.
+
+### Aktifkan Kembali Layanan Zeabur
+
+Jika Anda ingin mengaktifkan kembali Zeabur, hubungkan melalui SSH dan jalankan:
+
+```bash
+sudo systemctl enable --now k3s containerd
+```
+
+## Menggunakan VS Code untuk Remote Development
+
+Anda dapat menggunakan [VS Code Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) untuk terhubung ke server dan langsung mengedit file atau mengoperasikan container dalam lingkungan IDE yang sudah Anda kenal.
+
+### Langkah 1: Pasang Ekstensi Remote-SSH
+
+Buka VS Code dan pasang ekstensi **Remote - SSH** dari Extensions Marketplace.
+
+### Langkah 2: Siapkan Autentikasi SSH Key
+
+Buat pasangan SSH key di mesin lokal Anda (jika belum memilikinya) dan tambahkan public key ke server:
+
+```bash
+# Buat pasangan SSH key di mesin lokal Anda
+$ ssh-keygen -t ed25519
+
+# Salin public key ke server
+$ ssh-copy-id <username>@<server-ip>
+```
+
+Jika `ssh-copy-id` tidak tersedia, Anda dapat menambahkan public key secara manual:
+
+```bash
+$ cat ~/.ssh/id_ed25519.pub | ssh <username>@<server-ip> "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+```
+
+### Langkah 3: Hubungkan melalui VS Code
+
+Buka Command Palette VS Code (`Ctrl+Shift+P` / `Cmd+Shift+P`), pilih **Remote-SSH: Connect to Host**, lalu masukkan `<username>@<server-ip>` untuk terhubung.
+
+### Langkah 4: Temukan Path Penyimpanan File Layanan
+
+Setelah terhubung, Anda akan berada di direktori root server. Untuk menemukan lokasi penyimpanan file layanan Anda, pertama-tama temukan PVC (Persistent Volume Claim) untuk layanan Anda, lalu temukan PV (Persistent Volume) yang sesuai beserta host path-nya.
+
+Nama PVC mengikuti format `<volume-id>-service-<service-id>`, yang berada di namespace `environment-<environment-id>`.
+
+```bash
+# Tampilkan semua PVC untuk menemukan volume layanan Anda
+$ kubectl get pvc -A
+
+# Temukan PV yang terikat dengan PVC
+$ kubectl get pvc <pvc-name> -n <namespace> -o jsonpath='{.spec.volumeName}'
+
+# Dapatkan host path dari PV yang sesuai
+$ kubectl get pv <pv-name> -o jsonpath='{.spec.local.path}'
+```
+
+Kemudian Anda dapat membuka path ini di VS Code melalui **File → Open Folder** untuk mulai mengedit file layanan Anda.
+
+### Langkah 5: Akses Shell Container
+
+Untuk mendapatkan lingkungan terminal di dalam container layanan Anda (setara dengan Web Terminal di Zeabur):
+
+```bash
+# Tampilkan pod di sebuah namespace
+$ kubectl get pods -n <namespace>
+
+# Buka shell di dalam pod
+$ kubectl exec -it <pod-name> -n <namespace> -- /bin/sh
+```
+
+## Uninstalasi
+
+Pertama, Anda perlu menghapus server beserta layanan yang di-deploy di atasnya dari Zeabur.
+
+![Remove Server](/server/remove-server.webp)
+
+Langkah "Hapus Server" **tidak akan menghapus infrastruktur yang disiapkan oleh Zeabur di server Anda**. Infrastruktur Zeabur terutama dibangun di atas [K3s](https://k3s.io/), sehingga langkah uninstalasi [mengikuti langkah uninstalasi K3s](https://docs.k3s.io/installation/uninstall).
+
+```bash
+$ /usr/local/bin/k3s-uninstall.sh
+```

@@ -1,0 +1,39 @@
+---
+title: AWS BYOS
+ogImageTitle: AWS BYOS
+ogImageSubtitle: Gunakan akun AWS Anda sendiri di Zeabur
+---
+
+import { Steps } from 'nextra/components'
+
+# AWS BYOS (Bring Your Own Subscription)
+
+Dengan menghubungkan akun AWS Anda sendiri ke Zeabur, Anda dapat mengizinkan Zeabur membuat kluster dan mengelola layanan langsung di akun AWS Anda.
+
+<Steps>
+
+### Masuk ke akun AWS Anda
+
+Masuk ke [AWS Management Console](https://aws.amazon.com/console/) menggunakan akun yang ingin Anda hubungkan ke Zeabur.
+
+### Buat stack CloudFormation
+
+Kunjungi [https://zeabur.com/aws-byos](https://zeabur.com/aws-byos). Ini akan membuka halaman **Quick create stack** di AWS CloudFormation.
+
+Tinjau detail stack, lalu klik **Create stack**.
+
+### Salin Role ARN
+
+Setelah stack CloudFormation selesai di-deploy, buka tab **Outputs**.
+
+Cari entri **RoleArn** dan salin **Value**-nya (bentuknya seperti `arn:aws:iam::703xxxxxx752:role/ZeaburAccessRole`).
+
+### Ikat role ke Zeabur
+
+Buka [https://zeabur.com/account/byos](https://zeabur.com/account/byos), pilih **Bind AWS Role**, tempel Role ARN yang telah Anda salin, lalu kirim.
+
+### Beli kluster khusus
+
+Setelah Role ARN terikat, buka halaman [Buy Cluster](https://zeabur.com/servers/buy-cluster). Anda akan melihat opsi penyedia baru bernama **AWS - XXXXXXXX** (dengan XXXXXXXX adalah ID akun AWS Anda). Pilih opsi tersebut, dan Zeabur akan membuat kluster EKS baru langsung di akun AWS Anda.
+
+</Steps>

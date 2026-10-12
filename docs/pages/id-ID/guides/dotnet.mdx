@@ -1,0 +1,39 @@
+---
+title: .NET
+ogImageTitle: Deploy Aplikasi .NET
+ogImageSubtitle: Deploy Aplikasi .NET di Zeabur
+---
+
+# Deploy Aplikasi .NET
+
+Zeabur mendukung proyek .NET (Core) yang dapat dijalankan di mesin Linux. Framework berikut didukung:
+
+* .NET (Console)
+* ASP.NET Core
+* ASP.NET Core Blazor WebAssembly
+
+## Monorepo
+
+Zeabur mendukung proyek yang tersusun dengan struktur berikut (namanya tidak penting):
+
+```plain
+- YourProject.sln
+- YourLibrary1
+    - YourLibrary1.csproj
+- YourLibrary2
+    - YourLibrary2.csproj
+- YourBackend
+    - YourBackend.csproj
+- YourFrontend
+    - YourFrontend.csproj
+```
+
+Namun, Anda mungkin perlu menentukan direktori yang berisi proyek yang ingin Anda deploy dengan environment variable `ZBPACK_DOTNET_SUBMODULE_DIR` atau konfigurasi `dotnet.submodule_dir` di `zbpack.json`. Misalnya, jika Anda ingin men-deploy proyek `YourBackend`, atur environment variable `ZBPACK_DOTNET_SUBMODULE_DIR` ke `YourBackend` atau tambahkan konten berikut ke file `zbpack.json` di direktori root proyek Anda:
+
+```json
+{
+    "dotnet": {
+        "submodule_dir": "YourBackend"
+    }
+}
+```

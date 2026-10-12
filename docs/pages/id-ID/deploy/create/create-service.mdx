@@ -1,0 +1,96 @@
+---
+title: Buat Layanan
+ogImageTitle: Buat Layanan
+ogImageSubtitle: Deploy layanan ke proyek Zeabur Anda
+---
+
+import { Callout } from 'nextra/components';
+
+# Buat Layanan
+
+Setelah [membuat proyek](./create-project), Anda dapat mulai men-deploy layanan. Klik tombol **Deploy Layanan Baru** (atau tekan `CMD + K` / `Ctrl + K` lalu pilih **Deploy Layanan Baru**), dan Anda akan melihat menu dengan berbagai opsi deployment:
+
+![Add Service](/start/project-page-with-add-service.webp)
+
+## Template
+
+Zeabur menyediakan pustaka lengkap berisi template yang sudah dikonfigurasi untuk proyek open-source populer seperti WordPress, n8n, Ghost, dan banyak lagi. Template ini siap di-deploy dengan satu klik.
+
+1. Klik **Template** untuk menjelajahi template yang tersedia.
+2. Cari atau telusuri template yang Anda butuhkan.
+3. Klik template tersebut dan ikuti petunjuk untuk men-deploy.
+
+![Template services](/start/template-services.webp)
+
+Untuk detail lebih lanjut, lihat [Deploy dari Template](/template/deploy-template).
+
+## GitHub
+
+Deploy langsung dari repositori GitHub Anda. Ini adalah cara paling umum untuk men-deploy aplikasi Anda sendiri.
+
+1. Klik **GitHub** untuk menghubungkan akun GitHub Anda jika belum terhubung.
+2. Setelah terhubung, cari repositori yang ingin Anda deploy.
+3. Klik repositori tersebut, dan Zeabur akan secara otomatis menganalisis kode Anda serta memilih metode build yang paling sesuai.
+4. Klik **Deploy** untuk memulai deployment.
+
+![Search repository](/start/search-repository.webp)
+
+Untuk detail lebih lanjut, lihat [Integrasi dengan GitHub](./github).
+
+## Database
+
+Deploy database umum dengan cepat tanpa konfigurasi apa pun.
+
+1. Klik **Database** untuk melihat daftar database yang tersedia.
+2. Pilih database yang Anda butuhkan (PostgreSQL, MySQL, MongoDB, Redis, dll.).
+3. Database akan langsung di-deploy dan siap digunakan.
+
+![Database services](/start/database-services.webp)
+
+## Fungsi
+
+Tulis, jalankan, dan iterasi kode Anda secara instan dengan Zeabur Functions. Fitur ini sangat cocok untuk skrip singkat, API, atau serverless function.
+
+1. Klik **Fungsi** untuk membuat fungsi baru.
+2. Pilih **JavaScript** atau **Python** sebagai bahasa fungsi Anda.
+3. Tulis kode Anda langsung di editor.
+4. Fungsi Anda akan di-deploy dan dapat diakses melalui dashboard.
+
+![Simple Function](/deploy/create-service/simple-function.png)
+
+## Proyek Lokal
+
+Unggah kode sumber lokal Anda langsung ke Zeabur tanpa memerlukan repositori Git.
+
+1. Klik **Proyek Lokal**.
+2. Seret dan lepas folder proyek Anda, atau klik untuk menelusuri dan memilih folder Anda.
+3. Zeabur akan menganalisis dan men-deploy proyek Anda.
+
+![Local Project](/deploy/create-service/local-project.png)
+
+Ini berguna untuk deployment cepat atau ketika Anda tidak ingin melakukan push kode ke repositori terlebih dahulu.
+
+<Callout type="warning">
+  Direktori `/dist/*` akan otomatis diabaikan selama proses unggah.
+</Callout>
+
+## Docker Image
+
+Deploy container image Docker apa pun yang sudah di-build dari Docker Hub atau container registry lainnya.
+
+1. Klik **Docker Image**.
+2. Masukkan nama image (misalnya `nginx:latest` atau `ghcr.io/owner/image:tag`).
+3. Konfigurasikan environment variables atau port yang diperlukan.
+4. Klik **Deploy**.
+
+Untuk detail lebih lanjut, lihat [Deploy dengan Docker Image](./customize-prebuilt).
+
+## Cursor
+
+Deploy langsung dari Cursor IDE menggunakan ekstensi Zeabur.
+
+1. Klik **Cursor** untuk membuka Cursor IDE dengan proyek Anda.
+2. Jika Anda belum menginstal ekstensi Zeabur, Anda akan diminta untuk menginstalnya.
+3. Gunakan ekstensi tersebut untuk men-deploy proyek Anda saat ini langsung dari Cursor.
+
+Ini memberikan pengalaman yang mulus bagi developer yang menggunakan Cursor sebagai IDE utama mereka.

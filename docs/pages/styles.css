@@ -512,6 +512,11 @@ main > ._mb-8._flex._border-t > a:only-child::before {
 :lang(es) main > ._mb-8._flex._border-t > a[class*="ltr:_ml-auto"]::before,
 :lang(es) main > ._mb-8._flex._border-t > a:last-child:not(:first-child)::before,
 :lang(es) main > ._mb-8._flex._border-t > a:only-child::before { content: "Siguiente"; }
+/* id-ID */
+:lang(id) main > ._mb-8._flex._border-t > a::before { content: "Sebelumnya"; }
+:lang(id) main > ._mb-8._flex._border-t > a[class*="ltr:_ml-auto"]::before,
+:lang(id) main > ._mb-8._flex._border-t > a:last-child:not(:first-child)::before,
+:lang(id) main > ._mb-8._flex._border-t > a:only-child::before { content: "Berikutnya"; }
 
 /* ─────────────────────────────────────────────────────────────────
    FEEDBACK WIDGET

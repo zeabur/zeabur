@@ -1,0 +1,87 @@
+---
+title: Java
+ogImageTitle: Deploy Proyek Java
+ogImageSubtitle: Deploy Proyek Java di Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Deploy Proyek Java
+
+Zeabur mendukung deployment proyek Java yang menggunakan sistem build Maven atau Gradle, baik dengan framework native maupun Spring Boot.
+
+- [Panduan Deploy Spring Boot](/guides/java/spring-boot)
+
+## Penemuan File JAR
+
+Secara default, Zeabur otomatis menemukan file JAR (atau WAR) Anda di direktori output build standar:
+
+- **Maven**: `target/*.jar` (atau `target/*.war`)
+- **Gradle**: `build/libs/*.jar` (atau `build/libs/*.war`)
+
+Ini langsung berfungsi untuk proyek standar dengan satu modul.
+
+### JAR di Subdirektori
+
+Jika file JAR Anda tidak berada di lokasi default — misalnya, pada proyek multi-modul di mana JAR yang dapat dijalankan dibangun di dalam submodul — Anda perlu menentukan path-nya secara eksplisit menggunakan `javaArgs` di `zbpack.json`:
+
+```json
+{
+  "javaArgs": "-jar my-server/target/server.jar"
+}
+```
+
+Untuk proyek Spring Boot, jangan lupa menyertakan binding port agar Zeabur dapat meneruskan traffic ke layanan Anda:
+
+```json
+{
+  "javaArgs": "-Dserver.port=$PORT -jar my-server/target/server.jar"
+}
+```
+
+<Callout>
+  Ketika `javaArgs` diatur, nilai ini akan **sepenuhnya menggantikan** perintah startup default. Anda harus menyertakan `-jar path/to/your.jar` sendiri.
+</Callout>
+
+### Proyek di Subdirektori
+
+Jika seluruh proyek Java Anda (termasuk `pom.xml` atau `build.gradle`) berada di subdirektori repositori Git, gunakan pengaturan [Direktori Root](/deploy/config/root-directory). Pengaturan ini memberi tahu Zeabur untuk memperlakukan subdirektori tersebut sebagai root proyek, sehingga penemuan JAR default akan berfungsi seperti biasa.
+
+## Pengaturan Environment
+
+Versi JDK yang tersedia adalah:
+
+- 19
+- 17 (default)
+- 11
+- 8
+- 7
+
+### Menentukan Versi JDK
+
+Anda dapat menentukan versi JDK di `pom.xml` atau `build.gradle`.
+
+Misalnya, jika Anda menggunakan Maven, tambahkan konfigurasi berikut ke `pom.xml`:
+
+```xml
+<properties>
+    <java.version>11</java.version>
+</properties>
+```
+
+Jika Anda menggunakan Gradle, tambahkan konfigurasi berikut ke `build.gradle`:
+
+```groovy
+sourceCompatibility = 11
+```
+
+### Menentukan Parameter Startup JVM
+
+Anda dapat menimpa parameter startup JVM default Zeabur dengan field `javaArgs` di `zbpack.json`.
+Saat menggunakan `javaArgs`, Anda harus menyertakan argumen perintah lengkap, termasuk `-jar` dan path ke file JAR Anda.
+
+```json
+{
+  "javaArgs": "-Xms128m -Xmx512m -jar target/your-app.jar"
+}
+```

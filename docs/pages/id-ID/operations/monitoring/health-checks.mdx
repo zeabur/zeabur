@@ -1,0 +1,71 @@
+---
+title: Health Check
+ogImageTitle: Health Check
+ogImageSubtitle: Konfigurasi health check untuk layanan Anda
+---
+
+import { Callout } from 'nextra/components'
+
+# Health Check
+
+Zeabur secara otomatis menjalankan health check pada setiap layanan untuk memastikan deployment siap sebelum menerima lalu lintas. Hal ini memungkinkan deployment tanpa downtime — jika deployment baru gagal dalam health check, versi sebelumnya tetap melayani permintaan.
+
+## Cara Kerja Health Check
+
+Saat Anda melakukan deploy layanan, Zeabur memeriksa port yang didengarkan layanan untuk memverifikasi bahwa layanan menerima koneksi. Deployment baru dianggap **siap** setelah health check lolos. Sebelum itu, deployment sebelumnya tetap aktif dan terus menangani lalu lintas.
+
+Artinya:
+
+- **Health check berhasil** — Lalu lintas dialihkan ke deployment baru, dan deployment lama dihentikan.
+- **Health check gagal** — Deployment baru ditandai gagal, dan deployment lama tetap aktif. Tidak terjadi downtime.
+
+<Callout>
+  Untuk layanan yang memiliki [volume](/operations/data/volumes) terpasang, Zeabur menggunakan strategi deployment **Recreate** alih-alih rolling update. Artinya, deployment lama dihentikan sebelum deployment baru dimulai, sehingga terjadi downtime singkat selama deployment. Hal ini diperlukan untuk menghindari konflik data akibat dua instance yang mengakses volume yang sama secara bersamaan.
+</Callout>
+
+## Perilaku Default
+
+Secara default, Zeabur memeriksa apakah port yang diekspos layanan Anda menerima koneksi TCP. Untuk sebagian besar aplikasi web, hal ini sudah cukup — begitu server HTTP Anda mulai mendengarkan, health check akan lolos.
+
+Konfigurasi default-nya adalah:
+
+| Parameter | Nilai Default |
+| --- | --- |
+| Jenis pemeriksaan | Probe port TCP |
+| Interval | 10 detik |
+| Timeout | 5 detik |
+| Ambang kegagalan | 3 kegagalan berturut-turut |
+
+## Path Health Check Kustom
+
+Untuk verifikasi kesehatan yang lebih akurat, Anda dapat mengonfigurasi path health check HTTP kustom. Hal ini berguna ketika aplikasi Anda memerlukan waktu startup tambahan (misalnya, untuk memanaskan cache atau membangun koneksi database) sebelum benar-benar siap melayani lalu lintas.
+
+Untuk mengonfigurasi path health check kustom:
+
+1. Buka layanan Anda di dashboard Zeabur.
+2. Buka **Pengaturan**.
+3. Di bagian **Health Check**, masukkan path kustom Anda (misalnya, `/healthz` atau `/api/health`).
+
+Aplikasi Anda harus mengembalikan kode status HTTP `2xx` pada path tersebut ketika sudah siap menerima lalu lintas.
+
+```js
+// Contoh: endpoint health check Express.js
+app.get('/healthz', (req, res) => {
+  // Lakukan pemeriksaan kesiapan di sini
+  res.status(200).json({ status: 'ok' })
+})
+```
+
+## Pemecahan Masalah
+
+### Deployment tertahan dalam status "Deploying"
+
+Jika deployment Anda tidak pernah lolos health check, pastikan bahwa:
+
+- Aplikasi Anda mendengarkan port yang benar. Zeabur mengatur environment variable `PORT` — pastikan aplikasi Anda melakukan bind ke `0.0.0.0:$PORT`.
+- Aplikasi Anda selesai startup dalam rentang waktu timeout. Jika inisialisasi memakan waktu lama, pertimbangkan untuk menambahkan endpoint health ringan yang langsung merespons.
+- Jika menggunakan path health check kustom, pastikan endpoint tersebut mengembalikan respons HTTP `2xx`.
+
+### Layanan dengan waktu startup yang lama
+
+Beberapa aplikasi (seperti layanan Java atau aplikasi yang memuat model ML berukuran besar) mungkin memerlukan waktu tambahan untuk inisialisasi. Dalam kasus ini, konfigurasikan endpoint health check kustom yang hanya mengembalikan respons sukses setelah aplikasi benar-benar siap, alih-alih mengandalkan probe TCP default.

@@ -1,0 +1,52 @@
+---
+title: Subdomain Pra-Pendaftaran ICP
+ogImageTitle: Subdomain Pra-Pendaftaran ICP
+ogImageSubtitle: Beli server di Tiongkok daratan dari Zeabur dan gunakan domain preview tanpa pendaftaran ICP
+---
+
+# Subdomain Pra-Pendaftaran ICP
+
+Berdasarkan hukum dan peraturan di Tiongkok daratan, semua layanan yang di-deploy di server yang berlokasi di Tiongkok daratan harus menyelesaikan pendaftaran ICP sebelum dapat diakses. Hal ini dapat merepotkan bagi proyek yang masih dalam tahap pengembangan.
+
+Secara tradisional, jika Anda membeli server di Tiongkok daratan, Anda dapat mengakses layanan menggunakan alamat IP dan nomor port tanpa pendaftaran — tetapi dengan cara ini Anda tidak dapat menggunakan nama domain atau menerbitkan sertifikat SSL.
+
+Untuk skenario ini, Zeabur menyediakan fitur Subdomain Pra-Pendaftaran ICP. Setelah menyelesaikan verifikasi nama asli, Anda dapat menggunakan sementara domain yang sudah terdaftar dan disediakan oleh Zeabur untuk mengakses layanan yang telah di-deploy. Fitur ini sangat praktis untuk layanan yang sedang dikembangkan atau environment pengujian sementara pribadi, serta sepenuhnya legal dan sesuai regulasi.
+
+## Persyaratan
+
+- Server Anda harus dibeli melalui Zeabur.
+- Server Anda harus berlokasi di Tiongkok daratan.
+- Akun Zeabur Anda harus telah menyelesaikan verifikasi nama asli Tiongkok daratan.
+- Penyedia cloud server Anda harus sudah mendukung Subdomain Pra-Pendaftaran ICP di Zeabur:
+
+| Penyedia Cloud | Cluster Bersama Zeabur | Tersedia sebagai Server Terkelola Zeabur | Region Tiongkok Daratan | Dukungan Subdomain Pra-ICP |
+| --- | --- | --- | --- | --- |
+| Alibaba Cloud | ❌ | ✅ | ✅ | ✅ |
+| Tencent Cloud | ❌ | ✅ | ✅ | ✅ |
+| Volcengine | ✅ | ✅ | ✅ | ⌛️ |
+| Huawei Cloud | ✅ | ❌ | ✅ | ✅ |
+| Digital Ocean | ❌ | ✅ | ❌ | ❌ |
+| Hetzner | ❌ | ✅ | ❌ | ❌ |
+| AWS | ✅ | ✅ | ❌ | ❌ |
+| GCP | ✅ | ✅ | ❌ | ❌ |
+
+## Cara Menggunakan
+
+1. Pilih proyek di server terkelola Zeabur Anda yang berlokasi di Tiongkok daratan, lalu pilih layanan yang ingin Anda ikat dengan Subdomain Pra-Pendaftaran ICP.
+2. Pilih tab **Jaringan**.
+3. Klik **Generate Domain** dan masukkan subdomain yang Anda inginkan.
+
+![](https://cdn.zeabur.com/pre-icp-1.png)
+
+4. Klik **Create Domain**. Jika Anda belum menyelesaikan verifikasi nama asli, Zeabur akan meminta Anda untuk melakukannya.
+5. Di jendela verifikasi nama asli, masukkan nama dan nomor identitas Anda, lalu klik Submit. Anda akan diarahkan secara otomatis ke layanan verifikasi nama asli Alibaba Cloud.
+
+![](https://cdn.zeabur.com/pre-icp-2.png)
+
+6. Setelah menyelesaikan verifikasi nama asli, klik **Generate Domain** lagi untuk secara otomatis membuat dan mengikat domain yang sudah terdaftar.
+
+## Catatan Penting
+
+- Dengan menggunakan Subdomain Pra-Pendaftaran ICP, Anda menyetujui ketentuan layanan dari penyedia cloud terkait.
+- Zeabur secara tegas melarang penggunaan Subdomain Pra-Pendaftaran ICP untuk aktivitas apa pun yang melanggar hukum dan peraturan setempat. Jika ditemukan pelanggaran, Zeabur berhak menghentikan layanan secara sepihak dan menyerahkan informasi nama asli kepada aparat penegak hukum di negara atau wilayah pengguna.
+- Subdomain Pra-Pendaftaran ICP tidak disarankan untuk digunakan sebagai domain resmi layanan komersial. Setelah pengujian atau pengembangan selesai, disarankan untuk menempuh proses pendaftaran ICP resmi guna mengajukan domain Anda sendiri. Zeabur menyediakan dukungan pengajuan pendaftaran ICP secara gratis.

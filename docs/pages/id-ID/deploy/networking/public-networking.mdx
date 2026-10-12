@@ -1,0 +1,145 @@
+---
+title: Jaringan Publik
+ogImageTitle: Jaringan Publik
+ogImageSubtitle: Ekspos layanan Anda ke Internet
+---
+
+import { Callout } from 'nextra/components'
+
+## Jaringan Publik
+
+"Jaringan Publik" memungkinkan Anda mengekspos layanan Anda ke Internet.
+
+<Callout type="info">
+  Jika layanan Anda di-deploy di server [Wonder Mesh](/wonder-mesh), Anda juga dapat mengaksesnya langsung dari jaringan lokal tanpa domain atau port forwarding. Lihat [Mengakses Layanan dari LAN Anda](/wonder-mesh/get-started#mengakses-layanan) untuk detailnya.
+</Callout>
+
+Zeabur menyediakan dua cara untuk mengakses layanan Anda:
+
+- **Layanan HTTP:** Akses layanan Anda menggunakan nama domain yang disediakan oleh Zeabur atau domain kustom Anda.
+- **Layanan Non-HTTP:** Akses layanan Anda menggunakan hostname dan port yang ditetapkan.
+
+## Mengikat Domain Anda
+
+**Domain** adalah pengenal unik untuk layanan Anda yang memungkinkan layanan tersebut diakses dari Internet. Misalnya, nama domain situs web ini adalah `zeabur.com`.
+
+Untuk mengikat domain ke layanan Anda, buka layanan Anda di Dashboard Zeabur lalu buka tab **Domain**. Anda akan memiliki dua opsi untuk membuat domain bagi layanan Anda.
+
+![Two options to bind a domain](/networking/public/two-buttons-to-bind-domain.webp)
+
+### Generate Domain
+
+Opsi "**Generate Domain**" memungkinkan Anda membuat nama domain dengan sufiks `zeabur.app`, seperti `your-service.zeabur.app`, selama nama tersebut tersedia. Ini adalah cara paling sederhana agar layanan Anda dapat diakses secara publik.
+
+![Binding a zeabur.app domain](/networking/public/binding-zeabur-app-domain.webp)
+
+Setelah domain `zeabur.app` Anda siap, Anda dapat mengakses layanan Anda menggunakan nama domain yang disediakan oleh Zeabur.
+
+![Bound zeabur.app domain](/networking/public/bound-zeabur-app-domain.webp)
+
+### Domain Kustom
+
+Untuk menggunakan nama domain Anda sendiri, pilih opsi "**Domain Kustom**".
+
+Pertama, masukkan nama domain Anda di kotak input lalu klik tombol "Create Domain".
+
+![Binding a custom domain](/networking/public/binding-custom-domain.webp)
+
+Setelah menambahkan nama domain, Anda akan melihat informasi DNS untuk domain Anda.
+
+![Setting DNS for your domain](/networking/public/custom-domain-setting-dns.webp)
+
+Anda perlu mengonfigurasi record DNS untuk domain Anda secara manual. Misalnya, jika Anda menggunakan Cloudflare, Anda dapat menambahkan record yang diperlukan di bagian "DNS" → "Record" menggunakan konfigurasi yang disediakan oleh Zeabur. Jika Anda menggunakan penyedia DNS lain, lihat dokumentasi mereka untuk petunjuk menambahkan record CNAME.
+
+![Configuring DNS in Cloudflare](/networking/public/configure-dns-record-in-cloudflare.webp)
+
+Anda dapat menggunakan CDN Cloudflare (orange cloud diaktifkan) untuk mengurangi biaya traffic dan meningkatkan kecepatan browsing. Namun, untuk [mode enkripsi SSL/TLS](https://developers.cloudflare.com/ssl/origin-configuration/ssl-modes/#custom-ssltls) Cloudflare, Anda **tidak dapat memilih Full (Strict)**, karena dapat menyebabkan kegagalan koneksi akibat sertifikat self-signed. Selain itu, Cloudflare tidak mendukung penerbitan sertifikat SSL untuk domain kustom di atas domain tingkat ketiga (artinya, `*.example.com` didukung, tetapi `*.sub.example.com` tidak). Dalam kasus ini, Anda dapat beralih kembali ke koneksi langsung ke server Zeabur (orange cloud dinonaktifkan).
+
+Setelah mengonfigurasi record DNS, perubahan mungkin memerlukan beberapa menit untuk tersebar. Setelah selesai, Anda dapat mengakses layanan Anda menggunakan domain kustom.
+
+![Bound custom domain](/networking/public/bound-custom-domain.webp)
+
+### Pengaturan DNS Root Domain
+
+Jika Anda ingin menggunakan root domain (`example.com`) alih-alih subdomain (`www.example.com`), yang juga dikenal sebagai [Zone apex record](https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-zone-apex/), Anda mungkin perlu memodifikasi record DNS yang disediakan oleh Zeabur.
+
+Jika Anda menggunakan **Cloudflare**, Anda dapat **melewati bagian ini** karena Cloudflare memiliki fitur bawaan [CNAME Flattening](https://developers.cloudflare.com/dns/cname-flattening/) yang secara otomatis mengonversi record CNAME menjadi record A yang dapat digunakan untuk root domain.
+
+Jika Anda menggunakan penyedia DNS lain dan Zeabur memberikan record CNAME, Anda mungkin perlu mengonversi record CNAME dari Zeabur tersebut menjadi record A.
+
+1. Saat Anda mengikat domain, Zeabur akan memberikan `CNAME` yang mengarah ke hostname seperti `hkg1.clusters.zeabur.com`.
+2. Kemudian, buka [Google Admin Toolbox - Dig](https://toolbox.googleapps.com/apps/dig/#A/) dan masukkan hostname tersebut.
+
+   ![Google Admin Toolbox - Dig](/networking/public/google-dig-tool.webp)
+   <br />
+
+3. Anda akan melihat alamat IP untuk record `A`. Masukkan alamat IP ini ke kolom DNS yang sesuai.
+
+Perlu diperhatikan bahwa Zeabur dapat memperbarui alamat record A yang dituju oleh CNAME. Jika Anda memilih metode pengaturan ini, Anda mungkin perlu memperbarui record DNS ini ketika kami memberi tahu tentang perubahan alamat IP yang akan datang, atau jika alamat IP berubah karena alasan apa pun.
+
+## Mengatur Pengalihan
+
+Untuk mengalihkan domain Anda ke URL lain, gunakan fitur "**Redirect to another domain**". Fitur ini akan mengalihkan domain Anda secara sementara (307) ke domain tujuan yang ditentukan.
+
+![Binding custom domain for redirection](/networking/public/binding-custom-domain-for-redirect.webp)
+
+## Menghapus Domain
+
+Untuk menghapus domain, klik ikon tempat sampah di samping nama domain.
+
+![Delete button](/networking/public/delete-button.webp)
+
+Kemudian, masukkan nama domain Anda di kotak input lalu klik tombol "Hapus" untuk mengonfirmasi.
+
+![Deleting domain modal](/networking/public/deleting-domain-modal.webp)
+
+## Menggunakan Hostname dan Port yang Ditetapkan
+
+Untuk layanan non-HTTP, Anda dapat mengaksesnya melalui hostname dan port yang ditetapkan, yang biasa disebut "port forwarding". Misalnya, jika Anda memiliki server Minecraft yang berjalan di port `25565`, server tersebut dapat diakses menggunakan hostname dan port yang ditetapkan, seperti `hkg1.clusters.zeabur.com:34567`.
+
+![Assigned hostname and port](/networking/public/assigned-hostname-and-port.webp)
+
+Meskipun hostname dan port umumnya tetap, dalam kasus yang jarang terjadi keduanya dapat berubah. Sebaiknya jangan berasumsi bahwa keduanya bersifat permanen. Anda juga dapat mengonfigurasi port forwarding kustom di dalam layanan Anda.
+
+## Konfigurasi port
+
+### Layanan Git
+
+Layanan Git hanya mengizinkan 1 port, yaitu port yang Anda definisikan di Dockerfile, atau `8080` jika Anda tidak menentukannya atau tidak men-deploy dengan Dockerfile. **Tidak disarankan** untuk menuliskan `8080` secara langsung di kode Anda, karena port tersebut dapat berubah di masa mendatang. Sebagai gantinya, Anda sebaiknya menggunakan environment variable `$PORT`.
+
+Beberapa contoh kode yang menggunakan environment variable `$PORT`:
+
+```js filename="server.js"
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+```
+
+```go filename="main.go"
+package main
+
+import (
+    "fmt"
+    "net/http"
+    "os"
+)
+
+func main() {
+    port := os.Getenv("PORT")
+    if port == "" {
+        port = "8080"
+    }
+
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprintf(w, "Hello, World!")
+    })
+
+    http.ListenAndServe(":"+port, nil)
+}
+```
+
+### Layanan Docker
+
+Anda dapat mengatur port saat [mengonfigurasi layanan Docker](/deploy/methods/custom-docker-image). Lihat bagian "Port" di dokumentasi konfigurasi Docker untuk detailnya.

@@ -1,0 +1,45 @@
+---
+title: Panduan Impor
+ogImageTitle: Panduan Impor
+ogImageSubtitle: Pindahkan proyek buatan AI Anda ke Zeabur dalam hitungan menit
+---
+
+import { Callout } from 'nextra/components'
+
+# Panduan Impor
+
+Sudah membuat sesuatu di AI builder atau cloud IDE? Panduan ini membantu Anda **mengekspor kode**, **menjalankannya secara lokal**, dan **melakukan deploy ke Zeabur** dengan konfigurasi minimal—sehingga aplikasi Anda tetap online 24/7 dengan URL sungguhan.
+
+## Pilih titik awal Anda
+
+- [Impor dari Replit](./tutorials/replit)
+- [Impor dari Lovable](./tutorials/lovable)
+- [Impor dari Bolt](./tutorials/bolt)
+- [Impor dari Emergent](./tutorials/emergent)
+- [Impor dari Google AI Studio](./tutorials/aistudio)
+- [Impor dari GitHub](./tutorials/github)
+- [Impor dari v0](./tutorials/v0)
+
+## Apa yang akan Anda dapatkan
+
+- URL `*.zeabur.app` yang aktif (dan Anda dapat menambahkan domain kustom)
+- Environment variables yang tepat untuk aplikasi Anda (misalnya, string koneksi database)
+- Layanan terkelola opsional (database, penyimpanan, dll.) dalam proyek yang sama
+
+## Alur kerja umum (semua panduan)
+
+1. Ekspor / unduh kode sumber proyek Anda.
+2. Buka secara lokal di VS Code atau Cursor dan pastikan proyek dapat berjalan.
+3. Deploy ke Zeabur (melalui Tombol Deploy, ekstensi editor, atau Git).
+4. Tambahkan layanan yang diperlukan (seperti database) dan hubungkan menggunakan environment variables.
+
+<Callout type="info">
+  Jika aplikasi Anda membutuhkan persistensi data, deploy database di Zeabur dan utamakan string koneksi **Internal/Private** untuk aplikasi yang sudah di-deploy (lebih cepat dan menghindari bandwidth publik).
+</Callout>
+
+## Sebelum memulai
+
+- Akun Zeabur
+- Editor lokal (VS Code atau Cursor)
+- Tooling runtime lokal untuk stack Anda (setiap panduan mencantumkan prasyarat spesifiknya)
+

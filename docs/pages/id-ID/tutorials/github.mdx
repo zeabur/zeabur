@@ -1,0 +1,95 @@
+---
+title: Impor dari GitHub
+ogImageTitle: Impor dari GitHub
+ogImageSubtitle: Impor proyek GitHub Anda
+---
+
+## Cara Deploy Repository GitHub dengan Zeabur
+
+Panduan ini adalah cara termudah untuk mengubah proyek yang tersimpan di **GitHub** menjadi situs web atau API yang benar-benar aktif dan dapat Anda bagikan kepada pengguna.
+
+### Ikhtisar
+
+GitHub adalah tempat kode Anda disimpan, tetapi untuk menjadikannya online Anda memerlukan "hosting". Kami merekomendasikan **Zeabur** karena Zeabur menangani pekerjaan teknis yang berat untuk Anda. Zeabur menganalisis repo Anda, melakukan build, menjalankannya, dan memberikan URL yang dapat dibagikan hanya dalam beberapa klik.
+
+**Alur Kerja:**
+
+- **Persiapan:** Pastikan repo Anda dapat berjalan secara lokal dan memiliki konfigurasi yang tepat (port, environment variables).
+- **Deploy:** Deploy ke **Zeabur** (paling cepat melalui ekstensi Zeabur di Cursor / VS Code).
+- **Go live:** Buat domain dan (opsional) tambahkan database atau layanan lainnya.
+
+> 📝 Catatan Penting: Jika aplikasi Anda menggunakan data rahasia (API key, URL database, dll.), jangan melakukan commit data tersebut ke GitHub. Simpan di file `.env` lokal untuk pengembangan dan tambahkan sebagai **Variabel** di Zeabur setelah deployment.
+> 
+
+### Prasyarat
+
+- Akun GitHub (dan akses ke repository yang ingin Anda deploy).
+- [Cursor](https://cursor.sh/) atau VS Code yang sudah terpasang di komputer Anda.
+- Akun [Zeabur](https://zeabur.com/).
+- Node.js terpasang secara lokal (disarankan versi 18+) **atau** runtime yang dibutuhkan proyek Anda (Python/Go/dll.).
+
+### **Ikhtisar Migrasi**
+
+Rencana ini membawa Anda dari "kode di repo" menjadi "layanan yang sudah di-deploy" dengan pengaturan minimal.
+
+- **Sumber:** Repository GitHub
+- **Editor:** Cursor / VS Code
+- **Host:** Zeabur
+
+---
+
+### Langkah 1: Buat Proyek Baru
+
+Dari dashboard utama Zeabur:
+
+1. Klik tombol ungu **Proyek Baru** di pojok kanan atas.
+2. Pilih region yang Anda inginkan (misalnya AWS Taipei, seperti yang terlihat di pengaturan Anda) jika diminta, atau region standar Anda akan digunakan secara default.
+
+![Import to GitHub Part 1](/tutorial/github/import_to_github_part_1.png)
+
+### Langkah 2: Pilih Sumber Deployment
+
+Setelah environment proyek dibuat, sebuah modal akan muncul dengan pertanyaan "Apa yang ingin Anda deploy?".
+
+1. Klik **GitHub** (Deploy dari repo GitHub).
+    - *Catatan:* Karena kode Anda sudah di-push ke GitHub, ini adalah jalur yang tepat.
+
+![Import from GitHub Part 2](/tutorial/github/import_from_github_part2.png)
+
+### Langkah 3: Hubungkan dan Pilih Repository
+
+1. **Cari:** Di bilah pencarian, ketik nama repository yang Anda buat (misalnya `cnynewyrdishes` atau nama apa pun yang Anda berikan untuk repo Anda).
+2. **Pilih:** Klik repository yang dimaksud dari daftar.
+    - *Tips:* Jika repository Anda tidak muncul di daftar, klik tombol **Konfigurasi GitHub** untuk memastikan Zeabur memiliki izin untuk mengakses repository tersebut di akun GitHub Anda.
+
+![Search The Github Repo Part 3](/tutorial/github/Search_Github_Repo_part_3.png)
+
+### Langkah 4: Tinjau Konfigurasi Build
+
+Zeabur akan secara otomatis menganalisis kode Anda untuk menentukan bahasa dan framework (misalnya, pada tangkapan layar, terdeteksi `Node.js` dan `Vite`).
+
+1. Tinjau **Pratinjau Rencana Build**.
+2. Pastikan **Install Command** (misalnya `yarn install`) dan **Build Command** (misalnya `yarn build`) sudah sesuai untuk proyek Anda.
+3. Klik tombol ungu **Deploy** di kanan bawah.
+
+![It will create build plan and clicked deploy Part 4](/tutorial/github/it_will_create_build_plan_and_clicked_deploy_part_4.png)
+
+### Langkah 5: Tunggu Deployment
+
+Zeabur sekarang akan menarik kode Anda, menginstal dependensi, dan melakukan build proyek.
+
+1. Anda akan melihat status berubah dari "Membangun" menjadi **Berjalan**.
+2. Setelah lampu indikator berubah menjadi hijau (seperti yang terlihat pada tangkapan layar terakhir), layanan Anda sudah aktif.
+
+![Successfully deployed Part 5](/tutorial/github/successfully_deployed_part_5.png)
+
+### Langkah 6: Publikasikan Situs Web Anda (Tambah Domain)
+
+Saat ini aplikasi Anda sudah berjalan, tetapi belum dapat diakses oleh publik. Anda perlu membuat URL.
+
+1. Di halaman ikhtisar layanan (tangkapan layar terakhir), cari tombol atau tab **Tambah Domain**.
+2. Klik **Tambah Domain**.
+3. Anda dapat memilih:
+    - **Generate domain zeabur.app:** Opsi ini memberi Anda URL gratis (misalnya `cnynewyrdishes.zeabur.app`).
+    - **Domain Kustom:** Hubungkan domain Anda sendiri jika Anda memilikinya.
+4. Setelah ditambahkan, klik tautannya untuk mengunjungi situs Anda yang sudah aktif!

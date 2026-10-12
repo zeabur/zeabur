@@ -1,0 +1,131 @@
+---
+title: Migrasi dari Railway
+ogImageTitle: Migrasi dari Railway
+ogImageSubtitle: Migrasikan aplikasi Anda dari Railway ke Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Migrasi dari Railway
+
+Panduan ini memandu Anda memigrasikan aplikasi dari Railway ke Zeabur. Railway dan Zeabur memiliki model deployment berbasis Git yang serupa, sehingga proses migrasinya mudah.
+
+## Sebelum Memulai
+
+- Akun [Zeabur](https://zeabur.com/).
+- Kode sumber aplikasi Anda di repositori Git (GitHub).
+- Akses ke dashboard Railway Anda.
+
+## Langkah 1: Hubungkan Repositori Git Anda
+
+Karena aplikasi Railway biasanya terhubung ke repositori Git, Anda dapat menghubungkan repositori yang sama ke Zeabur:
+
+1. Masuk ke [dashboard Zeabur](https://dash.zeabur.com/).
+2. Buat proyek baru dan pilih server (atau beli server baru).
+3. Klik **Tambah Layanan** → **Git** dan hubungkan akun GitHub Anda.
+4. Pilih repositori yang sama dengan yang digunakan layanan Railway Anda.
+
+Zeabur secara otomatis mendeteksi bahasa, framework, dan konfigurasi build proyek Anda.
+
+## Langkah 2: Pindahkan Environment Variables
+
+1. Di proyek Railway Anda, klik sebuah layanan dan buka tab **Variables**. Klik **Raw Editor** untuk menyalin semua variabel sekaligus.
+2. Di dashboard Zeabur, klik layanan Anda dan buka tab **Variabel**.
+3. Gunakan **Bulk Edit** untuk menempelkan semua variabel Anda dalam satu langkah.
+
+<Callout>
+Railway menggunakan referensi variabel seperti `${{Postgres.DATABASE_URL}}` untuk menautkan layanan. Di Zeabur, padanannya adalah `${POSTGRES_URI}`. Ganti referensi bergaya Railway dengan sintaks variabel Zeabur.
+</Callout>
+
+## Langkah 3: Migrasikan Database Anda
+
+Jika Anda menggunakan layanan database Railway:
+
+### PostgreSQL
+
+1. **Ekspor dari Railway**: buka layanan database Railway, buka tab **Data**, lalu gunakan fitur **Dump**. Atau gunakan `pg_dump` dengan connection string Railway:
+
+   ```bash
+   pg_dump "your-railway-postgres-url" > backup.sql
+   ```
+
+2. **Buat di Zeabur**: klik **Tambah Layanan** → **Database** → **PostgreSQL**.
+
+3. **Impor**:
+
+   ```bash
+   psql "your-zeabur-postgres-connection-string" < backup.sql
+   ```
+
+### MySQL
+
+1. **Ekspor dari Railway**:
+
+   ```bash
+   mysqldump -h railway-host -u root -p railway_db > backup.sql
+   ```
+
+2. **Buat di Zeabur**: klik **Tambah Layanan** → **Database** → **MySQL**.
+
+3. **Impor**:
+
+   ```bash
+   mysql -h zeabur-host -u root -p zeabur_db < backup.sql
+   ```
+
+### Redis
+
+1. **Ekspor dari Railway**:
+
+   ```bash
+   redis-cli -u "your-railway-redis-url" --rdb dump.rdb
+   ```
+
+2. **Buat di Zeabur**: klik **Tambah Layanan** → **Database** → **Redis**.
+
+3. Pada sebagian besar kasus, Redis digunakan sebagai cache dan dapat dimulai dari awal tanpa mengimpor data.
+
+## Langkah 4: Migrasikan Volume
+
+Jika layanan Railway Anda menggunakan volume persisten:
+
+1. Unduh data Anda dari Railway. Anda dapat menggunakan CLI Railway atau mengakses volume melalui shell layanan.
+2. Di dashboard Zeabur, buka tab **Volume** pada layanan Anda dan klik **Tambah Volume**.
+3. Tentukan mount path (harus sesuai dengan yang diharapkan aplikasi Anda).
+4. Unggah data Anda melalui shell layanan atau biarkan aplikasi membuatnya ulang.
+
+<Callout type="warning">
+Tidak ada transfer langsung antarvolume antara Railway dan Zeabur. Anda perlu mengekspor dan mengimpor data secara manual.
+</Callout>
+
+## Langkah 5: Atur Domain Kustom
+
+1. Di dashboard Zeabur, klik layanan Anda dan buka tab **Jaringan**.
+2. Klik **Generate Domain** untuk mendapatkan subdomain `.zeabur.app` gratis, atau klik **Domain Kustom** untuk menambahkan domain Anda sendiri.
+3. Perbarui record DNS Anda:
+   - Hapus record CNAME Railway yang lama.
+   - Tambahkan record CNAME yang mengarah ke target yang disediakan Zeabur.
+
+## Langkah 6: Verifikasi dan Go Live
+
+1. Push sebuah commit untuk memicu deployment, atau klik **Deploy Ulang** di dashboard.
+2. Periksa tab **Log** untuk memastikan aplikasi Anda berjalan dengan benar.
+3. Uji konektivitas database dan semua alur utama aplikasi.
+4. Setelah terverifikasi, alihkan DNS production Anda ke Zeabur.
+
+## Perbedaan Utama: Railway vs Zeabur
+
+| Fitur | Railway | Zeabur |
+|---|---|---|
+| Deployment | Git push (deploy otomatis) | Git push (deploy otomatis) |
+| Referensi variabel | `${{Service.VAR}}` | `${VAR}` |
+| Database | Postgres, MySQL, Redis, MongoDB bawaan | Layanan database dengan opsi yang sama + lainnya |
+| Volume | Volume per layanan | Volume per layanan |
+| Penskalaan | Jumlah replika manual | Alokasi sumber daya manual |
+| Server | Tidak tersedia | Tersedia (opsi bare-metal) |
+| Template | Template Railway | [Template Zeabur](https://zeabur.com/templates) |
+| Harga | Berbasis pemakaian + langganan | [Paket langganan](/pricing) + biaya server |
+
+---
+
+Selesai. Aplikasi Railway Anda kini berjalan di Zeabur. Kedua platform memiliki pengalaman developer yang sangat mirip, jadi Anda akan langsung merasa nyaman. Jika Anda mengalami masalah, hubungi [Zeabur Support](https://zeabur.com/support).

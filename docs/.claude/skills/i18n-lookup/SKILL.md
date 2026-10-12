@@ -28,6 +28,7 @@ Resolved from the docs project root, this is a sibling `dashboard` repository.
 | `zh-CN` | Simplified Chinese |
 | `ja-JP` | Japanese |
 | `es-ES` | Spanish |
+| `id-ID` | Indonesian |
 
 ### File Structure
 
@@ -100,6 +101,7 @@ Source: common.json → project-selector.create-new-project
 | zh-CN  | 创建新项目 |
 | ja-JP  | 新しいプロジェクトを作成 |
 | es-ES  | Crear nuevo proyecto |
+| id-ID  | Buat Proyek |
 ```
 
 If multiple matches are found, list all of them with their file paths and keys so the user can pick the correct one.

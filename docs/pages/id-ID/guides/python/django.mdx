@@ -1,0 +1,64 @@
+---
+ogImageTitle: Deploy Django
+ogImageSubtitle: Deploy Aplikasi Django di Zeabur
+---
+
+# Deploy Django
+
+Artikel ini akan mengajarkan Anda cara men-deploy proyek Django Anda di Zeabur.
+
+## Langkah 1: Menginstal Django
+
+Sebelum memulai, pastikan Anda telah menginstal Python di komputer Anda. Jika belum, silakan instal [environment Python](https://www.python.org/downloads/).
+
+Periksa apakah environment Python sudah tersedia.
+
+```bash
+python --version
+```
+
+Buka terminal dan jalankan perintah berikut untuk menginstal.
+
+```bash
+pip install django
+```
+
+## Langkah 2: Membuat Proyek Django
+
+Buat proyek Django baru menggunakan perintah `django-admin`, dengan mengganti `project_name` dengan nama proyek Anda.
+Anda juga dapat menggunakan [Django-template](https://github.com/zeabur/django-template). Jika menggunakan contoh Django tersebut, Anda dapat melewati langkah kedua.
+
+```bash
+django-admin startproject project_name
+```
+
+## Langkah 3: Menjalankan Proyek Django
+
+Buka proyek Django dan jalankan untuk memeriksa apakah proyek berhasil berjalan secara lokal.
+
+```bash
+cd project_name
+python manage.py runserver
+```
+
+## Langkah 4: Deploy Proyek Django
+
+Inisialisasi repositori Git untuk proyek ini dan unggah ke GitHub Anda, lalu di proyek Anda, klik tombol **Deploy Layanan** atau **Tambah Layanan Baru** dan pilih **Deploy dari kode sumber Anda**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Setelah deployment berhasil, situs web akan menampilkan layar berikut.
+
+![django-web](/framework/django/django.png)
+
+Perlu diperhatikan, jika terjadi error, pastikan konfigurasi berikut sudah ada di proyek Anda:
+
+- Periksa keberadaan `requirements.txt`. Tujuan utama file ini adalah mencantumkan semua paket Python beserta versinya yang dibutuhkan oleh proyek,
+  sehingga proyek memiliki dependensi dan versi yang sama di berbagai environment pengembangan dan production. Jika belum dikonfigurasi, jalankan perintah berikut di proyek Anda lalu push kembali ke GitHub.
+
+```bash
+pip freeze > requirements.txt
+```
+
+- Periksa apakah `ALLOWED_HOSTS` di `settings.py` sudah diatur. Properti ini adalah Python List yang berisi domain yang dapat mengakses aplikasi Django. Anda dapat menggunakan `ALLOWED_HOSTS = ['*']`, yang berarti semua domain diizinkan untuk keperluan pengujian.
+- Zeabur menggunakan [Gunicorn](https://gunicorn.org) sebagai server production WSGI untuk menjalankan layanan Django.

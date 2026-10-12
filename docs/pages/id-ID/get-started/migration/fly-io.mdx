@@ -1,0 +1,134 @@
+---
+title: Migrasi dari Fly.io
+ogImageTitle: Migrasi dari Fly.io
+ogImageSubtitle: Migrasikan aplikasi Anda dari Fly.io ke Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Migrasi dari Fly.io
+
+Panduan ini memandu Anda memigrasikan aplikasi dari Fly.io ke Zeabur. Baik Anda menjalankan aplikasi berbasis Docker, layanan web, maupun aplikasi full-stack dengan database Postgres, Zeabur dapat menanganinya dengan perubahan konfigurasi yang minimal.
+
+## Sebelum Memulai
+
+- Akun [Zeabur](https://zeabur.com/).
+- Kode sumber aplikasi Anda di repositori Git (GitHub).
+- Akses ke dashboard dan CLI Fly.io (`flyctl`).
+
+<Callout>
+Jika aplikasi Anda di-deploy di Fly.io hanya menggunakan Docker image (tanpa repositori Git), Anda tetap dapat bermigrasi dengan melakukan push image ke container registry lalu men-deploy-nya di Zeabur sebagai layanan Docker.
+</Callout>
+
+## Langkah 1: Tinjau Konfigurasi Fly.io Anda
+
+Buka file `fly.toml` proyek Anda. File ini berisi pengaturan yang perlu Anda buat ulang di Zeabur:
+
+```toml
+# fly.toml — contoh
+app = "my-app"
+
+[env]
+  NODE_ENV = "production"
+  PORT = "8080"
+
+[http_service]
+  internal_port = 8080
+
+[[vm]]
+  memory = "512mb"
+  cpu_kind = "shared"
+```
+
+Catat hal-hal berikut:
+- **Environment variables** di bawah `[env]` dan secret apa pun yang diatur melalui `fly secrets list`.
+- **Port internal** yang didengarkan aplikasi Anda.
+- **Volume** jika Anda mengonfigurasi `[mounts]`.
+
+## Langkah 2: Ekspor Secret Fly.io Anda
+
+Tampilkan semua secret agar Anda dapat memindahkannya ke Zeabur:
+
+```bash
+fly secrets list -a my-app
+```
+
+Perintah ini menampilkan nama secret (nilainya disembunyikan). Untuk setiap secret, Anda perlu mengambil atau membuat ulang nilainya dari sumber aslinya (misalnya penyedia database atau dashboard API Anda).
+
+## Langkah 3: Hubungkan Repositori Git Anda ke Zeabur
+
+1. Masuk ke [dashboard Zeabur](https://dash.zeabur.com/).
+2. Buat proyek baru dan pilih server (atau beli server baru).
+3. Klik **Tambah Layanan** → **Git** dan hubungkan akun GitHub Anda.
+4. Pilih repositori yang berisi kode aplikasi Anda.
+
+Zeabur secara otomatis mendeteksi bahasa dan framework proyek Anda — dalam sebagian besar kasus, `fly.toml` maupun `Dockerfile` tidak diperlukan.
+
+<Callout>
+Jika proyek Anda menggunakan Dockerfile, Zeabur akan mendeteksi dan menggunakannya secara otomatis. Tidak perlu konfigurasi tambahan.
+</Callout>
+
+## Langkah 4: Konfigurasikan Environment Variables
+
+1. Klik layanan yang baru Anda buat di dashboard Zeabur.
+2. Buka tab **Variabel**.
+3. Tambahkan setiap environment variable dan secret dari aplikasi Fly.io Anda.
+
+Anda tidak perlu mengatur `PORT` — Zeabur secara otomatis menetapkan dan menyuntikkan port untuk layanan Anda.
+
+## Langkah 5: Siapkan Penyimpanan Persisten (Jika Diperlukan)
+
+Jika aplikasi Fly.io Anda menggunakan volume (`[mounts]` di `fly.toml`), Anda perlu membuat volume di Zeabur:
+
+1. Di pengaturan layanan Anda, buka tab **Volume**.
+2. Klik **Tambah Volume** dan tentukan mount path (misalnya `/data`).
+3. Zeabur menyediakan penyimpanan persisten yang tetap ada meskipun dilakukan deploy ulang.
+
+<Callout type="warning">
+Volume Fly.io tidak dapat diekspor secara otomatis. Anda perlu masuk melalui SSH ke mesin Fly.io Anda (`fly ssh console`), mengompresi data, lalu memindahkannya ke volume baru di Zeabur.
+</Callout>
+
+## Langkah 6: Migrasikan Database Anda
+
+Jika Anda menjalankan Fly.io Postgres:
+
+1. **Ekspor data Anda** dari Fly.io Postgres:
+
+   ```bash
+   fly proxy 15432:5432 -a my-app-db &
+   pg_dump -h localhost -p 15432 -U postgres -d my_database > backup.sql
+   ```
+
+2. **Buat database di Zeabur**: klik **Tambah Layanan** → **Database** → **PostgreSQL**.
+
+3. **Impor data Anda**: gunakan connection string dari layanan PostgreSQL Zeabur:
+
+   ```bash
+   psql "your-zeabur-postgres-connection-string" < backup.sql
+   ```
+
+4. **Perbarui URL database aplikasi Anda**: di tab **Variabel** Zeabur, atur `DATABASE_URL` ke connection string PostgreSQL Zeabur. Anda dapat menggunakan referensi variabel bawaan Zeabur `${POSTGRES_URI}` untuk menyuntikkan connection string secara otomatis.
+
+## Langkah 7: Atur Domain Kustom
+
+1. Di dashboard Zeabur, klik layanan Anda dan buka tab **Jaringan**.
+2. Klik **Generate Domain** untuk mendapatkan subdomain `.zeabur.app` gratis, atau klik **Domain Kustom** untuk menambahkan domain Anda sendiri.
+3. Jika menggunakan domain kustom, perbarui record DNS Anda:
+   - Hapus record CNAME atau A Fly.io yang lama.
+   - Tambahkan record CNAME yang mengarah ke target yang disediakan Zeabur.
+
+## Perbedaan Utama: Fly.io vs Zeabur
+
+| Fitur | Fly.io | Zeabur |
+|---|---|---|
+| Konfigurasi | `fly.toml` + CLI | Deteksi otomatis + dashboard |
+| Deployment | Perintah CLI `fly deploy` | Git push (deploy otomatis) |
+| Penskalaan | Machines API, konfigurasi manual | Penskalaan satu klik di dashboard |
+| Database | Fly Postgres (dikelola sendiri) | Layanan database (PostgreSQL, MySQL, Redis terkelola, dll.) |
+| Jaringan | IP Anycast, WireGuard | HTTPS otomatis, domain kustom |
+| Penyimpanan persisten | Fly Volumes (terkunci pada region) | Zeabur Volumes (terkelola) |
+| Model harga | Per VM + bandwidth | [Paket langganan](/pricing) + biaya server |
+
+---
+
+Selesai. Aplikasi Fly.io Anda kini berjalan di Zeabur. Jika Anda mengalami masalah, hubungi [Zeabur Support](https://zeabur.com/support).

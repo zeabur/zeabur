@@ -1,0 +1,131 @@
+---
+title: Pendaftaran Domain
+ogImageTitle: Pendaftaran Domain
+ogImageSubtitle: Beli dan kelola domain langsung di Zeabur
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+## Pendaftaran Domain
+
+
+Zeabur memungkinkan Anda mencari, membeli, dan mengelola nama domain langsung dari dashboard atau CLI — tanpa perlu menggunakan registrar terpisah.
+
+Domain yang dibeli akan otomatis dikonfigurasi dengan DNS Cloudflare, dan Anda dapat mengikatnya ke layanan Anda dengan satu klik.
+
+### TLD yang Didukung
+
+| TLD | Contoh |
+|-----|---------|
+| `.com` | `example.com` |
+| `.net` | `example.net` |
+| `.org` | `example.org` |
+| `.io` | `example.io` |
+| `.dev` | `example.dev` |
+| `.app` | `example.app` |
+| `.co` | `example.co` |
+| `.me` | `example.me` |
+| `.xyz` | `example.xyz` |
+
+### Membeli Domain
+
+<Steps>
+
+### Buat Profil Pendaftar
+
+Sebelum membeli domain, Anda memerlukan profil pendaftar — informasi kontak yang diwajibkan oleh ICANN untuk pendaftaran domain (data WHOIS).
+
+Buka **Pengaturan** → **Profil Pendaftar** dan isi nama, email, nomor telepon, serta alamat Anda.
+
+<Callout type="info">
+Anda hanya perlu membuat profil pendaftar satu kali. Profil ini dapat digunakan kembali untuk semua pembelian domain berikutnya.
+</Callout>
+
+### Cari Domain
+
+Buka **Domain** → **Daftar Domain** dan masukkan nama domain yang Anda inginkan. Zeabur akan memeriksa ketersediaannya dan menampilkan harganya.
+
+Anda juga dapat mencari melalui CLI:
+
+```bash copy
+npx zeabur@latest domain search --domain example.com
+```
+
+### Beli
+
+Klik **Beli** dan konfirmasi pembayaran. Domain akan didaftarkan dan zona DNS Cloudflare akan dibuat secara otomatis.
+
+Melalui CLI:
+
+```bash copy
+npx zeabur@latest domain purchase --domain example.com --registrant-profile-id <profile-id>
+```
+
+<Callout type="warning">
+Pembelian domain tidak dapat dikembalikan (non-refundable). Pastikan Anda telah memasukkan nama domain yang benar sebelum mengonfirmasi.
+</Callout>
+
+### Ikat ke Layanan
+
+Setelah dibeli, Anda dapat mengikat domain ke layanan mana pun. Buka tab **Domain** pada layanan Anda, pilih **Domain Kustom**, lalu masukkan domain yang telah Anda beli.
+
+Zeabur akan otomatis mengonfigurasi record DNS — tidak perlu mengatur CNAME secara manual untuk domain yang dibeli melalui Zeabur.
+
+</Steps>
+
+### Mengelola Record DNS
+
+Untuk domain yang dibeli melalui Zeabur, DNS dikelola melalui Cloudflare. Anda dapat menambah, memperbarui, dan menghapus record dari dashboard atau CLI.
+
+Tipe record yang didukung: `A`, `AAAA`, `CNAME`, `MX`, `TXT`, `SRV`, `CAA`, `NS`.
+
+Melalui CLI:
+
+```bash copy
+# List records
+npx zeabur@latest domain dns list --id <domain-id>
+
+# Add a record
+npx zeabur@latest domain dns create --id <domain-id> --type A --name @ --content 1.2.3.4
+
+# Delete a record
+npx zeabur@latest domain dns delete --id <domain-id> --record-id <record-id>
+```
+
+### Perpanjangan
+
+Domain didaftarkan untuk jangka waktu 1 tahun. Anda dapat mengaktifkan **perpanjangan otomatis** dari dashboard atau memperpanjang secara manual.
+
+```bash copy
+# Enable auto-renew
+npx zeabur@latest domain auto-renew --id <domain-id> --enable
+
+# Manual renew
+npx zeabur@latest domain renew --id <domain-id>
+```
+
+### Verifikasi Pendaftar ICANN
+
+Setelah membeli domain, ICANN mewajibkan Anda untuk memverifikasi alamat email pendaftar. Anda akan menerima email verifikasi — **klik tautan di dalamnya dalam waktu 15 hari**, atau domain Anda dapat ditangguhkan.
+
+Jika Anda tidak menerima email tersebut atau perlu mengirimkannya ulang:
+
+```bash copy
+npx zeabur@latest domain verification resend --id <domain-id>
+```
+
+Jika Anda memasukkan email yang salah saat pendaftaran, Anda dapat memperbarui informasi kontak pendaftar:
+
+```bash copy
+npx zeabur@latest domain verification update-contact --id <domain-id> --email correct@example.com --first-name John --last-name Doe --phone "+1.5551234567" --address1 "123 Main St" --city "San Francisco" --state CA --country US --postal-code 94105
+```
+
+<Callout type="warning">
+Mengubah email pendaftar akan memicu alur verifikasi baru dan dapat menyebabkan domain terkena kunci transfer (transfer lock) selama 60 hari.
+</Callout>
+
+Untuk memeriksa status verifikasi saat ini:
+
+```bash copy
+npx zeabur@latest domain verification status --id <domain-id>
+```

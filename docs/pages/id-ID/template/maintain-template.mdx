@@ -1,0 +1,66 @@
+---
+title: Pemeliharaan & Pembaruan Template
+ogImageTitle: Pemeliharaan & Pembaruan Template
+ogImageSubtitle: Panduan pemeliharaan template dan program hadiah
+---
+
+import { Callout } from 'nextra/components'
+
+# Pemeliharaan & Pembaruan Template
+
+Memublikasikan template hanyalah permulaan. Seiring berkembangnya software upstream dan adanya laporan masalah dari pengguna, pengelola template perlu terus memperbarui template mereka untuk memastikan pengalaman deploy yang lancar.
+
+## Proses Pembaruan Versi Template
+
+Saat Anda perlu memperbarui template yang sudah dipublikasikan (misalnya meng-upgrade versi Docker image, mengubah environment variables default, atau menyesuaikan konfigurasi layanan), Anda dapat menggunakan cara berikut:
+
+### Pembaruan melalui CLI
+
+1. Edit file YAML Template Resource Anda (lihat [Format Template](/template/template-format) untuk formatnya).
+2. Jalankan perintah pembaruan dengan CLI `zeabur`:
+
+```bash
+npx zeabur@latest template update -c <template-code> -f template.yaml
+```
+
+`<template-code>` adalah kode yang terdapat di URL template (misalnya `71HORL` dari `https://zeabur.com/templates/71HORL`).
+
+### Pembaruan melalui Dashboard
+
+1. Buka halaman akun di [Dashboard Zeabur](https://dash.zeabur.com/account) dan pilih tab **Template**.
+2. Temukan template yang ingin Anda perbarui, lalu klik edit.
+3. Ubah informasi template (nama, deskripsi, ikon, konfigurasi layanan, dan sebagainya).
+4. Simpan perubahan Anda.
+
+<Callout type="info">
+Memperbarui template tidak memengaruhi proyek yang sudah di-deploy. Pengguna yang sudah ada perlu melakukan deploy ulang secara manual untuk mendapatkan versi terbaru.
+</Callout>
+
+## Standar Peninjauan Template
+
+Marketplace template Zeabur memiliki persyaratan kualitas dasar untuk template yang dipublikasikan:
+
+- **Dapat di-deploy** — Template harus berhasil di-deploy dan berfungsi dengan benar. Uji dengan `zeabur template deploy` sebelum mengirimkannya.
+- **Deskripsi lengkap** — Sertakan nama template, deskripsi, dan README yang jelas agar pengguna memahami tujuan template.
+- **Ikon dan tag yang sesuai** — Gunakan ikon resmi software tersebut dan pilih tag kategori yang tepat.
+- **Dokumentasi variabel** — Jika template memerlukan variabel yang diisi oleh pengguna, sertakan field `name` dan `description` yang jelas.
+- **Keamanan** — Jangan menuliskan secret secara langsung (hardcode). Gunakan nilai yang dibuat otomatis seperti `${PASSWORD}` untuk variabel kata sandi.
+
+## Hadiah bagi Pengelola
+
+Zeabur memberikan hadiah kepada kontributor komunitas melalui [Program Hadiah Kontribusi](/rewards/contribution). Pengelola template dapat memperoleh hal-hal berikut:
+
+- **Membuat template baru**: Template yang lolos peninjauan dan berhasil dipublikasikan akan mendapatkan Credits ≥ US$10.
+- **Pemeliharaan berkelanjutan**: Template yang digunakan lebih dari 30 kali akan mendapatkan tambahan Credits sebesar US$20.
+- **Pendapatan referral**: Aktifkan kode referral di [Tombol Deploy](/deploy/methods/deploy-button) template Anda. Untuk setiap pengguna baru yang mendaftar melalui tombol tersebut dan meng-upgrade ke paket berbayar, Anda akan mendapatkan Credits sebesar US$5.
+
+<Callout type="info">
+Untuk mengklaim hadiah, ajukan permintaan melalui [Dukungan Zeabur](https://zeabur.com/support) dengan menyertakan tautan template dan informasi akun Anda.
+</Callout>
+
+## Praktik Terbaik
+
+- **Pantau rilis upstream** — Ikuti halaman rilis proyek open-source yang digunakan template Anda, dan segera perbarui tag image setelah rilis besar.
+- **Gunakan tag versi yang spesifik** — Hindari penggunaan tag `latest`. Gunakan nomor versi yang eksplisit (misalnya `redis:7.2`) agar deploy dapat direproduksi.
+- **Sediakan lokalisasi** — Tambahkan terjemahan `zh-TW`, `ja-JP`, dan bahasa lainnya untuk memperluas jangkauan template Anda.
+- **Tanggapi masukan pengguna** — Pantau forum komunitas untuk laporan masalah terkait template Anda, lalu perbaiki atau berikan klarifikasi sesuai kebutuhan.

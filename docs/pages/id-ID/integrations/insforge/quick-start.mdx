@@ -1,0 +1,94 @@
+---
+title: Mulai Cepat
+ogImageTitle: Mulai Cepat InsForge
+ogImageSubtitle: Aktifkan InsForge dan Hubungkan AI IDE Anda
+---
+
+# Mulai Cepat
+
+Panduan ini akan membantu Anda mengaktifkan InsForge di proyek Zeabur dan menghubungkan AI IDE Anda dalam hitungan menit.
+
+## Prasyarat
+
+Sebelum memulai, Anda memerlukan:
+
+1. Akun Zeabur
+2. Kartu kredit yang tersimpan di pengaturan tagihan Zeabur Anda
+3. Saldo akun yang mencukupi
+4. AI IDE yang mendukung MCP (misalnya Cursor, Claude Code, Windsurf)
+
+## Langkah 1: Aktifkan InsForge
+
+import { Callout, Steps } from 'nextra/components'
+
+<Steps>
+
+### Buka Proyek Anda
+
+Kunjungi [Dashboard Zeabur](https://zeabur.com) dan buka proyek tempat Anda ingin mengaktifkan InsForge.
+
+### Buka Integrasi InsForge
+
+Di sidebar proyek, cari dan klik "InsForge".
+
+### Aktifkan InsForge
+
+Klik tombol **Aktifkan InsForge**. Dialog konfirmasi akan muncul — konfirmasikan untuk melanjutkan.
+
+<Callout type="info">
+  Mengaktifkan InsForge akan menyediakan instance backend khusus untuk proyek Anda. Proses ini mungkin memerlukan waktu sebentar.
+</Callout>
+
+### Catat Kredensial API Anda
+
+Setelah InsForge aktif, Anda akan melihat:
+- **API Endpoint** - URL dasar untuk instance InsForge Anda
+- **API Key** - Kunci autentikasi untuk akses API
+
+</Steps>
+
+## Langkah 2: Hubungkan AI IDE Anda
+
+Setelah mengaktifkan InsForge, klik **Gunakan di AI IDE** untuk membuka modal koneksi. Ikuti petunjuk di [Hubungkan AI IDE](/id-ID/integrations/insforge/connect-ai-ide) untuk langkah penyiapan yang lebih detail.
+
+## Langkah 3: Mulai Membangun
+
+Setelah AI IDE Anda terhubung melalui MCP, kirim prompt berikut ke AI agent Anda untuk memulai:
+
+```
+I'm using InsForge as my backend platform, fetch InsForge instruction doc to learn more about InsForge
+```
+
+AI agent Anda kemudian akan dapat:
+- Membuat dan mengelola tabel database
+- Menyiapkan autentikasi
+- Menangani penyimpanan file
+- Men-deploy edge function
+- Dan lainnya — semuanya secara mandiri melalui protokol MCP
+
+## Mengelola Instance Anda
+
+### Buka Dashboard InsForge
+
+Klik **Buka Dashboard InsForge** di halaman integrasi untuk mengakses antarmuka manajemen InsForge lengkap dengan dashboard khusus untuk mengelola database, autentikasi, penyimpanan, dan fungsi Anda.
+
+### Jeda InsForge
+
+Jika Anda ingin menghentikan sementara instance InsForge untuk menghemat biaya, gunakan opsi **Jeda InsForge** di bagian Zona Bahaya. Data Anda akan tetap tersimpan, dan Anda dapat memulihkannya nanti.
+
+### Pulihkan InsForge
+
+Klik **Pulihkan** untuk melanjutkan instance yang dijeda.
+
+### Hapus InsForge
+
+<Callout type="error">
+  Menghapus InsForge akan menghapus secara permanen semua data yang terkait dengan instance tersebut. Tindakan ini tidak dapat dibatalkan.
+</Callout>
+
+Untuk menghapus instance InsForge secara permanen, gunakan opsi **Hapus InsForge** di bagian Zona Bahaya.
+
+## Langkah Selanjutnya
+
+- Pelajari cara [Menghubungkan AI IDE Anda](/id-ID/integrations/insforge/connect-ai-ide) dengan petunjuk penyiapan yang detail
+- Lihat [Pemakaian & Tagihan](/id-ID/integrations/insforge/usage-and-billing) untuk memantau konsumsi sumber daya Anda

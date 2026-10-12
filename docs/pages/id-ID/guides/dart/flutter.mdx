@@ -1,0 +1,84 @@
+---
+title: Flutter
+ogImageTitle: Deploy Flutter di Zeabur
+ogImageSubtitle: Deploy Flutter di Zeabur
+---
+
+import { Callout } from 'nextra/components';
+
+# Deploy Flutter di Zeabur
+
+[Flutter](https://flutter.dev) adalah software development kit UI open-source yang dikembangkan oleh Google, digunakan untuk membangun aplikasi seluler lintas platform.
+
+Artikel ini akan membantu Anda men-deploy situs web Flutter di Zeabur.
+
+## Langkah Pertama: Membuat Proyek Flutter
+
+### Metode 1: Membuat proyek menggunakan perintah `flutter create`
+
+Silakan instal Flutter terlebih dahulu sesuai [dokumentasi resmi Flutter](https://docs.flutter.dev/get-started/install).
+
+Anda dapat memasukkan perintah di bawah ini untuk memeriksa apakah Flutter telah terinstal dengan benar.
+
+```bash
+flutter doctor
+```
+
+Jika semua item pemeriksaan berwarna hijau, selamat, Anda telah berhasil menginstal Flutter.
+
+Selanjutnya, gunakan perintah `flutter create` untuk membuat proyek Flutter baru.
+
+```bash
+flutter create myapp
+cd myapp
+flutter run -d chrome
+```
+
+### Metode 2: Membuat proyek menggunakan template
+
+Kami telah menyiapkan template untuk membantu Anda memulai proyek Flutter dengan cepat: [zeabur/flutter-template](https://github.com/zeabur/flutter-template).
+
+Anda dapat mengklik tombol `Use this template` di halaman GitHub untuk menggunakan template tersebut.
+
+## Langkah Kedua: Deploy ke Zeabur
+
+### Metode 1: Menggunakan Zeabur CLI
+
+Pertama, pastikan Anda telah menginstal Zeabur CLI sesuai [panduan deployment Zeabur CLI](/developer/cli).
+
+Kemudian, di proyek Flutter yang baru Anda inisialisasi, tambahkan file yang belum di-commit ke version control ke Git.
+
+```bash
+git init
+git add -A
+git commit -m "Initial commit"
+```
+
+Selanjutnya, deploy layanan Anda menggunakan perintah di bawah ini.
+
+```bash
+zeabur
+```
+
+### Metode 2: Menggunakan Dashboard Zeabur
+
+Buka [Dashboard Zeabur](https://zeabur.com) dan buat proyek baru.
+
+Kemudian, klik tombol `Tambah Layanan Baru`, lalu pilih deploy dari GitHub.
+
+<Callout>
+    Jika ini pertama kalinya Anda men-deploy proyek dari GitHub di Zeabur, Anda perlu mengonfigurasi dan menginstal GitHub App terlebih dahulu.
+    Anda dapat menemukan panduan yang lebih detail [di sini](/deploy/methods/github-integration).
+</Callout>
+
+Setelah Anda memilih repositori dan branch, Zeabur akan otomatis mulai melakukan build layanan Anda.
+
+Zeabur akan otomatis mendeteksi bahwa layanan Anda dibangun dengan Flutter, sehingga Anda tidak perlu melakukan konfigurasi tambahan. Deployment Anda akan selesai dalam beberapa menit.
+
+## Langkah Selanjutnya
+
+Setelah deployment selesai, Anda perlu mengonfigurasi domain untuk situs web Flutter Anda.
+
+Buka tab "Domain" di halaman layanan, lalu klik "Generate Domain" atau "Domain Kustom".
+
+Untuk informasi lebih lanjut tentang cara menghubungkan domain ke layanan Anda, silakan lihat [menghubungkan domain](/deploy/networking/public-networking).

@@ -1,0 +1,43 @@
+---
+title: Integrasi GitHub
+ogImageTitle: Integrasi GitHub
+ogImageSubtitle: Masuk dengan GitHub dan deploy kode langsung dari GitHub ke Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+## Integrasi GitHub
+
+Zeabur menyediakan kemampuan integrasi GitHub yang memungkinkan Anda menautkan akun GitHub dengan akun Zeabur Anda. Dengan begitu, Anda dapat masuk ke Zeabur menggunakan GitHub dan men-deploy kode langsung dari GitHub ke Zeabur.
+
+Men-deploy kode dengan GitHub memberikan fungsionalitas CI/CD siap pakai untuk layanan Anda; cukup push kode ke GitHub, dan Zeabur akan otomatis men-deploy kode terbaru.
+
+### Menautkan Akun GitHub Anda
+
+Jika Anda mendaftarkan akun Zeabur menggunakan alamat email, Anda perlu menautkan akun GitHub ke akun Zeabur terlebih dahulu. Anda dapat melakukannya di [Konsol > Pengaturan > Integrasi](https://dash.zeabur.com/account/general).
+
+![Link GitHub Account](/deploy/github/link-github.webp)
+
+Perlu diperhatikan bahwa satu akun GitHub hanya dapat ditautkan ke satu akun Zeabur. Setelah ditautkan, Anda dapat menggunakan tombol GitHub di halaman login Zeabur untuk masuk.
+
+### Menyiapkan GitHub Apps
+
+Agar repositori pribadi atau organisasi Anda dapat dipilih di Zeabur, instal aplikasi Zeabur di GitHub. Ini memungkinkan Zeabur mengakses repositori Anda. Saat membuat layanan, pilih tipe layanan "GitHub" lalu klik tombol "Konfigurasi GitHub". Tindakan ini akan mengarahkan Anda ke halaman instalasi aplikasi GitHub. Ikuti petunjuk di halaman tersebut untuk menginstal Zeabur App di akun pribadi Anda atau di organisasi tertentu.
+
+![Install GitHub Apps](/deploy/github/install-github-app.webp)
+
+Jika Anda adalah **Member** atau **Outside Collaborator** di organisasi tersebut (bukan Owner), Anda mungkin tidak memiliki izin yang cukup untuk menautkan organisasi itu. Namun, Anda tetap dapat membaca semua repositori yang dapat Anda akses, dan halaman otorisasi `GitHub` akan menunjukkan bahwa Anda sudah mengonfigurasi repositori tersebut.
+
+Setelah otorisasi selesai, Anda akan melihat kotak pencarian. Masukkan nama repositori yang ingin Anda deploy (atau URL GitHub-nya) untuk men-deploy-nya.
+
+![Select Repository](/deploy/github/select-repo.webp)
+
+## Menghapus GitHub Apps
+
+Jika Anda perlu menghapus Zeabur GitHub App sepenuhnya, Anda dapat menemukan "Zeabur" di Settings > Integrations > Applications > Installed GitHub Apps pada GitHub, klik "Configure", lalu klik "Uninstall" di bagian "Danger zone" pada halaman pop-up.
+
+![Complete Removal](/deploy/github/remove-github-app.webp)
+
+Untuk akun organisasi, Anda juga perlu memilih organisasi yang ingin Anda kelola melalui "Switch to another account" di Settings.
+
+![Switch to another account](/deploy/github/switch-settings-context.webp)

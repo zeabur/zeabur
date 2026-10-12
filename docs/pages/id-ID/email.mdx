@@ -1,0 +1,63 @@
+---
+title: Email
+ogImageTitle: Email
+ogImageSubtitle: Layanan API Pengiriman Email Kelas Enterprise
+---
+
+# Email
+
+Email adalah layanan API pengiriman email kelas enterprise dari Zeabur yang menyediakan solusi pengiriman email yang sederhana, andal, dan berperforma tinggi bagi developer.
+
+## Fitur Inti
+
+- **REST API yang Sederhana** - Integrasikan fungsi email hanya dengan beberapa baris kode
+- **Pengiriman Instan & Terjadwal** - Kirim email seketika atau jadwalkan untuk nanti
+- **Pengiriman Massal** - Kirim email dalam jumlah besar dengan manajemen antrean otomatis
+- **Dukungan Lampiran** - Mendukung berbagai format lampiran email
+- **Notifikasi Webhook** - Pembaruan status pengiriman secara real-time (terkirim, bounce, keluhan)
+- **Manajemen Domain** - Mendukung domain pengirim kustom
+- **Manajemen API Key** - Kontrol izin yang fleksibel (baca saja, kirim saja, akses penuh)
+
+## Fitur Utama
+
+### Keandalan Tinggi
+Dibangun di atas AWS SES dengan jaminan uptime 99,9%, sehingga pengiriman email tetap stabil.
+
+### Pemantauan Real-time
+Terima pembaruan status email secara real-time melalui Webhook:
+- Konfirmasi pengiriman
+- Konfirmasi email diterima
+- Notifikasi bounce
+- Keluhan spam
+
+### Keamanan
+- Verifikasi tanda tangan HMAC-SHA256
+- Isolasi izin API key
+- Verifikasi DKIM/SPF domain
+
+## Memulai
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Sebelum menggunakan Zeabur Email, pastikan Anda telah mengaktifkan layanan Zeabur Email di konsol Zeabur Anda.
+</Callout>
+
+Lihat [Panduan Mulai Cepat](/id-ID/email/quick-start) untuk mengirim email pertama Anda dalam hitungan menit.
+
+## Contoh Penggunaan
+
+- Email verifikasi pendaftaran pengguna
+- Email reset kata sandi
+- Notifikasi transaksi
+- Kampanye pemasaran
+- Notifikasi peringatan sistem
+- Invoice dan tanda terima
+
+## Harga
+
+Zeabur Email menggunakan model harga bayar sesuai pemakaian berdasarkan jumlah email yang dikirim. Untuk detail harga, silakan lihat [Paket Harga](/pricing).
+
+<Callout type="warning">
+  Pengiriman email harus mematuhi regulasi anti-spam dan praktik terbaik. Penyalahgunaan layanan dapat mengakibatkan penangguhan akun.
+</Callout>

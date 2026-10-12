@@ -1,0 +1,64 @@
+---
+title: Spesifikasi Build
+ogImageTitle: Spesifikasi Build
+ogImageSubtitle: Tempat Zeabur melakukan build kode Anda dibandingkan tempat kode tersebut berjalan
+---
+
+import { Callout } from 'nextra/components'
+
+# Spesifikasi Build
+
+Saat Anda men-deploy layanan di Zeabur, proses build dan runtime berlangsung di dua mesin yang berbeda. Halaman ini menjelaskan sisi build.
+
+<Callout type="info">
+**Ringkasnya** — Kode Anda di-build di infrastruktur CI/CD bersama milik Zeabur, bukan di mesin tempat layanan Anda berjalan. Spesifikasi Build hanya memengaruhi seberapa cepat build selesai; tidak berpengaruh pada layanan Anda yang sedang berjalan.
+</Callout>
+
+## Tempat Zeabur melakukan build kode Anda
+
+Setiap deploy memicu job build di infrastruktur CI/CD bersama milik Zeabur. Job tersebut:
+
+1. Mengambil kode sumber Anda (dari Git, unggahan CLI, atau sumber container image)
+2. Menyusun build plan dengan [zbpack](/deploy/how-deploys-work)
+3. Melakukan build container image
+4. Melakukan push image ke registry Zeabur
+
+Mesin build bersifat sementara — setelah image di-push, mesin build akan dilepaskan. Mesin ini tidak pernah menjalankan layanan Anda.
+
+## Tempat layanan Anda sebenarnya berjalan
+
+Setelah image di-build, Zeabur men-deploy-nya ke **infrastruktur runtime pilihan Anda**:
+
+- **Shared Cluster** — node yang dikelola Zeabur (AWS / GCP / Tencent Cloud), dengan ukuran sesuai paket Anda
+- **Server** — server yang Anda sewa melalui Zeabur atau server milik Anda sendiri melalui [BYOS](/byos/aws)
+
+CPU, memori, jaringan, dan penyimpanan yang tersedia bagi layanan Anda saat runtime ditentukan oleh infrastruktur tersebut — sama sekali tidak dipengaruhi oleh mesin build.
+
+## Spesifikasi Build per paket
+
+Paket yang lebih tinggi mengarahkan build ke mesin build yang lebih besar, sehingga build selesai lebih cepat:
+
+| Paket | Build CI |
+|------|----------|
+| Free | 2 vCPU / 4 GB |
+| Dev  | 2 vCPU / 4 GB |
+| Pro  | 4 vCPU / 8 GB |
+| Team | 4 vCPU / 8 GB |
+
+Lihat [Paket](/pricing) dan [zeabur.com/pricing](https://zeabur.com/pricing) untuk alokasi terbaru.
+
+## Apakah Spesifikasi Build memengaruhi performa layanan saya?
+
+Tidak. Spesifikasi Build hanya menentukan seberapa cepat kode Anda dikompilasi dan dikemas, tidak lebih. Spesifikasi Build tidak memengaruhi:
+
+- Latensi request
+- Memori atau CPU yang tersedia saat runtime
+- Batas konkurensi atau koneksi
+- Uptime atau ketersediaan
+
+Jika layanan Anda yang sedang berjalan lambat atau mengalami throttling, periksa metrik runtime layanan Anda serta paket / server tempat layanan tersebut di-deploy.
+
+## Terkait
+
+- [Build — bagaimana zbpack mengubah kode Anda menjadi image](/deploy/how-deploys-work)
+- [Paket](/pricing)

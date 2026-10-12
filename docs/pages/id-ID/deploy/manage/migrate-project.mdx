@@ -1,0 +1,52 @@
+---
+title: Migrasi Proyek
+ogImageTitle: Migrasi Proyek
+ogImageSubtitle: Migrasikan proyek antar region atau akun
+---
+
+import { Callout } from 'nextra/components'
+
+# Migrasi Proyek
+
+Migrasi proyek pada dasarnya adalah **menyalin proyek + menyinkronkan data**. Fitur [Salin Proyek](/deploy/manage/copy-project) di Zeabur memungkinkan Anda menduplikasi seluruh proyek (termasuk konfigurasi layanan, environment variables, dan data volume) ke region lain dengan satu klik. Dikombinasikan dengan [Backup & Pemulihan](/operations/data/backup-restore), Anda dapat melakukan migrasi lengkap antar region, bahkan antar akun.
+
+## Migrasi Antar Region
+
+Untuk memindahkan proyek dari satu region ke region lain (misalnya dari Tokyo ke San Francisco), cara termudah adalah menggunakan fitur **Salin Proyek**:
+
+1. Buka proyek yang ingin Anda migrasikan lalu masuk ke **Pengaturan Proyek**.
+2. Klik tombol "**Salin Proyek**" dan pilih region tujuan.
+3. Tunggu hingga penyalinan selesai (tanpa downtime untuk proyek tanpa volume; durasinya bergantung pada ukuran data untuk proyek dengan volume).
+4. Setelah penyalinan selesai, ikat ulang domain kustom Anda ke proyek baru.
+5. Setelah proyek baru dipastikan berjalan dengan baik, hapus proyek lama.
+
+<Callout type="info">
+Salin Proyek membawa serta semua konfigurasi layanan, environment variables, dan data volume, tetapi **tidak otomatis mewarisi pengaturan domain dari proyek asli** — Anda perlu mengikatnya ulang secara manual.
+</Callout>
+
+Untuk langkah-langkah lengkapnya, lihat dokumentasi [Salin Proyek](/deploy/manage/copy-project).
+
+## Migrasi Antar Akun
+
+Untuk memigrasikan proyek ke akun Zeabur lain (misalnya dari akun pribadi ke akun tim), Anda perlu melakukan migrasi secara manual:
+
+1. **Ekspor konfigurasi proyek** — Gunakan fitur [Ekspor Proyek](/deploy/manage/export-project) untuk mengunduh konfigurasi YAML proyek.
+2. **Cadangkan data** — Buat backup untuk semua layanan yang memiliki state:
+   - Database: Gunakan fitur backup online di [Backup & Pemulihan](/operations/data/backup-restore).
+   - Penyimpanan persisten: Gunakan backup offline atau unduh secara manual melalui [Manajemen File](/operations/data/file-management).
+3. **Buat proyek baru di akun tujuan** — Masuk ke akun tujuan dan buat proyek baru di region yang diinginkan.
+4. **Deploy ulang layanan** — Berdasarkan konfigurasi YAML yang telah diekspor, buat layanan yang sesuai di proyek baru.
+5. **Pulihkan data** — Pulihkan backup dari langkah 2 ke layanan baru.
+6. **Alihkan DNS** — Arahkan record DNS domain kustom Anda ke domain layanan di proyek baru.
+7. **Verifikasi** — Setelah semua layanan dipastikan berjalan dengan baik, bersihkan sumber daya di akun lama.
+
+## Catatan Penting
+
+- **Peralihan DNS** — Sebelum migrasi, turunkan nilai TTL DNS Anda untuk mempercepat propagasi DNS setelah peralihan.
+- **Environment variables** — Salin Proyek otomatis membawa serta environment variables; migrasi antar akun memerlukan konfigurasi ulang secara manual, terutama untuk variabel yang berisi secret.
+- **Backup data** — Selalu pastikan semua database dan penyimpanan persisten telah dicadangkan sepenuhnya sebelum migrasi. Pertimbangkan untuk menghentikan sementara penulisan ke proyek lama selama migrasi agar data tidak menjadi tidak konsisten.
+- **Integrasi Git** — Jika layanan terhubung ke repositori GitHub, Anda perlu mengonfigurasi ulang [integrasi GitHub](/deploy/methods/github-integration) di akun baru setelah migrasi antar akun.
+
+<Callout type="info">
+Jika Anda mengalami kendala selama migrasi, silakan hubungi [Dukungan Zeabur](https://zeabur.com/support).
+</Callout>

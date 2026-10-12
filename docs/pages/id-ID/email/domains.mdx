@@ -1,0 +1,166 @@
+---
+title: Manajemen Domain
+ogImageTitle: Manajemen Domain Zeabur Email
+ogImageSubtitle: Verifikasi dan Kelola Domain Pengirim
+---
+
+# Manajemen Domain
+
+import { Callout, Steps } from 'nextra/components'
+
+Untuk mengirim email dengan Zeabur Email, Anda harus memverifikasi domain pengirim terlebih dahulu. Verifikasi domain memastikan bahwa Anda adalah pemilik domain tersebut dan meningkatkan tingkat keterkiriman email.
+
+<Callout type="info">
+  **Disarankan: Gunakan [Zeabur Domain](/domains) untuk mendaftarkan domain Anda.** Jika domain Anda terdaftar melalui Zeabur Domain, Anda dapat menyiapkan Zeabur Email dengan satu klik dari halaman detail domain — semua record DNS yang diperlukan (DKIM, SPF, DMARC) dibuat secara otomatis, tanpa perlu konfigurasi manual.
+</Callout>
+
+## Mengapa Verifikasi Domain Diperlukan
+
+<Callout type="info">
+  Domain yang belum terverifikasi tidak dapat digunakan untuk mengirim email. Verifikasi domain meningkatkan kredibilitas email melalui record DKIM, SPF, dan DMARC.
+</Callout>
+
+- **Mencegah Spoofing**: Memastikan hanya pemilik domain yang dapat mengirim email dari domain tersebut
+- **Meningkatkan Keterkiriman**: Domain yang terverifikasi lebih mungkin lolos dari filter spam
+- **Melindungi Merek**: Tanda tangan DKIM melindungi merek Anda dari serangan phishing
+
+## Menambahkan Domain
+
+<Steps>
+
+### Masuk ke Konsol
+
+Buka halaman manajemen Zeabur Email di konsol Zeabur.
+
+### Tambahkan Domain Baru
+
+1. Buka "Domain"
+2. Klik "Tambah Domain"
+3. Masukkan domain Anda (misalnya `yourdomain.com`)
+4. Pilih region pengiriman (disarankan memilih yang dekat dengan pengguna Anda)
+
+### Konfigurasi Record DNS
+
+Sistem akan secara otomatis membuat record DNS yang perlu Anda tambahkan dan menampilkannya di halaman konsol. Silakan tambahkan record tersebut di penyedia DNS Anda (misalnya Cloudflare, Aliyun, Tencent Cloud) sesuai dengan petunjuk di halaman.
+
+<Callout type="info">
+  **Jenis record yang perlu Anda tambahkan**:
+  - **Record DKIM** (biasanya 3): Digunakan untuk tanda tangan digital email guna membuktikan keaslian email
+  - **Record SPF**: Menentukan server mana yang berwenang mengirim email dari domain Anda
+  - **Record DMARC**: Menentukan kebijakan penanganan ketika autentikasi email gagal
+  - **Record MX** (opsional): Digunakan untuk menerima notifikasi bounce
+</Callout>
+
+### Tunggu Verifikasi
+
+Setelah menambahkan record DNS, klik tombol "Verifikasi" di konsol. Zeabur Email akan memeriksa konfigurasi DNS Anda secara otomatis.
+
+**Verifikasi biasanya memerlukan waktu 5–30 menit, tergantung waktu propagasi penyedia DNS Anda.**
+
+<Callout type="success">
+  Ketika konsol menampilkan status domain sebagai **`verified`**, verifikasi berhasil dan Anda dapat mulai menggunakan domain ini untuk mengirim email!
+</Callout>
+
+</Steps>
+
+## Penjelasan Record DNS
+
+Untuk memastikan email berhasil terkirim, Zeabur Email menggunakan teknologi autentikasi email standar berikut:
+
+### DKIM (Tanda Tangan Digital Email)
+
+DKIM menambahkan tanda tangan digital ke setiap email, yang membuktikan bahwa email benar-benar berasal dari domain Anda serta mencegah email dimanipulasi atau dipalsukan. Biasanya Anda perlu menambahkan 3 record CNAME DKIM.
+
+**Tujuan**:
+- Mencegah pemalsuan email
+- Meningkatkan keterkiriman email
+- Melindungi reputasi merek Anda
+
+### SPF (Otorisasi Server Pengirim)
+
+Record SPF menentukan server mana yang berwenang mengirim email atas nama domain Anda, sehingga mencegah pihak ketiga yang berniat jahat menyamar sebagai domain Anda.
+
+**Tujuan**:
+- Mencegah peniruan domain
+- Mengurangi kesalahan klasifikasi sebagai spam
+
+<Callout type="warning">
+  Jika domain Anda sudah memiliki record SPF yang dikonfigurasi di tempat lain (seperti Google Workspace atau Microsoft 365), silakan hubungi tim dukungan untuk mendapatkan bantuan agar tidak terjadi konflik.
+</Callout>
+
+### DMARC (Kebijakan Autentikasi Email)
+
+DMARC menentukan kebijakan penanganan ketika autentikasi email (SPF atau DKIM) gagal, sehingga membantu Anda memantau dan melindungi domain dari penyalahgunaan.
+
+**Tujuan**:
+- Menerima laporan kegagalan autentikasi
+- Mencegah serangan phishing
+- Meningkatkan kredibilitas domain
+
+### Record MX (Opsional)
+
+Record MX digunakan untuk menerima notifikasi bounce, sehingga Anda dapat memahami penyebab kegagalan pengiriman email.
+
+**Tujuan**:
+- Menerima notifikasi bounce
+- Mendeteksi masalah pengiriman dengan cepat
+
+## Status Verifikasi
+
+Domain dapat berada dalam status berikut:
+
+| Status | Deskripsi |
+|--------|-------------|
+| `pending` | Menunggu verifikasi, record DNS belum dikonfigurasi |
+| `verifying` | Sedang memverifikasi record DNS |
+| `verified` | Terverifikasi, siap digunakan |
+| `failed` | Verifikasi gagal, silakan periksa konfigurasi DNS |
+
+## Pertanyaan Umum
+
+### Berapa lama waktu yang dibutuhkan agar record DNS berlaku?
+
+Biasanya antara 5 menit hingga 48 jam, tergantung penyedia DNS Anda. Disarankan untuk menunggu 15–30 menit sebelum mencoba verifikasi.
+
+### Bagaimana jika verifikasi gagal?
+
+1. **Tunggu lebih lama**: Propagasi DNS biasanya memerlukan 5–30 menit, tetapi beberapa penyedia DNS mungkin memerlukan waktu lebih lama (hingga 48 jam)
+2. **Periksa konfigurasi DNS**: Pastikan Anda telah menambahkan record persis seperti yang ditampilkan di konsol, tanpa spasi atau tanda kutip tambahan
+3. **Lihat pesan error**: Konsol Zeabur Email akan menampilkan error verifikasi secara spesifik, silakan lakukan perbaikan sesuai petunjuk
+4. **Hubungi dukungan**: Jika verifikasi terus gagal, silakan hubungi tim dukungan Zeabur untuk mendapatkan bantuan
+
+### Apakah saya dapat menggunakan subdomain?
+
+Ya! Anda dapat memverifikasi subdomain (seperti `mail.yourdomain.com`), sehingga Anda dapat:
+- Memisahkan berbagai jenis email (pemasaran vs transaksional)
+- Mengontrol reputasi domain dengan lebih baik
+
+### Apa tanda bahwa verifikasi berhasil?
+
+Ketika konsol Zeabur Email menampilkan status domain sebagai **`verified`**, artinya semua record DNS telah dikonfigurasi dengan benar dan lolos verifikasi. Anda dapat langsung mulai menggunakan domain ini untuk mengirim email.
+
+## Menghapus Domain
+
+Jika Anda tidak lagi memerlukan sebuah domain:
+
+1. Buka "Domain"
+2. Temukan domain yang ingin dihapus
+3. Klik tombol "Hapus"
+4. Konfirmasi penghapusan
+
+<Callout type="warning">
+  Setelah domain dihapus, panggilan API untuk mengirim email dari domain tersebut akan gagal. Pastikan tidak ada aplikasi yang masih menggunakan domain ini.
+</Callout>
+
+## Praktik Terbaik
+
+### Gunakan Subdomain Khusus
+
+Disarankan menggunakan subdomain khusus untuk pengiriman email (seperti `mail.yourdomain.com`), sehingga Anda dapat:
+- Melindungi reputasi domain utama
+- Melacak dan mengelola email dengan lebih mudah
+- Memisahkan berbagai jenis email (misalnya email pemasaran dan email transaksional)
+
+### Hindari Perubahan DNS yang Sering
+
+Setelah domain berhasil diverifikasi, jangan sembarangan mengubah atau menghapus record DNS, karena dapat menyebabkan pengiriman email gagal atau email ditandai sebagai spam.

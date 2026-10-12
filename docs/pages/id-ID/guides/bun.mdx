@@ -1,0 +1,120 @@
+---
+title: Bun
+ogImageTitle: Deploy Aplikasi Bun
+ogImageSubtitle: Deploy Aplikasi Bun di Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Bun
+
+Bun adalah runtime & toolkit JavaScript all-in-one yang dirancang untuk kecepatan, lengkap dengan bundler, test runner, dan package manager yang kompatibel dengan Node.js.
+
+Anda dapat dengan mudah men-deploy aplikasi Bun Anda di Zeabur.
+
+## Mulai Cepat
+
+### Membuat Aplikasi Bun
+
+Anda dapat menginisialisasi aplikasi Bun menggunakan perintah berikut:
+
+```bash
+mkdir bun-app
+
+cd bun-app
+
+bun init
+```
+
+### Membuat HTTP Server
+
+Buka `index.ts` dan tempelkan potongan kode berikut, yang mengimplementasikan HTTP server sederhana dengan `Bun.serve`.
+
+Jangan lupa mengubah port menjadi `Bun.env.PORT` di fungsi `serve` Anda untuk memastikan aplikasi dapat melakukan listening dengan benar pada environment variable `PORT` yang diberikan oleh Zeabur.
+
+```typescript filename="index.ts" {2}
+const server = Bun.serve({
+  port: Bun.env.PORT ?? 3000, // ubah port menjadi Bun.env.PORT
+  fetch() {
+    return new Response("Bun on Zeabur!");
+  },
+});
+
+console.log(`Listening on http://localhost:${server.port} ...`);
+```
+
+Selain itu, pastikan untuk menentukan entry point di file `package.json`.
+
+<Callout type="info">
+ Saat ini Zeabur mendukung ekstensi file berikut sebagai entry point: `.js`, `.ts`, `.tsx`, `.jsx`, `.mjs`, `.mts`, `.cjs`, atau `.cts`.
+ </Callout>
+
+```json filename="package.json" {3}
+{
+  "name": "bun-app",
+  "module": "index.ts", // beri tahu zeabur dari mana harus memulai
+  "type": "module",
+  // ...
+}
+```
+
+## Deteksi
+
+Zeabur akan otomatis mengenali aplikasi Anda sebagai aplikasi Bun. Pastikan Anda memiliki file `bun.lockb` di direktori root proyek Anda.
+
+```plainc {2}
+root
+├── bun.lockb
+├── index.ts
+└── package.json
+```
+
+Anda dapat menginstal `bun-types` ke proyek Anda jika Anda tidak ingin melakukan commit file `bun.lockb` ke repositori Anda.
+
+```json filename="package.json" {3}
+{
+  "devDependencies": {
+    "bun-types": "latest"
+  }
+}
+```
+
+## Menentukan Versi Bun
+
+Secara default, Zeabur menggunakan versi Bun *stabil terbaru*.
+
+Anda dapat menentukan versi runtime Bun di file `package.json` menggunakan field `engines.bun`.
+
+```json filename="package.json" {3}
+{
+  "engines": {
+    "bun": "1.1.38"
+  }
+}
+```
+
+Anda juga dapat menentukan rentang versi dalam format Semver.
+
+```json filename="package.json" {3}
+{
+  "engines": {
+    "bun": "^1.1.38"
+  }
+}
+```
+
+## Deploy
+
+Klik tombol **Git**.
+
+Cari repositori **aplikasi Bun** Anda, klik import, dan **aplikasi Bun** Anda akan mulai di-deploy.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+## Ekosistem
+
+Bun memiliki ekosistem yang kuat, sehingga Anda dapat membangun aplikasi menggunakan berbagai framework seperti Astro, Nuxt, SvelteKit, ElysiaJS, dan lainnya.
+
+Anda dapat men-deploy aplikasi-aplikasi tersebut dan menggunakan Bun sebagai runtime atau package manager.
+
+Pelajari lebih lanjut tentang [Bun - Ecosystem](https://bun.sh/guides/ecosystem).

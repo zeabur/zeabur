@@ -1,0 +1,94 @@
+---
+title: MkDocs
+ogImageTitle: MkDocs
+ogImageSubtitle: Deploy Situs Web MkDocs di Zeabur
+---
+
+# MkDocs
+
+MkDocs adalah static site generator yang cepat, sederhana, dan sangat elegan, yang dirancang khusus untuk membangun dokumentasi proyek. File sumber dokumentasi ditulis dalam Markdown dan dikonfigurasi melalui satu file konfigurasi YAML.
+
+## Video Demo
+
+Berikut adalah video demo yang menunjukkan cara menginisialisasi dan men-deploy proyek MkDocs di Zeabur dalam 60 detik.
+
+<iframe style={{marginTop: 12}} width="560" height="315"
+        src="https://www.youtube.com/embed/DYlpqWQgQEM?si=geEMw0kQOnIEEZAC" title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+## Kriteria
+
+Jika proyek Anda memenuhi kriteria berikut, Zeabur akan mengenalinya sebagai proyek MkDocs dan men-deploy-nya secara otomatis:
+
+1. Terdapat file konfigurasi `mkdocs.yml` di direktori root proyek.
+
+Jika Anda tertarik untuk berkontribusi pada open source, Anda dapat menemukan bagian terkait di [kode open-source zbpack](https://github.com/zeabur/zbpack/tree/main/internal/static).
+
+## Mulai Sekarang
+
+Artikel ini akan memandu Anda cara menginisialisasi proyek MkDocs dan men-deploy-nya di Zeabur.
+
+### Menginisialisasi Proyek
+
+Anda dapat merujuk ke [dokumentasi resmi MkDocs](https://www.mkdocs.org/getting-started/) untuk menginisialisasi proyek MkDocs Anda.
+
+```bash
+pip install mkdocs
+mkdocs new my-project
+cd my-project
+```
+
+### Pengujian Lokal
+
+Anda dapat menguji proyek MkDocs Anda secara lokal.
+
+```bash
+mkdocs serve
+```
+
+Kunjungi http://127.0.0.1:8000/ untuk melihat pratinjau proyek MkDocs Anda.
+
+### Deployment
+
+Anda dapat memilih dua cara untuk men-deploy proyek MkDocs Anda: menggunakan GitHub atau menggunakan Zeabur CLI.
+
+#### Deploy dengan Zeabur CLI
+
+Deploy dengan Zeabur CLI adalah cara paling sederhana untuk men-deploy proyek MkDocs Anda. Pertama, login ke Zeabur CLI:
+
+```bash
+npx zeabur@latest auth login
+```
+
+Perintah ini akan membuka browser dan memandu Anda melalui proses login.
+
+Kemudian, Anda dapat menggunakan perintah `deploy` untuk melakukan deploy:
+
+```bash
+npx zeabur@latest deploy
+```
+
+Perintah ini akan menanyakan secara interaktif ke proyek mana Anda ingin melakukan deploy, atau Anda dapat memilih untuk membuat proyek baru.
+
+Untuk petunjuk lebih lanjut tentang deployment dengan Zeabur CLI, silakan lihat [Deploy Layanan dengan CLI](/developer/cli).
+
+#### Deploy dengan GitHub
+
+Deploy dengan GitHub memungkinkan proyek Anda menikmati layanan CI/CD yang siap pakai. Cukup push kode ke GitHub, dan Zeabur akan otomatis men-deploy-nya untuk Anda.
+
+Buat repositori baru di GitHub, lalu push kode ke repositori tersebut. Untuk petunjuk yang lebih detail, lihat [Dokumentasi GitHub](https://docs.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line).
+
+Setelah melakukan push, klik **Deploy Layanan**, lalu pilih **Deploy dari kode sumber Anda**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Cari repositori Anda, klik import, dan layanan Anda akan otomatis mulai di-deploy.
+
+### Menyiapkan Domain
+
+Setelah deployment selesai, Anda perlu menyiapkan domain untuk situs web Anda.
+
+Buka tab "Domain" di halaman layanan, lalu klik "Generate Domain" atau "Domain Kustom".
+
+Untuk informasi lebih lanjut tentang cara menghubungkan domain ke layanan Anda, silakan lihat [Menghubungkan Domain](/deploy/networking/public-networking).

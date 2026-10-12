@@ -1,0 +1,68 @@
+---
+title: TypeScript
+ogImageTitle: Deploy Deno
+ogImageSubtitle: Deploy Deno di Zeabur
+---
+
+# Deploy Aplikasi Deno dengan TypeScript
+
+Artikel ini akan mengajarkan Anda cara men-deploy proyek [Deno](https://deno.land/) Anda di Zeabur.
+
+## Membuat Aplikasi Deno dengan TypeScript (Opsional)
+
+- Instal Deno di komputer Anda.
+
+- Anda dapat melihat petunjuk yang lebih detail di [dokumentasi resmi Deno](https://deno.land/manual/getting_started/installation).
+
+Buat file baru `main.ts`.
+
+```bash
+touch main.ts
+```
+
+Tambahkan kode berikut ke `main.ts` Anda.
+
+Jangan lupa mengubah port menjadi `Deno.env.get("PORT")` di fungsi `serve` Anda untuk memastikan aplikasi dapat melakukan listening dengan benar pada environment variable `PORT` yang diberikan oleh Zeabur.
+
+```typescript
+// di main.ts
+import { serve } from "https://deno.land/std@0.140.0/http/server.ts";
+
+function handler(_req: Request): Response {
+  return new Response("Hello, this is a Deno (https://deno.land/) web app deployed on Zeabur (https://zeabur.com)");
+}
+
+serve(handler, { port: Deno.env.get("PORT") });
+```
+
+Buat file baru `deno.json`, lalu tambahkan perintah `start` ke field `tasks`.
+
+```bash
+touch deno.json
+# di deno.json
+{
+  "tasks": {
+    "start": "deno run --allow-net --allow-env --allow-read main.ts"
+  }
+}
+```
+
+## Pengembangan
+
+Jalankan `deno task start` untuk memulai server pengembangan.
+
+```bash
+deno task start
+```
+
+Kemudian, Anda dapat mengubah kode untuk mengembangkan proyek TypeScript Anda.
+
+Setelah selesai, inisialisasi repositori GitHub untuk proyek ini dan unggah ke GitHub Anda.
+
+## Deploy
+
+Klik tombol **Tambah Layanan Baru**, lalu pilih **Deploy dari kode sumber Anda**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Cari repositori aplikasi Deno Anda, klik import, dan aplikasi Deno Anda akan mulai di-deploy.

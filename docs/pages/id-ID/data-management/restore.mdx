@@ -1,0 +1,55 @@
+---
+title: Pulihkan Backup
+ogImageTitle: Pulihkan Backup
+ogImageSubtitle: Pulihkan Backup Anda di Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Pulihkan Backup
+
+Bagian ini menjelaskan secara singkat berbagai metode untuk memulihkan backup layanan Anda.
+
+## Database
+
+### PostgreSQL
+
+Lihat bagian "Restore Backup" di [Halaman Template Layanan PostgreSQL](https://zeabur.com/templates/B20CX0).
+
+### MySQL dan MariaDB
+
+Lihat bagian "Restore Backup" di [Halaman Template Layanan MySQL](https://zeabur.com/templates/DGLGRG) dan [Halaman Template Layanan MariaDB](https://zeabur.com/zh-TW/templates/46YKAR).
+
+### Redis
+
+Anda dapat menggunakan [perintah Redis `RESTORE`](https://redis.io/commands/restore) untuk memulihkan backup.
+
+Buka string "Command to connect to your Redis" pada layanan Redis, dan Anda akan melihat sesuatu seperti ini:
+
+```bash
+redis-cli -h <host> -p <port> -a <password>
+```
+
+Masukkan `<host>`, `<port>`, dan `<password>` ke dalam perintah berikut:
+
+```bash
+cat /path/to/backup.rdb | redis-cli -h <host> -p <port> -a <password> -x RESTORE <key> 0
+```
+
+### MongoDB
+
+Buka string "Command to connect to your MongoDB" pada layanan MongoDB, dan Anda akan melihat sesuatu seperti ini:
+
+```bash
+mongosh "<connection string>"
+```
+
+Salin `<connection string>` ke terminal dan jalankan perintah `mongorestore` untuk memulihkan backup:
+
+```bash
+mongorestore "<connection string>" "<backup directory>"
+```
+
+## Volume
+
+Jika Anda ingin memulihkan data di dalam [volume](/data-management/volumes), Anda dapat mengikuti metode [Unggah Direktori](/operations/data/file-management) untuk mengunggah file backup ke direktori tujuan lalu mengekstraknya.

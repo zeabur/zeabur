@@ -1,0 +1,65 @@
+---
+title: Laporan Keamanan
+ogImageTitle: Laporan Keamanan
+ogImageSubtitle: Analisis keamanan berbasis AI
+---
+
+import { Callout } from 'nextra/components'
+
+# Laporan Keamanan
+
+Zeabur menyediakan fitur laporan keamanan bawaan yang menggunakan analisis AI untuk mendeteksi potensi kerentanan keamanan pada aplikasi Anda.
+
+Fitur laporan keamanan menggunakan analisis cerdas berbasis AI untuk memeriksa berbagai kerentanan keamanan umum (seperti standar industri OWASP Top 10 dan CWE Top 25), termasuk kebocoran Secret Key, SQL injection, serangan XSS, dan lainnya. Hanya dengan satu klik, Anda dapat menyelesaikan pemindaian dan membuat laporan dalam 5-10 menit.
+
+## Cara Membuat Laporan Keamanan
+
+### Langkah 1: Buka Halaman Layanan
+
+Klik layanan yang ingin Anda periksa dan pilih tab **Security**.
+
+![Security Report Page](https://cdn.zeabur.com/security-report/security-report-list.png)
+
+### Langkah 2: Buat Laporan
+
+Klik tombol **"Generate Report"**, dan sistem akan mulai menganalisis kode Anda.
+
+<Callout type="info">
+Baik kode Anda di-deploy dari GitHub maupun diunggah secara lokal, Anda dapat menggunakan fitur laporan keamanan.
+</Callout>
+
+### Langkah 3: Lihat Laporan
+
+Setelah menunggu beberapa menit, Anda dapat melihat laporan yang baru dibuat di daftar. Klik laporan untuk melihat isi terperinci, termasuk masalah yang terdeteksi, tingkat risiko, dan lokasinya di dalam kode.
+
+![Security Report Details Page](https://cdn.zeabur.com/security-report/security-report-detail.png)
+
+## Cara Memperbaiki Masalah Keamanan
+
+Anda dapat **menyalin** atau **mengunduh** isi laporan lalu menempelkannya ke alat pengembangan AI pilihan Anda (seperti Cursor, Claude Code, dan lainnya) agar AI membantu memperbaiki kode Anda.
+
+Setelah melakukan perbaikan, lakukan redeploy kode Anda untuk mengatasi kerentanan keamanan tersebut.
+
+## Pertanyaan yang Sering Diajukan
+
+### Kerentanan apa saja yang diperiksa oleh laporan keamanan?
+
+Fitur laporan keamanan memeriksa berbagai kerentanan keamanan umum, termasuk namun tidak terbatas pada:
+
+- OWASP Top 10 (seperti SQL injection, serangan XSS, dan lainnya)
+- CWE Top 25
+- Kebocoran Secret Key dan informasi sensitif
+- Dependensi yang tidak aman
+
+### Berapa lama waktu pemindaian?
+
+Tergantung pada kompleksitas dan ukuran kode, pemindaian biasanya memakan waktu 5-10 menit.
+
+### Apakah saya dapat mengunduh laporan?
+
+Ya. Anda dapat menyalin atau mengunduh isi laporan agar mudah dibagikan kepada tim Anda atau ditempelkan ke alat pengembangan AI untuk perbaikan.
+
+### Apakah laporan disimpan?
+
+Ya. Semua laporan yang dibuat disimpan di daftar, dan Anda dapat mengakses riwayatnya kapan saja.
+

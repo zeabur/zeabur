@@ -1,0 +1,73 @@
+---
+title: Hubungkan Kluster Kubernetes yang Sudah Ada
+ogImageTitle: Hubungkan Kluster Kubernetes yang Sudah Ada
+ogImageSubtitle: Kelola kluster Anda melalui Zeabur
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Hubungkan Kluster Kubernetes yang Sudah Ada
+
+Jika Anda sudah membeli atau membuat kluster Kubernetes melalui penyedia cloud lain, Anda dapat menghubungkannya ke Zeabur dan tetap menikmati pengalaman deployment dan manajemen Zeabur.
+
+Skenario umum meliputi:
+
+- Anda sudah memiliki kluster di AWS, GCP, DigitalOcean, Hetzner, atau penyedia lain.
+- Anda ingin mempertahankan topologi jaringan, lokasi data, atau konfigurasi kepatuhan yang sudah ada.
+- Anda ingin memusatkan operasional Kubernetes sehari-hari di Dashboard Zeabur.
+
+## Sebelum Memulai
+
+Sebelum memulai, pastikan hal-hal berikut:
+
+- Kubernetes API Server Anda dapat diakses dari Zeabur.
+- Anda memiliki izin yang cukup untuk memberikan kredensial akses yang dibutuhkan Zeabur untuk terhubung ke kluster.
+- Kluster Anda dalam kondisi sehat, serta komponen node, jaringan, dan penyimpanan sudah dikonfigurasi.
+
+## Langkah-Langkah Menghubungkan
+
+<Steps>
+
+### Masuk ke Zeabur
+
+Buka halaman [Server](https://zeabur.com/servers).
+
+### Pilih Kluster dan Buat
+
+Pilih **Kluster**, lalu klik **Buat** di pojok kanan atas.
+![cluster page](/cluster/cluster-page.webp)
+
+### Pilih Hubungkan Kluster Anda Sendiri
+
+Dalam alur pembuatan, pilih **Hubungkan Kluster Anda Sendiri**.
+![create cluster](/cluster/create-cluster.webp)
+
+### Unggah Kubeconfig Anda
+
+Zeabur akan otomatis membaca informasi kluster dari file tersebut dan mencoba memverifikasi koneksi.
+![upload kubeconfig](/cluster/upload-kubeconfig.webp)
+
+### Atur Penyedia dan Lokasi
+
+Atur Penyedia (misalnya `LINODE`), Negara (misalnya `US`), Kota, Benua, dan kolom lainnya — kolom-kolom ini hanya digunakan untuk keperluan tampilan dan dapat diisi bebas.
+![cluster provider](/cluster/update-details.webp)
+
+### Hubungkan Kluster dan tunggu
+
+Klik **Hubungkan Kluster** dan tunggu hingga Zeabur selesai menghubungkan dan menginisialisasi kluster — biasanya memerlukan waktu 3–5 menit.
+
+### Kluster muncul di daftar server
+
+Setelah selesai, kluster akan muncul di daftar server Anda, dan Anda dapat menggunakannya untuk membuat proyek dan men-deploy layanan langsung dari Zeabur.
+![cluster information](/cluster/cluster-information.webp)
+
+</Steps>
+
+<Callout type="warning">
+  Menghubungkan kluster yang sudah ada tidak akan membangun ulang environment Kubernetes Anda secara otomatis. Jika kluster Anda menggunakan konfigurasi jaringan, Ingress, StorageClass, atau kebijakan keamanan kustom, pastikan konfigurasi tersebut kompatibel dengan persyaratan deployment Zeabur sebelum melanjutkan.
+</Callout>
+
+## Langkah Selanjutnya
+
+- Untuk membuat kluster baru langsung melalui Zeabur, lihat [Beli Kluster](/cluster/purchase).
+- Untuk mempelajari perbedaan antara kluster dan server, lihat [Ikhtisar Kluster](/cluster).

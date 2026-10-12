@@ -1,0 +1,79 @@
+---
+title: Astro
+ogImageTitle: Deploy Astro di Zeabur
+ogImageSubtitle: Deploy Astro di Zeabur
+---
+
+import { Callout } from 'nextra/components';
+
+# Deploy Astro di Zeabur
+
+[Astro](https://astro.build/) adalah tool pembuatan situs web modern dengan pengalaman developer yang andal dan output yang ringan.
+
+Panduan ini akan membantu Anda men-deploy situs Astro Anda di Zeabur.
+
+## Langkah 1: Membuat Proyek Astro
+
+Anda dapat membuat proyek Astro menggunakan perintah di bawah ini dan mengikuti petunjuk untuk konfigurasinya.
+
+```bash
+npm create astro@latest
+```
+
+## Langkah 2: Menyiapkan Adapter Node.js
+
+Gunakan [`@astrojs/node`](https://docs.astro.build/en/guides/integrations-guide/node/) resmi dari Astro untuk men-deploy proyek Anda di Zeabur dengan mode kontainerisasi:
+
+```js
+import node from '@astrojs/node';
+
+export default {
+  // ...
+  adapter: node({ mode: 'standalone' }),
+  output: 'server'
+  // ...
+};
+```
+
+## Langkah 3: Deploy ke Zeabur
+
+### Metode 1: Menggunakan Zeabur CLI
+
+Pertama, pastikan Anda telah menginstal Zeabur CLI sesuai panduan [Deploy dengan CLI](/developer/cli).
+
+Kemudian, di proyek Astro yang baru Anda inisialisasi, tambahkan file yang belum di-commit ke Git.
+
+```bash
+git add -A
+git commit -m "Initial commit"
+```
+
+Selanjutnya, deploy layanan Anda menggunakan perintah di bawah ini.
+
+```bash
+zeabur
+```
+
+### Metode 2: Menggunakan Dashboard Zeabur
+
+Buka [Dashboard Zeabur](https://zeabur.com) dan buat proyek baru.
+
+Kemudian, klik tombol `Tambah Layanan Baru` dan pilih deploy dari GitHub.
+
+<Callout>
+    Jika ini pertama kalinya Anda men-deploy proyek dari GitHub di Zeabur, Anda perlu mengonfigurasi dan menginstal
+    GitHub App.
+    Anda dapat melihat panduan yang lebih detail [di sini](/deploy/methods/github-integration).
+</Callout>
+
+Setelah memilih repositori dan branch, Zeabur akan otomatis mulai melakukan build layanan Anda.
+
+Zeabur akan otomatis mendeteksi bahwa layanan Anda dibangun dengan Astro, sehingga Anda tidak perlu melakukan konfigurasi tambahan. Deployment Anda akan selesai dalam beberapa menit.
+
+## Langkah 4: Menghubungkan Domain
+
+Setelah deployment selesai, Anda mungkin perlu mengonfigurasi domain untuk situs Astro Anda.
+
+Buka tab "Domain" di halaman layanan dan klik "Generate Domain" atau "Domain Kustom".
+
+Untuk informasi lebih lanjut tentang cara menghubungkan domain ke layanan Anda, silakan lihat [Menghubungkan domain](/deploy/networking/public-networking).

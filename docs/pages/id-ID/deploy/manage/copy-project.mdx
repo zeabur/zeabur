@@ -1,0 +1,59 @@
+---
+title: Salin Proyek
+ogImageTitle: Salin Proyek
+ogImageSubtitle: Salin proyek Anda ke region mana pun dengan satu klik di Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Salin Proyek
+
+Zeabur menyediakan **fitur Salin Proyek** yang memungkinkan Anda menyalin proyek ke region mana pun dengan mudah.
+
+Anda cukup membuka halaman pengaturan proyek untuk menemukan **fitur salin proyek satu klik**. Fitur ini akan secara otomatis menyalin seluruh proyek Anda ke region mana pun yang Anda pilih, termasuk arsitektur proyek, environment variables, bahkan data disk Anda. Seluruh proses hanya memakan waktu beberapa menit, sehingga sangat menghemat waktu dan tenaga Anda.
+
+- **Proyek tanpa disk:** Jika proyek Anda tidak memiliki penyimpanan disk yang di-mount, proses penyalinan bahkan dapat mencapai **zero downtime**, dengan pengalaman semulus me-restart layanan.
+- **Proyek dengan disk:** Jika proyek Anda memiliki penyimpanan disk yang di-mount, waktu penyalinan akan bergantung pada ukuran data. Backend kami akan secara otomatis mencadangkan data disk Anda ke penyimpanan S3 lalu memulihkannya ke proyek baru, sehingga data Anda tetap lengkap dan aman.
+
+## Deskripsi Konten yang Disalin
+
+<Callout>
+    Fitur salin proyek akan menyalin proyek Anda secara lengkap, **termasuk semua data**. Setelah penyalinan, Anda perlu mengikat ulang domain karena pengaturan domain dari proyek asli tidak akan diwarisi secara otomatis.
+</Callout>
+
+Saat menyalin proyek, konten berikut akan disalin secara lengkap:
+- **Arsitektur Proyek**: Semua konfigurasi layanan dan hubungan antar layanan
+- **Tipe Layanan**: Docker image, repositori Git, dan lainnya
+- **Environment Variables**: Semua environment variables yang telah dikonfigurasi
+- **Data Disk**: Semua data di penyimpanan disk
+- **Pengaturan Jaringan**: Konfigurasi port dan aturan jaringan
+
+## Catatan Penting
+
+1. **Penyalinan Zero Downtime**: Proyek tanpa penyimpanan disk dapat disalin tanpa downtime, sedangkan waktu penyalinan proyek dengan penyimpanan disk bergantung pada ukuran data.
+
+2. **Integritas Data**: Selama proses penyalinan, semua data akan dicadangkan dan dipulihkan secara lengkap untuk memastikan keamanan data.
+
+3. **Pengikatan Ulang Domain**: Proyek hasil salinan perlu mengikat ulang domain dan tidak akan otomatis mewarisi pengaturan domain dari proyek asli.
+
+4. **Konsumsi Sumber Daya**: Proses penyalinan akan menggunakan ruang penyimpanan tambahan untuk sementara waktu guna mencadangkan data.
+
+## Cara Menggunakan
+
+Fitur salin proyek terdapat di pengaturan proyek Anda.
+
+### 1. Buka pengaturan proyek dan temukan tombol "Salin Proyek"
+
+![step 1.1](https://cdn.zeabur.com/clone-project/step-1.1.png)
+
+![step 1.2](https://cdn.zeabur.com/clone-project/step-1.2.png)
+
+### 2. Pilih region tujuan
+
+![step 2.1](https://cdn.zeabur.com/clone-project/step-2.1.png)
+
+### 3. Tunggu beberapa menit hingga penyalinan selesai
+
+![step 3.1](https://cdn.zeabur.com/clone-project/step-3.1.png)
+
+![step 3.2](https://cdn.zeabur.com/clone-project/step-3.2.png)

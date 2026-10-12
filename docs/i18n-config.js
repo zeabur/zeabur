@@ -1,5 +1,5 @@
 export default {
-  locales: ['en-US', 'zh-TW', 'zh-CN', 'ja-JP', 'es-ES'],
+  locales: ['en-US', 'zh-TW', 'zh-CN', 'ja-JP', 'es-ES', 'id-ID'],
   defaultLocale: 'en-US',
 }
 

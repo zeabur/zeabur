@@ -1,0 +1,66 @@
+---
+title: InsForge
+ogImageTitle: InsForge
+ogImageSubtitle: Backend-as-a-Service Agent-native di Zeabur
+---
+
+# InsForge
+
+InsForge adalah alternatif Supabase yang agent-native dan terintegrasi ke dalam Zeabur, membantu developer yang membutuhkan backend dan database sederhana serta ringan tanpa harus men-deploy layanan lengkap. AI agent dapat membangun dan mengelola aplikasi full-stack secara mandiri melalui protokol MCP.
+
+## Fitur Utama
+
+- **Database PostgreSQL** - REST API instan untuk database Anda tanpa konfigurasi
+- **Autentikasi JWT** - Autentikasi bawaan dengan dukungan login sosial
+- **Penyimpanan File Kompatibel S3** - Simpan dan sajikan file dengan API yang sudah familiar
+- **Serverless Edge Function** - Deploy logika sisi server tanpa mengelola infrastruktur
+- **Dukungan Protokol MCP** - Hubungkan AI IDE Anda dan biarkan agent mengelola backend Anda secara mandiri
+
+## Cara Kerja
+
+import { Callout } from 'nextra/components'
+
+1. **Aktifkan InsForge** di dashboard proyek Zeabur Anda
+2. **Hubungkan AI IDE Anda** (Cursor, Claude Code, Windsurf, Trae, Cline, Roo Code) melalui protokol MCP
+3. **Biarkan AI agent Anda membangun** - agent dapat secara mandiri membuat tabel, mengelola autentikasi, menangani penyimpanan, dan lainnya
+
+<Callout type="info">
+  InsForge menyediakan instance backend khusus untuk setiap proyek Zeabur. Setiap instance memiliki API endpoint dan API key tersendiri.
+</Callout>
+
+## AI IDE yang Didukung
+
+InsForge terintegrasi dengan mulus dengan alat AI coding populer melalui protokol MCP:
+
+| AI IDE | Instalasi |
+| --- | --- |
+| Cursor | Instalasi sekali klik melalui deeplink |
+| Claude Code | Perintah terminal |
+| Trae | Perintah terminal |
+| Cline | Perintah terminal |
+| Windsurf | Perintah terminal |
+| Roo Code | Perintah terminal |
+| Lainnya (MCP JSON) | Konfigurasi MCP manual |
+
+## Memulai
+
+Lihat [Panduan Mulai Cepat](/id-ID/integrations/insforge/quick-start) untuk mengaktifkan InsForge dan menghubungkan AI IDE pertama Anda dalam hitungan menit.
+
+## Harga
+
+InsForge ditagih secara terpisah dan **tidak termasuk dalam kredit gratis**. Karena InsForge adalah layanan yang di-hosting di cloud, biaya tetap berlaku meskipun proyek Zeabur Anda berjalan di server. Anda hanya membayar sumber daya yang benar-benar digunakan oleh backend Anda:
+
+| Item | Tarif |
+| --- | --- |
+| Jam Komputasi (Nano EC2 + EBS + Public IP) | $0.006 / jam |
+| Ukuran Database | $0.125 / GB / bulan |
+| Penyimpanan | $0.021 / GB / bulan |
+| Egress | $0.1 / GB |
+| LLM AI Credits | $0.1 / kredit |
+
+- **Tanpa batasan buatan** - Tidak ada batas rate API, batas jumlah baris, maupun batas jumlah pengguna
+- **Tagihan terpadu** - Semua biaya digabungkan ke dalam tagihan proyek Zeabur Anda yang sudah ada
+
+<Callout type="warning">
+  Sebelum mengaktifkan InsForge, pastikan Anda telah menyimpan kartu kredit dan memiliki saldo akun yang mencukupi.
+</Callout>

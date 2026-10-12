@@ -1,0 +1,146 @@
+---
+title: Transfer kepemilikan ke Tim
+ogImageTitle: Transfer kepemilikan
+ogImageSubtitle: Pindahkan proyek dan server pribadi ke dalam Tim
+---
+
+import { Callout, Steps } from 'nextra/components';
+
+# Transfer kepemilikan ke Tim
+
+Jika Anda memiliki proyek atau server dedicated di **workspace pribadi** Anda, Anda dapat menyerahkannya ke [Tim](/team) sehingga tagihan, kuota, dan kepemilikannya berpindah ke entitas Tim. Setelah transfer, Anda tetap dapat mengerjakan sumber daya tersebut sebagai anggota Tim — pekerjaannya tidak berubah, hanya siapa yang membayar dan siapa pemiliknya.
+
+## Kapan melakukan transfer
+
+- Anda memulai proyek sendirian dan kini ingin mengajak rekan kerja dengan tagihan bersama.
+- Perusahaan Anda mengganti biaya pemakaian Anda — faktur perlu ditujukan ke entitas perusahaan, bukan ke nama pribadi Anda.
+- Anda ingin proyek atau server tetap ada terlepas dari akun pengguna individual mana pun, sehingga serah terima tidak bergantung pada satu orang.
+
+Jika Anda hanya perlu memberikan akses ke satu proyek atau server kepada orang lain tanpa mengubah tagihan, undang mereka sebagai kolaborator — lihat [Kelola anggota](/team/manage-members) untuk perbandingannya.
+
+## Apa saja yang dapat ditransfer
+
+Dua jenis sumber daya mendukung transfer ke Tim:
+
+- **Proyek** (beserta semua layanan, environment, deployment, riwayat build, dan data runtime-nya)
+- **Server dedicated** (mesin yang mendasarinya beserta tagihan perpanjangannya)
+
+Mentransfer proyek **tidak** ikut mentransfer server tempat proyek tersebut berjalan, dan mentransfer server **tidak** ikut mentransfer proyek yang di-deploy di atasnya. Keduanya adalah operasi independen dan harus dilakukan secara terpisah jika Anda ingin memindahkan keduanya.
+
+## Prasyarat
+
+Sebelum transfer dapat berhasil, semua kondisi berikut harus terpenuhi:
+
+- **Anda saat ini memiliki sumber daya tersebut** di workspace pribadi Anda (atau merupakan administrator Tim asal jika sumber daya sudah dimiliki Tim), atau Anda adalah administrator staf Zeabur yang bertindak atas nama pemilik.
+- **Anda adalah administrator Tim tujuan.** Editor dan Viewer tidak dapat menarik sumber daya ke dalam Tim.
+- **Tim tujuan memiliki paket Team yang aktif.** Tim yang belum mengaktifkan paket Team tidak dapat memiliki proyek atau server — dialog transfer akan menampilkan pesan *"This team has no active Team Plan. Switch to the team workspace and subscribe before transferring."* Lihat [Mengaktifkan paket Team](/team#activating-the-team-plan).
+
+Khusus untuk transfer server, ada dua pemeriksaan tambahan:
+
+- Server **tidak boleh dalam status ditangguhkan** (server yang dihentikan karena tagihan belum dibayar atau pelanggaran kebijakan tidak dapat ditransfer — selesaikan penangguhannya terlebih dahulu).
+- Untuk transfer ke **pengguna** (tidak relevan saat mentransfer ke Tim), pengguna tersebut harus sudah memiliki metode pembayaran atau kredit yang cukup untuk satu siklus perpanjangan.
+
+<Callout type="info">
+  Transfer hanya dapat dilakukan jika paket Team aktif *pada saat transfer dilakukan*. Dashboard tidak akan mengizinkan Anda mengirim transfer ke Tim yang tidak aktif — administrator Tim tersebut harus berlangganan terlebih dahulu. Lihat [Tagihan Tim](/team/billing).
+</Callout>
+
+## Mentransfer proyek
+
+<Steps>
+### Buka pengaturan proyek
+
+Beralih ke workspace pribadi Anda dan buka proyeknya. Buka **Pengaturan → Zona Berbahaya**, tempat Anda akan melihat **Transfer kepemilikan proyek**.
+
+### Buka dialog transfer
+
+Klik **Transfer kepemilikan**. Dialog berjudul *Transfer kepemilikan proyek* akan muncul.
+
+### Pilih **Transfer ke tim**
+
+Dialog memiliki dua tab — **Transfer ke pengguna** dan **Transfer ke tim**. Pilih **Transfer ke tim**.
+
+### Pilih Tim tujuan
+
+Anda akan melihat dropdown berisi semua Tim tempat Anda menjadi administrator. Tim tanpa paket Team aktif ditandai dengan badge **Free** dan tidak dapat dipilih untuk konfirmasi — dialog akan menampilkan pesan *"This team has no active Team Plan. Switch to the team workspace and subscribe before transferring."*
+
+### Konfirmasi
+
+Ketik **nama proyek** di kolom konfirmasi, lalu klik **Transfer**.
+</Steps>
+
+Yang langsung berubah jika transfer berhasil:
+
+- Kepemilikan proyek berpindah ke Tim. Sejak saat itu, semua biaya deployment, runtime, bandwidth, dan kuota berikutnya ditagihkan ke metode pembayaran Tim.
+- Proyek tetap berfungsi sepenuhnya. Layanan, environment, deployment, domain kustom, sertifikat SSL, environment variables, riwayat build, dan status runtime tidak terpengaruh.
+- ID proyek dan domain kustom tetap sama — tidak ada yang perlu dikonfigurasi ulang di sisi DNS Anda.
+- **Kolaborator proyek yang sudah ada tetap dipertahankan.** Kolaborator pada proyek milik Tim adalah lapisan akses tambahan yang terpisah dari keanggotaan Tim; transfer tidak mengatur ulang mereka.
+- Jika Anda bukan anggota Tim tujuan, Anda kehilangan akses kepemilikan langsung atas proyek tersebut. Agar tetap dapat mengerjakannya di bawah Tim, administrator perlu menambahkan Anda sebagai anggota Tim dengan peran yang sesuai.
+
+## Mentransfer server dedicated
+
+<Steps>
+### Buka pengaturan server
+
+Beralih ke workspace pribadi Anda, buka server, lalu buka **Pengaturan → Zona Berbahaya → Transfer kepemilikan**.
+
+### Buka dialog transfer
+
+Klik **Transfer kepemilikan** untuk menampilkan dialog *Transfer kepemilikan server*.
+
+### Pilih **Transfer ke tim**
+
+Di dalam dialog, beralih ke tab **Transfer ke tim**.
+
+### Pilih Tim tujuan
+
+Dropdown menampilkan Tim tempat Anda menjadi administrator. Tim tanpa paket Team aktif ditandai dengan jelas sebagai **Free** dan tidak dapat dikonfirmasi — pemberitahuan wajib upgrade yang sama seperti pada transfer proyek berlaku di sini.
+
+### Konfirmasi
+
+Ketik **nama server** di kolom konfirmasi, lalu klik **Transfer**.
+</Steps>
+
+Yang berubah:
+
+- Faktur perpanjangan berikutnya untuk server ini ditagihkan ke Tim mulai dari tanggal ulang tahun penagihan berikutnya.
+- **Periode prabayar saat ini tetap menjadi milik pemilik semula** — tidak ada pengembalian dana, tidak ada prorata, dan tidak ada tagihan langsung ke Tim. Tim baru mulai membayar pada perpanjangan berikutnya.
+- Anda secara otomatis tetap memiliki akses hanya-baca ke server sebagai kolaborator setelah transfer. Untuk menghapus akses tersebut sepenuhnya, minta administrator dari pemilik baru untuk mengeluarkan Anda dari daftar kolaborator.
+- **Proyek yang sudah di-deploy di server TIDAK ikut ditransfer.** Proyek-proyek tersebut tetap dimiliki oleh pemiliknya saat ini; hanya server yang mendasarinya yang berpindah. Jika Anda juga ingin memindahkan proyek, transfer proyek tersebut secara terpisah dengan mengikuti langkah-langkah di atas.
+
+<Callout type="warning">
+  Transfer server dari dashboard bersifat satu arah. Pemilik baru dapat mentransfernya kembali nanti, tetapi Anda tidak dapat membatalkannya dari sisi Anda. Periksa kembali Tim tujuan sebelum mengonfirmasi.
+</Callout>
+
+## Membatalkan transfer
+
+Alur transfer yang sama juga tersedia ke arah sebaliknya. Administrator Tim yang kini memiliki proyek atau server dapat mentransfernya kembali ke pengguna pribadi (atau ke Tim lain) menggunakan menu **Transfer kepemilikan** yang sama di pengaturan sumber daya. Kedua arah menggunakan prasyarat yang sama — paket Team harus aktif pada Tim mana pun yang terlibat, dan penerima harus memenuhi pemeriksaan akses dan tagihan di atas.
+
+## FAQ
+
+**Dashboard menampilkan "This team has no active Team Plan" — apa yang harus dilakukan?**
+Administrator Tim tersebut harus mengaktifkan paket Team terlebih dahulu. Beralih ke workspace Tim, buka **Akun → Langganan**, lalu klik **Aktifkan paket Team**. Lihat [Tagihan Tim](/team/billing).
+
+**Rekan kerja saya masih tidak dapat melihat proyek setelah transfer — mengapa?**
+Mentransfer kepemilikan hanya mengubah siapa yang memiliki dan membayar sumber daya tersebut. Untuk memberikan akses kepada rekan kerja, mereka juga perlu ditambahkan sebagai anggota di Tim tujuan. Lihat [Kelola anggota](/team/manage-members).
+
+**Apakah domain kustom dan sertifikat SSL tetap berfungsi setelah transfer?**
+Ya. Domain dan sertifikat adalah milik proyek, bukan milik pemiliknya. Tidak ada yang perlu dikonfigurasi ulang.
+
+**Apakah faktur berikutnya untuk proyek ini dikirim ke saya atau ke Tim?**
+Ke Tim. Transfer proyek langsung mengalihkan tagihan — setiap biaya sejak saat transfer dan seterusnya masuk ke faktur Tim.
+
+**Apakah faktur berikutnya untuk server dedicated ini dikirim ke saya atau ke Tim?**
+Periode prabayar saat ini sudah Anda bayar dan tetap menjadi milik Anda. Faktur pertama Tim untuk server tersebut adalah perpanjangan pada tanggal ulang tahun penagihan *berikutnya*.
+
+**Apakah saya dapat mentransfer satu layanan saja dari sebuah proyek?**
+Tidak. Layanan terikat pada proyek. Untuk memindahkan layanan ke Tim, Anda harus mentransfer seluruh proyek (atau membuat ulang layanan tersebut di proyek milik Tim).
+
+**Apakah saya dapat mentransfer proyek dari satu Tim langsung ke Tim lain?**
+Ya — administrator Tim asal dapat mentransfer proyek milik Tim ke Tim lain tempat mereka juga menjadi administrator, dengan mengikuti alur yang sama. Kedua Tim harus memiliki paket Team yang aktif.
+
+## Langkah selanjutnya
+
+- [Ikhtisar Tim](/team)
+- [Buat Tim](/team/create-team)
+- [Kelola anggota dan peran](/team/manage-members)
+- [Tagihan Tim](/team/billing)

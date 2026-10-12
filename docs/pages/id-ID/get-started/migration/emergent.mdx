@@ -1,0 +1,183 @@
+---
+title: Impor Emergent
+ogImageTitle: Impor Emergent
+ogImageSubtitle: Impor proyek Emergent Anda 
+---
+
+## Cara Bermigrasi dari Emergent ke Zeabur
+
+Panduan ini adalah cara termudah untuk mengubah kode yang telah Anda bangun di cloud IDE seperti Emergent menjadi aplikasi siap production yang online 24/7.
+
+### Ikhtisar
+
+[**Emergent**](https://emergent.sh) sangat bagus untuk membuat prototipe dan menjalankan kode dengan cepat di browser. Namun, ketika Anda siap membagikan aplikasi Anda ke dunia tanpa instance yang "tertidur" atau batasan bandwidth, Anda memerlukan hosting profesional.
+
+Kami sangat merekomendasikan **Zeabur** karena Zeabur menyederhanakan transisi dari prototipe ke production. Dengan ekstensi Zeabur untuk editor lokal Anda, Anda dapat men-deploy aplikasi tanpa memerlukan file konfigurasi yang rumit.
+
+**Alur Kerja:**
+
+- **Ekspor:** Unduh codebase Anda dari Emergent.
+- **Siapkan:** Buka proyek secara lokal di **VS Code** atau **Cursor**.
+- **Deploy:** Gunakan **Ekstensi Zeabur** untuk menayangkan aplikasi Anda secara online dengan satu klik.
+
+> 📝 Catatan Penting: Panduan ini mencakup full stack. Pertama-tama kita akan men-deploy kode aplikasi Anda, lalu pada Langkah 7, kita akan membahas secara khusus cara menyediakan dan menghubungkan database MongoDB untuk aplikasi yang perlu menyimpan data pengguna.
+> 
+
+### Prasyarat
+
+- Akses ke proyek Emergent Anda.
+- [VS Code](https://code.visualstudio.com/) atau [Cursor](https://cursor.sh/) terinstal di komputer Anda.
+- Akun [Zeabur](https://zeabur.com/).
+- Node.js terinstal secara lokal (disarankan versi 18+).
+
+### Ikhtisar Migrasi
+
+Rencana ini memindahkan Anda dari sandbox berbasis browser ke lingkungan pengembangan lokal yang profesional dengan hosting di cloud yang skalabel.
+
+- **Sumber:** Emergent (Node.js, Python, atau Go).
+- **Editor:** VS Code / Cursor.
+- **Host:** Zeabur.
+
+## Langkah 1: Ekspor Codebase Anda
+
+### Opsi 1: Metode Unduh Langsung (Terbaik untuk ekspor sederhana)
+
+1. **Bangunkan Agent Anda:**
+Jika proyek Anda sudah lama tidak aktif, Anda mungkin melihat pesan "Agent went to sleep." Klik proyek Anda untuk membangunkannya.
+2. **Akses Code Viewer:**
+Cari tombol **"Code"** (biasanya di dekat kanan atas antarmuka proyek).
+    
+    ![Emergent Vscode](https://cdn.zeabur.com/emergent%20/Emergent%20Vscode.png)
+    
+3. **Dapatkan Kredensial:**
+Saat Anda mengklik "Code", sebuah popup akan muncul dengan dua hal:
+    
+    ![Click Vscode Link](https://cdn.zeabur.com/emergent%20/Click%20Vscode%20Link.png)
+    
+    - Sebuah **Tautan** ke lingkungan VS Code.
+    - Sebuah **Kata Sandi**.
+    **Salin kata sandi terlebih dahulu**, lalu klik tautan untuk membukanya di tab baru.
+4. **Buka Kunci Editor:**
+Tempelkan kata sandi yang telah Anda salin ke kolom yang diminta lalu tekan Enter. Anda sekarang akan melihat antarmuka VS Code lengkap di browser Anda.
+5. **Unduh Folder:**
+    - Di sidebar kiri (File Explorer), Anda akan melihat folder proyek Anda (biasanya `frontend`, `backend`, atau hanya root proyek).
+    - **Klik kanan** folder yang ingin Anda simpan.
+    - Pilih **Download**.
+    - Folder tersebut akan disimpan sebagai file `.zip` di komputer Anda.
+
+---
+
+### Opsi 2: Metode Sinkronisasi GitHub (Terbaik untuk migrasi, tetapi perlu upgrade)
+
+Jika Anda berencana pindah ke Zeabur atau host lain, melakukan push langsung ke GitHub sering kali lebih rapi daripada mengunduh file zip.
+
+1. **Hubungkan GitHub:**
+Di antarmuka chat/dashboard utama Emergent, cari **ikon GitHub** atau tombol "Connect GitHub" di pengaturan profil Anda.
+2. **Otorisasi:**
+Ikuti petunjuk untuk mengotorisasi Emergent agar dapat mengakses akun GitHub Anda.
+3. **Push Kode:**
+Di antarmuka chat, ketik perintah seperti:
+    
+    > "Push this code to a new GitHub repository named my-app-export"
+    > 
+4. **Verifikasi:**
+Buka akun GitHub Anda untuk memastikan repositori telah dibuat. Anda kemudian dapat meng-clone repositori ini secara lokal menggunakan `git clone`.
+
+## Langkah 2: Siapkan Lingkungan Lokal (Cursor)
+
+Setelah kode berada di GitHub, Anda akan menyiapkannya secara lokal untuk memverifikasi dependensi dan melakukan penyesuaian untuk production.
+
+1. **Clone Repositori:**
+Buka Cursor, buka Command Palette (`Cmd+Shift+P` atau `Ctrl+Shift+P`), lalu ketik `> Git: Clone`. Tempelkan URL repositori baru Anda.
+    
+    *Alternatifnya, melalui terminal:*
+    
+    ```bash
+    git clone <https://github.com/your-username/your-repo-name.git>
+    cd your-repo-name
+    
+    ```
+    
+2. **Instal Dependensi:**
+Proyek biasanya mendeteksi package manager secara otomatis. Periksa keberadaan lock file (`pnpm-lock.yaml`, `package-lock.json`, atau `yarn.lock`).
+    
+    ```bash
+    # Jika menggunakan npm
+    npm install
+    
+    # Jika menggunakan pnpm
+    pnpm install
+    
+    ```
+    
+3. **Pengaturan Environment:**
+    - Temukan file `.env.example` (jika ada) dan duplikat file tersebut untuk membuat file `.env`.
+    - **Penting:** Jika aplikasi Anda menggunakan API key (OpenAI, Supabase, dll.), Anda harus menambahkan key tersebut secara manual ke file `.env` lokal Anda. Secret ini tidak diekspor ke GitHub demi alasan keamanan.
+4. **Uji Lokal:**
+Jalankan development server untuk memastikan aplikasi berfungsi secara lokal.
+    
+    ```bash
+    npm run dev
+    
+    ```
+    
+
+---
+
+## Langkah 3: Buka di Editor Lokal dan Instal Ekstensi Zeabur
+
+Ekstrak file dan buka folder proyek di editor kode lokal seperti VS Code atau Cursor. Agar proses deploy menjadi sangat mudah, Anda akan menggunakan ekstensi Zeabur.
+
+1. Buka Extensions Marketplace di editor Anda.
+2. Cari "Zeabur" lalu klik **Install**.
+    
+![Download Zeabur Extensions.png](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
+    
+
+## Langkah 4: Deploy dengan Satu Klik
+
+Sekarang saatnya keajaiban terjadi. Dengan ekstensi yang sudah terinstal, men-deploy proyek Anda hanya butuh beberapa klik.
+
+1. Klik ikon Zeabur yang baru di activity bar sebelah kiri.
+2. Klik tombol **"Deploy"**.
+
+Editor Anda kemudian akan meminta izin untuk membuka tautan di browser. Klik **"Open"**.
+
+![Click Deploy and Open .png](https://cdn.zeabur.com/replit%20migration%20/Click%20Deploy%20and%20Open%20.png)
+
+## Langkah 5: Biarkan AI Agent Zeabur Menangani Sisanya
+
+Setelah Anda dialihkan ke Zeabur, AI agent platform akan mengambil alih. Agent ini menganalisis kode Anda untuk memahami struktur proyek, dependensi, dan kebutuhan build.
+
+Agent Zeabur akan:
+
+- Mengenali bahwa Anda memiliki aplikasi full-stack (misalnya frontend React dan backend Express).
+- Mengonfigurasi build command dan start command secara otomatis.
+- Menyediakan semua layanan yang diperlukan.
+
+Anda akan diminta memilih proyek dan region deployment. Setelah itu, Zeabur akan menangani semuanya.
+
+![Zeabur Agent Handle the rest.png](https://cdn.zeabur.com/new%20agent.png)
+
+Anda dapat melihat secara real-time saat layanan Anda di-build hingga beroperasi sepenuhnya. Zeabur bahkan langsung memberikan domain yang aktif begitu deployment berhasil.
+
+## Langkah 6: Domain & Jaringan
+
+1. Klik Layanan Anda di Zeabur.
+2. Buka tab **Jaringan**.
+3. Klik **Generate Domain** (untuk mendapatkan domain `.zeabur.app`) atau **Domain Kustom** untuk menghubungkan domain Anda sendiri.
+4. Kunjungi URL tersebut. Aplikasi Emergent Anda kini telah menjadi aplikasi production yang ter-deploy sepenuhnya.
+
+## Langkah 7: Hubungkan Database (MongoDB)
+
+Jika aplikasi Emergent Anda perlu menyimpan data pengguna secara persisten, sediakan layanan MongoDB dan hubungkan ke aplikasi Anda.
+
+1. Deploy MongoDB di Zeabur menggunakan template MongoDB:
+   **👉 [Template MongoDB](https://zeabur.com/templates/KXL04P)**
+2. Di halaman layanan MongoDB, buka tab **Instruksi** / **Connections** dan salin connection string (URI).
+3. Atur environment variable aplikasi Anda (umumnya `MONGO_URI`) ke URI tersebut:
+   - **Pengembangan lokal**: gunakan connection string **Public**.
+   - **Aplikasi yang di-deploy di Zeabur**: gunakan connection string **Internal/Private** (lebih cepat dan tidak menggunakan bandwidth publik).
+
+---
+Selesai! Anda telah berhasil memindahkan proyek Anda dari prototipe di Emergent menjadi aplikasi yang online dan siap production di Zeabur tanpa menulis satu baris konfigurasi pun. Alur kerja yang mulus ini memungkinkan Anda fokus pada hal yang paling penting: membangun perangkat lunak yang hebat.

@@ -1,0 +1,148 @@
+---
+title: Impor Replit
+ogImageTitle: Replit ke Zeabur
+ogImageSubtitle: Migrasikan proyek Replit Anda ke Zeabur
+---
+
+## Cara Men-deploy Proyek Replit Anda ke Web dengan Zeabur
+
+Panduan ini adalah cara termudah untuk mengubah kode yang dihasilkan oleh **Replit** menjadi situs web nyata yang online dan dapat Anda bagikan kepada teman atau pelanggan.
+
+### Ikhtisar
+
+**Replit** sangat bagus untuk membuat desain dan fitur aplikasi Anda, tetapi untuk menayangkannya secara online, Anda memerlukan "hosting". Kami sangat merekomendasikan **Zeabur** karena Zeabur menangani pekerjaan teknis yang berat untuk Anda. Zeabur mengambil kode Anda dan menayangkannya di URL publik hanya dengan beberapa klik.
+
+**Alur Kerja:**
+
+- **Buat:** Hasilkan aplikasi Anda di **Replit**.
+- **Sempurnakan:** Simpan kode ke komputer Anda dan periksa dengan **Cursor**.
+- **Deploy:** Tayangkan secara online di **Zeabur**.
+
+> 📝 Catatan Penting: Panduan ini berfokus untuk membuat situs web Anda online (bagian Frontend). Jika aplikasi Anda perlu menyimpan data pengguna atau login, Anda memerlukan Database. Kami akan membahas cara menambahkan database dalam tutorial lanjutan yang terpisah!
+> 
+
+### Prasyarat
+
+- Akun GitHub.
+- [Cursor](https://cursor.sh/) terinstal di komputer Anda.
+- Akun [Zeabur](https://zeabur.com/).
+- Node.js terinstal secara lokal (disarankan versi 18+).
+
+## Langkah 1: Finalisasi dan Ekspor Proyek Anda dari Replit
+
+Pertama, selesaikan pembuatan aplikasi Anda di lingkungan Replit. Setelah kode Anda siap, Anda perlu mengunduhnya ke mesin lokal Anda.
+
+1. Di proyek Replit Anda, klik menu tiga titik (⋮) di samping bagian "Files".
+2. Dari menu dropdown, pilih **"Download as zip"**.
+
+![Three Dots step 1 step 2](https://cdn.zeabur.com/replit%20migration%20/Three%20Dots%20step%201%20step%202.png)
+
+Seluruh proyek Anda akan disimpan sebagai satu file zip di folder unduhan Anda.
+
+
+## Langkah 2: Siapkan Lingkungan Lokal (Cursor)
+
+Anda harus mengekstrak file zip sebelum membukanya di Cursor, jika tidak deployment akan gagal.
+
+1. **Ekstrak dan Buka Proyek:**
+
+   **Untuk Pengguna Mac:**
+   
+   1. Buka **Finder** dan masuk ke folder **Downloads** Anda.
+   2. **Klik dua kali** file zip yang Anda unduh dari Replit. Ini akan membuat folder baru dengan nama proyek Anda.
+   3. Buka **Cursor**.
+   4. Di bilah menu atas, klik **File** > **Open...** (atau tekan `Cmd + O`).
+   5. Pilih **folder baru hasil ekstrak** (bukan file zip-nya) lalu klik **Open**.
+   
+   **Untuk Pengguna Windows:**
+   
+   1. Buka **File Explorer** dan masuk ke folder **Downloads** Anda.
+   2. **Klik kanan** file zip lalu pilih **"Extract All..."**.
+   3. Klik **Extract**. (Jangan hanya mengklik dua kali file zip untuk melihat isinya; Anda *harus* mengekstraknya).
+   4. Buka **Cursor**.
+   5. Di bilah menu atas, klik **File** > **Open Folder...** (atau tekan `Ctrl + K` lalu `Ctrl + O`).
+   6. Pilih **folder yang baru diekstrak** lalu klik **Select Folder**.
+
+2. **Instal Dependensi:**
+   Proyek Replit biasanya mendeteksi package manager secara otomatis. Periksa keberadaan lock file (`pnpm-lock.yaml`, `package-lock.json`, atau `yarn.lock`).
+   
+   ```bash
+   # Jika menggunakan npm
+   npm install
+   
+   # Jika menggunakan pnpm
+   pnpm install
+   
+   ```
+   
+3. **Pengaturan Environment:**
+   - Temukan file `.env.example` (jika ada) dan duplikat file tersebut untuk membuat file `.env`.
+   - **Penting:** Jika aplikasi Replit Anda menggunakan API key (OpenAI, Supabase, dll.), Anda harus menambahkan key tersebut secara manual ke file `.env` lokal Anda. Replit tidak mengekspor secret Anda demi alasan keamanan.
+   
+4. **Uji Lokal:**
+   Jalankan development server untuk memastikan aplikasi berfungsi secara lokal.
+   
+   ```bash
+   npm run dev
+   ```
+
+## Langkah 3: Buka di Editor Lokal dan Instal Ekstensi Zeabur
+
+Agar proses deploy menjadi sangat mudah, Anda akan menggunakan ekstensi Zeabur.
+
+1. Buka Extensions Marketplace di editor Anda.
+2. Cari "Zeabur" lalu klik **Install**.
+
+![Download Zeabur Extensions](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
+
+## Langkah 4: Deploy dengan Satu Klik
+
+Setelah folder proyek Anda terbuka di Cursor:
+
+1. Klik **ikon Zeabur** yang baru (biasanya logo "Z") di activity bar paling kiri.
+2. Klik tombol **"Deploy"**.
+3. Editor Anda akan meminta izin untuk membuka tautan di browser. Klik **"Open"**.
+
+![Click Deploy and Open](https://cdn.zeabur.com/replit%20migration%20/Click%20Deploy%20and%20Open%20.png)
+
+## Langkah 5: Biarkan AI Agent Zeabur Menangani Sisanya
+
+Setelah Anda dialihkan ke Zeabur, AI agent platform akan mengambil alih. Agent ini menganalisis kode Anda untuk memahami struktur proyek, dependensi, dan kebutuhan build.
+
+Agent Zeabur akan:
+
+- Mengenali bahwa Anda memiliki aplikasi full-stack (misalnya frontend React dan backend Express).
+- Mengonfigurasi build command dan start command secara otomatis.
+- Menyediakan semua layanan yang diperlukan.
+
+![Zeabur Agent Handle the rest](https://cdn.zeabur.com/new%20agent.png)
+
+Anda akan diminta memilih proyek dan region deployment. Setelah itu, Zeabur akan menangani semuanya.
+
+Anda dapat melihat secara real-time saat layanan Anda di-build hingga beroperasi sepenuhnya. Zeabur bahkan langsung memberikan domain yang aktif begitu deployment berhasil.
+
+## Langkah 6 : Domain & Jaringan
+
+1. Klik Layanan Anda di Zeabur.
+2. Buka tab **Jaringan**.
+3. Klik **Generate Domain** (untuk mendapatkan domain `.zeabur.app`) atau **Domain Kustom** untuk menghubungkan domain Anda sendiri.
+4. Kunjungi URL tersebut. Aplikasi Replit Anda kini telah menjadi aplikasi production yang ter-deploy sepenuhnya.
+
+
+
+## Langkah 7: Hubungkan Database (PostgreSQL lebih disarankan)
+
+Jika aplikasi Replit Anda memungkinkan pengguna untuk login, membuat akun, atau menyimpan data, aplikasi tersebut memerlukan database. Dokumentasi Replit merekomendasikan **PostgreSQL** sebagai praktik terbaik.
+
+Saat ini, Anda telah berhasil men-deploy bagian **Frontend** (antarmuka visual). Untuk mengaktifkan data dan autentikasi, Anda perlu menghubungkan database PostgreSQL dan menambahkan detail koneksinya sebagai **Variabel** di Zeabur.
+
+Kami akan menerbitkan tutorial lanjutan khusus yang menunjukkan cara membuat database PostgreSQL di Zeabur dan menghubungkannya ke aplikasi Anda. Jika Anda membutuhkan opsi hosted sekarang, Anda juga dapat menggunakan Supabase (yang berbasis PostgreSQL).
+
+**👉 Ikuti [panduan ini](https://zeabur.com/templates/B20CX0) untuk membuat dan menghubungkan PostgreSQL di Zeabur.**
+
+---
+
+Selesai! Anda telah berhasil memindahkan proyek Anda dari prototipe di Replit menjadi aplikasi yang online dan siap production di Zeabur tanpa menulis satu baris konfigurasi pun. Alur kerja yang mulus ini memungkinkan Anda fokus pada hal yang paling penting: membangun perangkat lunak yang hebat.
+
+
+

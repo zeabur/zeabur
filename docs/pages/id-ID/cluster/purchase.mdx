@@ -1,0 +1,61 @@
+---
+title: Beli Kluster
+ogImageTitle: Beli Kluster
+ogImageSubtitle: Buat kluster Linode di Zeabur dengan sekali klik
+---
+
+import { Steps } from 'nextra/components'
+
+# Beli Kluster
+
+Zeabur menyediakan alur sekali klik untuk membuat kluster Linode, ideal bagi tim yang menginginkan kluster Kubernetes siap pakai tanpa harus menyiapkan control plane, node pool, dan konfigurasi jaringan secara manual.
+
+## Sebelum Memulai
+
+- Pastikan akun Zeabur Anda memiliki metode pembayaran yang valid atau saldo yang mencukupi.
+- Tentukan region dan paket node untuk kluster Anda.
+
+## Langkah-Langkah Pembelian
+
+<Steps>
+
+### Masuk ke Zeabur
+
+Buka halaman [Server](https://zeabur.com/servers).
+
+### Pilih Kluster dan Buat
+
+Pilih **Kluster**, lalu klik **Buat** di pojok kanan atas.
+![cluster page](/cluster/cluster-page.webp)
+
+### Pilih Beli Kluster dari Zeabur
+
+Dalam alur pembuatan, pilih **Beli Kluster dari Zeabur**.
+![create cluster](/cluster/create-cluster.webp)
+
+### Pilih region dan paket node
+
+Pilih region kluster dan paket node, lalu klik **Beli Sekarang**.
+![select cluster plan](/cluster/cluster-select-plan.webp)
+
+### Tinjau dan kirim pesanan Anda
+
+Tinjau biaya dan konfigurasi, lalu kirim pesanan Anda.
+
+### Tunggu pembuatan kluster
+
+Tunggu hingga Zeabur selesai membuat dan menginisialisasi kluster — biasanya memerlukan waktu 3–5 menit.
+
+### Kluster muncul di daftar server
+
+Setelah selesai, kluster baru akan muncul di daftar server Anda, dan Anda dapat menggunakannya untuk membuat proyek dan men-deploy layanan langsung dari Zeabur.
+![cluster information](/cluster/cluster-information.webp)
+
+</Steps>
+
+Setelah kluster dibuat, Zeabur akan menangani penyiapan dasar yang diperlukan untuk mengintegrasikannya, sehingga Anda dapat mengelola deployment langsung dari Dashboard tanpa perlu mengonfigurasi komponen Kubernetes sendiri.
+
+## Langkah Selanjutnya
+
+- Untuk menghubungkan kluster yang sudah ada ke Zeabur, lihat [Hubungkan Kluster yang Sudah Ada](/cluster/bind).
+- Jika Anda masih mempertimbangkan perbedaan antara penyiapan satu node dan multi-node, kembali ke [Ikhtisar Kluster](/cluster).

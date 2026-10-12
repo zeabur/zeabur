@@ -1,0 +1,73 @@
+---
+title: Kuota & Tagihan Kelebihan
+ogImageTitle: Kuota & Tagihan Kelebihan Zeabur Email
+ogImageSubtitle: Kuota pengiriman, harga kelebihan, dan cara penagihannya
+---
+
+# Kuota & Tagihan Kelebihan
+
+import { Callout } from 'nextra/components'
+
+Setiap akun Zeabur Email memiliki **kuota pengiriman bulanan** yang ditentukan oleh paket Zeabur Anda. Pengiriman dalam batas kuota tidak dikenakan biaya. Pada paket **Pro** dan **Team**, pengiriman melebihi kuota tetap diizinkan dan ditagih sebagai **kelebihan (overage)**; pada paket lainnya, pengiriman akan diblokir begitu kuota tercapai.
+
+<Callout type="info">
+Zeabur Email **tidak tersedia pada Free Plan**. Untuk mengirim email, Anda memerlukan setidaknya [Dev Plan](/pricing/dev-plan).
+</Callout>
+
+## Kuota Pengiriman Bulanan
+
+| Paket | Kuota Bulanan | Kuota Harian | Kelebihan |
+|------|---------------|-------------|---------|
+| Free | Tidak tersedia | — | — |
+| Dev  | 3.000 email  | 100 email/hari | Tidak didukung |
+| Pro  | 50.000 email | Tanpa batas | Didukung |
+| Team | 100.000 email | Tanpa batas | Didukung |
+
+Kuota Anda di-reset pada awal setiap siklus tagihan bulanan. Kuota yang telah digunakan dan sisa kuota ditampilkan di dashboard Zeabur Email.
+
+## Apa yang Terjadi Saat Kuota Tercapai
+
+- **Paket Dev** — Pengiriman diblokir begitu Anda mencapai kuota harian atau bulanan. API akan mengembalikan `429 Too Many Requests`. Anda tetap dapat memeriksa riwayat email; pengiriman akan dilanjutkan saat kuota di-reset.
+- **Paket Pro / Team** — Pengiriman tetap berjalan melewati kuota bulanan Anda, dan email tambahan ditagih sebagai kelebihan (lihat di bawah), hingga mencapai batas maksimum (hard cap). Begitu batas maksimum tercapai, pengiriman diblokir hingga siklus tagihan berikutnya.
+
+<Callout type="warning">
+Ketika pengiriman diblokir karena alasan kuota, API akan mengembalikan `429 Too Many Requests` dengan pesan seperti `quota exceeded (current/total), resets at <time>`. Lihat [Referensi REST API](/email/rest-api) untuk format error-nya.
+</Callout>
+
+## Cara Penentuan Harga Kelebihan
+
+Kelebihan hanya berlaku untuk paket **Pro** dan **Team** dan berjalan secara otomatis — Anda tidak perlu mengaktifkan apa pun.
+
+- **Harga:** **US$0,90 per 1.000 email** yang dikirim melebihi kuota bulanan Anda.
+- **Ditagih per blok:** Kelebihan dihitung dalam blok berisi **1.000 email**, dan setiap blok yang *sudah dimulai* ditagih penuh (dibulatkan ke atas). Mengirim satu email saja melewati kuota akan dikenakan tagihan satu blok penuh.
+- **Batas maksimum:** Kelebihan dibatasi hingga **5× kuota bulanan Anda**. Begitu total pengiriman bulanan Anda mencapai batas ini, pengiriman diblokir hingga siklus tagihan berikutnya.
+
+| Paket | Kuota Bulanan | Batas Maksimum Kelebihan (5×) | Biaya Kelebihan Maksimum / siklus |
+|------|---------------|-----------------------|----------------------------|
+| Pro  | 50.000  | 250.000 | 200 blok × $0,90 = **$180,00** |
+| Team | 100.000 | 500.000 | 400 blok × $0,90 = **$360,00** |
+
+**Contoh.** Anda menggunakan paket Pro (kuota 50.000/bulan) dan mengirim 50.003 email dalam satu siklus. Artinya, 3 email melebihi kuota → 1 blok → kelebihan sebesar **$0,90** untuk siklus tersebut.
+
+## Cara Penagihan Kelebihan
+
+Kelebihan **tidak** ditambahkan ke invoice langganan reguler Anda. Di akhir setiap siklus tagihan, Zeabur mengunci total kelebihan pada siklus tersebut dan menagihkannya sebagai **invoice terpisah sekali bayar** ke metode pembayaran yang terdaftar. Anda tidak perlu melakukan tindakan apa pun.
+
+## Kapan Kelebihan Dijeda
+
+- **Pembayaran gagal** — Jika penagihan invoice kelebihan gagal, kelebihan akan dijeda. Anda tetap dapat mengirim email dalam batas kuota bulanan dasar, tetapi kelebihan tambahan dinonaktifkan hingga invoice yang tertunggak diselesaikan.
+- **Perubahan paket** — Jika Anda keluar dari paket Pro atau Team (misalnya downgrade ke Dev), kelebihan dinonaktifkan. Kelebihan yang sudah terakumulasi dalam siklus berjalan tetap akan ditagihkan.
+
+## FAQ
+
+**Apakah kelebihan harus diaktifkan secara manual?**
+Tidak. Pada paket Pro dan Team, kelebihan berlaku secara otomatis. Tidak ada pengaturan per pengguna untuk mengaktifkan atau menonaktifkannya.
+
+**Apakah kuota harian berlaku untuk Pro dan Team?**
+Tidak. Pro dan Team memiliki kuota harian tanpa batas — hanya kuota bulanan dan batas maksimum kelebihan yang berlaku.
+
+**Kapan tepatnya saya ditagih untuk kelebihan?**
+Di akhir siklus tagihan, sebagai invoice terpisah sekali bayar — bukan bersama tagihan langganan reguler Anda.
+
+**Bagaimana jika saya tidak pernah melebihi kuota?**
+Anda tidak akan pernah dikenakan biaya kelebihan. Pengiriman dalam batas kuota bulanan selalu gratis.

@@ -1,0 +1,43 @@
+---
+title: Ekspor Proyek
+ogImageTitle: Ekspor Proyek
+ogImageSubtitle: Ekspor proyek menjadi file yang dapat diimpor ke Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Ekspor Proyek
+
+Zeabur dapat mengekspor informasi deployment sebuah proyek, seperti Docker image, repositori Git, environment variables, volume, dan lainnya, ke dalam file YAML. Hal ini memudahkan Anda untuk mengimpornya ke proyek lain untuk menduplikasi proyek dengan satu klik, atau memublikasikannya ke [Katalog Template](https://zeabur.com/templates) Zeabur agar mudah dibagikan dengan komunitas Zeabur.
+
+<Callout>
+    Perlu diperhatikan bahwa "Ekspor Proyek" **tidak menyertakan data**. Untuk informasi tentang pencadangan dan pemulihan data, silakan lihat dokumentasi [Backup Layanan](/operations/data/backup-restore) dan [Pulihkan Backup](/operations/data/backup-restore)
+</Callout>
+
+## Langkah-Langkah Ekspor
+
+Pertama, klik "Pengaturan" di sidebar proyek, lalu klik tombol "Ekspor" di bagian "Umum".
+
+![project settings](/deploy/export-project/project-settings.webp)
+
+Kemudian, Anda akan melihat struktur [Template YAML](/template/template-format) dari proyek Anda. Anda dapat memilih untuk langsung "Salin" atau mengklik "Ekspor" untuk menyimpannya sebagai file YAML.
+
+![export project to template](/deploy/export-project/export-project-to-template.webp)
+
+## Impor ke Proyek
+
+Saat ini, Zeabur hanya mendukung impor template YAML ke dalam proyek menggunakan [CLI](https://github.com/zeabur/cli).
+
+Pertama, pastikan toolchain [Node.js](https://nodejs.org/en/) sudah terinstal, lalu gunakan `npx` untuk menjalankan Zeabur CLI:
+
+```bash
+npx zeabur@latest template deploy -f <path to exported YAML file>
+```
+
+Perintah ini akan meminta Anda untuk men-deploy ke proyek tertentu (atau memandu Anda membuat proyek baru).
+
+Perlu diperhatikan bahwa Anda mungkin diminta untuk login, jadi ikuti petunjuk untuk masuk ke akun Zeabur Anda.
+
+## Publikasikan ke Katalog Template
+
+Anda perlu menyesuaikan konten template (seperti `description`, `icon`, `readme`, dan lainnya). Silakan lihat petunjuk di [Buat Template dari YAML](/template/template-format) untuk memperbarui template Anda, lalu gunakan CLI untuk memublikasikannya.

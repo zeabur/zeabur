@@ -4,7 +4,7 @@
 # 用法：cd docs && bash scripts/audit-docs.sh
 
 PAGES="pages"
-LOCALES=(en-US zh-TW zh-CN ja-JP es-ES)
+LOCALES=(en-US zh-TW zh-CN ja-JP es-ES id-ID)
 REF=en-US
 ISSUES=0
 

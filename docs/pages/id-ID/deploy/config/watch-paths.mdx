@@ -1,0 +1,37 @@
+---
+title: Watch Paths
+ogImageTitle: Watch Paths
+ogImageSubtitle: Kustomisasi path pemicu layanan
+---
+
+# Watch Paths
+
+Setelah layanan Anda di-deploy, Anda mungkin sering memperbarui kode, tetapi tidak semua pembaruan kode mengharuskan layanan di-deploy ulang.
+
+Misalnya, dalam proyek yang kode frontend dan backend-nya berada di repositori Git yang sama, Anda mungkin hanya memperbarui kode backend, tetapi setelah commit, Anda mendapati layanan frontend juga ikut di-deploy ulang.
+
+Untuk menghindari hal ini, cukup buka pengaturan dan ubah watch paths:
+
+### Langkah 1: Buka halaman pengaturan layanan
+
+Klik layanan yang ingin Anda ubah konfigurasinya, buka halaman **Pengaturan**, lalu gulir ke bawah untuk menemukan item **Path Pemantauan**, tempat Anda dapat mengubah watch paths layanan.
+
+![setting](/deploy/watch-path/setting.png)
+
+### Langkah 2: Ubah watch paths
+
+Anda akan melihat bahwa watch path default adalah `*`, yang berarti layanan dipicu oleh seluruh repositori, dan setiap pembaruan file di repositori akan menyebabkan layanan di-deploy ulang.
+
+Anda dapat mengubah watch paths dengan format yang sama seperti file `.gitignore`.
+
+Satu-satunya perbedaan adalah `.gitignore` berarti mengabaikan, sedangkan di sini berarti memicu.
+
+Misalnya, Anda telah men-deploy aplikasi full-stack dengan struktur kode sebagai berikut:
+
+![repo](/deploy/watch-path/repo.png)
+
+Anda telah men-deploy dua layanan untuk repositori ini, satu layanan dengan direktori root diatur ke `client` dan yang lainnya ke `server`, tetapi ini hanya untuk menentukan path build. Untuk memisahkannya lebih lanjut, Anda perlu mengatur **Path Pemantauan**.
+
+Misalnya, setelah mengatur **Path Pemantauan** layanan client ke `/client`, pembaruan apa pun yang Anda lakukan di folder `server` tidak akan lagi memicu layanan client untuk di-deploy ulang secara otomatis.
+
+![repo](/deploy/watch-path/save.png)

@@ -22,6 +22,10 @@ const translations: Record<string, { prefix: string; dateOptions: Intl.DateTimeF
     prefix: 'Última actualización',
     dateOptions: { year: 'numeric', month: 'long', day: 'numeric' },
   },
+  'id-ID': {
+    prefix: 'Terakhir diperbarui pada',
+    dateOptions: { year: 'numeric', month: 'long', day: 'numeric' },
+  },
 }
 
 export default function LastUpdated() {

@@ -1,0 +1,225 @@
+---
+title: Python
+ogImageTitle: Deploy Proyek Python
+ogImageSubtitle: Deploy Proyek Python di Zeabur
+---
+
+# Deploy Proyek Python
+
+Zeabur mendukung berbagai jenis proyek Python, termasuk:
+
+- [Flask](./python/flask)
+- [Django](./python/django)
+- FastAPI
+
+Jika kode sumber Anda menyertakan `app.py`, `main.py`, atau entry point serupa, Zeabur juga akan menjalankannya secara otomatis.
+
+## Dukungan NPM
+
+Jika root proyek Anda berisi `package.json`, Zeabur akan otomatis menginstal Node.js dan NPM untuk Anda; jika `package.json` Anda berisi script `build`, Zeabur akan otomatis menjalankan `npm install && npm run build` untuk membangun artefak.
+
+Jika Anda perlu mengubah perintah build (misalnya, untuk menjalankan `npm run build:dist`), silakan lihat bagian Mengustomisasi Perintah Build dan Start.
+
+## Mengustomisasi Entrypoint
+
+Secara default, Zeabur akan mengenali `main.py`, `app.py`, `manage.py`, `server.py`, dan `app/__init__.py` sebagai entry point. Jika entry point Anda tidak tercantum di atas, Anda dapat mengatur environment variable
+
+```env
+ZBPACK_PYTHON_ENTRY=your-entrypoint.py
+```
+
+Atau tambahkan pengaturan berikut ke `zbpack.json`:
+
+```json
+{
+    "python": {
+        "entry": "your-entrypoint.py"
+    }
+}
+```
+
+Dengan begitu, Zeabur akan menggunakan `your-entrypoint.py` sebagai file executable Python.
+
+Jika Anda ingin men-deploy aplikasi WSGI/ASGI (seperti Django, Flask, FastAPI) dan entry point-nya berada di `__init__.py`, Anda perlu memberikan path lengkapnya (termasuk `__init__.py`):
+
+```python
+# server/__init__.py
+
+app = Flask(__name__)
+```
+
+```env
+ZBPACK_PYTHON_ENTRY=server/__init__.py
+```
+
+Jika entry point Anda berada di `__main__.py`, Anda juga perlu memberikan path lengkapnya:
+
+```python
+# server/__main__.py
+
+print("Hello!")
+```
+
+```env
+ZBPACK_PYTHON_ENTRY=server/__main__.py
+```
+
+## Mengustomisasi Perintah Build dan Start
+
+Zeabur memungkinkan Anda mengustomisasi perintah build dan start Python menggunakan environment variables atau file konfigurasi.
+
+"Perintah build" cocok untuk skenario di mana Anda perlu mengunduh atau mengompilasi artefak kustom (seperti CSS, JavaScript, dll.) atau menulis konfigurasi tetap. Misalnya, jika Anda ingin menulis pengaturan ke folder `/etc`, Anda dapat mengatur environment variable seperti ini:
+
+```env
+ZBPACK_BUILD_COMMAND=echo 'your-configuration' > /etc/somewhere
+```
+
+Atau tambahkan pengaturan berikut di `zbpack.json`:
+
+```json
+{
+    "build_command": "echo 'your-configuration' > /etc/somewhere"
+}
+```
+
+Anda juga dapat menjalankan perintah npm di sini. Perlu diperhatikan bahwa Zeabur hanya akan menginstal Node.js dan NPM jika terdapat `package.json` di **direktori root proyek**. Jika proyek Anda tidak berisi `package.json`, perintah `npm` tidak akan tersedia:
+
+```json
+{
+    "build_command": "npm install && npm run build:dist"
+}
+```
+
+"Perintah start" cocok untuk skenario ketika Anda perlu menjalankan perintah sebelum memulai aplikasi Python, seperti menambahkan `python3 migrate.py` ke perintah asli untuk melakukan migrasi database. Misalnya, Anda dapat mengatur environment variable seperti ini:
+
+```env
+ZBPACK_START_COMMAND="python3 migrate.py && _startup"
+```
+
+Atau tambahkan pengaturan berikut di `zbpack.json`:
+
+```json
+{
+    "start_command": "python3 migrate.py && _startup"
+}
+```
+
+Di sini, `_startup` adalah perintah start asli Zeabur (yang dapat ditemukan di [kode sumber zbpack](https://github.com/zeabur/zbpack/tree/main/internal/python)). Jika Anda memiliki `start_command` kustom, `_startup` harus disertakan dalam perintah start Anda; jika tidak, aplikasi Python tidak akan berjalan.
+
+Baik `build_command` maupun `start_command` akan dijalankan menggunakan shell yang kompatibel dengan POSIX, sehingga Anda dapat menggunakan `&&` untuk merangkai beberapa perintah, atau `;` untuk memisahkan beberapa perintah.
+
+## Web Scraping
+
+### Dukungan Playwright
+
+Jika daftar dependensi Anda (`requirements.txt`, `Pipfile`, `pyproject.toml`, dll.) mendeklarasikan `playwright`, Zeabur akan otomatis menyiapkan environment yang diperlukan untuk menjalankan Playwright.
+
+Perlu diperhatikan bahwa Playwright [harus dijalankan dalam mode **Headless**](https://playwright.dev/docs/api/class-browsertype#browser-type-launch-option-headless), yang biasanya merupakan mode default.
+
+### Dukungan Selenium
+
+Jika daftar dependensi Anda (`requirements.txt`, `Pipfile`, `pyproject.toml`, dll.) mendeklarasikan `seleniumbase` atau `selenium`, Zeabur akan otomatis menyiapkan environment yang diperlukan untuk menjalankan Selenium.
+
+Perlu diperhatikan bahwa Selenium [harus dijalankan dalam mode **Headless**](https://www.selenium.dev/blog/2023/headless-is-going-away/).
+
+## Mengatur Versi Python
+
+Zeabur menggunakan Python 3.10 sebagai environment runtime default. Namun, Zeabur akan memilih environment runtime berdasarkan versi Python yang diatur di proyek Anda. Anda juga dapat mengustomisasi environment runtime sesuai kebutuhan.
+
+### Menentukan Versi Python di Proyek Anda
+
+Menentukan versi Python di proyek Anda adalah pendekatan yang lebih umum dan berfungsi di semua environment.
+
+Untuk **Pipenv**, [tentukan versi Python di `Pipfile`](https://pipenv.pypa.io/zh-cn/stable/basics.html#specifying-versions-of-python):
+
+```toml
+[requires]
+python_version = "3.8"   # Tentukan versi Python di sini
+```
+
+Untuk **Poetry**, [tentukan versi Python di `pyproject.toml`](https://python-poetry.org/docs/basic-usage#setting-a-python-version):
+
+```toml
+[tool.poetry.dependencies]
+python = "^3.8"  # Tentukan versi Python di sini
+```
+
+Untuk **PDM**, [tentukan `requires-python` di `pyproject.toml`](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#python-requires):
+
+```toml
+[project]
+requires-python = ">= 3.8"  # Tentukan versi Python di sini
+```
+
+Untuk **Rye**, [gunakan perintah `rye pin` untuk mengatur versi Python](https://rye.astral.sh/guide/commands/pin/):
+
+```bash
+rye pin 3.8  # Tentukan versi Python di sini
+```
+
+### Menentukan Versi Python di Zeabur
+
+Jika Anda menggunakan `requirements.txt` tradisional atau perlu menimpa versi Python yang ditentukan di proyek Anda untuk Zeabur, Anda dapat menentukan versi Python di `zbpack.json`.
+
+```json
+{
+    "python": {
+        "version": "3.8"
+    }
+}
+```
+
+Atau, gunakan environment variable `ZBPACK_PYTHON_VERSION` untuk menentukan versi Python:
+
+```env
+ZBPACK_PYTHON_VERSION=3.8
+```
+
+## Menentukan File Entry Streamlit
+
+Jika Anda telah mendeklarasikan dependensi `streamlit` di proyek Anda, dan nama filenya adalah salah satu dari `app.py`, `main.py`, dan `streamlit_app.py`, Zeabur secara default akan menjalankan aplikasi Anda dalam mode Streamlit.
+
+Namun, jika nama file Anda bukan salah satu dari ketiganya, Anda dapat menentukan nama file di `zbpack.json`. Misalnya, jika nama file aplikasi Streamlit Anda adalah `myapp.py`:
+
+```json
+{
+    "streamlit": {
+        "entry": "myapp.py"
+    }
+}
+```
+
+Dengan begitu, Zeabur akan menjalankan `myapp.py` Anda dalam mode Streamlit. Anda juga dapat menentukan nama file menggunakan environment variable `ZBPACK_STREAMLIT_ENTRY`:
+
+```env
+ZBPACK_STREAMLIT_ENTRY=myapp.py
+```
+
+## Menentukan Package Manager
+
+Zeabur mendukung beberapa package manager Python:
+
+- Pip
+- [Pipenv](https://pipenv.pypa.io/)
+- [Poetry](https://python-poetry.org/)
+- [PDM](https://pdm-project.org/)
+- [Rye](https://rye.astral.sh/)
+- [uv](https://docs.astral.sh/uv/)
+
+Zeabur menentukan package manager yang paling sesuai berdasarkan struktur proyek. Jika Anda belum melakukan commit lockfile dan package manager yang digunakan di proyek tidak jelas, Zeabur tidak akan menginstal paket apa pun. Dalam hal ini, Anda dapat menentukan package manager di `zbpack.json`:
+
+```json
+{
+    "python": {
+        "package_manager": "pipenv"
+    }
+}
+```
+
+Atau, Anda dapat menggunakan environment variable `ZBPACK_PYTHON_PACKAGE_MANAGER` untuk menentukan package manager:
+
+```env
+ZBPACK_PYTHON_PACKAGE_MANAGER=pipenv
+```
+
+Nilainya harus salah satu dari `pip`, `pipenv`, `poetry`, `pdm`, `rye`, atau `uv`.

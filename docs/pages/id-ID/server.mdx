@@ -1,0 +1,47 @@
+---
+title: Server
+ogImageTitle: Server
+ogImageSubtitle: Kelola perangkat keras Anda sendiri dengan Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Server
+
+Selain cluster bersama, Anda dapat **mendaftarkan server Anda sendiri ke Zeabur** dan membiarkan Zeabur menangani deployment layanan, aturan firewall, dan alokasi sumber daya di perangkat keras Anda — tanpa perlu SSH secara manual.
+
+## Mengapa Menggunakan Server
+
+- **Sumber daya eksklusif**: Layanan Anda tidak berbagi perangkat keras dengan pengguna lain, sehingga performanya stabil dan dapat diprediksi.
+- **Bring Your Own Hardware (BYOH)**: Sudah menjalankan server di AWS, GCP, Hetzner, atau pusat data Anda sendiri? Hubungkan ke Zeabur dengan satu klik dan dapatkan kemampuan manajemen deployment secara penuh.
+- **Fleksibilitas geografis**: Jangkau region yang belum dilayani oleh cluster bersama menggunakan infrastruktur Anda sendiri.
+- **Produksi dengan keandalan tinggi**: Untuk sistem berskala besar dengan persyaratan SLA dan keamanan yang ketat.
+
+## Apa yang Dikelola Zeabur untuk Anda
+
+Setelah terdaftar, Anda dapat menangani semua hal berikut dari Dashboard Zeabur — tanpa menyentuh host secara langsung:
+
+- Deploy dan perbarui layanan
+- Lihat log dan metrik performa secara real-time
+- Atur environment variables
+- Kelola penyimpanan persisten dan pengaturan jaringan
+
+<Callout type="info">
+  Server ditagih bulanan dengan tarif tetap, bukan berdasarkan pemakaian sumber daya. Paling cocok untuk beban kerja produksi dengan kebutuhan perangkat keras yang stabil.
+</Callout>
+
+## Memulai
+
+1. **[Beli Server](/id-ID/server/purchase)** — Beli server dari Zeabur dengan harga yang kompetitif
+2. **[Tambah Server](/id-ID/server/register)** — Hubungkan server yang sudah ada ke Zeabur
+3. **[Kelola Server Anda](/id-ID/server/operate)** — Konfigurasikan firewall, pantau sumber daya, sesuaikan pengaturan
+
+## FAQ
+
+### Apakah saya memerlukan paket langganan untuk menggunakan server?
+
+Tidak, Anda tidak memerlukan paket langganan untuk menggunakan server. Namun, kami merekomendasikan Developer Plan untuk memaksimalkan seluruh potensi Zeabur — fitur seperti backup hanya tersedia bagi pelanggan Developer Plan. Pengguna Developer Plan juga mendapatkan dukungan prioritas dari staf, sedangkan pengguna gratis dapat memperoleh bantuan melalui [Zeabur Support](https://zeabur.com/support) tanpa jaminan waktu respons. Lihat [Paket](/pricing) untuk detailnya.
+
+### Saya hanya ingin meng-host situs web kecil — apakah saya memerlukan paket sekaligus server?
+
+Anda dapat melakukan deploy layanan di server tanpa paket langganan. Namun, fitur tertentu seperti backup hanya tersedia untuk Developer Plan. Jika Anda menginginkan akses penuh ke kemampuan platform Zeabur dan dukungan prioritas, kami merekomendasikan berlangganan Developer Plan bersama server Anda. Untuk informasi lebih lanjut, lihat [Komunitas & Dukungan](/id-ID/get-started/faq-support).

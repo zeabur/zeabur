@@ -1,0 +1,645 @@
+---
+title: Referensi REST API
+ogImageTitle: Referensi REST API Zeabur Email
+ogImageSubtitle: Dokumentasi Lengkap Endpoint API
+---
+
+# Referensi REST API
+
+Zeabur Email menyediakan REST API lengkap yang memudahkan Anda mengintegrasikan fungsi pengiriman email ke dalam aplikasi.
+
+## Autentikasi
+
+Setiap permintaan API harus menyertakan API key (format Bearer Token) di header HTTP:
+
+```http
+Authorization: Bearer zs_your_api_key_here
+```
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  API key dapat dibuat dan dikelola di halaman manajemen Zeabur Email pada konsol Zeabur.
+</Callout>
+
+## Base URL
+
+```
+https://api.zeabur.com/api/v1/zsend
+```
+
+## Mengirim Email
+
+### Kirim Satu Email
+
+Kirim email secara langsung.
+
+```http
+POST /emails
+```
+
+#### Request Body
+
+```json
+{
+  "from": "sender@yourdomain.com",
+  "to": ["recipient@example.com"],
+  "cc": ["cc@example.com"],           // Opsional
+  "bcc": ["bcc@example.com"],         // Opsional
+  "reply_to": ["reply@yourdomain.com"], // Opsional
+  "subject": "Email Subject",
+  "html": "<h1>HTML Content</h1>",
+  "text": "Plain text content",
+  "attachments": [                    // Opsional
+    {
+      "filename": "document.pdf",
+      "content": "base64_encoded_content",
+      "content_type": "application/pdf"
+    }
+  ],
+  "headers": {                        // Opsional
+    "X-Custom-Header": "value"
+  },
+  "tags": {                           // Opsional
+    "campaign": "newsletter",
+    "user_id": "12345"
+  }
+}
+```
+
+#### Deskripsi Field
+
+| Field | Tipe | Wajib | Deskripsi |
+|-------|------|----------|-------------|
+| `from` | string | Ya | Alamat email pengirim, domain harus sudah terverifikasi |
+| `to` | array | Ya | Daftar alamat email penerima |
+| `cc` | array | Tidak | Daftar alamat email CC |
+| `bcc` | array | Tidak | Daftar alamat email BCC |
+| `reply_to` | array | Tidak | Daftar alamat balasan (reply-to) |
+| `subject` | string | Ya | Subjek email (maks. 998 karakter) |
+| `html` | string | Tidak* | Konten email dalam format HTML (maks. 5 MB) |
+| `text` | string | Tidak* | Konten email dalam format teks biasa (maks. 5 MB) |
+| `attachments` | array | Tidak | Daftar lampiran (maks. 10, masing-masing hingga 10 MB) |
+| `headers` | object | Tidak | Header email kustom (maks. 50) |
+| `tags` | object | Tidak | Tag kustom untuk kategorisasi dan pelacakan |
+
+<Callout type="warning">
+  Setidaknya salah satu dari `html` atau `text` harus diisi. Jika keduanya diisi, klien email akan memprioritaskan versi HTML, sedangkan klien yang tidak mendukung HTML akan menampilkan versi teks biasa. Total penerima (to + cc + bcc) tidak boleh lebih dari 50.
+</Callout>
+
+#### Respons
+
+```json
+{
+  "id": "696de2c84210d814d66ee052",
+  "message_id": "",
+  "status": "pending"
+}
+```
+
+#### Contoh
+
+```bash
+curl -X POST https://api.zeabur.com/api/v1/zsend/emails \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -d '{
+    "from": "hello@yourdomain.com",
+    "to": ["user@example.com"],
+    "subject": "Welcome to Zeabur Email",
+    "html": "<h1>Welcome!</h1><p>Thank you for using Zeabur Email.</p>"
+  }'
+```
+
+### Kirim Email dengan Lampiran
+
+Konten lampiran harus di-encode dalam Base64:
+
+```javascript
+// Contoh JavaScript
+const fs = require('fs');
+
+const fileContent = fs.readFileSync('document.pdf');
+const base64Content = fileContent.toString('base64');
+
+const response = await fetch('https://api.zeabur.com/api/v1/zsend/emails', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+  },
+  body: JSON.stringify({
+    from: 'hello@yourdomain.com',
+    to: ['user@example.com'],
+    subject: 'Attachment Test',
+    html: '<p>Please see the attachment</p>',
+    attachments: [{
+      filename: 'document.pdf',
+      content: base64Content,
+      content_type: 'application/pdf'
+    }]
+  })
+});
+```
+
+---
+
+## Pengiriman Terjadwal
+
+### Jadwalkan Email
+
+Jadwalkan email untuk dikirim pada waktu tertentu.
+
+```http
+POST /emails/schedule
+```
+
+#### Request Body
+
+Sama seperti pengiriman satu email, dengan tambahan field `scheduled_at`:
+
+```json
+{
+  "from": "sender@yourdomain.com",
+  "to": ["recipient@example.com"],
+  "cc": ["cc@example.com"],              // Opsional
+  "bcc": ["bcc@example.com"],            // Opsional
+  "reply_to": ["reply@yourdomain.com"],  // Opsional
+  "subject": "Scheduled Email",
+  "html": "<h1>HTML Content</h1>",
+  "text": "Plain text content",
+  "attachments": [],                     // Opsional
+  "headers": {},                         // Opsional
+  "tags": {},                            // Opsional
+  "scheduled_at": "2026-01-25T10:00:00Z" // Wajib, format ISO 8601
+}
+```
+
+<Callout type="info">
+  Waktu `scheduled_at` harus berada di masa mendatang. Semua field lainnya mengikuti aturan yang sama dengan pengiriman satu email.
+</Callout>
+
+#### Respons
+
+```json
+{
+  "id": "696de2c84210d814d66ee053",
+  "status": "enqueued"
+}
+```
+
+### Daftar Email Terjadwal
+
+```http
+GET /emails/scheduled
+```
+
+#### Parameter Query
+
+| Parameter | Tipe | Deskripsi |
+|-----------|------|-------------|
+| `page` | number | Nomor halaman (default 1) |
+| `limit` | number | Jumlah item per halaman (default 20, maks. 100) |
+| `status` | string | Filter berdasarkan status: `scheduled`, `sent`, `cancelled` |
+
+#### Respons
+
+```json
+{
+  "scheduled_emails": [
+    {
+      "id": "696de2c84210d814d66ee053",
+      "from": "hello@yourdomain.com",
+      "to": ["user@example.com"],
+      "subject": "Scheduled Email",
+      "scheduled_at": "2026-01-25T10:00:00Z",
+      "status": "enqueued",
+      "created_at": "2026-01-20T08:00:00Z",
+      "attempts": 0
+    }
+  ],
+  "total_count": 1
+}
+```
+
+### Detail Email Terjadwal
+
+```http
+GET /emails/scheduled/:id
+```
+
+### Batalkan Email Terjadwal
+
+```http
+DELETE /emails/scheduled/:id
+```
+
+#### Respons
+
+```json
+{
+  "success": true,
+  "message": "Scheduled email cancelled"
+}
+```
+
+---
+
+## Pengiriman Massal
+
+### Kirim Email Secara Massal
+
+Kirim banyak email sekaligus, dengan penerima dan konten yang berbeda untuk setiap email.
+
+```http
+POST /emails/batch
+```
+
+#### Request Body
+
+```json
+{
+  "emails": [
+    {
+      "from": "hello@yourdomain.com",
+      "to": ["user1@example.com"],
+      "cc": ["manager@example.com"],       // Opsional
+      "bcc": ["archive@example.com"],      // Opsional
+      "reply_to": ["support@yourdomain.com"], // Opsional
+      "subject": "Personalized Email 1",
+      "html": "<p>Hello, User 1!</p>",
+      "text": "Hello, User 1!",            // Opsional
+      "attachments": [],                   // Opsional
+      "headers": {},                       // Opsional
+      "tags": {"user_id": "1"}             // Opsional
+    },
+    {
+      "from": "hello@yourdomain.com",
+      "to": ["user2@example.com"],
+      "subject": "Personalized Email 2",
+      "html": "<p>Hello, User 2!</p>"
+    }
+    // ... hingga 100 email
+  ]
+}
+```
+
+<Callout type="info">
+  Satu kali pengiriman massal mendukung hingga 100 email. Setiap email mendukung semua field yang sama dengan pengiriman satu email, termasuk `cc`, `bcc`, `reply_to`, `attachments`, `headers`, dan `tags`.
+</Callout>
+
+#### Respons
+
+```json
+{
+  "job_id": "696de2c84210d814d66ee054",
+  "status": "pending",
+  "total_count": 2
+}
+```
+
+#### Deskripsi Field
+
+| Field | Tipe | Deskripsi |
+|-------|------|-------------|
+| `job_id` | string | ID job massal untuk memeriksa status dan detail di kemudian hari |
+| `status` | string | Status awal job (biasanya `pending`) |
+| `total_count` | number | Total jumlah email dalam job massal |
+
+<Callout type="info">
+  `job_id` adalah pengenal unik untuk job massal, berbeda dengan `id` pada pengiriman satu email. Simpan `job_id` ini untuk memeriksa progres dan hasil pengiriman massal di kemudian hari.
+</Callout>
+
+### Daftar Job Massal
+
+```http
+GET /emails/batch
+```
+
+#### Parameter Query
+
+Sama seperti daftar email terjadwal.
+
+### Detail Job Massal
+
+```http
+GET /emails/batch/:id
+```
+
+#### Respons
+
+```json
+{
+  "job_id": "696de2c84210d814d66ee054",
+  "total_count": 100,
+  "sent_count": 95,
+  "failed_count": 5,
+  "status": "completed",
+  "created_at": "2026-01-20T08:00:00Z",
+  "completed_at": "2026-01-20T08:15:00Z"
+}
+```
+
+#### Deskripsi Field
+
+| Field | Tipe | Deskripsi |
+|-------|------|-------------|
+| `job_id` | string | ID job massal (sama dengan `job_id` yang dikembalikan saat pembuatan) |
+| `total_count` | number | Total jumlah email dalam job |
+| `sent_count` | number | Jumlah email yang berhasil dikirim |
+| `failed_count` | number | Jumlah email yang gagal |
+| `status` | string | Status job: `pending`, `processing`, `completed`, `failed` |
+| `created_at` | string | Waktu pembuatan job (format ISO 8601) |
+| `completed_at` | string | Waktu job selesai (opsional) |
+
+---
+
+## Kueri Email
+
+### Daftar Email
+
+```http
+GET /emails
+```
+
+#### Parameter Query
+
+| Parameter | Tipe | Deskripsi |
+|-----------|------|-------------|
+| `page` | number | Nomor halaman (default 1) |
+| `page_size` | number | Jumlah item per halaman (default 20, maks. 100) |
+| `status` | string | Filter berdasarkan status: `pending`, `sent`, `delivered`, `bounced`, `complained` |
+| `job_type` | string | Filter berdasarkan sumber: `direct`, `scheduled`, `batch` |
+| `job_id` | string | Filter berdasarkan ID job (ID email terjadwal atau ID job massal) |
+
+#### Respons
+
+```json
+{
+  "data": [
+    {
+      "id": "696de2c84210d814d66ee052",
+      "from": "hello@yourdomain.com",
+      "to": ["user@example.com"],
+      "subject": "Test Email",
+      "status": "delivered",
+      "created_at": "2026-01-20T08:00:00Z"
+    }
+  ],
+  "total": 1
+}
+```
+
+### Detail Email
+
+```http
+GET /emails/:id
+```
+
+#### Respons
+
+```json
+{
+  "id": "696de2c84210d814d66ee052",
+  "message_id": "0111019bd53de187-bda14a71-25a3-4fdc-a1a0-f543ff58c085-000000",
+  "from": "hello@yourdomain.com",
+  "to": ["user@example.com"],
+  "cc": [],
+  "bcc": [],
+  "reply_to": [],
+  "subject": "Test Email",
+  "html": "<h1>Test</h1>",
+  "text": "Test",
+  "status": "delivered",
+  "mal_status": "healthy",
+  "created_at": "2026-01-20T08:00:00Z",
+  "headers": {},
+  "tags": {},
+  "attachments": [],
+  "job_type": "direct",
+  "job_id": ""
+}
+```
+
+| Field | Tipe | Deskripsi |
+|-------|------|-------------|
+| `job_type` | string | Sumber email: `direct` (pengiriman tunggal), `scheduled` (pengiriman terjadwal), `batch` (pengiriman massal) |
+| `job_id` | string | ID job. Kosong untuk email langsung; berisi ID email terjadwal atau ID job massal untuk lainnya |
+
+---
+
+## Penanganan Error
+
+API menggunakan kode status HTTP standar:
+
+| Kode Status | Deskripsi |
+|-------------|-------------|
+| `200` | Permintaan berhasil |
+| `400` | Parameter permintaan tidak valid |
+| `401` | Tidak terotorisasi (API key tidak valid atau tidak ada) |
+| `403` | Akses ditolak (izin tidak mencukupi atau akun ditangguhkan) |
+| `404` | Resource tidak ditemukan |
+| `429` | Terlalu banyak permintaan (rate limit) |
+| `500` | Error internal server |
+
+### Format Respons Error
+
+```json
+{
+  "error": "Brief error description",
+  "message": "Detailed error message"
+}
+```
+
+### Contoh Error Umum
+
+#### Error Validasi (400)
+
+```json
+{
+  "error": "validation error",
+  "message": "subject length (1200) exceeds maximum (998 characters)"
+}
+```
+
+#### Error Autentikasi (401)
+
+```json
+{
+  "error": "unauthorized",
+  "message": "Invalid or missing API key"
+}
+```
+
+#### Error Izin (403)
+
+```json
+{
+  "error": "permission denied",
+  "message": "API key does not have permission to send from this domain"
+}
+```
+
+#### Error Kuota Terlampaui (429)
+
+```json
+{
+  "error": "daily quota exceeded (55/55), resets at 2026-01-23 00:00:00"
+}
+```
+
+**Deskripsi**:
+- Kode status: `429 Too Many Requests`
+- Pesan error mencakup pemakaian saat ini, total kuota, dan waktu reset
+- Pengguna tetap dapat memeriksa riwayat email, tetapi tidak dapat mengirim email baru
+- Kuota di-reset secara otomatis setiap hari pukul 00:00 UTC
+
+---
+
+## Batasan
+
+<Callout type="info">
+Untuk kuota pengiriman bulanan per paket, harga kelebihan, dan cara penagihan kelebihan, lihat [Kuota & Tagihan Kelebihan](/email/quotas-and-overage).
+</Callout>
+
+### Batas Kuota Harian
+
+Setiap akun pengguna memiliki kuota pengiriman harian (Daily Quota), yang merupakan **batasan paling penting**:
+
+| Tingkat Akun | Kuota Harian Default | Deskripsi |
+|--------------|---------------------|-------------|
+| Pengguna Baru | 100 email/hari      | Kuota awal setelah akun dibuat |
+| Terverifikasi | 1.000 email/hari    | Ditingkatkan secara otomatis setelah verifikasi domain |
+
+**Waktu Reset Kuota**: Di-reset secara otomatis setiap hari pukul 00:00 UTC
+
+**Saat Kuota Terlampaui**:
+- Mengembalikan kode status: `429 Too Many Requests`
+- Pesan error: `daily quota exceeded (current/total), resets at time`
+- **Operasi baca tetap tersedia**: Anda tetap dapat memeriksa riwayat dan detail email
+- **Operasi kirim ditolak**: Termasuk pengiriman tunggal, terjadwal, dan massal
+
+### Batasan Konten
+
+- **Jumlah penerima**: Maks. 50 penerima per email (to + cc + bcc)
+- **Ukuran email**: Maks. ukuran total 10 MB (termasuk lampiran dan header)
+- **Jumlah lampiran**: Maks. 10 lampiran
+- **Ukuran satu lampiran**: Maks. 10 MB
+- **Panjang subjek**: Maks. 998 karakter
+- **Konten HTML**: Maks. 5 MB
+- **Konten teks**: Maks. 5 MB
+- **Pengiriman massal**: Maks. 100 email per batch
+
+### Batasan Status Pengguna
+
+Status akun pengguna memengaruhi akses API:
+
+| Status | Akses API | Kirim Email | Kueri Email | Deskripsi |
+|--------|-----------|------------|-------------|-------------|
+| `healthy` | ✅ | ✅ | ✅ | Status normal, dapat mengirim email |
+| `review` | ✅ | ✅ | ✅ | Sedang ditinjau, masih dapat mengirim (kuota dapat dikurangi) |
+| `paused` | ✅ | ❌ (403) | ✅ | Ditangguhkan, dapat melakukan kueri tetapi tidak dapat mengirim |
+| `banned` | ❌ (401) | ❌ | ❌ | Diblokir, sepenuhnya dilarang mengakses API |
+
+**Alasan Penangguhan/Pemblokiran Akun**:
+- Bounce Rate ≥ 4,0%
+- Complaint Rate ≥ 0,08%
+- Pelanggaran ketentuan layanan
+
+**Penjelasan Status**:
+- **`review`** (Sedang Ditinjau): Terdeteksi masalah kualitas email, sistem secara otomatis menandai akun untuk ditinjau. Jika tidak ada perilaku berbahaya lebih lanjut dalam 24 jam, status dapat pulih secara otomatis menjadi `healthy`.
+- **`paused`** (Ditangguhkan): Sementara dilarang mengirim, tetapi masih dapat memeriksa data riwayat, mengelola domain, dan sebagainya. Anda perlu menghubungi tim dukungan untuk mengajukan banding; pemulihan tercepat adalah 24 jam setelah banding disetujui.
+- **`banned`** (Diblokir): Sepenuhnya dilarang mengakses API, termasuk operasi kueri. Status ini ditetapkan secara manual oleh staf, menandakan pelanggaran serius, dan umumnya tidak dapat dipulihkan.
+
+<Callout type="warning">
+  Permintaan yang melampaui batasan akan mengembalikan error `400 Bad Request`. Kuota yang terlampaui akan mengembalikan `429 Too Many Requests`.
+</Callout>
+
+---
+
+## Praktik Terbaik
+
+### 1. Percobaan Ulang saat Error
+
+Untuk error sementara (seperti `500` atau `429`), disarankan menggunakan percobaan ulang dengan exponential backoff:
+
+```javascript
+async function sendEmailWithRetry(emailData, maxRetries = 3) {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      const response = await fetch('https://api.zeabur.com/api/v1/zsend/emails', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer YOUR_API_KEY'
+        },
+        body: JSON.stringify(emailData)
+      });
+      
+      if (response.ok) {
+        return await response.json();
+      }
+      
+      if (response.status === 400 || response.status === 403) {
+        // Error dari sisi klien, jangan coba ulang
+        throw new Error(await response.text());
+      }
+      
+      // Error lainnya, coba ulang setelah menunggu
+      if (i < maxRetries - 1) {
+        await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
+      }
+    } catch (error) {
+      if (i === maxRetries - 1) throw error;
+    }
+  }
+}
+```
+
+### 2. Gunakan Pengiriman Massal
+
+Saat mengirim banyak email, gunakan endpoint pengiriman massal alih-alih melakukan pengiriman tunggal secara berulang:
+
+```javascript
+// ✅ Disarankan
+await fetch('https://api.zeabur.com/api/v1/zsend/emails/batch', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_KEY'
+  },
+  body: JSON.stringify({
+    emails: users.map(user => ({
+      from: 'newsletter@yourdomain.com',
+      to: [user.email],
+      subject: `Hello, ${user.name}`,
+      html: `<p>Personalized content</p>`
+    }))
+  })
+});
+
+// ❌ Tidak disarankan
+for (const user of users) {
+  await fetch('https://api.zeabur.com/api/v1/zsend/emails', {
+    // ... pengiriman tunggal
+  });
+}
+```
+
+### 3. Gunakan Webhook
+
+Konfigurasikan Webhook untuk menerima pembaruan status email secara real-time alih-alih melakukan polling ke endpoint kueri. Lihat [Konfigurasi Webhook](/id-ID/email/webhooks) untuk detailnya.
+
+### 4. Gunakan Tag dengan Tepat
+
+Gunakan field `tags` untuk menandai email agar lebih mudah dilacak dan dianalisis:
+
+```json
+{
+  "tags": {
+    "campaign": "welcome_series",
+    "user_segment": "new_users",
+    "template_version": "v2"
+  }
+}
+```
