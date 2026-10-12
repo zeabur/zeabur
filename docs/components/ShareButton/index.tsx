@@ -3,7 +3,6 @@
 // Differences from SoT:
 //   - sonner not installed in docs → inline "Copied" state on the button itself (FeedbackWidget pattern).
 //   - User comes from useZeaburAuth (cookie + REST GraphQL) instead of Apollo useSession.
-//   - 5 locales (docs site doesn't ship id-ID).
 import { useState } from 'react'
 import { useRouter } from 'nextra/hooks'
 
