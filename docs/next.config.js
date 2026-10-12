@@ -477,9 +477,12 @@ export default withNextra({
       // rewards/partner overview collapsed into top-level /partner (L1)
       { source: '/rewards/partner',             destination: '/partner', permanent: true },
       { source: '/:locale/rewards/partner',     destination: '/:locale/partner', permanent: true },
-      // partner/education renamed to partner/event-partner (repositioned as Education Partner)
-      { source: '/partner/education',           destination: '/partner/event-partner', permanent: true },
-      { source: '/:locale/partner/education',   destination: '/:locale/partner/event-partner', permanent: true },
+      // Education Partner program closed: partner/education (old name) and
+      // partner/event-partner pages removed, send old links to /partner
+      { source: '/partner/education/:path*',          destination: '/partner', permanent: true },
+      { source: '/:locale/partner/education/:path*',  destination: '/:locale/partner', permanent: true },
+      { source: '/partner/event-partner/:path*',          destination: '/partner', permanent: true },
+      { source: '/:locale/partner/event-partner/:path*',  destination: '/:locale/partner', permanent: true },
 
       // ═══════════════════════════════════════════════════════════════
       // MKT-2268: non-IA-covered duplicate redirects (34 entries)
