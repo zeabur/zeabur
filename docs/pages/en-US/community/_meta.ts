@@ -1,5 +1,4 @@
 export default {
-    "ambassador-programme": "Ambassador Programme",
     "code-of-conduct": "Code of Conduct",
 
     // Hidden — canonical home elsewhere or legacy
