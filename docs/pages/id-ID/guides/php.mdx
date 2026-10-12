@@ -1,0 +1,208 @@
+---
+title: PHP
+ogImageTitle: Deploy Aplikasi PHP
+ogImageSubtitle: Deploy Aplikasi PHP di Zeabur
+---
+
+# Deploy Aplikasi PHP
+
+Zeabur tidak hanya mendukung aplikasi PHP multi-file tradisional dengan `index.php` sebagai entry point, tetapi juga deployment satu klik untuk framework seperti [Laravel](./php/laravel), [Symfony](./php/symfony), ThinkPHP, dan CodeIgniter.
+
+## Environment PHP
+
+Secara default, Zeabur menggunakan versi terbaru PHP 8 serta server NGINX + php-fpm untuk menjalankan kode Anda.
+
+Environment PHP di Zeabur dilengkapi dengan Composer bawaan dan ekstensi PHP seperti `apcu`, `bcmath`, `gd`, `intl`, `mysqli`, `opcache`, `pcntl`, `pdo_mysql`, `sysvsem`, dan `zip`. Jika `composer.json` Anda menyertakan definisi ekstensi lain dengan prefiks `ext-`, Zeabur akan otomatis menginstal ekstensi yang sesuai. Selain itu, tool seperti Node.js, Crontab, cURL, gettext, Git, grep, pkg-config, dan unzip sudah terinstal sebelumnya.
+
+Secara default, Zeabur menyediakan environment variables `APP_ENV=prod` dan `APP_DEBUG=true` untuk aplikasi Anda. Anda dapat menimpa variabel-variabel ini secara manual di bagian "Environment Variables" pada konsol Zeabur.
+
+Untuk konfigurasi base image selengkapnya, lihat [repositori kode zbpack](https://github.com/zeabur/zbpack/blob/main/internal/php/Dockerfile).
+
+## Dukungan NPM
+
+Jika proyek Anda memiliki file `package.json`, Zeabur akan otomatis menjalankan `npm install` untuk menginstal dependensi.
+
+Jika `package.json` Anda berisi script `build`, Zeabur juga akan menjalankan `npm run build` untuk menghasilkan artefak build.
+
+## Perintah Build dan Start Kustom
+
+Zeabur memungkinkan Anda mengustomisasi perintah build dan start untuk PHP menggunakan environment variables atau file konfigurasi.
+
+### Perintah Build
+
+"Perintah build" ideal untuk skenario di mana Anda perlu mengunduh atau mengompilasi artefak kustom (misalnya, CSS, JavaScript) atau mengonfigurasi pengaturan. Misalnya, untuk menulis file konfigurasi ke direktori `/etc`, Anda dapat mengatur environment variable:
+
+```env
+ZBPACK_BUILD_COMMAND=echo 'your-configuration' > /etc/somewhere
+```
+
+Atau, Anda dapat menambahkan konfigurasi berikut di `zbpack.json`:
+
+```json filename="zbpack.json"
+{
+    "build_command": "echo 'your-configuration' > /etc/somewhere"
+}
+```
+
+Anda juga dapat menjalankan perintah npm tambahan di sini:
+
+```json filename="zbpack.json"
+{
+    "build_command": "npm run build:dist"
+}
+```
+
+Perintah build **tidak akan** mengganggu proses build default Zeabur, sehingga Anda tidak perlu mengulang perintah yang sudah ditangani oleh Zeabur.
+
+### Perintah Start
+
+"Perintah start" cocok untuk situasi di mana Anda ingin menjalankan perintah saat memulai server PHP, seperti menjalankan `php artisan migrate` untuk membuat tabel database. Misalnya, Anda dapat mengatur environment variable:
+
+```env
+ZBPACK_START_COMMAND="php artisan migrate && _startup"
+```
+
+Atau tambahkan konfigurasi berikut di `zbpack.json`:
+
+```json filename="zbpack.json"
+{
+    "start_command": "php artisan migrate && _startup"
+}
+```
+
+Catatan: Jika Anda memerlukan layanan yang berjalan terus-menerus, letakkan perintah start di dalam `()` dan gunakan `&` untuk menjalankan tugas di latar belakang.
+
+```env
+ZBPACK_START_COMMAND="(php artisan reverb:start &); _startup"
+```
+
+Atau:
+
+```json filename="zbpack.json"
+{
+    "start_command": "(php artisan reverb:start &); _startup"
+}
+```
+
+Di sini, `_startup` adalah perintah startup default Zeabur ([lihat zbpack](https://github.com/zeabur/zbpack/tree/main/internal/php)). Jika Anda mengustomisasi `start_command`, Anda harus menyertakan `_startup` dalam perintah tersebut; jika tidak, server PHP tidak akan berjalan.
+
+Baik `build_command` maupun `start_command` dijalankan menggunakan shell yang kompatibel dengan POSIX, sehingga Anda dapat merangkai beberapa perintah dengan `&&` atau memisahkannya dengan `;`.
+
+### Menangani Perintah Start yang Kompleks
+
+Jika perintah start Anda kompleks (misalnya melibatkan pengaturan tugas terjadwal, menjalankan beberapa layanan, dll.), `start_command` dapat menjadi terlalu rumit dan sulit di-debug. Anda dapat mencoba mengemas perintah-perintah tersebut ke dalam sebuah script menggunakan [Editor Konfigurasi](/data-management/config-edit), misalnya `worker.sh`:
+
+```bash filename="worker.sh"
+#!/usr/bin/env bash
+
+php artisan migrate
+php artisan queue:work &
+# Dan berbagai perintah Anda lainnya
+```
+
+Kemudian jalankan script ini di `start_command`:
+
+```json filename="zbpack.json"
+{
+    "start_command": "(bash worker.sh &); _startup"
+}
+```
+
+```env
+ZBPACK_START_COMMAND=(bash worker.sh &); _startup
+```
+
+### Menangani Worker
+
+Untuk pemrosesan antrean (queue) atau tugas terjadwal, kami menyarankan untuk menanganinya di layanan terpisah.
+
+Jika Anda ingin menjalankan queue worker, Anda dapat men-deploy layanan lain `queue-worker` di luar layanan utama, dengan `start_command`:
+
+```env
+ZBPACK_START_COMMAND="php artisan queue:work"
+```
+
+Jangan tambahkan `; _startup` agar server PHP tidak dijalankan. Dengan begitu, Anda akan memiliki layanan terpisah yang khusus menangani tugas asinkron.
+
+Jika Anda juga memerlukan layanan untuk menangani tugas terjadwal, Anda dapat men-deploy layanan lain `cron-worker`, dengan `start_command`:
+
+```env
+ZBPACK_START_COMMAND="php artisan schedule:work"
+```
+
+Dengan cara ini, meskipun salah satu worker Anda mengalami masalah, worker lain dan layanan utama tidak akan terpengaruh.
+
+## Versi PHP Kustom
+
+Zeabur menggunakan PHP 8 secara default, tetapi Anda dapat menentukan versi PHP melalui `composer.json` atau konfigurasi zbpack. Jika proyek Anda menggunakan Laravel Sail, Zeabur dapat otomatis mendeteksi versi PHP dari `docker-compose.yml`. Urutan prioritasnya adalah: konfigurasi zbpack > `composer.json` > Laravel Sail.
+
+### `composer.json`
+
+Atur rentang versi PHP di bagian `require` pada `composer.json`:
+
+```json filename="composer.json"
+{
+    "require": {
+        "php": "7.4"
+    }
+}
+```
+
+Dalam contoh ini, Zeabur akan menggunakan versi patch terbaru dari PHP 7.4 untuk menjalankan proyek Anda.
+
+```json filename="composer.json"
+{
+    "require": {
+        "php": "^7.4"
+    }
+}
+```
+
+Di sini, Zeabur akan menggunakan versi minor terbaru dari PHP 7 untuk menjalankan proyek Anda.
+
+### Laravel Sail
+
+Jika proyek Anda menggunakan Laravel Sail, Zeabur akan otomatis mendeteksi dan menggunakan versi PHP yang didefinisikan di file `docker-compose.yml`.
+
+![Definisi Docker Compose untuk Laravel Sail](/guides/php/laravel-sail-docker-compose.webp)
+
+### Konfigurasi zbpack
+
+Jika Anda tidak menggunakan Laravel Sail atau Composer tetapi perlu menentukan versi PHP, Anda dapat menggunakan environment variable `ZBPACK_PHP_VERSION`:
+
+```env
+ZBPACK_PHP_VERSION=8.0
+```
+
+Atau tambahkan konfigurasi berikut di `zbpack.json`:
+
+```json filename="zbpack.json"
+{
+    "php": {
+        "version": "8.0"
+    }
+}
+```
+
+## Pengaturan `php.ini` Kustom
+
+Dengan menggunakan [editor file konfigurasi](/data-management/config-edit) Zeabur, buat file konfigurasi di direktori `/usr/local/etc/php/conf.d` dengan ekstensi `.ini` dan sertakan pengaturan PHP yang ingin Anda timpa.
+
+Misalnya, untuk mengatur ukuran maksimum file upload menjadi 100MB, buat file `/usr/local/etc/php/conf.d/upload.ini` dengan konten berikut:
+
+```ini filename="/usr/local/etc/php/conf.d/upload.ini"
+upload_max_filesize = 100M
+```
+
+## Konfigurasi NGINX Kustom
+
+Dengan menggunakan [editor file konfigurasi](/data-management/config-edit) Zeabur, buat file konfigurasi di `/etc/nginx/sites-enabled/default` untuk menimpa pengaturan NGINX default di Zeabur. Editor akan mengisi otomatis konfigurasi NGINX yang sedang digunakan, yang dapat Anda ubah sesuai kebutuhan.
+
+Misalnya, untuk menonaktifkan kompresi `gzip`, ubah `gzip_static on;` menjadi `gzip_static off;` di template.
+
+```nginx filename="/etc/nginx/sites-enabled/default" {3}
+location / {
+    try_files $uri $uri/ /index.php$is_args$args;
+    gzip_static off;
+}
+```

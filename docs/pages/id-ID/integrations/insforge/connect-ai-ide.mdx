@@ -1,0 +1,128 @@
+---
+title: Hubungkan AI IDE
+ogImageTitle: Hubungkan AI IDE ke InsForge
+ogImageSubtitle: Siapkan Integrasi MCP dengan Alat AI Coding Anda
+---
+
+# Hubungkan AI IDE
+
+InsForge menggunakan MCP (Model Context Protocol) agar AI coding agent Anda dapat berinteraksi dengan backend Anda. Panduan ini menjelaskan cara menghubungkan berbagai AI IDE yang didukung.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Anda harus [mengaktifkan InsForge](/id-ID/integrations/insforge/quick-start) terlebih dahulu di proyek Zeabur Anda sebelum menghubungkan AI IDE.
+</Callout>
+
+## Membuka Modal Koneksi
+
+1. Buka halaman integrasi InsForge pada proyek Anda di dashboard Zeabur
+2. Klik **Gunakan di AI IDE**
+3. Pilih AI IDE Anda dari dropdown
+
+## Cursor
+
+Cursor mendukung instalasi sekali klik melalui deeplink.
+
+1. Pilih **Cursor** dari dropdown agent di modal koneksi
+2. Klik **Add to Cursor**
+3. Cursor akan terbuka secara otomatis dan meminta Anda mengonfirmasi instalasi server MCP
+
+## Claude Code
+
+1. Pilih **Claude Code** dari dropdown agent
+2. Salin dan jalankan perintah terminal berikut:
+
+```bash
+npx @insforge/install --client claude-code --env API_KEY=YOUR_API_KEY --env API_BASE_URL=YOUR_API_ENDPOINT
+```
+
+## Trae
+
+1. Pilih **Trae** dari dropdown agent
+2. Salin dan jalankan perintah terminal berikut:
+
+```bash
+npx @insforge/install --client trae --env API_KEY=YOUR_API_KEY --env API_BASE_URL=YOUR_API_ENDPOINT
+```
+
+## Cline
+
+1. Pilih **Cline** dari dropdown agent
+2. Salin dan jalankan perintah terminal berikut:
+
+```bash
+npx @insforge/install --client cline --env API_KEY=YOUR_API_KEY --env API_BASE_URL=YOUR_API_ENDPOINT
+```
+
+## Windsurf
+
+1. Pilih **Windsurf** dari dropdown agent
+2. Salin dan jalankan perintah terminal berikut:
+
+```bash
+npx @insforge/install --client windsurf --env API_KEY=YOUR_API_KEY --env API_BASE_URL=YOUR_API_ENDPOINT
+```
+
+## Roo Code
+
+1. Pilih **Roo Code** dari dropdown agent
+2. Salin dan jalankan perintah terminal berikut:
+
+```bash
+npx @insforge/install --client roocode --env API_KEY=YOUR_API_KEY --env API_BASE_URL=YOUR_API_ENDPOINT
+```
+
+## Konfigurasi MCP JSON Manual
+
+Untuk alat lain yang kompatibel dengan MCP, Anda dapat mengonfigurasi server MCP secara manual.
+
+### macOS / Linux
+
+```json
+{
+  "mcpServers": {
+    "insforge": {
+      "command": "npx",
+      "args": ["-y", "@insforge/mcp@latest"],
+      "env": {
+        "API_KEY": "YOUR_API_KEY",
+        "API_BASE_URL": "YOUR_API_ENDPOINT"
+      }
+    }
+  }
+}
+```
+
+### Windows
+
+```json
+{
+  "mcpServers": {
+    "insforge": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@insforge/mcp@latest"],
+      "env": {
+        "API_KEY": "YOUR_API_KEY",
+        "API_BASE_URL": "YOUR_API_ENDPOINT"
+      }
+    }
+  }
+}
+```
+
+## Memverifikasi Koneksi
+
+Setelah instalasi, kirim prompt berikut di chat AI agent Anda untuk memverifikasi koneksi:
+
+```
+I'm using InsForge as my backend platform, fetch InsForge instruction doc to learn more about InsForge
+```
+
+Instalasi akan selesai secara otomatis saat InsForge menerima panggilan MCP pertama dari agent Anda.
+
+## Pemecahan Masalah
+
+- **Koneksi tidak berfungsi?** Pastikan Anda telah menyalin `API_KEY` dan `API_BASE_URL` dengan benar dari halaman integrasi InsForge.
+- **Perintah gagal di Windows?** Pastikan Anda menggunakan konfigurasi khusus Windows dengan `cmd` sebagai perintahnya.
+- **Butuh bantuan?** Kunjungi [Zeabur Support](https://zeabur.com/support).

@@ -14,7 +14,7 @@ Translate the document at the given target path to locales that are missing or o
 Parse `$ARGUMENTS` into these parts:
 
 - **target**: The first positional argument — a document path (e.g. `wonder-mesh`, `billing/plans.mdx`, `en-US/wonder-mesh`)
-- **locale filter** (optional): If a second positional argument matches a known locale (`zh-TW`, `zh-CN`, `ja-JP`, `es-ES`), translate to **only** that locale instead of all missing locales
+- **locale filter** (optional): If a second positional argument matches a known locale (`zh-TW`, `zh-CN`, `ja-JP`, `es-ES`, `id-ID`), translate to **only** that locale instead of all missing locales
 - **--dry-run** flag (optional): If present anywhere in the arguments, only print the detection summary — do NOT write any files
 
 Examples:
@@ -31,6 +31,7 @@ This is a **Nextra-based** documentation site with these locales:
 - `zh-CN` (Simplified Chinese)
 - `ja-JP` (Japanese)
 - `es-ES` (Spanish)
+- `id-ID` (Indonesian)
 
 All docs live under `pages/<locale>/`. Each section has a `_meta.ts` file for navigation labels (these must also be translated).
 
@@ -57,7 +58,7 @@ If the dashboard i18n files are not available (the path does not exist), fall ba
 
 2. **List all files** under the source path. For example, if the target is `wonder-mesh`, list all `.mdx` files and `_meta.ts` files under `pages/<source-locale>/wonder-mesh/`.
 
-3. **Determine target locales** — if a locale filter was provided, only check that locale. Otherwise, check all 4 non-source locales.
+3. **Determine target locales** — if a locale filter was provided, only check that locale. Otherwise, check all 5 non-source locales.
 
 4. For each target locale, check which files are **missing or outdated**:
    - **Missing**: The file does not exist at all
@@ -110,6 +111,7 @@ Each translation agent must:
 - For `zh-CN`: use Simplified Chinese characters (简体中文)
 - For `ja-JP`: use standard Japanese with appropriate kanji/hiragana/katakana mix
 - For `es-ES`: use Castilian Spanish conventions
+- For `id-ID`: use standard, formal Bahasa Indonesia (address the reader as "Anda"); keep widely used tech loanwords such as deploy, server, template, environment variables in English as the dashboard does
 - Always consult the glossary — terms marked `"keep": true` stay in English, others use the specified translation
 - When a term is not in the glossary but is a well-known technical term, keep it in English
 

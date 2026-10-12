@@ -1,0 +1,85 @@
+---
+title: Metode Pembayaran
+ogImageTitle: Metode Pembayaran
+ogImageSubtitle: Kartu kredit, Alipay, dan opsi pembayaran lainnya
+---
+
+import { Callout } from 'nextra/components'
+
+# Metode Pembayaran
+
+Sistem pembayaran Zeabur didukung oleh [Stripe](https://stripe.com/) dan mendukung berbagai metode pembayaran.
+
+## Metode Pembayaran yang Didukung
+
+### Kartu Kredit / Debit
+
+Zeabur menerima semua kartu kredit dan debit yang didukung Stripe, dengan tagihan dalam **USD**:
+
+- Visa
+- Mastercard
+- American Express
+- JCB
+- UnionPay
+
+### Alipay
+
+Jika Anda tidak memiliki kartu kredit yang kompatibel dengan Stripe, Anda dapat menggunakan Alipay untuk **menambah kredit** dan membayar dalam CNY.
+
+Kredit yang ditambahkan melalui Alipay akan dikonversi menjadi Zeabur Credits, yang dapat digunakan untuk membayar biaya langganan dan pemakaian sumber daya.
+
+## Alur Pembayaran
+
+### Berlangganan Paket Berbayar
+
+1. Buka [halaman Harga Zeabur](https://zeabur.com/pricing) atau [halaman langganan](https://zeabur.com/account/subscription).
+2. Pilih paket yang Anda inginkan ([Dev Plan](/pricing/dev-plan), [Pro Plan](/pricing/pro-plan), atau [Team Plan](/pricing/team-plan)).
+3. Masukkan informasi kartu kredit Anda (atau gunakan kartu yang sudah terhubung) dan selesaikan pembayaran.
+4. Paket Anda langsung berlaku setelah pembayaran berhasil.
+
+### Menambah Kredit
+
+1. Buka [halaman tagihan Dashboard](https://dash.zeabur.com/account/billing).
+2. Klik tombol isi ulang di bagian "Kredit".
+3. Pilih jumlah dan selesaikan pembayaran melalui kartu kredit atau Alipay.
+4. Kredit akan langsung ditambahkan ke saldo akun Anda.
+
+![Add Credits](/billing/subscription/get-more-credits.png)
+
+## Mengelola Metode Pembayaran
+
+### Menghubungkan Kartu Kredit
+
+Di [halaman tagihan](https://dash.zeabur.com/account/billing), masukkan detail kartu kredit Anda di bagian "Metode Pembayaran" lalu klik "Tambah".
+
+### Mengganti Kartu Kredit
+
+1. Cari tombol "**Unbind**" di halaman tagihan dan lepaskan kartu Anda saat ini.
+2. Hubungkan kartu kredit baru.
+
+### Melepas Kartu
+
+Jika Anda telah membatalkan semua langganan berbayar, Anda dapat melepas kartu kredit Anda.
+
+<Callout type="warning">
+Jika Anda memiliki langganan berbayar yang aktif, melepas kartu kredit dapat menyebabkan penagihan berikutnya gagal. Pastikan untuk membatalkan langganan atau menyiapkan metode pembayaran alternatif terlebih dahulu.
+</Callout>
+
+## FAQ
+
+### Bagaimana jika kartu kredit saya ditolak?
+
+- Periksa apakah kartu memiliki saldo yang cukup.
+- Pastikan kartu mendukung transaksi internasional (USD).
+- Hubungi penerbit kartu Anda untuk memeriksa apakah ada transaksi yang diblokir.
+- Coba kartu kredit lain atau gunakan Alipay untuk menambah kredit.
+
+### Bisakah saya membayar dengan PayPal?
+
+PayPal saat ini belum didukung. Silakan gunakan kartu kredit atau Alipay.
+
+### Dalam mata uang apa saya ditagih?
+
+Semua tagihan dalam Dolar AS (USD). Penerbit kartu kredit Anda mungkin mengenakan biaya transaksi luar negeri — tanyakan detailnya kepada bank Anda.
+
+Untuk pertanyaan pembayaran lainnya, hubungi kami melalui [Zeabur Support](https://zeabur.com/support).

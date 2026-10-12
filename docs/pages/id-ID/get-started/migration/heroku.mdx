@@ -1,0 +1,134 @@
+---
+title: Migrasi dari Heroku
+ogImageTitle: Migrasi dari Heroku
+ogImageSubtitle: Migrasikan aplikasi Anda dari Heroku ke Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Migrasi dari Heroku
+
+Panduan ini memandu Anda memigrasikan aplikasi dari Heroku ke Zeabur. Sebagian besar aplikasi Heroku berbasis Git dan menggunakan buildpack bahasa standar, sehingga proses perpindahannya mudah — Zeabur mendeteksi proyek Anda secara otomatis tanpa konfigurasi apa pun.
+
+## Sebelum Memulai
+
+- Akun [Zeabur](https://zeabur.com/).
+- Kode sumber aplikasi Anda di repositori Git.
+- Akses ke dashboard atau CLI Heroku (`heroku`).
+
+## Langkah 1: Hubungkan Repositori Git Anda
+
+Sebagian besar aplikasi Heroku sudah didukung oleh repositori Git. Jika aplikasi Anda juga demikian:
+
+1. Masuk ke [dashboard Zeabur](https://dash.zeabur.com/).
+2. Buat proyek baru dan pilih server (atau beli server baru).
+3. Klik **Tambah Layanan** → **Git** dan hubungkan akun GitHub Anda.
+4. Pilih repositori untuk aplikasi Anda.
+
+Zeabur secara otomatis mendeteksi Node.js, Python, Ruby, Go, Java, PHP, dan banyak bahasa lainnya — tidak memerlukan `Procfile`.
+
+<Callout>
+Jika kode Anda hanya ada di Heroku Git (bukan di GitHub), push terlebih dahulu ke repositori GitHub:
+
+```bash
+heroku git:clone -a my-app
+cd my-app
+git remote add github https://github.com/your-username/my-app.git
+git push github main
+```
+</Callout>
+
+## Langkah 2: Pindahkan Environment Variables
+
+Heroku menyimpan konfigurasi dalam **Config Vars**. Ekspor variabel tersebut dan tambahkan ke Zeabur:
+
+1. **Tampilkan daftar config vars Heroku Anda:**
+
+   ```bash
+   heroku config -a my-app
+   ```
+
+2. Di dashboard Zeabur, klik layanan Anda dan buka tab **Variabel**.
+3. Tambahkan setiap variabel. Anda dapat menempelkannya satu per satu atau menggunakan fitur **Bulk Edit** untuk menempelkan banyak pasangan key-value sekaligus.
+
+<Callout>
+Anda tidak perlu mengatur `PORT` di Zeabur. Zeabur secara otomatis menetapkan dan menyuntikkan port. Jika aplikasi Anda membaca `PORT` dari environment (seperti kebanyakan aplikasi Heroku), aplikasi akan langsung berfungsi.
+</Callout>
+
+## Langkah 3: Migrasikan Database Anda
+
+Jika Anda menggunakan Heroku Postgres:
+
+1. **Buat backup dan unduh:**
+
+   ```bash
+   heroku pg:backups:capture -a my-app
+   heroku pg:backups:download -a my-app
+   ```
+
+   Perintah ini mengunduh file `latest.dump` dalam format kustom Postgres.
+
+2. **Buat database di Zeabur**: klik **Tambah Layanan** → **Database** → **PostgreSQL**.
+
+3. **Impor data Anda** menggunakan connection string PostgreSQL Zeabur:
+
+   ```bash
+   pg_restore -d "your-zeabur-postgres-connection-string" --no-owner latest.dump
+   ```
+
+4. **Perbarui URL database aplikasi Anda**: atur `DATABASE_URL` di tab **Variabel** Zeabur. Anda dapat menggunakan referensi variabel Zeabur `${POSTGRES_URI}` untuk menyuntikkan connection string dari layanan database secara otomatis.
+
+<Callout>
+Untuk Heroku Redis, gunakan `redis-cli --rdb` untuk mengekspor dan mengimpor data ke instance Redis di Zeabur.
+</Callout>
+
+## Langkah 4: Ganti Add-on Heroku
+
+Add-on Heroku memiliki padanan di Zeabur atau dapat dihubungkan sebagai layanan eksternal:
+
+| Add-on Heroku | Padanan di Zeabur |
+|---|---|
+| Heroku Postgres | **Database** → PostgreSQL |
+| Heroku Redis | **Database** → Redis |
+| Heroku Scheduler | Gunakan cron sistem atau layanan terjadwal |
+| Papertrail (log) | Penampil log bawaan di dashboard |
+| SendGrid | Hubungkan melalui environment variables |
+| Cloudinary | Hubungkan melalui environment variables |
+
+Untuk add-on yang merupakan produk SaaS eksternal (SendGrid, Cloudinary, dan lainnya), cukup tetap gunakan layanan tersebut — pindahkan saja API key-nya ke tab **Variabel** di Zeabur.
+
+## Langkah 5: Atur Domain Kustom
+
+1. Di dashboard Zeabur, klik layanan Anda dan buka tab **Jaringan**.
+2. Klik **Generate Domain** untuk mendapatkan subdomain `.zeabur.app` gratis, atau klik **Domain Kustom** untuk menambahkan domain Anda sendiri.
+3. Perbarui record DNS Anda:
+   - Hapus target DNS Heroku yang lama (CNAME ke `*.herokuapp.com` atau endpoint SSL Heroku).
+   - Tambahkan record CNAME yang mengarah ke target yang disediakan Zeabur.
+
+## Langkah 6: Verifikasi dan Go Live
+
+1. Picu deployment dengan melakukan push commit ke repositori yang terhubung (atau klik **Deploy Ulang** di dashboard).
+2. Periksa tab **Log** di Zeabur untuk memastikan aplikasi Anda berhasil berjalan.
+3. Uji alur utama aplikasi Anda (autentikasi, baca/tulis database, panggilan API).
+4. Setelah dipastikan berjalan baik, perbarui DNS production Anda agar mengarah ke Zeabur.
+
+## Perbedaan Utama: Heroku vs Zeabur
+
+| Fitur | Heroku | Zeabur |
+|---|---|---|
+| Konfigurasi | `Procfile` + buildpack | Deteksi otomatis (tanpa konfigurasi) |
+| Deployment | `git push heroku main` | Git push ke GitHub (deploy otomatis) |
+| Penskalaan | Tipe dyno (Basic, Standard, Performance) | Alokasi sumber daya di dashboard |
+| Perilaku tidur | Eco dyno tidur setelah 30 menit tidak aktif | Tidak tidur — selalu berjalan |
+| Batas ukuran slug | 500 MB terkompresi | Tanpa batas ukuran slug |
+| Database | Heroku Postgres (terkelola) | Layanan database (PostgreSQL, MySQL, MongoDB, Redis, dll.) |
+| Add-on | Marketplace Add-on Heroku | Layanan prebuilt Zeabur + layanan eksternal |
+| Harga | Harga bulanan per dyno | [Paket langganan](/pricing) + biaya server |
+
+<Callout>
+`Procfile` Heroku tidak diperlukan di Zeabur. Zeabur mendeteksi start command Anda secara otomatis. Jika Anda perlu menyesuaikannya, Anda dapat mengaturnya di pengaturan layanan pada bagian **Build & Deploy**.
+</Callout>
+
+---
+
+Selesai. Aplikasi Heroku Anda kini berjalan di Zeabur tanpa dyno, tanpa Procfile, dan tanpa batas ukuran slug. Jika Anda mengalami masalah, hubungi [Zeabur Support](https://zeabur.com/support).

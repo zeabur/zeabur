@@ -1,0 +1,71 @@
+---
+title: Kebijakan Pengembalian Dana
+ogImageTitle: Kebijakan Pengembalian Dana
+ogImageSubtitle: Kebijakan pengembalian dana dan pembatalan Zeabur
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Kebijakan Pengembalian Dana
+
+## Berhenti Berlangganan Paket
+
+Untuk **Developer Plan (Dev Plan)**, **Pro Plan**, dan **Team Plan**:
+
+- Setelah membatalkan langganan, Anda tetap dapat menggunakan fitur paket saat ini hingga akhir siklus tagihan berjalan. Setelah siklus berakhir, akun Anda akan otomatis di-downgrade ke Free Plan.
+
+### Cara Berhenti Berlangganan
+
+<Steps>
+
+### Buka halaman tagihan Dashboard
+
+Buka [halaman tagihan Dashboard](https://dash.zeabur.com/account/billing).
+
+### Cari tombol "**Berhenti Berlangganan**"
+
+Gulir ke bawah ke bagian langganan.
+
+### Konfirmasi pembatalan
+
+Tinjau konfirmasi yang muncul dan selesaikan pembatalan.
+
+</Steps>
+
+![Unsubscribe](/billing/subscription/unsubscribe.png)
+
+<Callout type="warning">
+  Setelah downgrade ke Free Plan, layanan containerized yang sedang di-deploy
+  akan otomatis ditangguhkan oleh sistem. Pastikan untuk mem-backup data
+  penting sebelum membatalkan.
+</Callout>
+
+## Pengembalian Dana Server
+
+- Hanya managed server yang belum kedaluwarsa dari penyedia yang mendukung pengembalian dana yang memenuhi syarat. Hapus semua proyek dari server sebelum mengajukan pengembalian dana.
+- Pengembalian dana mandiri diberikan dalam bentuk **Zeabur Credits**, bukan ke metode pembayaran asli.
+- Jumlah pengembalian dana dihitung secara prorata berdasarkan sisa waktu server yang belum digunakan.
+
+### Aliyun, Tencent, dan Volcengine
+
+Penyedia ini merupakan layanan prabayar bulanan yang langsung dibeli oleh Zeabur setelah checkout.
+
+- Setiap akun memiliki satu kali pengembalian dana tanpa syarat yang berlaku bersama untuk ketiga penyedia tersebut.
+- Setelah pengembalian dana tersebut digunakan, pengembalian dana berikutnya umumnya tidak tersedia. [Zeabur Support](https://zeabur.com/support) hanya mempertimbangkan kasus luar biasa, seperti kegagalan teknis pada server atau penyedia.
+- Berganti server atau paket, tidak lagi membutuhkan server, menghapus proyek, atau mematikan server bukan merupakan alasan yang memenuhi syarat untuk pengembalian dana.
+
+### Catatan Pengembalian Dana
+
+- Agar tidak ditagih pada siklus tagihan berikutnya, nonaktifkan perpanjangan otomatis sebelumnya.
+
+![Disable auto-renewal](/billing/pricing/auto-renewal.png)
+
+<Callout type="warning">
+  Sebelum mengajukan pengembalian dana, pastikan semua data di server telah
+  di-backup atau dipastikan tidak lagi diperlukan — **data tidak dapat dipulihkan
+  setelah server dihapus**.
+</Callout>
+
+## Pengembalian Dana Kredit Prabayar
+
+Kredit prabayar saat ini **tidak dapat dikembalikan**. Silakan tambahkan kredit sesuai kebutuhan Anda yang sebenarnya.

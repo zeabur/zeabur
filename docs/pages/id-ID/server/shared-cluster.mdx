@@ -1,0 +1,47 @@
+---
+title: Cluster Bersama (Usang)
+ogImageTitle: Cluster Bersama (Usang)
+ogImageSubtitle: Informasi historis cluster bersama dan panduan migrasi
+---
+
+import { Callout } from 'nextra/components'
+
+# Cluster Bersama (Usang)
+
+<Callout type="error">
+Cluster bersama sudah tidak digunakan lagi. Proyek baru tidak dapat lagi dibuat di cluster bersama, dan proyek cluster bersama yang sudah ada berhenti menerima layanan baru sejak **1 April 2026**. Semua proyek baru sebaiknya menggunakan [Server](/server).
+</Callout>
+
+## Apa itu Cluster Bersama
+
+Cluster bersama adalah penawaran server awal dari Zeabur. Dalam model ini, layanan dari banyak pengguna di-deploy di cluster Kubernetes yang sama, berbagi sumber daya CPU, memori, dan jaringan yang mendasarinya. Pengguna tidak perlu mengelola perangkat keras dan hanya membayar sesuai pemakaian sumber daya yang sebenarnya.
+
+## Cluster Bersama vs. Server
+
+| Fitur | Cluster Bersama (Usang) | Server |
+| --- | --- | --- |
+| Isolasi Sumber Daya | Multi-tenant, perangkat keras bersama | Perangkat keras sepenuhnya khusus |
+| Penagihan | Berbasis pemakaian (vCPU / memori / traffic) | Biaya bulanan tetap |
+| Lokasi Server | Region tetap (AWS, GCP) | Bring Your Own Host (BYOH), region mana pun |
+| Stabilitas Performa | Potensi efek noisy-neighbor | Stabil dan dapat diprediksi |
+| Kasus Penggunaan | Proyek kecil, dev/test | Produksi, beban kerja dengan keandalan tinggi |
+
+## Mengapa Dihentikan
+
+Seiring matangnya penawaran server, Zeabur menggabungkan cluster bersama ke dalam arsitektur server untuk memberikan isolasi sumber daya dan jaminan performa yang lebih baik.
+
+## Migrasi dari Cluster Bersama ke Server
+
+Jika layanan Anda masih berjalan di cluster bersama, ikuti langkah-langkah berikut untuk melakukan migrasi:
+
+1. **Siapkan server** — Beli atau [daftarkan server Anda sendiri](/server/register) di [halaman Server Zeabur](https://zeabur.com/servers).
+2. **Backup data Anda** — Gunakan fitur [Backup & Pemulihan](/operations/data/backup-restore) untuk membuat backup semua layanan stateful (database, penyimpanan persisten).
+3. **Ekspor proyek Anda** — Gunakan fitur [Ekspor Proyek](/deploy/manage/export-project) untuk mengekspor konfigurasi YAML proyek Anda.
+4. **Deploy ulang di server** — Buat proyek baru di region server, impor konfigurasinya, lalu deploy ulang layanan Anda.
+5. **Pulihkan data** — Pulihkan backup dari langkah 2 ke layanan yang baru.
+6. **Alihkan DNS** — Arahkan record DNS domain kustom Anda ke domain layanan yang baru.
+7. **Verifikasi dan bersihkan** — Setelah environment baru berjalan dengan benar, hapus layanan lama dari cluster bersama.
+
+<Callout type="info">
+Jika Anda mengalami masalah selama migrasi, silakan hubungi kami melalui [Zeabur Support](https://zeabur.com/support).
+</Callout>

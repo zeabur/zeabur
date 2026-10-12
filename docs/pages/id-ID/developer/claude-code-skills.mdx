@@ -1,0 +1,124 @@
+---
+title: Claude Code Skills
+ogImageTitle: Claude Code Skills
+ogImageSubtitle: Biarkan AI agent Anda menangani deployment dan operasional
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Claude Code Skills
+
+Plugin Claude Code resmi dari Zeabur mengubah bahasa alami menjadi operasi infrastruktur. Deploy layanan, sewa server, kelola konfigurasi — semuanya tanpa meninggalkan editor Anda.
+
+<Callout type="info">
+  Claude Code Skills memerlukan lingkungan [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview). Pastikan Claude Code sudah terpasang dan berjalan.
+</Callout>
+
+## Instalasi
+
+<Steps>
+
+### Tambahkan plugin Zeabur ke registry lokal Anda
+
+Tambahkan plugin Zeabur dari marketplace Claude Code:
+
+```bash copy
+claude plugin marketplace add zeabur/agent-skills
+```
+
+### Pasang dan aktifkan skill
+
+Pasang dan aktifkan semua skill Zeabur di Claude Code:
+
+```bash copy
+claude plugin install zeabur@zeabur
+```
+
+</Steps>
+
+Setelah terpasang, Anda dapat mengoperasikan semua fitur Zeabur melalui bahasa alami di Claude Code.
+
+## Skill yang Didukung
+
+### Sewa VPS
+
+Jelajahi dan sewa server dari penyedia seperti AWS, Hetzner, dan Linode.
+
+> "Bantu saya mencari VPS murah dengan 2 core dan RAM 4GB"
+
+### Deploy Layanan
+
+Deploy proyek lokal atau template ke server Anda dengan deteksi framework otomatis.
+
+> "Deploy proyek ini ke server Hetzner saya"
+
+### Siapkan Email
+
+Tambahkan email transaksional ke aplikasi Anda menggunakan Zeabur Email dengan SMTP yang dikonfigurasi otomatis.
+
+> "Tambahkan fitur pengiriman email ke aplikasi saya"
+
+### Atur Environment Variables
+
+Buat, perbarui, atau tautkan environment variables antarlayanan.
+
+> "Atur DATABASE_URL untuk backend saya"
+
+### Edit File Konfigurasi
+
+Ubah konfigurasi nginx, parameter runtime, dan pengaturan container.
+
+> "Perbarui konfigurasi nginx untuk mengaktifkan gzip"
+
+### Konfigurasi Port
+
+Petakan dan ekspos port layanan; atasi masalah ketidakcocokan port.
+
+> "Aplikasi saya berjalan di port 8080, perbaiki proxy-nya"
+
+### Hubungkan Domain
+
+Hubungkan domain kustom atau subdomain `.zeabur.app` gratis dengan SSL otomatis.
+
+> "Hubungkan myapp.dev ke layanan ini"
+
+### Siapkan Health Check
+
+Konfigurasikan endpoint health check untuk me-restart layanan yang tidak sehat secara otomatis.
+
+> "Tambahkan health check di /api/health"
+
+### Konfigurasi Firewall
+
+Atur aturan lalu lintas masuk dan keluar untuk server.
+
+> "Hanya izinkan lalu lintas dari IP kantor saya"
+
+### Atur Container Image
+
+Deploy dari Docker image kustom atau ganti base image.
+
+> "Deploy menggunakan Docker image privat saya"
+
+### Beli Domain
+
+Cari, daftarkan, dan konfigurasikan domain kustom.
+
+> "Beli myapp.dev dan arahkan ke aplikasi saya"
+
+### Kelola Database
+
+Deploy, periksa, query, isi data awal, dan tangani migrasi database.
+
+> "Apa isi database saya? Tambahkan user uji coba"
+
+### Debug & Pemecahan Masalah
+
+Periksa container, baca log, diagnosis, dan perbaiki masalah.
+
+> "Aplikasi saya mengembalikan error 500, cari tahu penyebabnya"
+
+## Pelajari Lebih Lanjut
+
+- [Halaman ikhtisar Skills](https://zeabur.com/en-US/skills)
+- [Zeabur CLI](/developer/cli)

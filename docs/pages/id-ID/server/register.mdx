@@ -1,0 +1,53 @@
+---
+title: Daftarkan Server
+ogImageTitle: Daftarkan Server
+ogImageSubtitle: Daftarkan server di Zeabur
+---
+
+import { Callout } from 'nextra/components';
+
+# Daftarkan Server
+
+Artikel ini menjelaskan cara mendaftarkan [Server](../server) di Zeabur. Jika Anda tidak memiliki server sendiri, Anda dapat [membelinya dari Zeabur](./purchase).
+
+## Prasyarat
+
+- Anda sudah memiliki server, dan server ini harus memiliki setidaknya satu alamat IP publik yang dapat dihubungi.
+- Server harus memiliki setidaknya 1 core CPU dan memori minimal 2 GB.
+- Server harus membuka port berikut: `22`, `80`, `443`, `4222`, `6443`, `30000-32767`.
+- Server harus mengizinkan login SSH, dan username harus `root`.
+- Server ini harus mengizinkan login menggunakan user `root` atau user lain yang dapat menggunakan `sudo`, baik melalui password maupun SSH key.
+
+<Callout type="default">
+    Jika Anda tidak menggunakan user `root`, mengingat Zeabur mengonfigurasi mesin di environment non-interaktif (tidak dapat memasukkan password atas nama Anda), pastikan grup user `sudo` tempat user Anda berada telah diberi tag [`NOPASSWD`](https://linux.die.net/man/5/sudoers).
+</Callout>
+
+## Langkah Pendaftaran
+
+![add machine to zeabur](/server/add-machine-to-zeabur.webp)
+
+1. Setelah login ke Zeabur, klik "Server Saya" di bilah navigasi atas atau di bagian atas halaman daftar proyek, atau kunjungi langsung [https://zeabur.com/servers](https://zeabur.com/servers).
+2. Klik tombol "Buat" di pojok kanan atas halaman, lalu pilih "Hubungkan Server Anda Sendiri".
+3. Masukkan alamat IP server dan port SSH (default-nya `22`).
+4. Masukkan username (misalnya `root`), lalu pilih metode login (password atau SSH key).
+5. Jika Anda memilih password, masukkan password di bawahnya; jika Anda memilih SSH key, masukkan SSH key di bawahnya.
+
+<Callout type="warning">
+    Zeabur hanya menerima SSH key dalam **format OpenSSH** (private key diawali dengan `-----BEGIN OPENSSH PRIVATE KEY-----`). Beberapa penyedia cloud, seperti Tencent Cloud, secara default menyediakan SSH key dalam format RSA PEM lama (`-----BEGIN RSA PRIVATE KEY-----`), yang akan menyebabkan koneksi SSH gagal. Untuk mengonversi key Anda ke format OpenSSH, jalankan:
+
+    ```bash
+    ssh-keygen -p -N "" -f /path/to/your_private_key
+    ```
+
+    Setelah konversi, tempelkan isi key yang sudah diperbarui ke kolom SSH key.
+</Callout>
+
+6. Klik tombol "Tambah Server" dan tunggu hingga pendaftaran server selesai (proses ini memakan waktu sekitar 30 detik).
+7. Setelah pendaftaran berhasil, Anda akan melihat server yang baru terdaftar di daftar server.
+8. Tunggu sekitar satu menit hingga status menampilkan "Online" dan pemakaian CPU serta memori dapat ditampilkan dengan normal.
+
+Jika pendaftaran gagal, silakan laporkan kepada kami melalui [Zeabur Support](https://zeabur.com/support).
+
+## Pemeliharaan Server Anda
+
+Silakan lihat dokumen [Pemeliharaan Server](./operate) kami untuk mempelajari cara memelihara server Anda.

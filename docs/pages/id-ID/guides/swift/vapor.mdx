@@ -1,0 +1,90 @@
+---
+ogImageTitle: Deploy Proyek Vapor
+ogImageSubtitle: Deploy Proyek Vapor ke Zeabur
+---
+
+import { Callout } from 'nextra/components';
+
+# Deploy Proyek Vapor
+
+[Vapor](https://vapor.codes) adalah framework Web terkenal di ekosistem Swift. Dengan bantuan Vapor, Anda dapat menggunakan Swift untuk mengembangkan aplikasi Web berbasis HTTP.
+
+Artikel ini akan menjelaskan cara men-deploy proyek Vapor Anda ke Zeabur.
+
+## Prasyarat
+
+Pastikan komputer Anda telah siap dengan environment pengembangan Swift dan Vapor:
+
+
+```bash
+brew install vapor
+```
+
+## Membuat Proyek Vapor
+
+Ada dua cara untuk membuat proyek Vapor:
+
+### Menggunakan Command Tool Vapor
+
+```bash
+vapor new <project-name>
+cd <project-name>
+vapor xcode
+```
+
+Proyek yang dibuat dengan perintah Vapor secara default memiliki `Dockerfile` dan `docker-compose.yml`. Kabar baiknya, Anda dapat men-deploy-nya langsung di Zeabur tanpa Dockerfile, sehingga Anda dapat langsung menghapus kedua file tersebut:
+
+```bash
+rm Dockerfile docker-compose.yml
+```
+
+### Menggunakan Template Zeabur
+
+Buka https://github.com/zeabur/vapor-template , klik tombol `Use this template`, masukkan nama proyek, lalu klik tombol `Create repository from template`.
+
+```bash
+git clone <your-repository-url>
+cd <project-name>
+vapor xcode
+```
+
+## Pengembangan
+
+Selama pengembangan, Anda dapat menjalankan proyek langsung di mesin lokal Anda:
+
+```bash
+vapor run
+```
+
+Selanjutnya, ubah kode Swift sesuai kebutuhan Anda.
+
+## Deployment
+
+Pertama, pastikan semua perubahan Anda telah disinkronkan ke GitHub:
+
+```bash
+git add .
+git commit -m "your commit message"
+git push
+```
+
+Selanjutnya, buka [Konsol Zeabur](https://zeabur.com) dan buat proyek baru.
+
+Kemudian, klik tombol `Tambah Layanan Baru` dan pilih deploy dari GitHub.
+
+<Callout>
+    Jika Anda men-deploy proyek dari GitHub untuk pertama kalinya di Zeabur, Anda perlu mengonfigurasi dan menginstal GitHub App terlebih dahulu.
+    Anda dapat melihat panduan yang lebih detail [di sini](/deploy/methods/github-integration).
+</Callout>
+
+Setelah Anda memilih repositori dan branch, Zeabur akan otomatis mulai melakukan build layanan Anda.
+
+Zeabur akan otomatis mendeteksi bahwa layanan Anda dibangun dengan Vapor, sehingga Anda tidak perlu melakukan konfigurasi tambahan. Deployment Anda akan selesai dalam beberapa menit.
+
+## Selanjutnya
+
+Setelah deployment selesai, Anda mungkin perlu mengonfigurasi domain untuk situs web Vapor Anda.
+
+Buka tab "Domain" di halaman layanan, lalu klik "Generate Domain" atau "Domain Kustom".
+
+Untuk informasi lebih lanjut tentang cara menghubungkan domain ke layanan Anda, silakan lihat [Menghubungkan Domain](/deploy/networking/public-networking).

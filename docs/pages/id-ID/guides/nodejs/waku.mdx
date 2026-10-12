@@ -1,0 +1,61 @@
+---
+title: Waku
+ogImageTitle: Deploy Waku
+ogImageSubtitle: Deploy Aplikasi Waku di Zeabur
+---
+
+import { Callout } from 'nextra/components';
+
+# Deploy Waku
+
+[Waku](https://waku.gg/) adalah framework React minimalis yang mendukung React Server Components.
+
+Waku berarti "bingkai" dalam bahasa Jepang. Waku-Waku berarti merasa bersemangat.
+
+Panduan ini akan membantu Anda men-deploy aplikasi Waku Anda di Zeabur.
+
+## Langkah 1: Membuat Aplikasi Waku
+
+### Metode 1: Bootstrap dengan Waku CLI
+
+Anda dapat membuat proyek Waku dengan perintah di bawah ini dan mengikuti petunjuknya.
+
+<Callout>
+    Persyaratan minimum: Node.js 18.3.0 atau yang lebih baru
+</Callout>
+
+```bash
+# npm
+npm create waku@latest
+# yarn
+yarn create waku
+# pnpm
+pnpm create waku
+```
+
+### Metode 2: Clone dari template kami
+
+Kami telah menyiapkan template agar Anda dapat mulai menggunakan Waku: [Waku Template](https://github.com/zeabur/waku-template)
+
+## Langkah 2: Deploy ke Zeabur
+
+Buka [dashboard Zeabur Anda](https://zeabur.com) dan buat proyek baru jika Anda belum memilikinya.
+
+Kemudian, klik tombol `Tambah Layanan Baru`, lalu pilih deploy dari GitHub.
+
+<Callout>
+    Jika ini pertama kalinya Anda men-deploy dari GitHub di Zeabur, Anda perlu mengonfigurasi dan menginstal aplikasi GitHub terlebih dahulu.
+    Anda dapat melihat panduan yang lebih detail [di sini](/deploy/methods/github-integration).
+</Callout>
+
+Setelah memilih repositori dan branch, Zeabur akan otomatis mulai melakukan build layanan Anda.
+
+Zeabur akan otomatis mendeteksi bahwa layanan Anda dibangun dengan Waku, sehingga Anda tidak perlu melakukan konfigurasi tambahan. Deployment Anda akan selesai dalam beberapa menit.
+
+## Langkah Selanjutnya
+
+Setelah deployment selesai, Anda mungkin perlu mengonfigurasi nama domain untuk aplikasi Waku Anda.
+
+Buka tab "Domain" di halaman layanan dan klik "Generate Domain" atau "Domain Kustom".
+
+Untuk informasi lebih lanjut tentang cara menghubungkan domain ke layanan Anda, silakan lihat [Menghubungkan domain](/deploy/networking/public-networking).

@@ -1,0 +1,56 @@
+---
+title: Deployment & Layanan Inti
+ogImageTitle: Deployment & Layanan Inti
+ogImageSubtitle: Deploy Aplikasi dan Layanan Anda
+---
+
+import { Cards, Card } from 'nextra/components'
+
+# Deployment & Layanan Inti
+
+Bagian ini mencakup semua metode deployment Zeabur, konfigurasi layanan, dan fitur manajemen proyek. Setiap judul menjawab pertanyaan tertentu agar mudah dijadikan referensi cepat.
+
+## Dari Mana Deployment Dimulai?
+
+Semua layanan di Zeabur berada di dalam sebuah "Proyek". Satu proyek dapat berisi frontend, backend, database, dan lainnya.
+
+- [Buat Proyek](/deploy/create/create-project) — Membuat dan mengelola proyek
+- [Buat Layanan](/deploy/create/create-service) — Menambahkan layanan ke proyek
+- [Cara Kerja Deploy](/deploy/how-deploys-work) — Pelajari bagaimana Zeabur mendeteksi bahasa dan melakukan build secara otomatis
+
+## Metode Deployment Apa Saja yang Tersedia?
+
+| Metode | Paling Cocok Untuk | Dokumentasi |
+|--------|----------|------|
+| **Integrasi GitHub** | Paling umum — push untuk deploy | [Integrasi GitHub/Git](/deploy/methods/github-integration) |
+| **Template** | Deploy aplikasi open-source dengan satu klik | [Template](/template) |
+| **Dockerfile** | Proses build kustom | [Dockerfile](/deploy/methods/dockerfile) |
+| **Docker Image** | Menggunakan image yang sudah ada | [Docker Image Kustom](/deploy/methods/custom-docker-image) |
+| **Tombol Deploy** | Memungkinkan orang lain men-deploy proyek Anda dengan satu klik | [Tombol Deploy](/deploy/methods/deploy-button) |
+| **Ekstensi Chrome** | Deploy cepat dari browser | [Ekstensi Chrome](/deploy/methods/deploy-with-chrome-extension) |
+| **CLI** | Deployment dari terminal, cocok untuk CI/CD | [Deploy dengan CLI](/developer/cli) |
+| **Upload API** | Unggah file ZIP untuk deployment otomatis | [Upload API](/developer/public-api#upload-api) |
+
+## Apa yang Memicu Redeploy?
+
+- **GitHub Push**: Secara default, setiap push ke branch yang terhubung akan memicu deployment baru.
+- **Pemicu Manual**: Klik "Deploy Ulang" di Dashboard.
+- **Watch Paths**: Konfigurasikan agar deployment hanya dipicu ketika path tertentu berubah. Lihat [Watch Paths](/deploy/config/watch-paths).
+
+## Bagaimana Cara Mengatur Environment Variables?
+
+Di tab "Konfigurasi" layanan, Anda dapat menambah, mengedit, dan menghapus environment variables. Zeabur juga mendukung referensi variabel antar layanan.
+
+→ [Environment Variables](/deploy/config/environment-variables)
+
+## Bagaimana Cara Mengkustomisasi Build?
+
+- [Direktori Root](/deploy/config/root-directory) — Tentukan subdirektori dalam monorepo
+- [Watch Paths](/deploy/config/watch-paths) — Atur perubahan file mana yang memicu deploy
+- [Eksekusi Perintah](/deploy/config/command-execution) — Kustomisasi perintah start
+
+## Bagaimana Cara Mengelola dan Memigrasikan Proyek?
+
+- [Salin Proyek](/deploy/manage/copy-project) — Duplikasi seluruh proyek ke environment baru
+- [Ekspor Proyek](/deploy/manage/export-project) — Ekspor konfigurasi proyek
+- [Perbarui Referensi Image](/deploy/manage/update-image-reference) — Perbarui versi Docker image

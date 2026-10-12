@@ -1,0 +1,155 @@
+---
+title: Kustomisasi Docker image
+ogImageTitle: Kustomisasi Docker image
+ogImageSubtitle: Deploy Docker image ke Zeabur
+---
+
+# Docker image Kustom
+
+Meskipun Zeabur sudah menyediakan banyak template dari komunitas, Anda mungkin perlu men-deploy Docker image Anda sendiri, mengonfigurasi penyimpanan persisten, mengatur start command, dan lainnya. Untuk kebutuhan ini, Zeabur menawarkan fitur Prebuilt yang dapat dikustomisasi.
+
+## Membuka Antarmuka
+
+Klik "Tambah Layanan" → "Docker Images" untuk membuka halaman ini.
+
+![Open Docker customization page](/deploy/customize-prebuilt/open-customize-page.gif)
+
+## Petunjuk Konfigurasi
+
+### Image
+
+![Image Configuration Instructions](/deploy/customize-prebuilt/select-image.webp)
+
+"Image" adalah Docker image yang akan di-pull, biasanya berupa tag image yang mengikuti `docker pull` atau `docker run`, misalnya
+
+```bash
+docker pull mariadb      # tag is "mariadb"
+docker run mariadb:lts   # tag is "mariadb:lts"
+```
+
+Atau di Docker Compose
+
+```yaml
+version: '3.9'
+services:
+  db:
+    image: postgres      # tag is "postgres"
+    # ...
+```
+
+Setelah itu, Anda dapat melanjutkan dengan mengonfigurasi environment variables, port, dan lainnya.
+
+### Environment Variable
+
+![Environment Variable Configuration Example](/deploy/customize-prebuilt/environment-variable.webp)
+
+"Environment Variable", sesuai namanya, adalah environment variable yang diteruskan ke layanan. Selain pengaturan environment variable dasar, Zeabur juga memungkinkan Anda mengekspos variabel ini ke layanan lain.
+
+"Key" adalah nama key environment variable, yang hanya boleh berisi huruf, angka, dan garis bawah, seperti `MARIADB_USER` atau `DB_1_HOST`.
+
+"Value" adalah nilai environment variable, yang dapat menyertakan referensi `${KEY}` ke variabel lain. Seperti yang ditunjukkan di atas, `MARIADB_PASSWORD` mereferensikan `MARIADB_ROOT_PASSWORD`, sehingga nilainya sama dengan `123456`. Demikian pula, jika nilai suatu variabel adalah `password=${MARIADB_PASSWORD}`, nilainya akan diekspansi menjadi `password=123456`. Format `${KEY}` ini diekspansi saat layanan dijalankan, sehingga aplikasi menerima nilai yang sudah diekspansi.
+
+"Expose" membuat variabel tersedia bagi layanan lain. Misalnya, `MARIADB_USERNAME` dan `MARIADB_PASSWORD` diekspos sehingga dapat diakses oleh layanan lain dalam proyek yang sama.
+
+Selain variabel yang diekspos oleh layanan lain, Anda juga dapat menggunakan [variabel khusus bawaan Zeabur](/deploy/config/environment-variables), misalnya `${ZEABUR_WEB_URL}` untuk mendapatkan URL yang diatur pada port `web`.
+
+Jika Anda menulis Prebuilt berdasarkan dokumentasi Docker image, environment variables biasanya mengikuti `docker run` dengan `--env` (atau `-e`), misalnya:
+
+```bash
+docker run --detach --name some-mariadb --env MARIADB_USER=example-user --env MARIADB_PASSWORD=my_cool_secret --env MARIADB_DATABASE=example-database --env MARIADB_ROOT_PASSWORD=my-secret-pw  mariadb:latest
+
+# MARIADB_USER          = example-user
+# MARIADB_PASSWORD      = my_cool_secret
+# MARIADB_DATABASE      = example-database
+# MARIADB_ROOT_PASSWORD = my-secret-pw
+```
+
+Di Docker Compose:
+
+```yaml
+version: '3.9'
+services:
+  adminer:
+    image: adminer
+    restart: always
+    environment:
+      DEBUG: "true"   # (or) - DEBUG=true
+      # DEBUG = true
+```
+
+### Port
+
+![Ports Configuration Example](/deploy/customize-prebuilt/ports.webp)
+
+"Ports" berfungsi seperti aturan inbound firewall, yang hanya mengizinkan port yang dideklarasikan untuk diakses oleh layanan lain atau jaringan eksternal.
+
+"Port Name" hanya boleh berisi huruf dan tanda hubung. "Port" adalah port tempat layanan mendengarkan koneksi, misalnya `3306` untuk MariaDB atau `8080`, `3000`, `80` untuk layanan web.
+
+"Port Type" dapat berupa `HTTP` atau `TCP`. Untuk akses eksternal, port `HTTP` dapat diakses melalui domain (misalnya `my-service.zeabur.app`) yang dilengkapi sertifikat TLS otomatis dari Zeabur, sedangkan port `TCP` dapat diakses melalui hostname dan port yang ditetapkan secara otomatis (misalnya `reg.clusters.zeabur.com:12345`). Untuk koneksi antar layanan, Anda dapat mengakses port melalui [Jaringan Privat](/deploy/networking/private-networking), yang mengurangi biaya traffic yang tidak perlu. Untuk mengakses port ini dari layanan lain, gunakan port yang dideklarasikan secara langsung (`mariadb.zeabur.internal:3306`, `backend.zeabur.internal:8080`).
+
+Jika Anda menulis Prebuilt berdasarkan dokumentasi Docker image, port mengikuti `docker run` dengan `-p`, misalnya:
+
+```bash
+docker run -p 3306 mariadb:latest
+
+# Port Name = <Custom>; Port = 3306; Port Type = TCP
+# TCP because MariaDB uses a custom TCP-based protocol.
+```
+
+Di Docker Compose:
+
+```yaml
+version: '3.9'
+services:
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 80:8080
+      # Port Name = <Custom>; Port = 8080; Port Type = HTTP
+      # HTTP because adminer is a PHP web interface for database management.
+```
+
+### Volume
+
+![Volumes Configuration Example](/deploy/customize-prebuilt/volumes.webp)
+
+"Volumes" adalah path untuk penyimpanan persisten.
+
+Secara default, Zeabur mengatur ulang data layanan ke kondisi default image setiap kali layanan di-restart (stateless). Untuk menyimpan data dalam jangka panjang di dalam container, Anda dapat mengonfigurasi penyimpanan persisten dan me-mount-nya ke direktori yang diinginkan. Hal ini memastikan direktori yang di-mount tidak berubah saat restart atau pembaruan, hingga Anda menghapus layanan atau mengubah isi direktori tersebut. Fitur "Backup" juga mencadangkan ruang penyimpanan ini. Lihat [Harga Zeabur](https://zeabur.com/pricing) untuk biaya penyimpanan persisten.
+
+"Volume id" adalah pengenal ruang penyimpanan, yang hanya boleh berisi huruf, angka, dan tanda hubung. "Path" adalah path mount, yang dikonfigurasi sesuai pengaturan **Volume** pada Docker image.
+
+Dalam dokumentasi Docker image, volume mengikuti `docker run` dengan `-v`, misalnya:
+
+```bash
+docker run -v your-storage:/var/lib/mysql mariadb:latest
+
+# Volume ID = <Custom>; Path = /var/lib/mysql
+```
+
+Di Docker Compose:
+
+```yaml
+version: '3.9'
+services:
+  mariadb:
+    image: mariadb
+    volumes:
+      - your-storage:/var/lib/mysql
+      # Volume ID = <Custom>; Path = /var/lib/mysql
+```
+
+### Start Command
+
+![Start Command Configuration Example](/deploy/customize-prebuilt/start-command.webp)
+
+"Start Command" memungkinkan Anda mengganti entrypoint dan argumen default Docker image. Ini adalah pengaturan lanjutan dan dapat dilewati jika Anda tidak yakin fungsinya.
+
+Saat diatur melalui GUI, entrypoint default ketika kolom ini diisi adalah `/bin/sh`. Jika image Anda tidak menyediakan `/bin/sh`, gunakan **Edit TOML** untuk mengubahnya atau hubungi [dukungan](/get-started/faq-support/help) untuk mendapatkan bantuan.
+
+## Menulis Template Anda Secara Manual
+
+Meskipun GUI menyediakan banyak parameter yang diperlukan untuk membuat layanan Docker Anda, Anda mungkin ingin menambahkan ikon kustom, petunjuk koneksi, atau pengaturan yang lebih rinci. Dalam hal ini, [menulis template Anda dalam bentuk kode](/template/template-format) adalah pilihan yang lebih baik.
+
+Jika Anda memiliki pertanyaan tentang cara menulis template sendiri, jangan ragu untuk menghubungi [dukungan](/get-started/faq-support/help).

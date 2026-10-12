@@ -1,0 +1,127 @@
+---
+title: Team Plan
+ogImageTitle: Team Plan
+ogImageSubtitle: Detail Team Plan Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Team Plan
+
+Team Plan adalah paket kolaborasi Zeabur yang dirancang untuk tim kecil yang membutuhkan **kolaborasi, pengikatan server tanpa batas, dan dukungan prioritas**. Harganya mulai dari **US$79/bulan** dengan 3 kursi sudah termasuk, dan setiap kursi tambahan dikenakan biaya **US$24/bulan**.
+
+<Callout type="warning">
+Team Plan **tidak** menyertakan uji coba gratis. Mulailah uji coba pada Dev atau Pro jika Anda ingin mengevaluasi platform terlebih dahulu.
+</Callout>
+
+## Detail Paket
+
+| Item | Detail |
+| --- | --- |
+| Biaya bulanan | US$79 / bulan (termasuk 3 kursi) |
+| Kursi tambahan | +US$24 / kursi / bulan |
+| Server eksternal terikat | Tanpa batas |
+| Spesifikasi build CI | 4C8G |
+| Retensi log | 90 hari |
+| Batas unggah file | Tinggi |
+| Manajemen file container | File tunggal + operasi batch |
+| Deployment layanan HA | Didukung |
+| Pencarian log lanjutan & drain | Didukung |
+| Kontrol akses domain & IP | Didukung |
+| Kursi paket | Termasuk 3 kursi (masing-masing setara Pro) |
+| Manajemen peran & izin | Didukung |
+| Kolaborasi proyek tim | Didukung |
+| Dukungan prioritas | Didukung |
+| Pengadaan & faktur perusahaan | Didukung |
+
+## Model Kursi
+
+Team Plan mendukung kolaborasi multi-anggota, dan setiap kursi memiliki fitur setara Pro. Langganan dasar mencakup **3 kursi**; kursi tambahan dikenakan **US$24 per kursi per bulan**. Misalnya, tim beranggotakan 5 orang yang dibuat pada 1 April akan ditagih `$79 + 2 × $24 = $127 / month` setiap tanggal 1 tiap bulan.
+
+Menambah atau menghapus anggota tidak langsung menghasilkan faktur terpisah — biaya akan digabungkan ke dalam faktur siklus tagihan berikutnya. 3 kursi pertama gratis; penagihan baru berlaku mulai anggota ke-4. Saat anggota baru bergabung, tidak ada biaya yang ditagihkan saat itu juga; faktur berikutnya akan menagih "jumlah prorata dari tanggal bergabung hingga akhir siklus saat ini" sekaligus "biaya kursi penuh untuk siklus berikutnya".
+
+Menggunakan contoh Team beranggotakan 5 orang yang sama, jika anggota ke-6 ditambahkan pada 15 April, faktur 1 Mei akan menambahkan `$24 × (16 ÷ 30) + $24 ≈ $36.8` untuk anggota tersebut.
+
+Saat seorang anggota dihapus, kursi yang dilepas tetap dicadangkan hingga akhir siklus tagihan saat ini. Selama periode tersebut, anggota baru dapat mengisi kursi yang kosong tanpa biaya tambahan. Biaya yang sudah ditagihkan pada siklus saat ini tidak dapat dikembalikan, tetapi hak kursi tetap berlaku sepenuhnya hingga siklus berakhir. Faktur berikutnya akan dihitung ulang berdasarkan jumlah anggota aktual yang melebihi 3 kursi.
+
+Menggunakan contoh Team beranggotakan 5 orang yang sama, jika seorang anggota dihapus pada 20 April, kursi ke-5 dicadangkan hingga 30 April: jika anggota baru bergabung pada 25 April, faktur 1 Mei tetap menagih `$127` untuk 5 kursi; jika tidak ada yang mengisi kursi tersebut, mulai 1 Mei tim akan ditagih untuk 4 kursi sebesar `$79 + 1 × $24 = $103 / month`.
+
+## Peran & Izin Kursi
+
+Kursi Team Plan memiliki tiga peran: **Viewer**, **Editor**, dan **Admin**. Tetapkan peran berdasarkan kebutuhan setiap anggota — akses hanya-baca, pekerjaan pengembangan sehari-hari, atau kontrol administratif penuh.
+
+| Kemampuan | Viewer | Editor (Segera hadir) | Admin |
+| --- | :---: | :---: | :---: |
+| Melihat anggota tim | ✅ | ✅ | ✅ |
+| Mengundang anggota baru | ❌ | ❌ | ✅ |
+| Mengubah peran anggota | ❌ | ❌ | ✅ |
+| Menghapus anggota | ❌ | ❌ | ✅ |
+| Menghapus tim | ❌ | ❌ | ✅ |
+| Melihat proyek / layanan | ✅ | ✅ | ✅ |
+| Membuat proyek / layanan | ❌ | ✅ | ✅ |
+| Mengubah konfigurasi layanan | ❌ | ✅ | ✅ |
+| Menghapus proyek / layanan | ❌ | ❌ | ✅ |
+| Melihat riwayat deployment | ✅ | ✅ | ✅ |
+| Memicu deployment secara manual | ❌ | ✅ | ✅ |
+| Rollback deployment | ❌ | ✅ | ✅ |
+| Melihat log | ✅ | ✅ | ✅ |
+| Mencari log | ❌ | ✅ | ✅ |
+| Mengunduh log | ❌ | ✅ | ✅ |
+| Melihat database / server | ✅ | ✅ | ✅ |
+| Membuat database / server | ❌ | ✅ | ✅ |
+| Mengubah database / server | ❌ | ✅ | ✅ |
+| Menghapus database / server | ❌ | ❌ | ✅ |
+| Melihat tagihan | ❌ | ❌ | ✅ |
+| Mengubah metode pembayaran | ❌ | ❌ | ✅ |
+| Mengubah paket langganan | ❌ | ❌ | ✅ |
+
+- **Viewer** — akses hanya-baca ke seluruh sumber daya tim. Paling cocok untuk pemangku kepentingan, auditor, atau karyawan baru selama masa orientasi.
+- **Editor** _(Segera hadir)_ — dapat membangun dan merilis: membuat/mengubah proyek, memicu deploy, rollback, serta mencari dan mengunduh log. Tidak dapat menghapus sumber daya atau mengelola anggota/tagihan.
+- **Admin** — kontrol administratif penuh, termasuk manajemen anggota, operasi destruktif, dan tagihan. Diperlukan untuk setiap tindakan yang memengaruhi tim itu sendiri atau langganannya.
+
+## Yang Termasuk (dibandingkan Pro)
+
+Semua fitur Pro, ditambah:
+
+- Server eksternal terikat **tanpa batas** (Pro: 10)
+- Retensi log **90 hari** (Pro: 30 hari)
+- **Termasuk 3 kursi** (masing-masing setara Pro)
+- **Kolaborasi proyek tim**
+- **Manajemen peran & izin**
+- **Dukungan pelanggan & teknis prioritas**
+- **Operasi file batch** pada container
+- **Pengadaan & faktur perusahaan**
+
+## Faktur & NPWP
+
+Team Plan mendukung penerbitan faktur resmi dan konfigurasi nomor identitas pajak, cocok untuk bisnis dan organisasi yang memerlukan bukti transaksi untuk keperluan akuntansi. Lihat [Faktur](/subscription/invoicing) untuk detailnya.
+
+## Pro Plan vs. Team Plan
+
+| Fitur | Pro Plan | Team Plan |
+| --- | --- | --- |
+| Biaya bulanan | US$19 | US$79 (3 kursi) + US$24 / kursi tambahan |
+| Server eksternal terikat | 10 | Tanpa batas |
+| Retensi log | 30 hari | 90 hari |
+| Kursi paket | 1 | 3 (masing-masing setara Pro) |
+| Manajemen peran & izin | — | Didukung |
+| Kolaborasi tim | — | Didukung |
+| Dukungan prioritas | — | Didukung |
+| Pengadaan & faktur perusahaan | — | Didukung |
+| Uji coba gratis | 14 hari | Tidak tersedia |
+| Paling cocok untuk | Developer perorangan | Tim / organisasi |
+
+<Callout type="info">
+Untuk paket khusus berskala lebih besar, sumber daya teknis khusus, dan kontrak perusahaan, lihat **Paket Enterprise** — [hubungi kami](https://zeabur.com/support) untuk detailnya.
+</Callout>
+
+## Kasus Penggunaan
+
+- **Tim startup** — Beberapa developer mengelola environment deployment bersama-sama.
+- **Proyek internal perusahaan** — Tim yang membutuhkan tagihan terpadu dan faktur resmi.
+- **Agensi** — Proyek terpisah untuk klien yang berbeda, disatukan dalam satu tim.
+- **Komunitas open source** — Beberapa maintainer berkolaborasi dalam deployment layanan.
+
+## Cara Berlangganan
+
+Kunjungi [zeabur.com/pricing](https://zeabur.com/pricing) dan pilih Team Plan, atau upgrade dari [halaman tagihan Dashboard](https://dash.zeabur.com/account/billing). Kartu kredit dan Alipay didukung — lihat [Metode Pembayaran](/subscription/payment-methods) untuk detailnya.

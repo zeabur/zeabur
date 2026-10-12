@@ -1,0 +1,60 @@
+---
+title: Sumber Daya Developer
+ogImageTitle: Sumber Daya Developer
+ogImageSubtitle: Dokumentasi API, CLI & Integrasi
+---
+
+import { Callout } from 'nextra/components';
+
+# Sumber Daya Developer
+
+Zeabur menyediakan rangkaian API dan alat developer yang lengkap untuk mengelola layanan secara terprogram, mengotomatiskan deployment, dan berintegrasi dengan aplikasi Anda sendiri.
+
+## Ikhtisar API
+
+API Zeabur dibangun di atas **GraphQL**, yang menjadi dasar Dashboard, CLI, dan semua produk first-party. Endpoint REST juga tersedia untuk operasi tertentu (unggah file, operasi container, dll.).
+
+| API | Kegunaan | Endpoint |
+|-----|---------|----------|
+| [GraphQL API](/id-ID/developer/public-api) | Manajemen Project / Service / Environment, deployment, log | `https://api.zeabur.com/graphql` |
+| [Upload API](https://schema.zeabur.app/upload-api/index.html) | Deploy arsip ZIP melalui Pre-signed URL | `https://api.zeabur.com/v2/upload` |
+| [Email REST API](/id-ID/email/rest-api) | Pengiriman & manajemen email | `https://api.zeabur.com/api/v1/zsend` |
+
+<Callout>
+Spesifikasi lengkap API non-GraphQL (JSON Schema / OpenAPI) tersedia di [Schema Repository](https://schema.zeabur.app/).
+</Callout>
+
+## Autentikasi
+
+Semua API menggunakan autentikasi **Bearer Token**. Buat key di [Dashboard > Settings > API Keys](https://zeabur.com/account/api-keys), lalu sertakan di header `Authorization`:
+
+```bash
+curl -X POST https://api.zeabur.com/graphql \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"query":"query { me { username } }"}'
+```
+
+Lihat [API Key](/id-ID/developer/api-keys) untuk petunjuk lengkap.
+
+## Subscription Real-Time
+
+Perlu melakukan streaming log atau memantau aktivitas proyek? Zeabur menyediakan subscription real-time melalui WebSocket menggunakan protokol [graphql-ws](https://github.com/enisdenjo/graphql-ws).
+
+- **Endpoint global**: `wss://api.zeabur.com/graphql`
+- **Endpoint Tiongkok**: `wss://api.zeabur.cn/graphql`
+
+Untuk detail koneksi, alur autentikasi, dan contoh kode, lihat [Subscription WebSocket](/id-ID/developer/websocket-guide).
+
+## Alat
+
+- **[Zeabur CLI](/id-ID/developer/cli)**: Login dan deploy layanan dari terminal Anda dengan `npx zeabur`.
+- **[Apollo Explorer](https://api.zeabur.com/apollo-explorer)**: Jelajahi dan uji semua GraphQL API secara online. Untuk integrasi IDE, ambil Schema lengkap di "Schema" → "SDL" (perlu login).
+
+## API Khusus Produk
+
+Beberapa produk Zeabur memiliki dokumentasi API tersendiri:
+
+- **[Zeabur Email REST API](/id-ID/email/rest-api)** — Referensi endpoint API pengiriman email
+- **[Email API Keys](/id-ID/email/api-keys)** — Manajemen & izin API key khusus email
+- **[Email Webhooks](/id-ID/email/webhooks)** — Konfigurasi callback event inbound / bounce

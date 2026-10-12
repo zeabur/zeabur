@@ -1,0 +1,48 @@
+---
+title: Perbarui Referensi Image
+ogImageTitle: Perbarui Referensi Image
+ogImageSubtitle: Perbarui referensi image dari layanan Docker
+---
+
+import { Callout } from 'nextra/components';
+
+
+# Perbarui Referensi Image Layanan Docker
+
+Zeabur memungkinkan Anda memperbarui referensi image sebuah layanan setelah layanan tersebut dibuat. Hal ini berguna ketika Anda ingin memperbarui image layanan ke versi yang lebih baru atau ke image yang berbeda, atau mengalihkan layanan Anda ke image lain.
+
+<Callout type="info">
+    Hanya **layanan Docker** yang dapat memperbarui referensi image. Layanan Git dan Once tidak dapat mengubah tag image karena tidak memiliki tag image.
+</Callout>
+
+## Memperbarui tag
+
+"Tag" adalah bagian dari referensi image yang menentukan versi image. Misalnya, pada referensi image `nginx:latest`, `latest` adalah tag-nya. Anda dapat memperbarui tag untuk beralih ke versi image yang berbeda.
+
+Buka tab "Pengaturan" pada layanan Anda, dan Anda akan melihat bagian "Service Image". Di sini Anda dapat memperbarui referensi image layanan Anda.
+
+![service image](/deploy/update-image-reference/service-image.webp)
+
+Klik dan ubah bagian tag dari referensi image (yaitu kolom input kedua), lalu Anda akan melihat tombol **Simpan** untuk menerapkan tag baru Anda.
+
+![update tag](/deploy/update-image-reference/update-tag.webp)
+
+Setelah menyimpan perubahan, Zeabur akan otomatis me-restart layanan Anda dengan referensi image yang baru. Jika image tidak dapat di-pull, Zeabur akan meminta Anda untuk mengubah referensi image kembali.
+
+![pull failed](/deploy/update-image-reference/pull-failed.webp)
+
+## Memperbarui repositori
+
+"Repository" adalah bagian dari referensi image yang menentukan nama image. Misalnya, pada referensi image `nginx:latest`, `nginx` adalah repository-nya. Anda dapat memperbarui repository untuk beralih ke image yang berbeda.
+
+Buka tab "Pengaturan" pada layanan Anda, dan Anda akan melihat bagian "Service Image". Di sini Anda dapat memperbarui repository image layanan Anda.
+
+![service image](/deploy/update-image-reference/service-image.webp)
+
+Klik dan ubah bagian repository dari referensi image (yaitu kolom input pertama), lalu Anda akan melihat tombol **Simpan** untuk menerapkan repository baru Anda.
+
+![update repository](/deploy/update-image-reference/update-repository.webp)
+
+Setelah menyimpan perubahan, Zeabur akan otomatis me-restart layanan Anda dengan referensi image yang baru. Jika image tidak dapat di-pull, Zeabur akan meminta Anda untuk mengubah referensi image kembali.
+
+![pull failed](/deploy/update-image-reference/pull-failed.webp)

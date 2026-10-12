@@ -1,0 +1,141 @@
+---
+title: Impor dari v0
+ogImageTitle: v0 ke Zeabur
+ogImageSubtitle: Migrasikan proyek v0 Anda ke Zeabur
+---
+
+## Cara Deploy Proyek v0 Anda ke Web dengan Zeabur
+
+Panduan ini adalah cara termudah untuk mengubah kode yang dihasilkan oleh **v0** menjadi situs web yang benar-benar aktif dan dapat Anda bagikan kepada teman atau pelanggan.
+
+### Ikhtisar
+
+**v0** sangat hebat untuk membuat desain dan fitur aplikasi Anda, tetapi untuk menjadikannya online, Anda memerlukan "hosting". Kami sangat merekomendasikan **Zeabur** karena Zeabur menangani pekerjaan teknis yang berat untuk Anda. Zeabur mengambil kode Anda dan menempatkannya di URL yang aktif hanya dalam beberapa klik.
+
+**Alur Kerja:**
+
+- **Buat:** Hasilkan aplikasi Anda di **v0**.
+- **Sempurnakan:** Simpan kode ke komputer Anda dan periksa dengan **Cursor**.
+- **Deploy:** Host secara online di **Zeabur**.
+
+> 📝 Catatan Penting: Panduan ini berfokus untuk menjadikan situs web Anda online (Frontend). Jika aplikasi Anda perlu menyimpan data pengguna atau login, diperlukan Database. Kami akan membahas cara menambahkan database dalam tutorial lanjutan yang terpisah!
+
+### Prasyarat
+
+- Akun GitHub.
+- [Cursor](https://cursor.sh/) yang sudah terpasang di komputer Anda.
+- Akun [Zeabur](https://zeabur.com/).
+- Node.js terpasang secara lokal (disarankan versi 18+).
+
+## Langkah 1: Sinkronkan v0 ke GitHub
+
+Alih-alih menyalin kode secara manual, v0 memiliki integrasi langsung yang membuat repository GitHub untuk Anda.
+
+1. **Temukan Integrasi GitHub:**
+   - Buka proyek Anda di editor v0.
+   - Lihat bagian header kanan atas.
+   ![Go to GitHub](https://cdn.zeabur.com/v0%20migration/v0%20github%20part%201.png)
+   - Klik tombol **"Add to Codebase"** atau **ikon GitHub**.
+
+2. **Hubungkan ke GitHub:**
+   - Sebuah menu akan muncul. Pilih **"Connect to GitHub"**.
+   - Ikuti petunjuk otorisasi jika Anda belum pernah menghubungkannya sebelumnya.
+
+3. **Buat Repository:**
+   - Pilih **"Create New Repository"**.
+   - Masukkan nama untuk proyek Anda (misalnya `my-v0-app`).
+   - Klik **"Create"**.
+   - Setelah selesai, Anda akan melihat pesan berhasil beserta tautan ke repository GitHub baru Anda. **Salin URL ini.**
+    ![Connect to GitHub](https://cdn.zeabur.com/v0%20migration/v0%20github%20part%202.png)
+
+4. **Push ke GitHub:**
+   - Pastikan branch yang ingin Anda gunakan (biasanya `main`) dipilih sebagai branch aktif.
+    ![Set Active Branch](https://cdn.zeabur.com/v0%20migration/v0%20github%20part%203%20.png)
+
+   - Klik **"Push to GitHub"** untuk melakukan push kode Anda ke GitHub.
+   
+
+
+## Langkah 2: Siapkan Environment Lokal (Cursor)
+
+Sekarang Anda akan membawa kode dari GitHub ke komputer lokal untuk memverifikasi dependensi dan melakukan penyesuaian untuk produksi.
+
+1. **Clone Repository:**
+   - Buka **Cursor**.
+   - Tekan `Cmd + Shift + P` (Mac) atau `Ctrl + Shift + P` (Windows) untuk membuka Command Palette.
+   - Ketik `Git: Clone` lalu pilih.
+   - Tempelkan URL GitHub yang baru saja Anda salin dan pilih folder di komputer Anda untuk menyimpannya.
+
+2. **Instal Dependensi:**
+   - Buka terminal di Cursor (`Ctrl + ~`).
+   - Jalankan perintah instalasi (proyek v0 biasanya menggunakan `npm`):
+
+   ```bash
+   npm install
+   ```
+
+3. **Pengaturan Environment:**
+   - Temukan file `.env.example` (jika ada) dan duplikasikan untuk membuat file `.env`.
+   - **Penting:** Jika aplikasi v0 Anda menggunakan API key (OpenAI, Supabase, dll.), Anda harus menambahkan key tersebut secara manual ke file `.env` lokal Anda. Demi keamanan, v0 tidak mengekspor data rahasia Anda ke GitHub.
+
+4. **Uji Lokal:**
+   Jalankan development server untuk memastikan aplikasi berfungsi secara lokal.
+
+   ```bash
+   npm run dev
+   ```
+
+## Langkah 3: Buka di Editor Lokal dan Pasang Ekstensi Zeabur
+
+Untuk membuat deployment menjadi sangat mudah, Anda akan menggunakan ekstensi Zeabur.
+
+1. Buka Extensions Marketplace di editor Anda.
+2. Cari "Zeabur" dan klik **Install**.
+
+![Download Zeabur Extensions](https://cdn.zeabur.com/replit%20migration%20/Download%20Zeabur%20Extensions.png)
+
+## Langkah 4: Deploy dengan Sekali Klik
+
+Setelah folder proyek Anda terbuka di Cursor:
+
+1. Klik **ikon Zeabur** yang baru (biasanya logo "Z") di activity bar paling kiri.
+2. Klik tombol **"Deploy"**.
+3. Editor Anda akan meminta izin untuk membuka tautan di browser. Klik **"Open"**.
+
+![Click Deploy and Open](https://cdn.zeabur.com/replit%20migration%20/Click%20Deploy%20and%20Open%20.png)
+
+## Langkah 5: Biarkan AI Agent Zeabur Menangani Sisanya
+
+Setelah Anda diarahkan ke Zeabur, AI agent platform akan mengambil alih. AI agent menganalisis kode Anda untuk memahami struktur proyek, dependensi, dan kebutuhan build.
+
+Agent Zeabur akan:
+
+- Mengenali bahwa Anda memiliki aplikasi full-stack (misalnya Next.js).
+- Mengonfigurasi perintah build dan start secara otomatis.
+- Menyiapkan semua layanan yang diperlukan.
+
+![Zeabur Agent Handle the rest](https://cdn.zeabur.com/new%20agent.png)
+
+Anda akan diminta untuk memilih proyek dan region deployment. Setelah itu, Zeabur menangani semuanya.
+
+Anda dapat memantau secara real-time saat layanan Anda di-build hingga sepenuhnya beroperasi. Zeabur bahkan langsung memberikan domain aktif segera setelah deployment berhasil.
+
+## Langkah 6: Domain & Jaringan
+
+1. Klik Layanan Anda di Zeabur.
+2. Buka tab **Jaringan**.
+3. Klik **Generate Domain** (untuk mendapatkan domain `.zeabur.app`) atau **Domain Kustom** untuk menghubungkan domain Anda sendiri.
+4. Kunjungi URL tersebut. Aplikasi v0 Anda kini telah menjadi aplikasi produksi yang sepenuhnya ter-deploy.
+
+## Langkah 7: Hubungkan Database (Supabase)
+
+Jika aplikasi v0 Anda memungkinkan pengguna untuk login, membuat akun, atau menyimpan data, aplikasi tersebut memerlukan database (biasanya **Supabase**).
+
+Saat ini, Anda telah berhasil melakukan deploy **Frontend** (antarmuka visual). Agar fitur data dan autentikasi berfungsi, Anda perlu menghubungkan backend dengan menambahkan API key Anda ke pengaturan **Variabel** di Zeabur.
+
+Kami memiliki panduan khusus yang memandu Anda mendapatkan key Supabase dan menambahkannya ke Zeabur:
+
+**👉 Ikuti [panduan langkah demi langkah untuk membuat dan menghubungkan Supabase di Zeabur](https://zeabur.com/templates/SUPABS).**
+---
+
+Selesai! Anda telah berhasil memindahkan proyek Anda dari prototipe di v0 menjadi aplikasi yang aktif dan siap produksi di Zeabur tanpa menulis satu baris konfigurasi pun. Alur kerja yang mulus ini memungkinkan Anda fokus pada hal yang paling penting: membangun perangkat lunak yang hebat.

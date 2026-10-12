@@ -1,0 +1,67 @@
+---
+title: Metrik
+ogImageTitle: Metrik
+ogImageSubtitle: Lihat metrik performa layanan
+---
+
+import { Callout } from 'nextra/components'
+
+# Metrik
+
+Zeabur menyediakan metrik pemakaian sumber daya secara real-time untuk setiap layanan, membantu Anda memantau performa dan mengambil keputusan scaling yang tepat.
+
+## Melihat Metrik
+
+Untuk melihat metrik layanan:
+
+1. Buka proyek Anda di dashboard Zeabur.
+2. Pilih layanan yang ingin Anda pantau.
+3. Klik tab **Metrik**.
+
+Dashboard metrik menampilkan grafik real-time untuk:
+
+- **Pemakaian CPU** — Konsumsi CPU saat ini dan historis.
+- **Pemakaian memori** — Konsumsi RAM saat ini dan historis, termasuk batas yang dikonfigurasi.
+- **Lalu lintas jaringan** — Transfer data masuk dan keluar.
+
+## Memahami Pemakaian Sumber Daya
+
+### CPU
+
+Pemakaian CPU ditampilkan sebagai persentase dari sumber daya CPU yang dialokasikan. Lonjakan pemakaian CPU dapat menandakan:
+
+- Volume permintaan yang tinggi
+- Operasi yang berat secara komputasi
+- Alur kode yang tidak efisien dan dapat dioptimalkan
+
+### Memori
+
+Pemakaian memori menunjukkan berapa banyak RAM yang digunakan layanan Anda dibandingkan dengan batas yang dikonfigurasi. Jika layanan Anda secara konsisten mendekati batas memorinya, pertimbangkan untuk meningkatkan alokasi di [pengaturan layanan](/operations/resources/scaling) untuk menghindari restart akibat kehabisan memori (OOM).
+
+### Jaringan
+
+Metrik jaringan menunjukkan volume data yang ditransfer masuk dan keluar dari layanan Anda. Hal ini berguna untuk memahami pola lalu lintas dan memperkirakan biaya bandwidth.
+
+## Pemakaian Layanan dan Tagihan
+
+Untuk rincian konsumsi sumber daya dan biaya terkait, buka halaman **Pemakaian Layanan** di pengaturan proyek Anda. Halaman ini menampilkan:
+
+- Akumulasi pemakaian CPU dan memori selama periode penagihan
+- Biaya egress jaringan
+- Rincian biaya per layanan
+
+Lihat [Pemakaian Layanan](/operations/resources/service-usage) untuk detail lebih lanjut tentang bagaimana pemakaian diterjemahkan menjadi tagihan.
+
+<Callout>
+  Zeabur menggunakan model harga berbasis pemakaian. Memantau metrik secara rutin membantu Anda tetap memahami konsumsi sumber daya dan menghindari biaya tak terduga. Lihat [Harga](/pricing) untuk detail harga selengkapnya.
+</Callout>
+
+## Menggunakan Metrik sebagai Panduan Scaling
+
+Metrik sangat penting untuk menentukan kapan dan bagaimana melakukan scaling:
+
+- **CPU secara konsisten di atas 80%** — Pertimbangkan untuk meningkatkan alokasi CPU atau mengoptimalkan aplikasi Anda.
+- **Memori mendekati batas** — Tingkatkan alokasi memori untuk mencegah crash akibat OOM.
+- **Pertumbuhan lalu lintas yang stabil** — Rencanakan sejak awal dengan menyesuaikan sumber daya sebelum lonjakan pemakaian menurunkan performa.
+
+Untuk informasi tentang penyesuaian sumber daya layanan, lihat [Scaling](/operations/resources/scaling).

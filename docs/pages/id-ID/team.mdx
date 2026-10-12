@@ -1,0 +1,101 @@
+---
+title: Tim
+ogImageTitle: Tim
+ogImageSubtitle: Berkolaborasi dengan tagihan dan sumber daya bersama
+---
+
+import { Callout, Steps } from 'nextra/components';
+
+# Tim
+
+**Tim** adalah workspace terpisah yang memungkinkan banyak orang berbagi proyek, server, dan tagihan di bawah satu entitas. Tim memiliki langganan, metode pembayaran, dan faktur sendiri — sepenuhnya terpisah dari akun pribadi siapa pun.
+
+Halaman ini menjelaskan apa itu Tim, perbedaannya dengan akun pribadi Anda, dan apa saja yang diaktifkan oleh **paket Team**.
+
+## Akun pribadi vs Tim [#personal-account-vs-team]
+
+Setiap pengguna Zeabur memiliki **workspace pribadi** (akun individual Anda). Anda juga dapat menjadi anggota satu atau beberapa Tim. Setiap Tim adalah workspace tersendiri dengan sumber daya, anggota, dan tagihannya sendiri.
+
+Anda dapat berpindah antara workspace pribadi dan Tim mana pun yang Anda ikuti menggunakan **pengalih workspace** di sidebar dashboard.
+
+| | Workspace pribadi | Workspace Tim |
+| --- | --- | --- |
+| Pemilik | Anda sendiri | Entitas Tim |
+| Langganan | Paket pribadi Anda (Free / Dev / Pro) | Paket Team (satu tingkat) |
+| Metode pembayaran | Kartu Anda | Kartu milik Tim |
+| Faktur | Diterbitkan untuk Anda | Diterbitkan untuk Tim |
+| Proyek / server yang terlihat | Milik Anda | Milik Tim |
+| Anggota | T/A | Beberapa pengguna dengan peran |
+
+Seorang pengguna dapat memiliki langganan pribadi yang aktif **dan** sekaligus menjadi anggota Tim yang memiliki langganan aktif sendiri. Keduanya ditagih dan dikelola secara terpisah — menambahkan anggota ke Tim tidak memengaruhi tagihan pribadi Anda, dan menurunkan paket pribadi Anda tidak memengaruhi Tim mana pun yang Anda ikuti.
+
+<Callout type="info">
+  Di riwayat tagihan Anda, langganan pribadi yang menggunakan tingkat "Team" lama kini ditampilkan sebagai **Team Plan (Legacy)**. Hal ini tidak berkaitan dengan workspace Tim yang dijelaskan di sini. Produk Tim saat ini adalah workspace yang dijelaskan di halaman ini.
+</Callout>
+
+## Mengaktifkan paket Team [#activating-the-team-plan]
+
+Membuat Tim akan memberi Anda workspace kosong, tetapi Tim harus **mengaktifkan paket Team** sebelum anggotanya dapat membuat proyek, melakukan deploy layanan, atau menggunakan sumber daya milik Tim.
+
+<Callout type="warning">
+  Tim yang baru dibuat berada dalam status **tidak aktif**. Hingga administrator Tim mengaktifkan paket Team, tindakan berikut diblokir untuk semua orang di Tim:
+
+  - Membuat proyek di workspace Tim
+  - Melakukan deploy layanan dari template
+  - Mengelola server dan cluster milik Tim
+  - Mengirim email melalui Z‑Send atas nama Tim
+</Callout>
+
+Yang tetap dapat dilakukan pada Tim yang tidak aktif — agar administrator dapat menyelesaikan penyiapan:
+
+- Membuat Tim dan memberinya nama
+- Mengundang anggota dan menetapkan peran
+- Memperbarui profil Tim (nama, avatar, email kontak)
+- Menghubungkan metode pembayaran
+- **Mengaktifkan paket Team**
+- Kembali ke workspace pribadi Anda kapan saja
+- Menghapus Tim (hanya jika tidak memiliki proyek atau server)
+
+Untuk mengaktifkan paket Team, administrator Tim perlu membuka **Akun → Langganan** saat berada di workspace Tim dan mengklik **Aktifkan paket Team**. Dashboard akan menampilkan pratinjau harga berbasis kursi sebelum pembayaran.
+
+## Peran
+
+Tim memiliki tiga peran, yang ditetapkan saat administrator mengundang anggota:
+
+- **Administrator** — kendali penuh: anggota, tagihan, semua sumber daya milik Tim, serta dapat menghapus Tim.
+- **Editor** — dapat membuat dan mengubah proyek, layanan, dan sumber daya milik Tim, tetapi tidak dapat mengelola anggota, tagihan, atau menghapus Tim.
+- **Viewer** — akses hanya-baca ke sumber daya Tim. Tidak dapat membuat, mengubah, atau menghapus apa pun.
+
+Pengguna yang membuat Tim secara otomatis menjadi administrator pertamanya. Tim harus selalu memiliki setidaknya satu administrator.
+
+Untuk daftar lengkap apa yang dapat dan tidak dapat dilakukan setiap peran, lihat [Kelola anggota](/team/manage-members).
+
+## Tagihan terpisah
+
+Setiap Tim memiliki catatan pelanggan Stripe sendiri. Artinya:
+
+- Faktur Tim ditujukan ke detail penagihan Tim (nama resmi, alamat, ID pajak), bukan ke anggota individual mana pun.
+- Tim memiliki metode pembayaran sendiri, terpisah dari kartu pribadi administrator mana pun.
+- Tim memiliki saldo kredit sendiri — kredit yang ditambahkan ke Tim hanya digunakan untuk sumber daya milik Tim.
+- Berpindah workspace di dashboard akan mengubah konteks tagihan yang sedang Anda lihat.
+
+Untuk detail tentang metode pembayaran, faktur, kredit prabayar, dan cara kerja biaya kursi paket Team, lihat [Tagihan Tim](/team/billing).
+
+## Membawa proyek dan server pribadi ke dalam Tim
+
+Jika Anda memiliki proyek atau server dedicated di workspace pribadi Anda, administrator dari Tim yang Anda ikuti dapat mentransfer kepemilikannya ke Tim. Setelah transfer, tagihan dan kuota sumber daya akan melekat pada Tim, dan pemilik pribadi semula tetap dapat mengerjakannya sebagai anggota Tim.
+
+Lihat [Transfer kepemilikan ke Tim](/team/transfer-ownership).
+
+## Kapan menggunakan Tim vs kolaborator proyek / server
+
+Jika Anda hanya ingin memberikan akses ke layanan dalam satu proyek kepada seseorang, [undang mereka sebagai kolaborator proyek](/operations/team/invite-member). Jika Anda ingin berbagi satu server dedicated, undang mereka sebagai kolaborator server dari halaman pengaturan server. **Tim** adalah pilihan yang tepat ketika Anda menginginkan tagihan bersama dan satu workspace untuk banyak proyek, server, dan anggota — dalam hal ini, undang mereka sebagai anggota Tim.
+
+Untuk rincian lengkap perbedaan ketiganya, lihat [Kelola anggota](/team/manage-members).
+
+## Langkah selanjutnya
+
+- [Buat Tim](/team/create-team)
+- [Kelola anggota dan peran](/team/manage-members)
+- [Tagihan Tim](/team/billing)
+- [Transfer kepemilikan ke Tim](/team/transfer-ownership)

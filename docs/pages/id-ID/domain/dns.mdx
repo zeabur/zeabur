@@ -1,0 +1,65 @@
+---
+title: Record DNS
+ogImageTitle: Record DNS
+ogImageSubtitle: Kelola record DNS untuk domain terdaftar Anda
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Record DNS
+
+
+Setiap domain terdaftar memiliki editor DNS di halaman detailnya. Klik domain mana pun di daftar manajemen untuk mengaksesnya.
+
+## Tipe Record yang Didukung
+
+| Tipe | Deskripsi | Dukungan Proxy |
+|------|-------------|---------------|
+| **A** | Memetakan domain ke alamat IPv4 | Ya |
+| **AAAA** | Memetakan domain ke alamat IPv6 | Ya |
+| **CNAME** | Alias ke nama domain lain | Ya |
+| **MX** | Server pertukaran email | Tidak |
+| **TXT** | Teks bebas (SPF, DKIM, verifikasi, dll.) | Tidak |
+| **SRV** | Penunjuk lokasi layanan | Tidak |
+| **CAA** | Otorisasi otoritas sertifikat | Tidak |
+| **NS** | Delegasi nameserver | Tidak |
+
+## Menambahkan Record
+
+<Steps>
+
+### Buka Editor DNS
+
+Buka halaman detail domain dan klik **Tambah Catatan** di atas tabel record DNS.
+
+### Isi Record
+
+- **Tipe**: Pilih tipe record dari dropdown.
+- **Nama**: Subdomain, atau `@` untuk domain root.
+- **Konten**: Nilai record (alamat IP, hostname, teks, dll.).
+- **TTL**: Time to live. Pilih dari nilai yang tersedia (auto, 60s, 300s, 3600s, 86400s, dll.). Jika proxy diaktifkan, TTL diatur ke auto.
+- **Prioritas**: Wajib untuk record MX dan SRV.
+- **Proxy**: Hanya tersedia untuk record A, AAAA, dan CNAME. Lihat [Cloudflare Proxy](#cloudflare-proxy) di bawah.
+
+### Simpan
+
+Klik **Simpan** untuk membuat record. Perubahan biasanya tersebar dalam beberapa menit.
+
+</Steps>
+
+## Mengedit dan Menghapus Record
+
+- Klik **ikon edit** pada baris record untuk mengubah konten, TTL, prioritas, atau pengaturan proxy-nya. Tipe dan nama record tidak dapat diubah setelah dibuat — hapus lalu buat ulang record jika diperlukan.
+- Klik **ikon hapus** untuk menghapus record.
+
+## Cloudflare Proxy
+
+Record A, AAAA, dan CNAME memiliki toggle proxy. Jika diaktifkan:
+
+- Lalu lintas dirutekan melalui Cloudflare, yang menyediakan perlindungan DDoS, caching, dan terminasi SSL.
+- TTL otomatis diatur ke **Auto** dan tidak dapat diubah secara manual.
+- Alamat IP origin yang sebenarnya disembunyikan dari pencarian DNS.
+
+<Callout type="info">
+  Proxy nonaktif secara default. Aktifkan jika Anda menginginkan fitur perlindungan dan performa Cloudflare untuk record tersebut.
+</Callout>

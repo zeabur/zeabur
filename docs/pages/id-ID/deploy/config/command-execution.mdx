@@ -1,0 +1,42 @@
+---
+title: Jalankan Perintah
+ogImageTitle: Jalankan Perintah
+ogImageSubtitle: Jalankan Perintah di dalam Layanan Zeabur
+---
+
+# Jalankan Perintah
+
+Anda dapat menjalankan perintah di dalam layanan Zeabur untuk menginstal paket, menjalankan program, melihat informasi, atau bahkan mencadangkan data tertentu.
+
+## Membuka Antarmuka Eksekusi Perintah
+
+Buka tab **Ringkasan** pada layanan lalu klik **Perintah** untuk menampilkan antarmuka "Jalankan Perintah".
+
+![Open the Command Execution Interface](/deploy/command-execution/open-command-executor.webp)
+
+Antarmuka eksekusi perintah terdiri dari dua bagian:
+
+- Kolom Input Perintah: Tekan <kbd>Enter</kbd> atau klik tombol <kbd>⏎</kbd> di samping kolom input untuk menjalankan perintah.
+- Area Output Perintah: Menampilkan hasil eksekusi perintah. Jika perintah berhasil dijalankan, hasil output akan ditampilkan; jika tidak, kode error akan ditampilkan.
+
+![Command Execution Interface](/deploy/command-execution/interface.webp)
+
+## Menjalankan Perintah
+
+Sebagai contoh dasar, gunakan `echo`: masukkan `echo Hello, World!` dan Anda akan melihat hasil output `Hello, World!`.
+
+![Execute hello world Command](/deploy/command-execution/command-success.webp)
+
+Memasukkan perintah yang tidak ada akan menampilkan kode error.
+
+![Command Execution Failure](/deploy/command-execution/command-error.webp)
+
+Anda bahkan dapat menjalankan pernyataan SQL di container database seperti MySQL atau PostgreSQL, menggunakan cURL untuk mengunggah log atau mencadangkan file, atau menjalankan program migrasi (misalnya `prisma migrate`, `node seeder.js`).
+
+Untuk MySQL, kita dapat menyalin perintah "Command to connect to your MySQL", menghapus parameter `host` dan `port` (tidak perlu koneksi remote di dalam container), mengganti `mysqlsh` menjadi `mysql` (karena `mysqlsh` tidak tersedia di container), lalu menambahkan `-e` untuk menjalankan pernyataan SQL.
+
+```bash
+mysql --user=root --password=<password> --database=zeabur -e "SHOW DATABASES;"
+```
+
+![Execute MySQL Command](/deploy/command-execution/mysql-example.webp)

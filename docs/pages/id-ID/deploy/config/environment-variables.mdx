@@ -1,0 +1,129 @@
+---
+title: Mengatur Environment Variables
+ogImageTitle: Mengatur Environment Variables
+ogImageSubtitle: Mengatur Environment Variables di Zeabur
+---
+
+# Mengatur Environment Variables
+
+Environment variables digunakan untuk mengonfigurasi aplikasi Anda.
+Zeabur menyediakan cara untuk mengatur environment variables bagi layanan Anda.
+
+## Tambah, Edit, Hapus
+
+Anda dapat mengatur environment variables di tab **Variabel** pada layanan Anda, dan Anda dapat **Tambah Variabel** ke layanan Anda.
+
+![environment variables](/environment/add-variables.en-US.png)
+
+Zeabur akan secara otomatis menyuntikkan environment variables berikut ke layanan Anda.
+
+- `<YOUR_SERVICE_NAME>_HOST`: Host dari layanan.
+
+- `PORT`: Port dari layanan
+
+- Variabel lain seperti kredensial database ([PostgreSQL](/marketplace/postgresql)) atau connection string [Redis](/marketplace/redis), dan sebagainya.
+
+Anda tidak perlu mengatur environment variables tersebut secara manual.
+
+![db env](/environment/db-env.en-US.png)
+
+Saat mengarahkan kursor ke sebuah variabel, Anda dapat memilih untuk mengedit atau menghapus variabel tersebut.
+
+![hovering](/environment/var-hover.png)
+
+Klik kotak centang di pojok kanan atas untuk beralih ke tampilan daftar.
+
+![list view](/environment/var-list-view.png)
+
+Klik ikon edit untuk mengedit nilai variabel.
+
+![edit variable](/environment/var-edit.png)
+
+## Edit dalam Format Mentah
+
+Jika Anda ingin menambahkan beberapa variabel sekaligus, Anda dapat menggunakan fitur edit massal.
+
+Klik tombol **Edit Variabel Mentah** untuk masuk ke mode edit massal, yang akan mengatur environment variables layanan dalam format file `.env`.
+
+![edit-raw](/environment/var-raw-edit.png)
+
+## Referensi Variabel
+
+Anda dapat mereferensikan variabel lain di Zeabur.
+
+Yang perlu Anda lakukan hanyalah mereferensikan variabel lain menggunakan sintaks template saat mengatur variabel:
+
+```bash
+# For example, you can set the variable like this:
+AUTH_INFOR=${USERNAME}:${PASSWORD}
+```
+
+![reference](/environment/var-reference.png)
+
+Dengan begitu, nilai `USERNAME` dan `PASSWORD` akan otomatis digabungkan dan disuntikkan ke `AUTH_INFOR`.
+
+## Variabel Khusus
+
+"Variabel Khusus" adalah environment variables yang telah ditentukan sebelumnya oleh Zeabur dan dapat langsung digunakan.
+
+### Cara Mereferensikan
+
+- Di kolom input environment variable di Zeabur: Gunakan format `${VARIABLE}` untuk menyisipkan variabel khusus.
+- Di aplikasi Anda sendiri: Gunakan cara yang sama seperti mereferensikan environment variable (`process.env.VARIABLE`).
+
+### Urutan Prioritas Variabel
+
+Urutan ekspansi variabel di dalam sebuah layanan adalah sebagai berikut:
+
+- Environment variables yang didefinisikan oleh layanan saat ini akan diambil terlebih dahulu.
+- Jika tidak didefinisikan, environment variables yang diekspos oleh layanan lain akan diambil.
+- Jika tidak didefinisikan, variabel khusus akan diambil.
+
+### Daftar Variabel
+
+#### Hostname/Port
+
+- `${ZEABUR_[PORTNAME]_URL}`: URL yang sesuai dengan port tertentu.
+  - Misalnya, `https://test.zeabur.app`.
+  - URL ini adalah URL yang Anda atur di bagian "Domain":
+
+    ![Domain Port Customization](/deploy/special-variables/domain-port-customization.png)
+
+  - Untuk layanan yang di-deploy dari repositori Git, `PORTNAME` selalu `web`.
+- `${ZEABUR_[PORTNAME]_DOMAIN}`: Domain yang sesuai dengan port tertentu.
+  - Misalnya, `test.zeabur.app`.
+  - URL ini adalah URL yang Anda atur di bagian "Domain".
+  - Untuk layanan yang di-deploy dari repositori Git, `PORTNAME` selalu `web`.
+- `${CONTAINER_HOSTNAME}`: Hostname layanan saat ini di dalam proyek Zeabur.
+    - Biasanya, kita membuat environment variable dengan properti Expose (misalnya `${MYSQL_HOST}`),
+      lalu mengisi nilai `${CONTAINER_HOSTNAME}` ke environment variable tersebut.
+    - Namun, jika Anda ingin mereferensikan hostname layanan lain di Zeabur, kami menyarankan untuk menggunakan fitur DNS yang akan dirilis Zeabur di masa mendatang.
+- `${[PORTNAME]_PORT}`: Port yang didefinisikan pada layanan Prebuilt.
+    - Misalnya, jika Anda mengatur `database / 3306 / TCP`, maka `DATABASE_PORT` akan bernilai `3306`.
+    - Hanya terlihat di dalam layanan saat ini.
+    - Untuk layanan yang di-deploy dari repositori Git, nilainya adalah `8080`. Anda dapat membaca port ini dari `${PORT}`.
+
+#### Informasi Zeabur
+
+Variabel-variabel ini jarang digunakan, tetapi jika Anda membutuhkan pengenal unik dari layanan/proyek Zeabur saat ini,
+variabel-variabel ini akan sangat membantu.
+
+- `${ZEABUR_SERVICE_ID}`: ID Layanan
+- `${ZEABUR_PROJECT_ID}`: ID Proyek
+- `${ZEABUR_ENVIRONMENT_ID}`: ID environment layanan
+- `${ZEABUR_USER_ID}`: ID pengguna yang membuat proyek ini
+
+#### Informasi Git
+
+Variabel-variabel ini hanya akan muncul selama fase build layanan Git.
+
+- `${ZEABUR_GIT_COMMIT_SHA}`: Nilai SHA commit Git dari deployment saat ini.
+- `${ZEABUR_GIT_AUTHOR}`: ID penulis commit Git dari deployment saat ini.
+- `${ZEABUR_GIT_BRANCH}`: Nama branch Git dari deployment saat ini.
+- `${ZEABUR_GIT_REPO_NAME}`: Nama repositori Git dari deployment saat ini.
+- `${ZEABUR_GIT_REPO_OWNER}`: ID pemilik repositori Git dari deployment saat ini.
+- `${ZEABUR_GIT_COMMIT_MESSAGE}`: Pesan commit Git dari deployment saat ini.
+
+#### Utilitas
+
+- `${PASSWORD}`: Kata sandi acak yang dibuat oleh Zeabur untuk setiap layanan.

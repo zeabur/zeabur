@@ -1,0 +1,121 @@
+---
+title: Deploy Proyek Qwik
+ogImageTitle: Deploy Qwik
+ogImageSubtitle: Cara deploy Qwik di Zeabur
+---
+
+# Deploy Proyek Qwik
+
+Artikel ini akan mengajarkan Anda cara men-deploy proyek [Qwik](https://qwik.builder.io) Anda di Zeabur.
+
+## Inisialisasi Proyek
+
+Pertama, Anda perlu menginisialisasi proyek Qwik di environment pengembangan lokal Anda. Kita dapat mengikuti petunjuk di [dokumentasi resmi Qwik](https://qwik.builder.io/docs/getting-started/) untuk menyelesaikan langkah ini.
+
+```bash
+npm create qwik@latest
+```
+
+Setelah mengikuti petunjuk hingga inisialisasi selesai, Anda akan melihat tampilan seperti berikut:
+
+```bash
+💫 Let's create a Qwik app 💫
+
+✔ Project name … qwik-app
+✔ Select a starter › Basic
+
+🦄  Success!  Project created in portfolio directory
+
+🐰 Next steps:
+   cd qwik-app
+   npm install
+   npm start
+
+💬 Integration? Add Netlify, Cloudflare, Tailwind...:
+   npm run qwik add
+
+💬 Questions? Start the conversation at:
+   https://qwik.builder.io/chat
+   https://twitter.com/QwikDev
+
+📺 Presentations, Podcasts and Videos:
+   https://qwik.builder.io/media/
+```
+
+Dan Anda akan melihat folder `qwik-app` dibuat di direktori Anda saat ini.
+
+## Pengembangan
+
+Setelah inisialisasi, Anda dapat berpindah ke folder `qwik-app` dan menjalankan `npm start` untuk memulai server pengembangan.
+
+```bash
+cd qwik-app
+npm start
+```
+
+Anda akan melihat tampilan seperti berikut:
+
+```bash
+ VITE v3.1.1  ready in 140 ms
+
+  ➜  Local:   http://localhost:5174/
+  ➜  Network: use --host to expose
+```
+
+Selanjutnya, Anda dapat mulai mengubah kode untuk mengembangkan proyek Qwik Anda.
+
+## Menginstal Paket Adaptor
+
+Agar proyek Qwik Anda dapat berjalan di Zeabur, Anda perlu menginstal paket adaptor Qwik Node.js (Express) sebelum deployment.
+
+```bash
+npm run qwik add express
+```
+
+Setelah instalasi, Anda akan melihat tampilan seperti berikut:
+
+```text
+🦄  Success!  Added express to your app
+
+📚 Relevant docs:
+   https://qwik.builder.io/qwikcity/adaptors/node/
+   https://expressjs.com/
+
+💬 Questions? Start the conversation at:
+   https://qwik.builder.io/chat
+   https://twitter.com/QwikDev
+```
+
+## Menguji Build Secara Lokal
+
+Setelah menginstal paket adaptor, Anda dapat terlebih dahulu menguji build secara lokal untuk memastikan proyek Anda berjalan dengan baik.
+
+```bash
+npm run build
+```
+
+Jika kode Anda tidak bermasalah, Anda akan melihat dua folder baru, yaitu `dist` dan `server`, ditambahkan ke direktori proyek.
+
+Selanjutnya, coba masukkan perintah berikut untuk menjalankan server lokal:
+
+```bash
+node server/entry.express.js
+```
+
+Selanjutnya, coba buka `http://localhost:3000` di browser Anda, dan Anda akan melihat halaman berjalan dengan lancar:
+
+![Halaman default Qwik](/framework/qwik/localhost.png)
+
+## Deploy
+
+Setelah memastikan build pengujian lokal tidak bermasalah, Anda dapat membuat repositori kode di GitHub dan melakukan push kode saat ini ke sana.
+
+Terakhir, kembali ke halaman proyek Anda di Zeabur, klik tombol **Deploy Layanan** atau **Tambah Layanan Baru**, lalu pilih **Deploy dari kode sumber Anda**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Cari repositori kode yang baru saja Anda buat, klik `import`, dan aplikasi Qwik Anda akan otomatis mulai di-deploy.
+
+![building](/framework/qwik/building.png)
+
+Setelah deployment, Anda dapat merujuk ke dokumen [Menghubungkan Domain](/deploy/networking/public-networking) untuk mempelajari cara menghubungkan nama domain publik yang dapat diakses dari luar ke proyek Qwik Anda.

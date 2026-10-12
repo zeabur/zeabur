@@ -1,0 +1,89 @@
+---
+title: Mulai Cepat
+ogImageTitle: Mulai Cepat
+ogImageSubtitle: Deploy layanan pertama Anda di Zeabur dalam 5 menit
+---
+
+import { Callout } from 'nextra/components'
+
+# Mulai Cepat
+
+Panduan ini memandu Anda menyelesaikan **deployment pertama dalam waktu kurang dari 5 menit**. Jika Anda tidak yakin harus mulai dari mana, lihat [Mulai Sesuai Kebutuhan](../start-by-need) untuk menemukan jalur yang paling sesuai bagi Anda.
+
+## Prasyarat
+
+| Item | Deskripsi |
+|------|-------------|
+| **Akun Zeabur** | Daftar di [zeabur.com](https://zeabur.com) dengan Email, GitHub, atau Google. Anda perlu memverifikasi akun (nomor telepon, kredit deposit di muka, atau kartu kredit) saat membuat proyek pertama. |
+| **Server** (opsional) | Jika Anda membutuhkan lokasi data center tertentu, [daftarkan server](/server) terlebih dahulu. Lewati langkah ini jika Anda menggunakan shared cluster. |
+
+## Jalur 1: Deploy dari Template (secepat 30 detik)
+
+Zeabur menyediakan ratusan template siap pakai yang mencakup aplikasi open-source dan database populer.
+
+<Callout>
+Kami menyarankan pengguna baru untuk memulai dengan template agar dapat merasakan alur kerja lengkap dari deploy hingga online.
+</Callout>
+
+**Template Populer**
+
+| Kasus Penggunaan | Rekomendasi | Deploy |
+|----------|-------------|--------|
+| Blog | WordPress, Ghost | [Marketplace Template](https://zeabur.com/templates) |
+| Otomatisasi | n8n, Activepieces | [Marketplace Template](https://zeabur.com/templates) |
+| Database | PostgreSQL, MySQL, Redis | Tambahkan langsung di proyek Anda |
+| Aplikasi AI | Dify, LobeChat | [Marketplace Template](https://zeabur.com/templates) |
+
+1. Di proyek Anda, klik **Tambah Layanan** → **Template**.
+2. Cari atau telusuri template yang Anda inginkan, lalu klik untuk melakukan deploy.
+3. Tunggu sekitar 30 detik — layanan Anda akan online.
+
+![Daftar template](/start/template-services.webp)
+
+## Jalur 2: Deploy Kode Anda dari GitHub
+
+Cara paling umum untuk men-deploy proyek Anda sendiri adalah melalui GitHub.
+
+1. Di proyek Anda, klik **Tambah Layanan** → **GitHub**.
+2. Otorisasi akun GitHub Anda saat pertama kali menggunakannya, lalu tunggu sekitar 1 menit.
+3. Cari dan pilih repositori yang ingin Anda deploy.
+
+![Cari repositori](/start/search-repository.webp)
+
+Zeabur secara otomatis mendeteksi bahasa dan framework Anda, lalu memilih strategi build terbaik.
+
+![Rencana build](/start/build-plan.webp)
+
+Klik **Deploy** untuk memulai. Jika Anda perlu menyesuaikan environment variables, buka tab "Konfigurasi".
+
+## Jalur 3: Deploy dengan Asisten AI
+
+Tidak yakin harus berbuat apa? Cukup sampaikan kebutuhan Anda kepada Asisten AI Zeabur dengan bahasa sehari-hari.
+
+![Zeabur Agent](/start/zeabur-agent.webp)
+
+Klik **Agent** di bilah navigasi untuk memulai percakapan. Contohnya:
+
+- "Deploy database PostgreSQL untuk saya"
+- "Saya ingin membuat blog WordPress"
+- "Deploy repo next-app saya dari GitHub"
+
+## Pasang Domain untuk Online
+
+Setelah layanan Anda berhasil di-deploy, buka tab **Domain** untuk memasang domain.
+
+![Pasang domain](/start/bind-domain.webp)
+
+- Zeabur menyediakan subdomain `.zeabur.app` gratis untuk pengujian cepat.
+- Anda juga dapat memasang domain kustom Anda sendiri — Zeabur menangani sertifikat HTTPS secara otomatis.
+- Untuk pengaturan lengkap, lihat [panduan Pemasangan Domain](/deploy/networking/public-networking).
+
+## Langkah Selanjutnya
+
+Selamat atas deployment pertama Anda! 🎉
+
+- [Mulai Sesuai Kebutuhan](../start-by-need) — Temukan jalur terbaik untuk kasus penggunaan Anda
+- [Ikhtisar Platform](../platform-overview) — Pahami kemampuan inti Zeabur
+- [Cara Kerja Deploy](/deploy/how-deploys-work) — Pelajari lebih dalam tentang pipeline deployment
+- [Environment Variables](/deploy/config/environment-variables) — Konfigurasikan environment aplikasi Anda
+- [Zeabur Support](https://zeabur.com/support) — Butuh bantuan? Hubungi tim dukungan

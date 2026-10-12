@@ -1,0 +1,45 @@
+---
+title: Buat Proyek
+ogImageTitle: Buat Proyek
+ogImageSubtitle: Buat proyek di Zeabur
+---
+
+# Buat Proyek
+
+Untuk men-deploy layanan di Zeabur, Anda perlu membuat proyek terlebih dahulu.
+
+Anda dapat mengikuti langkah-langkah di bawah ini untuk membuat proyek.
+
+## Apa itu proyek
+
+Proyek adalah kumpulan layanan yang di-deploy bersama. Layanan dalam proyek yang sama dapat saling berkomunikasi melalui jaringan internal.
+Anda dapat membuat beberapa proyek di region yang berbeda dan men-deploy berbagai jenis layanan di setiap proyek.
+
+Selain itu, Anda dapat [mengatur anggaran dan mengelola pemakaian](../operations/project-budget) proyek, [mengundang anggota tim lain](../operations/invite-member) untuk mengelola layanan, dan sebagainya.
+
+## Cara membuat proyek
+
+Pertama, buka [halaman proyek di dashboard](https://dash.zeabur.com/projects).
+
+Jika Anda baru di Zeabur dan belum memiliki proyek, Anda akan melihat halaman onboarding untuk membuat proyek pertama Anda.
+
+![Create project onboarding](/deploy/create-project/onboarding.png)
+
+Jika Anda pernah membuat proyek sebelumnya, cukup klik tombol **Buat Proyek** atau tekan `CMD + K` atau `Ctrl + K` untuk membuka command palette lalu pilih **Buat Proyek**,
+kemudian pilih opsi server:
+
+- Pilih **Server** yang sudah ada
+- Pilih **Beli Server Baru**
+- Pilih **Ikat Server Eksternal** (hubungkan server Anda sendiri melalui SSH)
+
+Klik **Buat Proyek** untuk melanjutkan.
+
+![Select Region](/deploy/create-project/select-region.png)
+
+## Langkah selanjutnya
+
+Anda akan melihat proyek kosong setelah proyek dibuat:
+
+![Empty Project](/deploy/create-project/empty-project.png)
+
+Anda dapat mengklik tombol **Deploy Layanan Baru** untuk [men-deploy layanan](./create-service) di proyek ini, atau mengklik tombol konfigurasi untuk mengelola pengaturan proyek dan mengundang anggota tim.

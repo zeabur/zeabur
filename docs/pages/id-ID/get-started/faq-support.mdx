@@ -1,0 +1,60 @@
+---
+title: FAQ & Dukungan
+ogImageTitle: FAQ & Dukungan
+ogImageSubtitle: Dapatkan bantuan dan dukungan
+---
+
+# FAQ & Dukungan
+
+## Dapatkan Bantuan
+
+Jika Anda mengalami masalah saat menggunakan Zeabur, ada beberapa cara untuk mendapatkan bantuan:
+
+- [Zeabur Support](https://zeabur.com/support) — Hubungi tim dukungan kami untuk bantuan terkait produk, akun, tagihan, atau deployment
+- [Hubungi Dukungan](/get-started/faq-support/help) — Pelajari informasi apa saja yang perlu disertakan saat menghubungi tim dukungan
+- [Verifikasi Komunitas](/get-started/faq-support/verify) — Pelajari cara memverifikasi identitas komunitas Anda
+
+## Pertanyaan yang Sering Diajukan
+
+### Bagaimana cara mengatur ulang kata sandi saya?
+
+Zeabur menggunakan login pihak ketiga (GitHub, Google, dan lainnya), sehingga tidak ada kata sandi terpisah yang perlu diatur ulang. Jika Anda tidak dapat masuk, coba gunakan metode login yang sama dengan yang Anda gunakan saat mendaftar, atau hubungi [Zeabur Support](https://zeabur.com/support).
+
+### Mengapa deployment saya gagal?
+
+Kegagalan deployment biasanya disebabkan oleh:
+
+- **Error build** — Pastikan kode Anda berhasil di-build secara lokal.
+- **Environment variables yang belum diatur** — Pastikan semua environment variables yang diperlukan sudah dikonfigurasi dengan benar.
+- **Konfigurasi port yang salah** — Pastikan aplikasi Anda mendengarkan port yang benar (Zeabur secara otomatis menyuntikkan environment variable `PORT`).
+- **Memori tidak mencukupi** — Proses build atau runtime mungkin melebihi batas sumber daya paket Anda.
+
+Periksa log layanan di Dashboard Anda untuk melihat pesan error yang lebih rinci.
+
+### Bagaimana cara kerja penagihan?
+
+Biaya Zeabur Anda bergantung pada paket langganan, server yang Anda gunakan, serta layanan apa pun yang ditagih berdasarkan pemakaian. Pengguna shared cluster yang sudah ada tetap ditagih berdasarkan penggunaan sumber daya. Lihat [Paket Harga](/pricing) dan [Shared Cluster](/server/shared-cluster) untuk detailnya.
+
+### Bisakah saya menggunakan domain kustom?
+
+Ya. Zeabur mendukung pemasangan nama domain Anda sendiri. Anda perlu menambahkan record CNAME yang sesuai di pengaturan DNS Anda. Untuk petunjuk langkah demi langkah, lihat [Jaringan Publik](/deploy/networking/public-networking).
+
+### Bagaimana cara menghubungi tim dukungan?
+
+Anda dapat menghubungi kami melalui:
+
+- Hubungi [Zeabur Support](https://zeabur.com/support)
+- Sertakan `projectID`, `serviceID`, atau `deploymentID` Anda jika masalah berkaitan dengan proyek atau layanan tertentu
+- Untuk informasi lebih lanjut, lihat [halaman Dukungan](/get-started/faq-support/help)
+
+### Bahasa pemrograman apa saja yang didukung?
+
+Zeabur mendukung berbagai bahasa pemrograman dan framework, termasuk Node.js, Python, Go, Rust, Java, .NET, PHP, Ruby, dan lainnya. Untuk daftar lengkap dan panduan deploy, lihat [Panduan](/guides).
+
+### Bagaimana cara meng-upgrade paket saya?
+
+Anda dapat meng-upgrade atau mengubah paket langganan di pengaturan akun pada Dashboard Zeabur Anda. Untuk langkah-langkah lengkapnya, lihat [Langganan](/subscription).
+
+### Apakah ada paket gratis?
+
+Ya. Zeabur menawarkan paket gratis yang memungkinkan Anda mencoba dan men-deploy layanan tanpa biaya. Paket gratis memiliki batas sumber daya tertentu. Untuk detailnya, lihat [Free Plan](/pricing/free-plan).

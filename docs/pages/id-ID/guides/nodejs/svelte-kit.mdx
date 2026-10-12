@@ -1,0 +1,109 @@
+---
+ogImageTitle: Deploy Svelte Kit
+ogImageSubtitle: Cara deploy Svelte Kit ke Zeabur
+---
+
+import { Tabs } from 'nextra/components'
+
+# Deploy Svelte Kit
+
+Deploy proyek Svelte Kit Anda ke Zeabur.
+
+### Langkah 1: Membuat proyek Svelte Kit (opsional)
+
+Buka terminal Anda dan jalankan
+
+```bash
+npm create svelte@latest
+```
+
+Selanjutnya, Anda perlu menginstal dependensinya:
+
+<Tabs items={['pnpm', 'npm', 'yarn']}>
+  <Tabs.Tab>
+    ```bash
+    pnpm install
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    npm install
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    yarn
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+Setelah itu, inisialisasi repositori Git dan unggah ke GitHub Anda.
+
+### Langkah 2: Menyiapkan `@zeabur/svelte-adapter`
+
+Selanjutnya, Anda perlu menginstal `@zeabur/svelte-adapter`:
+
+<Tabs items={['pnpm', 'npm', 'yarn']}>
+  <Tabs.Tab>
+    ```bash
+    pnpm add -D @zeabur/svelte-adapter
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    npm install -D @zeabur/svelte-adapter
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    yarn add -D @zeabur/svelte-adapter
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+Kemudian, buka `svelte.config.js` dan ubah menjadi:
+
+```js
+import adapter from '@zeabur/svelte-adapter'; // <-- Perhatikan baris ini
+
+export default {
+  kit: {
+    adapter: adapter()
+  }
+}
+```
+
+### Langkah 3: Deploy proyek Svelte Kit
+
+### Metode 1: Menggunakan Zeabur CLI
+
+Pertama, pastikan Anda telah menginstal Zeabur CLI sesuai panduan [Deploy dengan CLI](/developer/cli).
+
+Kemudian, di proyek Svelte Kit yang baru Anda inisialisasi, tambahkan file yang belum di-commit ke Git.
+
+```bash
+git add -A
+git commit -m "Initial commit"
+```
+
+Selanjutnya, deploy layanan Anda menggunakan perintah di bawah ini.
+
+```bash
+zeabur
+```
+
+### Metode 2: Menggunakan Dashboard Zeabur
+
+Di proyek Anda, klik **Deploy Layanan** atau **Tambah Layanan Baru** lalu pilih **Deploy dari kode sumber Anda**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Cari repositori kode Svelte Kit yang ingin Anda deploy, lalu klik import. Aplikasi Svelte Kit Anda akan otomatis mulai di-deploy.
+
+## Langkah 4: Menghubungkan Domain
+
+Setelah deployment selesai, Anda mungkin perlu mengonfigurasi domain untuk situs Anda.
+
+Buka tab "Domain" di halaman layanan dan klik "Generate Domain" atau "Domain Kustom".
+
+Untuk informasi lebih lanjut tentang cara menghubungkan domain ke layanan Anda, silakan lihat [Menghubungkan domain](/deploy/networking/public-networking).

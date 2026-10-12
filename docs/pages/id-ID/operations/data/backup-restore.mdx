@@ -1,0 +1,133 @@
+---
+title: Backup & Pemulihan
+ogImageTitle: Backup & Pemulihan
+ogImageSubtitle: Backup dan Pulihkan Layanan Anda di Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Backup & Pemulihan
+
+Zeabur menyediakan fitur <abbr title="Backup yang disimpan terpisah dari data host Anda">backup off-site</abbr> untuk Dev Plan ke atas. Backup Anda akan disimpan secara aman dan sementara di ruang penyimpanan Amazon S3 kami, sehingga tidak memakan ruang di host Anda yang sudah ada dan tidak dikenakan biaya tambahan.
+
+Untuk layanan database, Zeabur mendukung backup online dan otomatis, sehingga database Anda dapat di-backup tanpa downtime. Untuk layanan <abbr title="Stateful, layanan yang memiliki hard drive terpasang">stateful</abbr> lainnya, kami juga menyediakan fitur backup off-site offline setelah layanan dijeda.
+
+## Backup Layanan Anda
+
+### Backup Off-site Offline
+
+<Callout>
+    Jika Anda belum memasang [volume](/operations/data/volumes), fitur backup tidak akan ditampilkan. "Backup" hanya akan mencadangkan data di dalam volume; file lain di layanan (seperti kode sumber) tidak akan di-backup.
+</Callout>
+
+Pertama, Anda perlu menangguhkan layanan. Klik "Pengaturan" → "Tangguhkan Layanan" pada layanan untuk menangguhkannya. Perlu diperhatikan bahwa penangguhan tidak akan menyebabkan kehilangan data.
+
+Selanjutnya, klik tab "Backup" pada layanan Anda, dan Anda akan melihat tombol "Backup".
+
+![backup tab](/data-management/backup/backup-tab.webp)
+
+Setelah tombol tersebut diklik, Zeabur akan secara otomatis mem-backup layanan Anda di latar belakang; tunggu beberapa menit. Setelah backup selesai, Anda akan melihat tombol unduh yang dapat diklik untuk mengunduh file backup. Isi file backup adalah seluruh isi folder tempat volume layanan Anda dipasang.
+
+![backup success](/data-management/backup/backup-success.webp)
+
+Setelah backup selesai, Anda dapat membuka "Ikhtisar" dan mengklik "Restart Service" untuk melanjutkan kembali layanan Anda.
+
+### Backup Off-site Online
+
+Zeabur mendukung backup off-site online untuk database seperti PostgreSQL, MySQL, MariaDB, MongoDB, dan lainnya, sehingga backup dapat dilakukan dengan aman tanpa menjeda layanan Anda. Selain itu, layanan "Backup Off-site Online" juga mendukung backup otomatis.
+
+![online backup](/data-management/backup/online-backup.webp)
+
+Sama seperti "Backup Off-site Offline", setelah tombol "Backup" diklik, Zeabur akan secara otomatis melakukan backup di latar belakang; tunggu beberapa menit. Setelah backup selesai, Anda juga akan melihat tombol unduh yang dapat diklik untuk mengunduh file backup.
+
+File backup berisi dump database standar. Backup PostgreSQL dibuat dengan `pg_dumpall` dan mencakup semua database di layanan. Backup MySQL dan MariaDB mencakup semua database non-sistem. Backup MongoDB mencakup semua database yang dapat diakses dengan kredensial layanan. Backup PostgreSQL, MySQL, dan MariaDB menggunakan format `.sql`, sedangkan backup MongoDB berisi beberapa file `.bson`. Anda dapat memulihkan file-file ini nantinya dengan alat pemulihan database seperti `psql`, `mysql`, dan `mongorestore`.
+
+### Backup Otomatis
+
+Zeabur juga mendukung backup otomatis, yang saat ini berupa backup harian pada waktu yang ditentukan.
+
+![auto backup](/data-management/backup/auto-backup.webp)
+
+Setelah mengaktifkan "Backup Otomatis", Anda dapat mengatur waktu backup dalam UTC. Sebaiknya pilih waktu ketika lalu lintas layanan Anda paling rendah. Anda dapat melihat petunjuk "At your local time" di sebelahnya untuk mengetahui padanan periode UTC tersebut dalam waktu lokal Anda.
+
+## Masa Penyimpanan Backup dan Metode Pengambilan via API
+
+Zeabur **hanya menyimpan backup Anda selama 7 hari**. Backup yang melewati periode ini akan dihapus secara otomatis. Jika Anda perlu menyimpan backup lebih lama, silakan unduh file backup dan simpan sendiri di tempat lain.
+
+Saat ini, Zeabur belum mendukung backup ke ruang penyimpanan Amazon S3 milik Anda sendiri, tetapi Anda dapat menulis program untuk mengambil backup dengan memanggil [Zeabur Public API](/operations/developer-tools/public-api) dan menyimpannya di ruang penyimpanan pilihan Anda:
+
+```graphql
+query Backups($environmentId: ObjectID!, $serviceId: ObjectID!) {
+  backups(environmentID: $environmentId, serviceID: $serviceId) {
+    createdAt
+    downloadURL
+    status
+  }
+}
+```
+
+Contoh respons:
+
+```json
+{
+  "data": {
+    "backups": [
+      {
+        "createdAt": "2025-06-23T16:00:10.864Z",
+        "downloadURL": "https://backup.zeabur.com/XXXXXX",
+        "status": "SUCCESS"
+      }
+    ]
+  }
+}
+```
+
+Anda dapat menggunakan tautan unduhan file backup (`downloadURL`) beserta waktu backup (`createdAt`) untuk menyimpan file backup.
+
+## Pulihkan Backup
+
+Bagian ini menjelaskan secara singkat berbagai metode untuk memulihkan backup layanan Anda.
+
+### Database
+
+#### PostgreSQL
+
+Lihat bagian "Restore Backup" di [Halaman Template Layanan PostgreSQL](https://zeabur.com/templates/B20CX0).
+
+#### MySQL dan MariaDB
+
+Lihat bagian "Restore Backup" di [Halaman Template Layanan MySQL](https://zeabur.com/templates/DGLGRG) dan [Halaman Template Layanan MariaDB](https://zeabur.com/zh-TW/templates/46YKAR).
+
+#### Redis
+
+Anda dapat menggunakan [perintah Redis `RESTORE`](https://redis.io/commands/restore) untuk memulihkan backup.
+
+Bentangkan string "Command to connect to your Redis" pada layanan Redis, dan Anda akan melihat sesuatu seperti ini:
+
+```bash
+redis-cli -h <host> -p <port> -a <password>
+```
+
+Masukkan `<host>`, `<port>`, dan `<password>` ke dalam perintah berikut:
+
+```bash
+cat /path/to/backup.rdb | redis-cli -h <host> -p <port> -a <password> -x RESTORE <key> 0
+```
+
+#### MongoDB
+
+Bentangkan string "Command to connect to your MongoDB" pada layanan MongoDB, dan Anda akan melihat sesuatu seperti ini:
+
+```bash
+mongosh "<connection string>"
+```
+
+Salin `<connection string>` ke terminal dan jalankan perintah `mongorestore` untuk memulihkan backup:
+
+```bash
+mongorestore "<connection string>" "<backup directory>"
+```
+
+### Volume
+
+Jika Anda ingin memulihkan data di dalam [volume](/operations/data/volumes), Anda dapat mengikuti metode [Manajemen File](/operations/data/file-management) untuk mengunggah file backup ke direktori tujuan lalu mengekstraknya.

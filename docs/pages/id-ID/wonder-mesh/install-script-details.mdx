@@ -1,0 +1,142 @@
+---
+title: Apa yang Dilakukan Skrip Instalasi?
+ogImageTitle: Skrip Instalasi Wonder Mesh
+ogImageSubtitle: Rincian lengkap perubahan yang dilakukan skrip instalasi pada mesin Anda
+---
+
+import { Callout, Tabs } from 'nextra/components'
+
+# Apa yang Dilakukan Skrip Instalasi?
+
+<Callout type="error">
+  Halaman ini **hanya bersifat informatif**.  
+  Jangan menjalankan perintah apa pun yang tercantum di sini secara manual — selalu gunakan skrip instalasi yang disediakan di konsol Zeabur.  
+  Menjalankan perintah satu per satu dengan urutan yang salah dapat membuat mesin Anda berada dalam kondisi rusak.
+</Callout>
+
+Halaman ini menjelaskan secara rinci apa saja yang dilakukan skrip instalasi Wonder Mesh pada mesin Anda. Kami menjunjung transparansi penuh — Anda berhak mengetahui apa yang berjalan di perangkat keras Anda sebelum menjalankannya.
+
+<Tabs storageKey="wonder-mesh-os" items={['Linux', 'macOS']}>
+<Tabs.Tab>
+
+Skrip ini berjalan dengan hak akses root (`sudo bash`) dan melakukan langkah-langkah berikut:
+
+### 1. Menginstal Tailscale
+
+- Mengunduh dan menjalankan [skrip instalasi resmi Tailscale](https://tailscale.com/download)
+- Menginstal paket `tailscale` melalui package manager sistem Anda (apt, dnf, yum, dan sebagainya)
+- Mengaktifkan dan menjalankan layanan systemd `tailscaled` (berjalan otomatis saat boot)
+
+<Callout type="warning">
+  Jika Tailscale sudah terinstal dan terhubung ke jaringan lain, langkah ini akan menimpa konfigurasi Tailscale Anda yang sudah ada.
+</Callout>
+
+### 2. Mengunduh Binary Wonder
+
+- Mengunduh klien Wonder Mesh dari `cdn.zeabur.com`
+- Menempatkannya di `/usr/local/bin/wonder` dan menandainya sebagai file yang dapat dieksekusi
+
+### 3. Bergabung ke Jaringan Mesh
+
+- Menjalankan `wonder worker join` untuk menghubungkan perangkat Anda ke jaringan mesh privat berbasis [WireGuard](https://www.wireguard.com/)
+- Jaringan mesh dikelola oleh server koordinasi [Headscale](https://headscale.net/) yang di-hosting oleh Zeabur
+- Perangkat Anda menerima alamat IP mesh dalam rentang `100.x.x.x`
+
+### 4. Menginstal dan Mengonfigurasi SSH
+
+- Menginstal `openssh-server` jika belum terinstal
+- Mengaktifkan dan menjalankan layanan systemd `sshd`
+- Mengubah konfigurasi SSH untuk mengaktifkan autentikasi kata sandi:
+  - Mengedit `/etc/ssh/sshd_config` untuk mengatur `PasswordAuthentication yes`
+  - Membuat `/etc/ssh/sshd_config.d/00-zeabur-password-auth.conf` sebagai drop-in override
+
+<Callout type="warning">
+  Jika sebelumnya Anda telah menonaktifkan autentikasi kata sandi SSH (login hanya dengan key), perubahan ini akan mengaktifkannya kembali. Port SSH hanya dapat dijangkau melalui jaringan mesh, bukan dari internet publik.
+</Callout>
+
+### 5. Membuat Pengguna Sistem
+
+- Membuat pengguna `zeabur` (jika belum ada) dengan `/bin/bash` sebagai shell
+- Mengatur kata sandi yang dibuat secara acak untuk pengguna tersebut
+- Menambahkan pengguna ke grup `sudo` (atau `wheel`)
+- Membuat `/etc/sudoers.d/zeabur` yang memberikan akses sudo tanpa kata sandi
+
+<Callout type="warning">
+  Jangan mengubah kata sandi pengguna `zeabur` secara manual. Zeabur menggunakan kredensial ini untuk mengelola perangkat Anda melalui SSH. Mengubahnya akan memutus koneksi dan mencegah deploy.
+</Callout>
+
+### 6. Melapor Kembali ke Zeabur
+
+- Mengambil IP mesh (`tailscale ip -4`) dan IP publik (`curl ifconfig.me`)
+- Mengirimkan IP mesh, kredensial SSH, dan IP publik ke API Zeabur
+- Hal ini memungkinkan Zeabur mengelola deployment di perangkat Anda melalui SSH di atas jaringan mesh
+
+### 7. Pelaporan Progres
+
+Setiap langkah melaporkan progresnya ke API Zeabur secara real-time, sehingga Anda dapat memantau proses instalasi dari konsol. Jika terjadi error, beberapa baris terakhir dari output error akan dilaporkan.
+
+### File dan Layanan yang Ditambahkan (Linux)
+
+| Jenis | Path / Nama | Deskripsi |
+|------|-------------|-------------|
+| Binary | `/usr/local/bin/wonder` | Klien Wonder Mesh |
+| Paket | `tailscale` | Jaringan mesh (WireGuard) |
+| Paket | `openssh-server` (jika belum terinstal) | Server SSH |
+| Konfigurasi | `/etc/ssh/sshd_config.d/00-zeabur-password-auth.conf` | Mengaktifkan autentikasi kata sandi |
+| Konfigurasi | `/etc/sudoers.d/zeabur` | Sudo tanpa kata sandi untuk pengguna `zeabur` |
+| Log | `/tmp/zeabur-install.log` | Log instalasi |
+| Layanan sistem | `tailscaled` | Daemon Tailscale (berjalan otomatis saat boot) |
+| Layanan sistem | `sshd` | Daemon SSH (berjalan otomatis saat boot) |
+| Pengguna sistem | `zeabur` | Pengguna dengan akses sudo |
+
+### Perubahan Jaringan (Linux)
+
+| Perubahan | Deskripsi |
+|--------|-------------|
+| Terowongan WireGuard | Menambahkan interface jaringan mesh dengan IP `100.x.x.x` |
+| Server kontrol Tailscale | Mengarah ke instance Headscale milik Zeabur (bukan layanan resmi Tailscale) |
+| Port SSH 22 | Dapat diakses melalui jaringan mesh dengan autentikasi kata sandi |
+| Koneksi keluar | Terhubung ke `tailscale.com`, `cdn.zeabur.com`, `wonder-net.strrl.dev`, `api.zeabur.com`, dan `ifconfig.me` selama instalasi. Setelah penyiapan, koneksi berkelanjutan dipertahankan ke server koordinasi Tailscale dan `api.zeabur.com` untuk jaringan mesh dan komunikasi dengan platform. |
+
+</Tabs.Tab>
+<Tabs.Tab>
+
+Skrip ini berjalan sebagai **pengguna biasa** (jangan gunakan `sudo`). Perubahan khusus mesh (Tailscale, SSH, pengguna `zeabur`, sudoers) diterapkan di dalam mesin virtual — konfigurasi sistem macOS Anda tidak diubah secara langsung. Namun, Homebrew/Lima diinstal di host, dan Lima membuat port forwarding di sisi host (lihat di bawah).
+
+### 1. Menginstal Homebrew
+
+- Mengunduh dan menjalankan [skrip instalasi resmi Homebrew](https://brew.sh/) jika Homebrew belum terinstal
+- Mungkin juga menginstal Xcode Command Line Tools
+
+### 2. Menginstal Lima
+
+- Menjalankan `brew install lima`
+- Lima adalah pengelola mesin virtual yang ringan; Lima bergantung pada QEMU, yang diinstal secara otomatis oleh Homebrew
+
+### 3. Membuat Mesin Virtual
+
+- Membuat VM Lima bernama `zeabur-mesh` berbasis Ubuntu 24.04
+- Mengonfigurasi VM dengan resource CPU, memori, dan disk yang Anda tentukan saat membuat server
+- Menyiapkan port forwarding dari VM ke host untuk port 30000–32767 (digunakan oleh layanan)
+
+### 4. Menjalankan Skrip Instalasi Linux di Dalam VM
+
+- Menjalankan skrip instalasi Linux yang sama (dijelaskan di atas) di dalam VM melalui `limactl shell`
+- Semua perubahan Tailscale, SSH, pembuatan pengguna, dan jaringan mesh terjadi di dalam VM
+
+### Perubahan pada Host macOS
+
+| Jenis | Path / Nama | Deskripsi |
+|------|-------------|-------------|
+| Paket | `lima` (melalui Homebrew) | Pengelola VM |
+| Paket | `qemu` (melalui Homebrew) | Runtime VM |
+| Paket | Homebrew itu sendiri (jika belum terinstal) | Package manager |
+| Data VM | `~/.lima/zeabur-mesh/` | Image disk dan konfigurasi VM |
+| Port forwarding | Port 30000–32767 | Diteruskan dari VM ke `0.0.0.0` di host |
+
+Konfigurasi SSH, pengguna sistem, dan pengaturan jaringan macOS Anda **tidak** diubah. Perlu diperhatikan bahwa Lima meneruskan port layanan (30000–32767) ke `0.0.0.0` di host, sehingga port tersebut dapat dijangkau dari jaringan lokal Anda.
+
+Untuk membatalkan perubahan ini, lihat [Hapus Instalasi](./uninstall).
+
+</Tabs.Tab>
+</Tabs>

@@ -1,0 +1,33 @@
+---
+title: Fork Kode dari Layanan Template
+ogImageTitle: Fork Kode dari Layanan Template
+ogImageSubtitle: Cara mengubah kode layanan Git yang di-deploy dari layanan template
+---
+
+# Fork Kode dari Layanan Template
+
+Di Zeabur, Anda dapat menggunakan layanan template untuk melakukan deploy aplikasi dengan cepat. Sebuah template berisi beberapa layanan, masing-masing dapat berupa layanan Prebuilt (di-deploy dari Docker Image) atau layanan Git (di-deploy dari GitHub).
+
+Secara default, saat Anda melakukan deploy template yang berisi layanan Git, Zeabur akan langsung melakukan deploy layanan dari repositori GitHub sumber template ke proyek Anda, dan secara otomatis menghubungkan CI/CD ke repositori yang ditetapkan oleh pembuat template. Artinya, ketika pembuat template melakukan push commit baru ke repositorinya, Zeabur akan otomatis memicu CI/CD dan melakukan deploy layanan baru ke proyek Anda.
+
+Namun, terkadang Anda mungkin ingin mengubah kode milik pembuat template, misalnya menambahkan fitur Anda sendiri atau mengubah pengaturan. Untuk kebutuhan ini, Zeabur menyediakan fitur Fork satu klik yang praktis.
+
+## Cara Melakukan Fork Kode dari Layanan Template
+
+Sebagai contoh, kita gunakan [template Express.js resmi dari Zeabur](https://zeabur.com/templates/W96I3Z). Setelah Anda melakukan deploy template ini, buka halaman pengaturan layanan express. Anda akan melihat bahwa field Git Repository saat ini berisi nilai `https://github.com/zeabur/expressjs-template`, yaitu repositori GitHub yang ditentukan oleh template ini.
+
+Jika Anda ingin mengubah kode berdasarkan template ini, klik tombol Fork Repositori di bawahnya:
+
+![](https://i.imgur.com/Wz9tJsV.jpeg)
+
+Setelah diklik, akan muncul jendela yang menanyakan nama Repositori. Pilih nama repositori yang belum pernah digunakan sebelumnya; jika tidak, Fork dapat gagal. Di bawah kolom nama juga terdapat opsi untuk menjadikan repositori sebagai privat, sehingga orang lain tidak dapat melihat perubahan kode Anda:
+
+![](https://i.imgur.com/ETc1yKk.jpeg)
+
+Setelah memilih nama, klik tombol Fork. Jika Anda belum memberikan otorisasi ke GitHub, Anda mungkin akan diarahkan ke halaman otorisasi OAuth GitHub. Setelah otorisasi selesai, Anda akan melihat layar pemuatan Fork:
+
+![](https://i.imgur.com/9Y2qX0P.png)
+
+Setelah selesai, Anda akan melihat repositori baru di akun GitHub Anda yang berisi kode yang sama dengan aslinya.
+
+Zeabur akan secara otomatis melakukan Fork kode template ini ke akun GitHub Anda dan menetapkan repositori hasil Fork tersebut sebagai Git Repository layanan Anda. Artinya, ketika Anda mengubah repositori hasil Fork di GitHub dan melakukan push commit, Zeabur akan otomatis memicu CI/CD dan melakukan deploy layanan baru ke proyek Anda.

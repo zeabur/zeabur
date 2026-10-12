@@ -1,0 +1,52 @@
+---
+title: Manajemen Domain
+ogImageTitle: Manajemen Domain
+ogImageSubtitle: Kelola domain terdaftar di Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Manajemen Domain
+
+
+Halaman manajemen domain menampilkan semua domain yang terdaftar di akun Anda.
+
+## Status Domain
+
+Setiap domain memiliki salah satu status berikut:
+
+| Status | Deskripsi |
+|--------|-------------|
+| **Aktif** | Domain sudah terdaftar dan berfungsi normal. |
+| **Menunggu** | Pendaftaran sedang diproses. |
+| **Kedaluwarsa** | Domain telah melewati tanggal kedaluwarsanya. |
+| **Ditangguhkan** | Domain ditangguhkan (misalnya karena pendaftar belum terverifikasi). |
+| **Gagal** | Pendaftaran gagal. |
+
+Gunakan dropdown filter status untuk mempersempit daftar jika Anda memiliki banyak domain.
+
+Domain yang akan kedaluwarsa dalam 30 hari menampilkan peringatan di kolom kedaluwarsa.
+
+## Perpanjangan Otomatis
+
+Setiap domain memiliki toggle perpanjangan otomatis di tabel manajemen. Jika diaktifkan, Zeabur akan otomatis memperpanjang domain sebelum kedaluwarsa menggunakan metode pembayaran yang tersimpan.
+
+Aktifkan atau nonaktifkan perpanjangan otomatis langsung dari baris tabel — tidak perlu membuka halaman detail.
+
+## Perpanjangan Manual
+
+Untuk memperpanjang domain secara manual:
+
+1. Klik domain untuk membuka halaman detailnya.
+2. Klik tombol **Perpanjang** di bagian header. Tombol ini menampilkan harga perpanjangan.
+3. Selesaikan alur checkout.
+
+<Callout type="info">
+  Halaman detail menampilkan harga pembelian awal dan harga perpanjangan sebagai referensi.
+</Callout>
+
+## Integrasi Zeabur Email
+
+Dari halaman detail domain, Anda dapat menghubungkan domain ke **Zeabur Email** dengan sekali klik. Pilih region pengiriman, dan record DNS yang diperlukan (DKIM, SPF, DMARC) akan dibuat secara otomatis.
+
+Lihat dokumentasi [Manajemen Domain Zeabur Email](/email/domains) untuk detail lebih lanjut tentang verifikasi domain email.

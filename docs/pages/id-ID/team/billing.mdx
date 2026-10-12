@@ -1,0 +1,186 @@
+---
+title: Tagihan Tim
+ogImageTitle: Tagihan Tim
+ogImageSubtitle: Langganan, metode pembayaran, dan faktur
+---
+
+import { Callout, Steps } from 'nextra/components';
+
+# Tagihan Tim
+
+Tim adalah workspace dengan **tagihannya sendiri** — terpisah dari akun pribadi anggota mana pun. Halaman ini membahas semua hal yang perlu diketahui administrator: mengaktifkan paket Team, mengelola metode pembayaran, membaca faktur, membeli kredit, mengatur detail tagihan, menangani pembayaran yang gagal, serta membatalkan atau melanjutkan langganan.
+
+Untuk pengenalan umum tentang workspace Tim, lihat [Tim](/team).
+
+## Perbedaan tagihan Tim dengan tagihan pribadi
+
+Setiap Tim memiliki konteks tagihan yang independen. Dalam praktiknya:
+
+- **Pelanggan Stripe terpisah** — faktur, metode pembayaran, dan saldo kredit dicatat atas nama Tim, bukan atas nama akun pribadi anggota mana pun.
+- **Metode pembayaran terpisah** — kartu pribadi Anda tidak terlihat oleh Tim, dan kartu yang terhubung ke Tim tidak terlihat di workspace pribadi Anda.
+- **Saldo kredit terpisah** — kredit yang ditambahkan ke Tim hanya digunakan untuk sumber daya milik Tim, dan kredit di akun pribadi Anda tetap bersifat pribadi.
+- **Faktur terpisah** — faktur Tim ditujukan ke detail tagihan Tim (nama resmi, alamat, ID pajak), bukan kepada Anda secara pribadi.
+- **Satu tingkat paket** — workspace Tim hanya dapat berjalan dengan **Paket Team** atau berstatus tidak aktif. Tingkat khusus pribadi (Free / Dev / Pro) tidak berlaku untuk Tim.
+- **Konteks workspace itu penting** — dashboard selalu menampilkan tagihan untuk workspace yang sedang Anda pilih. Berpindah workspace menggunakan pengalih workspace di sidebar.
+
+Untuk perbandingan yang lebih luas antara workspace pribadi dan workspace Tim, lihat [Tim](/team#personal-account-vs-team).
+
+## Aktifkan paket Team [#activate-the-team-plan]
+
+Tim yang baru dibuat berstatus **tidak aktif** — hingga administrator mengaktifkan paket Team, tidak ada seorang pun di Tim yang dapat membuat proyek, melakukan deploy layanan, mengelola server Tim, atau mengirim email melalui Z-Send.
+
+<Callout type="info">
+  Hanya **administrator** Tim yang dapat mengaktifkan, mengubah, atau membatalkan langganan Tim. Editor dan Viewer akan melihat pemberitahuan bahwa akses tagihan dibatasi.
+</Callout>
+
+### Harga
+
+Paket Team seharga **$79/bulan** dan mencakup **3 kursi** (masing-masing dengan kemampuan setara tingkat Pro). Setiap anggota tambahan setelah 3 anggota pertama dikenakan **$24/bulan** per kursi. Pemakaian kursi dihitung berdasarkan jumlah anggota saat ini, sehingga mengeluarkan anggota pada siklus penagihan berikutnya akan mengurangi biaya kursi sesuai jumlahnya.
+
+**Tidak ada uji coba gratis** untuk paket Team — aktivasi langsung memulai penagihan.
+
+Untuk rincian fitur lengkap, lihat [Paket](/billing/plans).
+
+### Alur aktivasi
+
+<Steps>
+### Beralih ke workspace Tim
+
+Gunakan pengalih workspace di sidebar dashboard untuk masuk ke Tim yang ingin Anda aktifkan.
+
+### Buka pengaturan Langganan
+
+Buka **Akun → Langganan**. Anda akan melihat kartu **Aktifkan paket Team** yang menampilkan fitur yang disertakan dan pratinjau harga berbasis kursi.
+
+### Hubungkan metode pembayaran (jika belum ada)
+
+Jika Tim belum memiliki metode pembayaran atau saldo kredit, dashboard akan meminta Anda menambahkannya sebelum melanjutkan. Lihat [Metode pembayaran](#payment-methods) di bawah.
+
+### Tinjau rincian harga
+
+Modal konfirmasi menampilkan paket dasar ($79/bulan untuk 3 kursi), biaya kursi tambahan berdasarkan jumlah anggota saat ini, dan total biaya bulanan.
+
+### Lanjutkan ke pembayaran
+
+Klik **Lanjutkan ke pembayaran**. Langganan Tim langsung aktif — proyek, deploy, server, dan Z-Send segera dapat digunakan.
+</Steps>
+
+## Metode pembayaran [#payment-methods]
+
+Tim dapat menyimpan beberapa kartu, dengan satu kartu ditetapkan sebagai **default**. Kartu default adalah kartu yang ditagih oleh Stripe untuk faktur bulanan paket Team dan tagihan server yang diperpanjang otomatis.
+
+Kelola metode pembayaran di **Akun → Tagihan → Metode Pembayaran** saat berada di workspace Tim:
+
+- **Tambah Metode Pembayaran** — tambahkan kartu kredit baru. Kartu terhubung langsung ke pelanggan Stripe milik Tim, tidak pernah ke akun pribadi Anda.
+- **Jadikan Default** — jadikan kartu tersimpan mana pun sebagai kartu yang ditagih Stripe untuk perpanjangan.
+- **Hapus** — hapus kartu yang bukan default. Anda tidak dapat menghapus kartu terakhir selama ada langganan aktif; jadikan kartu lain sebagai default terlebih dahulu.
+
+WeChat Pay dan Alipay dapat digunakan untuk **membeli kredit** (lihat [Kredit dan isi ulang](#credits-and-recharge)), tetapi **langganan bulanan itu sendiri harus dibayar dengan kartu kredit** melalui metode pembayaran default milik Tim.
+
+## Faktur
+
+Saat berada di workspace Tim, **Akun → Tagihan** menampilkan:
+
+- **Faktur mendatang** — pratinjau langsung tentang apa yang akan ditagih di akhir periode berjalan, termasuk item langganan, penyesuaian kursi, dan biaya pemakaian. Jumlahnya dapat berubah seiring penambahan anggota atau pemakaian sumber daya.
+- **Riwayat Tagihan** — setiap faktur sebelumnya beserta statusnya (Paid, Open, Unpaid, Void, Uncollectible). Setiap entri tertaut ke halaman faktur yang di-host Stripe, tempat Anda dapat mengunduh PDF-nya.
+- **Riwayat Saldo** — setiap transaksi kredit pada saldo Stripe milik Tim: isi ulang, penukaran kartu prabayar, kredit manual, dan penerapan ke faktur.
+
+Semua PDF faktur menggunakan **detail tagihan** yang dikonfigurasi untuk Tim (lihat [Detail tagihan](#billing-details-legal-name-tax-id)).
+
+## Kredit dan isi ulang [#credits-and-recharge]
+
+Seperti akun pribadi, Tim dapat memiliki saldo kredit Stripe yang digunakan terlebih dahulu sebelum kartu ditagih. Ada dua cara untuk mengisi ulang.
+
+### Membeli kredit
+
+Di workspace Tim, buka **Akun → Tagihan → Kredit Akun** dan klik **Dapatkan Lebih Banyak Kredit**. Anda dapat membayar dengan:
+
+- **Kartu Kredit (USD)** — membuka sesi Stripe Checkout. Dana ditambahkan ke saldo Tim setelah pembayaran berhasil diproses.
+- **WeChat Pay (CNY)** — alur Stripe Checkout yang sama, dalam mata uang CNY.
+
+Isi ulang minimum adalah $5. Saldo akan otomatis digunakan untuk faktur mendatang sebelum kartu default ditagih.
+
+### Menukarkan kartu prabayar
+
+Jika Anda memiliki kartu prabayar Zeabur, klik **Tukar Kredit** dan masukkan kodenya. Kredit akan ditambahkan ke saldo Tim.
+
+<Callout type="warning">
+  **Kartu prabayar dari acara bersponsor tidak dapat ditukarkan ke Tim.** Kartu yang dibagikan di acara, hackathon, atau kampanye terikat pada akun pribadi (kartu tersebut juga memengaruhi saldo sponsor dan pencatatan uji coba gratis yang tidak berlaku untuk Tim). Tukarkan kartu tersebut di workspace pribadi Anda. Kartu prabayar berbayar biasa dapat digunakan secara normal di Tim.
+</Callout>
+
+### Cara penggunaan kredit Tim
+
+Kredit Tim hanya berlaku untuk Tim — kredit tersebut hanya mengurangi faktur dan tagihan server **milik Tim**. Kredit Tim tidak dapat ditransfer ke akun pribadi anggota, dan kredit pribadi anggota tidak dapat diterapkan ke faktur Tim.
+
+## Detail tagihan (nama resmi, ID pajak) [#billing-details-legal-name-tax-id]
+
+Jika perusahaan Anda memerlukan faktur yang mencantumkan nama badan hukum dan ID pajak untuk keperluan reimbursement atau pelaporan pajak, konfigurasikan detail tagihan Tim sekali saja dan semua faktur berikutnya akan menggunakannya.
+
+Di workspace Tim, buka **Akun → Tagihan → Metode Pembayaran** dan klik **Edit Detail Tagihan**. Anda dapat mengatur:
+
+- **Nama** — nama perusahaan atau nama resmi yang ditampilkan di faktur.
+- **Alamat** — negara, provinsi/negara bagian, kota, kode pos, dan baris alamat.
+- **ID Pajak** — pilih Jenis ID Pajak (VAT, statutory ID, 統一編號, dan lainnya) lalu masukkan nomornya. Stripe akan memvalidasi dan menampilkannya di faktur.
+
+Hanya administrator Tim yang dapat mengedit detail tagihan. Pembaruan berlaku untuk semua faktur berikutnya yang diterbitkan untuk Tim.
+
+## Membatalkan langganan
+
+Jika Tim tidak lagi memerlukan paket Team, administrator dapat membatalkannya melalui **Akun → Langganan → Zona Berbahaya → Batalkan langganan**. Anda akan diminta memberikan alasan (opsional).
+
+Pembatalan **dijadwalkan pada akhir periode penagihan berjalan** — Tim tetap mendapatkan semua fitur berbayar (proyek, deploy, server, Z-Send) hingga tanggal tersebut. Setelah periode berakhir, Tim kembali **tidak aktif** dan pembatasan yang sama seperti dijelaskan di [Aktifkan paket Team](#activate-the-team-plan) berlaku: tidak dapat membuat proyek baru, tidak dapat melakukan deploy, dan tidak dapat menggunakan sumber daya milik Tim. Data yang ada tetap tersimpan; aktivasi ulang akan memulihkan akses.
+
+### Melanjutkan sebelum berakhir
+
+Pembatalan yang terjadwal dapat dibatalkan kapan saja sebelum akhir periode berlaku. Kembali ke **Akun → Langganan**, lalu klik **Pertahankan paket saat ini** pada banner penurunan paket yang tertunda. Pembatalan akan dihapus dan langganan terus diperpanjang seperti biasa.
+
+## Pembayaran gagal
+
+Jika Stripe tidak dapat menagih metode pembayaran default milik Tim (kartu kedaluwarsa, dana tidak mencukupi, diblokir karena indikasi penipuan, dan sebagainya), faktur akan berstatus **Unpaid** dan langganan memasuki alur dunning standar Stripe. Email notifikasi dikirim ke email kontak Tim (atau ke semua administrator Tim jika email kontak belum dikonfigurasi).
+
+Untuk memulihkannya:
+
+<Steps>
+### Perbaiki metode pembayaran
+
+Tambahkan kartu baru dan jadikan default, atau perbarui tanggal kedaluwarsa / detail penagihan kartu yang ada melalui bank Anda.
+
+### Coba lagi faktur yang gagal
+
+Di **Akun → Tagihan → Riwayat Tagihan**, temukan faktur berstatus Unpaid lalu klik **Coba Lagi**. Stripe akan langsung menagih kartu default yang baru.
+
+### Pastikan langganan aktif
+
+Setelah faktur ditandai Paid, langganan kembali ke status normal dan diperpanjang sesuai jadwal.
+</Steps>
+
+Jika alur dunning habis waktunya sebelum pembayaran berhasil, langganan akan dibatalkan secara otomatis dan Tim menjadi tidak aktif — aktifkan kembali melalui [Aktifkan paket Team](#activate-the-team-plan) setelah masalah pembayaran teratasi.
+
+## Pertanyaan yang sering diajukan
+
+**Apakah saya dapat memindahkan kredit antara akun pribadi dan Tim?**
+Tidak. Keduanya adalah pelanggan Stripe yang independen. Kredit pribadi tetap milik pribadi, dan kredit Tim tetap milik Tim.
+
+**Apakah saya dapat mentransfer langganan pribadi saya ke Tim?**
+Tidak. Langganan tidak dapat ditransfer antarpelanggan Stripe. Aktifkan paket Team secara terpisah di Tim — langganan pribadi Anda tidak terpengaruh.
+
+**Jika saya menghapus akun pribadi, apakah Tim saya ikut hilang?**
+Tidak. Tim tetap ada secara independen. Administrator lain tetap dapat menjalankannya. Jika Anda adalah satu-satunya administrator, naikkan peran anggota lain terlebih dahulu; jika tidak, Tim tidak akan memiliki admin hingga tim dukungan turun tangan.
+
+**Apakah Tim dapat berlangganan paket Free, Dev, atau Pro?**
+Tidak. Tim hanya dapat berlangganan **Paket Team**. Tingkat lainnya khusus untuk akun pribadi.
+
+**Apa yang terjadi pada server dan proyek milik Tim jika langganan berakhir?**
+Data yang ada tetap tersimpan, tetapi deploy baru dan sebagian besar operasi diblokir selama Tim tidak aktif. Aktifkan kembali untuk memulihkan akses penuh. Penagihan server dedicated mengikuti siklus perpanjangannya sendiri dan tidak berhenti saat paket Team berakhir — perhatikan kartu **Tagihan Server Mendatang** jika Anda memiliki server yang diperpanjang otomatis.
+
+**Ke mana email kegagalan pembayaran dikirim?**
+Ke email kontak yang dikonfigurasi untuk Tim. Jika belum diatur, semua administrator Tim akan menerimanya. Konfigurasikan email kontak di **Akun → Pengaturan → Identitas Tim** di workspace Tim.
+
+## Langkah selanjutnya
+
+- [Ikhtisar Tim](/team)
+- [Buat Tim](/team/create-team)
+- [Kelola anggota dan peran](/team/manage-members)
+- [Transfer kepemilikan ke Tim](/team/transfer-ownership)
+- [Langganan pribadi](/subscription)
+- [Paket dan harga](/billing/plans)

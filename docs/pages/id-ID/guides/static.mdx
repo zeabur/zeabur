@@ -1,0 +1,85 @@
+---
+title: Halaman Web Statis
+ogImageTitle: Deploy Halaman Web Statis
+ogImageSubtitle: Deploy Halaman Web Statis di Zeabur
+---
+
+import { Callout } from 'nextra/components';
+
+# Deploy Halaman Web Statis
+
+Zeabur menggunakan [server Caddy](https://caddyserver.com/) untuk men-deploy halaman web statis Anda dan menyertakan fitur bawaan seperti `_redirects` dan `_headers`, sehingga Anda dapat mengustomisasi perilaku halaman web statis tanpa perlu mengonfigurasi Caddyfile.
+
+## Memulai
+
+Anda cukup mengunggah folder atau repositori Git yang ingin Anda host di Zeabur. Jika proyek tidak terkait dengan bahasa apa pun (seperti Python, Node.js, Go, dll.), Zeabur secara default akan men-deploy-nya dalam mode statis. Jika terdapat file `index.html`, file tersebut akan menjadi halaman utama situs Anda. Beberapa bahasa juga mendukung pengubahan output build menjadi halaman web statis (Anda biasanya dapat melihat perilaku ini pada field `outputDir` di bagian Plan Meta pada Log build). Dalam kasus tersebut, layanan hasil build juga berlaku untuk isi bagian ini.
+
+## Single-Page Application (SPA)
+
+Zeabur mendukung multi-page application (MPA) maupun single-page application (SPA). Jika file yang sesuai dengan path yang diminta pengguna tidak ditemukan, sistem akan otomatis mengembalikan halaman `index.html`.
+
+Jika Anda memerlukan file `404.html`, Anda dapat menambahkannya ke direktori root proyek, dan Zeabur akan otomatis memperlakukannya sebagai halaman error 404. Jika pengguna memasukkan URL yang tidak ada, isi `404.html` akan dikembalikan.
+
+<Callout type="warning">
+**Saat ini, mengakses `404.html` masih mengembalikan status code 200.** Hal ini akan diperbaiki di masa mendatang. Sementara itu, Anda mungkin perlu menyesuaikan Caddyfile sesuai kebutuhan Anda.
+</Callout>
+
+## Path Tidak Aman
+
+Zeabur memblokir path tertentu yang mungkin berisi konten sensitif, seperti `.git`, `node_modules`, `.venv`, dan `vendor`. Jika proyek Anda berisi path tersebut, Caddy akan mengembalikan halaman 404.
+
+Anda dapat menyesuaikan daftar ini di `Caddyfile` sesuai kebutuhan. Anda juga dipersilakan untuk berbagi saran tambahan mengenai path tidak aman dengan kami di forum komunitas.
+
+## Mengonfigurasi Aturan Redirect (`_redirects`)
+
+Anda dapat menambahkan file `_redirects` ke direktori root proyek Anda. Saat pengguna mengunjungi situs Anda, Zeabur akan mengikuti aturan di file ini untuk menangani redirect. Sintaks [`_redirects`](https://docs.netlify.com/routing/redirects/#syntax-for-the-redirects-file) sebagian besar didasarkan pada Netlify.
+
+Format filenya adalah sebagai berikut:
+
+```plaintext filename="_redirects"
+# Gunakan tanda pagar (#) untuk menambahkan komentar.
+# [Path Sumber] [Path Tujuan] [Status Code]
+/ /home 302
+/about /about-us 301
+```
+
+Contohnya:
+
+- Saat pengguna mengunjungi direktori root (`/`), mereka akan diarahkan ke `/home` dengan status code 302 (Found).
+- Saat pengguna mengunjungi `/about`, mereka akan diarahkan ke `/about-us` dengan status code 301 (Moved Permanently).
+
+## Mengonfigurasi Header Kustom (`_headers`)
+
+Anda dapat menambahkan file `_headers` ke direktori root proyek Anda. Saat pengguna mengunjungi situs Anda, Zeabur akan menerapkan aturan header yang ditentukan di file ini untuk path yang ditentukan. Sintaks [`_headers`](https://docs.netlify.com/routing/headers/) sebagian besar didasarkan pada Netlify.
+
+Format filenya adalah sebagai berikut:
+
+```plaintext filename="_headers"
+# Gunakan tanda pagar (#) untuk menambahkan komentar.
+/test.html
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+/index.json
+  Content-Type: application/json
+```
+
+Contohnya:
+
+- Saat pengguna mengunjungi `/test.html`, header `X-Frame-Options` dan `X-XSS-Protection` masing-masing akan diatur ke `DENY` dan `1; mode=block`.
+- Saat pengguna mengunjungi `/index.json`, header `Content-Type` akan diatur ke `application/json`.
+
+## Mengonfigurasi Caddyfile
+
+Anda dapat mengedit file `/etc/caddy/Caddyfile` di bagian “Editor Konfigurasi” atau “Manajemen File”. Perubahan akan berlaku setelah layanan di-restart. Lihat [tutorial resmi](https://caddyserver.com/docs/caddyfile-tutorial) untuk konfigurasi Caddyfile. Secara umum, Anda dapat mengonfigurasi semua directive bawaan dari distribusi resmi Caddy di Caddyfile ini.
+
+![Konfigurasi Caddyfile](/guides/static/caddyfile-configuration.webp)
+
+Saat mengonfigurasi Caddyfile di Zeabur, ada beberapa poin penting yang perlu diperhatikan:
+
+- Jangan ubah port listening `:8080`.
+- Blok `@unsafePath` berisi “path tidak aman”. Zeabur memblokir path tertentu secara default untuk mencegah akses ke konten sensitif. Anda dapat melakukan penyesuaian di blok ini.
+- Directive `try_files` mengimplementasikan logika SPA + MPA. Jika pengguna mengunjungi path yang tidak ada, request akan diarahkan ke `404.html` atau `index.html`.
+- `zeaburextension` menjalankan fitur `_redirects` dan `_headers` milik Zeabur.
+- `log` menulis access log server Caddy ke Log runtime.
+
+Perlu diperhatikan bahwa setelah Anda mengonfigurasi Caddyfile, jika Zeabur memperbarui Caddyfile default, **layanan Anda tidak akan otomatis menerapkan pembaruan tersebut**. Untuk menerapkan pembaruan, Anda harus menghapus Caddyfile yang telah dimodifikasi dari [Editor Konfigurasi](/data-management/config-edit), me-restart layanan, lalu memperbarui konfigurasi Anda berdasarkan template Caddyfile yang baru.

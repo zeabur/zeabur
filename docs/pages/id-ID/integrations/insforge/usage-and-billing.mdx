@@ -1,0 +1,76 @@
+---
+title: Pemakaian & Tagihan
+ogImageTitle: Pemakaian & Tagihan InsForge
+ogImageSubtitle: Pantau Konsumsi Sumber Daya dan Biaya
+---
+
+# Pemakaian & Tagihan
+
+InsForge menyediakan pelacakan pemakaian yang detail sehingga Anda dapat memantau konsumsi sumber daya dan biaya.
+
+## Melihat Pemakaian
+
+1. Buka halaman integrasi InsForge pada proyek Anda di dashboard Zeabur
+2. Gulir ke bawah ke bagian **Ringkasan penggunaan**
+
+### Tab Ringkasan
+
+Tab ringkasan menampilkan ikhtisar pemakaian Anda untuk rentang waktu yang dipilih:
+
+- **Ukuran database maksimum** - Penyimpanan database tertinggi yang digunakan
+- **Penyimpanan file maksimum** - Penyimpanan file tertinggi yang digunakan
+- **Total egress** - Total bandwidth keluar yang digunakan
+- **EC2 compute** - Total jam komputasi yang digunakan
+- **Kredit AI** - Total kredit LLM AI yang digunakan
+- **Token AI** - Total token AI yang diproses
+- **Panggilan MCP** - Total panggilan protokol MCP yang dilakukan
+- **Permintaan email** - Total permintaan API email
+- **Panggilan fungsi** - Total pemanggilan serverless function
+
+### Tab Penggunaan Harian
+
+Tab penggunaan harian menampilkan rincian pemakaian sumber daya per hari, dengan tabel berhalaman yang menampilkan semua metrik untuk setiap tanggal.
+
+### Filter Rentang Waktu
+
+Anda dapat memfilter data pemakaian berdasarkan:
+- **1 hari** - 24 jam terakhir
+- **7 hari** - Seminggu terakhir
+- **30 hari** - Sebulan terakhir
+- **Max** - Semua data yang tersedia
+
+## Tagihan
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+  InsForge ditagih secara terpisah dan tidak termasuk dalam kredit gratis Zeabur. Karena InsForge adalah layanan yang di-hosting di cloud, biaya tetap berlaku meskipun proyek Zeabur Anda berjalan di server.
+</Callout>
+
+### Harga
+
+| Item | Tarif |
+| --- | --- |
+| Jam Komputasi (Nano EC2 + EBS + Public IP) | $0.006 / jam |
+| Ukuran Database | $0.125 / GB / bulan |
+| Penyimpanan | $0.021 / GB / bulan |
+| Egress | $0.1 / GB |
+| LLM AI Credits | $0.1 / kredit |
+
+### Detail Penagihan Utama
+
+- **Tanpa batasan buatan** - Tidak ada batas rate API, batas jumlah baris, maupun batas jumlah pengguna. Anda hanya membayar komputasi dan penyimpanan yang benar-benar digunakan.
+- **Tagihan terpadu** - Semua biaya InsForge digabungkan ke dalam tagihan proyek Zeabur Anda yang sudah ada. Satu platform, satu tagihan.
+- **Bayar sesuai pemakaian** - Anda hanya dikenakan biaya untuk sumber daya yang benar-benar digunakan oleh backend Anda.
+
+### Masalah Penagihan
+
+Jika instance InsForge Anda dijeda karena masalah penagihan:
+
+1. Buka **Tagihan** di dashboard Zeabur Anda
+2. Tambahkan metode pembayaran atau isi ulang saldo Anda
+3. Kembali ke halaman integrasi InsForge dan klik **Pulihkan** untuk mencoba pembayaran ulang dan melanjutkan layanan
+
+<Callout type="info">
+  Jika instance Anda dijeda karena kegagalan pembayaran, data Anda tetap tersimpan. Pulihkan instance setelah masalah penagihan diselesaikan untuk melanjutkan layanan.
+</Callout>

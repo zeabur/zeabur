@@ -1,0 +1,67 @@
+---
+title: Wonder Mesh
+ogImageTitle: Wonder Mesh
+ogImageSubtitle: Ubah perangkat Anda menjadi server Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Wonder Mesh
+
+Wonder Mesh memungkinkan Anda mengubah komputer atau server milik Anda sendiri menjadi node komputasi Zeabur. Baik perangkat Anda berada di rumah, di kantor, maupun di balik lingkungan jaringan apa pun, perangkat tersebut dapat terhubung dengan aman ke platform Zeabur untuk melakukan deploy dan menjalankan layanan Anda — tanpa memerlukan IP publik atau port forwarding.
+
+<Callout type="info">
+  Siap mencoba Wonder Mesh? Lihat [panduan Memulai](/wonder-mesh/get-started) untuk menyiapkan server Wonder Mesh pertama Anda.
+</Callout>
+
+## Cara Kerja
+
+Wonder Mesh membuat terowongan privat terenkripsi antara perangkat Anda dan platform Zeabur menggunakan [WireGuard](https://www.wireguard.com/). Terowongan ini dapat menembus NAT, firewall, dan IP dinamis — perangkat Anda mendapatkan alamat IP mesh internal yang stabil yang digunakan Zeabur untuk mengelola deployment melalui SSH. Anda tidak perlu mengonfigurasi jaringan apa pun sendiri.
+
+## Mengapa Wonder Mesh?
+
+Biasanya, layanan Zeabur berjalan di server cloud yang dikelola oleh Zeabur. Wonder Mesh mengubah hal ini dengan memungkinkan Anda menggunakan **perangkat keras milik Anda sendiri** — laptop, desktop, server homelab, atau bahkan mini PC di rumah — sebagai target deploy dengan pengalaman Zeabur yang lengkap.
+
+- **Penggemar homelab**: Dapatkan pengalaman deploy dan manajemen setara cloud untuk server di rumah Anda.
+- **Developer**: Uji layanan secara lokal dengan sistem orkestrasi sungguhan, lalu deploy ke cloud saat sudah siap.
+- **Pendukung self-hosting**: Simpan data di perangkat keras milik Anda sendiri tanpa mengorbankan kemudahan deploy satu klik.
+
+## Fitur Utama
+
+- **Penyiapan satu klik**: Buat server di konsol, jalankan satu perintah di perangkat Anda, dan Anda siap melakukan deploy.
+- **Berfungsi di balik NAT**: Tidak memerlukan IP publik, IP statis, atau port forwarding. Wonder Mesh membangun jaringan mesh yang aman dan dapat berfungsi dari jaringan mana pun.
+- **Integrasi penuh dengan Zeabur**: Deploy template dari marketplace, push kode, hubungkan domain, lihat log, dan pantau resource — sama seperti server Zeabur lainnya.
+- **Manajemen server**: Pantau penggunaan CPU, memori, dan disk, akses SSH, serta periksa status server secara real-time dari konsol.
+
+## Platform yang Didukung
+
+| Sistem Operasi | Arsitektur | Catatan |
+|-----------------|--------------|-------|
+| Linux | amd64 / arm64 | Instalasi langsung |
+| macOS | amd64 / arm64 | Berjalan melalui mesin virtual Lima |
+
+Mulai dari Mac mini hingga Raspberry Pi, perangkat Linux atau macOS apa pun dapat menjadi server Zeabur.
+
+## FAQ
+
+### Apakah perangkat saya harus tetap menyala?
+
+Ya. Perangkat harus tetap menyala dan terhubung ke internet agar layanan yang di-deploy di dalamnya tetap dapat diakses.
+
+### Apa yang terjadi jika perangkat saya offline?
+
+Layanan yang di-deploy di perangkat tersebut untuk sementara tidak dapat diakses. Setelah perangkat kembali online, konektivitas akan pulih secara otomatis.
+
+### Apakah ada persyaratan jaringan?
+
+Hanya koneksi internet. Tidak memerlukan IP publik, port forwarding, maupun perubahan firewall.
+
+### Bagaimana cara mengakses layanan yang di-deploy di perangkat saya?
+
+Ada tiga pilihan:
+
+- **Dari internet melalui Gateway**: Siapkan [Gateway](/wonder-mesh/public-access) untuk mengekspos layanan Wonder Mesh Anda melalui server dengan IP publik. Dengan begitu, Anda dapat menghubungkan domain dan menerima trafik HTTPS dari mana saja.
+- **Dari internet melalui port forwarding**: Jika jaringan Anda mendukungnya, hubungkan domain ke layanan Anda sama seperti pada server Zeabur lainnya. Lihat [Jaringan Publik](/deploy/networking/public-networking) untuk detailnya.
+- **Dari jaringan lokal Anda**: Buka tab **Jaringan** di halaman layanan untuk menemukan alamat akses LAN. Lihat [panduan Memulai](/wonder-mesh/get-started#mengakses-layanan) untuk detail cara menemukan IP LAN perangkat Anda.
+
+Layanan dalam proyek yang sama juga dapat saling berkomunikasi menggunakan hostname internal. Lihat [Jaringan Privat](/deploy/networking/private-networking) untuk detailnya.

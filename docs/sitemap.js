@@ -6,7 +6,7 @@ const pagesDir = "./pages";
 const publicDir = "./public";
 
 // Supported locales
-const locales = ['en-US', 'zh-TW', 'zh-CN', 'ja-JP', 'es-ES'];
+const locales = ['en-US', 'zh-TW', 'zh-CN', 'ja-JP', 'es-ES', 'id-ID'];
 
 // Build a set of redirect source paths from next.config.js so the sitemap
 // never advertises URLs that just redirect — Google should discover the

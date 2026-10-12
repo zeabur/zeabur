@@ -1,0 +1,73 @@
+---
+title: Rollback
+ogImageTitle: Rollback
+ogImageSubtitle: Kembali ke versi deployment sebelumnya
+---
+
+import { Callout } from 'nextra/components'
+
+# Rollback
+
+Zeabur menyimpan catatan setiap deployment, sehingga Anda dapat melakukan rollback ke versi sukses sebelumnya mana pun jika deployment baru menimbulkan masalah.
+
+## Cara Kerja Rollback
+
+Setiap kali Anda melakukan deploy layanan, Zeabur membuat snapshot dari deployment tersebut (image hasil build). Snapshot ini disimpan agar Anda dapat kembali ke kondisi yang diketahui berfungsi baik kapan saja.
+
+Saat Anda memicu rollback:
+
+1. Zeabur membuat **deployment baru** menggunakan snapshot dari versi sebelumnya yang dipilih.
+2. Deployment baru melalui proses [health check](/operations/monitoring/health-checks) standar.
+3. Setelah health check lolos, lalu lintas dialihkan ke versi hasil rollback.
+4. Deployment yang gagal tetap tersimpan di riwayat deployment Anda sebagai referensi.
+
+Karena rollback mengikuti alur deployment yang sama, rollback juga mendapatkan manfaat tanpa downtime — deployment lama (yang bermasalah) tetap melayani lalu lintas hingga versi hasil rollback dipastikan sehat.
+
+## Melakukan Rollback dari Dashboard
+
+Untuk melakukan rollback layanan:
+
+1. Buka layanan Anda di dashboard Zeabur.
+2. Buka tab **Deployment**.
+3. Temukan deployment yang ingin Anda kembalikan di riwayat deployment.
+4. Klik **Rollback** pada deployment tersebut.
+5. Zeabur akan membuat deployment baru berdasarkan snapshot yang dipilih.
+
+<Callout>
+  Rollback membuat entri deployment baru di riwayat Anda. Rollback tidak menghapus atau mengubah deployment sebelumnya.
+</Callout>
+
+## Metode Rollback Berdasarkan Jenis Layanan
+
+### Layanan yang Di-deploy dari Git
+
+Untuk layanan yang di-deploy dari repositori Git, Anda memiliki dua opsi:
+
+- **Rollback dari dashboard** — Gunakan metode yang dijelaskan di atas untuk kembali ke snapshot build sebelumnya.
+- **Git revert** — Push commit revert ke repositori Anda. Zeabur akan mendeteksi commit baru dan memicu build baru, sehingga kode Anda secara efektif di-rollback melalui alur CI/CD normal Anda.
+
+### Layanan Docker Image
+
+Untuk layanan yang di-deploy dari Docker image, Anda dapat melakukan rollback dengan menentukan tag image sebelumnya di pengaturan layanan. Perbarui tag image ke versi yang diinginkan, dan Zeabur akan melakukan redeploy menggunakan image tersebut.
+
+### Prebuilt Service (Template)
+
+Untuk layanan yang di-deploy dari template Zeabur, rollback mengikuti alur dashboard yang sama. Pilih deployment yang diinginkan dari riwayat lalu klik **Rollback**.
+
+## Yang Tidak Dipulihkan oleh Rollback
+
+Rollback memulihkan **kode aplikasi dan artefak build** ke kondisi sebelumnya. Rollback tidak memengaruhi:
+
+- **Environment variables** — Setiap perubahan environment variables sejak deployment awal tetap berlaku.
+- **Volume** — Data yang tersimpan di volume persisten tidak dikembalikan.
+- **Isi database** — Jika deployment Anda menyertakan migrasi database, melakukan rollback aplikasi tidak akan membatalkan migrasi tersebut. Anda mungkin perlu menangani perubahan skema secara manual.
+
+<Callout type="warning">
+  Jika deployment Anda melibatkan migrasi database atau perubahan stateful lainnya, rencanakan rollback dengan cermat. Pertimbangkan untuk memulihkan [backup database](/operations/data/backup-restore) bersamaan dengan rollback aplikasi jika diperlukan.
+</Callout>
+
+## Praktik Terbaik
+
+- **Uji sebelum melakukan deploy ke production.** Gunakan proyek staging untuk menemukan masalah sebelum mencapai deployment utama Anda.
+- **Gunakan deployment kecil dan bertahap.** Perubahan yang lebih kecil lebih mudah didiagnosis dan di-rollback.
+- **Pantau setelah deploy.** Perhatikan [metrik](/operations/monitoring/metrics) dan [log](/operations/monitoring/logging) setelah setiap deployment untuk mendeteksi masalah lebih awal.

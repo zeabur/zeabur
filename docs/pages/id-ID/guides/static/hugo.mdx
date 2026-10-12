@@ -1,0 +1,85 @@
+---
+title: Hugo
+ogImageTitle: Hugo
+ogImageSubtitle: Deploy Situs Web Hugo di Zeabur
+---
+
+# Hugo
+
+Hugo adalah static site generator yang efisien, dikenal karena kecepatan build-nya yang tinggi dan kemudahan penggunaannya, sehingga sangat cocok untuk membuat dan mengelola situs web dengan konten dalam jumlah besar. Manajemen konten Hugo dilakukan melalui file Markdown, dan konfigurasinya dapat dilakukan menggunakan file YAML atau TOML yang sederhana.
+
+## Kriteria
+
+Jika proyek Anda memenuhi kriteria berikut, Zeabur akan mengidentifikasinya sebagai proyek Hugo dan men-deploy-nya secara otomatis:
+
+1. Terdapat file konfigurasi `hugo.toml` atau `config/_default/hugo.toml` di direktori root proyek.
+
+Jika Anda tertarik untuk berkontribusi pada open source, Anda dapat menemukan bagian terkait di [kode open-source Zeabur](https://github.com/zeabur).
+
+## Memulai
+
+Artikel ini akan memandu Anda cara menginisialisasi proyek Hugo dan men-deploy-nya di Zeabur.
+
+### Menginisialisasi Proyek
+
+Anda dapat merujuk ke [dokumentasi resmi Hugo](https://gohugo.io/getting-started/) untuk menginisialisasi proyek Hugo Anda.
+
+```bash
+brew install hugo
+hugo new site my-hugo-site
+cd my-hugo-site
+```
+
+### Pengujian Lokal
+
+Anda dapat menguji proyek Hugo Anda secara lokal.
+
+```bash
+hugo server
+```
+
+Kunjungi http://localhost:1313/ untuk melihat pratinjau situs web Hugo Anda.
+
+### Deployment
+
+Anda dapat memilih salah satu dari dua cara untuk men-deploy proyek Hugo Anda: menggunakan GitHub atau menggunakan Zeabur CLI.
+
+#### Deploy dengan Zeabur CLI
+
+Deploy dengan Zeabur CLI adalah cara paling sederhana untuk men-deploy proyek Hugo Anda. Anda cukup login ke Zeabur CLI terlebih dahulu:
+
+```bash
+npx zeabur@latest auth login
+```
+
+Perintah ini akan membuka browser dan memandu Anda melalui proses login.
+
+Kemudian, Anda dapat menggunakan perintah `deploy` untuk melakukan deploy:
+
+```bash
+npx zeabur@latest deploy
+```
+
+Perintah ini akan menanyakan secara interaktif ke proyek mana Anda ingin melakukan deploy, dan Anda juga dapat memilih untuk membuat proyek baru.
+
+Untuk petunjuk lebih lanjut tentang deployment dengan Zeabur CLI, silakan lihat [Deploy Layanan dengan CLI](/developer/cli).
+
+#### Deploy dengan GitHub
+
+Deploy dengan GitHub memungkinkan proyek Anda memiliki layanan CI/CD yang siap pakai. Ke depannya, begitu Anda melakukan push kode ke GitHub, Zeabur akan otomatis melakukan deploy untuk Anda.
+
+Buat repositori baru di GitHub, lalu push kode ke repositori tersebut. Untuk petunjuk yang lebih detail, silakan lihat [Dokumentasi GitHub](https://docs.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line).
+
+Setelah melakukan push, klik **Deploy Layanan**, lalu pilih **Deploy dari kode sumber Anda**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Cari repositori Anda, klik import, dan layanan Anda akan otomatis mulai di-deploy.
+
+### Menyiapkan Domain
+
+Setelah deployment selesai, Anda perlu menyiapkan domain untuk situs web Anda.
+
+Buka tab "Domain" di halaman layanan, lalu klik "Generate Domain" atau "Domain Kustom".
+
+Untuk informasi lebih lanjut tentang cara menghubungkan domain ke layanan Anda, silakan lihat [Menghubungkan Domain](/deploy/networking/public-networking).

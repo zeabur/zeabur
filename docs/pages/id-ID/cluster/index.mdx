@@ -1,0 +1,45 @@
+---
+title: Kluster
+ogImageTitle: Kluster
+ogImageSubtitle: Kelola kluster Kubernetes multi-node di Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Kluster
+
+Jika beban kerja Anda sudah melampaui kemampuan satu mesin untuk menanganinya dengan andal, atau Anda membutuhkan penjadwalan lintas node, failover, dan penyimpanan terdistribusi, yang biasanya Anda butuhkan bukanlah satu [server](/server) — melainkan sebuah **kluster**.
+
+Kluster adalah lingkungan runtime yang terdiri dari beberapa node Kubernetes, dirancang untuk arsitektur layanan yang membutuhkan ketersediaan tinggi, penskalaan horizontal, dan penyimpanan terdistribusi.
+
+## Mengapa Anda Membutuhkan Kluster
+
+Server cocok digunakan saat Anda menjalankan semua layanan di **satu node**: arsitekturnya sederhana, biayanya dapat diprediksi, dan beban operasionalnya rendah. Namun, saat sistem Anda mulai membutuhkan kemampuan berikut, kluster adalah pilihan yang lebih baik:
+
+- **Penjadwalan multi-node**: Sebarkan berbagai layanan dan replika ke beberapa mesin, sehingga semua beban kerja tidak terpusat pada satu host.
+- **Toleransi kegagalan node**: Saat satu node offline, beban kerja dapat dijadwalkan ulang ke node lain yang sehat, sehingga mengurangi risiko gangguan total.
+- **Penyimpanan terdistribusi**: Saat Anda perlu memasang dan memindahkan data persisten antar-node, volume terdistribusi lebih cocok dibandingkan disk lokal pada satu mesin.
+- **Fleksibilitas penskalaan yang lebih besar**: Anda dapat menambah kapasitas dengan menambahkan node, alih-alih terbatas pada upgrade vertikal satu host.
+
+Singkatnya, **server menyelesaikan kebutuhan "sumber daya eksklusif di satu mesin"**, sedangkan **kluster menyelesaikan kebutuhan "koordinasi multi-mesin dan ketersediaan tinggi"**.
+
+## Server vs. Kluster
+
+| Fitur | Server | Kluster |
+| --- | --- | --- |
+| Jumlah node | Satu node | Beberapa node Kubernetes |
+| Model komputasi | Deployment satu mesin | Penjadwalan lintas node |
+| Penyimpanan | Terutama volume lokal satu mesin | Volume terdistribusi yang dapat mengikuti beban kerja antar-node |
+| Dampak kegagalan | Layanan pada mesin yang terdampak ikut terganggu | Beban kerja dapat dijadwalkan ulang ke node lain, mengurangi dampak single point of failure |
+| Penskalaan | Terutama vertikal (upgrade satu host) | Horizontal (menambah node) |
+| Paling cocok untuk | Layanan skala kecil hingga menengah, aplikasi monolitik, beban kerja stabil | Kebutuhan ketersediaan tinggi, layanan multi-replika, sistem terdistribusi |
+
+<Callout type="info">
+  Jika Anda hanya membutuhkan sumber daya tetap dan satu node data, server biasanya sudah cukup. Jika Anda ingin layanan melakukan failover otomatis saat sebuah node mati, atau Anda membutuhkan arsitektur multi-node yang sesungguhnya, pilihlah kluster.
+</Callout>
+
+## Memulai
+
+1. Untuk membuat kluster baru langsung melalui Zeabur, lihat [Beli Kluster](/cluster/purchase).
+2. Jika Anda sudah memiliki kluster Kubernetes sendiri, lihat [Hubungkan Kluster yang Sudah Ada](/cluster/bind).
+3. Untuk mempelajari opsi satu mesin, lihat [Server](/server).

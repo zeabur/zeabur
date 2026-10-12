@@ -1,0 +1,105 @@
+---
+title: Akses Publik melalui Gateway
+ogImageTitle: Akses Publik melalui Gateway
+ogImageSubtitle: Ekspos layanan Wonder Mesh ke internet dengan server gateway
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Akses Publik melalui Gateway
+
+Server Wonder Mesh berada di balik NAT, sehingga tidak memiliki IP publik yang dapat menerima trafik masuk secara langsung. **Gateway** mengatasi hal ini dengan menempatkan reverse-proxy pada server yang _memiliki_ IP publik, lalu meneruskan trafik internet melalui jaringan mesh ke layanan Wonder Mesh Anda.
+
+<Callout type="info">
+  Gateway memerlukan server (bukan Wonder Mesh) yang sudah terinstal K3s. Jika Anda belum memilikinya, Anda dapat [membelinya melalui Zeabur](https://zeabur.com/servers/buy).
+</Callout>
+
+## Cara Kerja
+
+1. Anda menetapkan sebuah server sebagai **gateway**.
+2. Zeabur melakukan deploy reverse-proxy (Caddy) dan sidecar Tailscale di server tersebut.
+3. Saat Anda menghubungkan domain ke layanan Wonder Mesh, gateway menerima trafik HTTPS yang masuk dan meneruskannya melalui terowongan mesh ke perangkat dan port tujuan.
+
+Gateway dan perangkat Wonder Mesh Anda terhubung melalui jaringan mesh WireGuard yang sama, sehingga trafik tetap terenkripsi dari ujung ke ujung.
+
+## Menyiapkan Gateway
+
+<Steps>
+
+### Buka Tab Gateway
+
+Buka halaman server mana pun di Dashboard Zeabur. Jika server tersebut adalah server Wonder Mesh, buka tab **Gateway**.
+
+<Callout type="warning">
+  Gateway itu sendiri harus berjalan di **server biasa** (bukan server Wonder Mesh). Tab Gateway pada server Wonder Mesh memungkinkan Anda mengelola gateway, tetapi beban kerja gateway yang sebenarnya berjalan di server yang Anda pilih.
+</Callout>
+
+### Pilih Server
+
+Pilih server dari dropdown. Hanya server yang sudah terinstal K3s yang dapat dipilih. Jika Anda belum memilikinya, klik **Tambah Server** untuk membelinya melalui Zeabur.
+
+### Aktifkan Gateway
+
+Klik **Aktifkan Gateway**. Zeabur akan melakukan deploy layanan gateway (reverse-proxy + sidecar Tailscale) di server yang dipilih. Proses ini biasanya memerlukan waktu sekitar satu menit.
+
+Setelah gateway siap, Anda akan melihat indikator status berwarna hijau beserta nama server.
+
+</Steps>
+
+## Menghubungkan Domain
+
+Setelah gateway disiapkan, Anda dapat menghubungkan domain ke layanan Wonder Mesh Anda.
+
+<Steps>
+
+### Buka Tab Jaringan
+
+Buka halaman layanan dari sebuah layanan Wonder Mesh, lalu buka tab **Jaringan**.
+
+### Generate atau Tambahkan Domain Kustom
+
+- **Generate Domain** — Membuat domain dengan akhiran `.zeabur.app`. Setiap layanan dapat memiliki satu domain hasil generate.
+- **Domain Kustom** — Gunakan nama domain milik Anda sendiri. Anda perlu mengonfigurasi record CNAME yang mengarah ke hostname yang diberikan oleh Zeabur.
+
+Pilih port tujuan dan konfirmasi. Domain akan mulai disiapkan — Anda akan melihat ikon berputar dengan tooltip yang menampilkan "It will take 90–120 seconds."
+
+### Tunggu Penyiapan Selesai
+
+Setelah domain selesai disiapkan, ikon status akan berubah menjadi hijau dan domain sudah aktif. Klik domain atau ikon tautan eksternal untuk membukanya di tab baru.
+
+</Steps>
+
+<Callout type="info">
+  Untuk domain kustom, konfigurasikan record **CNAME** di penyedia DNS Anda yang mengarah ke hostname yang ditampilkan di dashboard. Untuk penyiapan root domain, lihat [Pengaturan DNS Root Domain](/deploy/networking/public-networking#pengaturan-dns-root-domain).
+</Callout>
+
+## Mengelola Rute
+
+Setiap domain yang terhubung akan muncul sebagai kartu rute di tab Jaringan layanan. Anda dapat:
+
+- **Membuka** — Klik ikon tautan eksternal untuk mengunjungi domain.
+- **Menghapus** — Klik ikon tempat sampah dan konfirmasi untuk melepaskan domain dari gateway.
+
+Rute juga terlihat di tab **Gateway** pada halaman server, yang difilter berdasarkan node mesh dari server saat ini.
+
+## Manajemen Gateway
+
+Dari tab Gateway di halaman server Wonder Mesh, Anda dapat mengelola gateway itu sendiri:
+
+### Rotasi Auth Key
+
+Klik **Rotasi Auth Key** untuk membuat ulang kunci autentikasi Tailscale yang digunakan oleh sidecar gateway. Gunakan opsi ini jika Anda mencurigai key tersebut telah bocor.
+
+### Nonaktifkan Gateway
+
+Klik **Nonaktifkan Gateway** untuk menghapus gateway sepenuhnya. Anda akan diminta mengonfirmasi dengan mengetikkan nama server gateway. Tindakan ini akan menghapus reverse-proxy, sidecar Tailscale, dan semua rute yang terhubung.
+
+<Callout type="warning">
+  Menonaktifkan gateway akan membuat **semua** domain yang terhubung melaluinya langsung tidak dapat diakses. Pastikan untuk memindahkan domain Anda sebelum menonaktifkannya.
+</Callout>
+
+## Batasan
+
+- **Satu gateway per workspace** — Setiap workspace (pribadi atau tim) hanya dapat memiliki satu gateway pada satu waktu.
+- **Pengalihan kepemilikan tidak didukung** — Server dan proyek Wonder Mesh tidak dapat dialihkan ke pengguna atau tim lain. Untuk memindahkan perangkat ke akun lain, hapus instalasi Wonder Mesh lalu instal ulang di akun tujuan.
+- **Hanya IPv4** — Rute gateway saat ini hanya mendukung trafik IPv4.

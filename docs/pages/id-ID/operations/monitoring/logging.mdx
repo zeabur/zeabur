@@ -1,0 +1,53 @@
+---
+title: Logging & Streaming
+ogImageTitle: Logging & Streaming
+ogImageSubtitle: Lihat dan kelola log layanan
+---
+
+import { Callout } from 'nextra/components'
+
+# Logging & Streaming
+
+Zeabur menyediakan streaming log secara real-time untuk setiap layanan, sehingga Anda dapat langsung memantau perilaku aplikasi Anda dari dashboard.
+
+## Melihat Log
+
+Untuk melihat log layanan:
+
+1. Buka proyek Anda di dashboard Zeabur.
+2. Pilih layanan yang ingin Anda periksa.
+3. Klik tab **Log**.
+
+Penampil log menampilkan output dari stream `stdout` dan `stderr` aplikasi Anda secara real-time. Entri log baru muncul secara otomatis saat dihasilkan — tidak perlu memuat ulang secara manual.
+
+## Log Build vs. Log Runtime
+
+Zeabur memisahkan log ke dalam dua kategori:
+
+- **Log build** — Output yang dihasilkan selama fase build (misalnya, instalasi dependensi, kompilasi). Log ini tersedia di tab **Deployment** untuk setiap deployment.
+- **Log runtime** — Output yang dihasilkan saat layanan Anda berjalan. Log ini ditampilkan di tab **Log** dan dialirkan secara real-time.
+
+## Pencarian dan Pemfilteran
+
+Penampil log mendukung pencarian kata kunci untuk membantu Anda menemukan entri tertentu. Ketik kata kunci di bilah filter di bagian atas penampil log untuk menyorot dan memfilter baris yang cocok.
+
+Fitur ini sangat berguna untuk:
+
+- Menemukan pesan error atau stack trace
+- Melacak request ID tertentu
+- Memfilter berdasarkan level log (misalnya, `ERROR`, `WARN`)
+
+## Retensi Log
+
+Log runtime tersedia selama layanan berjalan. Saat layanan di-restart atau di-redeploy, log dari instance sebelumnya tidak lagi dapat diakses di dashboard.
+
+<Callout>
+  Zeabur tidak menyediakan penyimpanan log jangka panjang. Jika Anda perlu menyimpan log melampaui siklus hidup layanan saat ini, integrasikan layanan logging eksternal seperti [Logflare](https://logflare.app), [Better Stack](https://betterstack.com), atau [Datadog](https://www.datadoghq.com). Anda dapat meneruskan log dengan mengonfigurasi aplikasi Anda agar mengirim output langsung ke layanan-layanan tersebut.
+</Callout>
+
+## Praktik Terbaik
+
+- **Gunakan structured logging.** Keluarkan log dalam format JSON agar lebih mudah dicari dan di-parse, terutama jika diteruskan ke layanan eksternal.
+- **Sertakan timestamp.** Meskipun Zeabur menambahkan timestamp ke entri log, menyertakannya di output aplikasi Anda memastikan konsistensi di berbagai environment.
+- **Gunakan level log yang sesuai.** Gunakan `INFO` untuk peristiwa rutin, `WARN` untuk masalah yang dapat dipulihkan, dan `ERROR` untuk kegagalan yang memerlukan perhatian. Hindari output `DEBUG` yang berlebihan di production.
+- **Hindari mencatat data sensitif.** Jangan pernah mencatat kata sandi, API key, atau informasi identitas pribadi ke dalam log.

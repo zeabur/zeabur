@@ -1,0 +1,82 @@
+---
+title: Pengaturan Firewall & Keamanan
+ogImageTitle: Pengaturan Firewall & Keamanan
+ogImageSubtitle: Konfigurasikan aturan firewall dan pengaturan keamanan untuk server Anda
+---
+
+import { Callout } from 'nextra/components'
+
+# Pengaturan Firewall & Keamanan
+
+<Callout type="info">
+Fitur manajemen firewall yang dijelaskan di halaman ini mungkin masih dalam pengembangan atau hanya tersedia untuk server tertentu. Lihat antarmuka Dashboard untuk pengaturan yang benar-benar tersedia.
+</Callout>
+
+Zeabur menyediakan manajemen firewall tingkat server, sehingga Anda dapat mengonfigurasi aturan inbound langsung dari Dashboard tanpa perlu SSH ke server untuk mengelola iptables secara manual.
+
+## Ikhtisar
+
+Setiap [server](/server) memiliki konfigurasi firewall sendiri. Secara default, Zeabur membuka port yang diperlukan agar layanan dapat beroperasi (seperti 80 dan 443) dan memblokir semua koneksi masuk lain yang tidak diizinkan.
+
+<Callout type="info">
+Aturan firewall hanya mengontrol **lalu lintas masuk**. Koneksi keluar dari layanan Anda tidak dibatasi oleh firewall.
+</Callout>
+
+## Mengonfigurasi Aturan Firewall
+
+1. Buka [halaman Server Zeabur](https://zeabur.com/servers) dan pilih server Anda.
+2. Klik tab "**Firewall**" di navigasi kiri.
+3. Klik tombol "**Tambah Aturan**" untuk membuat aturan inbound.
+
+Setiap aturan memerlukan kolom-kolom berikut:
+
+| Kolom | Deskripsi |
+| --- | --- |
+| Protokol | TCP atau UDP |
+| Rentang Port | Satu port (misalnya `8080`) atau rentang (misalnya `3000-3100`) |
+| IP sumber | Alamat IP atau blok CIDR sumber yang diizinkan (misalnya `203.0.113.0/24`); kosongkan untuk mengizinkan semua sumber |
+
+Klik "**Simpan**" setelah selesai. Aturan akan berlaku dalam hitungan detik.
+
+## Allowlist dan Blocklist IP
+
+- **Mode allowlist**: Untuk membatasi akses ke port tertentu hanya dari IP tertentu, cukup tentukan IP sumber saat membuat aturan.
+- **Mode blocklist**: Firewall Zeabur menggunakan strategi allowlist (default-deny). Port dan sumber yang tidak dibuka secara eksplisit dalam aturan akan diblokir, sehingga tidak diperlukan konfigurasi blocklist terpisah.
+
+### Skenario Umum
+
+**Hanya izinkan IP kantor untuk mengakses panel admin**
+
+| Protokol | Port | IP sumber |
+| --- | --- | --- |
+| TCP | 8443 | `203.0.113.10` |
+
+**Buka port database untuk subnet tertentu**
+
+| Protokol | Port | IP sumber |
+| --- | --- | --- |
+| TCP | 5432 | `10.0.0.0/16` |
+
+## Port yang Wajib Dibuka
+
+Port berikut diperlukan agar Zeabur dapat beroperasi dengan baik. Jangan blokir port-port ini:
+
+| Port | Kegunaan |
+| --- | --- |
+| 22 | Manajemen SSH |
+| 80 | Lalu lintas HTTP |
+| 443 | Lalu lintas HTTPS |
+| 4222 | Komunikasi internal NATS |
+| 6443 | K3s API Server |
+| 30000–32767 | Rentang NodePort Kubernetes |
+
+<Callout type="warning">
+Memblokir salah satu port ini dapat membuat Zeabur tidak dapat mengelola server Anda atau menyebabkan layanan tidak dapat dijangkau.
+</Callout>
+
+## Praktik Terbaik Keamanan
+
+- **Prinsip hak akses minimum** — Hanya buka port dan IP sumber yang benar-benar Anda perlukan. Hindari penggunaan `0.0.0.0/0` (izinkan semua) untuk layanan yang sensitif.
+- **Audit aturan secara berkala** — Tinjau aturan firewall Anda secara berkala dan hapus port yang sudah tidak diperlukan.
+- **Gunakan jaringan privat** — Untuk komunikasi antarlayanan, gunakan [jaringan privat](/deploy/networking/private-networking) agar data sensitif tidak dikirim melalui internet publik.
+- **Jaga keamanan SSH** — Gunakan autentikasi SSH key alih-alih password, dan pertimbangkan untuk membatasi akses SSH hanya dari IP tertentu.

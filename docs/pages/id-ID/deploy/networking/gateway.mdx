@@ -1,0 +1,80 @@
+---
+title: Gateway
+ogImageTitle: Gateway
+ogImageSubtitle: Arahkan beberapa layanan melalui satu titik masuk
+---
+
+import { Callout } from 'nextra/components'
+
+## Gateway
+
+Gateway memungkinkan Anda mengarahkan traffic ke beberapa layanan dalam satu proyek melalui satu titik masuk. Alih-alih mengikat domain terpisah untuk setiap layanan, Anda dapat mengonfigurasi satu domain dan menggunakan gateway untuk mengarahkan request ke layanan dan port yang berbeda.
+
+<Callout type="info">
+  Untuk proyek Wonder Mesh, gunakan **[Akses Publik melalui Gateway](/wonder-mesh/public-access)** sebagai gantinya — fitur ini mengarahkan traffic internet melalui server khusus ke perangkat mesh Anda.
+</Callout>
+
+## Mengaktifkan Gateway
+
+Untuk mengaktifkan Gateway, buka proyek Anda di Dashboard Zeabur, lalu buka sidebar dan masuk ke **Add-ons** → **Gateway** → **Aktifkan**.
+
+Setelah diaktifkan, layanan gateway akan dibuat di proyek Anda. Anda kemudian dapat mulai menambahkan route untuk mengarahkan traffic ke layanan Anda.
+
+## Menambahkan Route
+
+Setelah mengaktifkan gateway, buka tab **Jaringan** di layanan gateway untuk menambahkan route. Setiap route memetakan domain publik ke layanan dan port tertentu dalam proyek Anda.
+
+![Adding a route](https://cdn.zeabur.com/gateway/add-route.jpeg)
+
+### Generate Domain
+
+Klik **Generate Domain** untuk membuat domain dengan sufiks `.zeabur.app`. Kemudian pilih **layanan** dan **port** tujuan untuk mengarahkan traffic.
+
+### Domain Kustom
+
+Klik **Domain Kustom** untuk menggunakan nama domain Anda sendiri. Masukkan domain Anda, lalu pilih **layanan** dan **port** tujuan.
+
+Setelah menambahkan domain kustom, Anda perlu mengonfigurasi record DNS. Lihat bagian [Konfigurasi DNS untuk domain kustom](#konfigurasi-dns-untuk-domain-kustom) di bawah ini.
+
+## Konfigurasi DNS untuk Domain Kustom
+
+Setelah menambahkan domain kustom ke gateway, Anda akan melihat informasi DNS yang diperlukan untuk domain Anda.
+
+Anda perlu menambahkan record **CNAME** yang mengarah ke hostname yang disediakan oleh Zeabur di penyedia DNS Anda. Misalnya, jika Anda menggunakan Cloudflare, tambahkan record CNAME di bagian "DNS" → "Records".
+
+<Callout type="info">
+  Untuk pengaturan DNS root domain (zone apex), lihat bagian [Pengaturan DNS Root Domain](/deploy/networking/public-networking#pengaturan-dns-root-domain) di dokumentasi Jaringan Publik.
+</Callout>
+
+## Whitelist / Blacklist IP
+
+Gateway mendukung kontrol akses berbasis IP untuk membatasi siapa saja yang dapat mengakses layanan Anda melalui gateway.
+
+- **Whitelist**: Hanya mengizinkan request dari alamat IP yang ditentukan.
+- **Blacklist**: Memblokir request dari alamat IP yang ditentukan.
+
+Untuk mengonfigurasinya, buka pengaturan gateway dan tambahkan alamat IP ke whitelist atau blacklist sesuai kebutuhan.
+
+<Callout type="warning">
+  Kontrol akses IP hanya mendukung alamat **IPv4**. IPv6 tidak didukung.
+</Callout>
+
+## Mengelola Route
+
+### Edit Upstream
+
+Untuk mengubah layanan atau port tujuan dari route yang sudah ada, klik entri route tersebut lalu perbarui kolom **layanan** dan **port**.
+
+### Hapus Route
+
+Untuk menghapus route, klik ikon hapus di samping entri route dan konfirmasi penghapusan.
+
+## Pengaturan
+
+### Perbarui Versi Image
+
+Saat versi baru image gateway tersedia, Anda dapat memperbaruinya dari pengaturan layanan gateway. Ini akan menerapkan peningkatan dan perbaikan terbaru ke gateway Anda.
+
+### Hapus Gateway
+
+Untuk menghapus gateway dari proyek Anda sepenuhnya, buka pengaturan layanan gateway lalu pilih **Hapus**. Ini akan menghapus semua route dan layanan gateway dari proyek Anda.

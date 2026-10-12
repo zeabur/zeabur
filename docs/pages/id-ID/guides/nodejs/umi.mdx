@@ -1,0 +1,43 @@
+---
+title: Umi
+ogImageTitle: Deploy Umi
+ogImageSubtitle: Deploy Aplikasi Umi di Zeabur
+---
+
+# Deploy Umi
+
+Deploy aplikasi Umi di Zeabur.
+
+### Langkah 1: Membuat Aplikasi Umi (Opsional)
+
+- Node.js v14 atau versi yang lebih baru.
+- pnpm direkomendasikan
+
+Buka terminal Anda dan jalankan
+```bash
+$ pnpm dlx create-umi@latest
+✔ Install the following package: create-umi? (Y/n) · true
+✔ Pick Npm Client › pnpm
+✔ Pick Npm Registry › taobao
+Write: .gitignore
+Write: .npmrc
+Write: .umirc.ts
+Copy:  layouts/index.tsx
+Write: package.json
+Copy:  pages/index.tsx
+Copy:  pages/users.tsx
+Copy:  pages/users/foo.tsx
+> @ postinstall /private/tmp/sorrycc-vylwuW
+> umi setup
+info  - generate files
+```
+
+Inisialisasi repositori GitHub untuk proyek ini dan unggah ke GitHub Anda.
+
+### Langkah 2: Deploy Aplikasi Umi
+
+Klik tombol **Deploy Layanan** atau **Tambah Layanan Baru**, lalu pilih **Deploy dari kode sumber Anda**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Cari repositori aplikasi Umi Anda, klik import, dan aplikasi Umi Anda akan mulai di-deploy.

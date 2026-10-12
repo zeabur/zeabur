@@ -1,0 +1,55 @@
+---
+ogImageTitle: Deploy Proyek Reflex
+ogImageSubtitle: Deploy proyek Reflex Anda ke Zeabur
+---
+
+# Deploy Proyek Reflex
+
+Artikel ini akan mengajarkan Anda cara men-deploy aplikasi Reflex Anda ke penyedia layanan cloud seperti Google Cloud Platform, Amazon Web Service, Digital Ocean, Vultr, dan lainnya dengan satu klik menggunakan Zeabur.
+
+## Proyek Reflex yang Sudah Ada
+
+### Prasyarat
+
+Jika Anda sudah memiliki proyek Reflex, pastikan kode Anda memenuhi persyaratan berikut:
+
+1. Direktori root proyek Anda berisi file `requirements.txt`.
+2. File `requirements.txt` Anda menyertakan paket `reflex`.
+
+Jika proyek Anda memenuhi kriteria di atas, Anda dapat langsung mulai men-deploy-nya. Proses deployment Zeabur akan otomatis mengenali dan melakukan build aplikasi Reflex Anda.
+
+### Deployment
+
+Ada tiga cara untuk menggunakan Zeabur dalam men-deploy proyek Reflex Anda ke penyedia layanan cloud:
+
+1. Deploy dari repositori GitHub.
+2. Deploy menggunakan Zeabur CLI.
+3. Unggah kode Anda melalui konsol web Zeabur.
+
+## Menginisialisasi Proyek Reflex
+
+Jika Anda belum memiliki proyek Reflex, Anda dapat mengikuti [dokumentasi resmi Reflex](https://reflex.dev/docs/getting-started/installation/#installation) untuk menginisialisasi proyek Reflex baru.
+
+1. Buat virtual environment:
+
+  ```bash
+  python3 -m venv venv
+  ```
+
+2. Aktifkan virtual environment:
+
+  ```bash
+  source venv/bin/activate
+  ```
+
+3. Instal Reflex:
+
+  ```bash
+  pip install reflex
+  ```
+
+4. Buat proyek Reflex:
+
+  ```bash
+  reflex init
+  ```

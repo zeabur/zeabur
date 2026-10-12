@@ -1,0 +1,104 @@
+---
+title: Beli Server
+ogImageTitle: Beli Server
+ogImageSubtitle: Beli server dari Zeabur
+---
+
+import { Callout } from 'nextra/components'
+import { Steps } from 'nextra/components'
+
+# Beli Server dari Zeabur
+
+Jika Anda tidak memiliki server sendiri, Anda dapat membeli server langsung dari Zeabur. Zeabur bermitra dengan penyedia cloud besar (AWS, GCP, Hetzner, Linode, DigitalOcean, Aliyun, Tencent Cloud, Volcengine) untuk menawarkan harga yang kompetitif — sering kali dengan diskon dibandingkan membeli langsung dari penyedianya.
+
+<Callout type="info">
+  Server yang dibeli sepenuhnya dikelola oleh Zeabur. Anda tidak perlu menangani akses SSH, pembaruan OS, atau pemeliharaan infrastruktur.
+</Callout>
+
+## Langkah Pembelian
+
+<Steps>
+
+### Buka Daftar Server
+
+Setelah login, klik **Server** di sidebar kiri, atau kunjungi langsung [https://zeabur.com/servers](https://zeabur.com/servers).
+
+![Halaman Server Saya](/server/purchase-servers-page.png)
+
+### Klik "Buat" dan Pilih "Beli Server dari Zeabur"
+
+Klik tombol **Buat** di pojok kanan atas. Pada dialog yang muncul, pilih **Beli Server dari Zeabur**.
+
+![Dialog Buat Server](/server/purchase-create-dialog.png)
+
+Anda juga akan melihat opsi lain:
+
+- **Server IP Tetap** — untuk menghubungkan server Anda sendiri yang memiliki IP publik tetap melalui SSH (lihat [Tambah Server](./register)).
+- **[Wonder Mesh](/wonder-mesh)** — untuk server tanpa IP publik tetap (saat ini dalam tahap beta).
+
+### Pilih Paket Server
+
+Anda akan diarahkan ke halaman pemilihan server. Gunakan filter untuk mempersempit pilihan:
+
+- **Penyedia** — Pilih dari AWS, GCP, Hetzner, Linode, DigitalOcean, Aliyun, Tencent, atau Volcengine.
+- **Region** — Filter berdasarkan benua (Asia, Tiongkok, Eropa, Amerika Utara, Amerika Selatan, Oseania).
+- **CPU** — Filter berdasarkan jumlah vCPU (1–32).
+- **Memori** — Filter berdasarkan ukuran RAM (2 GB–64 GB).
+- **Urutkan** — Urutkan hasil berdasarkan Direkomendasikan, Harga, CPU, RAM, atau Egress.
+
+![Pilih paket server](/server/purchase-select-server.png)
+
+Setiap paket server menampilkan penyedia, kota, jumlah vCPU, RAM, penyimpanan, bandwidth egress, dan harga bulanan. Beberapa paket menyertakan lencana diskon yang menunjukkan diskon Zeabur yang sedang berlaku dibandingkan harga resmi penyedia.
+
+### Konfirmasi dan Bayar
+
+Klik paket server untuk melanjutkan ke pembayaran. Server akan disiapkan secara otomatis setelah pembayaran. Setelah penyiapan selesai (biasanya dalam beberapa menit), server akan muncul di daftar **Server Saya** dengan status **Berjalan**.
+
+</Steps>
+
+## Setelah Pembelian
+
+Setelah server Anda online, Anda dapat:
+
+- **[Membuat proyek](/id-ID/deploy/creating-projects)** di server baru Anda dan mulai melakukan deploy layanan.
+- **[Mengelola server Anda](./operate)** — memantau sumber daya, mengonfigurasi pengaturan, dan lainnya.
+- **[Menyiapkan aturan firewall](./firewall)** — mengontrol lalu lintas masuk dan keluar.
+
+## FAQ
+
+### Bisakah saya meng-upgrade paket server saya nanti?
+
+Ya, Anda dapat meng-upgrade paket server secara mandiri dari halaman pengaturan server. Perhatikan bahwa upgrade bersifat satu arah — Anda tidak dapat menurunkan ke paket yang lebih rendah setelah melakukan upgrade.
+
+### Bagaimana jika server tidak sesuai dengan kebutuhan saya?
+
+Untuk server yang dibeli dari **Tencent Cloud**, **Aliyun**, atau **Volcengine**, Zeabur mengizinkan satu kali pengembalian dana gratis. Permintaan pengembalian dana kedua untuk penyedia ini harus diajukan melalui [Zeabur Support](https://zeabur.com/support). Untuk semua penyedia lainnya (AWS, GCP, Hetzner, Linode, DigitalOcean), Anda dapat meminta pengembalian dana langsung dari halaman pengaturan server dengan mengklik **Minta Pengembalian Dana**.
+
+### Bagaimana penagihannya?
+
+Server yang dibeli ditagih bulanan dengan tarif tetap. Harga yang ditampilkan di halaman pemilihan adalah biaya bulanan. Server Anda akan diperpanjang otomatis kecuali Anda membatalkannya.
+
+### Bagaimana cara memperpanjang server secara manual?
+
+Secara default, server diperpanjang secara otomatis: sistem melakukan pengecekan kira-kira setiap 8 jam dan menagih saldo Anda sebelum tanggal kedaluwarsa. Untuk melindungi server dan datanya, biarkan perpanjangan otomatis tetap aktif dan pastikan Anda memiliki saldo yang cukup atau metode pembayaran yang valid di akun Anda. Perpanjangan ditagih sesuai harga paket yang berlaku pada saat perpanjangan.
+
+Untuk memperpanjang secara manual, buka **Dashboard → Server** dan klik server Anda — tombol **Perpanjang Sekarang** berada tepat di samping tanggal kedaluwarsa pada halaman ikhtisar server. Opsi ini juga tersedia sebagai **Perpanjang** di menu "⋯" pada setiap kartu server di daftar server.
+
+Jika perpanjangan gagal karena saldo tidak mencukupi, server akan dimatikan sementara tetapi tidak dihapus selama masa tenggang. Setelah Anda mengisi saldo (atau memperbaiki metode pembayaran), pengecekan otomatis berikutnya akan menyelesaikan perpanjangan dan menyalakan kembali server — atau Anda dapat langsung mengklik **Perpanjang Sekarang**. Segera lakukan perpanjangan setelah Anda menerima pemberitahuan agar server tidak dihapus saat masa tenggang berakhir.
+
+### Berapa lama server yang kedaluwarsa disimpan sebelum dihapus?
+
+Setelah server kedaluwarsa, server akan dimatikan dan disimpan selama masa tenggang agar Anda dapat melunasi saldo. Masa tenggang berkisar antara **3 hingga 15 hari** tergantung penyedia. Tanggal pematian dan penghapusan yang sebenarnya adalah tanggal yang tercantum dalam email pemberitahuan dari Zeabur dan yang ditampilkan di halaman server; jika halaman ini berbeda dengan email, yang berlaku adalah email. Setelah masa tenggang berakhir, server beserta semua proyek di dalamnya akan dihapus secara permanen dan tidak dapat dipulihkan.
+
+Masa tenggang saat ini untuk setiap penyedia adalah sebagai berikut (hari dihitung sejak tanggal kedaluwarsa):
+
+| Penyedia | Dimatikan | Pemberitahuan terakhir | Penghapusan |
+| --- | --- | --- | --- |
+| AWS Lightsail, GCP, Hetzner, Linode, DigitalOcean | 1 hari setelah kedaluwarsa | 5 hari setelah kedaluwarsa | 7 hari setelah kedaluwarsa |
+| Tencent Cloud, Aliyun, Volcengine | Saat kedaluwarsa | — | Sekitar 15 hari setelah kedaluwarsa |
+
+Menyelesaikan perpanjangan dalam masa tenggang akan membuat server kembali online dengan data yang tetap utuh. Masa tenggang dapat berubah mengikuti kebijakan penyedia, dan Zeabur berhak menyesuaikan mekanisme masa tenggang. Untuk menghindari kehilangan data, segera lakukan perpanjangan setelah Anda menerima pemberitahuan, alih-alih menunggu hingga hari terakhir masa tenggang.
+
+### Penyedia apa saja yang tersedia?
+
+Saat ini Zeabur menawarkan server dari AWS, GCP, Hetzner, Linode, DigitalOcean, Aliyun, Tencent Cloud, dan Volcengine, dengan pusat data di Asia, Eropa, Amerika Utara, Amerika Selatan, dan Oseania.

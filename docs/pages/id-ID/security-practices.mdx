@@ -1,0 +1,95 @@
+---
+title: Praktik Keamanan
+ogImageTitle: Praktik Keamanan
+ogImageSubtitle: Cara Zeabur melindungi data dan infrastruktur Anda
+---
+
+# Praktik Keamanan
+
+## Kepatuhan
+
+Zeabur saat ini sedang mengupayakan sertifikasi **SOC 2 Type II**. Program kepatuhan kami mencakup Trust Services Criteria untuk keamanan, ketersediaan, dan kerahasiaan. Kami berkomitmen untuk meraih dan mempertahankan sertifikasi yang diakui industri seiring pertumbuhan kami.
+
+## Keamanan Infrastruktur
+
+Zeabur beroperasi di berbagai penyedia infrastruktur yang tersebar secara global untuk menghadirkan layanan yang andal dan berlatensi rendah:
+
+- Amazon Web Services (AWS)
+- Google Cloud Platform (GCP)
+- Hetzner
+- Linode (Akamai)
+- DigitalOcean
+- Tencent Cloud
+- Alibaba Cloud
+- Volcengine
+- Glows.ai
+
+Seluruh penyedia infrastruktur dipilih berdasarkan postur keamanan yang telah teruji, perlindungan fisik pusat data, dan sertifikasi kepatuhan yang dimilikinya. Zeabur memanfaatkan fitur keamanan bawaan penyedia, termasuk isolasi jaringan, aturan firewall, dan mitigasi DDoS di seluruh region.
+
+## Enkripsi Data
+
+### Saat Transit
+
+Semua data yang dikirimkan antara pelanggan dan Zeabur dienkripsi menggunakan TLS 1.2 atau yang lebih tinggi. Hal ini berlaku untuk semua endpoint API, akses dashboard, dan komunikasi antarlayanan di dalam platform. Layanan yang di-deploy di Zeabur dan diakses pelanggan disajikan melalui HTTPS dengan penerbitan sertifikat otomatis.
+
+### Saat Disimpan
+
+Data produksi disimpan di MongoDB Atlas, yang secara default menyediakan enkripsi saat disimpan (encryption at rest) menggunakan enkripsi AES-256. Akses ke database produksi dibatasi hanya untuk perangkat yang terhubung melalui Tailscale.
+
+## Kontrol Akses
+
+### Identitas dan Autentikasi
+
+- Semua karyawan melakukan autentikasi melalui Google Workspace dengan autentikasi dua faktor (2FA) yang diwajibkan.
+- Akses ke database produksi dan sistem internal memerlukan koneksi melalui Tailscale, dan hanya pengguna yang disetujui yang dapat menambahkan perangkat ke jaringan tersebut.
+
+### Keamanan Endpoint
+
+- Zeabur sedang menerapkan mobile device management (MDM) agar seluruh perangkat perusahaan berada di bawah pengelolaan terpusat.
+- Hanya perangkat yang disetujui di Tailscale yang dapat mengakses halaman internal dan database produksi.
+
+### Hak Akses Minimum
+
+- Anggota tim hanya diberikan tingkat akses minimum yang diperlukan untuk menjalankan tanggung jawabnya.
+- Akses ke infrastruktur produksi, database, dan environment pelanggan dibatasi dan diaudit.
+- Izin akses ditinjau secara berkala dan segera dicabut apabila terjadi perubahan peran atau saat anggota tim keluar.
+
+## Pengembangan yang Aman
+
+Zeabur mengintegrasikan keamanan di sepanjang siklus hidup pengembangan perangkat lunak:
+
+- **Code Review**: Setiap perubahan kode wajib ditinjau oleh rekan melalui pull request sebelum digabungkan ke branch produksi.
+- **Pipeline CI/CD**: Pipeline build, pengujian, dan deployment otomatis menerapkan pemeriksaan kualitas dan keamanan pada setiap perubahan.
+- **Pemindaian Dependensi**: Pemindaian otomatis terhadap kerentanan yang diketahui pada dependensi pihak ketiga, disertai peringatan untuk masalah kritis.
+- **Pemisahan Environment**: Environment development, staging, dan produksi dipisahkan secara logis untuk mencegah akses tidak sah ke data produksi.
+
+## Respons Insiden
+
+Zeabur memiliki rencana respons insiden yang terdokumentasi, yang mencakup:
+
+- **Deteksi dan Peringatan**: Sistem pemantauan dan peringatan tersedia untuk mendeteksi anomali, akses tidak sah, dan kegagalan infrastruktur.
+- **Triase dan Respons**: Proses yang terdefinisi untuk mengklasifikasikan insiden berdasarkan tingkat keparahan, menetapkan penanggung jawab, dan mengoordinasikan upaya penanganan.
+- **Komunikasi**: Pelanggan yang terdampak akan segera diberi tahu apabila terjadi insiden keamanan yang memengaruhi data atau layanan mereka.
+- **Tinjauan Pasca-Insiden**: Setiap insiden signifikan akan ditindaklanjuti dengan analisis post-mortem untuk mengidentifikasi akar masalah dan menerapkan langkah pencegahan.
+
+## Penanganan Data dan Privasi
+
+- Data pelanggan diproses semata-mata untuk menyediakan dan mengoperasikan Layanan sesuai permintaan pelanggan.
+- Zeabur tidak menjual, menyewakan, atau meminjamkan data pelanggan kepada pihak ketiga.
+- Setelah akun diakhiri, data pelanggan disimpan selama 7 hari agar dapat diekspor, lalu dihapus secara permanen.
+- Untuk detail selengkapnya, lihat [Kebijakan Privasi](/docs/id-ID/privacy-policy) kami.
+
+## Keamanan Jaringan
+
+- Semua workload pelanggan berjalan di container terisolasi dengan pemisahan di tingkat jaringan.
+- Trafik masuk (ingress) dan keluar (egress) difilter dan dipantau.
+- Komunikasi antarlayanan internal dibatasi hanya ke endpoint yang diizinkan.
+- Cloudflare digunakan untuk keamanan edge, CDN, dan perlindungan DDoS pada domain yang diakses pelanggan.
+
+## Keamanan Fisik
+
+Zeabur mengandalkan kontrol keamanan fisik dari para penyedia infrastruktur kami. Semua fasilitas pusat data yang digunakan Zeabur menerapkan langkah keamanan fisik berstandar industri, termasuk kontrol akses biometrik, pengawasan 24/7, dan perlindungan lingkungan. Lihat dokumentasi kepatuhan masing-masing penyedia untuk detailnya.
+
+## Pengungkapan yang Bertanggung Jawab
+
+Jika Anda menemukan kerentanan keamanan di Zeabur, silakan laporkan ke [contact@zeabur.com](mailto:contact@zeabur.com). Kami menanggapi setiap laporan dengan serius dan akan segera menyelidiki serta merespons. Kami meminta Anda memberi kami waktu yang wajar untuk menangani masalah tersebut sebelum mengungkapkannya ke publik.

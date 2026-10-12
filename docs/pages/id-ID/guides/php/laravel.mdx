@@ -1,0 +1,101 @@
+---
+title: Laravel
+ogImageTitle: Deploy Laravel
+ogImageSubtitle: Deploy Aplikasi Laravel di Zeabur
+---
+
+# Deploy Laravel
+
+Artikel ini akan mengajarkan Anda cara men-deploy proyek [Laravel](https://laravel.com/) Anda di Zeabur.
+
+## Langkah 1: Konfigurasi Environment
+
+Anda dapat terlebih dahulu menguji dan melakukan build secara lokal untuk memastikan proyek Anda dapat berjalan dengan normal. Anda harus menentukan versi PHP di composer.json agar Zeabur dapat melakukan deploy.
+```json
+{
+  "require": {
+        "php": "8.1"
+  }
+}
+```
+
+## Langkah 2: Membuat Proyek (Opsional)
+
+Pertama, Anda perlu menginisialisasi proyek Laravel di environment pengembangan lokal Anda. Kita dapat mengikuti petunjuk di [dokumentasi resmi Laravel](https://laravel.com/docs/9.x) untuk menyelesaikan langkah ini.
+
+Setelah proyek dibuat, inisialisasi repositori Git untuknya dan unggah ke GitHub Anda.
+
+## Langkah 3: Deploy Proyek Laravel
+
+Di proyek Anda, klik tombol **Deploy Layanan** atau **Tambah Layanan Baru**, lalu pilih **Deploy dari kode sumber Anda**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+
+Cari repositori kode Laravel yang ingin Anda deploy, lalu klik Import.
+Aplikasi Laravel Anda akan otomatis mulai di-deploy.
+
+## Langkah 4: Menambahkan `APP_KEY` untuk proyek Laravel Anda
+
+Membuat application key atau APP_KEY adalah salah satu langkah awal terpenting setiap kali developer Laravel membuat atau melakukan clone aplikasi Laravel.
+
+Buka halaman pengaturan variabel proyek dan masukkan parameter environment Anda.
+
+Anda dapat membuat `APP_KEY` dengan menjalankan perintah berikut di dalam proyek Laravel Anda:
+
+```shell
+php artisan key:generate
+```
+
+![APP_KEY](/framework/laravel/app-key-setting.jpg)
+
+## Menghubungkan ke Database MySQL
+
+Biasanya, proyek Laravel Anda perlu terhubung ke database MySQL.
+Anda dapat terhubung ke database MySQL dengan langkah-langkah berikut.
+
+1. Anda perlu terlebih dahulu menginstal ekstensi `ext-pdo_mysql` di proyek Laravel Anda agar Zeabur dapat mengaktifkan dukungan MySQL PHP untuk Anda. Instal ekstensi ini di environment lokal Anda menggunakan perintah berikut:
+
+    ```shell
+    composer require ext-pdo_mysql
+    ```
+
+    Kemudian commit file `composer.json` dan lock file yang baru, lalu push ke repositori GitHub Anda.
+
+2. [Buat layanan MySQL](/marketplace/mysql), lalu di environment lokal Anda, jalankan perintah berikut untuk memigrasikan tabel Anda ke Zeabur:
+
+    ```shell
+    export DATABASE_URL=mysql://<username>:<password>@<host>:<port>/<database>
+    php artisan migrate
+    ```
+
+    `<username>`, `<password>`, `<host>`, `<port>`, dan `<database>` yang disebutkan di atas adalah detail layanan MySQL Anda,
+    yang dapat Anda temukan di bagian "Instruksi" pada halaman layanan MySQL.
+
+3. Di halaman layanan Laravel Anda di Zeabur, atur environment variable DATABASE_URL dengan konten berikut:
+
+    ```
+    mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}
+    ```
+
+    Arti dari `${MYSQL_USER}` dan variabel lainnya dapat ditemukan di [bagian environment variable pada dokumentasi MySQL](/marketplace/mysql#environment-variables).
+
+## Optimasi Otomatis
+
+Saat melakukan build layanan Laravel, Zeabur menjalankan perintah optimasi berikut [^1]:
+
+```bash
+php artisan optimize
+php artisan config:cache
+php artisan event:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+Anda dapat menonaktifkan perintah optimasi otomatis ini dengan mengatur variabel `PHP_OPTIMIZE=false`. Kemudian, gunakan perintah build kustom untuk menyesuaikan proses optimasi Anda secara lebih detail.
+
+[^1]: https://laravel.com/docs/11.x/deployment#optimization
+
+## Dukungan Vite / Laravel Mix
+
+Zeabur otomatis menjalankan `npm install` dan `npm run build` jika terdapat script `build` di `package.json` Anda. Karena Vite dan Laravel Mix secara default sama-sama mendefinisikan script `build` di `package.json`, Zeabur akan otomatis mengompilasi aset-aset ini saat melakukan build aplikasi Laravel.

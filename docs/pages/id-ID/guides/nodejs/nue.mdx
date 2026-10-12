@@ -1,0 +1,64 @@
+---
+title: Nue
+ogImageTitle: Deploy Aplikasi Nue
+ogImageSubtitle: Deploy Aplikasi Nue di Zeabur
+---
+
+# Deploy Aplikasi Nue
+
+[Nue](https://nuejs.org/) adalah alternatif yang andal untuk React, Vue, Next.js, Vite, dan Astro. Nue mungkin akan mengubah cara Anda mengembangkan aplikasi web.
+
+Dokumentasi ini akan menunjukkan cara men-deploy aplikasi Nue di Zeabur dalam waktu satu menit.
+
+## Langkah 1: Membuat Aplikasi Nue
+
+### Metode 1: Bootstrap dengan `create-nue`
+
+Repositori `create-nue` adalah cara terbaik untuk mulai menggunakan Nue JS.
+
+```bash
+# clone repositori
+git clone https://github.com/nuejs/create-nue.git
+
+# cd ke aplikasi yang baru Anda buat
+cd create-nue
+
+# instal dependensi
+npm install
+
+# Build situs demo dan jalankan HTTP server
+npm run start
+
+# Buka demo di browser
+open "http://localhost:8080"
+```
+
+#### Mengunggah ke GitHub
+
+Jika Anda ingin men-deploy aplikasi Nue Anda di Zeabur, Anda perlu mengunggah kode Anda ke GitHub terlebih dahulu.
+
+Cukup buat repositori baru di GitHub, lalu push kode Anda ke repositori tersebut. Lihat petunjuk yang lebih detail [di sini](https://docs.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line).
+
+### Metode 2: Menggunakan Template Zeabur
+
+Kami telah menyiapkan [template](https://github.com/zeabur/nuejs-template) untuk aplikasi Nue. Anda dapat menggunakan template tersebut dengan mengklik tombol **Use this template**.
+
+![Use this template](/guides/nodejs/nue/template.png)
+
+## Langkah 2: Deploy Aplikasi Nue
+
+Klik tombol **Deploy Layanan** atau **Tambah Layanan Baru**, lalu pilih **Deploy dari kode sumber Anda**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Cari repositori aplikasi Nue Anda, klik import, dan aplikasi Nue Anda akan otomatis mulai di-deploy.
+
+## Langkah Selanjutnya
+
+Setelah deployment selesai, Anda mungkin perlu mengonfigurasi nama domain untuk aplikasi Nue Anda.
+
+Buka tab "Domain" di halaman layanan dan klik "Generate Domain" atau "Domain Kustom".
+
+Untuk informasi lebih lanjut tentang cara menghubungkan domain ke layanan Anda, silakan lihat [Menghubungkan domain](/deploy/networking/public-networking).
+
+![Menghubungkan Domain](/guides/nodejs/nue/domain.png)

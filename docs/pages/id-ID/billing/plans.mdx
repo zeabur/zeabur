@@ -1,0 +1,115 @@
+---
+title: Paket
+ogImageTitle: Paket
+ogImageSubtitle: Berbagai paket di Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Paket
+
+Zeabur menawarkan lima paket langganan — **Free**, **Dev**, **Pro**, **Team**, dan **Enterprise** — yang dirancang untuk tumbuh bersama Anda, mulai dari eksperimen pribadi hingga deployment berskala perusahaan.
+
+Untuk perbandingan fitur lengkap dan harga terbaru, kunjungi [zeabur.com/pricing](https://zeabur.com/pricing). Halaman ini berfokus pada target pengguna dan metode pembayaran yang didukung untuk setiap paket.
+
+![Plans](/billing/plans/overview.png)
+
+## Free Plan
+
+Secara default, setiap akun Zeabur dimulai dengan paket **Free** — ideal untuk mencoba alur deployment Zeabur untuk pertama kalinya.
+
+Paket Free mencakup:
+
+- Hingga **1 server eksternal terikat**
+- Build CI dengan **2C4G**
+- Retensi log **48 jam**
+- Manajemen file container per file
+- Tampilan database dasar
+- Dukungan komunitas
+
+Tidak perlu kartu kredit. Jika Anda menginginkan AI Agent, backup, retensi log yang lebih lama, atau domain kustom, upgrade ke paket berbayar.
+
+## Dev Plan
+
+Paket **Dev** ($5 / bulan) dirancang untuk developer perorangan yang menginginkan AI Agent, backup database, dan manajemen domain.
+
+Semua fitur Free, ditambah:
+
+- Hingga **3 server eksternal terikat**
+- Retensi log **7 hari**
+- **Zeabur AI** (AI Agent)
+- Pembelian domain melalui Zeabur
+- Sistem email (mengirim email transaksional)
+- Batas unggah yang lebih tinggi
+
+## Pro Plan
+
+Paket **Pro** ($19 / bulan) ditujukan bagi developer yang membutuhkan spesifikasi build lebih tinggi, retensi log yang panjang, dan observabilitas yang lebih kuat.
+
+Semua fitur Dev, ditambah:
+
+- Hingga **10 server eksternal terikat**
+- Build CI dengan **4C8G**
+- Retensi log **30 hari**
+- Pencarian log lanjutan
+- Log forwarding (log drain)
+- Deployment layanan dengan ketersediaan tinggi
+- Kontrol akses domain & IP
+- Metrik pemantauan & peringatan kustom
+
+## Team Plan
+
+Paket **Team** ($79 / bulan, termasuk 3 kursi; **$24 per kursi tambahan / bulan**) ditujukan bagi tim kecil yang membutuhkan kolaborasi, pengikatan server tanpa batas, dan dukungan prioritas.
+
+Semua fitur Pro, ditambah:
+
+- Server eksternal terikat **tanpa batas**
+- Retensi log **90 hari**
+- **Termasuk 3 kursi** (setiap kursi memiliki fitur setara Pro)
+- Kolaborasi proyek tim
+- Manajemen peran & izin
+- Dukungan pelanggan & teknis prioritas
+- Pengadaan & faktur perusahaan
+
+Mendukung kartu kredit dan Alipay. Jika Anda membutuhkan metode pembayaran lain, silakan hubungi kami.
+
+<Callout type="info">
+Paket **Team** **tidak** menyertakan uji coba gratis. Hanya paket **Dev** dan **Pro** yang memenuhi syarat untuk uji coba gratis 14 hari.
+</Callout>
+
+## Enterprise Plan
+
+**Enterprise** ditujukan bagi perusahaan dengan kebutuhan kepatuhan, kontrak khusus, dan sumber daya khusus.
+
+Semua fitur Team, ditambah:
+
+- Batas pemakaian yang dapat disesuaikan dan kontrak yang dibuat khusus
+- Sumber daya teknis khusus
+- Dukungan prioritas
+- Pengadaan & faktur perusahaan
+
+Jika paket Team tidak memenuhi kebutuhan Anda, silakan [hubungi kami](mailto:contact@zeabur.com) untuk mendapatkan paket yang disesuaikan dengan skenario Anda.
+
+## Uji Coba Gratis 14 Hari
+
+Setiap pengguna berhak atas **satu** kali uji coba gratis dan dapat memilih paket **Dev** ($5/bln) atau **Pro** ($19/bln):
+
+- Selama uji coba, Anda mendapatkan **fitur dan kuota yang sama persis** dengan langganan berbayar.
+- Tidak ada biaya langganan yang ditagihkan selama uji coba 14 hari.
+- Setelah uji coba berakhir, paket pilihan Anda akan diperpanjang dan ditagih secara otomatis.
+- Anda dapat mengakhiri uji coba lebih awal — Anda akan langsung ditagih untuk paket tersebut dan siklus tagihan satu bulan yang baru dimulai pada hari itu.
+- Paket **Team** tidak menyertakan uji coba gratis.
+
+## FAQ
+
+### Apakah saya memerlukan paket berbayar jika sudah memiliki server dedicated?
+
+Anda dapat menggunakan server dedicated pada paket Free, tetapi paket berbayar (Dev / Pro / Team) membuka kemampuan platform tambahan seperti backup, AI Agent, kuota yang lebih tinggi, dan dukungan prioritas. Pengguna Free tetap dapat menghubungi [Zeabur Support](https://zeabur.com/support), tetapi tanpa jaminan waktu respons. Lihat [FAQ & Dukungan](/get-started/faq-support) untuk detailnya.
+
+### Apa yang terjadi pada layanan saya setelah downgrade?
+
+Layanan yang sudah di-deploy dan sumber daya yang ada (domain, server eksternal terikat, dan lainnya) **tidak dihapus** — Anda tetap dapat mengelolanya. Namun, penambahan sumber daya baru dibatasi oleh kuota paket baru Anda. Misalnya, jika Anda memiliki 5 server eksternal terikat pada Pro lalu downgrade ke Dev (maksimal 3), kelima server tersebut tetap dapat dikelola, tetapi Anda tidak dapat mengikat server baru sampai Anda upgrade kembali.
+
+### Apa yang terjadi jika saya membatalkan dan berlangganan kembali dalam periode tagihan yang sama?
+
+Membatalkan lalu berlangganan kembali akan membuat langganan baru dan menagih Anda lagi. Sisa periode langganan sebelumnya tidak akan dibawa. Jika Anda ditagih dua kali dalam periode yang sama, silakan ajukan permintaan melalui [Zeabur Support](https://zeabur.com/support) untuk pengembalian dana atas tagihan ganda tersebut.

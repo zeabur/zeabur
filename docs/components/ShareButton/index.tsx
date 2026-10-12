@@ -63,6 +63,8 @@ const SHARE_MESSAGES: Record<string, string> = {
     '{{url}} でサーバーを購入する際、チェックアウトで紹介コード「{{code}}」を入力すると {{discount}}% オフになります！',
   'es-ES':
     'Compra servidores en {{url}} — ingresa mi código de referencia "{{code}}" al pagar y obtén {{discount}}% de descuento.',
+  'id-ID':
+    'Beli server di {{url}} — masukkan kode referral saya "{{code}}" saat checkout untuk mendapatkan diskon {{discount}}%!',
 }
 
 const SHARE_LABEL: Record<string, string> = {
@@ -71,6 +73,7 @@ const SHARE_LABEL: Record<string, string> = {
   'zh-CN': '分享',
   'ja-JP': 'シェア',
   'es-ES': 'Compartir',
+  'id-ID': 'Bagikan',
 }
 
 const COPIED_LABEL: Record<string, string> = {
@@ -79,6 +82,7 @@ const COPIED_LABEL: Record<string, string> = {
   'zh-CN': '已复制',
   'ja-JP': 'コピーしました',
   'es-ES': 'Copiado',
+  'id-ID': 'Disalin',
 }
 
 /**

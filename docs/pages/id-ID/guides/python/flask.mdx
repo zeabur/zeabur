@@ -1,0 +1,42 @@
+---
+ogImageTitle: Deploy Flask
+ogImageSubtitle: Deploy Aplikasi Flask di Zeabur
+---
+
+# Deploy Flask
+
+Artikel ini akan mengajarkan Anda cara men-deploy proyek [Flask](https://flask.palletsprojects.com/) Anda di Zeabur.
+
+## Langkah 1: Membuat Proyek Flask
+
+Anda dapat memperoleh contoh proyek dari [flask-template](https://github.com/zeabur/flask-template). Contoh Flask ini cukup sederhana. Contoh ini memiliki satu route yang mengembalikan sebuah string.
+
+```python
+from flask import Flask
+import os
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return "Welcome, this is a Flask app deployed on Zeabur"
+
+if __name__ == '__main__':
+    app.run(debug=True, port=os.getenv("PORT", default=5000), host='0.0.0.0')
+```
+
+Perlu diperhatikan bahwa Zeabur menggunakan environment variable `PORT` untuk menentukan port mana yang akan diteruskan. Oleh karena itu, Anda perlu mengatur environment variable ini dan menggunakan `os.getenv` atau cara lain untuk mengonfigurasi nomor port di aplikasi Anda.
+
+Zeabur menggunakan `python app.py` atau `python main.py` untuk menjalankan aplikasi Python. Jadi, proyek Anda harus berisi salah satu file tersebut dan menyertakan perintah yang diperlukan untuk menjalankan aplikasi Flask.
+
+Zeabur menentukan port mana yang dibuka berdasarkan environment variable `PORT`.
+
+## Langkah 2: Deploy
+
+Klik tombol **Tambah Layanan Baru**, lalu pilih **Deploy dari kode sumber Anda**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Cari repositori aplikasi Flask Anda, klik import, dan aplikasi Flask Anda akan mulai di-deploy.
+
+Perlu diperhatikan bahwa Zeabur menggunakan [Gunicorn](https://gunicorn.org) sebagai server production WSGI untuk menjalankan layanan Flask.

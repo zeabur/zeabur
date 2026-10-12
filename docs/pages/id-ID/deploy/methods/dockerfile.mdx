@@ -1,0 +1,136 @@
+---
+title: Deploy dengan Dockerfile
+ogImageTitle: Deploy dengan Dockerfile
+ogImageSubtitle: Deploy proyek Anda ke Zeabur menggunakan Dockerfile
+---
+
+import { Callout } from 'nextra/components'
+
+# Deploy dengan Dockerfile
+
+Biasanya, Anda tidak perlu menulis `Dockerfile` sendiri. Zeabur saat ini menyediakan metode deployment cepat untuk berbagai framework populer. Namun, jika proyek Anda tidak menggunakan framework tersebut atau Anda ingin menentukan metode deployment sendiri, Anda dapat menggunakan `Dockerfile` untuk men-deploy-nya.
+
+## Membuat Dockerfile
+
+Buat file bernama `Dockerfile` atau `dockerfile` di direktori root proyek Anda dan tuliskan metode deployment Anda di dalamnya. Terakhir, pastikan Anda telah mengekspos `PORT` yang sesuai.
+
+Zeabur akan secara otomatis mendeteksi apakah proyek Anda memiliki `Dockerfile`. Jika ada, Zeabur akan men-deploy proyek Anda menggunakan Docker.
+
+<Callout type="info">
+  Setelah deployment dimulai, Anda dapat melihat ikon Docker di bagian atas, yang menandakan bahwa proyek Anda di-deploy menggunakan Docker.
+</Callout>
+
+![docker-deploy](/deploy/dockerfile/docker-deploy.png)
+
+## Deploy tanpa menggunakan Dockerfile
+
+Jika proyek Anda memiliki Dockerfile tetapi Anda tidak ingin menggunakannya di Zeabur (misalnya, membiarkan Zeabur menentukan metode deployment terbaik untuk proyek ini), Anda dapat mengatur `ZBPACK_IGNORE_DOCKERFILE=true` di environment variables, atau menambahkan konfigurasi berikut ke `zbpack.json`:
+
+```json
+{
+  "ignore_dockerfile": true
+}
+```
+
+Zeabur kemudian akan mengabaikan Dockerfile Anda dan menentukan metode deployment secara otomatis.
+
+## Environment Variables
+
+Jika `Dockerfile` Anda perlu menggunakan environment variables, Anda dapat mengklik **Environment Variables** di halaman layanan untuk menambahkannya. Untuk pengaturan lainnya, silakan lihat [Environment Variables](/id-ID/environment/variables).
+
+![Environment Variables](/environment/add-variables.png)
+
+Jika `Dockerfile` Anda ditulis dalam satu stage, atau jika environment variables Anda hanya perlu digunakan di stage terakhir, Anda tidak perlu menulis `ENV` secara manual. Zeabur akan menambahkannya secara otomatis.
+
+### ARG
+
+Namun, jika `Dockerfile` Anda ditulis dalam beberapa stage ([multi-stage](https://docs.docker.com/build/building/multi-stage/)), dan Anda perlu mengatur environment variables sebelum build, Anda dapat menggunakan `ARG` untuk mengaturnya.
+
+Berikut contoh penulisan `Dockerfile` untuk deployment menggunakan nodejs dan nginx.
+
+```docker {7-8} copy
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+COPY . .
+
+## The `BUILDTIME_ENV_EXAMPLE` here will be set before building automatically
+ARG BUILDTIME_ENV_EXAMPLE
+ENV BUILDTIME_ENV_EXAMPLE=${BUILDTIME_ENV_EXAMPLE}
+
+RUN npm install && \
+    npm run build
+
+FROM nginx:alpine
+
+COPY nginx.conf /etc/nginx/conf.d/configfile.template
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+ENV \
+    PORT=8080 \
+    HOST=0.0.0.0
+
+EXPOSE 8080
+
+CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+```
+
+## Menentukan Dockerfile untuk Deploy (Monorepo / Beberapa Layanan dari Satu Repo)
+
+Ketika repo Anda berisi beberapa Dockerfile (misalnya monorepo yang men-deploy beberapa layanan), Zeabur menyediakan tiga cara untuk memberi tahu setiap layanan Dockerfile mana yang harus digunakan.
+
+### Opsi 1: Pencocokan otomatis berdasarkan nama layanan (disarankan)
+
+Cara paling sederhana: beri nama Dockerfile Anda `[service-name].Dockerfile` atau `Dockerfile.[service-name]`. Zeabur akan otomatis memilih file yang cocok berdasarkan nama layanan yang Anda atur di dashboard. Misalnya, jika layanan Anda bernama `storage`, Zeabur akan menggunakan `Dockerfile.storage` (atau `storage.Dockerfile`).
+
+![specify-service-name](/deploy/dockerfile/specify-service-name.png)
+
+### Opsi 2: `ZBPACK_DOCKERFILE_NAME` untuk menentukan sufiks
+
+Jika Dockerfile Anda bernama `<suffix>.Dockerfile` atau `Dockerfile.<suffix>` tetapi Anda tidak ingin pencocokan ditentukan oleh nama layanan, atur sufiksnya secara eksplisit:
+
+```
+ZBPACK_DOCKERFILE_NAME=storage
+```
+
+Atau di `zbpack.json`:
+
+```json
+{
+  "dockerfile": {
+    "name": "storage"
+  }
+}
+```
+
+Zeabur akan mencari `Dockerfile.storage` atau `storage.Dockerfile`.
+
+<Callout type="warning">
+  Variabel ini **hanya menerima sufiks**, bukan nama file lengkap. Mengatur `ZBPACK_DOCKERFILE_NAME=Dockerfile.storage` akan membuat Zeabur mencari file bernama `Dockerfile.Dockerfile.storage`, yang tidak akan ada — Zeabur kemudian akan diam-diam kembali ke deteksi otomatis dan kemungkinan besar melakukan build proyek Anda dengan builder yang salah (misalnya Node.js). Jika Anda ingin memberikan nama file atau path lengkap, gunakan `ZBPACK_DOCKERFILE_PATH` di bawah ini.
+</Callout>
+
+### Opsi 3: `ZBPACK_DOCKERFILE_PATH` untuk path sembarang
+
+Jika Dockerfile Anda tidak berada di root build, atau nama filenya tidak mengikuti konvensi `*.Dockerfile` / `Dockerfile.*`, gunakan variabel ini untuk menentukan path-nya. Path ini **relatif terhadap root build layanan** — yaitu Direktori Root yang dikonfigurasi pada layanan, atau root repositori jika tidak diatur:
+
+```
+ZBPACK_DOCKERFILE_PATH=apps/admin/Dockerfile
+```
+
+Atau di `zbpack.json`:
+
+```json
+{
+  "dockerfile": {
+    "path": "apps/admin/Dockerfile"
+  }
+}
+```
+
+Zeabur akan menggunakan file tersebut secara persis untuk build, tanpa pencocokan sufiks. Ini adalah opsi yang tepat untuk Dockerfile yang berada di subdirektori atau memiliki nama file yang sepenuhnya kustom.
+
+## Docker Compose
+
+Zeabur saat ini tidak mendukung deployment dari YAML Docker Compose.
+
+Anda dapat mengonversi file Docker Compose Anda menjadi YAML Template Zeabur. Untuk detailnya, lihat [Buat Template dari YAML](/template/template-format). Jika Anda membutuhkan bantuan, jangan ragu untuk menghubungi kami di [komunitas](/get-started/faq-support/help).

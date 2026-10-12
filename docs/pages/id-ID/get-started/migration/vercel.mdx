@@ -1,0 +1,123 @@
+---
+title: Migrasi dari Vercel
+ogImageTitle: Migrasi dari Vercel
+ogImageSubtitle: Migrasikan aplikasi Anda dari Vercel ke Zeabur
+---
+
+import { Callout } from 'nextra/components'
+
+# Migrasi dari Vercel
+
+Panduan ini memandu Anda memigrasikan aplikasi dari Vercel ke Zeabur. Jika Anda mencari satu platform yang menangani layanan frontend sekaligus backend — database, cache, background worker — bersama aplikasi web Anda, Zeabur adalah pilihan yang tepat.
+
+## Sebelum Memulai
+
+- Akun [Zeabur](https://zeabur.com/).
+- Kode sumber aplikasi Anda di repositori Git (GitHub).
+- Akses ke dashboard Vercel Anda.
+
+## Langkah 1: Hubungkan Repositori Git Anda
+
+Proyek Vercel Anda sudah terhubung ke repositori Git. Hubungkan repositori yang sama ke Zeabur:
+
+1. Masuk ke [dashboard Zeabur](https://dash.zeabur.com/).
+2. Buat proyek baru dan pilih server (atau beli server baru).
+3. Klik **Tambah Layanan** → **Git** dan hubungkan akun GitHub Anda.
+4. Pilih repositori yang sama dengan yang digunakan proyek Vercel Anda.
+
+Zeabur mendukung secara native semua framework utama, termasuk **Next.js**, **Nuxt**, **Astro**, **Remix**, **SvelteKit**, **Vite**, dan situs statis.
+
+<Callout>
+File `next.config.js` (atau `next.config.mjs`) Anda dapat digunakan apa adanya di Zeabur. Tidak perlu perubahan apa pun — sistem build Zeabur sepenuhnya kompatibel dengan konfigurasi Next.js, termasuk `output: 'standalone'`.
+</Callout>
+
+## Langkah 2: Pindahkan Environment Variables
+
+1. Di proyek Vercel Anda, buka **Settings** → **Environment Variables**. Salin key dan value setiap variabel.
+2. Di dashboard Zeabur, klik layanan Anda dan buka tab **Variabel**.
+3. Tambahkan variabel Anda. Gunakan **Bulk Edit** untuk menempelkan banyak pasangan key-value sekaligus.
+
+<Callout>
+Vercel membatasi cakupan variabel berdasarkan environment (Production, Preview, Development). Di Zeabur, variabel berlaku untuk semua deployment secara default. Jika Anda membutuhkan nilai yang berbeda untuk preview deployment, Anda dapat membuat beberapa environment untuk mengelolanya.
+</Callout>
+
+## Langkah 3: Tangani Pengaturan Khusus Framework
+
+### Next.js
+
+- **Tidak perlu perubahan.** Zeabur mendeteksi Next.js secara otomatis dan mem-build-nya dengan benar.
+- Fitur `next.config.js` seperti rewrites, redirects, headers, dan optimasi gambar langsung berfungsi.
+- **API routes dan Server Actions** berjalan secara native — Zeabur menjalankan aplikasi Next.js Anda sebagai server penuh, bukan sebagai serverless function.
+- Jika Anda menggunakan `output: 'standalone'` di konfigurasi Next.js, Zeabur menanganinya secara otomatis.
+
+### Nuxt / Astro / Remix / SvelteKit
+
+- Framework ini dideteksi secara otomatis dan di-build dengan build command standarnya.
+- Tidak diperlukan perubahan konfigurasi khusus framework.
+
+### Situs Statis (Vite, Create React App, dll.)
+
+- Zeabur secara otomatis mendeteksi build statis dan menyajikannya dengan web server bawaan.
+- Jika proyek Anda memiliki `vercel.json` dengan routing kustom, Anda mungkin perlu mengonfigurasi redirect yang setara di konfigurasi framework Anda.
+
+## Langkah 4: Pemetaan Fitur Khusus Vercel
+
+Beberapa fitur Vercel memiliki padanan yang berbeda di Zeabur:
+
+| Fitur Vercel | Padanan di Zeabur |
+|---|---|
+| Serverless Functions | Berjalan sebagai server persisten (performa cold start lebih baik) |
+| Edge Functions | Berjalan sebagai kode sisi server |
+| Vercel Postgres / KV / Blob | Layanan database → PostgreSQL, Redis, atau object storage |
+| Cron Jobs (`vercel.json`) | Gunakan cron bawaan framework Anda atau layanan worker terpisah |
+| Rewrites/redirects `vercel.json` | Gunakan konfigurasi tingkat framework (misalnya rewrites di `next.config.js`) |
+| Preview Deployments | Buat environment terpisah untuk melihat pratinjau perubahan |
+| Analytics | Gunakan analitik pihak ketiga (misalnya Plausible, PostHog) |
+
+<Callout>
+Di Vercel, setiap API route berjalan sebagai serverless function terisolasi dengan cold start. Di Zeabur, aplikasi Anda berjalan sebagai server persisten — artinya waktu respons lebih cepat dan tanpa latensi cold start.
+</Callout>
+
+## Langkah 5: Tambahkan Layanan Backend (Jika Diperlukan)
+
+Salah satu alasan utama bermigrasi dari Vercel adalah untuk menyatukan seluruh stack Anda dalam satu platform. Di Zeabur, Anda dapat menambahkan database dan layanan backend bersama frontend Anda:
+
+- **PostgreSQL, MySQL, MongoDB**: Klik **Tambah Layanan** → **Database** dan pilih database Anda.
+- **Redis**: Tersedia sebagai layanan prebuilt untuk caching dan penyimpanan sesi.
+- **API Backend**: Deploy layanan backend terpisah (Node.js, Python, Go, dll.) dalam proyek yang sama. Layanan dalam satu proyek dapat berkomunikasi melalui [jaringan privat](/deploy/networking/private-networking).
+
+## Langkah 6: Atur Domain Kustom
+
+1. Di dashboard Zeabur, klik layanan Anda dan buka tab **Jaringan**.
+2. Klik **Generate Domain** untuk mendapatkan subdomain `.zeabur.app` gratis, atau klik **Domain Kustom** untuk menambahkan domain Anda sendiri.
+3. Perbarui record DNS Anda:
+   - Hapus record CNAME Vercel yang lama (biasanya mengarah ke `cname.vercel-dns.com`).
+   - Tambahkan record CNAME yang mengarah ke target yang disediakan Zeabur.
+
+<Callout type="warning">
+Jika Anda menggunakan nameserver Vercel untuk domain Anda, Anda perlu memindahkan pengelolaan DNS kembali ke registrar Anda atau penyedia DNS lain sebelum memperbarui record.
+</Callout>
+
+## Langkah 7: Verifikasi dan Go Live
+
+1. Push sebuah commit untuk memicu deployment, atau klik **Deploy Ulang** di dashboard.
+2. Periksa tab **Log** untuk memastikan aplikasi Anda berhasil di-build dan berjalan dengan benar.
+3. Uji semua route, endpoint API, dan server-side rendering.
+4. Setelah terverifikasi, alihkan DNS production Anda ke Zeabur.
+
+## Perbedaan Utama: Vercel vs Zeabur
+
+| Fitur | Vercel | Zeabur |
+|---|---|---|
+| Fokus | Frontend / Jamstack / Serverless | Full-stack (frontend + backend + database) |
+| Model eksekusi | Serverless function (cold start) | Server persisten (tanpa cold start) |
+| Database | Vercel Postgres, KV, Blob (terbatas) | Layanan database (PostgreSQL, MySQL, MongoDB, Redis, dll.) |
+| Layanan backend | Tidak didukung secara native | Deploy backend apa pun bersama frontend Anda |
+| Sistem build | Vercel Build | Deteksi otomatis (Nixpacks / Dockerfile) |
+| Harga | Per pemanggilan function + bandwidth | [Paket langganan](/pricing) + biaya server |
+| Fitur tim | Harga per seat | Paket tim yang fleksibel |
+| Infrastruktur | Hanya serverless | Server; shared cluster hanya untuk pengguna lama |
+
+---
+
+Selesai. Aplikasi Vercel Anda kini berjalan di Zeabur sebagai platform full-stack dengan database, layanan backend, dan frontend Anda — semuanya di satu tempat. Jika Anda mengalami masalah, hubungi [Zeabur Support](https://zeabur.com/support).

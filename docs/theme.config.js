@@ -23,11 +23,11 @@ function base64Encode(str) {
 
 // ── i18n helper ────────────────────────────────────────────────────
 const t = {
-  tocTitle:       { 'zh-TW': '目錄', 'zh-CN': '目录', 'ja-JP': '目次', 'es-ES': 'En esta página' },
-  editLink:       { 'zh-TW': '編輯此頁面', 'zh-CN': '编辑此页面', 'ja-JP': 'このページを編集', 'es-ES': 'Editar esta página' },
-  feedback:       { 'zh-TW': '有問題嗎？給我們回饋 →', 'zh-CN': '有问题？给我们反馈 →', 'ja-JP': 'フィードバックを送る →', 'es-ES': '¿Preguntas? Danos tu opinión →' },
-  backToTop:      { 'zh-TW': '回到頂部', 'zh-CN': '回到顶部', 'ja-JP': 'トップに戻る', 'es-ES': 'Volver arriba' },
-  searchPlaceholder: { 'zh-TW': '搜尋文件…', 'zh-CN': '搜索文档…', 'ja-JP': 'ドキュメントを検索…', 'es-ES': 'Buscar documentación…' },
+  tocTitle:       { 'zh-TW': '目錄', 'zh-CN': '目录', 'ja-JP': '目次', 'es-ES': 'En esta página', 'id-ID': 'Di halaman ini' },
+  editLink:       { 'zh-TW': '編輯此頁面', 'zh-CN': '编辑此页面', 'ja-JP': 'このページを編集', 'es-ES': 'Editar esta página', 'id-ID': 'Edit halaman ini' },
+  feedback:       { 'zh-TW': '有問題嗎？給我們回饋 →', 'zh-CN': '有问题？给我们反馈 →', 'ja-JP': 'フィードバックを送る →', 'es-ES': '¿Preguntas? Danos tu opinión →', 'id-ID': 'Ada pertanyaan? Beri kami masukan →' },
+  backToTop:      { 'zh-TW': '回到頂部', 'zh-CN': '回到顶部', 'ja-JP': 'トップに戻る', 'es-ES': 'Volver arriba', 'id-ID': 'Kembali ke atas' },
+  searchPlaceholder: { 'zh-TW': '搜尋文件…', 'zh-CN': '搜索文档…', 'ja-JP': 'ドキュメントを検索…', 'es-ES': 'Buscar documentación…', 'id-ID': 'Cari dokumentasi…' },
 }
 
 /**
@@ -52,6 +52,7 @@ const config = {
     { locale: 'zh-CN', name: '简体中文' },
     { locale: 'ja-JP', name: '日本語' },
     { locale: 'es-ES', name: 'Español' },
+    { locale: 'id-ID', name: 'Bahasa Indonesia' },
   ],
   main: ({ children }) => {
     // Nextra renders an empty `<div class="_mt-16" />` as a placeholder where

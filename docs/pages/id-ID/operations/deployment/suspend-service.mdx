@@ -1,0 +1,68 @@
+---
+title: Tangguhkan Layanan
+ogImageTitle: Tangguhkan Layanan
+ogImageSubtitle: Tangguhkan dan lanjutkan layanan
+---
+
+import { Callout } from 'nextra/components'
+
+# Tangguhkan Layanan
+
+Zeabur memungkinkan Anda menangguhkan (menjeda) layanan secara individual langsung dari dashboard. Layanan yang ditangguhkan berhenti berjalan, berhenti menggunakan sumber daya, dan berhenti dikenakan biaya — sambil tetap mempertahankan seluruh konfigurasinya hingga Anda siap melanjutkannya.
+
+## Menangguhkan Layanan
+
+Untuk menangguhkan layanan:
+
+1. Buka layanan Anda di dashboard Zeabur.
+2. Buka **Pengaturan**.
+3. Klik **Tangguhkan Layanan**.
+
+Layanan akan segera berhenti. Selama ditangguhkan:
+
+- Container layanan dimatikan dan tidak lagi berjalan.
+- **Tidak ada biaya komputasi** yang dikenakan untuk layanan tersebut.
+- Seluruh konfigurasi tetap tersimpan, termasuk environment variables, pengikatan domain, dan pemasangan volume.
+- Data di [volume](/operations/data/volumes) tetap tersimpan.
+
+## Melanjutkan Layanan
+
+Untuk melanjutkan layanan yang ditangguhkan:
+
+1. Buka layanan yang ditangguhkan di dashboard.
+2. Buka **Ikhtisar**.
+3. Klik **Restart Service**.
+
+Zeabur akan memulai deployment baru menggunakan konfigurasi terbaru. Layanan akan melalui proses [health check](/operations/monitoring/health-checks) normal dan mulai menerima lalu lintas setelah siap.
+
+## Kasus Penggunaan
+
+### Pemeliharaan Sementara
+
+Tangguhkan layanan ketika Anda perlu melakukan pemeliharaan pada infrastruktur yang menjadi dependensinya (seperti migrasi database) dan ingin memastikan tidak ada lalu lintas yang mencapai aplikasi selama periode tersebut.
+
+### Penghematan Biaya
+
+Jika Anda memiliki layanan yang hanya dibutuhkan pada jam-jam tertentu atau untuk tugas tertentu (seperti environment staging atau layanan pemrosesan batch), menangguhkannya saat tidak digunakan dapat mengurangi biaya.
+
+### Debugging
+
+Tangguhkan layanan yang bermasalah agar berhenti memproses permintaan selama Anda menyelidikinya. Setelah Anda menemukan dan memperbaiki masalahnya, lakukan redeploy dan lanjutkan layanan.
+
+## Penangguhan vs. Penghapusan
+
+| | Tangguhkan | Hapus |
+| --- | --- | --- |
+| Layanan berhenti berjalan | Ya | Ya |
+| Konfigurasi tetap tersimpan | Ya | Tidak (setelah masa tenggang) |
+| Volume tetap tersimpan | Ya | Tidak (setelah masa tenggang) |
+| Dapat dibatalkan | Ya, seketika | Hanya dalam masa tenggang 2 jam |
+| Penagihan | Berhenti | Berhenti |
+
+<Callout type="warning">
+  Menghapus layanan adalah operasi destruktif. Zeabur menyediakan **masa tenggang 2 jam** setelah penghapusan, di mana Anda dapat menghubungi tim dukungan untuk memulihkan layanan. Setelah masa tenggang berakhir, seluruh data — termasuk volume — dihapus secara permanen. Jika Anda hanya perlu menghentikan layanan untuk sementara, gunakan **Tangguhkan**.
+</Callout>
+
+## Layanan yang Ditangguhkan dan Domain
+
+Selama layanan ditangguhkan, semua domain yang terikat padanya akan menampilkan halaman error. Jika Anda perlu menampilkan halaman pemeliharaan kustom, pertimbangkan untuk menggunakan layanan ringan terpisah (seperti situs statis) untuk menampilkan pemberitahuan pemeliharaan, lalu perbarui DNS domain Anda agar mengarah ke layanan tersebut selama periode pemeliharaan.

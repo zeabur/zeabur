@@ -1,0 +1,98 @@
+---
+title: Hono
+ogImageTitle: Hono
+ogImageSubtitle: Deploy Proyek Hono di Zeabur
+---
+
+# Hono
+
+[Hono](https://hono.dev) (berarti "api"🔥 dalam bahasa Jepang) adalah framework web yang kecil, sederhana, dan sangat cepat, yang dirancang untuk perangkat edge.
+
+Dokumen ini akan memandu Anda cara men-deploy proyek Hono di Zeabur.
+
+## Kriteria
+
+Jika layanan Anda memenuhi semua kondisi berikut, Zeabur akan mengenalinya sebagai proyek Hono dan otomatis menangani build serta deployment-nya:
+
+1. Terdapat file `bun.lockb` di direktori root proyek.
+2. Terdapat file `package.json` di direktori proyek.
+3. Field `dependencies` di `package.json` menyertakan paket `hono`.
+
+Jika Anda tertarik untuk berkontribusi pada open source, Anda dapat menemukan bagian terkait di [kode sumber zbpack](https://github.com/zeabur/zbpack/tree/main/internal/bun).
+
+## Langkah Pertama: Menginisialisasi Proyek
+
+Anda dapat mengikuti langkah-langkah di [dokumentasi resmi Hono](https://hono.dev/getting-started/bun) untuk menginisialisasi proyek Hono menggunakan Bun.
+
+### Menginstal Bun
+
+```bash
+curl https://bun.sh/install | bash
+```
+
+### Menginisialisasi Proyek Hono
+
+```bash
+bun create hono my-app
+```
+
+Setelah proyek dibuat, Anda dapat masuk ke direktori `my-app` dan menginstal dependensi.
+
+```bash
+cd my-app
+bun install
+```
+
+### Pengujian Lokal
+
+```
+bun run dev
+```
+
+Sekarang, Anda dapat mengunjungi http://localhost:3000, dan Anda akan melihat `Hello, Bun!`.
+
+## Langkah Kedua: Deployment
+
+Anda dapat memilih salah satu dari dua cara untuk men-deploy proyek Hono Anda: menggunakan GitHub atau menggunakan Zeabur CLI.
+
+### Deploy dengan Zeabur CLI
+
+Menggunakan Zeabur CLI adalah cara paling sederhana untuk men-deploy proyek Hono Anda. Anda cukup login ke Zeabur CLI terlebih dahulu:
+
+```bash
+npx zeabur@latest auth login
+```
+
+Perintah ini akan membuka browser dan memandu Anda melalui proses login.
+
+Selanjutnya, Anda dapat menggunakan perintah `deploy` untuk men-deploy proyek Hono Anda:
+
+```bash
+npx zeabur@latest deploy
+```
+
+Perintah ini akan menanyakan secara interaktif ke proyek mana Anda ingin melakukan deploy, dan Anda juga dapat memilih untuk membuat proyek baru.
+
+Untuk petunjuk lebih lanjut tentang deployment menggunakan Zeabur CLI, silakan lihat [Deploy Layanan Menggunakan CLI](/developer/cli).
+
+### Deploy dengan GitHub
+
+Deploy dengan GitHub memungkinkan proyek Anda menikmati layanan CI/CD yang siap pakai. Ke depannya, cukup push kode Anda ke GitHub, dan Zeabur akan otomatis men-deploy-nya untuk Anda.
+
+Silakan buat repositori baru di GitHub, lalu push kode Anda ke repositori tersebut. Untuk petunjuk yang lebih detail, lihat [Dokumentasi GitHub](https://docs.github.com/en/github/importing-your-projects-to-github/adding-an-existing-project-to-github-using-the-command-line).
+
+Setelah melakukan push, klik **Deploy Layanan**, lalu pilih **Deploy dari kode sumber Anda**.
+
+![deploy](/deploy/common/select-service.en-US.png)
+
+Cari repositori Anda, klik import, dan layanan Hono Anda akan otomatis mulai di-deploy.
+
+## Langkah Ketiga: Mengonfigurasi Domain
+
+Setelah deployment selesai, Anda mungkin perlu menyiapkan domain untuk situs Hono Anda.
+
+Buka tab "Domain" di halaman layanan, lalu klik "Generate Domain" atau "Domain Kustom".
+
+Untuk informasi lebih lanjut tentang cara menghubungkan domain ke layanan Anda, silakan lihat [Menghubungkan Domain](/deploy/networking/public-networking).
+
+![Menghubungkan Domain](/guides/bun/elysia/domain.png)

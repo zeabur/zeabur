@@ -30,7 +30,7 @@
 
 ## Prev/Next Navigation
 - Vercel 風格：上方小標（Previous/Next）+ 下方頁面標題
-- 多語系：zh → 上一篇/下一篇，ja → 前へ/次へ，es → Anterior/Siguiente
+- 多語系：zh → 上一篇/下一篇，ja → 前へ/次へ，es → Anterior/Siguiente，id → Sebelumnya/Berikutnya
 - CSS `::before` pseudo-element 實作，不改 Nextra 組件
 
 ## 完整設計規格
@@ -38,7 +38,7 @@
 
 # Locale Structure
 
-- Docs exist in 5 locales: `en-US`, `zh-TW`, `zh-CN`, `ja-JP`, `es-ES` (under `pages/<locale>/`)
+- Docs exist in 6 locales: `en-US`, `zh-TW`, `zh-CN`, `ja-JP`, `es-ES`, `id-ID` (under `pages/<locale>/`)
 - All locales share identical MDX structure — component/prop changes must be applied to all locales
 
 ## Available MDX Custom Components
@@ -47,13 +47,13 @@
 
 - **Source**: `components/WorkingInProgress/index.tsx`
 - Displays a locale-aware "work in progress" notice
-- Supports: en-US, zh-TW, zh-CN, ja-JP
+- Supports: en-US, zh-TW, zh-CN, ja-JP, es-ES, id-ID
 
 ### `<CreateProject />`
 
 - **Source**: `components/CreateProject/index.tsx`
 - Renders locale-aware project creation instructions
-- Supports: en-US, zh-CN, zh-TW, ja-JP
+- Supports: en-US, zh-CN, zh-TW, ja-JP, es-ES, id-ID
 
 ### `<LastUpdated />`
 

@@ -1,0 +1,176 @@
+---
+title: Memulai dengan Wonder Mesh
+ogImageTitle: Memulai dengan Wonder Mesh
+ogImageSubtitle: Siapkan perangkat Anda sebagai server Zeabur dalam hitungan menit
+---
+
+import { Callout, Steps } from 'nextra/components'
+
+# Memulai
+
+Ikuti langkah-langkah berikut untuk mengubah perangkat Anda menjadi server Zeabur menggunakan Wonder Mesh.
+
+## Prasyarat
+
+<Callout type="warning">
+  Kami menyarankan penggunaan **mesin yang masih bersih** untuk menghindari konflik dengan software yang sudah ada.  
+  Jika Tailscale atau K3s sudah terinstal, skrip penyiapan dapat mengganggu konfigurasi Anda yang sudah ada.
+</Callout>
+
+Perangkat Anda harus memenuhi persyaratan minimum berikut. Di macOS, persyaratan ini mengacu pada resource yang dialokasikan untuk mesin virtual, bukan untuk Mac itu sendiri — pastikan Mac Anda memiliki ruang yang cukup di atas batas minimum ini.
+
+| Resource | Minimum |
+|----------|---------|
+| CPU | 2 core |
+| Memori | 2 GB |
+| Disk | 40 GB |
+
+Tidak yakin dengan arsitektur perangkat Anda? Jalankan perintah berikut untuk memeriksanya:
+
+```bash copy
+# x86_64 = amd64, aarch64 = arm64
+uname -m
+```
+
+<Steps>
+
+### Buat Proyek Baru
+
+Buka [Dashboard Zeabur](https://zeabur.com/projects) dan buat proyek baru.
+
+### Tambahkan Perangkat Anda sebagai Server Wonder Mesh
+
+Di halaman "Buat Proyek Baru", pada bagian "Pilih Server", pilih **Ikat Server Eksternal**, lalu pilih **Wonder Mesh**. Konfigurasikan arsitektur (amd64 atau arm64) dan sistem operasi (Linux atau macOS) perangkat Anda.
+
+Untuk macOS, Anda juga perlu menentukan alokasi resource mesin virtual:
+- **Core CPU** — minimal 2; disarankan 4 jika Mac Anda memiliki 8 core atau lebih
+- **Memori (GB)** — minimal 2 GB; disarankan 4 GB jika Anda berencana menjalankan banyak layanan
+- **Ukuran disk (GB)** — minimal 40 GB; tingkatkan jika Anda menggunakan container image berukuran besar atau memerlukan penyimpanan persisten
+
+<Callout type="info">
+  Resource ini **dicadangkan** untuk mesin virtual Wonder Mesh dan tidak akan tersedia bagi host macOS Anda selama VM berjalan. Pilih nilai yang tetap menyisakan ruang yang cukup untuk pekerjaan sehari-hari Anda.
+</Callout>
+
+Setelah konfirmasi, Anda akan diarahkan ke halaman server.
+
+### Jalankan Skrip Instalasi di Perangkat Anda
+
+Di halaman server, klik **Lihat Perintah Instalasi** untuk menampilkan perintah instalasi lengkap. Salin perintah tersebut dan jalankan di terminal pada perangkat yang ingin Anda daftarkan.
+
+![Konsol Zeabur menampilkan tombol Lihat Perintah Instalasi di halaman server](/wonder-mesh/view-install-command.png)
+
+<Callout type="warning">
+  Di macOS, **jangan** gunakan `sudo`. Installer akan meminta izin yang lebih tinggi saat diperlukan.
+</Callout>
+
+<Callout type="info">
+  Skrip instalasi akan menginstal Tailscale, membuat pengguna sistem `zeabur`, dan mengonfigurasi SSH di perangkat Anda.
+  Untuk rincian lengkapnya, lihat [Apa yang Dilakukan Skrip Instalasi?](./install-script-details).
+</Callout>
+
+![Terminal menampilkan skrip instalasi Wonder Mesh yang berhasil diselesaikan](/wonder-mesh/install-script.png)
+
+Setelah skrip berhasil dijalankan, Anda akan melihat output yang mirip dengan berikut:
+
+``` log {13-14}
+=== Zeabur Mesh Server Setup ===
+Installing Tailscale...
+Tailscale installed: 1.94.2
+Ensuring tailscaled is running...
+Downloading wonder binary...
+Joining Wonder Mesh Network...
+Connecting to Wonder Mesh Net...
+Successfully joined Wonder Mesh Net!
+SSH server already running, skipping installation...
+Enabling SSH password authentication...
+Configuring SSH user...
+Completing registration...
+=== Zeabur Mesh Server Setup Complete ===
+Mesh IP: 100.x.x.x
+```
+
+### Tunggu Server Terhubung
+
+Setelah instalasi selesai, perangkat Anda akan muncul dengan status terhubung di konsol.
+
+![Konsol Zeabur menampilkan server yang terhubung dengan IP mesh yang telah ditetapkan](/wonder-mesh/server-connected.png)
+
+### Instal K3s
+
+Setelah perangkat bergabung ke jaringan mesh, klik **Instal K3s** di konsol. K3s adalah runtime engine yang digunakan Zeabur untuk mengelola dan menjalankan layanan di perangkat Anda. Anda tidak memerlukan pengetahuan tentang Kubernetes — cukup klik tombolnya dan tunggu hingga selesai.
+
+### Mulai Deploy
+
+Ketika server menampilkan status sehat, Anda dapat melakukan deploy layanan ke server tersebut sama seperti server Zeabur lainnya.
+
+![Kartu server menampilkan status SSH Terhubung dan K3s sehat](/wonder-mesh/server-healthy.png)
+
+</Steps>
+
+## Pemecahan Masalah
+
+### Instalasi macet atau gagal
+
+- Periksa log instalasi untuk melihat error:
+  ```bash copy
+  cat /tmp/zeabur-install.log
+  ```
+- Pastikan perangkat Anda memiliki koneksi internet yang stabil.
+- Pastikan daemon Tailscale sedang berjalan:
+  ```bash copy
+  sudo systemctl status tailscaled   # Linux
+  ```
+- Jika Tailscale tampak macet, restart lalu jalankan ulang perintah instalasi:
+  ```bash copy
+  sudo systemctl restart tailscaled  # Linux
+  ```
+
+### Server ditampilkan sebagai terputus
+
+- Pastikan daemon Tailscale masih aktif:
+  ```bash copy
+  tailscale status
+  ```
+- Jika statusnya berhenti, restart daemon tersebut:
+  ```bash copy
+  sudo systemctl restart tailscaled  # Linux
+  ```
+- Di macOS, pastikan VM Lima sedang berjalan:
+  ```bash copy
+  limactl list
+  ```
+
+Jika masalah berlanjut, hubungi [Dukungan Zeabur](https://zeabur.com/support) dengan menyertakan isi file `/tmp/zeabur-install.log`.
+
+## Mengakses Layanan
+
+Layanan yang di-deploy di server Wonder Mesh berfungsi sama seperti layanan di server Zeabur lainnya — Anda dapat menghubungkan domain, menyiapkan port forwarding, dan mengeksposnya ke internet. Lihat [Jaringan Publik](/networking/public) untuk detailnya.
+
+Layanan dalam proyek yang sama juga dapat saling berkomunikasi menggunakan hostname internal. Lihat [Jaringan Privat](/networking/private) untuk detailnya.
+
+### Dari Jaringan Lokal Anda
+
+Anda dapat mengakses layanan secara langsung dari perangkat mana pun yang berada di jaringan lokal yang sama (Wi-Fi atau Ethernet). Ikuti langkah-langkah berikut:
+
+1. **Temukan nomor port** — Buka halaman layanan Anda di konsol Zeabur dan masuk ke tab **Jaringan**. Cari nomor port yang ditetapkan untuk layanan Anda (misalnya `32518`).
+
+   ![Tab Jaringan menampilkan alamat akses LAN untuk layanan yang di-deploy](/wonder-mesh/access-from-lan.png)
+
+2. **Temukan IP LAN perangkat Anda** — Jalankan salah satu perintah berikut di **terminal perangkat Anda yang sebenarnya** (bukan di dalam layanan atau SSH Zeabur Server):
+   - **Linux**: `hostname -I`
+   - **macOS**: `ipconfig getifaddr en0` (jika tidak menghasilkan apa pun, jalankan `route -n get default | grep interface` untuk menemukan nama interface yang aktif, lalu gunakan `ipconfig getifaddr <interface>`)
+
+3. **Buka layanan** — Dari perangkat mana pun di jaringan yang sama, buka `http://<lan-ip>:<port>` di browser atau klien.
+
+   Misalnya, jika IP LAN Anda adalah `192.168.1.42` dan port yang ditetapkan adalah `32518`:
+   ```
+   http://192.168.1.42:32518
+   ```
+
+<Callout type="info">
+  Di **macOS**, VM Lima meneruskan port 30000–32767 ke host. Layanan pada port-port ini dapat diakses dari LAN menggunakan alamat IP Mac Anda — tanpa konfigurasi tambahan.
+</Callout>
+
+## Menghapus Instalasi
+
+Untuk menghapus Wonder Mesh dari server Anda, lihat [Hapus Instalasi](./uninstall).
