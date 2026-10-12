@@ -58,11 +58,14 @@ function safeRedirect(request: NextRequest, relativePath: string) {
     firstForwardedToken(request.headers.get('x-forwarded-proto'))?.toLowerCase() === 'http'
       ? 'http'
       : 'https'
+  let response: NextResponse
   try {
-    return NextResponse.redirect(new URL(relativePath, `${proto}://${host}`))
+    response = NextResponse.redirect(new URL(relativePath, `${proto}://${host}`))
   } catch {
-    return NextResponse.redirect(new URL(relativePath, request.nextUrl.origin))
+    response = NextResponse.redirect(new URL(relativePath, request.nextUrl.origin))
   }
+  response.headers.set('Cache-Control', 'private, no-store')
+  return response
 }
 
 export function middleware(request: NextRequest) {
@@ -87,7 +90,10 @@ export function middleware(request: NextRequest) {
 
   // Redirect if there is no locale
   if (!pathnameHasLocale) {
-    const locale = cookieLocale || getHeadersLocale(request)
+    const locale =
+      cookieLocale && locales.includes(cookieLocale)
+        ? cookieLocale
+        : getHeadersLocale(request)
 
     const url = addBasePath(`/${locale}${pathname}`)
     // e.g. incoming request is /products
