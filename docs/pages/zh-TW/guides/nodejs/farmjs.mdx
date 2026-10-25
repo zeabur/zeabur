@@ -1,0 +1,57 @@
+---
+title: Farm.js
+ogImageTitle: 在 Zeabur 上部署 Farm.js
+ogImageSubtitle: 在 Zeabur 上部署 Farm.js
+---
+
+import { Callout } from 'nextra/components';
+
+# 在 Zeabur 上部署 Farm.js
+
+[Farm.js](https://farmjs.dev/) 是一個全端框架，提供型別安全的檔案路由、Server Actions 和串流伺服器端渲染。它預設使用 React，也支援 Preact、Solid、Vue 和 Svelte。
+
+本文將幫助你在 Zeabur 上部署 Farm.js 應用。
+
+## 步驟一：建立一個 Farm.js 專案
+
+你可以使用下面的指令建立一個 Farm.js 專案並跟隨提示進行配置。
+
+<Callout>
+    最低需求：Node.js 22.13.0 或更新版本
+</Callout>
+
+```bash
+# npm
+npx @farm.js/create-app@latest my-app
+# yarn
+yarn create @farm.js/app my-app
+# pnpm
+pnpm create @farm.js/app my-app
+```
+
+<Callout>
+    Zeabur 會使用 `package.json` 中的 `start` 腳本啟動應用。請確保它執行 `farm build` 產生的服務，即 `"start": "node .farm/.output/server/index.mjs"`（在 Zeabur 上使用 `"start": "farm start"` 也可以）。如果 `farm.config.ts` 中設定了 `deploy.target`，請將其移除，這樣建置會產生一個 Node.js 服務。
+</Callout>
+
+## 步驟二：部署到 Zeabur
+
+前往 [Zeabur 控制台](https://zeabur.com) 並建立一個新專案。
+
+然後，點選 `Deploy New Service` 按鈕，選擇從 GitHub 部署。
+
+<Callout>
+    如果你是第一次在 Zeabur 上從 GitHub 部署專案，你需要先配置並安裝 GitHub App。
+    你可以在 [這裡](/deploy/methods/github-integration) 查看更詳細的指南。
+</Callout>
+
+當你選擇好儲存庫和分支後，Zeabur 將會自動開始建置你的服務。
+
+Zeabur 會將你的服務識別為 Node.js 專案，執行 `build` 腳本，並使用 `start` 腳本啟動服務，所以你不需要做任何額外的配置。Farm.js 服務會監聽 Zeabur 提供的 `PORT`。你的部署將會在幾分鐘內完成。
+
+## 下一步
+
+部署完成後，你可能需要為你的 Farm.js 應用配置網域。
+
+打開服務頁面的 "Domain" 分頁，然後點選 "Generate Domain" 或 "Custom Domain"。
+
+關於如何為你的服務綁定網域的更多資訊，請參考 [綁定網域](/deploy/networking/public-networking)。
